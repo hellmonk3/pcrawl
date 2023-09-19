@@ -50,7 +50,7 @@ function bubble_vault_paint_callback(room,options,gen)
 end
 
 function hypervaults.floors.full_size_room()
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
 
   local paint = {
     { type = "floor", corner1 = { x = 1, y = 1 }, corner2 = { x = gxm-2, y = gym-2 } }
@@ -59,7 +59,7 @@ function hypervaults.floors.full_size_room()
 end
 
 function hypervaults.floors.three_quarters_size_room()
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
 
   local paint = {
     { type = "floor", corner1 = { x = 11, y = 11 }, corner2 = { x = gxm-12, y = gym-12 } }
@@ -68,7 +68,7 @@ function hypervaults.floors.three_quarters_size_room()
 end
 
 function hypervaults.floors.small_central_room()
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   -- Put a single empty room somewhere roughly central. All rooms will be built off from each other following this
   local x1 = crawl.random_range(30, gxm-70)
   local y1 = crawl.random_range(30, gym-70)
@@ -80,7 +80,7 @@ function hypervaults.floors.small_central_room()
 end
 
 function hypervaults.floors.small_edge_room()
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   local normal = hypervaults.normals[crawl.random2(4)+1]
   local size = { x = crawl.random_range(4,8), y = crawl.random_range(4,8) }
 

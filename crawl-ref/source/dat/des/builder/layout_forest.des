@@ -49,7 +49,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_forest
   end
   mons(plant_mons)
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   extend_map { width = gxm, height = gym, fill = fill }
 
   -- Setup worley functions

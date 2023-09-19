@@ -201,7 +201,7 @@ end
 -- TODO: Implement for usage grid also (and as a hyper pass)
 function zonify.grid_map(e)
   -- TODO: Allow analysing within arbitrary bounds
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   return zonify.map(
     { x1 = 1, y1 = 1, x2 = gxm-2, y2 = gym-2 },
     zonify.grid_analyse_coord,zonify.grid_group_feature)
@@ -246,7 +246,7 @@ function zonify.grid_fill_water_zones(num_to_keep, feature, min_zone_size)
   if feature == nil then feature = 'rock_wall' end
   if min_zone_size == nil then min_zone_size = 1 end
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   local zonemap = zonify.map(
     { x1 = 1, y1 = 1, x2 = gxm-2, y2 = gym-2 },
     zonify.grid_analyse_coord,

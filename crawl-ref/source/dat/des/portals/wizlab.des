@@ -271,7 +271,7 @@ function wizlab_zonguldrok_killed_zombie(data, triggerable, triggerer,
         else
             crawl.mpr("The walls vibrate.")
         end
-        local gxm, gym = dgn.max_bounds()
+        local gxm, gym = dgn.builder_bounds()
         for p in iter.rect_iterator(dgn.point(1, 1), dgn.point(gxm-1, gym-1)) do
             if dgn.fprop_at(p.x, p.y, "no_tele_into") then
                dgn.fprop_changed(p.x, p.y, "no_tele_into")

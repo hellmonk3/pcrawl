@@ -1918,7 +1918,7 @@ WEIGHT: 50
 {{
     -- Restricting the map to a smaller box might be good (more forks) but
     -- by allowing the whole level we mostly avoid straight borders.
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym}
     fill_area{fill = 'x', border = 'X'}
 

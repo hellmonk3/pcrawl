@@ -422,7 +422,7 @@ function place_vaults_rooms(e, data, room_count, options)
   end
 
   -- Set MMT_VAULT across the whole map depending on usage. This way the dungeon builder knows where to place standard vaults without messing up the layout.
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   for p in iter.rect_iterator(dgn.point(0, 0), dgn.point(gxm - 1, gym - 1)) do
     local usage = vaults_get_usage(data,p.x,p.y)
     if usage ~= nil and usage.usage == "restricted" then -- or usage.usage == "eligible_open" or (usage.usage == "eligible" and usage.depth > 1) then
@@ -438,7 +438,7 @@ end
 
 function place_vaults_room(e,usage_grid,room, options)
 
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
 
   local tries = 0
   local done = false

@@ -137,7 +137,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
   --  PHASE 1: Resize the map to maximal size.
   --
 
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   extend_map{width = gxm, height = gym, fill = 'x'}
 
 
@@ -1156,7 +1156,7 @@ veto {{
   -- Only allow this layout if there is a primary vault with
   --  enough space around it for at least one line of rooms
 
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   local p_x_min, p_x_max, p_y_min, p_y_max = primary_vault_dimensions()
 
   if (p_x_min == nil) then

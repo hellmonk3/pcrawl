@@ -80,7 +80,7 @@ function omnigrid.padded_bounds(minpad,maxpad,bounds)
     if bounds ~= nil then
       x1,y1,x2,y2 = bounds.x1,bounds.y1,bounds.x2,bounds.y2
     else
-      local gxm,gym = dgn.max_bounds()
+      local gxm,gym = dgn.builder_bounds()
       x1,y1,x2,y2 = 1,1,gxm-2,gym-2
     end
     return { x1 = x1 + crawl.random_range(minpad,maxpad),

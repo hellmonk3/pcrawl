@@ -49,7 +49,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local grid_opts = {
@@ -255,7 +255,7 @@ TAGS:   no_rotate no_hmirror no_vmirror
     end
     local base_wall_frequency = crawl.random_range(0, 900)
 
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym, fill = base_wall_type}
 
     make_irregular_box { x1 = 5, y1 = 5, x2 = gxm - 6, y2 = gym - 6,
@@ -520,7 +520,7 @@ TAGS:   unrand no_rotate no_hmirror no_vmirror
   end
 
 
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   extend_map{width = gxm, height = gym, fill = 'x'}
 
   local BORDER = 8

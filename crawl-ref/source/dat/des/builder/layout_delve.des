@@ -23,7 +23,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 {{
     if is_validating() then return; end
 
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym}
     fill_area{fill = 'x', border = 'X'}
 
@@ -85,7 +85,7 @@ ORIENT: encompass
 TAGS:   overwritable layout unrand layout_type_narrow_caves
 TAGS:   no_rotate no_vmirror no_hmirror uniq_layout_twisted_delve
 {{
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym}
     fill_area{fill = 'x', border = 'X'}
 
@@ -122,10 +122,10 @@ TAGS:   no_rotate no_vmirror no_hmirror uniq_layout_twisted_delve
     end
 
     -- seeds for the 4 corner paths
-    mapgrd[center_x - 6][center_y] = "."
-    mapgrd[center_x + 6][center_y] = "."
-    mapgrd[center_x][center_y - 6] = "."
-    mapgrd[center_x][center_y + 6] = "."
+    mapgrd[center_x - 3][center_y] = "."
+    mapgrd[center_x + 3][center_y] = "."
+    mapgrd[center_x][center_y - 3] = "."
+    mapgrd[center_x][center_y + 3] = "."
 
     --
     -- roughen the borders
@@ -178,20 +178,20 @@ TAGS:   no_rotate no_vmirror no_hmirror uniq_layout_twisted_delve
             local arm_thickness = crawl.random_range(1, 2)
 
             if (i == 1) then
-                fill_area { x1 = center_x - 25, y1 = center_y - arm_thickness,
+                fill_area { x1 = center_x - 10, y1 = center_y - arm_thickness,
                             x2 = center_x,      y2 = center_y + arm_thickness,
                             fill = "." }
             elseif (i == 2) then
                 fill_area { x1 = center_x,      y1 = center_y - arm_thickness,
-                            x2 = center_x + 25, y2 = center_y + arm_thickness,
+                            x2 = center_x + 10, y2 = center_y + arm_thickness,
                             fill = "." }
             elseif (i == 3) then
-                fill_area { x1 = center_x - arm_thickness, y1 = center_y - 25,
+                fill_area { x1 = center_x - arm_thickness, y1 = center_y - 10,
                             x2 = center_x + arm_thickness, y2 = center_y,
                             fill = "." }
             else
                 fill_area { x1 = center_x - arm_thickness, y1 = center_y,
-                            x2 = center_x + arm_thickness, y2 = center_y + 25,
+                            x2 = center_x + arm_thickness, y2 = center_y + 10,
                             fill = "." }
             end
 
@@ -210,28 +210,28 @@ TAGS:   no_rotate no_vmirror no_hmirror uniq_layout_twisted_delve
             local room_radius = crawl.random_range(4, 7)
 
             if (i == 1) then
-                fill_area { x1 = center_x - 20, y1 = center_y - arm_thickness,
+                fill_area { x1 = center_x - 8, y1 = center_y - arm_thickness,
                             x2 = center_x,      y2 = center_y + arm_thickness,
                             fill = "." }
-                room_func({x = center_x - 20, y = center_y,
+                room_func({x = center_x - 8, y = center_y,
                            radius = room_radius, fill = "." })
             elseif (i == 2) then
                 fill_area { x1 = center_x,      y1 = center_y - arm_thickness,
-                            x2 = center_x + 20, y2 = center_y + arm_thickness,
+                            x2 = center_x + 8, y2 = center_y + arm_thickness,
                             fill = "." }
-                room_func({x = center_x + 20, y = center_y,
+                room_func({x = center_x + 8, y = center_y,
                            radius = room_radius, fill = "." })
             elseif (i == 3) then
-                fill_area { x1 = center_x - arm_thickness, y1 = center_y - 20,
+                fill_area { x1 = center_x - arm_thickness, y1 = center_y - 8,
                             x2 = center_x + arm_thickness, y2 = center_y,
                             fill = "." }
-                room_func({x = center_x, y = center_y - 20,
+                room_func({x = center_x, y = center_y - 8,
                            radius = room_radius, fill = "." })
             else
                 fill_area { x1 = center_x - arm_thickness, y1 = center_y,
-                            x2 = center_x + arm_thickness, y2 = center_y + 20,
+                            x2 = center_x + arm_thickness, y2 = center_y + 8,
                             fill = "." }
-                room_func({x = center_x, y = center_y + 20,
+                room_func({x = center_x, y = center_y + 8,
                            radius = room_radius, fill = "." })
             end
         end
@@ -280,7 +280,7 @@ ORIENT: encompass
 TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
 TAGS:   no_rotate no_vmirror no_hmirror
 {{
-    local MAP_RADIUS = 28
+    local MAP_RADIUS = 12
 
     local ROOM_RADIUS_MIN = 3
     local ROOM_RADIUS_MAX = 5
@@ -291,7 +291,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     local delve_count    = crawl.random_range(15, 20)
     local delve_sanity   = 1000
 
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym, fill = "X"}
 
     -- this is the area we will use for the map
@@ -418,7 +418,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 {{
     if is_validating() then return; end
 
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym}
     fill_area{fill = 'x', border = 'X'}
 

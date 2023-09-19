@@ -101,7 +101,7 @@ function hyper.build_layout(e, options)
     profiler.push("InitUsage")
   end
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   local main_state = {
     usage_grid = hyper.usage.new_usage(gxm,gym,
                                        hyper.usage.grid_initialiser),
@@ -192,7 +192,7 @@ function hyper.build_layout(e, options)
 
   -- Set MMT_VAULT across the whole map depending on usage. This prevents the dungeon builder
   -- placing standard vaults in places where it'll mess up our architecture.
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   for p in iter.rect_iterator(dgn.point(0, 0), dgn.point(gxm - 1, gym - 1)) do
     local usage = hyper.usage.get_usage(usage_grid,p.x,p.y)
     if usage ~= nil and usage.protect then

@@ -161,7 +161,7 @@ function arena_sprint_end_round(data)
 
     -- This dismisses *every* monster on the entire level, including
     -- your allies.
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     for p in iter.rect_iterator(dgn.point(1, 1), dgn.point(gxm - 2, gym - 2)) do
         local dude = dgn.mons_at(p.x, p.y)
         if dude then

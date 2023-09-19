@@ -161,7 +161,7 @@ end
 
 function build_vaults_ring_layout(e, corridorWidth, outerPadding)
 
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
 
   local c1 = { x = outerPadding, y = outerPadding }
   local c2 = { x = outerPadding + corridorWidth, y = outerPadding + corridorWidth }
@@ -181,7 +181,7 @@ end
 function build_vaults_cross_layout(e, corridorWidth, intersect)
 
   -- Ignoring intersect for now
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
 
   local corridorWidth = 3 + crawl.random2avg(3,2)
 
@@ -198,7 +198,7 @@ end
 
 function build_vaults_big_room_layout(e, minPadding,maxPadding)
   -- The Big Room
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   local padx,pady = crawl.random_range(minPadding,maxPadding),crawl.random_range(minPadding,maxPadding)
 
   -- Will have a ring of outer rooms but the central area will be chaotic city
@@ -210,7 +210,7 @@ function build_vaults_big_room_layout(e, minPadding,maxPadding)
 end
 
 function build_vaults_chaotic_city_layout(e)
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
 
   -- Paint entire level with floor
   local paint = {
@@ -222,7 +222,7 @@ function build_vaults_chaotic_city_layout(e)
 end
 
 function build_vaults_maze_layout(e,veto_callback, name)
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   if name == nil then name = "Maze" end
 
   -- Put a single empty room somewhere roughly central. All rooms will be built off from each other following this
@@ -297,7 +297,7 @@ end
 -- Builds the paint array for omnigrid
 function layout_primitive_omnigrid()
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   local options = {
     subdivide_initial_chance = 100, -- % chance of subdividing at first level, if < 100 then we might just get chaotic city
     subdivide_level_multiplier = 0.80,   -- Multiply subdivide chance by this amount with each level

@@ -13,7 +13,7 @@ util.namespace('callback')
 dgn.wizlab_chance_percent = 5
 dgn.desolation_chance_percent = 5
 
-dgn.GXM, dgn.GYM = dgn.max_bounds()
+dgn.GXM, dgn.GYM = dgn.builder_bounds()
 dgn.MAX_MONSTERS = dgn.max_monsters()
 
 dgn.f_map = { }

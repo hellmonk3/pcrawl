@@ -279,7 +279,7 @@ function hyper.paint.paint_vaults_layout(paint, options, layout_grid)
   -- Store it in options so it can be used for room surrounds also
   options.layout_wall_type = wall_type
 
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   layout_grid = new_layout(gxm,gym) -- Will contain data about how each square is used and therefore how rooms can be applied
   paint_grid(paint,options,layout_grid) -- Paint fills onto the layout grid
 

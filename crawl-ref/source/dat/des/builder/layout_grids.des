@@ -14,7 +14,7 @@
 
   function render_grid(e, name, grid, paint)
 
-    local gxm,gym = dgn.max_bounds()
+    local gxm,gym = dgn.builder_bounds()
     local build = {
       name = name,
       build_fixture = {
@@ -270,7 +270,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
 
   local chosen = util.random_weighted_from("weight",weights)
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   local build = {
     name = "Hyper Grid",
     build_fixture = {
@@ -311,7 +311,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
   -- Also once grid connectivity stuff is worked out, would be good to not
   -- draw some of the outer shapes whilst not breaking connectivity.
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local grid_opts = {

@@ -93,7 +93,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
 
   -- Actual corridor width will be double this; it gets increased later
   -- but it needs to be declared here so it's in scope for the callbacks
@@ -238,7 +238,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
 
   -- TODO:
   --  * Implement chaotic gaps sizing
@@ -363,7 +363,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
 {{
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
 
   local wall_break = util.random_range_real(.4,.6)
   local num_rings1 = crawl.random_range(5,8)
@@ -437,7 +437,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
 
   -- zscale controls the symmetry within each repetition because with 0
   -- the coord bounces back and forth along a line instead of tracing
@@ -675,7 +675,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     end
   end
 
-  local GXM, GYM = dgn.max_bounds()
+  local GXM, GYM = dgn.builder_bounds()
   extend_map{width = GXM, height = GYM}
   fill_area{fill="x"}
 
@@ -817,7 +817,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
   -- Smear the layout a la layout_big_octagon outside Zot.
   -- (Actually, that's where this code originates.)
   if not you.in_branch("Zot") then
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     local iterations = 50 + crawl.random2(50) + crawl.random2(50)
     smear_map{iterations = iterations, boxy = false}
 

@@ -441,7 +441,7 @@ function geoelf.generate (e, room_data, corridor_data,
   if (geoelf.debug) then
     -- print the map to console
     print("MAP")
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     for y = 0, gym - 1 do
       local line_output = ""
       for x = 0, gxm - 1 do
@@ -463,7 +463,7 @@ end
 function geoelf.make_glass_doors (e)
   if (geoelf.debug) then print("  geoelf.make_glass_doors") end
 
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
   for y = 1, gym - 2 do
     for x = 1, gxm - 2 do
       if (e.mapgrd[x][y] == geoelf.glyphs.DOOR) then

@@ -431,7 +431,7 @@ ENDMAP
 #
 NAME:   layout_rooms
 DEPTH:  D, Elf, Snake, Crypt, Pan
-WEIGHT: 15 (D), 10 (Elf), 15 (Snake), 10 (Crypt), 10 (Pan)
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 {{

@@ -278,7 +278,6 @@ NAME:    lemuel_arrival_cross
 TAGS:    arrival no_monster_gen transparent
 ORIENT:  float
 SHUFFLE: >d
-ITEM:    stone
 MAP
       xxx
       x{x
@@ -302,7 +301,6 @@ ENDMAP
 NAME:   lemuel_arrival_lava_pool
 TAGS:   arrival no_monster_gen
 ORIENT: float
-ITEM:   stone
 MAP
     xxxxxxx
    xx..{..xx
@@ -972,7 +970,6 @@ NAME:   dpeg_arrival_snail
 TAGS:   arrival no_monster_gen no_rotate transparent
 ORIENT: float
 NSUBST: . = 1:d / *:.
-ITEM:   stone
 MAP
          xxxxxxxxxxxxxxxxx
       xxxxxxxx.......xxxxxxx
@@ -1878,24 +1875,6 @@ MAP
 ....G....
 ENDMAP
 
-# Come back for the item later if you want it.
-NAME:    grunt_arrival_lava_bath
-ORIENT:  float
-TAGS:    arrival no_monster_gen
-KITEM:   % = %
-KFEAT:   % = >
-MAP
-    .@...xxxxx
-   ....G.ccccx
-  .......lllcx
- .......llllcx
-@.G..G{.lll%cx
- .......llllcx
-  .......lllcx
-   ....G.ccccx
-    .@...xxxxx
-ENDMAP
-
 ###############################################################################
 
 NAME:   wheals_arrival_linesprint
@@ -2098,8 +2077,7 @@ ENDMAP
 
 NAME:   giann_wishing_wells
 TAGS:   arrival no_monster_gen no_item_gen no_rotate
-KITEM:  $ = gold q:1
-SUBST:  S = $.
+SUBST:  S = .
 ORIENT: float
 MAP
 xxxxxxxxxxx+xxxxxxxxxxx

@@ -2220,11 +2220,8 @@ static bool _add_connecting_escape_hatches()
     if (branches[you.where_are_you].branch_flags & brflag::islanded)
         return true;
 
-    // Veto D:1 or Pan if there are disconnected areas.
-    // Veto any  non-abyss descent level with disconnected areas
-    if (player_in_branch(BRANCH_PANDEMONIUM)
-        || (player_in_branch(BRANCH_DUNGEON) && you.depth == 1)
-        || (crawl_state.game_is_descent() && !player_in_branch(BRANCH_ABYSS)))
+    // Veto any non-abyss level with disconnected areas
+    if (!player_in_branch(BRANCH_ABYSS))
     {
         // Allow == 0 in case the entire level is one opaque vault.
         return dgn_count_disconnected_zones(false) <= 1;
@@ -2782,11 +2779,8 @@ static void _build_dungeon_level()
     if (player_in_hell())
         _fixup_hell_stairs();
 
-    if (crawl_state.game_is_descent())
-    {
-        _fixup_descent_hatches();
-        _place_dungeon_exit();
-    }
+    _fixup_descent_hatches();
+    _place_dungeon_exit();
 }
 
 static void _dgn_set_floor_colours()

@@ -2570,8 +2570,7 @@ void world_reacts()
 
     crawl_state.clear_mon_acting();
 
-    if (you.time_taken)
-        descent_crumble_stairs();
+    descent_crumble_stairs();
 
     if (!crawl_state.game_is_arena())
     {

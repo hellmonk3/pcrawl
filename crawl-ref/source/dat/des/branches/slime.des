@@ -99,24 +99,6 @@ MAP
 ....
 ENDMAP
 
-NAME:   slime_entry_2
-TAGS:   slime_entry
-KFEAT:  _ = altar_jiyva / floor w:5
-KPROP:  1O_ = no_tele_into
-SUBST:  1 : 111223
-NSUBST: 1 = 1 / 1. , 2 = 2 / 2... , 3 = 3 / 3....
-MONS:   jelly / endoplasm
-MONS:   acid blob / slime creature w:5
-MONS:   azure jelly
-KFEAT:  O = enter_slime_pits
-MAP
-ccccc
-c111m.
-cO1_=@
-c111m.
-ccccc
-ENDMAP
-
 NAME:  dpeg_slime_entry_enclosed
 TAGS:  slime_entry
 KFEAT: O = enter_slime_pits
@@ -133,111 +115,6 @@ MAP
 .ccccccc.
  .ccccc.
   .....
-ENDMAP
-
-NAME:   minmay_slime_entry_eyes
-TAGS:   slime_entry ruin_lair
-WEIGHT: 2
-MONS:   eye of devastation, floating eye
-KFEAT:  O = enter_slime_pits
-KFEAT:  S = slimy_wall
-KFEAT:  _ = altar_jiyva / floor w:5
-MAP
- ....   ....
-..xx..x..xx..
-.xxxx.x.xxxx.
-.xxx.....xxx.
-..x.S...S.x..
- ...........
- xxS.1O2.Sxx
- ....._.....
-..x.S...S.x..
-.xxx.....xxx.
-.xxxx.x.xxxx.
-..xx..x..xx..
- ....   ....
-ENDMAP
-
-NAME:   minmay_slime_entry_pillars
-TAGS:   slime_entry ruin_lair
-MONS:   jelly / slime creature
-KFEAT:  O = enter_slime_pits
-KFEAT:  _ = altar_jiyva / floor w:5
-MAP
-...........
-.ccc...ccc.
-.ccc.1.ccc.
-.ccc...ccc.
-...........
-..1..O..1..
-....._.....
-.ccc...ccc.
-.ccc.1.ccc.
-.ccc...ccc.
-...........
-ENDMAP
-
-# In-game the boxes rarely stay closed due to ruination; this is intentional.
-NAME:   minmay_slime_entry_jelly_boxes
-TAGS:   slime_entry ruin_lair
-WEIGHT: 5
-MONS:   jelly / endoplasm w:1 / nothing w:1
-KFEAT:  O = enter_slime_pits
-KFEAT:  _ = altar_jiyva / floor w:5
-MAP
-.............
-.xxxxx.xxxxx.
-.xxx1x.x11xx.
-.xx11x.xx1xx.
-.xx1x...x1xx.
-.xxxx.._.xxx.
-......O......
-.xxxx...xxxx.
-.xx1.x.x.1xx.
-.x11x.xx11xx.
-.xx1x.xxxxxx.
-.xxxxx.xxxxx.
-.............
-ENDMAP
-
-NAME:   minmay_slime_entry_oklob_open
-TAGS:   slime_entry
-WEIGHT: 5
-NSUBST: 1 = 1:_ / *:1
-MONS:   oklob plant / nothing w:20
-KMONS:  _ = oklob plant / nothing w:20
-KFEAT:  _ = altar_jiyva / floor w:5
-KFEAT:  O = enter_slime_pits
-MAP
- .....
-.......
-..111..
-..1O1..
-..111..
-.......
- .....
-ENDMAP
-
-NAME:   minmay_slime_entry_oklob_enclosed
-TAGS:   slime_entry ruin_lair
-ORIENT: northeast
-WEIGHT: 5
-MONS:   oklob plant / nothing w:20
-KFEAT:  O = enter_slime_pits
-KFEAT:  S = slimy_wall
-KFEAT:  _ = altar_jiyva / floor w:5
-MAP
-xxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxx......xxxxxx
-xxSSxx...........xxxx
-xxS111......xx....xxx
-xSS.11_...xxxx....xxx
-xS..O11.xxxxx....xxxx
-xSS..1xxxxxx.....xxxx
-xxSSSSxxxxx.....xxxxx
-xxxxxxxxxx.....xxxxxx
-xxxxxxxx.....xxxxxxxx
-xxxxxxx.@..xxxxxxxxxx
 ENDMAP
 
 NAME:   dpeg_slime_entry_corner
@@ -258,101 +135,9 @@ xxx...xx.
 xx..
 ENDMAP
 
-NAME: nicolae_slime_entry_slimehenge
-TAGS: slime_entry transparent
-NSUBST: A = . / A, B = . / B, C = . / C
-SHUFFLE: ABCD
-SUBST: A = x, BCD = .
-KFEAT: O = enter_slime_pits
-KMONS: 1 = endoplasm / jelly / nothing
-KFEAT: x = slimy_wall
-KFEAT: _ = altar_jiyva / floor w:5
-MAP
-  .........
- ...........
-.....DAD.....
-...A.CBC.A...
-....B.1.B....
-..DC.1.1.CD..
-..AB1.O.1BA..
-..DC.1_1.CD..
-....B.1.B....
-...A.CBC.A...
-.....DAD.....
- ...........
-  .........
-ENDMAP
-
-NAME:  nicolae_slime_entry_field_trip
-TAGS:  slime_entry transparent
-KMONS: F = fungus
-KMONS: JO_ = jelly / nothing w:5
-KFEAT: O = enter_slime_pits
-KFEAT: _ = altar_jiyva / G w:5
-: dgn.delayed_decay(_G, 'd', 'human skeleton')
-MAP
-...J..J...
-....FF....
-.O.FddF._.
-....FF....
-...J..J...
-ENDMAP
-
 ################################################################################
 # Slime Pit specific non-ending non-entry vaults
 ################################################################################
-NAME: nicolae_slime_pool
-DEPTH: Slime, !Slime:$
-TAGS: transparent
-MONS: slime creature
-ORIENT: float
-SHUFFLE: abcd
-SUBST: ab : @, cd : .
-KPROP: f = no_tele_into
-SUBST: f = W'1
-KMASK: w = no_monster_gen
-KMASK: W = no_monster_gen
-MAP
-   cccc
- ..........
-d.w.wwwf..w.
-d..wwfwwf....
-d.fwwfffwffbb
-d..fwwwfww.b
- ...ffwwww.b
-  ..wffw...b
-  ..wfwfw.fw
- ...ffffw.ww
-.ff.wwwwf.f
- .....f..ff
-    aaaa..fw
-ENDMAP
-
-NAME: nicolae_slime_jelly_donut
-DEPTH: Slime, !Slime:$
-ORIENT: float
-SHUFFLE: abcdefgh
-SUBST: a = @, b : @., c : @.., d : @..., efgh = .
-KMONS: j = jelly
-MAP
-      aaaaa
-    hh.....bb
-   h.........b
-  h...........b
- h....x.x.x....b
- h...x.x.x.x...b
-g...x.x.x.x.x...c
-g....x.jjj.x....c
-g...x.xjjjx.x...c
-g....x.jjj.x....c
-g...x.x.x.x.x...c
- f...x.x.x.x...d
- f....x.x.x....d
-  f...........d
-   f.........d
-    ff.....dd
-      eeeee
-ENDMAP
 
 NAME: nicolae_slime_barrier
 TAGS: transparent extra
@@ -385,93 +170,6 @@ c..........b
               b.....x..c
                .........
                   aaaaa
-ENDMAP
-
-NAME: nicolae_slime_welcoming_committee
-TAGS: no_monster_gen no_item_gen no_trap_gen
-DEPTH: Slime:2-, !Slime:$
-SUBST: X = x., { = {[(
-KMONS: 1 : jelly w:20 / endoplasm / slime creature w:30 / \
-   acid blob w:5 / rockslime w:5 / quicksilver ooze w:5 /\
-   azure jelly w:5
-MAP
-      xxx
-   xxxxxxxx
- xxxxXXX..1@
-xxxXX.....1.@
-xxX.......1..@
-xxX.{.....1...@
-xxX.......1..@
-xxxXX.....1.@
- xxxxXXX..1@
-   xxxxxxxx
-      xxx
-ENDMAP
-
-NAME: nicolae_slime_phagocytosis
-DEPTH: Slime, !Slime:$
-TAGS: transparent
-SUBST: a : .x, b : .x, c : .x, d : .x, e : .x, { = {[(, X = Wx, ' = ._
-NSUBST: W = 4:1 / *:W
-KMONS: 1 = slime creature
-KFEAT: 1 = W
-CLEAR: _
-MAP
-       '.......'
-      '..........'
-    '.....................'
- '........ee...............'
-'........exxe...............'
-.......eexxxxeee.xxxxxxx.....'
-....ddxxxxxxxxxxxxxxxxxxx.....
-@..dxxxxxXXXXxxxxx.....xxx....
-@..dxxxxXWWWWXx.........xxx...
-@...ddxxXWWWW............xx...
-@.....cxXWWWW....{..x....x....
-@.....cxXWWWWXx.....xx........
-'....cxxxXXXXxxx...xxx.......'
- ...cxxxxxxxxxxxxxxxx.......'
- ...cxxxxabxxxxxxxxx.......
- ....axxa..bxxxb.........'
- .....aa....bbb.........'
- '....................'
-  '...............'
-   ''...........''
-ENDMAP
-
-NAME: nicolae_slime_round_cave
-DEPTH: Slime:2-, !Slime:$
-TAGS: no_monster_gen no_descent
-SHUFFLE: {}/()/[]
-NSUBST: a = X / .
-SUBST: X = x., z = x_, 0 = 0009.., 9 = 9998
-CLEAR: _
-MAP
-       zzzzzzzzzzz
-     zzzXXXXXXXXXzzz
-    zzXXX.X.X.X.XXXzz
-   zzXX...........XXzz
-  zzXX...0..0..0...XXzz
- zzXX..0............XXzz
- zXX.....XXX.XXX..0..XXz
-zzX..0..XXxx.xxXX.....Xzz
-zXX....XXxxX.XxxXX....XXz
-zX..0.XXxxXX.XXxxXX.9..Xz
-zXX..aXxxXX...XxxxX...XXz
-zX....XxXX.............Xz
-zXX.{.......}....9..0.XXz
-zX....XxXX.............Xz
-zXX..aXxxXX...XxxxX...XXz
-zX..0.XXxxXX.XXxxXX.9..Xz
-zXX....XXxxX.XxxXX....XXz
-zzX..0..XXxx.xxXX.....Xzz
- zXX.....XXX.XXX..0..XXz
- zzXX..0............XXzz
-  zzXX...0..0..0...XXzz
-   zzXX...........XXzz
-    zzXXX.X.X.X.XXXzz
-     zzzXXXXXXXXXzzz
-       zzzzzzzzzzz
 ENDMAP
 
 NAME: nicolae_slime_ancient_tower_intersection
@@ -699,65 +397,6 @@ MAP
 ....@..........
 ENDMAP
 
-# inspired by a comment of spacejung on SomethingAwful (dpeg)
-NAME:   dissolution_awaits
-DEPTH:  Slime:2-, !Slime:$
-KMONS:  1 = patrolling Dissolution, azure jelly / great orb of eyes
-MAP
- .....
-...{...
-.......
-...1...
-.[...(.
-.......
-ENDMAP
-
-# On average, generates the equivalent of 15 slime creatures.
-NAME:  nicolae_slime_crime_time
-TAGS:  transparent
-DEPTH: Slime:2-
-KMONS: S = nothing / slime creature / large slime creature / \
-           very large slime creature / enormous slime creature / \
-           titanic slime creature
-SUBST: - = x.., _ = _x, { = {[(
-CLEAR: _
-MAP
- _________________
- xxxxxxxxxxxxxxxxx
-@.---------------.@
-@.S.............S.@
-@.S......{......S.@
-@.S.............S.@
-@.---------------.@
- xxxxxxxxxxxxxxxxx
- _________________
-ENDMAP
-
-NAME:    nicolae_slime_getting_an_eyeful
-TAGS:    transparent patrolling
-DEPTH:   Slime
-KMONS:   1 = glowing orange brain
-KMONS:   2 = floating eye / golden eye / shining eye / eye of devastation / \
-             great orb of eyes
-SHUFFLE: DEF
-SUBST:   ` = 2..., D = @, E : @., F : @..., - = _x
-CLEAR:   _
-MAP
-   -DDDDD-
-  --.....--
- --.......--
---...`2`...--
-@...`...`...E
-@..`.....`..E
-@..2..1..2..E
-@..`.....`..E
-@...`...`...E
---...`2`...--
- --.......--
-  --.....--
-   -FFFFF-
-ENDMAP
-
 NAME:    nicolae_slime_infinislime
 TAGS:    transparent
 DEPTH:   Slime, !Slime:$
@@ -786,49 +425,13 @@ MAP
     '''''''''''   '''''''''''
 ENDMAP
 
-NAME:   nicolae_slime_rock_hall_of_fame
-TAGS:   transparent
-DEPTH:  Slime:2-, !Slime:$
-KMONS:  R = rockslime
-SUBST:  { = {[(, - = x_
-NSUBST: D = 1=x / 2=x. / 1=R.. / ., E = 1=x / 2=x. / 1=R.. / ., \
-        F = 1=x / 2=x. / 1=R.. / ., H = 1=x / 2=x. / 1=R.. / ., \
-        J = 1=x / 2=x. / 1=R.. / ., K = 1=x / 2=x. / 1=R.. / ., \
-        L = 1=x / 2=x. / 1=R.. / ., M = 1=x / 2=x. / 1=R.. / ., \
-        N = 1=x / 2=x. / 1=R.. / ., O = 1=x / 2=x. / 1=R.. / ., \
-        P = 1=x / 2=x. / 1=R.. / .
-CLEAR:  _
-MAP
-    ---------
- ----xxxxxxx----
- -xxxx.....xxxx-
- -x....LLL....x-
---x.KKKLLLMMM.x--
--xx.KKKLLLMMM.xx----
--x..KKK...MMM..xxxx-
--x.JJJ.....NNN....x-
--x.JJJ..{..NNNOOO.x--
--x.JJJ.....NNNOOO.xx-
--x..HHH.......OOO..x-
--xx.HHHFFF.....PPP.x-
---x.HHHFFF.....PPP.x-
- -x....FFF.....PPP.x-
- -xxxx..EEE........x-
- ----xx.EEEDDD.....
-    --x.EEEDDD....@
-     -x....DDD....@
-     -xxxx......@@@
-     ----xxxxxx
-        -------
-ENDMAP
-
 # Intended as an ending, but I didn't like how it turned out, so I reused the
 # layout and turned it into an ordinary level encompass.
 NAME:    nicolae_slime_spelunking
 DEPTH:   Slime:2-, !Slime:$
 ORIENT:  encompass
 WEIGHT:  5
-SUBST:   " = cx, ! = cx., ' = x., 0 = 0009..
+SUBST:   " = cx, ! = cx., ' = x.
 SHUFFLE: {[(, )]}
 MAP
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -852,24 +455,24 @@ xxxxxxxxxxxxxxxxx'...........'xx'.......'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxx''...........'xxx'........'xxx'''xxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxx'.............'xxxx'........'''...'''xxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxx'...............'xxxx'................'xxxxxxxxxxxxxxxxxx
-xxxxxxxxxx'''......''........'xxxxx''...........0...'xxxxxxxxxxxxxxxxx
-xxxx''''''........'xx'.......'xxxxxxx'...0...........'xxxx''''''xxxxxx
+xxxxxxxxxx'''......''........'xxxxx''...............'xxxxxxxxxxxxxxxxx
+xxxx''''''........'xx'.......'xxxxxxx'...............'xxxx''''''xxxxxx
 xx''..............'xxx'....'xxxxxxxxxx'.......''.....'xxx'......''xxxx
 xx...............'xxxx'...'xxxxxxxxxx'.......'xx'....'xxx.........'xxx
 xx'.....{.......'xxx''....'xxxxxxxxxx'.......'xxx'...'xx.....}....'xxx
 x'...............'''.....'xxxxxxxxxxx'........'''....'xx..........'xxx
 x'......................'xxxxxxxxxxxxxx'..............'x'..........'xx
-x'....[................'xxxxxxxxxxxxxxxx'..0...........'...0...]...'xx
-x'......................''xxxxxxxxxxxxx'...........0...............'xx
+x'....[................'xxxxxxxxxxxxxxxx'..............'.......]...'xx
+x'......................''xxxxxxxxxxxxx'...........................'xx
 x'........................xxxxxxxxxxxx'.....''.....................'xx
 x'......(......'..........'xxxxxxxxxxx'....'xx'..............).....'xx
 xx'...........'x''........'xxxxxxxxxxx'...'xxxx'......''..........'xxx
-xxx'''.......'xx'........'xxxxxxx''xx'..0..'xxx'.....'xx'.........'xxx
+xxx'''.......'xx'........'xxxxxxx''xx'.....'xxx'.....'xx'.........'xxx
 xxxxxx'''''''xxx'......''xxxxxx''..x'.......'x'.....'xxxx''.....''xxxx
 xxxxxxxxxxxxxxxx'........'xxx''....'...'....'''....'xxxxxxx'''''xxxxxx
 xxxxxxxxxxxxxxx'..........'''.........'x''.........'xxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxx'.............'........''xxx'.........'xxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxx'.....''.............''xxxxx'....0.....xxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxx'.....''.............''xxxxx'..........xxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxx'...''xx'...........'xxxxxxxx'.......''xxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxx'''xxxxx'......'''..'xxxxxxx'......'xxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxx'.....'xxx'..'xxxx''.......'xxxxxxxxxxxxxxxxxxx

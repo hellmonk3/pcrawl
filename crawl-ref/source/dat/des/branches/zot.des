@@ -642,46 +642,6 @@ cccccccccccccccccccccccc
 ENDMAP
 
 ###########################
-# Lich library
-#
-NAME:   lemuel_lich_library
-DEPTH:  Zot, !Zot:$
-TAGS:   no_monster_gen no_descent
-MONS:   flying skull, lich, ancient lich / dread lich, necromancer
-MONS:   vampire mage
-ITEM:   any book mimic:10 w:20 / any scroll mimic:10
-SUBST:  w:w?
-SUBST:  ?=. 1:1
-SUBST:  x:xc
-SUBST:  4 = 4 5:2 .:4
-MAP
-wwwwwwwwwwwwwwwwwwwwwww
-wwwwwwwwwwwwwwwwwwwwwww
-wwxxxxxxxxx+xxxxxxxxxww
-wwx....x.......x....xww
-wwx....+...G...+....xww
-wwx.4..x.......x..4.xww
-wwx4.4.xxxx+xxxx.4.4xww
-wwx.4.4xxx...xxx4.4.xww
-wwx4.4.xxx.2.xxx.4.4xww
-wwxxxxxxxxx+xxxxxxx+xww
-wwxxxxxxxxx.xxxxxx$$xww
-wwxdddxxxxx.x...xx$$xww
-wwx.2.xxxxx.+.G.xxxxxww
-wwx...xxxxx.x...xxxxxww
-wwx...xxxxx.xxxxxxxxxww
-wwxx+xxxxxx.xxxdddddxww
-wwxx.xxxxxx.xxxd232dxww
-wwxx.xxxxxx.xxxd...dxww
-wwxx......+...+....dxww
-wwxxxxxxxxxmxxxd...dxww
-wwxxxxxxxxxGxxxdddddxww
-wwxxxxxxxxxxxxxxxxxxxww
-wwwwwwwwwwwwwwwwwwwwwww
-wwwwwwwwwwwwwwwwwwwwwww
-ENDMAP
-
-###########################
 # Lake of fire
 #
 NAME:  lemuel_lake_of_fire
@@ -916,85 +876,6 @@ xWWXWXWXWWx
 xWMWWMWWMWx
 xWWWWWWWWWx
 xxxxxxxxxxx
-ENDMAP
-
-###################################################
-# Minmay's Elemental castle
-# 50% electricity, 25% fire, 25% ice
-NAME:    minmay_elemental_castle
-ORIENT:  southwest
-DEPTH:   Zot, !Zot:$
-TAGS:    no_rotate no_descent
-: if crawl.coinflip() then
-MONS:    titan, storm dragon, electric golem
-SUBST:   F = 3
-ITEM:    lightning rod, book of lightning, staff of air, book of storms
-: elseif crawl.coinflip() then
-MONS:    frost giant, ice dragon
-KMONS:   F = shard shrike
-MARKER:  F = lua:fog_machine { cloud_type = "freezing vapour", \
-              pow_min = 5, pow_max = 15, delay = 10, size = 2, \
-              walk_dist = 0, spread_rate= 0 }
-# XXX: we should replace iceblast with something else when it's not
-# in this game's chosen item set.
-ITEM:    wand of iceblast, staff of cold, book of winter, \
-         ozocubu's autobiography
-SUBST:   w = l
-SUBST:   W = l..
-: else
-MONS:    fire giant, fire dragon
-KMONS:   F = balrug
-MARKER:  F = lua:fog_machine { cloud_type = "flame", pow_min = 5, \
-              pow_max = 15, delay = 10, size = 2, walk_dist = 0, \
-              spread_rate= 0 }
-ITEM:    book of the dragon, staff of fire, book of fire, book of annihilations
-: end
-SUBST:   1 = 112.
-SUBST:   2 = 221.
-SHUFFLE: defg
-MAP
-xx...................@@...................
-xx.WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW.
-xx.WwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwW.
-xx.WwcccccccwwwwwwwwwwwwwwwwwwwwcccccccwW.
-xx.Wwcd*%.1cwwwwwwwwwwwwwwwwwwwwc1.%*gcwW.
-xx.Wwc*%...cwwwwwwwwwwwwwwwwwwwwc...%*cwW.
-xx.Wwc%....ccccccccc++++ccccccccc....%cwW.
-xx.Wwc................................cwW.
-xx.Wwc1........2............2........1cwW.
-xx.Wwcccc..........................ccccwW.
-xx.Wwwwwc...cccccccccccccccccccc...cwwwwW.
-xx.Wwwwwc...cccccccccccccccccccc...cwwwwW.
-xx.Wwwwwc...cccccccccccccccccccc...cwwwwW.
-xx.Wwwwwc.2.ccc*|*cccccccc*|*ccc.2.cwwwwW.
-xx.Wwwwwc...ccc...cccccccc...ccc...cwwwwW.
-xx.Wwwwwc...ccc...cccccccc...ccc...cwwwwW.
-xx.Wwwwwc...ccc.F.cccccccc.F.ccc...cwwwwW.
-xx.Wwwwwc...ccc...cccccccc...ccc...cwwwwW.
-xx.Wwwwwc...ccc...cccccccc...ccc...cwwwwW.
-xx.Wwwwwc..........................cwwwwW.
-xx.Wwwwwc..........................cwwwwW.
-xx.Wwwwwc...ccc..............ccc...cwwwwW.
-xx.Wwwwwc...ccc....2....2....ccc...cwwwwW.
-xx.Wwwwwc...ccc..............ccc...cwwwwW.
-xx.Wwwwwc...ccc..............ccc...cwwwwW.
-xx.Wwwwwc...ccc..............ccc...cwwwwW.
-xx.Wwwwwc.2.ccc1............1ccc.2.cwwwwW.
-xx.Wwwwwc...ccccccccc..ccccccccc...cwwwwW.
-xx.Wwwwwc...ccccccccc..ccccccccc...cwwwwW.
-xx.Wwwwwc...ccccccccc..ccccccccc...cwwwwW.
-xx.Wwcccc..........................ccccwW.
-xx.Wwc1........2............2........1cwW.
-xx.Wwc................................cwW.
-xx.Wwc%....cccccccccccccccccccccc....%cwW.
-xx.Wwc*%...cwwwwwwwwwwwwwwwwwwwwc...%*cwW.
-xx.Wwce*%.1cwwwwwwwwwwwwwwwwwwwwc1.%*fcwW.
-xx.WwcccccccwwwwwwwwwwwwwwwwwwwwcccccccwW.
-xx.WwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwW.
-xx.WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW.
-xx........................................
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
 ###################################################
@@ -1650,61 +1531,6 @@ c...ccccc..T.......................cc...c...ccl
 cG............G..G..G..G..G..G..G..ccc.ccc.ccc
 ccccccccccccqqcrrcyycbbcggcmmcqqcrrccccccccccc
            @.......................@
-ENDMAP
-
-##########################################################################
-
-NAME:    hangedman_zot_spectrum
-TAGS:    no_monster_gen no_descent
-DEPTH:   Zot, !Zot:$
-KMONS:   A = red very ugly thing
-KMONS:   B = red draconian
-KMONS:   C = balrug / red draconian scorcher w:6
-KMONS:   D = cyan very ugly thing
-KMONS:   E = black draconian
-KMONS:   F = electric golem / black draconian knight w:6
-KMONS:   G = green very ugly thing
-KMONS:   H = green draconian
-KMONS:   I = green death / green draconian monk w:6
-KMONS:   J = white very ugly thing
-KMONS:   K = white draconian
-KMONS:   L = shard shrike / white draconian stormcaller w:6
-KMONS:   M = brown very ugly thing
-KMONS:   N = yellow draconian
-KMONS:   O = acid blob / yellow draconian annihilator w:6
-KMONS:   Z = golden dragon / killer klown / Tiamat, golden dragon / killer klown
-KITEM:   BEHKN = $ w:15 / % w:25 / *
-KITEM:   z = any good_item
-KITEM:   Z = superb_item
-# Rotates out loot, upstairs, downstairs,
-# both (in an enclosed bubble), or nothing, at either end.
-SHUFFLE: defg{>Z' / defg{<'' / fgde>{'Z / fgde<{'' / defg'|Z' / fgde|''Z / \
-         fgfg''() / fgfg'')( / dede'''' / dede'''' / dede''''
-SHUFFLE: ABC / DEF / GHI / JKL / MNO
-SUBST:   d = @, e = ., f = x, g = c, c : ccb, Z = z Z:6, {' = .
-NSUBST:  < = 1:{ / 1:[, > = 1:} / 1:]
-MAP
- ddddxxxx
-ddeeeecxxxxxxxx
-dee{..cxxxccccx
-de{'c+cccccBBcx
-de.cc.......Acxxx
-xe.+.......Accccx
-xccc..Cc+ccccEEcx
-xxxc..cc......Dcxxx
-xxxc..+......Dccccx
- xxc..c..Fc+cccHHcx
- xcc..c..cc.....Gcxxx
- xcB.Ac..+.....Gccccx
- xcBAcc..c..Ic+ccKKcx
- xccccE.Dc..cc....Jcx
- xxxxcEDcc..+....Jccx
-    xccccH.Gc..Lc+cgx
-    xxxxcHGcc..cc.>gf
-       xccccK.J+.Z.gf
-       xxxxcKJcc>.ggf
-          xccccggggff
-          xxxxxxffff
 ENDMAP
 
 ##########################################################################
@@ -2838,28 +2664,6 @@ MAP
      ccc'-'ccc
        cc+cc
          @
-ENDMAP
-
-NAME:   hellmonk_greenhouse_of_terror
-TAGS:   no_monster_gen no_descent
-DEPTH:  Zot:2-4
-MONS:   orb of fire, bush
-NSUBST: . = 1:1 / .
-SUBST:  > = )}], < = ({[
-MAP
-  ttttt
-  t.>.t
-  t.t.t
- tt.t.tt
-tt..t..tt
-t...t...t
-t.tt2tt.t
-t...t...t
-tt..t..tt
- tt.t.tt
-  t.t.t
-  t.<.t
-  ttttt
 ENDMAP
 
 ##############################################################################

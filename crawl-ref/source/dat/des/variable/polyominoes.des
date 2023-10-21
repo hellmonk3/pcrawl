@@ -14,8 +14,8 @@ function polyominoes_setup(e)
   e.subst('b : xcvbmGT%0 .:50')
   e.subst('" : xcvbmGT%0 .:120')
   e.subst('x : x:240 c:30 v:30 b m')
-  e.subst('0 = 000.')
-  e.subst('% = %%%.')
+  e.subst('0 = .')
+  e.subst('% = .')
 end
 }}
 
@@ -773,25 +773,4 @@ MAP
 .xx..xxxx.
 ........x.
        ...
-ENDMAP
-
-################################################################################
-# nonominoes
-NAME:    minmay_nonomino_d4
-SHUFFLE: "'?!
-# TODO: this subst can sometimes wall in the b tile, which is likely to be floor
-SUBST:   ' = 0%, ? = 0%, ! = "
-: polyominoes_setup(_G)
-MAP
-...........
-.xxxx0xxxx.
-.x%x...x%x.
-.xx..?..xx.
-.x.."'"..x.
-.0.?'b'?.0.
-.x.."'"..x.
-.xx..?..xx.
-.x%x...x%x.
-.xxxx0xxxx.
-...........
 ENDMAP

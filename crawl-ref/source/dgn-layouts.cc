@@ -177,7 +177,7 @@ void dgn_build_chaotic_city_level(dungeon_feature_type force_wall)
                                          3, DNGN_METAL_WALL);
     }
 
-    dgn_replace_area(10, 10, (GXM - 10), (GYM - 10), DNGN_ROCK_WALL,
+    dgn_replace_area(10, 10, (GXM / 2 - 10), (GYM / 2 - 10), DNGN_ROCK_WALL,
                      DNGN_FLOOR, MMT_VAULT);
 
     // replace_area can also be used to fill in:
@@ -189,8 +189,8 @@ void dgn_build_chaotic_city_level(dungeon_feature_type force_wall)
         int room_height = 3 + random2(7);
         room_height += random2(5); // ditto
 
-        b1x = 11 + random2(GXM - 21 - room_width);
-        b1y = 11 + random2(GYM - 21 - room_height);
+        b1x = 11 + random2(GXM / 2 - 21 - room_width);
+        b1y = 11 + random2(GYM / 2 - 21 - room_height);
 
         b2x = b1x + room_width;
         b2y = b1y + room_height;
@@ -321,9 +321,9 @@ static void _make_trail(int xs, int xr, int ys, int yr, int corrlength,
 
         // Put something in to make it go to parts of map it isn't in now.
         if (coinflip())
-            dir.x = _trail_random_dir(pos.x, GXM, 15);
+            dir.x = _trail_random_dir(pos.x, GXM / 2, 15);
         else
-            dir.y = _trail_random_dir(pos.y, GYM, 15);
+            dir.y = _trail_random_dir(pos.y, GYM / 2, 15);
 
         if (dir.origin() || map_masked(pos + dir, MMT_VAULT))
             continue;
@@ -1111,9 +1111,9 @@ static void _build_river(dungeon_feature_type river_type) //mv
 
     // Made rivers less wide... min width five rivers were too annoying. -- bwr
     int width = 3 + random2(4);
-    int y = 10 - width + random2avg(GYM-10, 3);
+    int y = 10 - width + random2avg(GYM / 2 -10, 3);
 
-    for (int i = 5; i < (GXM - 5); i++)
+    for (int i = 5; i < (GXM / 2 - 5); i++)
     {
         if (one_chance_in(3))
             y++;
@@ -1130,7 +1130,7 @@ static void _build_river(dungeon_feature_type river_type) //mv
             width = 6;
 
         for (int j = y; j < y+width ; j++)
-            if (j >= 5 && j <= GYM - 5)
+            if (j >= 5 && j <= GYM / 2 - 5)
             {
                 // Note that vaults might have been created in this area!
                 // So we'll avoid the silliness of orcs/Royal Jelly on
@@ -1165,8 +1165,8 @@ static void _build_lake(dungeon_feature_type lake_type) //mv
     env.level_build_method += make_stringf(" lake [%s]",
                                            dungeon_feature_name(lake_type));
 
-    x1 = 5 + random2(GXM - 30);
-    y1 = 5 + random2(GYM - 30);
+    x1 = 5 + random2(GXM / 2 - 15);
+    y1 = 5 + random2(GYM / 2 - 15);
     x2 = x1 + 4 + random2(16);
     y2 = y1 + 8 + random2(12);
 
@@ -1193,7 +1193,7 @@ static void _build_lake(dungeon_feature_type lake_type) //mv
         }
 
         for (i = x1; i < x2 ; i++)
-            if (j >= 5 && j <= GYM - 5 && i >= 5 && i <= GXM - 5)
+            if (j >= 5 && j <= GYM / 2 - 5 && i >= 5 && i <= GXM / 2 - 5)
             {
                 // Note that vaults might have been created in this area!
                 // So we'll avoid the silliness of monsters and items

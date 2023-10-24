@@ -105,7 +105,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 TAGS:   no_rotate no_vmirror no_hmirror
 {{
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map { width = gxm, height = gym, fill = 'x' }
 
     -- without a starting floor patch, spotty_map will crash

@@ -283,7 +283,7 @@ function geoelf.rooms.draw (e, room_data, corridor_data, index,
     crawl.mpr("Error: Room index does not exist")
   end
 
-  local gxm, gym = dgn.max_bounds()
+  local gxm, gym = dgn.builder_bounds()
 
   local center_x = room_data[index].center_x
   local center_y = room_data[index].center_y

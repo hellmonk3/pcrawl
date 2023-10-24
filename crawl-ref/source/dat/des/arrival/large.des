@@ -104,7 +104,6 @@ ENDMAP
 # 29 x 22
 NAME:    dpeg_arrival_castle
 TAGS:    arrival no_monster_gen no_rotate transparent
-ITEM:    stone, nothing, nothing
 ORIENT:  float
 SHUFFLE: ]def
 SUBST:   c : cx
@@ -337,7 +336,6 @@ WEIGHT: 3
 ORIENT: float
 NSUBST: . = d / .
 NSUBST: + = 3=+ / x
-ITEM:   stone
 MAP
           xxxxxxxx.@.xx
        xxxx......+....xxxx
@@ -369,7 +367,6 @@ TAGS:   arrival no_monster_gen no_rotate transparent
 WEIGHT: 1
 ORIENT: float
 NSUBST: . = 1:d / *:.
-ITEM:   stone
 MAP
           xxxxxxxxxxxxx
        xxxx......x....xxxx
@@ -405,7 +402,6 @@ SHUFFLE: ab, cd, ef, gh, ij, kl, mn
 SUBST:   a=., c=., e=., g=., i=., k=., m=.
 SUBST:   b=x, d=x, f=x, h=x, j=x, l=x, n=x
 NSUBST:  . = 1:d / *:.
-ITEM:    stone
 MAP
           xxxxxxxxxxxxx
        xxxx.....h.....xxxx
@@ -442,7 +438,6 @@ KMASK:   a = no_monster_gen
 SUBST:   a : .
 SHUFFLE: ([{>
 SUBST:   ([ = d
-ITEM:    skeleton
 SUBST:   ?:???!,  ?=?., ?=!, !:cx, ===cc+
 MAP
 .................@.................
@@ -1060,9 +1055,6 @@ ENDMAP
 NAME:    wander_arrival_abandoned_jail
 TAGS:    arrival no_monster_gen no_item_gen transparent
 ORIENT:  float
-ITEM:    human skeleton / orc skeleton, \
-         goblin skeleton / gnoll skeleton, \
-         kobold skeleton / ogre skeleton
 SHUFFLE: {def
 KFEAT:   x = iron_grate
 MAP

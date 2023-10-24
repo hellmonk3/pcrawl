@@ -25,7 +25,7 @@
     end
 
     function spotty_stairs(mapgrd)
-        local gxm, gym = dgn.max_bounds()
+        local gxm, gym = dgn.builder_bounds()
 
         local in_slime = you.in_branch("slime")
         local elevator = not in_slime
@@ -81,19 +81,19 @@ WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout no_primary_vault unrand layout_type_open
 {{
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width=gxm, height=gym, fill='x'}
 
-    local width = (10 - crawl.random2(7))
+    local width = (6 - crawl.random2(5))
 
     local floor = '.'
     local wall = 'x'
 
     -- construct donut
     fill_area{x1=10, y1=10, x2=gxm-10, y2=10+width, fill=floor}
-    fill_area{x1=10, y1=60-width, x2=gxm-10, y2=gym-10, fill=floor}
+    fill_area{x1=10, y1=35-width, x2=gxm-10, y2=gym-10, fill=floor}
     fill_area{x1=10, y1=10, x2=10+width, y2=gym-10, fill=floor}
-    fill_area{x1=60-width, y1=10, x2=gxm-10, y2=gym-10, fill=floor}
+    fill_area{x1=35-width, y1=10, x2=gxm-10, y2=gym-10, fill=floor}
 
     local spotty = crawl.coinflip()
     local smears = crawl.random2(300)
@@ -164,7 +164,7 @@ WEIGHT: 2
 ORIENT: encompass
 TAGS:   overwritable layout unrand uniq_open_layout layout_type_open
 {{
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym, fill = 'L'}
 
     local floor = '.'
@@ -237,13 +237,13 @@ ENDMAP
 #
 NAME:   layout_big_octagon
 DEPTH:  D:9-, Depths, Pan
-WEIGHT: 3
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout unrand no_primary_vault layout_type_open
 TAGS:   uniq_open_layout
 {{
     function smear()
-        local gxm, gym = dgn.max_bounds()
+        local gxm, gym = dgn.builder_bounds()
         local iterations = 100 + crawl.random2(800)
         smear_map{iterations = iterations, boxy = false}
 
@@ -411,14 +411,6 @@ TAGS:   uniq_open_layout
         end
     end
 
-    -- Do we still want this special case here?
-    if you.where() == "Pan" and crawl.coinflip() then
-        mapgrd[40][36] = 'O'
-        mapgrd[41][36] = 'O'
-        nsubst('O = 1:O / *:.')
-        kfeat('O = exit_through_abyss')
-    end
-
     theme.level_material(_G)
 }}
 # Enforce minimum floor size - otherwise we get very tiny floors sometimes
@@ -439,7 +431,7 @@ ENDMAP
 #
 NAME:   layout_rooms
 DEPTH:  D, Elf, Snake, Crypt, Pan
-WEIGHT: 15 (D), 10 (Elf), 15 (Snake), 10 (Crypt), 10 (Pan)
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 {{
@@ -524,10 +516,10 @@ TAGS:   overwritable layout allow_dup unrand layout_type_rooms
             allow_diagonals = is_elf_branch})
     end
 
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym, fill = 'x'}
 
-    local num_rooms = 30 + crawl.random2(90)
+    local num_rooms = 15 + crawl.random2(45)
     local exclusive = not crawl.one_chance_in(10)
     local exclusive2 = crawl.coinflip()
 
@@ -535,8 +527,8 @@ TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 
     for i = 0, num_rooms do
         local new_room = {
-            x1 = 10 + crawl.random2(50),
-            y1 = 10 + crawl.random2(40)
+            x1 = 10 + crawl.random2(30),
+            y1 = 10 + crawl.random2(20)
         }
         new_room.x2 = new_room.x1 + 2 + crawl.random2(8)
         new_room.y2 = new_room.y1 + 2 + crawl.random2(8)
@@ -787,7 +779,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
         return x, y
     end
 
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
 
     local corridors = crawl.random_range(15, 25)
     local force_straight = false
@@ -858,7 +850,7 @@ WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
 
     extend_map { width = gxm, height = gym, fill = 'x' }
 
@@ -1066,16 +1058,16 @@ TAGS:   overwritable layout no_primary_vault allow_dup unrand layout_type_rooms
         return true
     end
 
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
 
     extend_map { width = gxm, height = gym, fill = 'x' }
 
-    local rows = util.random_choose_weighted({ {5, 10}, {4, 5}, {3, 1} })
-    local cols = util.random_choose_weighted({ {5, 10}, {4, 5}, {3, 1} })
-    local xspace = 13 + 2*(5-cols)
-    local yspace = 11 + 2*(5-rows)
-    local xsize  = 6 + 2*(5-cols)
-    local ysize  = 6 + 2*(5-rows)
+    local rows = util.random_choose_weighted({ {4, 5}, {3, 1} })
+    local cols = util.random_choose_weighted({ {4, 5}, {3, 1} })
+    local xspace = 5 + (5-cols)
+    local yspace = 3 + (5-rows)
+    local xsize  = 2 + (5-cols)
+    local ysize  = 2 + (5-rows)
     local special = -1
 
     if crawl.one_chance_in(10) and dgn.map_by_tag('special_room', true) then
@@ -1458,7 +1450,7 @@ ENDMAP
 #
 NAME:   layout_diamond_mine
 DEPTH:  Orc
-WEIGHT: 5
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 TAGS:   no_rotate no_hmirror no_vmirror

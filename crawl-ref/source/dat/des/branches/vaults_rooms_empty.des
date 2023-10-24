@@ -103,25 +103,6 @@ x.x.x.x.x.x
 x.x.x.x.x.x
 ENDMAP
 
-NAME:     vaults_room_mumra_shop_pool
-TAGS:     vaults_empty vaults_orient_s
-WEIGHT:   2
-SUBST:    w = w:10 2:1, G : G.
-MONS:     plant
-KFEAT:    s = any shop
-FTILE:    _1s = floor_swamp
-MAP
-.........
-.G.www.G.
-..wwwww..
-.wwwswww.
-.ww1_1ww.
-.www_www.
-..ww_ww..
-.G.w_w.G.
-...._....
-ENDMAP
-
 NAME:     vaults_room_grid
 TAGS:     allow_dup vaults_empty
 SHUFFLE:  xyz
@@ -500,25 +481,6 @@ MAP
 ..xxx.....xxxxxx.
 .xxxxxx.....xxx..
 xxxxxxxx.xx......
-ENDMAP
-
-NAME: ontoclasm_vaults_spin
-TAGS: vaults_room
-SHUFFLE: ab
-SUBST: a : x, b : .
-KMONS: 0 = 0 band
-MAP
-aa....x@...
-abbxx.xxxx.
-.bxxx....x.
-.xxxxxxx.x.
-.x...0.x.x.
-.x.x.(.x.x.
-.x.x.0...x.
-.x.xxxxxxx.
-.x....xxxb.
-.xxxx.xxbba
-...@x....aa
 ENDMAP
 
 NAME: ontoclasm_vaults_loading_screen
@@ -1442,19 +1404,6 @@ xAxBx...
 ..xxx...
 ENDMAP
 
-# 100 gold total
-NAME: nicolae_vaults_gold_heap
-TAGS: vaults_empty no_item_gen
-WEIGHT: 3
-ITEM: gold q:1, gold q:2, gold q:4, gold q:8, gold q:16
-MAP
-defed
-efgfe
-fghgf
-efgfe
-defed
-ENDMAP
-
 NAME: nicolae_vaults_circle_grid_a
 TAGS: vaults_empty allow_dup
 MAP
@@ -1489,23 +1438,6 @@ MAP
   xx.xxx.xx
    ...x...
     .....
-ENDMAP
-
-NAME: nicolae_vaults_specimen_jars
-TAGS: vaults_empty
-KPROP: S = no_tele_into
-KMASK: S = opaque
-KMASK: S = no_trap_gen
-KMASK: S = no_item_gen
-# the W is because they're floating in solution in the jars, you see
-KFEAT: S = W
-KMONS: S = 0 / 9 / 8
-MAP
-.............
-.nnn.nnn.nnn.
-.nSn.nSn.nSn.
-.nnn.nnn.nnn.
-.............
 ENDMAP
 
 NAME: nicolae_vaults_back_hallway

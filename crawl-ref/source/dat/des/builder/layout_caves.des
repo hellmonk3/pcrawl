@@ -23,7 +23,7 @@ WEIGHT: 5, 15 (Snake)
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 {{
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
 
   -- First pass
   -- These should be sprawling corridors that will connect up the
@@ -121,7 +121,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   local width = crawl.random_range(10,20)
   -- TODO: A lot of these functions should be moved into an e.g. procedural.complex namespace
   local function fcircle()
@@ -242,7 +242,7 @@ TAGS:   overwritable layout allow_dup unrand no_pool_fixup layout_type_swamp
 {{
   if is_validating() then return end
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   local limit,border,margin = 0.35,16,16
   local reps = crawl.random_range(70,85)
 
@@ -295,7 +295,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
 
   -- TODO: Add some branch-appropriate domain distortion / water
   -- TODO: Randomise scales of rooms and corridors (need to scale
@@ -334,7 +334,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
 
   local frooms = procedural.worley_diff{ scale = 0.2 }
   local fcorridors = procedural.worley_diff{ scale = 0.3 }
@@ -388,7 +388,7 @@ TAGS:   no_rotate no_hmirror no_vmirror
 
   local is_random = false -- crawl.coinflip()
 
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   hyper.build_layout(_G,{
     name = "Cave Town",
     no_windows = true,

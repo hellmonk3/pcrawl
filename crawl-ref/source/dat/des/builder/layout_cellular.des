@@ -116,7 +116,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local doors = you.in_branch("Dis")
@@ -360,7 +360,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 TAGS:   no_rotate no_vmirror no_hmirror
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local open = crawl.coinflip()

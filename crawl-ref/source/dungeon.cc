@@ -254,18 +254,12 @@ set<string> &get_uniq_map_names()
 // TODO: datify into branch data
 int dgn_builder_x()
 {
-    if (is_hell_subbranch(you.where_are_you) && !at_branch_bottom())
-        return GXM / 2;
-    else
-        return GXM;
+    return GXM / 2;
 }
 
 int dgn_builder_y()
 {
-    if (is_hell_subbranch(you.where_are_you) && !at_branch_bottom())
-        return GYM / 2;
-    else
-        return GYM;
+    return GYM / 2;
 }
 
 /**********************************************************************
@@ -2011,9 +2005,7 @@ static bool _fixup_stone_stairs(bool preserve_vault_stairs,
         base = DNGN_STONE_STAIRS_UP_I;
         // Pan abuses stair placement for transits, as we want connectivity
         // checks.
-        needed_stairs = (you.depth == 1 || player_in_hell())
-                        && !player_in_branch(BRANCH_PANDEMONIUM)
-                        ? 1 : 3;
+        needed_stairs = 1;
     }
     else
     {
@@ -2022,21 +2014,13 @@ static bool _fixup_stone_stairs(bool preserve_vault_stairs,
 
         if (at_branch_bottom())
             needed_stairs = 0;
-        else if (player_in_hell())
-            needed_stairs = 1;
         else
-            needed_stairs = 3;
+            needed_stairs = 1;
     }
 
-    // In Zot, don't create extra escape hatches, in order to force
-    // the player through vaults that use all three down stone stairs.
-    // In Hell, don't create extra hatches, the levels are small already.
-    if (player_in_branch(BRANCH_ZOT) || player_in_hell())
-    {
-        replace = random_choose(DNGN_FOUNTAIN_BLUE,
-                                DNGN_FOUNTAIN_SPARKLING,
-                                DNGN_FOUNTAIN_BLOOD);
-    }
+    replace = random_choose(DNGN_FOUNTAIN_BLUE,
+                            DNGN_FOUNTAIN_SPARKLING,
+                            DNGN_FOUNTAIN_BLOOD);
 
     dprf(DIAG_DNGN, "Before culling: %d/%d %s stairs",
          (int)stairs.size(), needed_stairs, checking_up_stairs ? "up" : "down");
@@ -2094,7 +2078,6 @@ static bool _fixup_stone_stairs(bool preserve_vault_stairs,
     // If we only need one stone stair, make sure it's _I.
     if (needed_stairs != 3)
     {
-        ASSERT(checking_up_stairs || player_in_hell());
         ASSERT(needed_stairs == 1);
         ASSERT(stairs.size() == 1 || player_in_branch(root_branch));
         if (stairs.size() == 1)
@@ -2237,11 +2220,8 @@ static bool _add_connecting_escape_hatches()
     if (branches[you.where_are_you].branch_flags & brflag::islanded)
         return true;
 
-    // Veto D:1 or Pan if there are disconnected areas.
-    // Veto any  non-abyss descent level with disconnected areas
-    if (player_in_branch(BRANCH_PANDEMONIUM)
-        || (player_in_branch(BRANCH_DUNGEON) && you.depth == 1)
-        || (crawl_state.game_is_descent() && !player_in_branch(BRANCH_ABYSS)))
+    // Veto any non-abyss level with disconnected areas
+    if (!player_in_branch(BRANCH_ABYSS))
     {
         // Allow == 0 in case the entire level is one opaque vault.
         return dgn_count_disconnected_zones(false) <= 1;
@@ -2799,11 +2779,8 @@ static void _build_dungeon_level()
     if (player_in_hell())
         _fixup_hell_stairs();
 
-    if (crawl_state.game_is_descent())
-    {
-        _fixup_descent_hatches();
-        _place_dungeon_exit();
-    }
+    _fixup_descent_hatches();
+    _place_dungeon_exit();
 }
 
 static void _dgn_set_floor_colours()
@@ -3618,8 +3595,8 @@ void dgn_place_stone_stairs(bool maybe_place_hatches)
 
     for (int i = 0; i < pair_count; ++i)
     {
-        // only place the first stair and hatches in hell
-        if (player_in_hell() && i > 0 && i <= 3)
+        // only place the first stair and hatches
+        if (i > 0 && i <= 3)
             continue;
 
         if (!existing[i])
@@ -6987,7 +6964,7 @@ static bool _fixup_interlevel_connectivity()
         }
     }
 
-    const int up_region_max = (you.depth == 1 || player_in_hell()) ? 1 : 3;
+    const int up_region_max = 1;
 
     // Ensure all up stairs were found.
     for (int i = 0; i < up_region_max; i++)

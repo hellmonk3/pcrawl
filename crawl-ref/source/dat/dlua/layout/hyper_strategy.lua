@@ -37,7 +37,7 @@ function hyper.place.pick_place_random(room,build,usage_grid,options)
   -- TODO: If rotation is allowed, decide rotation first so we know how much padding to leave
 
   -- Work out our boundaries
-  local gxm,gym = dgn.max_bounds()
+  local gxm,gym = dgn.builder_bounds()
   local bounds = room.generator_used.bounds or { x1 = 0, y1 = 0, x2 = usage_grid.width, y2 = usage_grid.height}
   local padding = room.generator_used.place_padding or 0
   local xmin,xmax,ymin,ymax = bounds.x1+padding, bounds.x2-1-room.size.x-padding, bounds.y1+padding, bounds.y2-1-room.size.y-padding

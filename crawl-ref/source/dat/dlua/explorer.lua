@@ -436,7 +436,7 @@ function explorer.catalog_all_positions(cats, highlights)
     -- don't bother if there are no positional funs to run
     if #funs == 0 then return end
 
-    local gxm, gym = dgn.max_bounds()
+    local gxm, gym = dgn.builder_bounds()
     for p in iter.rect_iterator(dgn.point(1,1), dgn.point(gxm-2, gym-2)) do
         for _,c in ipairs(cats) do
             if explorer.catalog_pos_funs[c] ~= nil then

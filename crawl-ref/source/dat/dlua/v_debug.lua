@@ -14,7 +14,7 @@ end
 function dump_layout_grid(layout_grid)
     local gxm,gym = layout_grid.width,layout_grid.height
 
-    if gxm==nil or gym==nil then gxm,gym = dgn.max_bounds() end
+    if gxm==nil or gym==nil then gxm,gym = dgn.builder_bounds() end
 
   for i = 0, gym-1, 1 do
     local maprow = ""
@@ -31,7 +31,7 @@ end
 
 function dump_usage_grid(usage_grid)
 
-    local gxm,gym = dgn.max_bounds()
+    local gxm,gym = dgn.builder_bounds()
 
   for i = 0, gym-1, 1 do
     local maprow = ""
@@ -80,7 +80,7 @@ end
 
 function dump_usage_grid_pretty(usage_grid)
 
-    local gxm,gym = dgn.max_bounds()
+    local gxm,gym = dgn.builder_bounds()
 
   for i = 0, gym-1, 1 do
     local maprow = ""

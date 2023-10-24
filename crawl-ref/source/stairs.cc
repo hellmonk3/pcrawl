@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "ability.h"
+#include "acquire.h"
 #include "abyss.h"
 #include "act-iter.h"
 #include "areas.h"
@@ -1096,6 +1097,8 @@ void take_stairs(dungeon_feature_type force_stair, bool going_up,
     floor_transition(how, old_feat, whither,
                      bool(force_stair) && !force_known_shaft,
                      going_up, shaft, update_travel_cache);
+                     
+    acquirement_menu();
 }
 
 void up_stairs(dungeon_feature_type force_stair, bool update_travel_cache)

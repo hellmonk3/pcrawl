@@ -1276,17 +1276,6 @@ static monster* _place_monster_aux(const mgen_data &mg, const monster *leader,
 
         mon->colour = wpn->get_colour();
     }
-    else if (mons_class_itemuse(mg.cls) >= MONUSE_STARTING_EQUIPMENT
-             && !mg.props.exists(KIKU_WRETCH_KEY))
-    {
-        give_item(mon, place.absdepth(), summoned);
-        // Give these monsters a second weapon. - bwr
-        if (mons_class_wields_two_weapons(mg.cls))
-            give_weapon(mon, place.absdepth());
-
-        unwind_var<int> save_speedinc(mon->speed_increment);
-        mon->wield_melee_weapon(false);
-    }
 
     if (mon->type == MONS_SLIME_CREATURE && mon->blob_size > 1)
     {

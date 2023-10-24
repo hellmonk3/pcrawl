@@ -590,43 +590,6 @@ cccccccccccccccccccx
 xxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
-# A bit of a tribute to Jory's old silence vault, except
-# hopefully this time with some choice in using the silence;
-# the aura extends to the edge of the walls with the main doors.
-NAME:    hangedman_tartarus_silent_blood_keep
-TAGS:    no_monster_gen transparent patrolling
-DEPTH:   Tar, !Tar:$
-ORIENT:  centre
-WEIGHT:  5
-MONS:    zombie / skeleton / spectral thing w:20
-MONS:    jiangshi / shadow wraith w:4, doom hound
-MONS:    vampire knight ; demon whip | demon trident | demon blade . \
-                          plate armour | chain mail
-MONS:    putrid mouth, tormentor w:3, silent spectre
-KMONS:   9 = reaper
-KMONS:   J = Jory w:9 / tzitzimitl w:1, tzitzimitl
-NSUBST:  J = 1:J / *:9, 8 = 1:6 / * = 5:19 6:1
-SUBST:   A : x.., B : x.., } = }>
-MAP
-          xx  xx  xx  xx  xx  xx
-         xxxxxxxxxxxxxxxxxxxxxxxxx
-       xxxxxxxxxxxxxxxxxxxxxxxxxxx
-      ..xx..xx....2.....xx.........
-    ....A......4c.3..4...B.....ccc...
-  .............ccc+ccc......82ccccc..
-...ccc1.......ccc.2.ccc..cccccc1c1cc.
-..ccccc18ccccccc}56..ccccc....+..7cc.
-.cc1c1cccc....+J.3<4.J+....cccc1c1cc.
-.cc7..+....ccccc..65}ccccccc81ccccc..
-.cc1c1cccccc..ccc.2.ccc.......1ccc...
-..ccccc82......ccc+ccc.............
-...ccc.....B...3..4.c3......A....
-  .........xx.....2....xx..xx..
-   xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-   xxxxxxxxxxxxxxxxxxxxxxxxxx
-     xx  xx  xx  xx  xx  xx
-ENDMAP
-
 NAME:    nicolae_tar_checkpoint_tarlie
 TAGS:    transparent
 DEPTH:   Tar

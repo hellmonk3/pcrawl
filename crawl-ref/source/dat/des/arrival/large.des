@@ -177,84 +177,6 @@ xxxxxxxxxxxxxxxxxx..xxxxxxxxxxwwxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
-##############################################################
-# 30x25
-# The Diamond Age, or A Young Lady's Illustrated Primer
-NAME:    elethiomel_arrival_diamonds
-TAGS:    arrival no_monster_gen no_rotate transparent
-ORIENT:  west
-WEIGHT:  2
-MONS:    rat, goblin, bat, kobold
-SHUFFLE: {[(, 234
-SUBST:   [( = .
-MAP
-xxxxxxxxxxxxxxxxxxxxxxx@x
-xxxxxxxxxxxxxxxxxxxxxxx+x
-xxxxxxxxxxx.xxxxxxxxxxx.xx
-xxxxxxxxxx...xxxxxxxxx...xx
-xxxxxxxxx.....xxxxxxx.....xx
-xxxxxxxx.......xxxxx.......xx
-xxxxx.+....{....xxx....2....xx
-xxxxx+xx.......xxxxx.......xxxx
-xxxxx.xxx.....xxx.xxx.....xxx.xx
-xxxx...xxx...xxx...xxx...xxx...xx
-xxx.....xxx.xxx.....xxx.xxx.....xx
-xx.......xx+xx..1.1..xx+xx.......xx
-x....[....+.+...1d....+.+....3....+@
-xx.......xx+xx...1...xx+xx.......xx
-xxx.....xxx.xxx.....xxx.xxx.....xx
-xxxx...xxx...xxx...xxx...xxx...xx
-xxxxx.xxx.....xxx.xxx.....xxx.xx
-xxxxx+xx.......xxxxx.......xxxx
-xxxxx.+....(....xxx....4....xx
-xxxxxxxx.......xxxxx.......xx
-xxxxxxxxx.....xxxxxxx.....xx
-xxxxxxxxxx...xxxxxxxxx...xx
-xxxxxxxxxxx.xxxxxxxxxxx.xx
-xxxxxxxxxxxxxxxxxxxxxxx+x
-xxxxxxxxxxxxxxxxxxxxxxx@x
-ENDMAP
-
-##############################################################################
-# 29x23
-# Morbid curiosity
-# Monsters are easier. Made it harder for them to get out.
-NAME:    dpeg_arrival_morbid_curiosity
-TAGS:    arrival no_rotate no_monster_gen transparent
-ORIENT:  float
-MONS:    goblin ; stone
-MONS:    hobgoblin ; stone
-MONS:    kobold ; mace
-SHUFFLE: ABCD
-NSUBST:  X = 1:+ / *:x
-NSUBST:  Y = 1:+ / *:x
-SUBST:   A=@, B=@xx, C=@xxxx, D=x
-MAP
-     xxxxxxxxxBxxxxxxxxx
-    xxxxx...........xxxxx
-   xxx...xxxxx+xxxxx...xxx
-  xx..xxxxxlllllllxxxxx..xx
- xx.xxxxxlll.....lllxxxxx.xx
-xx.xxxxxx3..........xxxxxx.xx
-xx.xxxxxxxxxxx+xxxxxxxxxxx.xx
-xx.xxxxxxxxxGXGXGxxxxxxxxx.xx
-x.xx...xxx.........xxx..lxx.x
-x.x....xx...........xx1.llx.x
-x.x....x............Yx...lx.x
-A.+...........{.....G+..1l+.C
-x.x....x............Yx...lx.x
-x.x....xx...........xx..llx.x
-x.xx...xxx.........xxx..lxx.x
-xx.xxxxxxxxxxG+Gxxxxxxxxxxx.x
-xx.xxxxxxxxxxx+xxxxxxxxxxx.xx
-xx.xxxxxx...........xxxxxx.xx
-xxx.xxxxxlll2..2.lllxxxxx.xx
- xxx..xxxxxlllllllxxxxx..xx
-   xxx...xxxxx+xxxxx...xxx
-    xxxxx...........xxxxx
-     xxxxxxxxxDxxxxxxxxx
-ENDMAP
-
 ##############################################################################
 # 29 x 21
 NAME:    matt_arrival_debris
@@ -643,38 +565,6 @@ MAP
   xx.xxxx.xx.xx.xxxx.xx
    xx....xxx.xxx....xx
     xxxxxxxx+xxxxxxxx
-ENDMAP
-
-##############################################################################
-NAME:    sevenhm_arrival_forest_fort_large_1
-TAGS:    arrival no_monster_gen no_pool_fixup no_rotate transparent
-ORIENT:  southeast
-WEIGHT:  3
-SUBST:   z = W., I = IG, r : cccvt., E = wW, ' : @x', ' = @x
-MONS:    rat w:20 / ball python / frilled lizard / bat / nothing w:25
-SHUFFLE: {[(
-SUBST:   ([ = G
-MAP
-xxx'WWWxxxxxxx''xxxxxxxxxxxxxxxxxxx
-xxwwwwWWxxxxxx..xxxxxxxxxxxxxxxtxxx
-wwwwcccccccccc..ccxxxxxxxxxxxxtttxx
-EwwwWc.1..............xxxxxxxtttttx
-EwwWWc...cccc+cc.cc+cccccxxxxcccctx
-EwwwWcc++c.....c.c......cccccc.(ctx
-xxwwwWW..c..1..cIczzz...+....+..ntx
-@+.......cccccccccWWWzz.cccccc..ctx
-.+.............1.cWWWWzzc....c+cctx
-xxwwwwwW.........cccccccc........tx
-WwwwwwwwWWwwwww.................ttx
-wwwwWwwWWwrrrrwWW..............ttxx
-EwwW..wWwrr..rrwwwwWW.........ttxxx
-EwW.1..Wwr.{.................tttxxx
- E....WWwrr..rrwwwwwwwwW.....tttxxx
- ...tttwwwrrrrwwwwwwwWW..[.ttttxxxx
-@.ttttttxxxxxxxxxxx........ttxxxxxx
- xtttttxxxxxxxxxxxxxxxtttttttxxxxxx
- xxxttxxxxxxxxxxxxxxxxxtttttxxxxxxx
-   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
 ##############################################################################
@@ -1106,58 +996,6 @@ MAP
      xxx.........xxx
       xxxxxxGxxxxxx
         xxxxxxxxx
-ENDMAP
-
-##############################################################################
-# 37x22
-NAME:   beargit_arrival_diablo_church
-TAGS:   arrival no_trap_gen no_item_gen no_monster_gen
-ORIENT: float
-MONS:   rat / nothing w:50
-FTILE:  `t = floor_grass, 1'G_> = floor_limestone
-COLOUR: ` = green, 1'G = white
-KPROP:  ` = no_tele_into
-SUBST:  V = VVVT, H = ....H
-: dgn.delayed_decay(_G, 'H', 'human skeleton / elf skeleton')
-MAP
-       ccccccc
-       ctttttc
-       ct```tc
-       ccnnncc
-        c.{.c
-        c...c
-  ccccccc+++ccccccccc
-  cV............+...+
-  cV............ccccc
-  ccc..cc...cc..ccc
-  ccc..cc...cc..ccc
-  ctc...........ctc
-  ctn...........ntc
- cctc...........ctc
- cttc...........ctc
- ct`n...........ntccc
- cttc...........ctc1+
-  ccc..cc...cc..cccHc
-  ctc..cc...cc..ctcHc
-  ctn...........ntcHc
-  ctc...........ctcHc
-  ctc...........ctc.cc
-  ctn...........ntc..c
-  ctc...........ctcc.c
- cccc..cc...cc..ccc..c
-ccccc..cc...cc..ccc+cc
-+...................c
-+...................c
-cccccccc+c+c+cccccccc
-      cG'''''Gc
-      c'''''''c
-      cG''>''Gc
-      cc'''''cc
-       cc'''cc
-        cc'cc
-        ccncc
-        ctttc
-        ccccc
 ENDMAP
 
 NAME:   tekkud_arrival_beachfront_property

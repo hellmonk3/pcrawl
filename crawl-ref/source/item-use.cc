@@ -3867,7 +3867,7 @@ bool read(item_def* scroll, dist *target)
             break;
         }
 
-        cancel_scroll = !acquirement_menu();
+        run_uncancel(UNC_ACQUIREMENT, AQ_SCROLL);
         break;
 
     case SCR_FEAR:

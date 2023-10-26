@@ -92,7 +92,6 @@ static bool _valid_dungeon_level();
 
 static bool _builder_by_type();
 static bool _builder_normal();
-static void _builder_items();
 static void _builder_monsters();
 static coord_def _place_specific_feature(dungeon_feature_type feat);
 static void _place_specific_trap(const coord_def& where, trap_spec* spec,
@@ -2745,9 +2744,6 @@ static void _build_dungeon_level()
 
         _builder_monsters();
 
-        // Place items.
-        _builder_items();
-
         _fixup_walls();
     }
     else
@@ -4171,37 +4167,6 @@ static void _randomly_place_item(int item)
     }
 }
 
-/**
- * Randomly place items on a level. Does not place items in vaults,
- * on monsters, etc. Only normal floor generated items.
- */
-static void _builder_items()
-{
-    int i = 0;
-    object_class_type specif_type = OBJ_RANDOM;
-    int items_levels = env.absdepth0;
-    int items_wanted = _num_items_wanted(items_levels);
-
-    if (player_in_branch(BRANCH_VAULTS))
-    {
-        items_levels *= 15;
-        items_levels /= 10;
-    }
-    else if (player_in_branch(BRANCH_ORC))
-    {
-        specif_type = OBJ_GOLD;  // Lots of gold in the orcish mines.
-        items_levels *= 2;       // Four levels' worth, in fact.
-    }
-
-    for (i = 0; i < items_wanted; i++)
-    {
-        int item = items(true, specif_type, OBJ_RANDOM, items_levels);
-
-        _randomly_place_item(item);
-    }
-
-}
-
 static bool _connect_vault_exit(const coord_def& exit)
 {
     flood_find<feature_grid, coord_predicate> ff(env.grid, in_bounds, true,
@@ -5457,42 +5422,6 @@ static void _vault_grid_glyph(vault_placement &place, const coord_def& where,
     case 'B':
         env.grid(where) = _pick_temple_altar();
         break;
-    }
-
-    // Then, handle grids that place "stuff" {dlb}:
-    if (vgrid == '$' || vgrid == '%' || vgrid == '*' || vgrid == '|')
-    {
-        int item_made = NON_ITEM;
-        object_class_type which_class = OBJ_RANDOM;
-        uint8_t which_type = OBJ_RANDOM;
-        int which_depth = env.absdepth0;
-
-        if (vgrid == '$')
-            which_class = OBJ_GOLD;
-        else if (vgrid == '|')
-        {
-            which_class = _superb_object_class();
-            which_depth = ISPEC_GOOD_ITEM;
-        }
-        else if (vgrid == '*')
-            which_depth = 5 + which_depth * 2;
-
-        item_made = items(true, which_class, which_type, which_depth);
-        if (item_made != NON_ITEM)
-        {
-            env.item[item_made].pos = where;
-            env.level_map_mask(where) |= MMT_NO_TRAP;
-            dprf(DIAG_DNGN, "vault grid: placing %s at %d,%d",
-                env.item[item_made].name(DESC_PLAIN, false, true).c_str(),
-                env.item[item_made].pos.x, env.item[item_made].pos.y);
-        }
-    }
-
-    // defghijk - items
-    if (map_def::valid_item_array_glyph(vgrid))
-    {
-        int slot = map_def::item_array_glyph_to_slot(vgrid);
-        _dgn_place_item_explicit(slot, where, place);
     }
 }
 

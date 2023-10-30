@@ -402,33 +402,6 @@ MAP
        @
 ENDMAP
 
-# Inspired by the end of lightli_geh, sort of.
-# (Low weight because the associated vault is disabled. -- Grunt)
-NAME:   pf_dread_powers_of_hell
-TAGS:   transparent uniq_hell_entry_geh
-WEIGHT: 2
-KMONS:  i = reaper ; wand of flame / balrug ; wand of flame ident:type
-TILE:   c = dngn_stone_wall_red
-COLOUR: c = red
-FTILE:  'iO = floor_infernal_blank
-: hell_entry_feature(_G, 'O')
-: hell_entry_tier(_G, "low")
-MAP
-     ........
-    ..cccccc...
-   ....cci'ccc..
-  ...l..cc'''cc..
- ...lll..cc'''cc..
-...lllll..cc'''cc..
-..lllllll.'''O''c..
-...lllll..cc'''cc..
- ...lll..cc'''cc..
-  ...l..cc'''cc..
-   ....cci'ccc..
-    ..cccccc...
-     ........
-ENDMAP
-
 NAME:    hangedman_coc_ice_floe
 WEIGHT:  7
 TAGS:    transparent no_pool_fixup uniq_hell_entry_coc

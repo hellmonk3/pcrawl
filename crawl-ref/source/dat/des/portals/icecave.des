@@ -174,13 +174,6 @@ ratios 18:6:2:1.
 function ice_cave_undead_demon_monster_set(e, reaper_glyphs)
     simul = simulacrum_monsters()
 
-    local reaper_equip = " ; halberd itemname:scythe tile:wpn_scythe wtile:scythe ego:freezing"
-    -- Make sure this reaper has rC+++ so it doesn't die in freezing vapour.
-    if reaper_glyphs ~= nil then
-        reaper_equip = reaper_equip .. " . robe ego:cold_resistance" ..
-            " . ring of protection from cold | ring of ice"
-    end
-
     if dgn.persist.ice_cave_hard then
         e.kmons("1 = " .. simul["mocking"] .. " / ice devil")
         e.kmons("2 = " .. simul["animal"] .. " / freezing wraith")
@@ -190,7 +183,7 @@ function ice_cave_undead_demon_monster_set(e, reaper_glyphs)
         e.kmons("6 = bog body / white very ugly thing w:2")
         e.kmons("7 = blizzard demon")
         if reaper_glyphs ~= nil then
-            e.kmons(reaper_glyphs .. " = reaper" .. reaper_equip)
+            e.kmons(reaper_glyphs .. " = reaper")
         end
         e.kmons("8 = ice fiend")
 
@@ -217,7 +210,7 @@ function ice_cave_undead_demon_monster_set(e, reaper_glyphs)
         e.kmons("5 = " .. simul["cruel"])
         e.kmons("6 = freezing wraith / white ugly thing w:2")
         e.kmons("7 = bog body")
-        e.kmons(reaper_glyphs .. " = reaper" .. reaper_equip)
+        e.kmons(reaper_glyphs .. " = reaper")
 
         e.set_random_mon_list(
             -- 120 * 6 = 720 total weight for tier 1.
@@ -255,10 +248,7 @@ function ice_cave_natural_monster_set(e)
         e.kmons("3 = orange crystal statue")
         e.kmons("4 = ice dragon")
         e.kmons("5 = ironbound frostheart")
-        e.kmons("6 = white draconian ; " ..
-            dgn.random_item_def({["scimitar"] = 2, ["halberd"] = 2,
-                                 ["broad axe"] = 1, ["morningstar"] = 2},
-                                "freezing", nil, "|") .. " . cloak")
+        e.kmons("6 = white draconian")
         e.kmons("7 = frost giant")
         e.kmons("8 = shard shrike")
 
@@ -842,105 +832,6 @@ xx"x"xxxx""x"xxxxxx".F.F.Fxx      x...A...x
                                     xxxxx
 ENDMAP
 
-# Foes: Icy dragon-themed monsters. End boss is either a dragon, with ice
-# dragon for easy, golden for hard, or white draconian, with ordinary draconian
-# for easy, draconian knight for hard.
-#
-# Loot: A lot of gold, some jewellery, and possible items from the common loot
-# set.
-NAME:    ice_cave_small_dragons
-TAGS:    no_item_gen no_monster_gen no_pool_fixup
-ORIENT:  encompass
-: ice_cave_common_loot(_G)
-KITEM:   j = any jewellery
-# For easy ice caves, there are two ice statues, the boss is white draconian
-# instead of ice dragon half the time, and the higher quality jewellery is
-# good_item. For hard ice cave, there is one orange crystal statue and another
-# tier 2 monster, whenand the high quality jewellery is always randart.
-: if dgn.persist.ice_cave_hard then
-KITEM:   k = any jewellery randart
-MONS:    lindwurm simulacrum / ice dragon simulacrum \
-         / storm dragon simulacrum / golden dragon simulacrum
-MONS:    ice dragon, orange crystal statue, golden dragon
-{{
-kmons("D = white draconian ; " ..
-    dgn.random_item_def({["scimitar"] = 2, ["halberd"] = 2, ["broad axe"] = 1,
-       ["morningstar"] = 2}, "freezing", nil, "|") .. " . cloak")
-kmons("E = white draconian knight ; " ..
-    dgn.monster_weapon("knight", "freezing", "good_item", "|") ..
-    " . cloak good_item")
-set_random_mon_list("lindwurm simulacrum / swamp dragon simulacrum \
-                     / ice dragon simulacrum / golden dragon simulacrum \
-                     / white draconian / ice dragon")
-}}
-# 50% chance for dragons vs draconians.
-NSUBST:  3 = 3 / 2
-SHUFFLE: 24 / DE
-: else
-KITEM:   k = any jewellery good_item
-MONS:    steam dragon simulacrum / acid dragon simulacrum \
-         / komodo dragon simulacrum / lindwurm simulacrum w:5
-MONS:    rime drake, ice statue, ice dragon, white draconian
-{{
-set_random_mon_list("steam dragon simulacrum / acid dragon simulacrum \
-    / komodo dragon simulacrum / lindwurm simulacrum \
-                     / rime drake w:20")
-}}
-# 50% chance for a white draconian boss instead of an ice dragon.
-SUBST:   4 = 45
-: end
-# Two guaranteed jewellery with 4 pieces on average.
-NSUBST:  j = j / *=j$$$, k = k / *=k$$$
-# Make each of d through i have about a 50% chance of placing, and reduce the
-# gold placed to about 22 piles on-average.
-SUBST:   $ = $:440 d e f g h i .:140
-# Randomize the winding tunnels.
-SHUFFLE: 'w / "a
-SUBST:   "a = x
-: ice_cave_appearance(_G)
-MAP
-                         xxxxxxxx
-                      xxxx......xxxx
-                     xx......x....1xxx
-                     x...xx.xxx..12..xxx
-                   xxxxx..xxx$$..24..jkxx
-                  xx...xx.xx$$$$1...jkjjx
-                  xx.x....x$$$$$$$.jkjjxx
-                 xx..xxx.xxxx$$$$$$xxx''x
-              xxxx11xxxxxxxxxxxxxxxxxwx'x
-           xxxx.111xxxxxxxxxxxxxxxxwwwwwxx
-         xxx.....1xxxxxxxxxxxxxxxxwwwwwwxxx
-        xx...xxxxxxxxxxxxxxxxxxxxxxwwwwxxxx
-       xx..xxxxxxxxxxxxxxxxxxxxxxxxx'xxxxxx
-     xxx..xxxxxxxxxxxxxxxxxxxxxxxxx..xxxxx
-   xxx....xxxxxxxxxxx"xxxxxx""""x....xxxxx
-  xx........xxxxxxxx"""x"x"""x"x.'xx.xxxx
- xx...........xxxx"""x""x""xxxx"x''xx""xx
-xx..............x""xxxxx"xxxxxxxxx''xx""xx
-x.......2........xxxxxxxxxxxxxxxxxx''x"x"x
-x.................xxxxxxxxxxxxxxxxxx'xx"xx
-xx....1.1.1.....x'''xxxxxxxxxxxxxx'''x""x
- xx.............xxx''xx''xxxx'''x'x'xx"xx
-  xx..........xxxxxx'''''''x''x''''xx""x
-   xx3x....x3xxxxxxxx'xxxx'''1xxxxx"""xx
-    xxxx..xxxxxxxxxxxxxxxxx$$$xxx""""xx
-      xx..xxxxxxxxxxxxx"""1$2*$xx"x"xx
-     xx..xxxxxxxxxxxxx""x"1$$|$1xx"xx
-     x..xxxx"xxxxxxxxx""xxx1x1x""""x
-     x...x"""""xxxxxxxx"""xxxxxx"xxx
-     xx..."x"x"""xxxxx"x""x    xxx
-      xx.1.xxxxx"""x"xx""xx
-      xx1.1x   xxx""""""xx
-      x...xx     xxxx"xxx
-     xx...xx        xxx
-    xx.....xx
-    x...A...x
-    x.......x
-    xx..<..xx
-     xx...xx
-      xxxxx
-ENDMAP
-
 # Foes: Undead + demons set. For easy ice caves, a necromancer boss, and for
 # hard ice caves, the necromancer is a sub boss with a lich end boss.
 #
@@ -1084,97 +975,6 @@ xx............xxxsssxxxxxxx...xx
   xx---xxxxxxxc...cc*i*cc...c
    xxxxxxxxxxxccccccccccccccc
          xxxxx
-ENDMAP
-
-# This is an ice cave which is also a tomb of a necromancer who likes staying
-# alive and simulacrums, or just a chillout of an ice fiend. By Zaba.
-#
-# Foes: Undead + demon set with necromancer + bog body or demon boss for easy
-# ice caves, or either reapers or fiend for hard ice caves.
-#
-# Loot: Common loot set with a necromancy themed item.
-NAME:    ice_cave_tombish
-TAGS:    no_item_gen no_monster_gen
-ORIENT:  encompass
-: ice_cave_common_loot(_G)
-: ice_cave_necro_loot(_G)
-# Scroll loot under statues.
-KITEM:   3 = any scroll
-: kitem("D8 = " .. dgn.loot_scrolls)
-KITEM:   D = any scroll
-# For easy ice caves, small chance for freezing wraiths in tomb area. For the
-# boss, a 50% chance for either necromancer plus bog body or reaper. For hard
-# ice caves, bog bodies in tomb area. The boss is 50% chance reapers versus one
-# or two ice fiends. For reapers, minimum of two, 33% chance each for up to two
-# more. For ice fiend, minimum of one and 50% chance for another.
-: if dgn.persist.ice_cave_hard then
-: ice_cave_undead_demon_monster_set(_G)
-KMONS:   D7 = reaper ; halberd itemname:scythe tile:wpn_scythe wtile:scythe ego:freezing
-SHUFFLE: D7 / 88
-NSUBST:  7 = 7 / 7.., 8 = 8 / 8. / .
-NSUBST:  4 = 6 / 446, F = 122445
-: else
-: ice_cave_undead_demon_monster_set(_G)
-KMONS:   D = necromancer
-SHUFFLE: D7 / 88
-NSUBST:  7 = 7 / ., 8 = 8 / .
-SUBST:   4 = 4:70 6, F = .12244
-: end
-# Shuffle main loot chamber items, and then the locations of the non-necro loot
-# items to possibly be at other locations and to possibly include magical loot.
-SHUFFLE: fghi, defgh
-SUBST:   d = d*, e = e*, f = f*, g = g*, h = h*
-: ice_cave_appearance(_G)
-MAP
-      xxxxx
-     xx...xx
-    xx.....xx
-    x...A...x
-    x...<...x
-    xx.....xx
-     xx...xx
-      x...xx
-      xx..1x
-      xx..1x
-      x...xx
-   xxxx...xxxx
-  xx3x.....x3xx
- xx...........xx
- x.............x
-xx.............xx
-x.......F.......x
-x....F.....F....x
-x.......U.......x
-x....F.....F....x
-x.......F.......x
-xx.............xx
- x.cnnc...cnnc.x
- xxc44c...c44cxx
-  xcVdcc+cceVcx
-  ccc+c...c+ccc
-  c...c...c...c
-ccc.ccc...ccc.ccc
-c...c5c...c5c...c
-c+ccc+c...c+ccc+c
-c.c5+.......+5c.c
-c.ccc.G...G.ccc.c
-c.c5+.......+5c.c
-c.ccc.G...G.ccc.c
-c.+...........+.c
-c.ccc.G...G.ccc.c
-c.c5+.......+5c.c
-c.ccc.G...G.ccc.c
-c.c5+.......+5c.c
-c+cccccc+cccccc+c
-c...............c
-ccccG.ccccc.Gcccc
-   cc.cfDgc.cc
-    c.c7U7c.c
-    c.ch7ic.c
-    c.cc+cc.c
-    c.......c
-    ccccVcccc
-       ccc
 ENDMAP
 
 ############################################################################

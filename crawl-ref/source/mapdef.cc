@@ -2313,7 +2313,7 @@ bool map_def::map_already_used() const
 
 bool map_def::valid_item_array_glyph(int gly)
 {
-    return gly >= 'd' && gly <= 'k';
+    return false;
 }
 
 int map_def::item_array_glyph_to_slot(int gly)

@@ -404,40 +404,6 @@ MAP
 ENDMAP
 
 ##################################################
-NAME:    st_orc_rangers
-TAGS:    no_rotate no_item_gen no_monster_gen no_pool_fixup transparent
-PLACE:   Orc:$
-ORIENT:  float
-MONS:    orc warrior w:1 ; orcbow . halberd | war axe | morningstar /\
-         orc w:10 ; orcbow . trident | hand axe | mace
-MONS:    orc warrior ; orcbow . glaive | broad axe | battleaxe | great mace
-MONS:    orc knight ; arbalest . glaive | broad axe | great mace
-MONS:    orc warrior
-MONS:    centaur w:20 / centaur warrior w:1 / nothing w:21
-SUBST:   3 = 23
-KFEAT:   S = any shop
-MAP
-  ...............@...............
- .................................
-...cc..cc..cc...ccc...cc..cc..cc...
-..cc..........wwcccww..........cc..
-..c..5.......wwwcccwww.......5..c..
-....5...5..wwwwcccccwwww..5...5....
-..c....5.wwwwccccSccccwwww.5....c..
-..c...5.wwwwcccc4.4ccccwwww.5...c..
-........1221...34S43...1221........
-........1221...34S43...1221........
-..c...5.wwwwcccc4.4ccccwwww.5...c..
-..c....5.wwwwccccSccccwwww.5....c..
-....5...5..wwwwcccccwwww..5...5....
-..c..5.......wwwcccwww.......5..c..
-..cc..........wwcccww..........cc..
-...cc..cc..cc...ccc...cc..cc..cc...
- .................................
-  ...............................
-ENDMAP
-
-##################################################
 NAME:    st_orc_mages
 TAGS:    no_item_gen no_monster_gen transparent
 PLACE:   Orc:$

@@ -661,40 +661,6 @@ MAP
       .....
 ENDMAP
 
-# Combining cantos 12 and 13 of the Inferno: Phlegethon, the river of boiling
-# blood, and the Forest of Suicides. Centaurs wouldn't be much of a threat at
-# this point, so instead those immersed in Phlegethon are shot by ancient
-# champions. Actually, you'll be the one getting shot by ancient champions.
-# I may be taking liberties with the source material. Much of the forest will
-# probably be burnt up by the stokers, which is fine.
-NAME:   nicolae_geh_seventh_circle
-TAGS:   transparent
-DEPTH:  Geh
-ORIENT: centre
-KMONS:  1 = ancient champion ; longbow ego:flaming | arbalest ego:flaming
-KMONS:  2 = stoker
-KMONS:  3 = spectral harpy
-KFEAT:  t = demonic_tree
-KFEAT:  2 = l
-SUBST:  L = l., 1 = 11., 2 = 22l, T = tttt3, 7 = tt_
-CLEAR:  _
-MAP
-    77777777777ttt
-  77ttttttttttttTTT...
- 7tttTTTtTTTtttTT.....
- 7tTTT.TTT.TTtTT..1ll.
- TTT....1...TTT...llL.
- .....Ll2lL...1..l2L..
-...1Llllll2lL..LllL...
-...LllL..Ll2lllllL1...
-..L2l...1..Ll2lL.....
-.Lll...TTT...1....TTT
-.ll1..TTtTT.TTT.TTTt7
-.....TTtttTTTtTTTttt7
-...TTTtttttttttttt77
-    ttt77777777777
-ENDMAP
-
 NAME:   nicolae_geh_split_lavaduct
 TAGS:   transparent
 DEPTH:  Geh

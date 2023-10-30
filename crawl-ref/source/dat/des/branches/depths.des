@@ -22,27 +22,6 @@ function depths_entry(e)
 end
 }}
 
-NAME: grunt_enter_depths_snipers
-TAGS: no_pool_fixup
-MONS: tengu warrior ; longbow / tengu warrior ; arbalest
-KMONS: O = stone giant / frost giant w:4
-SUBST: - = ++c
-: depths_entry(_G)
-MAP
-ccccccccc
-c1+...+1c
-c.c.O.c.c
-c.c...c.c
-c.cc-cc.c
-c.w...w.c
-c.w...w.c
-c.w.w.w.c
-c.c.c.c.c
-cw..c..wc
-cww...wwc
-cccc+cccc
-ENDMAP
-
 # The idea here is to keep the giant on the island until the player is ready to
 # deal with it, and therefore proceed to the Depths.
 NAME: grunt_enter_depths_giant_problem

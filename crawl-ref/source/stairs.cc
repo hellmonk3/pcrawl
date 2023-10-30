@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "ability.h"
+#include "acquire.h"
 #include "abyss.h"
 #include "act-iter.h"
 #include "areas.h"
@@ -1266,6 +1267,7 @@ level_id stair_destination(dungeon_feature_type feat, const string &dst,
 void down_stairs(dungeon_feature_type force_stair, bool force_known_shaft, bool update_travel_cache)
 {
     take_stairs(force_stair, false, force_known_shaft, update_travel_cache);
+    acquirement_menu();
 }
 
 static void _update_level_state()

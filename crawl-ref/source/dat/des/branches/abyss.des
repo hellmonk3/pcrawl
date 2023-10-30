@@ -426,58 +426,6 @@ ENDMAP
 ###############################################################################
 # Non-combined rune vaults (see the combined rune vault header).
 
-NAME:   evilmike_abyss_rune_ettins
-TAGS:   abyss_rune unrand
-MONS:   ettin ; giant spiked club ego:distortion | giant club ego:distortion . \
-                giant spiked club ego:chaos | giant club ego:chaos
-MONS:   ettin skeleton w:6 / flayed ghost / shadow wraith w:4
-MONS:   place:Abyss:$, silent spectre
-KMONS:  O = floating eye
-KITEM:  O = abyssal rune of Zot
-KFEAT:  A = stone_arch
-KFEAT:  " = runelight
-SUBST:  x = xxccn, . = ...W
-NSUBST: 0 = 4:1 / 2:2 / *:3
-FTILE:  AO = floor_crystal_squares
-COLOUR: O = lightmagenta
-MAP
-    """"""""
- ""..xxxAxx..
- "xxxx.xx1xx."
- .x0x.x0xx.xx"
-".xx.xxx.xx.x"
-"xx.xx3x.x0xx"
-"x.xx1O2xx.xx"
-"xx.xx4xx.xxx"
-".xx.xxxxx0xx"
- .x0x.x0x.xx."
- "xxxx.x.xx..
- ""..xxxxx..
-    """""""
-ENDMAP
-
-NAME:   evilmike_abyss_rune_tso_outpost
-TAGS:   abyss_rune unrand no_monster_gen
-MONS:   angel, ophan, cherub, patrolling juggernaut
-MONS:   dancing weapon ; long sword ego:holy_wrath
-KITEM:  O = abyssal rune of Zot
-KFEAT:  A = stone_arch
-KFEAT:  _ = altar_the_shining_one
-KFEAT:  " = runelight
-FTILE:  A45OG = floor_crystal_squares
-COLOUR: 45OG = lightmagenta
-MAP
-.......................
-....."""ccc"5"cccccc...
-.cccccGcc2ccGcc...3cc..
-.+...ccc...ccc....cccc.
-A+.T15+"._."+"....+4Oc.
-.+...ccc...ccc....cccc.
-.cccccGcc2ccGcc...3cc..
-....."""ccc"5"cccccc...
-.......................
-ENDMAP
-
 NAME:    hangedman_abyss_rune_flesh_and_stone
 TAGS:    abyss_rune unrand no_monster_gen no_item_gen no_pool_fixup
 WEIGHT:  5
@@ -719,40 +667,6 @@ X ccccx4.1.2xx X
       X X xx...+'
        X X xx++x@
         X X x''@A
-ENDMAP
-
-NAME:  evilmike_abyss_rune_siren_acolytes
-TAGS:  abyss_rune unrand patrolling no_pool_fixup
-# They really should have bend space instead of blink / other.
-MONS:   wizard hd:16 name:mad_acolyte_of_Lugonu n_rpl n_des col:lightgreen \
-        tile:mons_mad_acolyte_of_lugonu \
-        spells:smiting.20.priest;malign_gateway.20.priest;\
-               blink.10.priest;blink_other.10.priest;\
-               invisibility.10.priest ; \
-        robe good_item . quarterstaff ego:distortion | dagger ego:distortion
-MONS:   generate_awake merfolk avatar, blink frog
-MONS:   tentacled monstrosity / tentacled starspawn / thrashing horror w:6
-KMONS:  O = starcursed mass
-KITEM:  O = abyssal rune of Zot
-KFEAT:  _ = altar_lugonu
-KFEAT:  A = stone_arch
-KFEAT:  "@ = runelight
-SUBST:  X = c', c = ccv, N : nb.
-KPROP:  l = no_cloud_gen
-FTILE:  A1234O+ = floor_crystal_squares
-COLOUR: 1234O = lightmagenta
-MAP
- XbbbXXXXXXXXXX@
-XXb1bbbbbcccccc+
-XXbblblblccwc..c"
-XXbb+......3...c
-Xbb4n.N...llb.cc"
-XbOnn.1_.3l2l3wcA
-Xbb4n.N...llb.cc
-XXbb+......3...c"
-XXbblblblccwc..c
-XXb1bbbbbcccccc+
- XbbbXXXXXXXXXX@
 ENDMAP
 
 NAME:    evilmike_abyss_rune_elephants_shrine

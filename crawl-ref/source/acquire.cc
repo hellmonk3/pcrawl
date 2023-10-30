@@ -1508,7 +1508,7 @@ public:
 
 AcquireMenu::AcquireMenu(CrawlVector &aitems)
     : InvMenu(MF_SINGLESELECT | MF_QUIET_SELECT
-              | MF_ALLOW_FORMATTING | MF_INIT_HOVER),
+              | MF_ALLOW_FORMATTING | MF_INIT_HOVER | MF_UNCANCEL),
       acq_items(aitems)
 {
     menu_action = ACT_EXECUTE;
@@ -1615,7 +1615,7 @@ string AcquireMenu::get_keyhelp(bool) const
         hyphenated_hotkey_letters(item_count(), 'a').c_str(),
         menu_action == ACT_EXECUTE ? "select item for acquirement"
                                    : "examine item");
-    return pad_more_with_esc(help);
+    return pad_more_with(help, "");
 }
 
 bool AcquireMenu::examine_index(int i)

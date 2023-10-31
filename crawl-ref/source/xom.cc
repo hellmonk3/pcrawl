@@ -2628,7 +2628,7 @@ static void _xom_cleaving(int sever)
 
     if (const item_def* const weapon = you.weapon())
     {
-        const bool axe = item_attack_skill(*weapon) == SK_AXES;
+        const bool axe = is_axe(*weapon);
         mprf(MSGCH_DURATION,
              "%s %s sharp%s", weapon->name(DESC_YOUR).c_str(),
              conjugate_verb("look", weapon->quantity > 1).c_str(),

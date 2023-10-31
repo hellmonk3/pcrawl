@@ -10,11 +10,6 @@ aptitudes:
   mp_mod: 0
   mr: 3
   fighting: 2
-  long_blades: 1
-  axes: 3
-  maces_and_flails: 1
-  polearms: 1
-  staves: -1
   ranged weapons: -1
   throwing: -1
   armour: 1
@@ -44,7 +39,3 @@ recommended_jobs:
   - JOB_CINDER_ACOLYTE
   - JOB_REAVER
   - JOB_FIRE_ELEMENTALIST
-recommended_weapons:
-  - SK_MACES_FLAILS
-  - SK_AXES
-  - SK_POLEARMS

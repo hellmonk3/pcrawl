@@ -1261,10 +1261,6 @@ bool monster::pickup_launcher(item_def &launch, bool msg, bool force)
 
 static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
 {
-    // Don't pick up items that would interfere with our special ability
-    if (mons->type == MONS_RED_DEVIL)
-        return item_attack_skill(weapon) == SK_POLEARMS;
-
     // Some other uniques have a signature weapon, usually because they
     // always spawn with it, or because it is referenced in their speech
     // and/or descriptions.
@@ -1315,12 +1311,6 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         if (mons->type == MONS_NIKOLA)
             return get_weapon_brand(weapon) == SPWPN_ELECTROCUTION;
 
-        if (mons->type == MONS_DUVESSA)
-        {
-            return item_attack_skill(weapon) == SK_SHORT_BLADES
-                   || item_attack_skill(weapon) == SK_LONG_BLADES;
-        }
-
         if (mons->type == MONS_IGNACIO)
             return wtype == WPN_EXECUTIONERS_AXE;
 
@@ -1351,13 +1341,6 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         // Jerry: I gotta have my orb!
         if (mons->type == MONS_DONALD || mons->type == MONS_JEREMIAH)
             return mons->hands_reqd(weapon) == HANDS_ONE;
-
-        // What kind of assassin would forget her dagger somewhere else?
-        if (mons->type == MONS_SONJA)
-            return item_attack_skill(weapon) == SK_SHORT_BLADES;
-
-        if (mons->type == MONS_IMPERIAL_MYRMIDON)
-            return item_attack_skill(weapon) == SK_LONG_BLADES;
     }
 
     if (mons->is_holy())
@@ -4013,12 +3996,7 @@ int monster::skill(skill_type sk, int scale, bool /*real*/, bool /*temp*/) const
         return is_actual_spellcaster() ? hd : hd / 3;
 
     // Weapon skills for spectral weapon
-    case SK_SHORT_BLADES:
-    case SK_LONG_BLADES:
-    case SK_AXES:
-    case SK_MACES_FLAILS:
-    case SK_POLEARMS:
-    case SK_STAVES:
+    case SK_MELEE_WEAPONS:
         ret = hd;
         if (weapon()
             && sk == item_attack_skill(*weapon())

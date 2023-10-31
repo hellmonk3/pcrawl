@@ -1901,16 +1901,6 @@ string skill_title_by_rank(skill_type best_skill, uint8_t skill_rank,
             }
             break;
 
-        case SK_POLEARMS:
-            if (species == SP_ARMATAUR && skill_rank == 5)
-                result = "Prickly Pangolin";
-            break;
-
-        case SK_MACES_FLAILS:
-            if (species == SP_METEORAN && skill_rank == 5)
-                result = now_is_morning() ? "Morning Star" : "Evening Star";
-            break;
-
         case SK_UNARMED_COMBAT:
             if (species == SP_FELID)
                 result = claw_and_tooth_titles[skill_rank];
@@ -1922,22 +1912,6 @@ string skill_title_by_rank(skill_type best_skill, uint8_t skill_rank,
             {
                 result = dex_better ? martial_arts_titles[skill_rank]
                                     : skill_titles[best_skill][skill_rank];
-            }
-            break;
-
-        case SK_SHORT_BLADES:
-            if (species::is_elven(species) && skill_rank == 5)
-            {
-                result = "Blademaster";
-                break;
-            }
-            break;
-
-        case SK_LONG_BLADES:
-            if (species == SP_MERFOLK && skill_rank == 5)
-            {
-                result = "Swordfish";
-                break;
             }
             break;
 
@@ -2172,6 +2146,12 @@ bool is_removed_skill(skill_type skill)
     case SK_CHARMS:
     case SK_SLINGS:
     case SK_CROSSBOWS:
+    case SK_SHORT_BLADES:
+    case SK_LONG_BLADES:
+    case SK_MACES_FLAILS:
+    case SK_AXES:
+    case SK_POLEARMS:
+    case SK_STAVES:
         return true;
     default:
         break;
@@ -2338,25 +2318,7 @@ float species_apt_factor(skill_type sk, species_type sp)
 
 vector<skill_type> get_crosstrain_skills(skill_type sk)
 {
-    // Gnolls do not have crosstraining.
-    if (you.has_mutation(MUT_DISTRIBUTED_TRAINING))
-        return {};
-
-    switch (sk)
-    {
-    case SK_SHORT_BLADES:
-        return { SK_LONG_BLADES };
-    case SK_LONG_BLADES:
-        return { SK_SHORT_BLADES };
-    case SK_AXES:
-    case SK_STAVES:
-        return { SK_POLEARMS, SK_MACES_FLAILS };
-    case SK_MACES_FLAILS:
-    case SK_POLEARMS:
-        return { SK_AXES, SK_STAVES };
-    default:
-        return {};
-    }
+    return {};
 }
 
 /**

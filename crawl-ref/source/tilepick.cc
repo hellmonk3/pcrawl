@@ -1989,28 +1989,13 @@ static tileidx_t _tileidx_monster_no_props(const monster_info& mon)
 
             // Tiles exist for each class of weapon.
             const item_def& item = *mon.inv[MSLOT_WEAPON];
-            switch (item_attack_skill(item))
-            {
-            case SK_LONG_BLADES:
-                return TILEP_MONS_SPECTRAL_LBL;
-            case SK_AXES:
+            if (is_axe(item))
                 return TILEP_MONS_SPECTRAL_AXE;
-            case SK_POLEARMS:
+            if (is_polearm(item))
                 return TILEP_MONS_SPECTRAL_SPEAR;
-            case SK_STAVES:
-                return TILEP_MONS_SPECTRAL_STAFF;
-            case SK_MACES_FLAILS:
-                {
-                    const weapon_type wt = (weapon_type)item.sub_type;
-                    return (wt == WPN_WHIP || wt == WPN_FLAIL
-                            || wt == WPN_DIRE_FLAIL || wt == WPN_DEMON_WHIP
-                            || wt == WPN_SACRED_SCOURGE)
-                        ? TILEP_MONS_SPECTRAL_WHIP
-                        : TILEP_MONS_SPECTRAL_MACE;
-                }
-            default:
+            if (is_short_blade(item))
                 return TILEP_MONS_SPECTRAL_SBL;
-            }
+            return TILEP_MONS_SPECTRAL_LBL;           
         }
 
         case MONS_KRAKEN_TENTACLE:
@@ -3348,12 +3333,7 @@ tileidx_t tileidx_skill(skill_type skill, int train)
     switch (skill)
     {
     case SK_FIGHTING:       ch = TILEG_FIGHTING_ON; break;
-    case SK_SHORT_BLADES:   ch = TILEG_SHORT_BLADES_ON; break;
-    case SK_LONG_BLADES:    ch = TILEG_LONG_BLADES_ON; break;
-    case SK_AXES:           ch = TILEG_AXES_ON; break;
-    case SK_MACES_FLAILS:   ch = TILEG_MACES_FLAILS_ON; break;
-    case SK_POLEARMS:       ch = TILEG_POLEARMS_ON; break;
-    case SK_STAVES:         ch = TILEG_STAVES_ON; break;
+    case SK_MELEE_WEAPONS:  ch = TILEG_FIGHTING_ON; break;
     case SK_RANGED_WEAPONS: ch = TILEG_RANGED_WEAPONS_ON; break;
     case SK_THROWING:       ch = TILEG_THROWING_ON; break;
     case SK_ARMOUR:         ch = TILEG_ARMOUR_ON; break;

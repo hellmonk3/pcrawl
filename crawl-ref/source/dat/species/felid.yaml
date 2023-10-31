@@ -10,13 +10,8 @@ aptitudes:
   hp: -4
   mp_mod: 1
   mr: 6
-  short_blades: False
-  long_blades: False
-  axes: False
-  maces_and_flails: False
-  polearms: False
-  staves: False
   ranged weapons: False
+  melee weapons : False
   throwing: False
   armour: False
   dodging: 3

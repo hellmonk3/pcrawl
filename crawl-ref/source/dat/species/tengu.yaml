@@ -10,12 +10,6 @@ aptitudes:
   hp: -2
   mp_mod: 1
   mr: 3
-  short_blades: 1
-  long_blades: 1
-  axes: 1
-  maces_and_flails: 1
-  polearms: 1
-  staves: 1
   ranged weapons: 1
   armour: 1
   dodging: 1
@@ -54,11 +48,5 @@ recommended_jobs:
   - JOB_FIRE_ELEMENTALIST
   - JOB_AIR_ELEMENTALIST
   - JOB_VENOM_MAGE
-recommended_weapons:
-  - SK_MACES_FLAILS
-  - SK_AXES
-  - SK_POLEARMS
-  - SK_LONG_BLADES
-  - SK_STAVES
 
 walking_verb: Glid

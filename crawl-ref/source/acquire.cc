@@ -422,13 +422,6 @@ static bool _regular_staves_useless()
         if (i == WPN_STAFF)
             continue;
 
-        item_considered.sub_type = i;
-        if (item_attack_skill(OBJ_WEAPONS, i) == SK_STAVES
-            && you.hands_reqd(item_considered) != HANDS_TWO)
-        {
-            // found something!
-            return false;
-        }
     }
     return true;
 }
@@ -443,6 +436,8 @@ static bool _regular_staves_useless()
  */
 static skill_type _acquirement_weapon_skill(bool divine, int agent)
 {
+    return SK_RANGED_WEAPONS;
+    /*
     // reservoir sample.
     int count = 0;
     skill_type skill = SK_FIGHTING;
@@ -452,9 +447,6 @@ static skill_type _acquirement_weapon_skill(bool divine, int agent)
     {
         // Don't choose a skill that's useless
         if (is_useless_skill(sk))
-            continue;
-
-        if (sk == SK_STAVES && _regular_staves_useless())
             continue;
 
         // Adding a small constant allows for the occasional
@@ -469,7 +461,7 @@ static skill_type _acquirement_weapon_skill(bool divine, int agent)
             skill = sk;
     }
 
-    return skill;
+    return skill;*/
 }
 
 static int _acquirement_weapon_subtype(bool divine, int & /*quantity*/, int agent)
@@ -477,13 +469,13 @@ static int _acquirement_weapon_subtype(bool divine, int & /*quantity*/, int agen
     const skill_type skill = _acquirement_weapon_skill(divine, agent);
 
     int best_sk = 0;
-    for (int i = SK_FIRST_WEAPON;
+    /*for (int i = SK_FIRST_WEAPON;
          i <= (agent == GOD_TROG ? SK_LAST_MELEE_WEAPON : SK_LAST_WEAPON);
          i++)
     {
         best_sk = max(best_sk, _skill_rdiv((skill_type)i));
-    }
-    best_sk = max(best_sk, _skill_rdiv(SK_UNARMED_COMBAT));
+    }*/
+    best_sk = max(_skill_rdiv(SK_RANGED_WEAPONS), _skill_rdiv(SK_UNARMED_COMBAT));
 
     // Now choose a subtype which uses that skill.
     int result = OBJ_RANDOM;

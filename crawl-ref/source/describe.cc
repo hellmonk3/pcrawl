@@ -1680,27 +1680,17 @@ static string _category_string(const item_def &item)
         make_stringf(" '%s' category. ",
                      skill == SK_FIGHTING ? "buggy" : skill_name(skill));
 
-    switch (item_attack_skill(item))
-    {
-    case SK_POLEARMS:
+    if (is_polearm(item))
         description += "It has an extended reach (target with [<white>v</white>]). ";
-        break;
-    case SK_AXES:
-        description += "It hits all enemies adjacent to the wielder";
-        if (!is_unrandom_artefact(item, UNRAND_WOE))
-            description += ", dealing less damage to those not targeted";
-        description += ". ";
-        break;
-    case SK_SHORT_BLADES:
-        {
+
+    if (is_axe(item))
+        description += "It hits all enemies adjacent to the wielder, dealing less damage to those not targeted";
+
+    if (is_short_blade(item))
+    {
             description += make_stringf(
                 "It is%s good for stabbing helpless or unaware enemies. ",
                 (item.sub_type == WPN_DAGGER) ? " extremely" : "");
-
-        }
-        break;
-    default:
-        break;
     }
 
     return description;

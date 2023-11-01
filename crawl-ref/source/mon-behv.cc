@@ -1445,7 +1445,7 @@ bool monster_can_hit_monster(monster* mons, const monster* targ)
         return false;
 
     const item_def *weapon = mons->weapon();
-    return weapon && item_attack_skill(*weapon) == SK_POLEARMS;
+    return weapon && is_polearm(*weapon);
 }
 
 static bool _mons_attacks_outside_los(const monster &mon)

@@ -2476,8 +2476,8 @@ void melee_attack::player_stab_check()
  */
 bool melee_attack::player_good_stab()
 {
-    return wpn_skill == SK_SHORT_BLADES
-           || you.get_mutation_level(MUT_PAWS)
+    return you.get_mutation_level(MUT_PAWS)
+           || (weapon && is_short_blade(*weapon))
            || player_equip_unrand(UNRAND_HOOD_ASSASSIN)
               && (!weapon || is_melee_weapon(*weapon));
 }

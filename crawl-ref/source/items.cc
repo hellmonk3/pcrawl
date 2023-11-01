@@ -3412,6 +3412,15 @@ colour_t item_def::weapon_colour() const
     if (is_demonic(*this))
         return LIGHTRED;
 
+    if (is_short_blade(*this))
+        return CYAN;
+
+    if (is_axe(*this))
+        return MAGENTA;
+
+    if (is_polearm(*this))
+        return RED;
+
     switch (item_attack_skill(*this))
     {
         case SK_RANGED_WEAPONS:

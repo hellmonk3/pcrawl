@@ -830,8 +830,7 @@ bool attack_cleaves(const actor &attacker, int which_attack)
 
 bool weapon_cleaves(const item_def &weap)
 {
-    return item_attack_skill(weap) == SK_AXES
-           || is_unrandom_artefact(weap, UNRAND_LOCHABER_AXE);
+    return is_axe(weap) || is_unrandom_artefact(weap, UNRAND_LOCHABER_AXE);
 }
 
 int weapon_hits_per_swing(const item_def &weap)

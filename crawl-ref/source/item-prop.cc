@@ -2274,11 +2274,8 @@ reach_type weapon_reach(const item_def &item)
 {
     if (is_unrandom_artefact(item, UNRAND_RIFT))
         return REACH_THREE;
-    if (item_attack_skill(item) == SK_POLEARMS
-        || is_unrandom_artefact(item, UNRAND_LOCHABER_AXE))
-    {
+    if (is_polearm(item) || is_unrandom_artefact(item, UNRAND_LOCHABER_AXE))
         return REACH_TWO;
-    }
     return REACH_NONE;
 }
 

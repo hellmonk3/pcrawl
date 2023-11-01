@@ -2110,6 +2110,57 @@ bool is_crossbow(const item_def &item)
     }
 }
 
+bool is_axe(const item_def &item)
+{
+    if (!is_weapon(item))
+        return false;
+    switch (item.sub_type)
+    {
+    case WPN_HAND_AXE:
+    case WPN_WAR_AXE:
+    case WPN_BROAD_AXE:
+    case WPN_BATTLEAXE:
+    case WPN_EXECUTIONERS_AXE:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool is_polearm(const item_def &item)
+{
+    if (!is_weapon(item))
+        return false;
+    switch (item.sub_type)
+    {
+    case WPN_SPEAR:
+    case WPN_TRIDENT:
+    case WPN_DEMON_TRIDENT:
+    case WPN_GLAIVE:
+    case WPN_BARDICHE:
+    case WPN_HALBERD:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool is_short_blade(const item_def &item)
+{
+    if (!is_weapon(item))
+        return false;
+    switch (item.sub_type)
+    {
+    case WPN_DAGGER:
+    case WPN_SHORT_SWORD:
+    case WPN_RAPIER:
+    case WPN_QUICK_BLADE:
+        return true;
+    default:
+        return false;
+    }
+}
+
 bool is_slowed_by_armour(const item_def *item)
 {
     return item && is_range_weapon(*item);

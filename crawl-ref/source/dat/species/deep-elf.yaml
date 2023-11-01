@@ -12,10 +12,6 @@ aptitudes:
   mp_mod: 2
   mr: 4
   fighting: -2
-  long_blades: -1
-  axes: -2
-  maces_and_flails: -3
-  polearms: -3
   ranged weapons: 3
   armour: -2
   dodging: 2
@@ -52,6 +48,3 @@ recommended_jobs:
   - JOB_AIR_ELEMENTALIST
   - JOB_EARTH_ELEMENTALIST
   - JOB_VENOM_MAGE
-recommended_weapons:
-  - SK_SHORT_BLADES
-  - SK_STAVES

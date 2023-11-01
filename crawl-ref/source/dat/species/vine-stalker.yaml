@@ -10,12 +10,6 @@ aptitudes:
   mp_mod: 1
   mr: 5
   fighting: -1
-  short_blades: -1
-  long_blades: -1
-  axes: -1
-  maces_and_flails: -1
-  polearms: -1
-  staves: -1
   ranged weapons: -1
   throwing: -1
   armour: -2
@@ -48,11 +42,5 @@ recommended_jobs:
   - JOB_CONJURER
   - JOB_NECROMANCER
   - JOB_ICE_ELEMENTALIST
-recommended_weapons:
-  - SK_MACES_FLAILS
-  - SK_AXES
-  - SK_POLEARMS
-  - SK_LONG_BLADES
-  - SK_STAVES
 
 walking_verb: Stalk

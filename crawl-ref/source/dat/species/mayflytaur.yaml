@@ -10,12 +10,6 @@ aptitudes:
   mp_mod: 1
   mr: 5
   fighting: 1
-  short_blades: 3
-  long_blades: 3
-  maces_and_flails: 3
-  axes: 1
-  polearms: 3
-  staves: 3
   ranged weapons: 2
   throwing: 2
   armour: 1
@@ -63,8 +57,3 @@ mutations:
 fake_mutations:
   - long: You are resistant to damage.
     short: damage resistance
-recommended_weapons:
-  - SK_MACES_FLAILS
-  - SK_POLEARMS
-  - SK_STAVES
-  - SK_LONG_BLADES

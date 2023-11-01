@@ -11,12 +11,6 @@ aptitudes:
   hp: 1
   mp_mod: 0
   mr: 3
-  short_blades: -1
-  long_blades: -1
-  axes: -1
-  maces_and_flails: -1
-  polearms: -1
-  staves: -1
   ranged weapons: 3
   throwing: 1
   armour: -3

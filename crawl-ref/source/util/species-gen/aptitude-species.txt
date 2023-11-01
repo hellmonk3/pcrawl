@@ -1,6 +1,6 @@
 {tag_major_version_opener}
     {{{enum}, SK_FIGHTING,       {fighting}}},
-    {{{enum}, SK_SHORT_BLADES,   {short_blades}}},
+    {{{enum}, SK_MELEE_WEAPONS,  {melee weapons}}},
     {{{enum}, SK_LONG_BLADES,    {long_blades}}},
     {{{enum}, SK_AXES,           {axes}}},
     {{{enum}, SK_MACES_FLAILS,   {maces_and_flails}}},

@@ -69,7 +69,6 @@ class Species(MutableMapping):
             return
         if not weapons:
             weapons = list(ALL_WEAPON_SKILLS)
-            weapons.remove('SK_SHORT_BLADES')
             weapons.remove('SK_UNARMED_COMBAT')
         self.backing_dict['recommended_weapons'] = ', '.join(
                         validate_string(weap, 'Weapon Skill', 'SK_[A-Z_]+')
@@ -174,7 +173,7 @@ SPECIES_GROUP_TEMPLATE = """
         {{ {species} }}
     }},
 """
-ALL_APTITUDES = ('fighting', 'short_blades', 'long_blades', 'axes',
+ALL_APTITUDES = ('fighting', 'melee weapons', 'long_blades', 'axes',
     'maces_and_flails', 'polearms', 'staves', 'ranged weapons',
     'throwing', 'armour', 'dodging', 'stealth', 'shields', 'unarmed_combat',
     'spellcasting', 'conjurations', 'hexes', 'summoning',
@@ -185,7 +184,7 @@ UNDEAD_TYPES = ('US_ALIVE', 'US_UNDEAD', 'US_SEMI_UNDEAD')
 SIZES = ('SIZE_TINY', 'SIZE_LITTLE', 'SIZE_SMALL', 'SIZE_MEDIUM', 'SIZE_LARGE',
     'SIZE_GIANT')
 ALL_STATS = ('str', 'int', 'dex')
-ALL_WEAPON_SKILLS = ('SK_SHORT_BLADES', 'SK_LONG_BLADES', 'SK_AXES',
+ALL_WEAPON_SKILLS = ('SK_MELEE_WEAPONS', 'SK_LONG_BLADES', 'SK_AXES',
     'SK_MACES_FLAILS', 'SK_POLEARMS', 'SK_STAVES', 'SK_RANGED_WEAPONS', 'SK_UNARMED_COMBAT')
 
 ALL_SPECIES_FLAGS = {'SPF_NO_HAIR', 'SPF_DRACONIAN', 'SPF_SMALL_TORSO',

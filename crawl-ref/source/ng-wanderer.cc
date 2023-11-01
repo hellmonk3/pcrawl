@@ -49,7 +49,7 @@ static void _give_wanderer_weapon(skill_type wpn_skill, bool good_item)
     // Now fill in the type according to the random wpn_skill.
     switch (wpn_skill)
     {
-    case SK_SHORT_BLADES:
+    case SK_MELEE_WEAPONS:
         sub_type = WPN_SHORT_SWORD;
         break;
 
@@ -117,7 +117,7 @@ static void _assign_wanderer_stats(skill_type sk1, skill_type sk2,
                 str_count++;
                 break;
 
-            case SK_SHORT_BLADES:
+            case SK_MELEE_WEAPONS:
             case SK_LONG_BLADES:
             case SK_RANGED_WEAPONS:
             case SK_STAVES:
@@ -199,7 +199,7 @@ static skill_type _wanderer_role_skill_select(bool defense)
     skill_type skill = NUM_SKILLS;
     const skill_type offense_skills[] =
         { SK_AXES, SK_MACES_FLAILS, SK_RANGED_WEAPONS, SK_POLEARMS,
-          SK_SHORT_BLADES, SK_LONG_BLADES, SK_STAVES, SK_UNARMED_COMBAT,
+          SK_MELEE_WEAPONS, SK_LONG_BLADES, SK_STAVES, SK_UNARMED_COMBAT,
           SK_SUMMONINGS, SK_NECROMANCY, SK_TRANSLOCATIONS,
           SK_TRANSMUTATIONS, SK_POISON_MAGIC, SK_CONJURATIONS,
           SK_HEXES, SK_FIRE_MAGIC, SK_ICE_MAGIC, SK_SPELLCASTING,
@@ -209,7 +209,7 @@ static skill_type _wanderer_role_skill_select(bool defense)
 
     const skill_type physical_skills[] =
         { SK_AXES, SK_MACES_FLAILS, SK_RANGED_WEAPONS, SK_POLEARMS,
-          SK_SHORT_BLADES, SK_LONG_BLADES, SK_STAVES, SK_UNARMED_COMBAT,
+          SK_MELEE_WEAPONS, SK_LONG_BLADES, SK_STAVES, SK_UNARMED_COMBAT,
           SK_FIGHTING };
 
     int physical_size = ARRAYSZ(physical_skills);
@@ -565,7 +565,7 @@ static vector<spell_type> _wanderer_good_equipment(skill_type & skill)
 {
     const skill_type combined_weapon_skills[] =
         { SK_AXES, SK_MACES_FLAILS, SK_RANGED_WEAPONS, SK_POLEARMS,
-          SK_SHORT_BLADES, SK_LONG_BLADES, SK_STAVES, SK_UNARMED_COMBAT };
+          SK_MELEE_WEAPONS, SK_LONG_BLADES, SK_STAVES, SK_UNARMED_COMBAT };
 
     int total_weapons = ARRAYSZ(combined_weapon_skills);
 
@@ -579,7 +579,7 @@ static vector<spell_type> _wanderer_good_equipment(skill_type & skill)
     case SK_AXES:
     case SK_POLEARMS:
     case SK_THROWING:
-    case SK_SHORT_BLADES:
+    case SK_MELEE_WEAPONS:
     case SK_LONG_BLADES:
     case SK_RANGED_WEAPONS:
     case SK_STAVES:
@@ -713,7 +713,7 @@ static vector<spell_type> _wanderer_decent_equipment(skill_type & skill,
     case SK_RANGED_WEAPONS:
     case SK_THROWING:
     case SK_STAVES:
-    case SK_SHORT_BLADES:
+    case SK_MELEE_WEAPONS:
     case SK_LONG_BLADES:
         _give_wanderer_weapon(skill, false);
         break;

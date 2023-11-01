@@ -1925,14 +1925,6 @@ string skill_title_by_rank(skill_type best_skill, uint8_t skill_rank,
             }
             break;
 
-        case SK_SHORT_BLADES:
-            if (species::is_elven(species) && skill_rank == 5)
-            {
-                result = "Blademaster";
-                break;
-            }
-            break;
-
         case SK_LONG_BLADES:
             if (species == SP_MERFOLK && skill_rank == 5)
             {
@@ -2338,25 +2330,7 @@ float species_apt_factor(skill_type sk, species_type sp)
 
 vector<skill_type> get_crosstrain_skills(skill_type sk)
 {
-    // Gnolls do not have crosstraining.
-    if (you.has_mutation(MUT_DISTRIBUTED_TRAINING))
-        return {};
-
-    switch (sk)
-    {
-    case SK_SHORT_BLADES:
-        return { SK_LONG_BLADES };
-    case SK_LONG_BLADES:
-        return { SK_SHORT_BLADES };
-    case SK_AXES:
-    case SK_STAVES:
-        return { SK_POLEARMS, SK_MACES_FLAILS };
-    case SK_MACES_FLAILS:
-    case SK_POLEARMS:
-        return { SK_AXES, SK_STAVES };
-    default:
-        return {};
-    }
+    return {};
 }
 
 /**

@@ -3427,7 +3427,7 @@ colour_t item_def::weapon_colour() const
             return BLUE;
         case SK_THROWING:
             return WHITE;
-        case SK_SHORT_BLADES:
+        case SK_MELEE_WEAPONS:
             return CYAN;
         case SK_LONG_BLADES:
             return LIGHTCYAN;

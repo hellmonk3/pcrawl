@@ -1315,12 +1315,6 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         if (mons->type == MONS_NIKOLA)
             return get_weapon_brand(weapon) == SPWPN_ELECTROCUTION;
 
-        if (mons->type == MONS_DUVESSA)
-        {
-            return item_attack_skill(weapon) == SK_SHORT_BLADES
-                   || item_attack_skill(weapon) == SK_LONG_BLADES;
-        }
-
         if (mons->type == MONS_IGNACIO)
             return wtype == WPN_EXECUTIONERS_AXE;
 
@@ -1351,10 +1345,6 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         // Jerry: I gotta have my orb!
         if (mons->type == MONS_DONALD || mons->type == MONS_JEREMIAH)
             return mons->hands_reqd(weapon) == HANDS_ONE;
-
-        // What kind of assassin would forget her dagger somewhere else?
-        if (mons->type == MONS_SONJA)
-            return item_attack_skill(weapon) == SK_SHORT_BLADES;
 
         if (mons->type == MONS_IMPERIAL_MYRMIDON)
             return item_attack_skill(weapon) == SK_LONG_BLADES;
@@ -4013,7 +4003,7 @@ int monster::skill(skill_type sk, int scale, bool /*real*/, bool /*temp*/) const
         return is_actual_spellcaster() ? hd : hd / 3;
 
     // Weapon skills for spectral weapon
-    case SK_SHORT_BLADES:
+    case SK_MELEE_WEAPONS:
     case SK_LONG_BLADES:
     case SK_AXES:
     case SK_MACES_FLAILS:

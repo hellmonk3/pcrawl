@@ -954,10 +954,6 @@ int weapon_min_delay(const item_def &weapon, bool check_speed)
 
     int min_delay = base/2;
 
-    // Short blades can get up to at least unarmed speed.
-    if (item_attack_skill(weapon) == SK_SHORT_BLADES && min_delay > 5)
-        min_delay = 5;
-
     // All weapons have min delay 7 or better
     if (min_delay > 7)
         min_delay = 7;
@@ -1291,17 +1287,7 @@ int archer_bonus_damage(int hd)
  */
 bool weapon_uses_strength(skill_type wpn_skill, bool using_weapon)
 {
-    if (!using_weapon)
-        return true;
-    switch (wpn_skill)
-    {
-    case SK_LONG_BLADES:
-    case SK_SHORT_BLADES:
-    case SK_RANGED_WEAPONS:
-        return false;
-    default:
-        return true;
-    }
+    return true;
 }
 
 /**

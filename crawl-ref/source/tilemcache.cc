@@ -1445,7 +1445,7 @@ mcache_ghost::mcache_ghost(const monster_info& mon)
             m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_CLUB_SLANT;
         break;
 
-    case SK_SHORT_BLADES:
+    case SK_MELEE_WEAPONS:
         if (dam > 20)
             m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_RAPIER;
         else if (dam > 10)

@@ -542,7 +542,7 @@ static const weapon_def Weapon_prop[] =
 
     // Short Blades
     { WPN_DAGGER,            "dagger",              4,  6, 10,
-        SK_SHORT_BLADES, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
+        SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 10, 10, 20, {
             { SPWPN_VENOM,          28 },
             { SPWPN_NORMAL,         20 },
@@ -559,7 +559,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_ANTIMAGIC,       1 },
         }},
     { WPN_QUICK_BLADE,       "quick blade",         4,  6, 12,
-        SK_SHORT_BLADES, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
+        SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 0, 2, 150, {
             { SPWPN_NORMAL,         43 },
             { SPWPN_VENOM,          17 },
@@ -574,14 +574,14 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_ANTIMAGIC,       1 },
         }},
     { WPN_SHORT_SWORD,       "short sword",         5,  4, 10,
-        SK_SHORT_BLADES, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
+        SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 8, 10, 30, SBL_BRANDS },
     { WPN_RAPIER,           "rapier",               7,  4, 12,
-        SK_SHORT_BLADES, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
+        SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 8, 10, 40, SBL_BRANDS },
 #if TAG_MAJOR_VERSION == 34
     { WPN_CUTLASS,          "cutlass",              8,  4, 12,
-        SK_SHORT_BLADES, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
+        SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLICING | DAM_PIERCE, 0, 0, 0, {}},
 #endif
 

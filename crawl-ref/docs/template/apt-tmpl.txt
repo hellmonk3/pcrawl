@@ -43,7 +43,7 @@ Shp - Shapeshifting          Pla - Polearms              Nec - Necromancy
                              Stv - Staves                Trl - Translocations
 Inv - Invocations            UC  - Unarmed Combat        Trm - Transmutations
 Evo - Evocations
-Thr - Throwing               SBl - Short Blades          Fir - Fire Magic
+Thr - Throwing               Mel - Melee Weapons         Fir - Fire Magic
                              LBl - Long Blades           Ice - Ice Magic
 HP  - hit points             Rng - Ranged Weapons        Air - Air Magic
 MP  - magic points                                       Ear - Earth Magic
@@ -55,7 +55,7 @@ WL  - willpower
 ----------------------------------------------------------------------
 
 
-                 Fgt     M&F Axs Pla Stv UC    SBl LBl Rng
+                 Fgt     M&F Axs Pla Stv UC    Mel LBl Rng
 ----------------------------------------------------------------------
 
 

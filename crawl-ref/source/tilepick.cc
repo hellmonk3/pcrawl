@@ -3337,7 +3337,7 @@ tileidx_t tileidx_skill(skill_type skill, int train)
     switch (skill)
     {
     case SK_FIGHTING:       ch = TILEG_FIGHTING_ON; break;
-    case SK_SHORT_BLADES:   ch = TILEG_SHORT_BLADES_ON; break;
+    case SK_MELEE_WEAPONS:  ch = TILEG_FIGHTING_ON; break;
     case SK_LONG_BLADES:    ch = TILEG_LONG_BLADES_ON; break;
     case SK_AXES:           ch = TILEG_AXES_ON; break;
     case SK_MACES_FLAILS:   ch = TILEG_MACES_FLAILS_ON; break;

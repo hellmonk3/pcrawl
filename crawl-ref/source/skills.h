@@ -154,7 +154,7 @@ static const skill_type skill_display_order[] =
     SK_BLANK_LINE,
 
     // Dex skills.
-    SK_SHORT_BLADES, SK_LONG_BLADES, SK_RANGED_WEAPONS,
+    SK_MELEE_WEAPONS, SK_LONG_BLADES, SK_RANGED_WEAPONS,
 
     SK_BLANK_LINE,
 

@@ -775,7 +775,7 @@ void hints_gained_new_skill(skill_type skill)
         break;
 
     // Melee skills.
-    case SK_SHORT_BLADES:
+    case SK_MELEE_WEAPONS:
     case SK_LONG_BLADES:
     case SK_AXES:
     case SK_MACES_FLAILS:
@@ -2117,7 +2117,7 @@ string hints_describe_item(const item_def &item)
                 if (is_range_weapon(item))
                     best_wpskill = SK_THROWING;
                 else
-                    best_wpskill = best_skill(SK_SHORT_BLADES, SK_STAVES);
+                    best_wpskill = best_skill(SK_MELEE_WEAPONS, SK_STAVES);
 
                 // Maybe unarmed is better.
                 if (you.skills[SK_UNARMED_COMBAT] > you.skills[best_wpskill])

@@ -2002,7 +2002,7 @@ static map<curse_type, curse_data> _ashenzari_curses =
 {
     { CURSE_MELEE, {
         "Melee Combat", "Melee",
-        { SK_SHORT_BLADES, SK_LONG_BLADES, SK_AXES, SK_MACES_FLAILS,
+        { SK_MELEE_WEAPONS, SK_LONG_BLADES, SK_AXES, SK_MACES_FLAILS,
             SK_POLEARMS, SK_STAVES, SK_UNARMED_COMBAT },
     } },
     { CURSE_RANGED, {

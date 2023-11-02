@@ -7,7 +7,7 @@ also increases your maximum health.
 Melee Weapons
 
 Melee weapons deal damage in melee range. Some types of melee weapons, such as
-axes and polearms, have additional special properties. Being skilled with melee 
+axes and polearms, have additional special properties. Being skilled with melee
 weapons will increase your damage with all weapons of this type.
 %%%%
 Long Blades

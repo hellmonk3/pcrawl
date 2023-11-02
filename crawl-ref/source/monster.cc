@@ -1261,10 +1261,6 @@ bool monster::pickup_launcher(item_def &launch, bool msg, bool force)
 
 static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
 {
-    // Don't pick up items that would interfere with our special ability
-    if (mons->type == MONS_RED_DEVIL)
-        return item_attack_skill(weapon) == SK_POLEARMS;
-
     // Some other uniques have a signature weapon, usually because they
     // always spawn with it, or because it is referenced in their speech
     // and/or descriptions.
@@ -1345,9 +1341,6 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         // Jerry: I gotta have my orb!
         if (mons->type == MONS_DONALD || mons->type == MONS_JEREMIAH)
             return mons->hands_reqd(weapon) == HANDS_ONE;
-
-        if (mons->type == MONS_IMPERIAL_MYRMIDON)
-            return item_attack_skill(weapon) == SK_LONG_BLADES;
     }
 
     if (mons->is_holy())
@@ -4004,11 +3997,6 @@ int monster::skill(skill_type sk, int scale, bool /*real*/, bool /*temp*/) const
 
     // Weapon skills for spectral weapon
     case SK_MELEE_WEAPONS:
-    case SK_LONG_BLADES:
-    case SK_AXES:
-    case SK_MACES_FLAILS:
-    case SK_POLEARMS:
-    case SK_STAVES:
         ret = hd;
         if (weapon()
             && sk == item_attack_skill(*weapon())

@@ -95,7 +95,7 @@ static void _assign_wanderer_stats(skill_type sk1, skill_type sk2,
             case SK_ARMOUR:
                 str_count++;
                 break;
-       
+
             case SK_RANGED_WEAPONS:
             case SK_DODGING:
             case SK_SHIELDS:

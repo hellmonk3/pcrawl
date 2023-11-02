@@ -99,8 +99,6 @@ char_choice_restriction weapon_restriction(weapon_type wpn,
     }
 
     if (species::recommends_weapon(ng.species, wpn)
-        // Don't recommend short blades for fighters - stabbing and heavy
-        // armour + no stab enablers aren't an amazing combo.
         && (ng.job != JOB_FIGHTER
             || wpn == WPN_UNARMED
             || item_attack_skill(OBJ_WEAPONS, wpn) != SK_MELEE_WEAPONS))

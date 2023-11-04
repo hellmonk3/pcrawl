@@ -1995,7 +1995,7 @@ skill_type staff_skill(stave_type s)
     case STAFF_FIRE:
         return SK_FIRE_MAGIC;
     case STAFF_POISON:
-        return SK_POISON_MAGIC;
+        return SK_NONE;
     case STAFF_DEATH:
         return SK_NECROMANCY;
     case STAFF_CONJURATION:

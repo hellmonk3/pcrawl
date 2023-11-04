@@ -28,7 +28,6 @@ aptitudes:
   ice_magic: -3
   air_magic: -3
   earth_magic: -2
-  poison_magic: -3
   evocations: -1
 str: 12
 int: 5

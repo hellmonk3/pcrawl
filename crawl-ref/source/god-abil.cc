@@ -2014,7 +2014,7 @@ static map<curse_type, curse_data> _ashenzari_curses =
     } },
     { CURSE_ALCHEMY, {
         "Alchemy", "Alch",
-        { SK_POISON_MAGIC, SK_TRANSMUTATIONS },
+        { SK_TRANSMUTATIONS },
     } },
     { CURSE_COMPANIONS, {
         "Companions", "Comp",

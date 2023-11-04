@@ -19,7 +19,6 @@
     {{{enum}, SK_ICE_MAGIC,      {ice_magic}}},
     {{{enum}, SK_AIR_MAGIC,      {air_magic}}},
     {{{enum}, SK_EARTH_MAGIC,    {earth_magic}}},
-    {{{enum}, SK_POISON_MAGIC,   {poison_magic}}},
     {{{enum}, SK_INVOCATIONS,    {invocations}}},
     {{{enum}, SK_EVOCATIONS,     {evocations}}},
     {{{enum}, SK_SHAPESHIFTING,  {shapeshifting}}},
@@ -34,5 +33,6 @@
     {{{enum}, SK_MACES_FLAILS,   UNUSABLE_SKILL}},
     {{{enum}, SK_POLEARMS,       UNUSABLE_SKILL}},
     {{{enum}, SK_STAVES,         UNUSABLE_SKILL}},
+    {{{enum}, SK_POISON_MAGIC,   UNUSABLE_SKILL}},
 #endif
 {tag_major_version_closer}

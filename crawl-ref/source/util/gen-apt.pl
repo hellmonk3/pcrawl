@@ -251,6 +251,7 @@ sub load_aptitudes
                 next if $skill eq "Maces Flails";
                 next if $skill eq "Staves";
                 next if $skill eq "Axes";
+                next if $skill eq "Poison Magic";
                 die "$skillfile:$.: Unknown skill: $skill\n"
                     unless $SKILL_ABBR{$skill};
                 die "$skillfile:$.: Repeated skill def $1 for $species.\n"

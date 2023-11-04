@@ -177,7 +177,7 @@ ALL_APTITUDES = ('fighting', 'melee weapons', 'ranged weapons',
     'throwing', 'armour', 'dodging', 'stealth', 'shields', 'unarmed_combat',
     'spellcasting', 'conjurations', 'hexes', 'summoning',
     'necromancy', 'transmutations', 'translocations', 'fire_magic',
-    'ice_magic', 'air_magic', 'earth_magic', 'poison_magic', 'invocations',
+    'ice_magic', 'air_magic', 'earth_magic', 'invocations',
     'evocations', 'shapeshifting')
 UNDEAD_TYPES = ('US_ALIVE', 'US_UNDEAD', 'US_SEMI_UNDEAD')
 SIZES = ('SIZE_TINY', 'SIZE_LITTLE', 'SIZE_SMALL', 'SIZE_MEDIUM', 'SIZE_LARGE',

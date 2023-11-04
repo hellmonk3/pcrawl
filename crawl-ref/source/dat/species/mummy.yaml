@@ -26,7 +26,6 @@ aptitudes:
   ice_magic: -2
   air_magic: -2
   earth_magic: -2
-  poison_magic: -2
   invocations: -1
   evocations: -2
 undead_type: US_UNDEAD

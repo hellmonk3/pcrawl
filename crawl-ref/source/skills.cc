@@ -111,8 +111,9 @@ static const char *skill_titles[NUM_SKILLS][7] =
     {"Ice Magic",      "Chiller",       "Frost Mage",      "Gelid",           "Cryomancer",     "Englaciator",  "Ice"},
     {"Air Magic",      "Gusty",         "Zephyrmancer",    "Stormcaller",     "Cloud Mage",     "Meteorologist", "Air"},
     {"Earth Magic",    "Digger",        "Geomancer",       "Earth Mage",      "Metallomancer",  "Petrodigitator", "Erth"},
+#if TAG_MAJOR_VERSION == 34
     {"Poison Magic",   "Stinger",       "Tainter",         "Polluter",        "Contaminator",   "Envenomancer", "Pois"},
-
+#endif
     // These titles apply to atheists only, worshippers of the various gods
     // use the god titles instead, depending on piety or, in Gozag's case, gold.
     // or, in U's case, invocations skill.
@@ -1995,11 +1996,6 @@ string skill_title_by_rank(skill_type best_skill, uint8_t skill_rank,
                 result = "Meteorite"; // meteorologist / star, ha
             break;
 
-        case SK_POISON_MAGIC:
-            if (species::is_draconian(species) && skill_rank == 5)
-                result = "Swamp Dragon";
-            break;
-
         case SK_HEXES:
             if (species::is_draconian(species) && skill_rank == 5)
                 result = "Faerie Dragon";
@@ -2151,6 +2147,7 @@ bool is_removed_skill(skill_type skill)
     case SK_AXES:
     case SK_POLEARMS:
     case SK_STAVES:
+    case SK_POISON_MAGIC:
         return true;
     default:
         break;
@@ -2166,7 +2163,6 @@ static map<skill_type, mutation_type> skill_sac_muts = {
     { SK_FIRE_MAGIC,     MUT_NO_FIRE_MAGIC },
     { SK_EARTH_MAGIC,    MUT_NO_EARTH_MAGIC },
     { SK_ICE_MAGIC,      MUT_NO_ICE_MAGIC },
-    { SK_POISON_MAGIC,   MUT_NO_POISON_MAGIC },
     { SK_HEXES,          MUT_NO_HEXES_MAGIC },
     { SK_TRANSLOCATIONS, MUT_NO_TRANSLOCATION_MAGIC },
     { SK_TRANSMUTATIONS, MUT_NO_TRANSMUTATION_MAGIC },

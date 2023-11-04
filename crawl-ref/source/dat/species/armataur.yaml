@@ -32,7 +32,6 @@ aptitudes:
   ice_magic: -1
   air_magic: -1
   earth_magic: -1
-  poison_magic: -1
   invocations: 0
   evocations: 0
 size: large

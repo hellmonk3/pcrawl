@@ -26,7 +26,6 @@ aptitudes:
   ice_magic: 1
   air_magic: -2
   earth_magic: -2
-  poison_magic: 1
   invocations: 1
 can_swim: true
 str: 8

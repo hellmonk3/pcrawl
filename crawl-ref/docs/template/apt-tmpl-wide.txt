@@ -37,19 +37,19 @@ General skills, Experience   Melee and Ranged Combat     Spellcasting and Magic
 --------------------------   -----------------------     ----------------------
 Arm - Armour                 Fgt - Fighting              Spc - Spellcasting
 Ddg - Dodging                                            Coj - Conjurations
-Sth - Stealth                M&F - Maces & Flails        Hex - Hexes
-Shd - Shields                Axs - Axes                  Sum - Summonings
-Shp - Shapeshifting          Pla - Polearms              Nec - Necromancy
-                             Stv - Staves                Trl - Translocations
+Sth - Stealth                                            Hex - Hexes
+Shd - Shields                                            Sum - Summonings
+Shp - Shapeshifting                                      Nec - Necromancy
+                                                         Trl - Translocations
 Inv - Invocations            UC  - Unarmed Combat        Trm - Transmutations
 Evo - Evocations
-Thr - Throwing               SBl - Short Blades          Fir - Fire Magic
-                             LBl - Long Blades           Ice - Ice Magic
+Thr - Throwing               Mel - Melee Weapons         Fir - Fire Magic
+                                                         Ice - Ice Magic
 HP  - hit points             Rng - Ranged Weapons        Air - Air Magic
 MP  - magic points                                       Ear - Earth Magic
-Exp - experience                                         Poi - Poison Magic
+Exp - experience                                         
 WL  - willpower
 
 
-                 Arm Ddg Sth Shd Shp   Inv Evo Thr   HP  MP Exp  WL   Fgt M&F Axs Pla Stv UC SBl LBl Rng   Spc Coj Hex Sum Nec Trl Trm   Fir Ice Air Ear Poi
+                 Arm Ddg Sth Shd Shp   Inv Evo Thr   HP  MP Exp  WL   Fgt                 UC Mel     Rng   Spc Coj Hex Sum Nec Trl Trm   Fir Ice Air Ear 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------

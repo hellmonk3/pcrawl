@@ -1304,8 +1304,6 @@ void SkillMenu::init_switches()
         {
             sw->add(SKM_DO_PRACTISE);
         }
-        if (!is_set(SKMF_SIMPLE) && Options.skill_focus != SKM_FOCUS_OFF)
-            sw->add(SKM_DO_FOCUS);
 
         sw->set_state(you.skill_menu_do);
         sw->add_hotkey('\t');
@@ -1452,8 +1450,8 @@ void SkillMenu::set_default_help()
     string text;
     if (is_set(SKMF_EXPERIENCE))
     {
-        text = "Select the skills you want to be trained. "
-               "The chosen skills will be raised to the level shown in "
+        text = "Select the skill you want to be trained. "
+               "The chosen skill will be raised to the level shown in "
                "<cyan>cyan</cyan>.";
     }
     else if (is_set(SKMF_SIMPLE))
@@ -1544,12 +1542,8 @@ void SkillMenu::toggle_practise(skill_type sk, int keyn)
     else
         die("Invalid state.");
     reset_training();
-    if (is_magic_skill(sk) && you.has_mutation(MUT_INNATE_CASTER))
-    {
-        // This toggles every single magic skill, so let's just regenerate the display.
-        refresh_display();
-        return;
-    }
+    refresh_display();
+    return;
 
     // Otherwise, only toggle the affected skill button.
     SkillMenuEntry* skme = find_entry(sk);
@@ -1582,8 +1576,8 @@ void SkillMenu::set_title()
     string t;
     if (is_set(SKMF_EXPERIENCE))
     {
-        t = "You have gained great experience. "
-            "Select the skills to train.";
+        t = "You have gained experience. "
+            "Select the skill to train.";
     }
 
     m_title->set_text(t);

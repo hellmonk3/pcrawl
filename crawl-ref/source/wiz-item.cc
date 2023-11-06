@@ -1212,7 +1212,9 @@ static void _debug_acquirement_stats(FILE *ostat)
                 "necromancy",
                 "summoning",
                 "translocation",
+#if TAG_MAJOR_VERSION == 34
                 "poison magic",
+#endif
                 "earth magic",
                 "air magic",
             };

@@ -1428,84 +1428,13 @@ mcache_ghost::mcache_ghost(const monster_info& mon)
 
     switch (sk)
     {
-    case SK_MACES_FLAILS:
-        if (dam > 30)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_GREAT_FLAIL;
-        else if (dam > 25)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_GREAT_MACE;
-        else if (dam > 20)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_EVENINGSTAR;
-        else if (dam > 15)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_MORNINGSTAR;
-        else if (dam > 10)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_FLAIL;
-        else if (dam > 5)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_MACE;
-        else
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_CLUB_SLANT;
-        break;
-
-    case SK_SHORT_BLADES:
-        if (dam > 20)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_RAPIER;
-        else if (dam > 10)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_SHORT_SWORD_SLANT;
-        else
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_DAGGER_SLANT;
-        break;
-
-    case SK_LONG_BLADES:
-        if (dam > 25)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_GREAT_SWORD_SLANT;
-        else if (dam > 20)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_KATANA_SLANT;
-        else if (dam > 15)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_SCIMITAR;
-        else if (dam > 10)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_LONG_SWORD_SLANT;
-        else
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_FALCHION;
-        break;
-
-    case SK_AXES:
-        if (dam > 30)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_EXECUTIONERS_AXE;
-        else if (dam > 20)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_BATTLEAXE;
-        else if (dam > 15)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_BROAD_AXE;
-        else if (dam > 10)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_WAR_AXE;
-        else
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_HAND_AXE;
-        break;
-
-    case SK_POLEARMS:
-        if (dam > 30)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_GLAIVE;
-        else if (dam > 20)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_SCYTHE;
-        else if (dam > 15)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_HALBERD;
-        else if (dam > 10)
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_TRIDENT2;
-        else
-            m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_SPEAR;
+    case SK_MELEE_WEAPONS:
+        m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_CLUB_SLANT;
         break;
 
     case SK_RANGED_WEAPONS:
         m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_SHORTBOW;
         break;
-
-#if TAG_MAJOR_VERSION == 34
-    case SK_CROSSBOWS:
-        m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_ARBALEST;
-        break;
-
-    case SK_SLINGS:
-        m_doll.parts[TILEP_PART_HAND1] = TILEP_HAND1_SLING;
-        break;
-#endif
 
     case SK_UNARMED_COMBAT:
     default:

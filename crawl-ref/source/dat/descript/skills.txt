@@ -4,16 +4,11 @@ Fighting
 Fighting skill increases your accuracy and damage in physical combat, and
 also increases your maximum health.
 %%%%
-Short Blades
+Melee Weapons
 
-Short Blades are more effective than any other weapon type at stabbing helpless
-foes.
-
-Being skilled with Short Blades will allow you to attack more quickly with all
-weapons of this type, as well as increasing your accuracy and damage with them.
-
-Being skilled with Short Blades increases your effectiveness with Long Blades,
-and vice versa.
+Melee weapons deal damage in melee range. Some types of melee weapons, such as
+axes and polearms, have additional special properties. Being skilled with melee
+weapons will increase your damage with all weapons of this type.
 %%%%
 Long Blades
 

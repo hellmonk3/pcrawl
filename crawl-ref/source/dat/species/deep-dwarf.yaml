@@ -12,10 +12,6 @@ aptitudes:
   mp_mod: 0
   mr: 6
   fighting: -1
-  short_blades: -1
-  axes: 1
-  polearms: -1
-  staves: -1
   ranged weapons: 1
   throwing: -1
   armour: 1
@@ -34,7 +30,6 @@ aptitudes:
   ice_magic: -1
   air_magic: -3
   earth_magic: 3
-  poison_magic: -2
   invocations: 3
   evocations: 3
 str: 11
@@ -59,7 +54,3 @@ fake_mutations:
     short: damage resistance
   - long: You can heal yourself by infusing magical energy.
     short: heal wounds
-recommended_weapons:
-  - SK_MACES_FLAILS
-  - SK_AXES
-  - SK_LONG_BLADES

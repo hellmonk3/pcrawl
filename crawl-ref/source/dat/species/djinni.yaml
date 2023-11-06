@@ -9,12 +9,6 @@ aptitudes:
   hp: -1
   mp_mod: 0
   mr: 4
-  short_blades: -1
-  long_blades: -1
-  axes: -2
-  maces_and_flails: -2
-  polearms: -2
-  staves: -1
   ranged weapons: -2
   throwing: -2
   spellcasting: 11
@@ -22,7 +16,6 @@ aptitudes:
   ice_magic: 11
   air_magic: 11
   earth_magic: 11
-  poison_magic: 11
   conjurations: 11
   hexes: 11
   summoning: 11
@@ -56,6 +49,3 @@ recommended_jobs:
   - JOB_HEDGE_WIZARD
   - JOB_FIRE_ELEMENTALIST
   - JOB_ICE_ELEMENTALIST
-recommended_weapons:
-  - SK_SHORT_BLADES
-  - SK_LONG_BLADES

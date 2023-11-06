@@ -2482,6 +2482,8 @@ unsigned int gain_exp(unsigned int exp_gained)
 
 void apply_exp()
 {
+    return;
+
     const unsigned int exp_gained = you.experience_pool;
     if (exp_gained == 0)
         return;

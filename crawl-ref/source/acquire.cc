@@ -412,24 +412,6 @@ static bool _regular_staves_useless()
     if (!you.has_mutation(MUT_MISSING_HAND))
         return false;
 
-    item_def item_considered;
-    item_considered.base_type = OBJ_WEAPONS;
-
-    // try to find a useful regular staff
-    for (int i = 0; i < NUM_WEAPONS; ++i)
-    {
-        // ignore non-staves
-        if (i == WPN_STAFF)
-            continue;
-
-        item_considered.sub_type = i;
-        if (item_attack_skill(OBJ_WEAPONS, i) == SK_STAVES
-            && you.hands_reqd(item_considered) != HANDS_TWO)
-        {
-            // found something!
-            return false;
-        }
-    }
     return true;
 }
 
@@ -447,14 +429,11 @@ static skill_type _acquirement_weapon_skill(bool divine, int agent)
     int count = 0;
     skill_type skill = SK_FIGHTING;
     for (skill_type sk = SK_FIRST_WEAPON;
-         sk <= (agent == GOD_TROG ? SK_LAST_MELEE_WEAPON : SK_LAST_WEAPON);
+         sk <= SK_LAST_WEAPON;
          ++sk)
     {
         // Don't choose a skill that's useless
         if (is_useless_skill(sk))
-            continue;
-
-        if (sk == SK_STAVES && _regular_staves_useless())
             continue;
 
         // Adding a small constant allows for the occasional
@@ -478,7 +457,7 @@ static int _acquirement_weapon_subtype(bool divine, int & /*quantity*/, int agen
 
     int best_sk = 0;
     for (int i = SK_FIRST_WEAPON;
-         i <= (agent == GOD_TROG ? SK_LAST_MELEE_WEAPON : SK_LAST_WEAPON);
+         i <= SK_LAST_WEAPON;
          i++)
     {
         best_sk = max(best_sk, _skill_rdiv((skill_type)i));
@@ -596,7 +575,7 @@ static vector<pair<stave_type, int>> _base_staff_weights()
         { STAFF_COLD,        _skill_rdiv(SK_ICE_MAGIC) },
         { STAFF_AIR,         _skill_rdiv(SK_AIR_MAGIC) },
         { STAFF_EARTH,       _skill_rdiv(SK_EARTH_MAGIC) },
-        { STAFF_POISON,      _skill_rdiv(SK_POISON_MAGIC) },
+        { STAFF_POISON,      1 },
         { STAFF_DEATH,       _skill_rdiv(SK_NECROMANCY) },
         { STAFF_CONJURATION, _skill_rdiv(SK_CONJURATIONS) },
         { NUM_STAVES,        5 },

@@ -9,12 +9,6 @@ aptitudes:
   mp_mod: -1
   mr: 3
   fighting: 2
-  short_blades: 1
-  long_blades: 2
-  axes: 2
-  maces_and_flails: 2
-  polearms: 2
-  staves: 2
   ranged weapons: 1
   throwing: 0
   armour: 2
@@ -34,7 +28,6 @@ aptitudes:
   ice_magic: -3
   air_magic: -3
   earth_magic: -2
-  poison_magic: -3
   evocations: -1
 str: 12
 int: 5

@@ -69,13 +69,13 @@ static const char *skill_titles[NUM_SKILLS][7] =
 {
   //  Skill name        levels 1-7       levels 8-14        levels 15-20       levels 21-26      level 27       skill abbr
     {"Fighting",       "Trooper",       "Fighter",         "Warrior",         "Slayer",         "Conqueror",    "Fgt"},
-    {"Short Blades",   "Cutter",        "Slicer",          "Swashbuckler",    "Cutthroat",      "Politician",   "SBl"},
+    {"Melee Weapons",  "Cutter",        "Slicer",          "Swashbuckler",    "Cutthroat",      "Politician",   "Mel"},
+#if TAG_MAJOR_VERSION == 34
     {"Long Blades",    "Slasher",       "Carver",          "Fencer",          "@Adj@ Blade",    "Swordmaster",  "LBl"},
     {"Axes",           "Chopper",       "Cleaver",         "Severer",         "Executioner",    "Axe Maniac",   "Axs"},
     {"Maces & Flails", "Cudgeller",     "Basher",          "Bludgeoner",      "Shatterer",      "Skullcrusher", "M&F"},
     {"Polearms",       "Poker",         "Spear-Bearer",    "Impaler",         "Phalangite",     "@Adj@ Porcupine", "Pla"},
     {"Staves",         "Twirler",       "Cruncher",        "Stickfighter",    "Pulveriser",     "Chief of Staff", "Stv"},
-#if TAG_MAJOR_VERSION == 34
     {"Slings",         "Vandal",        "Slinger",         "Whirler",         "Slingshot",      "@Adj@ Catapult", "Slg"},
 #endif
     {"Ranged Weapons", "Shooter",       "Skirmisher",      "Marks@genus@",    "Crack Shot",     "Merry @Genus@",  "Rng"},
@@ -111,8 +111,9 @@ static const char *skill_titles[NUM_SKILLS][7] =
     {"Ice Magic",      "Chiller",       "Frost Mage",      "Gelid",           "Cryomancer",     "Englaciator",  "Ice"},
     {"Air Magic",      "Gusty",         "Zephyrmancer",    "Stormcaller",     "Cloud Mage",     "Meteorologist", "Air"},
     {"Earth Magic",    "Digger",        "Geomancer",       "Earth Mage",      "Metallomancer",  "Petrodigitator", "Erth"},
+#if TAG_MAJOR_VERSION == 34
     {"Poison Magic",   "Stinger",       "Tainter",         "Polluter",        "Contaminator",   "Envenomancer", "Pois"},
-
+#endif
     // These titles apply to atheists only, worshippers of the various gods
     // use the god titles instead, depending on piety or, in Gozag's case, gold.
     // or, in U's case, invocations skill.
@@ -164,16 +165,7 @@ static const int MAX_SKILL_COST_LEVEL = 27;
 // skill_cost_level makes skills more expensive for more experienced characters
 int calc_skill_cost(int skill_cost_level)
 {
-    const int cost[] = { 1, 2, 3, 4, 5,            // 1-5
-                         7, 8, 9, 13, 22,         // 6-10
-                         37, 48, 73, 98, 125,      // 11-15
-                         145, 170, 190, 212, 225,  // 16-20
-                         240, 255, 260, 265, 265,  // 21-25
-                         265, 265 };
-    COMPILE_CHECK(ARRAYSZ(cost) == MAX_SKILL_COST_LEVEL);
-
-    ASSERT_RANGE(skill_cost_level, 1, MAX_SKILL_COST_LEVEL + 1);
-    return cost[skill_cost_level - 1];
+    return 1;
 }
 
 /**
@@ -1901,16 +1893,6 @@ string skill_title_by_rank(skill_type best_skill, uint8_t skill_rank,
             }
             break;
 
-        case SK_POLEARMS:
-            if (species == SP_ARMATAUR && skill_rank == 5)
-                result = "Prickly Pangolin";
-            break;
-
-        case SK_MACES_FLAILS:
-            if (species == SP_METEORAN && skill_rank == 5)
-                result = now_is_morning() ? "Morning Star" : "Evening Star";
-            break;
-
         case SK_UNARMED_COMBAT:
             if (species == SP_FELID)
                 result = claw_and_tooth_titles[skill_rank];
@@ -1922,22 +1904,6 @@ string skill_title_by_rank(skill_type best_skill, uint8_t skill_rank,
             {
                 result = dex_better ? martial_arts_titles[skill_rank]
                                     : skill_titles[best_skill][skill_rank];
-            }
-            break;
-
-        case SK_SHORT_BLADES:
-            if (species::is_elven(species) && skill_rank == 5)
-            {
-                result = "Blademaster";
-                break;
-            }
-            break;
-
-        case SK_LONG_BLADES:
-            if (species == SP_MERFOLK && skill_rank == 5)
-            {
-                result = "Swordfish";
-                break;
             }
             break;
 
@@ -2019,11 +1985,6 @@ string skill_title_by_rank(skill_type best_skill, uint8_t skill_rank,
                 result = "Storm Dragon";
             else if (species == SP_METEORAN && skill_rank == 5)
                 result = "Meteorite"; // meteorologist / star, ha
-            break;
-
-        case SK_POISON_MAGIC:
-            if (species::is_draconian(species) && skill_rank == 5)
-                result = "Swamp Dragon";
             break;
 
         case SK_HEXES:
@@ -2172,6 +2133,12 @@ bool is_removed_skill(skill_type skill)
     case SK_CHARMS:
     case SK_SLINGS:
     case SK_CROSSBOWS:
+    case SK_LONG_BLADES:
+    case SK_MACES_FLAILS:
+    case SK_AXES:
+    case SK_POLEARMS:
+    case SK_STAVES:
+    case SK_POISON_MAGIC:
         return true;
     default:
         break;
@@ -2187,7 +2154,6 @@ static map<skill_type, mutation_type> skill_sac_muts = {
     { SK_FIRE_MAGIC,     MUT_NO_FIRE_MAGIC },
     { SK_EARTH_MAGIC,    MUT_NO_EARTH_MAGIC },
     { SK_ICE_MAGIC,      MUT_NO_ICE_MAGIC },
-    { SK_POISON_MAGIC,   MUT_NO_POISON_MAGIC },
     { SK_HEXES,          MUT_NO_HEXES_MAGIC },
     { SK_TRANSLOCATIONS, MUT_NO_TRANSLOCATION_MAGIC },
     { SK_TRANSMUTATIONS, MUT_NO_TRANSMUTATION_MAGIC },
@@ -2280,30 +2246,13 @@ static int _modulo_skill_cost(int modulo_level)
 static bool exp_costs_initialized = false;
 static int _get_skill_cost_for(int level)
 {
-    static int skill_cost_table[28];
-    const int breakpoints[3] = { 9, 18, 26 };
-    if (!exp_costs_initialized)
-    {
-        for (int skill_level = 0; skill_level < 28; skill_level++)
-        {
-            skill_cost_table[skill_level] = _modulo_skill_cost(skill_level);
-            for (int break_idx = 0; break_idx < (int)ARRAYSZ(breakpoints); ++break_idx)
-            {
-                const int breakpoint = breakpoints[break_idx];
-                if (skill_level <= breakpoint)
-                    break;
-                skill_cost_table[skill_level] += _modulo_skill_cost(skill_level - breakpoint) / 2;
-            }
-        }
-        exp_costs_initialized = true;
-    }
-    return skill_cost_table[level];
+    return level;
 }
 
 unsigned int skill_exp_needed(int lev, skill_type sk, species_type sp)
 {
     ASSERT_RANGE(lev, 0, MAX_SKILL_LEVEL + 1);
-    return _get_skill_cost_for(lev) * species_apt_factor(sk, sp);
+    return _get_skill_cost_for(lev);
 }
 
 int species_apt(skill_type skill, species_type species)
@@ -2338,25 +2287,7 @@ float species_apt_factor(skill_type sk, species_type sp)
 
 vector<skill_type> get_crosstrain_skills(skill_type sk)
 {
-    // Gnolls do not have crosstraining.
-    if (you.has_mutation(MUT_DISTRIBUTED_TRAINING))
-        return {};
-
-    switch (sk)
-    {
-    case SK_SHORT_BLADES:
-        return { SK_LONG_BLADES };
-    case SK_LONG_BLADES:
-        return { SK_SHORT_BLADES };
-    case SK_AXES:
-    case SK_STAVES:
-        return { SK_POLEARMS, SK_MACES_FLAILS };
-    case SK_MACES_FLAILS:
-    case SK_POLEARMS:
-        return { SK_AXES, SK_STAVES };
-    default:
-        return {};
-    }
+    return {};
 }
 
 /**
@@ -2546,10 +2477,11 @@ bool can_enable_skill(skill_type sk, bool override)
 
 void set_training_status(skill_type sk, training_status st)
 {
-    if (you.has_mutation(MUT_INNATE_CASTER) && is_magic_skill(sk))
-        set_magic_training(st);
-    else
-        you.train[sk] = st;
+    for (skill_type sk = SK_FIRST_SKILL; sk <= SK_LAST_SKILL; ++sk)
+    {
+        you.train[sk] = TRAINING_DISABLED;
+    }
+    you.train[sk] = st;
 }
 
 void set_magic_training(training_status st)

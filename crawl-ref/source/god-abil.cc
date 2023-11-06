@@ -2002,8 +2002,7 @@ static map<curse_type, curse_data> _ashenzari_curses =
 {
     { CURSE_MELEE, {
         "Melee Combat", "Melee",
-        { SK_SHORT_BLADES, SK_LONG_BLADES, SK_AXES, SK_MACES_FLAILS,
-            SK_POLEARMS, SK_STAVES, SK_UNARMED_COMBAT },
+        { SK_MELEE_WEAPONS, SK_UNARMED_COMBAT },
     } },
     { CURSE_RANGED, {
         "Ranged Combat", "Range",
@@ -2015,7 +2014,7 @@ static map<curse_type, curse_data> _ashenzari_curses =
     } },
     { CURSE_ALCHEMY, {
         "Alchemy", "Alch",
-        { SK_POISON_MAGIC, SK_TRANSMUTATIONS },
+        { SK_TRANSMUTATIONS },
     } },
     { CURSE_COMPANIONS, {
         "Companions", "Comp",
@@ -3782,12 +3781,7 @@ static int _piety_for_skill_by_sacrifice(ability_type sacrifice)
     const sacrifice_def &sac_def = _get_sacrifice_def(sacrifice);
 
     piety_gain += _piety_for_skill(sac_def.sacrifice_skill);
-    if (sacrifice == ABIL_RU_SACRIFICE_HAND
-        && species::size(you.species, PSIZE_TORSO) <= SIZE_SMALL)
-    {
-        // No one-handed staves for small races.
-        piety_gain += _piety_for_skill(SK_STAVES);
-    }
+
     return piety_gain;
 }
 
@@ -4482,16 +4476,6 @@ bool ru_do_sacrifice(ability_type sac)
     }
     else if (sac_def.sacrifice_skill != SK_NONE)
         _ru_kill_skill(sac_def.sacrifice_skill);
-
-    // Maybe this should go in _extra_sacrifice_code, but it would be
-    // inconsistent for the milestone to have reduced Shields skill
-    // but not the others.
-    if (sac == ABIL_RU_SACRIFICE_HAND
-        && species::size(you.species, PSIZE_TORSO) <= SIZE_SMALL)
-    {
-        // No one-handed staves for small races.
-        _ru_kill_skill(SK_STAVES);
-    }
 
     mark_milestone("sacrifice", mile_text);
 

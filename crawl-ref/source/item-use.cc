@@ -2255,13 +2255,6 @@ static void _item_stat_bonus(const item_def &item, int &prop_str,
         }
     }
 
-    if (is_artefact(item))
-    {
-        prop_str += artefact_known_property(item, ARTP_STRENGTH);
-        prop_int += artefact_known_property(item, ARTP_INTELLIGENCE);
-        prop_dex += artefact_known_property(item, ARTP_DEXTERITY);
-    }
-
     if (!remove)
     {
         prop_str *= -1;

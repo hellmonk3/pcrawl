@@ -10,9 +10,11 @@ enum artefact_prop_type
     ARTP_BRAND,
     ARTP_AC,
     ARTP_EVASION,
+#if TAG_MAJOR_VERSION == 34
     ARTP_STRENGTH,
     ARTP_INTELLIGENCE,
     ARTP_DEXTERITY,
+#endif
     ARTP_FIRE,
     ARTP_COLD,
     ARTP_ELECTRICITY,

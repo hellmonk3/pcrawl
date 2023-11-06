@@ -81,9 +81,6 @@ int artefact_value(const item_def &item)
            + 6 * prop[ARTP_EVASION]
            + 5 * prop[ARTP_SHIELDING]
            + 6 * prop[ARTP_SLAYING]
-           + 3 * prop[ARTP_STRENGTH]
-           + 3 * prop[ARTP_INTELLIGENCE]
-           + 3 * prop[ARTP_DEXTERITY]
            + 4 * prop[ARTP_HP]
            + 3 * prop[ARTP_MAGICAL_POWER];
 

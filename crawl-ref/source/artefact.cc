@@ -124,8 +124,7 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
             return false;
         }
 
-        if (artefact_property(item, ARTP_MAGICAL_POWER) > 0
-            || artefact_property(item, ARTP_INTELLIGENCE) > 0)
+        if (artefact_property(item, ARTP_MAGICAL_POWER) > 0)
         {
             return false;
         }
@@ -396,9 +395,6 @@ static map<jewellery_type, vector<jewellery_fake_artp>> jewellery_artps = {
     { RING_FIRE, { { ARTP_FIRE, 1 }, { ARTP_COLD, -1 } } },
     { RING_ICE, { { ARTP_COLD, 1 }, { ARTP_FIRE, -1 } } },
 
-    { RING_STRENGTH, { { ARTP_STRENGTH, 0 } } },
-    { RING_INTELLIGENCE, { { ARTP_INTELLIGENCE, 0 } } },
-    { RING_DEXTERITY, { { ARTP_DEXTERITY, 0 } } },
     { RING_PROTECTION, { { ARTP_AC, 0 } } },
     { RING_EVASION, { { ARTP_EVASION, 0 } } },
     { RING_SLAYING, { { ARTP_SLAYING, 0 } } },
@@ -670,12 +666,14 @@ static const artefact_prop_data artp_data[] =
     { "Brand", ARTP_VAL_BRAND, 0, nullptr, nullptr, 0, 0 }, // ARTP_BRAND,
     { "AC", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0}, // ARTP_AC,
     { "EV", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_EVASION,
-    { "Str", ARTP_VAL_ANY, 100,     // ARTP_STRENGTH,
+#if TAG_MAJOR_VERSION == 34
+    { "Str", ARTP_VAL_ANY, 0,     // ARTP_STRENGTH,
         _gen_good_stat_artp, _gen_bad_stat_artp, 7, 1 },
-    { "Int", ARTP_VAL_ANY, 100,     // ARTP_INTELLIGENCE,
+    { "Int", ARTP_VAL_ANY, 0,     // ARTP_INTELLIGENCE,
         _gen_good_stat_artp, _gen_bad_stat_artp, 7, 1 },
-    { "Dex", ARTP_VAL_ANY, 100,     // ARTP_DEXTERITY,
+    { "Dex", ARTP_VAL_ANY, 0,     // ARTP_DEXTERITY,
         _gen_good_stat_artp, _gen_bad_stat_artp, 7, 1 },
+#endif
     { "rF", ARTP_VAL_ANY, 60,       // ARTP_FIRE,
         _gen_good_res_artp, _gen_bad_res_artp, 2, 4},
     { "rC", ARTP_VAL_ANY, 60,       // ARTP_COLD,
@@ -864,15 +862,6 @@ const char *artp_name(artefact_prop_type prop)
 static void _add_good_randart_prop(artefact_prop_type prop,
                                    artefact_properties_t &item_props)
 {
-    // Add one to the starting value for stat bonuses.
-    if ((prop == ARTP_STRENGTH
-         || prop == ARTP_INTELLIGENCE
-         || prop == ARTP_DEXTERITY)
-        && item_props[prop] == 0)
-    {
-        item_props[prop]++;
-    }
-
     item_props[prop] += artp_data[prop].gen_good_value();
 }
 
@@ -1596,8 +1585,7 @@ static bool _randart_is_conflicting(const item_def &item,
     // see also _artp_can_go_on_item
 
     if (proprt[ARTP_PREVENT_SPELLCASTING]
-        && (proprt[ARTP_INTELLIGENCE] > 0
-            || proprt[ARTP_MAGICAL_POWER] > 0
+        && (proprt[ARTP_MAGICAL_POWER] > 0
             || proprt[ARTP_ARCHMAGI]
             || item.base_type == OBJ_STAVES))
     {
@@ -1607,12 +1595,6 @@ static bool _randart_is_conflicting(const item_def &item,
     if (item.base_type == OBJ_WEAPONS
         && get_weapon_brand(item) == SPWPN_HOLY_WRATH
         && is_demonic(item))
-    {
-        return true;
-    }
-
-    if (item.is_type(OBJ_JEWELLERY, RING_WIZARDRY)
-        && proprt[ARTP_INTELLIGENCE] < 0)
     {
         return true;
     }

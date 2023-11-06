@@ -304,14 +304,6 @@ static void _equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld,
         _equip_regeneration_item(item);
     }
 
-    // Modify ability scores.
-    notify_stat_change(STAT_STR, proprt[ARTP_STRENGTH],
-                       !(msg && proprt[ARTP_STRENGTH] && !unmeld));
-    notify_stat_change(STAT_INT, proprt[ARTP_INTELLIGENCE],
-                       !(msg && proprt[ARTP_INTELLIGENCE] && !unmeld));
-    notify_stat_change(STAT_DEX, proprt[ARTP_DEXTERITY],
-                       !(msg && proprt[ARTP_DEXTERITY] && !unmeld));
-
     if (proprt[ARTP_FLY])
         _flight_equip();
 
@@ -369,10 +361,6 @@ static void _unequip_artefact_effect(item_def &item,
             pay_mp(proprt[ARTP_MAGICAL_POWER]);
         calc_mp();
     }
-
-    notify_stat_change(STAT_STR, -proprt[ARTP_STRENGTH],     true);
-    notify_stat_change(STAT_INT, -proprt[ARTP_INTELLIGENCE], true);
-    notify_stat_change(STAT_DEX, -proprt[ARTP_DEXTERITY],    true);
 
     if (proprt[ARTP_FLY] != 0)
         land_player();

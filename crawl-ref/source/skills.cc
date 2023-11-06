@@ -165,16 +165,7 @@ static const int MAX_SKILL_COST_LEVEL = 27;
 // skill_cost_level makes skills more expensive for more experienced characters
 int calc_skill_cost(int skill_cost_level)
 {
-    const int cost[] = { 1, 2, 3, 4, 5,            // 1-5
-                         7, 8, 9, 13, 22,         // 6-10
-                         37, 48, 73, 98, 125,      // 11-15
-                         145, 170, 190, 212, 225,  // 16-20
-                         240, 255, 260, 265, 265,  // 21-25
-                         265, 265 };
-    COMPILE_CHECK(ARRAYSZ(cost) == MAX_SKILL_COST_LEVEL);
-
-    ASSERT_RANGE(skill_cost_level, 1, MAX_SKILL_COST_LEVEL + 1);
-    return cost[skill_cost_level - 1];
+    return 1;
 }
 
 /**
@@ -2255,30 +2246,13 @@ static int _modulo_skill_cost(int modulo_level)
 static bool exp_costs_initialized = false;
 static int _get_skill_cost_for(int level)
 {
-    static int skill_cost_table[28];
-    const int breakpoints[3] = { 9, 18, 26 };
-    if (!exp_costs_initialized)
-    {
-        for (int skill_level = 0; skill_level < 28; skill_level++)
-        {
-            skill_cost_table[skill_level] = _modulo_skill_cost(skill_level);
-            for (int break_idx = 0; break_idx < (int)ARRAYSZ(breakpoints); ++break_idx)
-            {
-                const int breakpoint = breakpoints[break_idx];
-                if (skill_level <= breakpoint)
-                    break;
-                skill_cost_table[skill_level] += _modulo_skill_cost(skill_level - breakpoint) / 2;
-            }
-        }
-        exp_costs_initialized = true;
-    }
-    return skill_cost_table[level];
+    return level;
 }
 
 unsigned int skill_exp_needed(int lev, skill_type sk, species_type sp)
 {
     ASSERT_RANGE(lev, 0, MAX_SKILL_LEVEL + 1);
-    return _get_skill_cost_for(lev) * species_apt_factor(sk, sp);
+    return _get_skill_cost_for(lev);
 }
 
 int species_apt(skill_type skill, species_type species)
@@ -2503,10 +2477,11 @@ bool can_enable_skill(skill_type sk, bool override)
 
 void set_training_status(skill_type sk, training_status st)
 {
-    if (you.has_mutation(MUT_INNATE_CASTER) && is_magic_skill(sk))
-        set_magic_training(st);
-    else
-        you.train[sk] = st;
+    for (skill_type sk = SK_FIRST_SKILL; sk <= SK_LAST_SKILL; ++sk)
+    {
+        you.train[sk] = TRAINING_DISABLED;
+    }
+    you.train[sk] = st;
 }
 
 void set_magic_training(training_status st)

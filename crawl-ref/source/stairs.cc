@@ -43,6 +43,7 @@
 #include "prompt.h"
 #include "religion.h"
 #include "shout.h"
+#include "skill-menu.h"
 #include "spl-clouds.h"
 #include "spl-damage.h"
 #include "spl-other.h"
@@ -1268,6 +1269,7 @@ void down_stairs(dungeon_feature_type force_stair, bool force_known_shaft, bool 
 {
     take_stairs(force_stair, false, force_known_shaft, update_travel_cache);
     acquirement_menu();
+    skill_menu(SKMF_EXPERIENCE, 1);
 }
 
 static void _update_level_state()

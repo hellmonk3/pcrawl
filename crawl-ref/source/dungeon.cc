@@ -1596,16 +1596,6 @@ void dgn_reset_level(bool enable_random_maps)
     update_portal_entrances();
 }
 
-static int _num_items_wanted(int absdepth0)
-{
-    if (branches[you.where_are_you].branch_flags & brflag::no_items)
-        return 0;
-    else if (absdepth0 > 5 && one_chance_in(500 - 5 * absdepth0))
-        return 9 + random2avg(80, 2); // rich level!
-    else
-        return 3 + roll_dice(3, 9);
-}
-
 static int _mon_die_size()
 {
     // This is a very goofy hack to maintain historical populations.
@@ -4133,40 +4123,6 @@ static void _builder_monsters()
         _place_assorted_zombies();
 }
 
-/**
- * Randomly place a single item
- *
- * @param item   The item slot of the item being randomly placed
- */
-static void _randomly_place_item(int item)
-{
-    coord_def itempos;
-    bool found = false;
-    for (int i = 0; i < 500 && !found; ++i)
-    {
-        itempos = random_in_bounds();
-        const monster* mon = monster_at(itempos);
-        found = env.grid(itempos) == DNGN_FLOOR
-                && !map_masked(itempos, MMT_NO_ITEM)
-                // oklobs or statues are ok
-                && (!mon || !mons_is_firewood(*mon));
-    }
-    if (!found)
-    {
-        dprf(DIAG_DNGN, "Builder failed to place %s",
-            env.item[item].name(DESC_PLAIN, false, true).c_str());
-        // Couldn't find a single good spot!
-        destroy_item(item);
-    }
-    else
-    {
-        dprf(DIAG_DNGN, "Builder placing %s at %d,%d",
-            env.item[item].name(DESC_PLAIN, false, true).c_str(),
-            itempos.x, itempos.y);
-        move_item_to_grid(&item, itempos);
-    }
-}
-
 static bool _connect_vault_exit(const coord_def& exit)
 {
     flood_find<feature_grid, coord_predicate> ff(env.grid, in_bounds, true,
@@ -4934,21 +4890,6 @@ void dgn_place_multiple_items(item_list &list, const coord_def& where)
     const int size = list.size();
     for (int i = 0; i < size; ++i)
         dgn_place_item(list.get_item(i), where);
-}
-
-static void _dgn_place_item_explicit(int index, const coord_def& where,
-                                     vault_placement &place)
-{
-    item_list &sitems = place.map.items;
-
-    if ((index < 0 || index >= static_cast<int>(sitems.size())) &&
-        !crawl_state.game_is_sprint())
-    {
-        return;
-    }
-
-    const item_spec spec = sitems.get_item(index);
-    dgn_place_item(spec, where);
 }
 
 static void _dgn_give_mon_spec_items(mons_spec &mspec, monster *mon)

@@ -343,8 +343,7 @@ static void _equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld,
 
 static void _unequip_artefact_effect(item_def &item,
                                      bool *show_msgs, bool meld,
-                                     equipment_type slot,
-                                     bool weapon)
+                                     equipment_type slot)
 {
     ASSERT(is_artefact(item));
 
@@ -618,8 +617,7 @@ static void _unequip_weapon_effect(item_def& real_item, bool showMsgs,
     // false if it does its own message handling.
     if (is_artefact(item))
     {
-        _unequip_artefact_effect(real_item, &showMsgs, meld, EQ_WEAPON,
-                                 true);
+        _unequip_artefact_effect(real_item, &showMsgs, meld, EQ_WEAPON);
     }
 
     if (item.base_type == OBJ_WEAPONS)
@@ -987,7 +985,7 @@ static void _unequip_armour_effect(item_def& item, bool meld,
         _deactivate_regeneration_item(item, meld);
 
     if (is_artefact(item))
-        _unequip_artefact_effect(item, nullptr, meld, slot, false);
+        _unequip_artefact_effect(item, nullptr, meld, slot);
 }
 
 static void _remove_amulet_of_faith(item_def &item)
@@ -1294,7 +1292,7 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
     }
 
     if (is_artefact(item))
-        _unequip_artefact_effect(item, &mesg, meld, slot, false);
+        _unequip_artefact_effect(item, &mesg, meld, slot);
 
     // Must occur after ring is removed. -- bwr
     calc_mp();

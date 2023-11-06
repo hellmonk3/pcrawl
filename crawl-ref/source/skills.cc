@@ -2238,12 +2238,6 @@ float apt_to_factor(int apt)
     return 1 / exp(log(2) * apt / APT_DOUBLE);
 }
 
-static int _modulo_skill_cost(int modulo_level)
-{
-    return 25 * modulo_level * (modulo_level + 1);
-}
-
-static bool exp_costs_initialized = false;
 static int _get_skill_cost_for(int level)
 {
     return level;

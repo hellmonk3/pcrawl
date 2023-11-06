@@ -285,9 +285,6 @@ static void _equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld,
     if (proprt[ARTP_EVASION])
         you.redraw_evasion = true;
 
-    if (proprt[ARTP_SEE_INVISIBLE])
-        autotoggle_autopickup(false);
-
     if (proprt[ARTP_MAGICAL_POWER] && !known[ARTP_MAGICAL_POWER] && msg)
     {
         canned_msg(proprt[ARTP_MAGICAL_POWER] > 0 ? MSG_MANA_INCREASE
@@ -383,9 +380,6 @@ static void _unequip_artefact_effect(item_def &item,
 
     if (proprt[ARTP_DRAIN] && !meld)
         drain_player(150, true, true);
-
-    if (proprt[ARTP_SEE_INVISIBLE])
-        _mark_unseen_monsters();
 
     if (proprt[ARTP_REGENERATION])
         _deactivate_regeneration_item(item, meld);

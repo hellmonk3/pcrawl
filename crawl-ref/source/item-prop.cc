@@ -2552,9 +2552,6 @@ bool get_armour_see_invisible(const item_def &arm, bool check_artp)
     if (get_armour_ego_type(arm) == SPARM_SEE_INVISIBLE)
         return true;
 
-    if (check_artp && is_artefact(arm))
-        return artefact_property(arm, ARTP_SEE_INVISIBLE);
-
     return false;
 }
 
@@ -2697,9 +2694,6 @@ bool get_jewellery_see_invisible(const item_def &ring, bool check_artp)
 
     if (ring.sub_type == RING_SEE_INVISIBLE)
         return true;
-
-    if (check_artp && is_artefact(ring))
-        return artefact_property(ring, ARTP_SEE_INVISIBLE);
 
     return false;
 }

@@ -7147,8 +7147,6 @@ bool player::can_see_invisible() const
     if (wearing(EQ_RINGS, RING_SEE_INVISIBLE)
         // armour: (checks head armour only)
         || wearing_ego(EQ_HELMET, SPARM_SEE_INVISIBLE)
-        // randart gear
-        || scan_artefacts(ARTP_SEE_INVISIBLE) > 0
         || you.duration[DUR_REVELATION])
     {
         return true;

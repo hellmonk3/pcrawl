@@ -23,7 +23,9 @@ enum artefact_prop_type
     ARTP_NEGATIVE_ENERGY,
 #endif
     ARTP_WILLPOWER,
+#if TAG_MAJOR_VERSION == 34
     ARTP_SEE_INVISIBLE,
+#endif
     ARTP_INVISIBLE,
     ARTP_FLY,
     ARTP_BLINK,

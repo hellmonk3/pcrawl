@@ -94,7 +94,6 @@
 # * rcorr:    Grants corrosion resistance.
 # * rmsl:     Passively repels missiles.
 # * rmut:     Grants mutation resistance.
-# * seeinv:   Lets wearer see invisible.
 # * skip_ego: The item's ego is skipped in its inscription and description, to
 #             be replaced by INSCRIP: and DBRAND: entries.
 # * slow:     Randomly causes slowing when taking damage.
@@ -500,7 +499,6 @@ TILE:     urand_zephyr
 TILE_EQ:  zephyr
 BRAND:    SPWPN_SPEED
 DEX:      3
-BOOL:     seeinv
 
 NAME:    giant club "Skullcrusher"
 OBJ:     OBJ_WEAPONS/WPN_GIANT_CLUB
@@ -641,7 +639,6 @@ VALUE:    800
 TILE_EQ:  sniper
 BASE_DELAY: +2
 BRAND:    SPWPN_HEAVY
-BOOL:     seeinv
 INSCRIP:  Acc+∞
 DESCRIP:  Acc+∞:     It never misses its target.
 
@@ -817,7 +814,6 @@ TILE:     urand_thief
 TILE_EQ:  black
 SLAY:     -2
 STEALTH:  1
-BOOL:     seeinv
 DESCRIP:  *Fog:      It may release a thick cloud of smoke when the wearer is
  hurt.
 
@@ -840,7 +836,6 @@ COLOUR:  ETC_JEWEL
 TILE:    urand_dyrovepreva
 TILE_EQ: dyrovepreva
 INT:     2
-BOOL:    seeinv
 
 NAME:     hat of the Bear Spirit
 OBJ:      OBJ_ARMOUR/ARM_HAT
@@ -913,7 +908,6 @@ COLOUR:  BROWN
 TILE:    urand_zhor
 TILE_EQ: zhor
 COLD:    3
-BOOL:    seeinv
 INSCRIP: *Englaciate
 DESCRIP: *Englaciate: It radiates cold, occasionally slowing all nearby
  creatures who are not resistant to cold.
@@ -982,7 +976,6 @@ TILE:    urand_dragonmask
 TILE_EQ: art_dragonhelm
 WILL:    1
 SLAY:    3
-BOOL:    seeinv
 
 NAME:     robe of Night
 OBJ:      OBJ_ARMOUR/ARM_ROBE
@@ -993,7 +986,6 @@ COLOUR:   ETC_DARK
 TILE:     urand_night
 TILE_EQ:  robe_of_night
 WILL:     1
-BOOL:     seeinv
 VALUE:    600
 DESCRIP:  Dark:      It shrouds the wearer in darkness, reducing the range at
  which they can see and be seen by others.
@@ -1175,7 +1167,7 @@ TILE:     spwpn_demon_axe
 TILE_EQ:  demon_axe
 BRAND:    SPWPN_DRAINING
 FB_BRAND: SPWPN_PAIN
-BOOL:     evil, seeinv, fly, drain
+BOOL:     evil, fly, drain
 INSCRIP:  demonic, Mesm
 DBRAND:   Demonic:   It occasionally summons demons to assist the wielder when
  it strikes in combat.
@@ -1458,7 +1450,7 @@ TILE:    urand_eternal_torment
 TILE_EQ: eternal_torment
 INSCRIP: rTorment HP--
 LIFE:    3
-BOOL:    evil, seeinv, nogen, drain
+BOOL:    evil, nogen, drain
 # end TAG_MAJOR_VERSION
 
 ENUM:    VINES
@@ -1758,7 +1750,7 @@ COLOUR:   ETC_HOLY
 TILE:     spwpn_holy_axe
 TILE_EQ:  holy_axe
 BRAND:    SPWPN_HOLY_WRATH
-BOOL:     no_upgrade, fly, seeinv, fragile
+BOOL:     no_upgrade, fly, fragile
 INSCRIP:  Valiant
 DESCRIP:  Valiant:   It becomes more powerful as more dangerous foes come into
  view.

@@ -118,9 +118,6 @@ int artefact_value(const item_def &item)
     if (prop[ARTP_RMUT])
         ret += 8;
 
-    if (prop[ARTP_SEE_INVISIBLE])
-        ret += 6;
-
     // abilities:
     if (prop[ARTP_FLY])
         ret += 3;

@@ -100,18 +100,11 @@ int artefact_value(const item_def &item)
     else if (prop[ARTP_WILLPOWER] < 0)
         ret -= 6;
 
-    if (prop[ARTP_NEGATIVE_ENERGY] > 0)
-        ret += 3 + 3 * (prop[ARTP_NEGATIVE_ENERGY] * prop[ARTP_NEGATIVE_ENERGY]);
-
     // Discount Stlth-, charge for Stlth+
     ret += 2 * prop[ARTP_STEALTH];
     // Stlth+ costs more than Stlth- cheapens
     if (prop[ARTP_STEALTH] > 0)
         ret += 2 * prop[ARTP_STEALTH];
-
-    // only one meaningful level:
-    if (prop[ARTP_POISON])
-        ret += 6;
 
     // only one meaningful level (hard to get):
     if (prop[ARTP_ELECTRICITY])

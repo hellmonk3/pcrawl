@@ -405,7 +405,7 @@ TILE_EQ: flaming_death
 BRAND:   SPWPN_FLAMING
 FIRE:    2
 COLD:    -1
-BOOL:    poison, skip_ego, nogen
+BOOL:    skip_ego, nogen
 WILL:    1
 # end TAG_MAJOR_VERSION
 
@@ -448,7 +448,7 @@ BRAND:   SPWPN_FREEZING
 FIRE:    -1
 COLD:    2
 WILL:    1
-BOOL:    poison, skip_ego, nogen
+BOOL:    skip_ego, nogen
 # end TAG_MAJOR_VERSION
 
 # TAG_MAJOR_VERSION == 34
@@ -593,7 +593,7 @@ BRAND:    SPWPN_REAPING
 FB_BRAND: SPWPN_PAIN
 HP:       -6
 LIFE:     1
-BOOL:     poison, nogen
+BOOL:     nogen
 # end TAG_MAJOR_VERSION
 
 NAME:     trident of the Octopus King
@@ -603,7 +603,7 @@ COLOUR:   ETC_WATER
 TILE:     urand_octopus_king
 TILE_EQ:  trident_octopus_king
 BRAND:    SPWPN_VENOM
-BOOL:     elec, poison, no_upgrade
+BOOL:     no_upgrade
 
 NAME:    mithril axe "Arga"
 OBJ:     OBJ_WEAPONS/WPN_BROAD_AXE
@@ -686,7 +686,7 @@ TILE_EQ: wyrmbane
 AC:      3
 FIRE:    1
 COLD:    1
-BOOL:    poison, no_upgrade
+BOOL:    no_upgrade
 DBRAND:  Slay Drac: It inflicts extra damage against dragons and draconians.
 
 NAME:     Spriggan's Knife
@@ -736,7 +736,6 @@ COLOUR:  DARKGREY
 TILE:    urand_snakebite
 TILE_EQ: snakebite
 BRAND:   SPWPN_VENOM
-BOOL:    poison
 DBRAND:  Curare:    It occasionally inflicts asphyxiating poison on those it
  strikes, dealing poison damage and causing slowness.
 
@@ -841,7 +840,7 @@ COLOUR:  ETC_JEWEL
 TILE:    urand_dyrovepreva
 TILE_EQ: dyrovepreva
 INT:     2
-BOOL:    elec, seeinv
+BOOL:    seeinv
 
 NAME:     hat of the Bear Spirit
 OBJ:      OBJ_ARMOUR/ARM_HAT
@@ -973,7 +972,7 @@ COLOUR:  LIGHTGREEN
 TILE:    urand_maxwell
 TILE_EQ: maxwell
 WILL:    1
-BOOL:    nospell, notelep, elec, rCorr
+BOOL:    nospell, notelep, rCorr
 
 ENUM:    DRAGONMASK
 NAME:    mask of the Dragon
@@ -1017,7 +1016,7 @@ FIRE:    1
 COLD:    1
 WILL:    1
 LIFE:    1
-BOOL:    elec, poison, rMut, rCorr
+BOOL:    rMut, rCorr
 
 ENUM:    FENCERS
 NAME:    fencer's gloves
@@ -1055,7 +1054,6 @@ STR:      -1
 INT:      -1
 DEX:      1
 LIFE:     1
-BOOL:     poison
 DESCRIP:  *Rats:     When the wearer is hurt, rats may emerge from it to assist
  them.
 
@@ -1078,7 +1076,7 @@ INSCRIP: Inacc Air
 OBJ:     OBJ_JEWELLERY/AMU_NOTHING
 COLOUR:  ETC_ELECTRICITY
 TILE:    urand_air
-BOOL:    elec, fly, rmsl
+BOOL:    fly, rmsl
 DESCRIP: Inacc:     It reduces the accuracy of your attacks and spells.
 +Air:       It enhances your air magic.
 
@@ -1100,7 +1098,7 @@ TILE:    urand_cekugob
 AC:      1
 EV:      1
 LIFE:    2
-BOOL:    elec, poison, notelep, nogen
+BOOL:    notelep, nogen
 # end TAG_MAJOR_VERSION
 
 NAME:    amulet of the Four Winds
@@ -1154,7 +1152,6 @@ PLUS:     +3
 COLOUR:   ETC_MIST
 TILE:     urand_clouds
 TILE_EQ:  robe_clouds
-BOOL:     elec
 DESCRIP:  *Thunder:  It occasionally creates storm clouds above nearby enemies.
 +rCloud:    It grants its wearer immunity to clouds.
 
@@ -1192,7 +1189,6 @@ PLUS:     +6
 TILE:     urand_lightning_scales
 TILE_EQ:  lightning_scales
 COLOUR:   ETC_ELECTRICITY
-BOOL:     elec
 DESCRIP:  Swift:     It allows the wearer to cover ground more swiftly.
 
 ENUM:     BLACK_KNIGHT_HORSE
@@ -1204,7 +1200,7 @@ TILE_EQ:  black_knight
 COLOUR:   ETC_UNHOLY
 BRAND:    SPARM_PONDEROUSNESS
 LIFE:     1
-BOOL:     poison, evil
+BOOL:     evil
 
 NAME:     amulet of Vitality
 OBJ:      OBJ_JEWELLERY/AMU_MANA_REGENERATION
@@ -1351,7 +1347,6 @@ PLUS:     +8
 COLOUR:   ETC_ELECTRICITY
 TILE:     urand_arc_blade
 TILE_EQ:  arc_blade
-BOOL:     elec
 VALUE:    600
 DBRAND:   Discharge: It occasionally unleashes powerful arcs of lightning upon
  striking a foe. These may arc to other adjacent creatures (including the
@@ -1449,7 +1444,7 @@ TILE_EQ: etheric_cage
 INSCRIP: RegenMP+
 PLUS:    +0
 MP:      +4
-BOOL:    mutate, elec, chaotic, nogen
+BOOL:    mutate, chaotic, nogen
 VALUE:   400
 # end TAG_MAJOR_VERSION
 
@@ -1686,7 +1681,6 @@ OBJ:     OBJ_JEWELLERY/AMU_NOTHING
 COLOUR:  ETC_VEHUMET
 TILE:    urand_elemental_vulnerability
 AC:      8
-BOOL:    poison
 FIRE:    -2
 COLD:    -2
 
@@ -1793,7 +1787,7 @@ PLUS:     +5
 COLOUR:   BLUE
 TILE:     urand_storm_queen
 TILE_EQ:  kite_shield_storm_queen
-BOOL:     elec, fly
+BOOL:     fly
 INSCRIP:  shock,
 DBRAND:   Shock:     When it blocks an attack, it may electrocute the attacker.
  This works even against foes who are a short distance away.

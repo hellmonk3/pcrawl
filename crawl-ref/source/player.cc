@@ -1569,9 +1569,6 @@ int player_res_poison(bool allow_random, bool temp, bool items)
         if (body_armour)
             rp += armour_type_prop(body_armour->sub_type, ARMF_RES_POISON);
 
-        // rPois+ artefacts
-        rp += you.scan_artefacts(ARTP_POISON);
-
         // dragonskin cloak: 0.5 to draconic resistances
         if (allow_random && player_equip_unrand(UNRAND_DRAGONSKIN)
             && coinflip())
@@ -1781,9 +1778,6 @@ int player_prot_life(bool allow_random, bool temp, bool items)
         const item_def *body_armour = you.slot_item(EQ_BODY_ARMOUR);
         if (body_armour)
             pl += armour_type_prop(body_armour->sub_type, ARMF_RES_NEG);
-
-        // randart wpns
-        pl += you.scan_artefacts(ARTP_NEGATIVE_ENERGY);
 
         // dragonskin cloak: 0.5 to draconic resistances
         if (allow_random && player_equip_unrand(UNRAND_DRAGONSKIN)

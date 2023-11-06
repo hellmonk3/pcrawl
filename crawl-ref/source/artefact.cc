@@ -328,8 +328,6 @@ static void _populate_armour_intrinsic_artps(const armour_type arm,
 {
     proprt[ARTP_FIRE] += armour_type_prop(arm, ARMF_RES_FIRE);
     proprt[ARTP_COLD] += armour_type_prop(arm, ARMF_RES_COLD);
-    proprt[ARTP_NEGATIVE_ENERGY] += armour_type_prop(arm, ARMF_RES_NEG);
-    proprt[ARTP_POISON] += armour_type_prop(arm, ARMF_RES_POISON);
     proprt[ARTP_ELECTRICITY] += armour_type_prop(arm, ARMF_RES_ELEC);
     proprt[ARTP_RCORR] += armour_type_prop(arm, ARMF_RES_CORR);
     proprt[ARTP_WILLPOWER] += armour_type_prop(arm, ARMF_WILLPOWER);
@@ -340,8 +338,6 @@ static void _populate_armour_intrinsic_artps(const armour_type arm,
 static map<stave_type, artefact_prop_type> staff_resist_artps = {
     { STAFF_FIRE,   ARTP_FIRE },
     { STAFF_COLD,   ARTP_COLD },
-    { STAFF_POISON, ARTP_POISON },
-    { STAFF_DEATH,  ARTP_NEGATIVE_ENERGY },
     { STAFF_AIR,    ARTP_ELECTRICITY },
     // nothing for conj or earth
 };
@@ -387,8 +383,6 @@ static map<jewellery_type, vector<jewellery_fake_artp>> jewellery_artps = {
 
     { RING_PROTECTION_FROM_FIRE, { { ARTP_FIRE, 1 } } },
     { RING_PROTECTION_FROM_COLD, { { ARTP_COLD, 1 } } },
-    { RING_POISON_RESISTANCE, { { ARTP_POISON, 1 } } },
-    { RING_LIFE_PROTECTION, { { ARTP_NEGATIVE_ENERGY, 1 } } },
     { RING_WILLPOWER, { { ARTP_WILLPOWER, 1 } } },
     { RING_RESIST_CORROSION, { { ARTP_RCORR, 1 } } },
 
@@ -680,10 +674,12 @@ static const artefact_prop_data artp_data[] =
         _gen_good_res_artp, _gen_bad_res_artp, 2, 4 },
     { "rElec", ARTP_VAL_BOOL, 55,   // ARTP_ELECTRICITY,
         []() { return 1; }, nullptr, 0, 0  },
+#if TAG_MAJOR_VERSION == 34
     { "rPois", ARTP_VAL_BOOL, 55,   // ARTP_POISON,
         []() { return 1; }, nullptr, 0, 0 },
     { "rN", ARTP_VAL_ANY, 55,       // ARTP_NEGATIVE_ENERGY,
         _gen_good_res_artp, nullptr, 2, 4 },
+#endif
     { "Will", ARTP_VAL_ANY, 50,       // ARTP_WILLPOWER,
         _gen_good_res_artp, _gen_bad_res_artp, 2, 4 },
     { "SInv", ARTP_VAL_BOOL, 30,    // ARTP_SEE_INVISIBLE,

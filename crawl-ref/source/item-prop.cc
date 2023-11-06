@@ -2488,9 +2488,6 @@ int get_armour_res_poison(const item_def &arm, bool check_artp)
     if (get_armour_ego_type(arm) == SPARM_POISON_RESISTANCE)
         res += 1;
 
-    if (check_artp && is_artefact(arm))
-        res += artefact_property(arm, ARTP_POISON);
-
     return res;
 }
 
@@ -2521,9 +2518,6 @@ int get_armour_life_protection(const item_def &arm, bool check_artp)
     // check for ego resistance
     if (get_armour_ego_type(arm) == SPARM_POSITIVE_ENERGY)
         res += 1;
-
-    if (check_artp && is_artefact(arm))
-        res += artefact_property(arm, ARTP_NEGATIVE_ENERGY);
 
     return res;
 }
@@ -2678,9 +2672,6 @@ int get_jewellery_life_protection(const item_def &ring, bool check_artp)
     // check for ego resistance
     if (ring.sub_type == RING_LIFE_PROTECTION)
         res += 1;
-
-    if (check_artp && is_artefact(ring))
-        res += artefact_property(ring, ARTP_NEGATIVE_ENERGY);
 
     return res;
 }
@@ -2911,8 +2902,6 @@ bool gives_resistance(const item_def &item)
             && (rap == ARTP_FIRE
                 || rap == ARTP_COLD
                 || rap == ARTP_ELECTRICITY
-                || rap == ARTP_POISON
-                || rap == ARTP_NEGATIVE_ENERGY
                 || rap == ARTP_WILLPOWER
                 || rap == ARTP_RCORR
                 || rap == ARTP_RMUT))

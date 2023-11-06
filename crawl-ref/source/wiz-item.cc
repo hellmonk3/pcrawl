@@ -1480,8 +1480,10 @@ static void _debug_rap_stats(FILE *ostat)
         "ARTP_FIRE",
         "ARTP_COLD",
         "ARTP_ELECTRICITY",
+#if TAG_MAJOR_VERSION == 34
         "ARTP_POISON",
         "ARTP_NEGATIVE_ENERGY",
+#endif
         "ARTP_WILLPOWER",
         "ARTP_SEE_INVISIBLE",
         "ARTP_INVISIBLE",

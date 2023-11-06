@@ -3687,28 +3687,6 @@ int monster::res_poison(bool temp) const
     if (u > 0)
         return u;
 
-    if (mons_itemuse(*this) >= MONUSE_STARTING_EQUIPMENT)
-    {
-        u += scan_artefacts(ARTP_POISON);
-
-        const int armour    = inv[MSLOT_ARMOUR];
-        const int shld      = inv[MSLOT_SHIELD];
-        const int jewellery = inv[MSLOT_JEWELLERY];
-
-        if (armour != NON_ITEM && env.item[armour].base_type == OBJ_ARMOUR)
-            u += get_armour_res_poison(env.item[armour], false);
-
-        if (shld != NON_ITEM && env.item[shld].base_type == OBJ_ARMOUR)
-            u += get_armour_res_poison(env.item[shld], false);
-
-        if (jewellery != NON_ITEM && env.item[jewellery].base_type == OBJ_JEWELLERY)
-            u += get_jewellery_res_poison(env.item[jewellery], false);
-
-        const item_def *w = primary_weapon();
-        if (w && w->is_type(OBJ_STAVES, STAFF_POISON))
-            u++;
-    }
-
     if (has_ench(ENCH_RESISTANCE))
         u++;
 
@@ -3764,28 +3742,6 @@ int monster::res_negative_energy(bool intrinsic_only) const
         return 3;
 
     int u = get_mons_resist(*this, MR_RES_NEG);
-
-    if (mons_itemuse(*this) >= MONUSE_STARTING_EQUIPMENT && !intrinsic_only)
-    {
-        u += scan_artefacts(ARTP_NEGATIVE_ENERGY);
-
-        const int armour    = inv[MSLOT_ARMOUR];
-        const int shld      = inv[MSLOT_SHIELD];
-        const int jewellery = inv[MSLOT_JEWELLERY];
-
-        if (armour != NON_ITEM && env.item[armour].base_type == OBJ_ARMOUR)
-            u += get_armour_life_protection(env.item[armour], false);
-
-        if (shld != NON_ITEM && env.item[shld].base_type == OBJ_ARMOUR)
-            u += get_armour_life_protection(env.item[shld], false);
-
-        if (jewellery != NON_ITEM && env.item[jewellery].base_type == OBJ_JEWELLERY)
-            u += get_jewellery_life_protection(env.item[jewellery], false);
-
-        const item_def *w = primary_weapon();
-        if (w && w->is_type(OBJ_STAVES, STAFF_DEATH))
-            u++;
-    }
 
     if (u > 3)
         u = 3;

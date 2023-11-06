@@ -1657,12 +1657,6 @@ bool needs_handle_warning(const item_def &item, operation_types oper,
                 penance = true;
             return true;
         }
-
-        if (is_artefact(item) && (artefact_property(item, ARTP_DRAIN)
-                                  || artefact_property(item, ARTP_FRAGILE)))
-        {
-            return true;
-        }
     }
 
     if (oper == OPER_PUTON || oper == OPER_WEAR || oper == OPER_TAKEOFF
@@ -1675,12 +1669,6 @@ bool needs_handle_warning(const item_def &item, operation_types oper,
             {
                 penance = true;
             }
-            return true;
-        }
-
-        if (is_artefact(item) && (artefact_property(item, ARTP_DRAIN)
-                                  || artefact_property(item, ARTP_FRAGILE)))
-        {
             return true;
         }
     }

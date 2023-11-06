@@ -68,7 +68,9 @@ enum artefact_prop_type
     ARTP_CORRODE,
     ARTP_DRAIN,
     ARTP_SLOW,
+#if TAG_MAJOR_VERSION == 34
     ARTP_FRAGILE,
+#endif
     ARTP_SHIELDING,
     ARTP_HARM,
     ARTP_RAMPAGING,

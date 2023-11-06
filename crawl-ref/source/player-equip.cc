@@ -114,8 +114,7 @@ bool unequip_item(equipment_type slot, bool msg, bool skip_effects)
             {
                 // Cursed items should always be destroyed on unequip.
                 item_def& item = you.inv[item_slot];
-                if (item.cursed())
-                    destroy_item(item);
+                destroy_item(item);
             }
         }
         else if (!skip_effects)
@@ -247,7 +246,7 @@ void unequip_effect(equipment_type slot, int item_slot, bool meld, bool msg)
     else if (slot >= EQ_FIRST_JEWELLERY && slot <= EQ_LAST_JEWELLERY)
         _unequip_jewellery_effect(item, msg, meld, slot);
 
-    if (item.cursed() && !meld)
+    if (!meld)
         destroy_item(item);
 }
 
@@ -342,17 +341,6 @@ static void _equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld,
         calc_mp();
 }
 
-static void _unequip_fragile_artefact(item_def& item, bool meld)
-{
-    ASSERT(is_artefact(item));
-
-    if (artefact_property(item, ARTP_FRAGILE) && !meld)
-    {
-        mprf("%s crumbles to dust!", item.name(DESC_THE).c_str());
-        dec_inv_item_quantity(item.link, 1);
-    }
-}
-
 static void _unequip_artefact_effect(item_def &item,
                                      bool *show_msgs, bool meld,
                                      equipment_type slot,
@@ -425,11 +413,6 @@ static void _unequip_artefact_effect(item_def &item,
         if (entry->world_reacts_func)
             you.unrand_reacts.set(slot, false);
     }
-
-    // If the item is a weapon, then we call it from unequip_weapon_effect
-    // separately, to make sure the message order makes sense.
-    if (!weapon)
-        _unequip_fragile_artefact(item, meld);
 }
 
 static void _equip_use_warning(const item_def& item)
@@ -719,9 +702,6 @@ static void _unequip_weapon_effect(item_def& real_item, bool showMsgs,
             }
         }
     }
-
-    if (is_artefact(item))
-        _unequip_fragile_artefact(item, meld);
 }
 
 static void _spirit_shield_message(bool unmeld)

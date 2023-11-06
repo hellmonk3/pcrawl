@@ -393,9 +393,6 @@ static const vector<property_descriptor> & _get_all_artp_desc_data()
         { ARTP_SLOW,
             "It may slow you when you take damage.",
             prop_note::plain },
-        { ARTP_FRAGILE,
-            "It will be destroyed if unequipped.",
-            prop_note::plain },
         { ARTP_SHIELDING,
             "It affects your SH (%d).",
             prop_note::numeral },
@@ -492,7 +489,6 @@ static vector<string> _randart_propnames(const item_def& item,
         ARTP_CORRODE,
         ARTP_DRAIN,
         ARTP_SLOW,
-        ARTP_FRAGILE,
 
         // Evokable abilities come second
         ARTP_BLINK,

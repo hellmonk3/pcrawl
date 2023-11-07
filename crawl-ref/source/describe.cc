@@ -360,9 +360,6 @@ static const vector<property_descriptor> & _get_all_artp_desc_data()
         { ARTP_REGENERATION,
             "It increases your rate of health regeneration.",
             prop_note::symbolic },
-        { ARTP_RCORR,
-            "It protects you from acid and corrosion.",
-            prop_note::plain },
         { ARTP_RMUT,
             "It protects you from mutation.",
             prop_note::plain },
@@ -485,7 +482,6 @@ static vector<string> _randart_propnames(const item_def& item,
         ARTP_WILLPOWER,
         ARTP_REGENERATION,
         ARTP_RMUT,
-        ARTP_RCORR,
 
         // Quantitative attributes
         ARTP_HP,

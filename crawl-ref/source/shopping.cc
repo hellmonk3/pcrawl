@@ -111,10 +111,6 @@ int artefact_value(const item_def &item)
         ret += 10;
 
     // only one meaningful level (hard to get):
-    if (prop[ARTP_RCORR])
-        ret += 8;
-
-    // only one meaningful level (hard to get):
     if (prop[ARTP_RMUT])
         ret += 8;
 

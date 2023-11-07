@@ -66,7 +66,9 @@ enum artefact_prop_type
     ARTP_SUSTAT,
 #endif
     ARTP_NO_UPGRADE,
+#if TAG_MAJOR_VERSION == 34
     ARTP_RCORR,
+#endif
     ARTP_RMUT,
 #if TAG_MAJOR_VERSION == 34
     ARTP_TWISTER,

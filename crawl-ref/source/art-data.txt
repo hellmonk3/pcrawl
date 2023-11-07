@@ -90,8 +90,6 @@
 # * notelep:  Prevents wearer from teleporting or blinking.
 # * no_upgrade: Don't regenerate this item on load. Used for items with mutable
 #             state, e.g. Wyrmbane's growing enchantment.
-# * poison:   Grants poison resistance.
-# * rcorr:    Grants corrosion resistance.
 # * rmsl:     Passively repels missiles.
 # * rmut:     Grants mutation resistance.
 # * skip_ego: The item's ego is skipped in its inscription and description, to
@@ -1060,7 +1058,6 @@ TILE_EQ:  kite_shield_gong
 EV:       -5
 WILL:     1
 LIFE:     1
-BOOL:     rcorr
 DESCRIP:  Loud:      It is deafeningly noisy when blocking attacks.
 
 NAME:    amulet of the Air

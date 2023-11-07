@@ -2897,7 +2897,6 @@ bool gives_resistance(const item_def &item)
                 || rap == ARTP_COLD
                 || rap == ARTP_ELECTRICITY
                 || rap == ARTP_WILLPOWER
-                || rap == ARTP_RCORR
                 || rap == ARTP_RMUT))
         {
             return true;

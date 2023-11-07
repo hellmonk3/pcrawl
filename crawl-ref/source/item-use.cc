@@ -2216,28 +2216,7 @@ static void _item_stat_bonus(const item_def &item, int &prop_str,
 {
     prop_str = prop_dex = prop_int = 0;
 
-    if (item.base_type == OBJ_JEWELLERY
-        && item_ident(item, ISFLAG_KNOW_PLUSES))
-    {
-        switch (item.sub_type)
-        {
-        case RING_STRENGTH:
-            if (item.plus != 0)
-                prop_str = item.plus;
-            break;
-        case RING_DEXTERITY:
-            if (item.plus != 0)
-                prop_dex = item.plus;
-            break;
-        case RING_INTELLIGENCE:
-            if (item.plus != 0)
-                prop_int = item.plus;
-            break;
-        default:
-            break;
-        }
-    }
-    else if (item.base_type == OBJ_ARMOUR && item_type_known(item))
+    if (item.base_type == OBJ_ARMOUR && item_type_known(item))
     {
         switch (item.brand)
         {

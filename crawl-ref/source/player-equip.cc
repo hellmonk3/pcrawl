@@ -1099,18 +1099,6 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld,
         you.redraw_evasion = true;
         break;
 
-    case RING_STRENGTH:
-        notify_stat_change(STAT_STR, item.plus, false);
-        break;
-
-    case RING_DEXTERITY:
-        notify_stat_change(STAT_DEX, item.plus, false);
-        break;
-
-    case RING_INTELLIGENCE:
-        notify_stat_change(STAT_INT, item.plus, false);
-        break;
-
     case RING_MAGICAL_POWER:
         if (you.has_mutation(MUT_HP_CASTING))
         {
@@ -1229,18 +1217,6 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
 
     case RING_EVASION:
         you.redraw_evasion = true;
-        break;
-
-    case RING_STRENGTH:
-        notify_stat_change(STAT_STR, -item.plus, false);
-        break;
-
-    case RING_DEXTERITY:
-        notify_stat_change(STAT_DEX, -item.plus, false);
-        break;
-
-    case RING_INTELLIGENCE:
-        notify_stat_change(STAT_INT, -item.plus, false);
         break;
 
     case RING_FLIGHT:

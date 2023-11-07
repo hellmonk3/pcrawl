@@ -893,6 +893,9 @@ const set<pair<object_class_type, int> > removed_items =
     { OBJ_JEWELLERY, RING_TELEPORTATION },
     { OBJ_JEWELLERY, RING_ATTENTION },
     { OBJ_JEWELLERY, RING_STEALTH },
+    { OBJ_JEWELLERY, RING_STRENGTH },
+    { OBJ_JEWELLERY, RING_DEXTERITY },
+    { OBJ_JEWELLERY, RING_INTELLIGENCE },
     { OBJ_STAVES,    STAFF_ENCHANTMENT },
     { OBJ_STAVES,    STAFF_CHANNELING },
     { OBJ_STAVES,    STAFF_POWER },
@@ -2326,9 +2329,6 @@ bool jewellery_type_has_plusses(int jewel_type)
     case RING_SLAYING:
     case RING_PROTECTION:
     case RING_EVASION:
-    case RING_STRENGTH:
-    case RING_INTELLIGENCE:
-    case RING_DEXTERITY:
         return true;
 
     default:

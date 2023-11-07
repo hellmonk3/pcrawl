@@ -529,11 +529,6 @@ unsigned int item_value(item_def item, bool ident)
                 case RING_EVASION:
                     base = 8 * item.plus / 5;
                     break;
-                case RING_STRENGTH:
-                case RING_DEXTERITY:
-                case RING_INTELLIGENCE:
-                    base = item.plus * 4 / 3;
-                    break;
                 default:
                     break;
                 }

@@ -346,7 +346,7 @@ static int _int_modifier(bool innate_only)
 
         // ego items of intelligence
         result += 3 * count_worn_ego(SPARM_INTELLIGENCE);
-        
+
     }
 
     // mutations

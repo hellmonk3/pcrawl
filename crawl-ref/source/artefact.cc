@@ -1813,8 +1813,8 @@ static void _make_faerie_armour(item_def &item)
 static jewellery_type octoring_types[8] =
 {
     RING_SEE_INVISIBLE, RING_PROTECTION_FROM_FIRE, RING_PROTECTION_FROM_COLD,
-    RING_RESIST_CORROSION, RING_FLIGHT, RING_WIZARDRY, RING_MAGICAL_POWER,
-    RING_LIFE_PROTECTION
+    RING_MAGICAL_POWER, RING_FLIGHT, RING_WIZARDRY, RING_MAGICAL_POWER,
+    RING_MAGICAL_POWER
 };
 
 static void _make_octoring(item_def &item)

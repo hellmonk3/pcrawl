@@ -632,7 +632,7 @@ WEIGHT: 2
     "ring of protection randart", "any weapon good_item ego:protection",
     "any weapon randart ego:protection", "crystal plate armour randart",
     "gold dragon scales randart", "tower shield randart",
-    "ring of resist corrosion randart", "amulet of reflection randart",
+    "amulet of reflection randart",
     "scroll of enchant weapon q:10", "scroll of enchant armour q:10",
     "potion of might q:10", "randbook disc:conjuration slevels:12",
     "randbook disc:earth slevels:12", "staff of earth",
@@ -662,7 +662,7 @@ WEIGHT: 2
   -- Will/2 hell effect, as well rN+ for theme, scrolls of fog in bulk to deal
   -- with fear/mesmerise
   local tarinv = util.random_subset( { "ring of willpower randart",
-    "ring of positive energy randart", "any armour randart ego:positive_energy",
+    "any armour randart ego:positive_energy",
     "any armour randart ego:willpower", "pearl dragon scales randart",
     "scroll of fog q:10", "any armour good_item ego:positive_energy",
     "any armour good_item ego:willpower", "quicksilver dragon scales randart",
@@ -681,7 +681,7 @@ WEIGHT: 2
     "potion of experience", "potion of resistance q:10", "any weapon randart",
     "any armour randart", "any jewellery randart", "any weapon randart",
     "any armour randart", "any jewellery randart", "any wand charges:25",
-    "ring of positive energy randart", "ring of willpower randart",
+    "ring of willpower randart",
     "randbook good_item", "randbook good_item", "ring of wizardry randart",
     "any magical staff", "scroll of acquirement", "any manual",
     "demon trident randart", "demon whip randart", "demon blade randart",

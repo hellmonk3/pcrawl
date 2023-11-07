@@ -1768,9 +1768,6 @@ int player_prot_life(bool allow_random, bool temp, bool items)
 
     if (items)
     {
-        // rings
-        pl += you.wearing(EQ_RINGS, RING_LIFE_PROTECTION);
-
         // armour (checks body armour only)
         pl += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_POSITIVE_ENERGY);
 

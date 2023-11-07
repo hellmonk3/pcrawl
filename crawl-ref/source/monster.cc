@@ -1764,10 +1764,6 @@ static int _get_monster_jewellery_value(const monster *mon,
     if (!mons_class_flag(mon->type, M_SEE_INVIS))
         value += get_jewellery_see_invisible(item, true);
 
-    // If we're not naturally corrosion-resistant.
-    if (item.sub_type == RING_RESIST_CORROSION && !mon->res_corr(false, false))
-        value++;
-
     return value;
 }
 

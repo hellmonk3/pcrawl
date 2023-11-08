@@ -662,9 +662,9 @@ static const artefact_prop_data artp_data[] =
         _gen_good_stat_artp, _gen_bad_stat_artp, 7, 1 },
 #endif
     { "rF", ARTP_VAL_ANY, 60,       // ARTP_FIRE,
-        _gen_good_res_artp, _gen_bad_res_artp, 2, 4},
+        []() { return 1; }, nullptr, 0, 0  },
     { "rC", ARTP_VAL_ANY, 60,       // ARTP_COLD,
-        _gen_good_res_artp, _gen_bad_res_artp, 2, 4 },
+        []() { return 1; }, nullptr, 0, 0  },
     { "rElec", ARTP_VAL_BOOL, 55,   // ARTP_ELECTRICITY,
         []() { return 1; }, nullptr, 0, 0  },
 #if TAG_MAJOR_VERSION == 34

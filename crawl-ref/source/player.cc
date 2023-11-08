@@ -1343,14 +1343,14 @@ int player_res_fire(bool allow_random, bool temp, bool items)
     if (have_passive(passive_t::resist_fire))
         ++rf;
 
-    if (rf > 3)
-        rf = 3;
+    if (rf > 1)
+        rf = 1;
     if (rf > 0 && you.penance[GOD_IGNIS])
         rf = 0;
     if (temp && you.duration[DUR_FIRE_VULN])
         rf--;
-    if (rf < -3)
-        rf = -3;
+    if (rf < -1)
+        rf = -1;
 
     return rf;
 }
@@ -1435,10 +1435,10 @@ int player_res_cold(bool allow_random, bool temp, bool items)
     rc += you.get_mutation_level(MUT_ICY_BLUE_SCALES, temp) == 3 ? 1 : 0;
     rc += you.get_mutation_level(MUT_SHAGGY_FUR, temp) == 3 ? 1 : 0;
 
-    if (rc < -3)
-        rc = -3;
-    else if (rc > 3)
-        rc = 3;
+    if (rc < -1)
+        rc = -1;
+    else if (rc > 1)
+        rc = 1;
 
     return rc;
 }

@@ -76,8 +76,7 @@ W         CMD_WEAR_ARMOUR
 Dungeon interaction
 -------------------
 o         CMD_EXPLORE
-s, ., NP. CMD_WAIT
-5, NP5    CMD_REST             (rest 100 turns)
+s, ., NP. 5, NP5 CMD_WAIT
 t         CMD_SHOUT
 x         CMD_LOOK_AROUND
 X         CMD_DISPLAY_MAP

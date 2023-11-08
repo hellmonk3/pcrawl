@@ -5432,21 +5432,9 @@ bool player::is_sufficiently_rested(bool starting) const
     // resting (and shouldn't just rely on a message interrupt).
     // if an interrupt is disabled, we don't count it at all for resting. (So
     // if someone disables all these interrupts, resting becomes impossible.)
-    const bool hp_interrupts = Options.activity_interrupts["rest"][
-                                static_cast<int>(activity_interrupt::full_hp)];
-    const bool mp_interrupts = Options.activity_interrupts["rest"][
-                                static_cast<int>(activity_interrupt::full_mp)];
     const bool can_freely_move = you.is_motile() && !you.duration[DUR_BARBS];
 
-    return (!player_regenerates_hp()
-                || _should_stop_resting(hp, hp_max, !starting)
-                || !hp_interrupts
-                || you.has_mutation(MUT_EXPLORE_REGEN))
-        && (!player_regenerates_mp()
-                || _should_stop_resting(magic_points, max_magic_points, !starting)
-                || !mp_interrupts
-                || you.has_mutation(MUT_EXPLORE_REGEN))
-        && (can_freely_move || !hp_interrupts);
+    return can_freely_move;
 }
 
 bool player::in_water() const

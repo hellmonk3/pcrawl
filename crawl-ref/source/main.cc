@@ -2091,8 +2091,6 @@ void process_command(command_type cmd, command_type prev_cmd)
         _handle_autofight(cmd, prev_cmd);
         break;
 
-    case CMD_REST:           _do_rest(); break;
-
     case CMD_GO_UPSTAIRS:
     case CMD_GO_DOWNSTAIRS:
         _take_stairs(cmd == CMD_GO_DOWNSTAIRS);
@@ -2159,6 +2157,7 @@ void process_command(command_type cmd, command_type prev_cmd)
             break;
         // else fall-through
     case CMD_WAIT:
+    case CMD_REST:
         update_acrobat_status();
         you.turn_is_over = true;
         break;

@@ -1060,8 +1060,6 @@ void player_reacts()
     // increment constriction durations
     you.accum_has_constricted();
 
-    _regenerate_hp_and_mp(you.time_taken);
-
     if (you.duration[DUR_POISONING])
         handle_player_poison(you.time_taken);
 

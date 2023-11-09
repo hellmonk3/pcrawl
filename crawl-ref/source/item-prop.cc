@@ -2474,7 +2474,7 @@ int get_armour_res_cold(const item_def &arm, bool check_artp)
     return res;
 }
 
-int get_armour_res_poison(const item_def &arm, bool check_artp)
+int get_armour_res_poison(const item_def &arm)
 {
     ASSERT(arm.base_type == OBJ_ARMOUR);
 
@@ -2505,7 +2505,7 @@ int get_armour_res_elec(const item_def &arm, bool check_artp)
     return res;
 }
 
-int get_armour_life_protection(const item_def &arm, bool check_artp)
+int get_armour_life_protection(const item_def &arm)
 {
     ASSERT(arm.base_type == OBJ_ARMOUR);
 
@@ -2543,7 +2543,7 @@ int get_armour_willpower(const item_def &arm, bool check_artp)
     return res;
 }
 
-bool get_armour_see_invisible(const item_def &arm, bool check_artp)
+bool get_armour_see_invisible(const item_def &arm)
 {
     ASSERT(arm.base_type == OBJ_ARMOUR);
 
@@ -2659,7 +2659,7 @@ int get_jewellery_res_elec(const item_def &ring, bool check_artp)
     return res;
 }
 
-int get_jewellery_life_protection(const item_def &ring, bool check_artp)
+int get_jewellery_life_protection(const item_def &ring)
 {
     ASSERT(ring.base_type == OBJ_JEWELLERY);
 
@@ -2683,7 +2683,7 @@ int get_jewellery_willpower(const item_def &ring, bool check_artp)
     return res;
 }
 
-bool get_jewellery_see_invisible(const item_def &ring, bool check_artp)
+bool get_jewellery_see_invisible(const item_def &ring)
 {
     ASSERT(ring.base_type == OBJ_JEWELLERY);
 

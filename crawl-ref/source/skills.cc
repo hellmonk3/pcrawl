@@ -2471,9 +2471,9 @@ bool can_enable_skill(skill_type sk, bool override)
 
 void set_training_status(skill_type sk, training_status st)
 {
-    for (skill_type sk = SK_FIRST_SKILL; sk <= SK_LAST_SKILL; ++sk)
+    for (skill_type s = SK_FIRST_SKILL; s <= SK_LAST_SKILL; ++s)
     {
-        you.train[sk] = TRAINING_DISABLED;
+        you.train[s] = TRAINING_DISABLED;
     }
     you.train[sk] = st;
 }

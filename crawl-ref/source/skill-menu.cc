@@ -487,24 +487,6 @@ skill_menu_state SkillMenuSwitch::get_state()
     return m_state;
 }
 
-static bool _any_crosstrained()
-{
-    for (skill_type sk = SK_FIRST_SKILL; sk < NUM_SKILLS; ++sk)
-    {
-        // Assumes crosstraining is symmetric; otherwise we should
-        // iterate over the result of get_crosstrain_skills and
-        // check the levels of *those* skills
-        if (you.skill_points[sk]
-            && !get_crosstrain_skills(sk).empty())
-        {
-            // Didn't necessarily boost us by a noticeable amount,
-            // but close enough.
-            return true;
-        }
-    }
-    return false;
-}
-
 static bool _hermit_bonus()
 {
     if (player_equip_unrand(UNRAND_HERMITS_PENDANT)
@@ -562,8 +544,6 @@ string SkillMenuSwitch::get_help()
                 causes.push_back(apostrophise(god_name(you.religion))
                                  + " power");
             }
-            if (_any_crosstrained())
-                causes.push_back("cross-training");
             if (_hermit_bonus())
                 causes.push_back("the Hermit's pendant");
             result = "Skills enhanced by "

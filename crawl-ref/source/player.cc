@@ -5750,8 +5750,6 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
     // skill training, so make sure to use the correct value.
     int actual_skill = skills[sk];
     unsigned int effective_points = skill_points[sk];
-    if (!real)
-        effective_points += get_crosstrain_points(sk);
     effective_points = min(effective_points, skill_exp_needed(MAX_SKILL_LEVEL, sk));
     actual_skill = calc_skill_level_change(sk, actual_skill, effective_points);
 

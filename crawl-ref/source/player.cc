@@ -5411,7 +5411,7 @@ bool player::is_banished() const
     return banished;
 }
 
-bool player::is_sufficiently_rested(bool starting) const
+bool player::is_sufficiently_rested() const
 {
     // Only return false if resting will actually help. Anything here should
     // explicitly trigger an appropriate activity interrupt to prevent infinite

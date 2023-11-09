@@ -1343,14 +1343,14 @@ int player_res_fire(bool allow_random, bool temp, bool items)
     if (have_passive(passive_t::resist_fire))
         ++rf;
 
-    if (rf > 3)
-        rf = 3;
+    if (rf > 1)
+        rf = 1;
     if (rf > 0 && you.penance[GOD_IGNIS])
         rf = 0;
     if (temp && you.duration[DUR_FIRE_VULN])
         rf--;
-    if (rf < -3)
-        rf = -3;
+    if (rf < -1)
+        rf = -1;
 
     return rf;
 }
@@ -1435,10 +1435,10 @@ int player_res_cold(bool allow_random, bool temp, bool items)
     rc += you.get_mutation_level(MUT_ICY_BLUE_SCALES, temp) == 3 ? 1 : 0;
     rc += you.get_mutation_level(MUT_SHAGGY_FUR, temp) == 3 ? 1 : 0;
 
-    if (rc < -3)
-        rc = -3;
-    else if (rc > 3)
-        rc = 3;
+    if (rc < -1)
+        rc = -1;
+    else if (rc > 1)
+        rc = 1;
 
     return rc;
 }
@@ -1569,9 +1569,6 @@ int player_res_poison(bool allow_random, bool temp, bool items)
         if (body_armour)
             rp += armour_type_prop(body_armour->sub_type, ARMF_RES_POISON);
 
-        // rPois+ artefacts
-        rp += you.scan_artefacts(ARTP_POISON);
-
         // dragonskin cloak: 0.5 to draconic resistances
         if (allow_random && player_equip_unrand(UNRAND_DRAGONSKIN)
             && coinflip())
@@ -1619,8 +1616,6 @@ int player_spec_death()
 
     sd += you.get_mutation_level(MUT_NECRO_ENHANCER);
 
-    sd += you.scan_artefacts(ARTP_ENHANCE_NECRO);
-
     return sd;
 }
 
@@ -1631,8 +1626,6 @@ int player_spec_fire()
     sf += you.wearing(EQ_STAFF, STAFF_FIRE);
 
     sf += you.wearing(EQ_RINGS, RING_FIRE);
-
-    sf += you.scan_artefacts(ARTP_ENHANCE_FIRE);
 
     if (player_equip_unrand(UNRAND_SALAMANDER))
         sf++;
@@ -1651,8 +1644,6 @@ int player_spec_cold()
 
     sc += you.wearing(EQ_RINGS, RING_ICE);
 
-    sc += you.scan_artefacts(ARTP_ENHANCE_ICE);
-
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         sc++;
 
@@ -1666,8 +1657,6 @@ int player_spec_earth()
     // Staves
     se += you.wearing(EQ_STAFF, STAFF_EARTH);
 
-    se += you.scan_artefacts(ARTP_ENHANCE_EARTH);
-
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         se++;
 
@@ -1680,8 +1669,6 @@ int player_spec_air()
 
     // Staves
     sa += you.wearing(EQ_STAFF, STAFF_AIR);
-
-    sa += you.scan_artefacts(ARTP_ENHANCE_AIR);
 
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         sa++;
@@ -1697,7 +1684,6 @@ int player_spec_conj()
     int sc = 0;
 
     sc += you.wearing(EQ_STAFF, STAFF_CONJURATION);
-    sc += you.scan_artefacts(ARTP_ENHANCE_CONJ);
 
     return sc;
 }
@@ -1708,14 +1694,13 @@ int player_spec_hex()
 
     // Demonspawn mutation
     sh += you.get_mutation_level(MUT_HEX_ENHANCER);
-    sh += you.scan_artefacts(ARTP_ENHANCE_HEXES);
 
     return sh;
 }
 
 int player_spec_summ()
 {
-    return you.scan_artefacts(ARTP_ENHANCE_SUMM);
+    return 0;
 }
 
 int player_spec_poison()
@@ -1723,8 +1708,6 @@ int player_spec_poison()
     int sp = 0;
 
     sp += you.wearing(EQ_STAFF, STAFF_POISON);
-
-    sp += you.scan_artefacts(ARTP_ENHANCE_POISON);
 
     if (player_equip_unrand(UNRAND_OLGREB))
         sp++;
@@ -1734,12 +1717,12 @@ int player_spec_poison()
 
 int player_spec_tloc()
 {
-    return you.scan_artefacts(ARTP_ENHANCE_TLOC);
+    return 0;
 }
 
 int player_spec_tmut()
 {
-    return you.scan_artefacts(ARTP_ENHANCE_TMUT);
+    return 0;
 }
 
 // If temp is set to false, temporary sources of resistance won't be
@@ -1771,9 +1754,6 @@ int player_prot_life(bool allow_random, bool temp, bool items)
 
     if (items)
     {
-        // rings
-        pl += you.wearing(EQ_RINGS, RING_LIFE_PROTECTION);
-
         // armour (checks body armour only)
         pl += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_POSITIVE_ENERGY);
 
@@ -1781,9 +1761,6 @@ int player_prot_life(bool allow_random, bool temp, bool items)
         const item_def *body_armour = you.slot_item(EQ_BODY_ARMOUR);
         if (body_armour)
             pl += armour_type_prop(body_armour->sub_type, ARMF_RES_NEG);
-
-        // randart wpns
-        pl += you.scan_artefacts(ARTP_NEGATIVE_ENERGY);
 
         // dragonskin cloak: 0.5 to draconic resistances
         if (allow_random && player_equip_unrand(UNRAND_DRAGONSKIN)
@@ -5441,21 +5418,9 @@ bool player::is_sufficiently_rested(bool starting) const
     // resting (and shouldn't just rely on a message interrupt).
     // if an interrupt is disabled, we don't count it at all for resting. (So
     // if someone disables all these interrupts, resting becomes impossible.)
-    const bool hp_interrupts = Options.activity_interrupts["rest"][
-                                static_cast<int>(activity_interrupt::full_hp)];
-    const bool mp_interrupts = Options.activity_interrupts["rest"][
-                                static_cast<int>(activity_interrupt::full_mp)];
     const bool can_freely_move = you.is_motile() && !you.duration[DUR_BARBS];
 
-    return (!player_regenerates_hp()
-                || _should_stop_resting(hp, hp_max, !starting)
-                || !hp_interrupts
-                || you.has_mutation(MUT_EXPLORE_REGEN))
-        && (!player_regenerates_mp()
-                || _should_stop_resting(magic_points, max_magic_points, !starting)
-                || !mp_interrupts
-                || you.has_mutation(MUT_EXPLORE_REGEN))
-        && (can_freely_move || !hp_interrupts);
+    return can_freely_move;
 }
 
 bool player::in_water() const
@@ -5795,24 +5760,47 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
     if (real)
         return level;
 
-    if (player_equip_unrand(UNRAND_HERMITS_PENDANT))
-    {
-        if (sk == SK_INVOCATIONS)
-            return 14 * scale;
-        if (sk == SK_EVOCATIONS)
-            return 0;
-    }
-
-    if (penance[GOD_ASHENZARI])
-    {
-        if (temp)
-            level = max(level - 4 * scale, level / 2);
-    }
     else if (ash_has_skill_boost(sk))
             level = ash_skill_boost(sk, scale);
 
     if (temp && duration[DUR_HEROISM] && sk <= SK_LAST_MUNDANE)
         level = min(level + 5 * scale, MAX_SKILL_LEVEL * scale);
+
+    switch (sk)
+    {
+    case SK_CONJURATIONS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_CONJ) * scale, 27 * scale);
+        break;
+    case SK_NECROMANCY:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_NECRO) * scale, 27 * scale);
+        break;
+    case SK_HEXES:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_HEXES) * scale, 27 * scale);
+        break;
+    case SK_SUMMONINGS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_SUMM) * scale, 27 * scale);
+        break;
+    case SK_TRANSLOCATIONS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_TLOC) * scale, 27 * scale);
+        break;
+    case SK_TRANSMUTATIONS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_TMUT) * scale, 27 * scale);
+        break;
+    case SK_FIRE_MAGIC:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_FIRE) * scale, 27 * scale);
+        break;
+    case SK_ICE_MAGIC:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_ICE) * scale, 27 * scale);
+        break;
+    case SK_AIR_MAGIC:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_AIR) * scale, 27 * scale);
+        break;
+    case SK_EARTH_MAGIC:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_EARTH) * scale, 27 * scale);
+        break;
+    default:
+        break;
+    }
 
     return level;
 }
@@ -7153,8 +7141,6 @@ bool player::can_see_invisible() const
     if (wearing(EQ_RINGS, RING_SEE_INVISIBLE)
         // armour: (checks head armour only)
         || wearing_ego(EQ_HELMET, SPARM_SEE_INVISIBLE)
-        // randart gear
-        || scan_artefacts(ARTP_SEE_INVISIBLE) > 0
         || you.duration[DUR_REVELATION])
     {
         return true;

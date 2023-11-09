@@ -324,9 +324,7 @@ function TroveMarker:item_name(do_grammar)
     end
   end
 
-  local jwith_pluses = {"ring of protection", "ring of evasion",
-                        "ring of strength", "ring of intelligence",
-                        "ring of dexterity", "ring of slaying",
+  local jwith_pluses = {"ring of protection", "ring of evasion", "ring of slaying",
                         "amulet of reflection"}
   if item.base_type == "jewellery" and
      util.contains(jwith_pluses, item.sub_type) then
@@ -404,9 +402,7 @@ function TroveMarker:search_for_item(marker, pname, iter_table, dry_run)
       this_item = false
     end
 
-    local jwith_pluses = {"ring of protection", "ring of evasion",
-                          "ring of strength", "ring of intelligence",
-                          "ring of dexterity", "ring of slaying",
+    local jwith_pluses = {"ring of protection", "ring of evasion", "ring of slaying",
                           "amulet of reflection"}
     if it.base_type == "jewellery" then
       if not util.contains(jwith_pluses, it.sub_type) then

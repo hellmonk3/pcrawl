@@ -220,9 +220,7 @@ int actor::inaccuracy_penalty() const
 
 bool actor::res_corr(bool /*allow_random*/, bool temp) const
 {
-    return temp && (wearing(EQ_RINGS, RING_RESIST_CORROSION)
-                    || wearing(EQ_BODY_ARMOUR, ARM_ACID_DRAGON_ARMOUR)
-                    || scan_artefacts(ARTP_RCORR)
+    return temp && (wearing(EQ_BODY_ARMOUR, ARM_ACID_DRAGON_ARMOUR)
                     || wearing_ego(EQ_ALL_ARMOUR, SPARM_PRESERVATION));
 }
 

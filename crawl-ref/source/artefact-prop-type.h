@@ -10,16 +10,22 @@ enum artefact_prop_type
     ARTP_BRAND,
     ARTP_AC,
     ARTP_EVASION,
+#if TAG_MAJOR_VERSION == 34
     ARTP_STRENGTH,
     ARTP_INTELLIGENCE,
     ARTP_DEXTERITY,
+#endif
     ARTP_FIRE,
     ARTP_COLD,
     ARTP_ELECTRICITY,
+#if TAG_MAJOR_VERSION == 34
     ARTP_POISON,
     ARTP_NEGATIVE_ENERGY,
+#endif
     ARTP_WILLPOWER,
+#if TAG_MAJOR_VERSION == 34
     ARTP_SEE_INVISIBLE,
+#endif
     ARTP_INVISIBLE,
     ARTP_FLY,
     ARTP_BLINK,
@@ -60,7 +66,9 @@ enum artefact_prop_type
     ARTP_SUSTAT,
 #endif
     ARTP_NO_UPGRADE,
+#if TAG_MAJOR_VERSION == 34
     ARTP_RCORR,
+#endif
     ARTP_RMUT,
 #if TAG_MAJOR_VERSION == 34
     ARTP_TWISTER,
@@ -68,7 +76,9 @@ enum artefact_prop_type
     ARTP_CORRODE,
     ARTP_DRAIN,
     ARTP_SLOW,
+#if TAG_MAJOR_VERSION == 34
     ARTP_FRAGILE,
+#endif
     ARTP_SHIELDING,
     ARTP_HARM,
     ARTP_RAMPAGING,

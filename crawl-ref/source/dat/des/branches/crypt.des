@@ -68,7 +68,7 @@ function crypt_loot_plus(e)
   local pain = "ego:pain ident:type"
   local vamp = "ego:vampirism ident:type"
   local book = "randbook disc:necromancy numspells:6 spells:"
-  local ring = "ring of positive energy randart good_item"
+  local ring = "ring of flight randart good_item"
   local amulet = "amulet of regeneration randart good_item"
   -- One drop-off of these,
   e.kitem("d = double sword w:5 " .. drain .." / triple sword w:5 " .. drain ..

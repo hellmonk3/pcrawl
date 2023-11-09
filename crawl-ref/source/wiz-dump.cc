@@ -81,9 +81,10 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return AMU_REFLECTION;
     if (s == "Acrobat")
         return AMU_ACROBAT;
-
+#if TAG_MAJOR_VERSION == 34
     if (s == "rCorr")
         return RING_RESIST_CORROSION;
+#endif
     if (s == "Fire")
         return RING_FIRE;
     if (s == "Ice")
@@ -111,12 +112,14 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return RING_MAGICAL_POWER;
     if (s.substr(0, 4) == "Slay")
         return RING_SLAYING;
+#if TAG_MAJOR_VERSION == 34
     if (s.substr(0, 3) == "Str")
         return RING_STRENGTH;
     if (s.substr(0, 3) == "Dex")
         return RING_DEXTERITY;
     if (s.substr(0, 3) == "Int")
         return RING_INTELLIGENCE;
+#endif
     if (s.substr(0, 2) == "EV")
         return RING_EVASION;
 #if TAG_MAJOR_VERSION == 34
@@ -130,8 +133,10 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return RING_PROTECTION_FROM_FIRE;
     if (s.substr(0, 2) == "rC")
         return RING_PROTECTION_FROM_COLD;
+#if TAG_MAJOR_VERSION == 34
     if (s.substr(0, 2) == "rN")
         return RING_LIFE_PROTECTION;
+#endif
 
     return NUM_JEWELLERY;
 }

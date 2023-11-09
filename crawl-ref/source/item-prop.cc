@@ -893,6 +893,9 @@ const set<pair<object_class_type, int> > removed_items =
     { OBJ_JEWELLERY, RING_TELEPORTATION },
     { OBJ_JEWELLERY, RING_ATTENTION },
     { OBJ_JEWELLERY, RING_STEALTH },
+    { OBJ_JEWELLERY, RING_STRENGTH },
+    { OBJ_JEWELLERY, RING_DEXTERITY },
+    { OBJ_JEWELLERY, RING_INTELLIGENCE },
     { OBJ_STAVES,    STAFF_ENCHANTMENT },
     { OBJ_STAVES,    STAFF_CHANNELING },
     { OBJ_STAVES,    STAFF_POWER },
@@ -2326,9 +2329,6 @@ bool jewellery_type_has_plusses(int jewel_type)
     case RING_SLAYING:
     case RING_PROTECTION:
     case RING_EVASION:
-    case RING_STRENGTH:
-    case RING_INTELLIGENCE:
-    case RING_DEXTERITY:
         return true;
 
     default:
@@ -2355,7 +2355,6 @@ bool ring_has_stackable_effect(const item_def &item)
     {
     case RING_PROTECTION_FROM_FIRE:
     case RING_PROTECTION_FROM_COLD:
-    case RING_LIFE_PROTECTION:
     case RING_STEALTH:
     case RING_WIZARDRY:
     case RING_FIRE:
@@ -2488,9 +2487,6 @@ int get_armour_res_poison(const item_def &arm, bool check_artp)
     if (get_armour_ego_type(arm) == SPARM_POISON_RESISTANCE)
         res += 1;
 
-    if (check_artp && is_artefact(arm))
-        res += artefact_property(arm, ARTP_POISON);
-
     return res;
 }
 
@@ -2521,9 +2517,6 @@ int get_armour_life_protection(const item_def &arm, bool check_artp)
     // check for ego resistance
     if (get_armour_ego_type(arm) == SPARM_POSITIVE_ENERGY)
         res += 1;
-
-    if (check_artp && is_artefact(arm))
-        res += artefact_property(arm, ARTP_NEGATIVE_ENERGY);
 
     return res;
 }
@@ -2557,9 +2550,6 @@ bool get_armour_see_invisible(const item_def &arm, bool check_artp)
     // check for ego resistance
     if (get_armour_ego_type(arm) == SPARM_SEE_INVISIBLE)
         return true;
-
-    if (check_artp && is_artefact(arm))
-        return artefact_property(arm, ARTP_SEE_INVISIBLE);
 
     return false;
 }
@@ -2675,13 +2665,6 @@ int get_jewellery_life_protection(const item_def &ring, bool check_artp)
 
     int res = 0;
 
-    // check for ego resistance
-    if (ring.sub_type == RING_LIFE_PROTECTION)
-        res += 1;
-
-    if (check_artp && is_artefact(ring))
-        res += artefact_property(ring, ARTP_NEGATIVE_ENERGY);
-
     return res;
 }
 
@@ -2706,9 +2689,6 @@ bool get_jewellery_see_invisible(const item_def &ring, bool check_artp)
 
     if (ring.sub_type == RING_SEE_INVISIBLE)
         return true;
-
-    if (check_artp && is_artefact(ring))
-        return artefact_property(ring, ARTP_SEE_INVISIBLE);
 
     return false;
 }
@@ -2857,8 +2837,6 @@ bool gives_resistance(const item_def &item)
             if (item.sub_type == RING_PROTECTION_FROM_FIRE
                 || item.sub_type == RING_POISON_RESISTANCE
                 || item.sub_type == RING_PROTECTION_FROM_COLD
-                || item.sub_type == RING_RESIST_CORROSION
-                || item.sub_type == RING_LIFE_PROTECTION
                 || item.sub_type == RING_WILLPOWER
                 || item.sub_type == RING_FIRE
                 || item.sub_type == RING_ICE
@@ -2911,10 +2889,7 @@ bool gives_resistance(const item_def &item)
             && (rap == ARTP_FIRE
                 || rap == ARTP_COLD
                 || rap == ARTP_ELECTRICITY
-                || rap == ARTP_POISON
-                || rap == ARTP_NEGATIVE_ENERGY
                 || rap == ARTP_WILLPOWER
-                || rap == ARTP_RCORR
                 || rap == ARTP_RMUT))
         {
             return true;

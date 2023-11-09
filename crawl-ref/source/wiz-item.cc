@@ -1472,16 +1472,22 @@ static void _debug_rap_stats(FILE *ostat)
         "ARTP_BRAND",
         "ARTP_AC",
         "ARTP_EVASION",
+#if TAG_MAJOR_VERSION == 34
         "ARTP_STRENGTH",
         "ARTP_INTELLIGENCE",
         "ARTP_DEXTERITY",
+#endif
         "ARTP_FIRE",
         "ARTP_COLD",
         "ARTP_ELECTRICITY",
+#if TAG_MAJOR_VERSION == 34
         "ARTP_POISON",
         "ARTP_NEGATIVE_ENERGY",
+#endif
         "ARTP_WILLPOWER",
+#if TAG_MAJOR_VERSION == 34
         "ARTP_SEE_INVISIBLE",
+#endif
         "ARTP_INVISIBLE",
         "ARTP_FLY",
         "ARTP_BLINK",
@@ -1522,7 +1528,9 @@ static void _debug_rap_stats(FILE *ostat)
         "ARTP_SUSTAT",
 #endif
         "ARTP_NO_UPGRADE",
+#if TAG_MAJOR_VERSION == 34
         "ARTP_RCORR",
+#endif
         "ARTP_RMUT",
 #if TAG_MAJOR_VERSION == 34
         "ARTP_TWISTER",
@@ -1530,7 +1538,9 @@ static void _debug_rap_stats(FILE *ostat)
         "ARTP_CORRODE",
         "ARTP_DRAIN",
         "ARTP_SLOW",
+#if TAG_MAJOR_VERSION == 34
         "ARTP_FRAGILE",
+#endif
         "ARTP_SHIELDING",
         "ARTP_HARM",
         "ARTP_RAMPAGING",

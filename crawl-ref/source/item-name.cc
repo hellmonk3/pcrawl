@@ -759,22 +759,30 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_PROTECTION_FROM_FIRE:  return "protection from fire";
         case RING_POISON_RESISTANCE:     return "poison resistance";
         case RING_PROTECTION_FROM_COLD:  return "protection from cold";
+#if TAG_MAJOR_VERSION == 34
         case RING_STRENGTH:              return "strength";
+#endif
         case RING_SLAYING:               return "slaying";
         case RING_SEE_INVISIBLE:         return "see invisible";
+#if TAG_MAJOR_VERSION == 34
         case RING_RESIST_CORROSION:      return "resist corrosion";
+#endif
         case RING_EVASION:               return "evasion";
 #if TAG_MAJOR_VERSION == 34
         case RING_SUSTAIN_ATTRIBUTES:    return "sustain attributes";
 #endif
         case RING_STEALTH:               return "stealth";
+#if TAG_MAJOR_VERSION == 34
         case RING_DEXTERITY:             return "dexterity";
         case RING_INTELLIGENCE:          return "intelligence";
+#endif
         case RING_WIZARDRY:              return "wizardry";
         case RING_MAGICAL_POWER:         return "magical power";
         case RING_FLIGHT:                return "flight";
+#if TAG_MAJOR_VERSION == 34
         case RING_LIFE_PROTECTION:       return "positive energy";
-        case RING_WILLPOWER: return "willpower";
+#endif
+        case RING_WILLPOWER:             return "willpower";
         case RING_FIRE:                  return "fire";
         case RING_ICE:                   return "ice";
 #if TAG_MAJOR_VERSION == 34
@@ -813,17 +821,25 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_PROTECTION_FROM_FIRE:  return "rF+";
         case RING_POISON_RESISTANCE:     return "rPois";
         case RING_PROTECTION_FROM_COLD:  return "rC+";
+#if TAG_MAJOR_VERSION == 34
         case RING_STRENGTH:              return "Str";
+#endif
         case RING_SLAYING:               return "Slay";
         case RING_SEE_INVISIBLE:         return "sInv";
+#if TAG_MAJOR_VERSION == 34
         case RING_RESIST_CORROSION:      return "rCorr";
+#endif
         case RING_EVASION:               return "EV";
         case RING_STEALTH:               return "Stlth+";
+#if TAG_MAJOR_VERSION == 34
         case RING_DEXTERITY:             return "Dex";
         case RING_INTELLIGENCE:          return "Int";
+#endif
         case RING_MAGICAL_POWER:         return "MP+9";
         case RING_FLIGHT:                return "Fly";
+#if TAG_MAJOR_VERSION == 34
         case RING_LIFE_PROTECTION:       return "rN+";
+#endif
         case RING_WILLPOWER:             return "Will+";
         case AMU_REGENERATION:           return "Regen";
 #if TAG_MAJOR_VERSION == 34
@@ -3213,9 +3229,6 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
 
         switch (item.sub_type)
         {
-        case RING_RESIST_CORROSION:
-            return you.res_corr(false, false);
-
         case AMU_ACROBAT:
             return you.has_mutation(MUT_ACROBATIC);
 
@@ -3226,9 +3239,6 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
 
         case AMU_GUARDIAN_SPIRIT:
             return you.spirit_shield(false) || you.has_mutation(MUT_HP_CASTING);
-
-        case RING_LIFE_PROTECTION:
-            return player_prot_life(false, temp, false) == 3;
 
         case AMU_REGENERATION:
             return

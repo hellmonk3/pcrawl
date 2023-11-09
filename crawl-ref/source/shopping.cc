@@ -81,9 +81,6 @@ int artefact_value(const item_def &item)
            + 6 * prop[ARTP_EVASION]
            + 5 * prop[ARTP_SHIELDING]
            + 6 * prop[ARTP_SLAYING]
-           + 3 * prop[ARTP_STRENGTH]
-           + 3 * prop[ARTP_INTELLIGENCE]
-           + 3 * prop[ARTP_DEXTERITY]
            + 4 * prop[ARTP_HP]
            + 3 * prop[ARTP_MAGICAL_POWER];
 
@@ -103,33 +100,19 @@ int artefact_value(const item_def &item)
     else if (prop[ARTP_WILLPOWER] < 0)
         ret -= 6;
 
-    if (prop[ARTP_NEGATIVE_ENERGY] > 0)
-        ret += 3 + 3 * (prop[ARTP_NEGATIVE_ENERGY] * prop[ARTP_NEGATIVE_ENERGY]);
-
     // Discount Stlth-, charge for Stlth+
     ret += 2 * prop[ARTP_STEALTH];
     // Stlth+ costs more than Stlth- cheapens
     if (prop[ARTP_STEALTH] > 0)
         ret += 2 * prop[ARTP_STEALTH];
 
-    // only one meaningful level:
-    if (prop[ARTP_POISON])
-        ret += 6;
-
     // only one meaningful level (hard to get):
     if (prop[ARTP_ELECTRICITY])
         ret += 10;
 
     // only one meaningful level (hard to get):
-    if (prop[ARTP_RCORR])
-        ret += 8;
-
-    // only one meaningful level (hard to get):
     if (prop[ARTP_RMUT])
         ret += 8;
-
-    if (prop[ARTP_SEE_INVISIBLE])
-        ret += 6;
 
     // abilities:
     if (prop[ARTP_FLY])
@@ -163,9 +146,6 @@ int artefact_value(const item_def &item)
         ret -= 8;
 
     if (prop[ARTP_SLOW])
-        ret -= 8;
-
-    if (prop[ARTP_FRAGILE])
         ret -= 8;
 
     if (prop[ARTP_RMSL])
@@ -549,11 +529,6 @@ unsigned int item_value(item_def item, bool ident)
                 case RING_EVASION:
                     base = 8 * item.plus / 5;
                     break;
-                case RING_STRENGTH:
-                case RING_DEXTERITY:
-                case RING_INTELLIGENCE:
-                    base = item.plus * 4 / 3;
-                    break;
                 default:
                     break;
                 }
@@ -589,9 +564,7 @@ unsigned int item_value(item_def item, bool ident)
                     break;
 
                 case RING_MAGICAL_POWER:
-                case RING_LIFE_PROTECTION:
                 case RING_POISON_RESISTANCE:
-                case RING_RESIST_CORROSION:
                     valued += 200;
                     break;
 

@@ -402,19 +402,6 @@ static armour_type _pick_unseen_armour()
     return picked;
 }
 
-static bool _regular_staves_useless()
-{
-    // stave OBJ_WEAPONS are useless to regular size chars with a missing hand,
-    // but we don't want to mark the skill as useless in general, because it
-    // also applies to OBJ_STAVES, which are one-handed. Also a bunch of
-    // unrands, which this code probably prevents from generating for this
-    // case.
-    if (!you.has_mutation(MUT_MISSING_HAND))
-        return false;
-
-    return true;
-}
-
 /**
  * Randomly choose a class of weapons (those using a specific weapon skill)
  * for acquirement to give the player. Weight toward the player's skills.
@@ -423,7 +410,7 @@ static bool _regular_staves_useless()
  *                  tailored to the player's skills.
  * @return          An appropriate weapon skill; e.g. SK_LONG_BLADES.
  */
-static skill_type _acquirement_weapon_skill(bool divine, int agent)
+static skill_type _acquirement_weapon_skill(bool divine)
 {
     // reservoir sample.
     int count = 0;
@@ -453,7 +440,7 @@ static skill_type _acquirement_weapon_skill(bool divine, int agent)
 
 static int _acquirement_weapon_subtype(bool divine, int & /*quantity*/, int agent)
 {
-    const skill_type skill = _acquirement_weapon_skill(divine, agent);
+    const skill_type skill = _acquirement_weapon_skill(divine);
 
     int best_sk = 0;
     for (int i = SK_FIRST_WEAPON;
@@ -1342,11 +1329,6 @@ int acquirement_create_item(object_class_type class_wanted,
         {
             switch (acq_item.sub_type)
             {
-            case RING_STRENGTH:
-            case RING_INTELLIGENCE:
-            case RING_DEXTERITY:
-                acq_item.plus = GOOD_STAT_RING_PLUS;
-                break;
             case RING_EVASION:
                 acq_item.plus = 5;
                 break;

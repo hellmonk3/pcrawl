@@ -114,8 +114,7 @@ bool unequip_item(equipment_type slot, bool msg, bool skip_effects)
             {
                 // Cursed items should always be destroyed on unequip.
                 item_def& item = you.inv[item_slot];
-                if (item.cursed())
-                    destroy_item(item);
+                destroy_item(item);
             }
         }
         else if (!skip_effects)
@@ -247,7 +246,7 @@ void unequip_effect(equipment_type slot, int item_slot, bool meld, bool msg)
     else if (slot >= EQ_FIRST_JEWELLERY && slot <= EQ_LAST_JEWELLERY)
         _unequip_jewellery_effect(item, msg, meld, slot);
 
-    if (item.cursed() && !meld)
+    if (!meld)
         destroy_item(item);
 }
 
@@ -286,9 +285,6 @@ static void _equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld,
     if (proprt[ARTP_EVASION])
         you.redraw_evasion = true;
 
-    if (proprt[ARTP_SEE_INVISIBLE])
-        autotoggle_autopickup(false);
-
     if (proprt[ARTP_MAGICAL_POWER] && !known[ARTP_MAGICAL_POWER] && msg)
     {
         canned_msg(proprt[ARTP_MAGICAL_POWER] > 0 ? MSG_MANA_INCREASE
@@ -304,14 +300,6 @@ static void _equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld,
     {
         _equip_regeneration_item(item);
     }
-
-    // Modify ability scores.
-    notify_stat_change(STAT_STR, proprt[ARTP_STRENGTH],
-                       !(msg && proprt[ARTP_STRENGTH] && !unmeld));
-    notify_stat_change(STAT_INT, proprt[ARTP_INTELLIGENCE],
-                       !(msg && proprt[ARTP_INTELLIGENCE] && !unmeld));
-    notify_stat_change(STAT_DEX, proprt[ARTP_DEXTERITY],
-                       !(msg && proprt[ARTP_DEXTERITY] && !unmeld));
 
     if (proprt[ARTP_FLY])
         _flight_equip();
@@ -342,21 +330,9 @@ static void _equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld,
         calc_mp();
 }
 
-static void _unequip_fragile_artefact(item_def& item, bool meld)
-{
-    ASSERT(is_artefact(item));
-
-    if (artefact_property(item, ARTP_FRAGILE) && !meld)
-    {
-        mprf("%s crumbles to dust!", item.name(DESC_THE).c_str());
-        dec_inv_item_quantity(item.link, 1);
-    }
-}
-
 static void _unequip_artefact_effect(item_def &item,
                                      bool *show_msgs, bool meld,
-                                     equipment_type slot,
-                                     bool weapon)
+                                     equipment_type slot)
 {
     ASSERT(is_artefact(item));
 
@@ -383,10 +359,6 @@ static void _unequip_artefact_effect(item_def &item,
         calc_mp();
     }
 
-    notify_stat_change(STAT_STR, -proprt[ARTP_STRENGTH],     true);
-    notify_stat_change(STAT_INT, -proprt[ARTP_INTELLIGENCE], true);
-    notify_stat_change(STAT_DEX, -proprt[ARTP_DEXTERITY],    true);
-
     if (proprt[ARTP_FLY] != 0)
         land_player();
 
@@ -409,9 +381,6 @@ static void _unequip_artefact_effect(item_def &item,
     if (proprt[ARTP_DRAIN] && !meld)
         drain_player(150, true, true);
 
-    if (proprt[ARTP_SEE_INVISIBLE])
-        _mark_unseen_monsters();
-
     if (proprt[ARTP_REGENERATION])
         _deactivate_regeneration_item(item, meld);
 
@@ -425,11 +394,6 @@ static void _unequip_artefact_effect(item_def &item,
         if (entry->world_reacts_func)
             you.unrand_reacts.set(slot, false);
     }
-
-    // If the item is a weapon, then we call it from unequip_weapon_effect
-    // separately, to make sure the message order makes sense.
-    if (!weapon)
-        _unequip_fragile_artefact(item, meld);
 }
 
 static void _equip_use_warning(const item_def& item)
@@ -635,8 +599,7 @@ static void _unequip_weapon_effect(item_def& real_item, bool showMsgs,
     // false if it does its own message handling.
     if (is_artefact(item))
     {
-        _unequip_artefact_effect(real_item, &showMsgs, meld, EQ_WEAPON,
-                                 true);
+        _unequip_artefact_effect(real_item, &showMsgs, meld, EQ_WEAPON);
     }
 
     if (item.base_type == OBJ_WEAPONS)
@@ -719,9 +682,6 @@ static void _unequip_weapon_effect(item_def& real_item, bool showMsgs,
             }
         }
     }
-
-    if (is_artefact(item))
-        _unequip_fragile_artefact(item, meld);
 }
 
 static void _spirit_shield_message(bool unmeld)
@@ -1007,7 +967,7 @@ static void _unequip_armour_effect(item_def& item, bool meld,
         _deactivate_regeneration_item(item, meld);
 
     if (is_artefact(item))
-        _unequip_artefact_effect(item, nullptr, meld, slot, false);
+        _unequip_artefact_effect(item, nullptr, meld, slot);
 }
 
 static void _remove_amulet_of_faith(item_def &item)
@@ -1139,18 +1099,6 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld,
         you.redraw_evasion = true;
         break;
 
-    case RING_STRENGTH:
-        notify_stat_change(STAT_STR, item.plus, false);
-        break;
-
-    case RING_DEXTERITY:
-        notify_stat_change(STAT_DEX, item.plus, false);
-        break;
-
-    case RING_INTELLIGENCE:
-        notify_stat_change(STAT_INT, item.plus, false);
-        break;
-
     case RING_MAGICAL_POWER:
         if (you.has_mutation(MUT_HP_CASTING))
         {
@@ -1241,7 +1189,6 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
     {
     case RING_FIRE:
     case RING_ICE:
-    case RING_LIFE_PROTECTION:
     case RING_POISON_RESISTANCE:
     case RING_PROTECTION_FROM_COLD:
     case RING_PROTECTION_FROM_FIRE:
@@ -1269,18 +1216,6 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
 
     case RING_EVASION:
         you.redraw_evasion = true;
-        break;
-
-    case RING_STRENGTH:
-        notify_stat_change(STAT_STR, -item.plus, false);
-        break;
-
-    case RING_DEXTERITY:
-        notify_stat_change(STAT_DEX, -item.plus, false);
-        break;
-
-    case RING_INTELLIGENCE:
-        notify_stat_change(STAT_INT, -item.plus, false);
         break;
 
     case RING_FLIGHT:
@@ -1314,7 +1249,7 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
     }
 
     if (is_artefact(item))
-        _unequip_artefact_effect(item, &mesg, meld, slot, false);
+        _unequip_artefact_effect(item, &mesg, meld, slot);
 
     // Must occur after ring is removed. -- bwr
     calc_mp();

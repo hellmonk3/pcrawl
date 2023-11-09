@@ -1616,8 +1616,6 @@ int player_spec_death()
 
     sd += you.get_mutation_level(MUT_NECRO_ENHANCER);
 
-    sd += you.scan_artefacts(ARTP_ENHANCE_NECRO);
-
     return sd;
 }
 
@@ -1628,8 +1626,6 @@ int player_spec_fire()
     sf += you.wearing(EQ_STAFF, STAFF_FIRE);
 
     sf += you.wearing(EQ_RINGS, RING_FIRE);
-
-    sf += you.scan_artefacts(ARTP_ENHANCE_FIRE);
 
     if (player_equip_unrand(UNRAND_SALAMANDER))
         sf++;
@@ -1648,8 +1644,6 @@ int player_spec_cold()
 
     sc += you.wearing(EQ_RINGS, RING_ICE);
 
-    sc += you.scan_artefacts(ARTP_ENHANCE_ICE);
-
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         sc++;
 
@@ -1663,8 +1657,6 @@ int player_spec_earth()
     // Staves
     se += you.wearing(EQ_STAFF, STAFF_EARTH);
 
-    se += you.scan_artefacts(ARTP_ENHANCE_EARTH);
-
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         se++;
 
@@ -1677,8 +1669,6 @@ int player_spec_air()
 
     // Staves
     sa += you.wearing(EQ_STAFF, STAFF_AIR);
-
-    sa += you.scan_artefacts(ARTP_ENHANCE_AIR);
 
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         sa++;
@@ -1694,7 +1684,6 @@ int player_spec_conj()
     int sc = 0;
 
     sc += you.wearing(EQ_STAFF, STAFF_CONJURATION);
-    sc += you.scan_artefacts(ARTP_ENHANCE_CONJ);
 
     return sc;
 }
@@ -1705,14 +1694,13 @@ int player_spec_hex()
 
     // Demonspawn mutation
     sh += you.get_mutation_level(MUT_HEX_ENHANCER);
-    sh += you.scan_artefacts(ARTP_ENHANCE_HEXES);
 
     return sh;
 }
 
 int player_spec_summ()
 {
-    return you.scan_artefacts(ARTP_ENHANCE_SUMM);
+    return 0;
 }
 
 int player_spec_poison()
@@ -1720,8 +1708,6 @@ int player_spec_poison()
     int sp = 0;
 
     sp += you.wearing(EQ_STAFF, STAFF_POISON);
-
-    sp += you.scan_artefacts(ARTP_ENHANCE_POISON);
 
     if (player_equip_unrand(UNRAND_OLGREB))
         sp++;
@@ -1731,12 +1717,12 @@ int player_spec_poison()
 
 int player_spec_tloc()
 {
-    return you.scan_artefacts(ARTP_ENHANCE_TLOC);
+    return 0;
 }
 
 int player_spec_tmut()
 {
-    return you.scan_artefacts(ARTP_ENHANCE_TMUT);
+    return 0;
 }
 
 // If temp is set to false, temporary sources of resistance won't be
@@ -5774,24 +5760,47 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
     if (real)
         return level;
 
-    if (player_equip_unrand(UNRAND_HERMITS_PENDANT))
-    {
-        if (sk == SK_INVOCATIONS)
-            return 14 * scale;
-        if (sk == SK_EVOCATIONS)
-            return 0;
-    }
-
-    if (penance[GOD_ASHENZARI])
-    {
-        if (temp)
-            level = max(level - 4 * scale, level / 2);
-    }
     else if (ash_has_skill_boost(sk))
             level = ash_skill_boost(sk, scale);
 
     if (temp && duration[DUR_HEROISM] && sk <= SK_LAST_MUNDANE)
         level = min(level + 5 * scale, MAX_SKILL_LEVEL * scale);
+
+    switch (sk)
+    {
+    case SK_CONJURATIONS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_CONJ) * scale, 27 * scale);
+        break;
+    case SK_NECROMANCY:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_NECRO) * scale, 27 * scale);
+        break;
+    case SK_HEXES:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_HEXES) * scale, 27 * scale);
+        break;
+    case SK_SUMMONINGS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_SUMM) * scale, 27 * scale);
+        break;
+    case SK_TRANSLOCATIONS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_TLOC) * scale, 27 * scale);
+        break;
+    case SK_TRANSMUTATIONS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_TMUT) * scale, 27 * scale);
+        break;
+    case SK_FIRE_MAGIC:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_FIRE) * scale, 27 * scale);
+        break;
+    case SK_ICE_MAGIC:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_ICE) * scale, 27 * scale);
+        break;
+    case SK_AIR_MAGIC:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_AIR) * scale, 27 * scale);
+        break;
+    case SK_EARTH_MAGIC:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_EARTH) * scale, 27 * scale);
+        break;
+    default:
+        break;
+    }
 
     return level;
 }

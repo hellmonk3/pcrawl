@@ -1733,41 +1733,6 @@ static void _toggle_travel_speed()
     }
 }
 
-static void _do_rest()
-{
-
-#ifdef WIZARD
-    if (you.props.exists(FREEZE_TIME_KEY))
-    {
-        mprf(MSGCH_WARN, "Cannot rest while time is frozen.");
-        return;
-    }
-#endif
-
-    if (should_fear_zot() && !yesno("Really rest while Zot is near?", false, 'n'))
-    {
-        canned_msg(MSG_OK);
-        return;
-    }
-
-    if (i_feel_safe() && can_rest_here())
-    {
-        if (you.is_sufficiently_rested() && ancestor_full_hp())
-        {
-            mpr("You start waiting.");
-            _start_running(RDIR_REST, RMODE_WAIT_DURATION);
-            return;
-        }
-        else
-            mpr("You start resting.");
-    }
-    // intentional fallthrough for else case! Messaging is handled in
-    // _start_running, update the corresponding conditional there if you
-    // change this one.
-
-    _start_running(RDIR_REST, RMODE_REST_DURATION);
-}
-
 static void _do_display_map()
 {
     if (Hints.hints_events[HINT_MAP_VIEW])

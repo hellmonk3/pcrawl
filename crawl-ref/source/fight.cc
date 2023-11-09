@@ -1283,14 +1283,6 @@ int archer_bonus_damage(int hd)
 }
 
 /**
- * Do weapons that use the given skill use strength or dex to increase damage?
- */
-bool weapon_uses_strength(skill_type wpn_skill, bool using_weapon)
-{
-    return true;
-}
-
-/**
  * Apply the player's attributes to multiply damage dealt with the given weapon skill.
  */
 int stat_modify_damage(int damage, skill_type wpn_skill, bool using_weapon)
@@ -1299,9 +1291,7 @@ int stat_modify_damage(int damage, skill_type wpn_skill, bool using_weapon)
     // Each point of strength over 10 increases this by 0.025 (2.5%),
     // strength below 10 reduces the multiplied by the same amount.
     // Minimum multiplier is 0.01 (1%) (reached at -30 str).
-    // Ranged weapons and short/long blades use dex instead.
-    const bool use_str = weapon_uses_strength(wpn_skill, using_weapon);
-    const int attr = use_str ? you.strength() : you.dex();
+    const int attr = you.strength();
     damage *= max(1.0, 75 + 2.5 * attr);
     damage /= 100;
 

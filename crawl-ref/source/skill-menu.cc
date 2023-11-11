@@ -22,6 +22,7 @@
 #include "hints.h"
 #include "options.h"
 #include "output.h"
+#include "player.h"
 #include "religion.h"
 #include "state.h"
 #include "stringutil.h"
@@ -546,6 +547,8 @@ string SkillMenuSwitch::get_help()
             }
             if (_hermit_bonus())
                 causes.push_back("the Hermit's pendant");
+            if (artefacts_enhance_skill())
+                causes.push_back("your equipment");
             result = "Skills enhanced by "
                      + comma_separated_line(causes.begin(), causes.end())
                      + " are in <green>green</green>.";

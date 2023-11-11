@@ -2992,6 +2992,49 @@ void adjust_level(int diff, bool just_xp)
         level_change();
 }
 
+static artefact_prop_type _enhancer_for_skill(skill_type sk)
+{
+    switch (sk)
+    {
+    case SK_FIRE_MAGIC:
+        return ARTP_ENHANCE_FIRE;
+    case SK_ICE_MAGIC:
+        return ARTP_ENHANCE_ICE;
+    case SK_AIR_MAGIC:
+        return ARTP_ENHANCE_AIR;
+    case SK_EARTH_MAGIC:
+        return ARTP_ENHANCE_EARTH;
+    case SK_SUMMONINGS:
+        return ARTP_ENHANCE_SUMM;
+    case SK_TRANSLOCATIONS:
+        return ARTP_ENHANCE_TLOC;
+    case SK_NECROMANCY:
+        return ARTP_ENHANCE_NECRO;
+    case SK_CONJURATIONS:
+        return ARTP_ENHANCE_CONJ;
+    case SK_HEXES:
+        return ARTP_ENHANCE_HEXES;
+    case SK_TRANSMUTATIONS:
+        return ARTP_ENHANCE_TMUT;
+    default:
+        return ARTP_NUM_PROPERTIES;
+    }
+}
+
+bool artefacts_enhance_skill()
+{
+    for (skill_type sk = SK_FIRST_SKILL; sk <= SK_LAST_SKILL; sk++)
+    {
+        artefact_prop_type p = _enhancer_for_skill(sk);
+        if (p == ARTP_NUM_PROPERTIES)
+            continue;
+        if (you.scan_artefacts(p))
+            return true;
+    }
+
+    return false;
+}
+
 /**
  * Get the player's current stealth value.
  *

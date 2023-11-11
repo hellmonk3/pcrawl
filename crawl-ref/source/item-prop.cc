@@ -902,6 +902,7 @@ const set<pair<object_class_type, int> > removed_items =
     { OBJ_STAVES,    STAFF_ENERGY },
     { OBJ_STAVES,    STAFF_SUMMONING },
     { OBJ_STAVES,    STAFF_WIZARDRY },
+    { OBJ_STAVES,    STAFF_POISON },
     { OBJ_POTIONS,   POT_GAIN_STRENGTH },
     { OBJ_POTIONS,   POT_GAIN_DEXTERITY },
     { OBJ_POTIONS,   POT_GAIN_INTELLIGENCE },
@@ -1997,8 +1998,6 @@ skill_type staff_skill(stave_type s)
         return SK_EARTH_MAGIC;
     case STAFF_FIRE:
         return SK_FIRE_MAGIC;
-    case STAFF_POISON:
-        return SK_NONE;
     case STAFF_DEATH:
         return SK_NECROMANCY;
     case STAFF_CONJURATION:

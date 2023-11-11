@@ -1558,9 +1558,6 @@ int player_res_poison(bool allow_random, bool temp, bool items)
         // rings of poison resistance
         rp += you.wearing(EQ_RINGS, RING_POISON_RESISTANCE);
 
-        // Staves
-        rp += you.wearing(EQ_STAFF, STAFF_POISON);
-
         // ego armour:
         rp += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_POISON_RESISTANCE);
 
@@ -1705,14 +1702,7 @@ int player_spec_summ()
 
 int player_spec_poison()
 {
-    int sp = 0;
-
-    sp += you.wearing(EQ_STAFF, STAFF_POISON);
-
-    if (player_equip_unrand(UNRAND_OLGREB))
-        sp++;
-
-    return sp;
+    return 0;
 }
 
 int player_spec_tloc()

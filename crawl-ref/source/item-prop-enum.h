@@ -549,8 +549,8 @@ enum stave_type
 #endif
     STAFF_FIRE,
     STAFF_COLD,
-    STAFF_POISON,
 #if TAG_MAJOR_VERSION == 34
+    STAFF_POISON,
     STAFF_ENERGY,
 #endif
     STAFF_DEATH,

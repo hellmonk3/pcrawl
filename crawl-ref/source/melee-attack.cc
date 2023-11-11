@@ -2359,23 +2359,6 @@ bool melee_attack::apply_staff_damage()
         }
         break;
 
-    case STAFF_POISON:
-        special_damage =
-            resist_adjust_damage(defender, BEAM_POISON, staff_damage(sk));
-
-        if (special_damage)
-        {
-            special_damage_message =
-                make_stringf(
-                    "%s envenom%s %s%s",
-                    attacker->name(DESC_THE).c_str(),
-                    attacker->is_player() ? "" : "s",
-                    defender->name(DESC_THE).c_str(),
-                    attack_strength_punctuation(special_damage).c_str());
-            special_damage_flavour = BEAM_POISON;
-        }
-        break;
-
     case STAFF_DEATH:
         special_damage =
             resist_adjust_damage(defender, BEAM_NEG, staff_damage(sk));

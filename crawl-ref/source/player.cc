@@ -1558,9 +1558,6 @@ int player_res_poison(bool allow_random, bool temp, bool items)
         // rings of poison resistance
         rp += you.wearing(EQ_RINGS, RING_POISON_RESISTANCE);
 
-        // Staves
-        rp += you.wearing(EQ_STAFF, STAFF_POISON);
-
         // ego armour:
         rp += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_POISON_RESISTANCE);
 
@@ -1705,14 +1702,7 @@ int player_spec_summ()
 
 int player_spec_poison()
 {
-    int sp = 0;
-
-    sp += you.wearing(EQ_STAFF, STAFF_POISON);
-
-    if (player_equip_unrand(UNRAND_OLGREB))
-        sp++;
-
-    return sp;
+    return 0;
 }
 
 int player_spec_tloc()
@@ -3000,6 +2990,49 @@ void adjust_level(int diff, bool just_xp)
 
     if (!just_xp)
         level_change();
+}
+
+static artefact_prop_type _enhancer_for_skill(skill_type sk)
+{
+    switch (sk)
+    {
+    case SK_FIRE_MAGIC:
+        return ARTP_ENHANCE_FIRE;
+    case SK_ICE_MAGIC:
+        return ARTP_ENHANCE_ICE;
+    case SK_AIR_MAGIC:
+        return ARTP_ENHANCE_AIR;
+    case SK_EARTH_MAGIC:
+        return ARTP_ENHANCE_EARTH;
+    case SK_SUMMONINGS:
+        return ARTP_ENHANCE_SUMM;
+    case SK_TRANSLOCATIONS:
+        return ARTP_ENHANCE_TLOC;
+    case SK_NECROMANCY:
+        return ARTP_ENHANCE_NECRO;
+    case SK_CONJURATIONS:
+        return ARTP_ENHANCE_CONJ;
+    case SK_HEXES:
+        return ARTP_ENHANCE_HEXES;
+    case SK_TRANSMUTATIONS:
+        return ARTP_ENHANCE_TMUT;
+    default:
+        return ARTP_NUM_PROPERTIES;
+    }
+}
+
+bool artefacts_enhance_skill()
+{
+    for (skill_type sk = SK_FIRST_SKILL; sk <= SK_LAST_SKILL; sk++)
+    {
+        artefact_prop_type p = _enhancer_for_skill(sk);
+        if (p == ARTP_NUM_PROPERTIES)
+            continue;
+        if (you.scan_artefacts(p))
+            return true;
+    }
+
+    return false;
 }
 
 /**
@@ -5411,7 +5444,7 @@ bool player::is_banished() const
     return banished;
 }
 
-bool player::is_sufficiently_rested(bool starting) const
+bool player::is_sufficiently_rested() const
 {
     // Only return false if resting will actually help. Anything here should
     // explicitly trigger an appropriate activity interrupt to prevent infinite
@@ -5750,8 +5783,6 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
     // skill training, so make sure to use the correct value.
     int actual_skill = skills[sk];
     unsigned int effective_points = skill_points[sk];
-    if (!real)
-        effective_points += get_crosstrain_points(sk);
     effective_points = min(effective_points, skill_exp_needed(MAX_SKILL_LEVEL, sk));
     actual_skill = calc_skill_level_change(sk, actual_skill, effective_points);
 

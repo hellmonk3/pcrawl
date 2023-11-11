@@ -1453,7 +1453,7 @@ static int _training_target_skill_point_diff(skill_type exsk, int training_targe
                             * target_fractional, 10);
     }
 
-    int you_skill_points = you.skill_points[exsk] + get_crosstrain_points(exsk);
+    int you_skill_points = you.skill_points[exsk];
     if (ash_has_skill_boost(exsk))
         you_skill_points += ash_skill_point_boost(exsk, training_target);
 
@@ -1587,11 +1587,6 @@ skill_diff skill_level_to_diffs(skill_type skill, double amount,
 
     if (!base_only)
     {
-        // Factor in crosstraining bonus at the time of the query.
-        // This will not address the case where some cross-training skills are
-        // also being trained.
-        you_skill += get_crosstrain_points(skill);
-
         // Estimate the ash bonus, based on current skill levels and piety.
         // This isn't perfectly accurate, because the boost changes as
         // skill increases. TODO: exact solution.
@@ -2279,23 +2274,6 @@ float species_apt_factor(skill_type sk, species_type sp)
     return apt_to_factor(species_apt(sk, sp));
 }
 
-vector<skill_type> get_crosstrain_skills(skill_type sk)
-{
-    return {};
-}
-
-/**
- * Calculate the current crosstraining bonus for skill `sk`, in skill points.
- */
-int get_crosstrain_points(skill_type sk)
-{
-    int points = 0;
-    for (skill_type cross : get_crosstrain_skills(sk))
-        points += you.skill_points[cross] * 2 / 5;
-    return points;
-
-}
-
 /**
  * Is the provided skill one of the elemental spellschools?
  *
@@ -2471,9 +2449,9 @@ bool can_enable_skill(skill_type sk, bool override)
 
 void set_training_status(skill_type sk, training_status st)
 {
-    for (skill_type sk = SK_FIRST_SKILL; sk <= SK_LAST_SKILL; ++sk)
+    for (skill_type s = SK_FIRST_SKILL; s <= SK_LAST_SKILL; ++s)
     {
-        you.train[sk] = TRAINING_DISABLED;
+        you.train[s] = TRAINING_DISABLED;
     }
     you.train[sk] = st;
 }

@@ -1886,18 +1886,7 @@ static tileidx_t _tileidx_monster_no_props(const monster_info& mon)
 
         case MONS_ARACHNE:
         {
-            // Arachne normally is drawn with her staff wielded two-handed,
-            // but will use a regular stance if she picks up a shield
-            // (enhancer staves are compatible with those).
-            const item_def* weapon = mon.inv[MSLOT_WEAPON].get();
-            if (!mon.inv[MSLOT_SHIELD] && weapon
-                && (weapon->is_type(OBJ_STAVES, STAFF_POISON)
-                    || is_unrandom_artefact(*weapon, UNRAND_OLGREB)))
-            {
-                return base;
-            }
-            else
-                return base + 1;
+            return base;
         }
 
         case MONS_AGNES:

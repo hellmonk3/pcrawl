@@ -771,7 +771,6 @@ int ash_skill_boost(skill_type sk, int scale)
     // ( curses * 4 / 3 + 1 ) * (piety_rank + 1) * skill_level
 
     unsigned int skill_points = you.skill_points[sk]
-                  + get_crosstrain_points(sk)
                   + ash_skill_point_boost(sk, you.skill(sk, 10, true));
 
     int level = you.skills[sk];

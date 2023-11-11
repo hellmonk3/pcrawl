@@ -344,7 +344,6 @@ static map<stave_type, artefact_prop_type> staff_resist_artps = {
 static map<stave_type, artefact_prop_type> staff_enhancer_artps = {
     { STAFF_FIRE,           ARTP_ENHANCE_FIRE },
     { STAFF_COLD,           ARTP_ENHANCE_ICE },
-    { STAFF_POISON,         ARTP_ENHANCE_POISON },
     { STAFF_DEATH,          ARTP_ENHANCE_NECRO },
     { STAFF_AIR,            ARTP_ENHANCE_AIR },
     { STAFF_CONJURATION,    ARTP_ENHANCE_CONJ },

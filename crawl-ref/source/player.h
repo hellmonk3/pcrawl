@@ -511,7 +511,7 @@ public:
     int visible_igrd(const coord_def&) const;
     bool rampaging() const override;
     bool is_banished() const override;
-    bool is_sufficiently_rested(bool starting=false) const; // Up to rest_wait_percent HP and MP.
+    bool is_sufficiently_rested() const; // Up to rest_wait_percent HP and MP.
     bool is_web_immune() const override;
     bool cannot_speak() const;
     bool invisible() const override;
@@ -1187,3 +1187,5 @@ bool need_expiration_warning(coord_def p = you.pos());
 
 bool player_has_orb();
 bool player_on_orb_run();
+
+bool artefacts_enhance_skill();

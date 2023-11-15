@@ -1601,31 +1601,14 @@ void attack::calc_elemental_brand_damage(beam_type flavour,
 
 int attack::player_stab_weapon_bonus(int damage)
 {
-    int stab_skill = you.skill(wpn_skill, 50) + you.skill(SK_STEALTH, 50);
+    int stab_skill = you.skill(wpn_skill,1) + you.skill(SK_STEALTH,1);
+    
+    damage += stab_skill;
 
     if (player_good_stab())
     {
-        // We might be unarmed if we're using the hood of the Assassin.
-        const bool extra_good = using_weapon() && weapon->sub_type == WPN_DAGGER;
-        int bonus = you.dex() * (stab_skill + 100) / (extra_good ? 500 : 1000);
-
-        bonus   = stepdown_value(bonus, 10, 10, 30, 30);
-        damage += bonus;
-        damage *= 10 + div_rand_round(stab_skill, 100 * stab_bonus);
-        damage /= 10;
+        damage *= 2;
     }
-
-    // There's both a flat and multiplicative component to
-    // stab bonus damage.
-
-    damage *= 12 + div_rand_round(stab_skill, 100 * stab_bonus);
-    damage /= 12;
-
-    // The flat component is loosely based on the old stab_bypass bonus.
-    // Essentially, it's an extra quarter-point of damage for every
-    // point of weapon + stealth skill, divided by stab_bonus - that is,
-    // quartered again if the target isn't sleeping, paralysed, or petrified.
-    damage += random2(div_rand_round(stab_skill, 200 * stab_bonus));
 
     return damage;
 }

@@ -1128,26 +1128,6 @@ int attack::calc_damage()
     {
         int damage = 0;
         int damage_max = 0;
-        if (using_weapon() || wpn_skill == SK_THROWING)
-        {
-            damage_max = adjusted_weapon_damage();
-            damage += random2(damage_max);
-
-            int wpn_damage_plus = 0;
-            if (weapon) // can be 0 for throwing projectiles
-                wpn_damage_plus = get_weapon_plus();
-
-            const int jewellery = attacker->as_monster()->inv[MSLOT_JEWELLERY];
-            if (jewellery != NON_ITEM
-                && env.item[jewellery].is_type(OBJ_JEWELLERY, RING_SLAYING))
-            {
-                wpn_damage_plus += env.item[jewellery].plus;
-            }
-
-            wpn_damage_plus += attacker->scan_artefacts(ARTP_SLAYING);
-
-            damage = _core_apply_slaying(damage, wpn_damage_plus);
-        }
 
         damage_max += attk_damage;
         damage     += 1 + random2(attk_damage);

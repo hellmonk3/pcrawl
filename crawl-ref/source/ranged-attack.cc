@@ -105,7 +105,8 @@ bool ranged_attack::attack()
     }
 
     const int ev = defender->evasion(false, attacker);
-    ev_margin = test_hit(to_hit, ev, !attacker->is_player());
+    const bool repulsion = defender->missile_repulsion() ? 50 : 0;
+    ev_margin = test_hit(to_hit, ev + repulsion, false);
     bool shield_blocked = attack_shield_blocked(false);
 
     god_conduct_trigger conducts[3];
@@ -208,7 +209,7 @@ bool ranged_attack::handle_phase_dodged()
     const int ev = defender->evasion(false, attacker);
 
     const int orig_ev_margin =
-        test_hit(orig_to_hit, ev, !attacker->is_player());
+        test_hit(orig_to_hit, ev, false);
 
     if (defender->missile_repulsion() && orig_ev_margin >= 0)
     {

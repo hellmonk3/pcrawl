@@ -976,7 +976,7 @@ bool melee_attack::attack()
     // Calculate various ev values and begin to check them to determine the
     // correct handle_phase_ handler.
     const int ev = defender->evasion(false, attacker);
-    ev_margin = test_hit(to_hit, ev, !attacker->is_player());
+    ev_margin = test_hit(to_hit, ev, false);
     bool shield_blocked = attack_shield_blocked(true);
 
     // Stuff for god conduct, this has to remain here for scope reasons.
@@ -1456,18 +1456,9 @@ bool melee_attack::player_aux_test_hit()
 
     const int evasion = defender->evasion(false, attacker);
 
-    if (player_under_penance(GOD_ELYVILON)
-        && god_hates_your_god(GOD_ELYVILON)
-        && to_hit >= evasion
-        && one_chance_in(20))
-    {
-        simple_god_message(" blocks your attack.", GOD_ELYVILON);
-        return false;
-    }
+    bool auto_hit = one_chance_in(10);
 
-    bool auto_hit = one_chance_in(30);
-
-    if (to_hit >= evasion || auto_hit)
+    if (random2(to_hit) >= evasion || auto_hit)
         return true;
 
     mprf("Your %s misses %s.", aux_attack.c_str(),

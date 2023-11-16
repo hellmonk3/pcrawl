@@ -161,82 +161,8 @@ int attack::calc_pre_roll_to_hit(bool random)
     {
         return AUTOMATIC_HIT;
     }
-    int mhit;
-
-    // This if statement is temporary, it should be removed when the
-    // implementation of a more universal (and elegant) to-hit calculation
-    // is designed. The actual code is copied from the old mons_to_hit and
-    // player_to_hit methods.
-    if (stat_source().is_player())
-    {
-        mhit = 15 + (you.dex() / 2);
-        // fighting contribution
-        mhit += maybe_random_div(you.skill(SK_FIGHTING, 100), 100, random);
-
-        // weapon skill contribution
-        if (using_weapon())
-        {
-            if (wpn_skill != SK_FIGHTING)
-            {
-                if (you.skill(wpn_skill) < 1 && player_in_a_dangerous_place() && random)
-                    xom_is_stimulated(10); // Xom thinks that is mildly amusing.
-
-                mhit += maybe_random_div(you.skill(wpn_skill, 100), 100,
-                                         random);
-            }
-        }
-        else if (you.form_uses_xl())
-            mhit += maybe_random_div(you.experience_level * 100, 100, random);
-        else
-        {
-            // UC gets extra acc to compensate for lack of weapon enchantment.
-            if (wpn_skill == SK_UNARMED_COMBAT)
-                mhit += 6;
-
-            mhit += maybe_random_div(you.skill(wpn_skill, 100), 100,
-                                     random);
-        }
-
-        // weapon bonus contribution
-        if (using_weapon())
-        {
-            if (weapon->base_type == OBJ_WEAPONS)
-            {
-                mhit += weapon->plus;
-                mhit += property(*weapon, PWPN_HIT);
-            }
-            else if (weapon->base_type == OBJ_STAVES)
-                mhit += property(*weapon, PWPN_HIT);
-        }
-
-        // slaying bonus
-        mhit += slaying_bonus(wpn_skill == SK_THROWING);
-
-        // vertigo penalty
-        if (you.duration[DUR_VERTIGO])
-            mhit -= 5;
-
-        // mutation
-        if (you.get_mutation_level(MUT_EYEBALLS))
-            mhit += 2 * you.get_mutation_level(MUT_EYEBALLS) + 1;
-    }
-    else    // Monster to-hit.
-    {
-        mhit = calc_mon_to_hit_base();
-        if (using_weapon())
-            mhit += weapon->plus + property(*weapon, PWPN_HIT);
-
-        const int jewellery = attacker->as_monster()->inv[MSLOT_JEWELLERY];
-        if (jewellery != NON_ITEM
-            && env.item[jewellery].is_type(OBJ_JEWELLERY, RING_SLAYING))
-        {
-            mhit += env.item[jewellery].plus;
-        }
-
-        mhit += attacker->scan_artefacts(ARTP_SLAYING);
-    }
-
-    return mhit;
+    
+    return random ? 100 : 100;
 }
 
 /**
@@ -293,20 +219,6 @@ int attack::calc_to_hit(bool random)
     int mhit = calc_pre_roll_to_hit(random);
     if (mhit == AUTOMATIC_HIT)
         return AUTOMATIC_HIT;
-
-    // hit roll
-    const actor &src = stat_source();
-    if (src.is_player())
-        mhit = maybe_random2(mhit, random);
-
-    mhit += post_roll_to_hit_modifiers(mhit, random);
-
-    // We already did this roll for players.
-    if (!src.is_player())
-        mhit = maybe_random2(mhit + 1, random);
-;
-    dprf(DIAG_COMBAT, "%s: to-hit: %d",
-         attacker->name(DESC_PLAIN).c_str(), mhit);
 
     return mhit;
 }
@@ -1177,17 +1089,18 @@ int attack::test_hit(int to_land, int ev, bool randomise_ev)
 {
     int margin = AUTOMATIC_HIT;
     if (randomise_ev)
-        ev = random2avg(2*ev, 2);
+        ev = ev;
     if (to_land >= AUTOMATIC_HIT)
         return true;
-    else if (x_chance_in_y(MIN_HIT_MISS_PERCENTAGE, 100))
-        margin = (random2(2) ? 1 : -1) * AUTOMATIC_HIT;
-    else
-        margin = to_land - ev;
+    
+    to_land = random2(to_land);
+
+    // cap miss % at 90
+    margin = to_land - min(ev, 100 - MIN_HIT_PERCENTAGE);
 
 #ifdef DEBUG_DIAGNOSTICS
-    dprf(DIAG_COMBAT, "to hit: %d; ev: %d; result: %s (%d)",
-         to_hit, ev, (margin >= 0) ? "hit" : "miss", margin);
+    dprf(DIAG_COMBAT, "ev: %d; result: %s (%d)",
+         ev, (margin >= 0) ? "hit" : "miss", margin);
 #endif
 
     return margin;

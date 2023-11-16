@@ -3250,17 +3250,6 @@ static void _display_movement_speed()
                             : "very slow");
 }
 
-static void _display_tohit()
-{
-#ifdef DEBUG_DIAGNOSTICS
-    melee_attack attk(&you, nullptr);
-
-    const int to_hit = attk.calc_to_hit(false);
-
-    dprf("To-hit: %d", to_hit);
-#endif
-}
-
 /**
  * Print a message indicating the player's attack delay with their current
  * weapon (if applicable).
@@ -3352,7 +3341,6 @@ void display_char_status()
         mpr(cinfo);
 
     _display_movement_speed();
-    _display_tohit();
     _display_attack_delay();
     _display_damage_rating();
 

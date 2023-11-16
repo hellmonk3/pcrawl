@@ -5037,19 +5037,16 @@ void bolt::affect_monster(monster* mon)
         return;
 
     defer_rand r;
-    int rand_ev = random2(mon->evasion());
+    int ev = mon->evasion();
     bool repel = mon->missile_repulsion();
 
-    // FIXME: We're randomising mon->evasion, which is further
-    // randomised inside test_beam_hit. This is so we stay close to the
-    // 4.0 to-hit system (which had very little love for monsters).
-    if (!engulfs && !_test_beam_hit(beam_hit, rand_ev, repel))
+    if (!engulfs && !_test_beam_hit(beam_hit, ev, repel))
     {
         // If the PLAYER cannot see the monster, don't tell them anything!
         if (mon->observable())
         {
             // if it would have hit otherwise...
-            if (_test_beam_hit(beam_hit, rand_ev, 0))
+            if (_test_beam_hit(beam_hit, ev, 0))
             {
                 msg::stream << mon->name(DESC_THE) << " "
                             << "repels the " << name

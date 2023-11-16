@@ -172,41 +172,7 @@ int attack::calc_pre_roll_to_hit(bool random)
  */
 int attack::post_roll_to_hit_modifiers(int mhit, bool /*random*/)
 {
-    int modifiers = 0;
-
-    // Penalties for both players and monsters:
-    modifiers -= attacker->inaccuracy_penalty();
-
-    if (attacker->confused())
-        modifiers += CONFUSION_TO_HIT_MALUS;
-
-    // If no defender, we're calculating to-hit for debug-display
-    // purposes, so don't drop down to defender code below
-    if (defender == nullptr)
-        return modifiers;
-
-    if (!defender->visible_to(attacker))
-    {
-        if (attacker->is_player())
-            modifiers -= 6;
-        else
-            modifiers -= mhit * 35 / 100;
-    }
-    else
-    {
-        // This can only help if you're visible!
-        const int how_transparent = you.get_mutation_level(MUT_TRANSLUCENT_SKIN);
-        if (defender->is_player() && how_transparent)
-            modifiers += TRANSLUCENT_SKIN_TO_HIT_MALUS * how_transparent;
-
-        // defender backlight bonus and umbra penalty.
-        if (defender->backlit(false))
-            modifiers += BACKLIGHT_TO_HIT_BONUS;
-        if (!attacker->nightvision() && defender->umbra())
-            modifiers += UMBRA_TO_HIT_MALUS;
-    }
-
-    return modifiers;
+    return 0;
 }
 
 /**

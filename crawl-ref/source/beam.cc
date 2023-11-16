@@ -576,7 +576,7 @@ void zappy(zap_type z_type, int power, bool is_monster, bolt &pbolt)
     if (zinfo->is_enchantment)
         pbolt.hit = AUTOMATIC_HIT;
     else
-        pbolt.hit = zap_to_hit(z_type, power, is_monster);
+        pbolt.hit = 100;
 
     pbolt.damage = zap_damage(z_type, power, is_monster);
 
@@ -2919,28 +2919,17 @@ bool bolt::fuzz_invis_tracer()
 // A first step towards to-hit sanity for beams. We're still being
 // very kind to the player, but it should be fairer to monsters than
 // 4.0.
-static bool _test_beam_hit(int attack, int defence, bool pierce,
-                           bool repel, defer_rand &r)
+static bool _test_beam_hit(int hit, int ev, bool repel)
 {
-    if (attack == AUTOMATIC_HIT)
+    if (hit == AUTOMATIC_HIT)
         return true;
 
-    if (pierce)
-    {
-        if (repel && attack >= 2) // don't increase acc of 0
-            attack = r[0].random_range((attack + 1) / 2 + 1, attack);
-    }
-    else if (repel)
-        attack = r[0].random2(attack);
+    if (repel)
+        ev += 50;
 
-    dprf(DIAG_BEAM, "Beam attack: %d, defence: %d", attack, defence);
+    hit = random2(hit);
 
-    attack = r[1].random2(attack);
-    defence = r[2].random2avg(defence, 2);
-
-    dprf(DIAG_BEAM, "Beam new attack: %d, defence: %d", attack, defence);
-
-    return attack >= defence;
+    return hit - max(ev, 100 - MIN_HIT_PERCENTAGE) >= 0;
 }
 
 bool bolt::is_harmless(const monster* mon) const
@@ -3270,12 +3259,12 @@ bool bolt::misses_player()
 
     bool repel = you.missile_repulsion();
 
-    if (!_test_beam_hit(real_tohit, dodge, pierce, 0, r))
+    if (!_test_beam_hit(real_tohit, dodge, 0))
     {
         mprf("The %s misses you.", name.c_str());
         count_action(CACT_DODGE, DODGE_EVASION);
     }
-    else if (repel && !_test_beam_hit(real_tohit, dodge, pierce, repel, r))
+    else if (repel && !_test_beam_hit(real_tohit, dodge, repel))
     {
         mprf("The %s is repelled.", name.c_str());
         count_action(CACT_DODGE, DODGE_REPEL);
@@ -5054,13 +5043,13 @@ void bolt::affect_monster(monster* mon)
     // FIXME: We're randomising mon->evasion, which is further
     // randomised inside test_beam_hit. This is so we stay close to the
     // 4.0 to-hit system (which had very little love for monsters).
-    if (!engulfs && !_test_beam_hit(beam_hit, rand_ev, pierce, repel, r))
+    if (!engulfs && !_test_beam_hit(beam_hit, rand_ev, repel))
     {
         // If the PLAYER cannot see the monster, don't tell them anything!
         if (mon->observable())
         {
             // if it would have hit otherwise...
-            if (_test_beam_hit(beam_hit, rand_ev, pierce, 0, r))
+            if (_test_beam_hit(beam_hit, rand_ev, 0))
             {
                 msg::stream << mon->name(DESC_THE) << " "
                             << "repels the " << name

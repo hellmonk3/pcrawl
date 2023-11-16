@@ -1913,29 +1913,19 @@ void update_acrobat_status()
     you.redraw_evasion = true;
 }
 
-// An evasion factor based on the player's body size, smaller == higher
-// evasion size factor.
-static int _player_evasion_size_factor(bool base = false)
-{
-    // XXX: you.body_size() implementations are incomplete, fix.
-    const size_type size = you.body_size(PSIZE_BODY, base);
-    return 2 * (SIZE_MEDIUM - size);
-}
-
 // Determines racial shield preferences for acquirement. (Formicids get a
 // bonus for larger shields compared to other medium-sized races).
 // TODO: rethink this
 int player_shield_racial_factor()
 {
-    return you.has_mutation(MUT_QUADRUMANOUS) ? -2 // Same as trolls, etc.
-           : _player_evasion_size_factor(true);
+    return 0;
 }
 
 
 // The total EV penalty to the player for all their worn armour items
 // with a base EV penalty (i.e. EV penalty as a base armour property,
 // not as a randart property).
-static int _player_adjusted_evasion_penalty(const int scale)
+static int _player_adjusted_evasion_penalty()
 {
     int piece_armour_evasion_penalty = 0;
 
@@ -1952,8 +1942,7 @@ static int _player_adjusted_evasion_penalty(const int scale)
             piece_armour_evasion_penalty += penalty;
     }
 
-    return piece_armour_evasion_penalty * scale / 10 +
-           you.adjusted_body_armour_penalty(scale);
+    return piece_armour_evasion_penalty + you.adjusted_body_armour_penalty();
 }
 
 // Player EV bonuses for various effects and transformations. This
@@ -1996,7 +1985,7 @@ static int _player_evasion_bonuses()
 }
 
 // Player EV scaling for being flying tengu or swimming merfolk.
-static int _player_scale_evasion(int prescaled_ev, const int scale)
+static int _player_scale_evasion(int prescaled_ev)
 {
     if (you.duration[DUR_PETRIFYING] || you.caught())
         prescaled_ev /= 2;
@@ -2005,83 +1994,33 @@ static int _player_scale_evasion(int prescaled_ev, const int scale)
     if (feat_is_water(env.grid(you.pos()))
         && you.get_mutation_level(MUT_NIMBLE_SWIMMER) >= 2)
     {
-        const int ev_bonus = max(2 * scale, prescaled_ev / 4);
+        const int ev_bonus = max(2, prescaled_ev / 4);
         return prescaled_ev + ev_bonus;
     }
 
     return prescaled_ev;
 }
 
-/**
- * What is the player's bonus to EV from dodging when not paralysed, after
- * accounting for size & body armour penalties?
- *
- * First, calculate base dodge bonus (linear with dodging * dex),
- * and armour dodge penalty (base armour evp, increased for small races &
- * decreased for large, then with a magic "3" subtracted from it to make the
- * penalties not too harsh).
- *
- * If the player's strength is greater than the armour dodge penalty, return
- *      base dodge * (1 - dodge_pen / (str*2)).
- * E.g., if str is twice dodge penalty, return 3/4 of base dodge. If
- * str = dodge_pen * 4, return 7/8...
- *
- * If str is less than dodge penalty, return
- *      base_dodge * str / (dodge_pen * 2).
- * E.g., if str = dodge_pen / 2, return 1/4 of base dodge. if
- * str = dodge_pen / 4, return 1/8...
- *
- * For either equation, if str = dodge_pen, the result is base_dodge/2.
- *
- * @param scale     A scale to multiply the result by, to avoid precision loss.
- * @return          A bonus to EV, multiplied by the scale.
- */
-static int _player_armour_adjusted_dodge_bonus(int scale)
-{
-    const int dodge_bonus =
-        (800 + you.skill(SK_DODGING, 10) * you.dex() * 8) * scale
-        / (20 - _player_evasion_size_factor()) / 10 / 10;
-
-    const int armour_dodge_penalty = you.unadjusted_body_armour_penalty() - 3;
-    if (armour_dodge_penalty <= 0)
-        return dodge_bonus;
-
-    const int str = max(1, you.strength());
-    if (armour_dodge_penalty >= str)
-        return dodge_bonus * str / (armour_dodge_penalty * 2);
-    return dodge_bonus - dodge_bonus * armour_dodge_penalty / (str * 2);
-}
-
 // Total EV for player using the revised 0.6 evasion model.
 static int _player_evasion(bool ignore_helpless)
 {
-    const int size_factor = _player_evasion_size_factor();
-    // Size is all that matters when paralysed or at 0 dex.
+    // no evasion while paralyzed.
     if ((you.cannot_act() || you.duration[DUR_CLUMSY]
             || you.form == transformation::tree)
         && !ignore_helpless)
     {
-        return max(1, 2 + size_factor / 2);
+        return 0;
     }
 
-    const int scale = 100;
-    const int size_base_ev = (10 + size_factor) * scale;
+    const int natural_evasion = you.skill(SK_DODGING, 7)
+        - _player_adjusted_evasion_penalty();
 
-    const int vertigo_penalty = you.duration[DUR_VERTIGO] ? 5 * scale : 0;
-
-    const int natural_evasion =
-        size_base_ev
-        + _player_armour_adjusted_dodge_bonus(scale)
-        - _player_adjusted_evasion_penalty(scale)
-        - you.adjusted_shield_penalty(scale)
-        - vertigo_penalty;
-
-    const int evasion_bonuses = _player_evasion_bonuses() * scale;
+    const int evasion_bonuses = _player_evasion_bonuses();
 
     const int final_evasion =
-        _player_scale_evasion(natural_evasion, scale) + evasion_bonuses;
+        _player_scale_evasion(natural_evasion) + evasion_bonuses;
 
-    return unscale_round_up(final_evasion, scale);
+    return final_evasion;
 }
 
 // Returns the spellcasting penalty (increase in spell failure) for the
@@ -5727,10 +5666,12 @@ int player::unadjusted_body_armour_penalty() const
 int player::adjusted_body_armour_penalty(int scale) const
 {
     const int base_ev_penalty = unadjusted_body_armour_penalty();
-
-    // New formula for effect of str on aevp: (2/5) * evp^2 / (str+3)
-    return 2 * base_ev_penalty * base_ev_penalty * (450 - skill(SK_ARMOUR, 10))
-           * scale / (5 * (strength() + 3)) / 450;
+    const int armour_skill = you.skill(SK_ARMOUR);
+    
+    if (armour_skill > base_ev_penalty)
+        return 0;
+    
+    return 10 * (base_ev_penalty - armour_skill);
 }
 
 /**

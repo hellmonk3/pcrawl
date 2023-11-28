@@ -2001,11 +2001,11 @@ static int _player_scale_evasion(int prescaled_ev)
     return prescaled_ev;
 }
 
-// Total EV for player using the revised 0.6 evasion model.
+// Total EV for player.
 static int _player_evasion(bool ignore_helpless)
 {
-    // no evasion while paralyzed.
-    if ((you.cannot_act() || you.duration[DUR_CLUMSY]
+    // no evasion while paralyzed, treed, or backlit.
+    if ((you.cannot_act() || you.duration[DUR_CLUMSY] || you.backlit()
             || you.form == transformation::tree)
         && !ignore_helpless)
     {

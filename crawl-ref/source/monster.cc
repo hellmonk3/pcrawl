@@ -2730,22 +2730,7 @@ bool monster::shielded() const
 
 int monster::shield_bonus() const
 {
-    if (incapacitated())
-        return -100;
-
-    int sh = 0;
-    const item_def *shld = shield();
-    if (shld && get_armour_slot(*shld) == EQ_SHIELD)
-    {
-
-        int sh = property(*shld, PARM_AC) + shld->plus * 2;
-    }
-    // shielding from jewellery
-    const item_def *amulet = mslot_item(MSLOT_JEWELLERY);
-    if (amulet && amulet->sub_type == AMU_REFLECTION)
-        sh += AMU_REFLECT_SH;
-
-    return sh ? sh : -100;
+    return -100;
 }
 
 void monster::shield_block_succeeded(actor *attacker)
@@ -3011,33 +2996,13 @@ int monster::evasion(bool ignore_helpless, const actor* /*act*/) const
 {
     int ev = base_evasion();
 
-    // account for armour
-    for (int slot = MSLOT_ARMOUR; slot <= MSLOT_SHIELD; slot++)
-    {
-        const item_def* armour = mslot_item(static_cast<mon_inv_type>(slot));
-        if (armour)
-            ev += property(*armour, PARM_EVASION) / 60;
-    }
-
-    // evasion from jewellery
-    const item_def *ring = mslot_item(MSLOT_JEWELLERY);
-    if (ring && ring->sub_type == RING_EVASION)
-    {
-        const int jewellery_plus = ring->plus;
-        ASSERT(abs(jewellery_plus) < 30); // sanity check
-        ev += jewellery_plus;
-    }
-
-    // evasion from artefacts
-    ev += scan_artefacts(ARTP_EVASION);
-
     if (has_ench(ENCH_AGILE))
         ev += AGILITY_BONUS;
 
     if (ignore_helpless)
         return max(ev, 0);
 
-    if (paralysed() || petrified() || petrifying() || asleep())
+    if (paralysed() || petrified() || petrifying() || asleep() || backlit())
         return 0;
 
     if (caught() || is_constricted())

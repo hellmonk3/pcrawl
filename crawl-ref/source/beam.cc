@@ -3145,18 +3145,6 @@ void bolt::tracer_affect_player()
 
 int bolt::apply_lighting(int base_hit, const actor &targ) const
 {
-    if (targ.invisible() && !can_see_invis)
-        base_hit /= 2;
-
-    // We multiply these lighting effects by 2, since they're applied
-    // before rolling to-hit (and hence will get halved later)
-
-    if (targ.backlit(false))
-        base_hit += BACKLIGHT_TO_HIT_BONUS * 2;
-
-    if (!nightvision && targ.umbra())
-        base_hit -= UMBRA_TO_HIT_MALUS * 2;
-
     return base_hit;
 }
 
@@ -3179,9 +3167,6 @@ bool bolt::misses_player()
 
     const int dodge = you.evasion();
     int real_tohit  = hit;
-
-    if (real_tohit != AUTOMATIC_HIT)
-        real_tohit = apply_lighting(real_tohit, you);
 
     const int SH = player_shield_class();
     if ((player_omnireflects() && is_omnireflectable()
@@ -5020,9 +5005,6 @@ void bolt::affect_monster(monster* mon)
 
     // Make a copy of the to-hit before we modify it.
     int beam_hit = hit;
-
-    if (beam_hit != AUTOMATIC_HIT)
-        beam_hit = apply_lighting(beam_hit, *mon);
 
     // The monster may block the beam.
     if (!engulfs && is_blockable() && attempt_block(mon))

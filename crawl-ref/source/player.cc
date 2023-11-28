@@ -5603,7 +5603,7 @@ int player::shield_bonus() const
     if (shield_class <= 0)
         return -100;
 
-    return random2avg(shield_class * 2, 2) / 3 - 1;
+    return shield_class;
 }
 
 int player::shield_bypass_ability(int tohit) const

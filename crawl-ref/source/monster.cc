@@ -2738,10 +2738,7 @@ int monster::shield_bonus() const
     if (shld && get_armour_slot(*shld) == EQ_SHIELD)
     {
 
-        int shld_c = property(*shld, PARM_AC) + shld->plus * 2;
-        shld_c = shld_c * 2 + (body_size(PSIZE_TORSO) - SIZE_MEDIUM)
-                            * (shld->sub_type - ARM_TOWER_SHIELD);
-        sh = random2avg(shld_c + get_hit_dice() * 4 / 3, 2) / 2;
+        int sh = property(*shld, PARM_AC) + shld->plus * 2;
     }
     // shielding from jewellery
     const item_def *amulet = mslot_item(MSLOT_JEWELLERY);
@@ -2760,7 +2757,7 @@ void monster::shield_block_succeeded(actor *attacker)
 
 int monster::shield_bypass_ability(int) const
 {
-    return mon_shield_bypass(get_hit_dice());
+    return 0;
 }
 
 bool monster::missile_repulsion() const

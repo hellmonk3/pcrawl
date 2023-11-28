@@ -3194,23 +3194,16 @@ bool bolt::misses_player()
         bool blocked = false;
         if (hit == AUTOMATIC_HIT)
         {
-            // 50% chance of blocking ench-type effects at 10 displayed sh
-            blocked = x_chance_in_y(SH, omnireflect_chance_denom(SH));
+            // % out of 100
+            blocked = x_chance_in_y(SH, 100);
 
             dprf(DIAG_BEAM, "%smnireflected: %d/%d chance",
-                 blocked ? "O" : "Not o", SH, omnireflect_chance_denom(SH));
+                 blocked ? "O" : "Not o", SH, 100);
         }
         else
-        {
-            // We use the original to-hit here.
-            // (so that effects increasing dodge chance don't increase
-            // block...?)
-            const int testhit = random2(hit * 130 / 100);
-
-            const int block = you.shield_bonus();
-
-            dprf(DIAG_BEAM, "Beamshield: hit: %d, block %d", testhit, block);
-            blocked = testhit < block;
+        {           
+            dprf(DIAG_BEAM, "Beamshield: hit: %d, block %d", 100, SH);
+            blocked = x_chance_in_y(SH, 100);
         }
 
         if (blocked)
@@ -4821,8 +4814,7 @@ bool bolt::attempt_block(monster* mon)
     if (shield_block <= 0)
         return false;
 
-    const int sh_hit = random2(hit * 130 / 100);
-    if (sh_hit >= shield_block || mon->shield_exhausted())
+    if (x_chance_in_y(shield_block, 100) || mon->shield_exhausted())
         return false;
 
     item_def *shield = mon->mslot_item(MSLOT_SHIELD);

@@ -5098,9 +5098,6 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
     }
     // We ignore pproj because monsters never have it passively.
 
-    // We ignore the EV penalty for not being able to see an enemy because, if you
-    // can't see an enemy, you can't get a monster description for them. (Except through
-    // ?/M, but let's neglect that for now.)
     const int ev = you.evasion();
 
     const int to_land = weapon && is_unrandom_artefact(*weapon, UNRAND_SNIPER) ? AUTOMATIC_HIT :
@@ -5108,9 +5105,8 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
     const int beat_ev_chance = mon_to_hit_pct(to_land, ev);
 
     const int shield_class = player_shield_class();
-    const int shield_bypass = mon_shield_bypass(mi.hd);
     // ignore penalty for unseen attacker, as with EV above
-    const int beat_sh_chance = mon_beat_sh_pct(shield_bypass, shield_class);
+    const int beat_sh_chance = mon_beat_sh_pct(shield_class);
 
     const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
     result << " (about " << hit_chance << "% to hit you)";

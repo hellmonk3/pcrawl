@@ -66,8 +66,7 @@ class attack;
 int to_hit_pct(const monster_info& mi, attack &atk, bool melee);
 int mon_to_hit_base(int hd, bool skilled);
 int mon_to_hit_pct(int to_land, int ev);
-int mon_shield_bypass(int hd);
-int mon_beat_sh_pct(int shield_bypass, int shield_class);
+int mon_beat_sh_pct(int shield_class);
 
 int weapon_min_delay_skill(const item_def &weapon);
 int weapon_min_delay(const item_def &weapon, bool check_speed = true);

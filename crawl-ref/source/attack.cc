@@ -1104,16 +1104,12 @@ bool attack::attack_shield_blocked(bool verbose)
     if (defender->incapacitated())
         return false;
 
-    const int con_block = random2(attacker->shield_bypass_ability(to_hit));
     int pro_block = defender->shield_bonus();
 
-    if (!attacker->visible_to(defender))
-        pro_block /= 3;
+    dprf(DIAG_COMBAT, "Defender: %s, Pro-block: %d",
+         def_name(DESC_PLAIN).c_str(), pro_block);
 
-    dprf(DIAG_COMBAT, "Defender: %s, Pro-block: %d, Con-block: %d",
-         def_name(DESC_PLAIN).c_str(), pro_block, con_block);
-
-    if (pro_block >= con_block)
+    if (x_chance_in_y(pro_block, 100))
     {
         perceived_attack = true;
         

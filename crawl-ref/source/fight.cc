@@ -121,11 +121,6 @@ int mon_to_hit_base(int hd, bool skilled)
     return 18 + hd * hd_mult / 2;
 }
 
-int mon_shield_bypass(int hd)
-{
-    return 15 + hd * 2 / 3;
-}
-
 /**
  * Return the odds of a monster attack with the given to-hit bonus hitting the given ev with the
  * given EV, rounded to the nearest percent.
@@ -145,24 +140,12 @@ int mon_to_hit_pct(int to_land, int ev)
     return max(MIN_HIT_PERCENTAGE, 100 - ev);
 }
 
-int mon_beat_sh_pct(int bypass, int sh)
+int mon_beat_sh_pct(int sh)
 {
     if (sh <= 0)
         return 100;
 
-    sh *= 2; // per shield_bonus()
-
-    int hits = 0;
-    for (int sh1 = 0; sh1 < sh; sh1++)
-    {
-        for (int sh2 = 0; sh2 < sh; sh2++)
-        {
-            int adj_sh = (sh1 + sh2) / (3*2) - 1;
-            hits += max(0, bypass - adj_sh);
-        }
-    }
-    const int denom = sh * sh * bypass;
-    return hits * 100 / denom;
+    return max(0, min(100, 100 - sh));
 }
 
 /**

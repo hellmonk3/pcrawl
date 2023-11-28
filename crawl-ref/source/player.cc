@@ -2064,19 +2064,12 @@ static int _sh_from_shield(const item_def &item)
     if (item.sub_type == ARM_ORB)
         return 0;
 
-    const int base_shield = property(item, PARM_AC) * 2;
+    const int base_shield = property(item, PARM_AC);
 
-    // bonus applied only to base, see above for effect:
-    int shield = base_shield * 50;
-    shield += base_shield * you.skill(SK_SHIELDS, 5) / 2;
-
-    shield += item.plus * 200;
-
-    shield += you.skill(SK_SHIELDS, 38);
-
-    shield += 3 * 38;
-
-    shield += you.dex() * 38 * (base_shield + 13) / 26;
+    int shield = base_shield * (100 + you.skill(SK_SHIELDS, 20));
+    
+    shield += item.plus * 100;
+    
     return shield;
 }
 
@@ -2099,7 +2092,7 @@ int player_shield_class()
     // mutations
     // +4, +6, +8 (displayed values)
     shield += (you.get_mutation_level(MUT_LARGE_BONE_PLATES) > 0
-               ? you.get_mutation_level(MUT_LARGE_BONE_PLATES) * 400 + 400
+               ? you.get_mutation_level(MUT_LARGE_BONE_PLATES) * 200 + 200
                : 0);
 
     if (you.get_mutation_level(MUT_CONDENSATION_SHIELD) > 0
@@ -2113,18 +2106,17 @@ int player_shield_class()
     shield += you.wearing(EQ_AMULET, AMU_REFLECTION) * AMU_REFLECT_SH * 100;
     shield += you.scan_artefacts(ARTP_SHIELDING) * 200;
 
-    return (shield + 50) / 100;
+    return shield / 100;
 }
 
 /**
  * Calculate the SH value that should be displayed to players.
  *
- * Exactly half the internal value, for legacy reasons.
  * @return      The SH value to be displayed.
  */
 int player_displayed_shield_class()
 {
-    return player_shield_class() / 2;
+    return player_shield_class();
 }
 
 /**

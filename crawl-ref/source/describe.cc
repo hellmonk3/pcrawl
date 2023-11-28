@@ -1929,7 +1929,7 @@ static string _describe_ammo(const item_def &item)
 static string _warlock_mirror_reflect_desc()
 {
     const int SH = crawl_state.need_save ? player_shield_class() : 0;
-    const int reflect_chance = 100 * SH / omnireflect_chance_denom(SH);
+    const int reflect_chance = min(SH, 100);
     return "\n\nWith your current SH, it has a " + to_string(reflect_chance) +
            "% chance to reflect attacks against your willpower and other "
            "normally unblockable effects.";

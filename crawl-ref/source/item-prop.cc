@@ -277,8 +277,8 @@ struct weapon_def
     int                 dam;
     /// The base to-hit bonus of the weapon.
     int                 hit;
-    /// The number of aut it takes to swing the weapon with 0 skill.
-    int                 speed;
+    /// The skill requirement for full damage.
+    int                 requirement;
 
     /// The weapon skill corresponding to this weapon's use.
     skill_type          skill;
@@ -2717,8 +2717,8 @@ int property(const item_def &item, int prop_type)
             case PWPN_HIT:
                 return Weapon_prop[ Weapon_index[item.sub_type] ].hit
                        + artefact_property(item, ARTP_BASE_ACC);
-            case PWPN_SPEED:
-                return Weapon_prop[ Weapon_index[item.sub_type] ].speed
+            case PWPN_SK:
+                return Weapon_prop[ Weapon_index[item.sub_type] ].requirement
                        + artefact_property(item, ARTP_BASE_DELAY);
             }
         }
@@ -2726,8 +2726,8 @@ int property(const item_def &item, int prop_type)
             return Weapon_prop[ Weapon_index[item.sub_type] ].dam;
         else if (prop_type == PWPN_HIT)
             return Weapon_prop[ Weapon_index[item.sub_type] ].hit;
-        else if (prop_type == PWPN_SPEED)
-            return Weapon_prop[ Weapon_index[item.sub_type] ].speed;
+        else if (prop_type == PWPN_SK)
+            return Weapon_prop[ Weapon_index[item.sub_type] ].requirement;
         else if (prop_type == PWPN_ACQ_WEIGHT)
             return Weapon_prop[ Weapon_index[item.sub_type] ].acquire_weight;
         break;
@@ -2744,8 +2744,8 @@ int property(const item_def &item, int prop_type)
             return Weapon_prop[ Weapon_index[weapon_sub] ].dam;
         else if (prop_type == PWPN_HIT)
             return Weapon_prop[ Weapon_index[weapon_sub] ].hit;
-        else if (prop_type == PWPN_SPEED)
-            return Weapon_prop[ Weapon_index[weapon_sub] ].speed;
+        else if (prop_type == PWPN_SK)
+            return Weapon_prop[ Weapon_index[weapon_sub] ].requirement;
         break;
 
     default:

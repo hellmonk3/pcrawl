@@ -698,7 +698,7 @@ void ghost_demon::ugly_thing_add_resistance(bool very_ugly,
 
 void ghost_demon::init_dancing_weapon(const item_def& weapon, int power)
 {
-    int delay = property(weapon, PWPN_SPEED);
+    int delay = property(weapon, PWPN_SK);
     int damg  = property(weapon, PWPN_DAMAGE);
 
     if (power > 100)

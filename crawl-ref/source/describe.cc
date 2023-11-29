@@ -1195,7 +1195,7 @@ static int _item_training_target(const item_def &item)
 {
     const int throw_dam = property(item, PWPN_DAMAGE);
     if (item.base_type == OBJ_WEAPONS || item.base_type == OBJ_STAVES)
-        return weapon_min_delay_skill(item) * 10;
+        return weapon_skill_requirement(item) * 10;
     if (item.base_type == OBJ_MISSILES && is_throwable(&you, item))
         return (((10 + throw_dam / 2) - FASTEST_PLAYER_THROWING_SPEED) * 2) * 10;
     if (item.base_type == OBJ_TALISMANS)
@@ -1420,11 +1420,11 @@ string damage_rating(const item_def *item)
     const int slaying = slaying_bonus(thrown, false);
     const int ench = item && item_ident(*item, ISFLAG_KNOW_PLUSES) ? item->plus : 0;
     const int plusses = slaying + ench;
-    const bool weapon_penalty = false;
+    const bool penalty = weapon_skill_requirement(*item) > you.skill(skill);
 
     int rating = (base_dam + extra_base_dam);
     if (use_weapon_skill)
-        rating = apply_weapon_skill(rating, skill, weapon_penalty);
+        rating = apply_weapon_skill(rating, skill, penalty);
     rating += plusses;
 
     const string base_dam_desc = thrown ? make_stringf("[%d + %d (Thrw)]",
@@ -1464,7 +1464,7 @@ static void _append_weapon_stats(string &description, const item_def &item)
 {
     const int base_dam = property(item, PWPN_DAMAGE);
     const skill_type skill = _item_training_skill(item);
-    const int mindelay_skill = _item_training_target(item);
+    const int required_skill = _item_training_target(item);
 
     const bool below_target = _is_below_training_target(item, true);
     const bool can_set_target = below_target
@@ -1498,21 +1498,19 @@ static void _append_weapon_stats(string &description, const item_def &item)
     }
 
     description += make_stringf(
-        "Base attack delay: %.1f\n"
-        "This weapon's minimum attack delay (%.1f) is reached at skill level %d.",
-            (float) property(item, PWPN_SPEED) / 10,
-            (float) weapon_min_delay(item, item_brand_known(item)) / 10,
-            mindelay_skill / 10);
+        "Skill requirement: %d\n"
+        "This weapon deals half damage below skill level %d.",
+        required_skill / 10, required_skill / 10);
 
     const bool want_player_stats = !is_useless_item(item) && crawl_state.need_save;
     if (want_player_stats)
     {
         description += "\n    "
-            + _your_skill_desc(skill, can_set_target, mindelay_skill);
+            + _your_skill_desc(skill, can_set_target, required_skill);
     }
 
     if (below_target)
-        _append_skill_target_desc(description, skill, mindelay_skill);
+        _append_skill_target_desc(description, skill, required_skill);
 
     if (is_slowed_by_armour(&item))
     {

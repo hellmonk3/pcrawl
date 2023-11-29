@@ -863,7 +863,7 @@ IDEF(delay)
         return 0;
 
     if (is_weapon(*item))
-        lua_pushnumber(ls, property(*item, PWPN_SPEED));
+        lua_pushnumber(ls, property(*item, PWPN_SK));
     else
         lua_pushnil(ls);
 

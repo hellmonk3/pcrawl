@@ -496,7 +496,6 @@ static int _acquirement_weapon_subtype(bool divine, int & /*quantity*/, int agen
             if (!two_handed)
                 damage = damage * 3 / 2;
             damage *= damage * damage;
-            acqweight *= damage / property(item_considered, PWPN_SPEED);
         }
 
         if (two_handed)

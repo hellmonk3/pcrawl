@@ -149,7 +149,7 @@ void practise_waiting()
 static void _practise_weapon_use(const item_def &weapon)
 {
     const skill_type weapon_skill = item_attack_skill(weapon);
-    const int mindelay_skill = weapon_min_delay_skill(weapon);
+    const int mindelay_skill = weapon_skill_requirement(weapon);
     const int your_skill = you.skills[weapon_skill];
     if (your_skill >= mindelay_skill)
         exercise(weapon_skill, coinflip()); //1/2 past mindelay

@@ -1021,9 +1021,13 @@ int attack::calc_damage()
 
         potential_damage = using_weapon() || wpn_skill == SK_THROWING
             ? adjusted_weapon_damage() : calc_base_unarmed_damage();
+            
 
         if (using_weapon())
-            potential_damage = apply_weapon_skill(potential_damage, wpn_skill, false);
+        {
+            bool penalty = weapon_skill_requirement(*weapon) > you.skill(wpn_skill);
+            potential_damage = apply_weapon_skill(potential_damage, wpn_skill, penalty);
+        }
         
         damage = 1 + random2(potential_damage);
         

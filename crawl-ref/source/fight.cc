@@ -874,49 +874,9 @@ void attack_multiple_targets(actor &attacker, list<actor*> &targets,
  * @param weapon The weapon to be considered.
  * @returns The level of the relevant skill you must reach.
  */
-int weapon_min_delay_skill(const item_def &weapon)
+int weapon_skill_requirement(const item_def &weapon)
 {
-    const int speed = property(weapon, PWPN_SPEED);
-    const int mindelay = weapon_min_delay(weapon, false);
-    return (speed - mindelay) * 2;
-}
-
-/**
- * How fast will this weapon get from your skill training?
- *
- * @param weapon the weapon to be considered.
- * @param check_speed whether to take it into account if the weapon has the
- *                    speed brand.
- * @return How many aut the fastest possible attack with this weapon would take.
- */
-int weapon_min_delay(const item_def &weapon, bool check_speed)
-{
-    const int base = property(weapon, PWPN_SPEED);
-    if (is_unrandom_artefact(weapon, UNRAND_WOODCUTTERS_AXE))
-        return base;
-
-    int min_delay = base/2;
-
-    // All weapons have min delay 7 or better
-    if (min_delay > 7)
-        min_delay = 7;
-
-    // ...except crossbows...
-    if (is_crossbow(weapon) && min_delay < 10)
-        min_delay = 10;
-
-    // ... and unless it would take more than skill 27 to get there.
-    // Round up the reduction from skill, so that min delay is rounded down.
-    min_delay = max(min_delay, base - (MAX_SKILL_LEVEL + 1)/2);
-
-    if (check_speed)
-        min_delay = weapon_adjust_delay(weapon, min_delay, false);
-
-    // never go faster than speed 3 (ie 3.33 attacks per round)
-    if (min_delay < 3)
-        min_delay = 3;
-
-    return min_delay;
+    return property(weapon, PWPN_SK);
 }
 
 /// Adjust delay based on weapon brand.

@@ -412,8 +412,7 @@ random_var monster::attack_delay(const item_def *projectile,
     if (!weap || (projectile && is_throwable(this, *projectile)))
         return random_var(10);
 
-    random_var delay(weapon_adjust_delay(*weap, 10));
-    return delay;
+    return random_var(10);
 }
 
 int monster::has_claws(bool /*allow_tran*/) const

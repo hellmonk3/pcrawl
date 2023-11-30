@@ -879,17 +879,6 @@ int weapon_skill_requirement(const item_def &weapon)
     return property(weapon, PWPN_SK);
 }
 
-/// Adjust delay based on weapon brand.
-int weapon_adjust_delay(const item_def &weapon, int base, bool random)
-{
-    const brand_type brand = get_weapon_brand(weapon);
-    if (brand == SPWPN_SPEED)
-        return random ? div_rand_round(base * 2, 3) : (base * 2) / 3;
-    if (brand == SPWPN_HEAVY)
-        return random ? div_rand_round(base * 3, 2) : (base * 3) / 2;
-    return base;
-}
-
 int mons_weapon_damage_rating(const item_def &launcher)
 {
     return property(launcher, PWPN_DAMAGE) + launcher.plus;

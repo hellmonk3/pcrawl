@@ -69,7 +69,6 @@ int mon_to_hit_pct(int to_land, int ev);
 int mon_beat_sh_pct(int shield_class);
 
 int weapon_skill_requirement(const item_def &weapon);
-int weapon_adjust_delay(const item_def &weapon, int base_delay, bool random = true);
 
 int mons_weapon_damage_rating(const item_def &launcher);
 

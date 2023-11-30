@@ -771,25 +771,25 @@ struct missile_def
     int         id;
     const char *name;
     int         dam;
-    int         mulch_rate;
+    int         skill_req;
     int         price;
 };
 
 static int Missile_index[NUM_MISSILES];
 static const missile_def Missile_prop[] =
 {
-    { MI_DART,          "dart",          0, 12, 3  },
+    { MI_DART,          "dart",          0, 1, 3  },
 #if TAG_MAJOR_VERSION == 34
     { MI_NEEDLE,        "needle",        0, 12, 2  },
 #endif
-    { MI_STONE,         "stone",         2, 8,  1  },
+    { MI_STONE,         "stone",         2, 1,  1  },
     { MI_ARROW,         "arrow",         0, 1,  2  },
     { MI_BOLT,          "bolt",          0, 1,  2  },
-    { MI_LARGE_ROCK,    "large rock",   20, 25, 15 },
+    { MI_LARGE_ROCK,    "large rock",   20, 5, 15 },
     { MI_SLING_BULLET,  "sling bullet",  0, 1,  5  },
-    { MI_JAVELIN,       "javelin",      10, 20, 30 },
-    { MI_THROWING_NET,  "throwing net",  0, 0,  30 },
-    { MI_BOOMERANG,     "boomerang",     6, 20, 20 },
+    { MI_JAVELIN,       "javelin",      10, 5, 30 },
+    { MI_THROWING_NET,  "throwing net",  0, 1,  30 },
+    { MI_BOOMERANG,     "boomerang",     6, 3, 20 },
 };
 
 #if TAG_MAJOR_VERSION == 34
@@ -2247,9 +2247,9 @@ bool ammo_never_destroyed(const item_def &missile)
  * @param missile_type      The missile type to get the mulch chance for.
  * @return                  The inverse of the missile type's mulch chance.
  */
-int ammo_type_destroy_chance(int missile_type)
+int ammo_type_skill_req(int missile_type)
 {
-    return Missile_prop[ Missile_index[missile_type] ].mulch_rate;
+    return Missile_prop[ Missile_index[missile_type] ].skill_req;
 }
 
 /**

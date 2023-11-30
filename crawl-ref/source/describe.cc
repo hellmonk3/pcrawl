@@ -1197,7 +1197,7 @@ static int _item_training_target(const item_def &item)
     if (item.base_type == OBJ_WEAPONS || item.base_type == OBJ_STAVES)
         return weapon_skill_requirement(item) * 10;
     if (item.base_type == OBJ_MISSILES && is_throwable(&you, item))
-        return (((10 + throw_dam / 2) - FASTEST_PLAYER_THROWING_SPEED) * 2) * 10;
+        return ammo_type_skill_req(item.sub_type) * 10;
     if (item.base_type == OBJ_TALISMANS)
         return get_form(form_for_talisman(item))->min_skill * 10;
     return 0;

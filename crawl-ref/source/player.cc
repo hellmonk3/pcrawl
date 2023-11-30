@@ -2067,9 +2067,9 @@ static int _sh_from_shield(const item_def &item)
     const int base_shield = property(item, PARM_AC);
 
     int shield = base_shield * (100 + you.skill(SK_SHIELDS, 20));
-    
+
     shield += item.plus * 100;
-    
+
     return shield;
 }
 
@@ -5653,10 +5653,10 @@ int player::adjusted_body_armour_penalty(int scale) const
 {
     const int base_ev_penalty = unadjusted_body_armour_penalty();
     const int armour_skill = you.skill(SK_ARMOUR);
-    
+
     if (armour_skill > base_ev_penalty)
         return 0;
-    
+
     return 10 * (base_ev_penalty - armour_skill);
 }
 

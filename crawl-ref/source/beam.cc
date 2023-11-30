@@ -3186,7 +3186,7 @@ bool bolt::misses_player()
                  blocked ? "O" : "Not o", SH, 100);
         }
         else
-        {           
+        {
             dprf(DIAG_BEAM, "Beamshield: hit: %d, block %d", 100, SH);
             blocked = x_chance_in_y(SH, 100);
         }

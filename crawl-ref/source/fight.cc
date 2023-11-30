@@ -1188,9 +1188,9 @@ int archer_bonus_damage(int hd)
 int apply_weapon_skill(int damage, skill_type wpn_skill, bool penalty)
 {
     const int sklvl = you.skill(wpn_skill, 1);
-    
+
     damage += sklvl;
-    
+
     return penalty ? damage / 2 : damage;
 }
 

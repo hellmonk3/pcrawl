@@ -1434,7 +1434,7 @@ string damage_rating(const item_def *item)
                    brand == SPWPN_HEAVY ? make_stringf("[%d + %d (Hvy)]",
                                                        base_dam, extra_base_dam) :
                                           make_stringf("%d", base_dam);
-                                          
+
     string skill_desc = use_weapon_skill ? make_stringf("Skill %d", you.skill(skill))
                                          : "";
 
@@ -1866,7 +1866,7 @@ static string _describe_ammo(const item_def &item)
     const bool player_throwable = is_throwable(&you, item);
     if (player_throwable)
     {
-        const int throw_delay = (10 + dam / 2);
+        const int throw_delay = (10);
         const int target_skill = _item_training_target(item);
 
         const bool below_target = _is_below_training_target(item, true);
@@ -2118,7 +2118,7 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
                         + to_string(property(item, PARM_AC));
             if (get_armour_slot(item) == EQ_BODY_ARMOUR)
             {
-                description += "       Encumbrance rating: "
+                description += "       Skill Requirement: "
                             + to_string(-evp / 10);
             }
             // Bardings reduce evasion by a fixed amount, and don't have any of

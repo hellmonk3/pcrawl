@@ -161,7 +161,7 @@ int attack::calc_pre_roll_to_hit(bool random)
     {
         return AUTOMATIC_HIT;
     }
-    
+
     return random ? 100 : 100;
 }
 
@@ -1021,16 +1021,16 @@ int attack::calc_damage()
 
         potential_damage = using_weapon() || wpn_skill == SK_THROWING
             ? adjusted_weapon_damage() : calc_base_unarmed_damage();
-            
+
 
         if (using_weapon())
         {
             bool penalty = weapon_skill_requirement(*weapon) > you.skill(wpn_skill);
             potential_damage = apply_weapon_skill(potential_damage, wpn_skill, penalty);
         }
-        
+
         damage = 1 + random2(potential_damage);
-        
+
         damage = player_apply_misc_modifiers(damage);
         damage = player_apply_slaying_bonuses(damage, false);
         damage = player_stab(damage);
@@ -1062,7 +1062,7 @@ int attack::test_hit(int to_land, int ev, bool randomise_ev)
         ev = ev;
     if (to_land >= AUTOMATIC_HIT)
         return true;
-    
+
     to_land = random2(to_land);
 
     // cap miss % at 90
@@ -1116,7 +1116,7 @@ bool attack::attack_shield_blocked(bool verbose)
     if (x_chance_in_y(pro_block, 100))
     {
         perceived_attack = true;
-        
+
         if (defender->shield_exhausted())
             return false;
 
@@ -1463,7 +1463,7 @@ void attack::calc_elemental_brand_damage(beam_type flavour,
 int attack::player_stab_weapon_bonus(int damage)
 {
     int stab_skill = you.skill(wpn_skill,1) + you.skill(SK_STEALTH,1);
-    
+
     damage += stab_skill;
 
     if (player_good_stab())

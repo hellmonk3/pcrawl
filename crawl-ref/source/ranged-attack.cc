@@ -67,11 +67,6 @@ ranged_attack::ranged_attack(actor *attk, actor *defn, item_def *proj,
     needs_message = defender_visible;
 }
 
-int ranged_attack::post_roll_to_hit_modifiers(int mhit, bool random)
-{
-    return attack::post_roll_to_hit_modifiers(mhit, random);
-}
-
 bool ranged_attack::attack()
 {
     if (!handle_phase_attempted())

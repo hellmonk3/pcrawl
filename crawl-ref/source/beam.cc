@@ -3143,11 +3143,6 @@ void bolt::tracer_affect_player()
     extra_range_used += range_used_on_hit();
 }
 
-int bolt::apply_lighting(int base_hit, const actor &targ) const
-{
-    return base_hit;
-}
-
 /* Determine whether the beam hit or missed the player, and tell them if it
  * missed.
  *

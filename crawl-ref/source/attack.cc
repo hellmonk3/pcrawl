@@ -166,16 +166,6 @@ int attack::calc_pre_roll_to_hit(bool random)
 }
 
 /**
- * Calculate to-hit modifiers for an attacker that apply after the player's roll.
- *
- * @param mhit The post-roll player's to-hit value.
- */
-int attack::post_roll_to_hit_modifiers(int mhit, bool /*random*/)
-{
-    return 0;
-}
-
-/**
  * Calculate the to-hit for an attacker
  *
  * @param random If false, calculate average to-hit deterministically.

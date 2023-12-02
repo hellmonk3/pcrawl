@@ -2423,11 +2423,6 @@ int melee_attack::calc_to_hit(bool random)
     return mhit;
 }
 
-int melee_attack::post_roll_to_hit_modifiers(int mhit, bool random)
-{
-    return attack::post_roll_to_hit_modifiers(mhit, random);;
-}
-
 void melee_attack::player_stab_check()
 {
     if (!is_projected)

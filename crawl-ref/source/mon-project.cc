@@ -266,7 +266,7 @@ static void _fuzz_direction(const actor *caster, monster& mon, int pow)
 }
 
 // Alas, too much differs to reuse beam shield blocks :(
-static bool _iood_shielded(monster& mon, actor &victim)
+static bool _iood_shielded(actor &victim)
 {
     if (!victim.shielded() || victim.incapacitated() || victim.shield_exhausted())
         return false;
@@ -518,7 +518,7 @@ move_again:
             }
         }
 
-        if (victim && _iood_shielded(mon, *victim))
+        if (victim && _iood_shielded(*victim))
         {
             if (!victim->reflection())
             {

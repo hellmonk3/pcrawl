@@ -1193,7 +1193,6 @@ static string _describe_mutant_beast(const monster_info &mi)
  */
 static int _item_training_target(const item_def &item)
 {
-    const int throw_dam = property(item, PWPN_DAMAGE);
     if (item.base_type == OBJ_WEAPONS || item.base_type == OBJ_STAVES)
         return weapon_skill_requirement(item) * 10;
     if (item.base_type == OBJ_MISSILES && is_throwable(&you, item))
@@ -1420,11 +1419,15 @@ string damage_rating(const item_def *item)
     const int slaying = slaying_bonus(thrown, false);
     const int ench = item && item_ident(*item, ISFLAG_KNOW_PLUSES) ? item->plus : 0;
     const int plusses = slaying + ench;
-    const bool penalty = weapon_skill_requirement(*item) > you.skill(skill);
+    const bool penalty = thrown ? ammo_type_skill_req(item->sub_type) > you.skill(skill)
+                                : item ? weapon_skill_requirement(*item) > you.skill(skill)
+                                : false;
 
     int rating = (base_dam + extra_base_dam);
     if (use_weapon_skill)
         rating = apply_weapon_skill(rating, skill, penalty);
+    if (thrown && penalty)
+        rating /= 2;
     rating += plusses;
 
     const string base_dam_desc = thrown ? make_stringf("[%d + %d (Thrw)]",
@@ -1435,8 +1438,10 @@ string damage_rating(const item_def *item)
                                                        base_dam, extra_base_dam) :
                                           make_stringf("%d", base_dam);
 
-    string skill_desc = use_weapon_skill ? make_stringf("Skill %d", you.skill(skill))
+    string skill_desc = use_weapon_skill ? make_stringf(" + Skill %d", you.skill(skill))
                                          : "";
+
+    string penalty_desc = penalty ? " / 2" : "";
 
     string plusses_desc;
     if (plusses)
@@ -1452,9 +1457,10 @@ string damage_rating(const item_def *item)
     const string brand_desc = thrown ? _describe_missile_brand(*item) : "";
 
     return make_stringf(
-        "%d (Base %s + %s%s)%s.",
+        "%d (Base %s%s%s%s)%s.",
         rating,
         base_dam_desc.c_str(),
+        penalty_desc.c_str(),
         skill_desc.c_str(),
         plusses_desc.c_str(),
         brand_desc.c_str());
@@ -1862,34 +1868,13 @@ static string _describe_ammo(const item_def &item)
         }
     }
 
-    const int dam = property(item, PWPN_DAMAGE);
     const bool player_throwable = is_throwable(&you, item);
     if (player_throwable)
     {
-        const int throw_delay = (10);
         const int target_skill = _item_training_target(item);
 
-        const bool below_target = _is_below_training_target(item, true);
-        const bool can_set_target = below_target && in_inventory(item)
-            && !you.has_mutation(MUT_DISTRIBUTED_TRAINING);
-
-        description += make_stringf(
-            "\n\nBase damage: %d  Base attack delay: %.1f"
-            "\nThis projectile's minimum attack delay (%.1f) "
-                "is reached at skill level %d.",
-            dam,
-            (float) throw_delay / 10,
-            (float) FASTEST_PLAYER_THROWING_SPEED / 10,
-            target_skill / 10
-        );
-
-        if (!is_useless_item(item))
-        {
-            description += "\n    " +
-                    _your_skill_desc(SK_THROWING, can_set_target, target_skill);
-        }
-        if (below_target)
-            _append_skill_target_desc(description, SK_THROWING, target_skill);
+        description += make_stringf("\nIt deals half damage below skill %d.",
+                       target_skill / 10);
 
         if (!is_useless_item(item) && property(item, PWPN_DAMAGE))
             description += "\nDamage rating: " + damage_rating(&item);

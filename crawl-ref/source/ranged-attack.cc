@@ -347,7 +347,13 @@ int ranged_attack::weapon_damage() const
     if (using_weapon())
         dam += property(*weapon, PWPN_DAMAGE);
     else if (attacker->is_player())
+    {
         dam += calc_base_unarmed_damage();
+        // insufficient skill penalty for throwing. Ranged weapons are handled
+        // alongside melee weapons in attack.cc calc_damage
+        if (you.skill(SK_THROWING) < ammo_type_skill_req(projectile->sub_type))
+            dam /= 2;
+    }
 
     return dam;
 }

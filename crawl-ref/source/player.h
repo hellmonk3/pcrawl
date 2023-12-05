@@ -847,8 +847,8 @@ public:
 
     // Combat-related adjusted penalty calculation methods
     int unadjusted_body_armour_penalty() const override;
-    int adjusted_body_armour_penalty(int scale = 1) const override;
-    int adjusted_shield_penalty(int scale = 1) const override;
+    int adjusted_body_armour_penalty() const override;
+    int adjusted_shield_penalty() const override;
 
     bool wearing_light_armour(bool with_skill = false) const;
     int  skill(skill_type skill, int scale = 1, bool real = false,

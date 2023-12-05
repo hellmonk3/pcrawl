@@ -254,8 +254,8 @@ public:
 
     // Combat-related virtual class methods
     virtual int unadjusted_body_armour_penalty() const = 0;
-    virtual int adjusted_body_armour_penalty(int scale = 1) const = 0;
-    virtual int adjusted_shield_penalty(int scale) const = 0;
+    virtual int adjusted_body_armour_penalty() const = 0;
+    virtual int adjusted_shield_penalty() const = 0;
 
     virtual monster_type mons_species(bool zombie_base = false) const = 0;
 

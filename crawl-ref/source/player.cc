@@ -2027,15 +2027,13 @@ static int _player_evasion(bool ignore_helpless)
 // player's worn body armour and shield.
 int player_armour_shield_spell_penalty()
 {
-    const int scale = 100;
-
     const int body_armour_penalty =
-        max(19 * you.adjusted_body_armour_penalty(scale), 0);
+        max(19 * you.adjusted_body_armour_penalty(), 0);
 
     const int total_penalty = body_armour_penalty
-                 + 19 * you.adjusted_shield_penalty(scale);
+                 + 19 * you.adjusted_shield_penalty();
 
-    return max(total_penalty, 0) / scale;
+    return max(total_penalty, 0);
 }
 
 /**
@@ -5630,7 +5628,7 @@ int player::unadjusted_body_armour_penalty() const
  * @return          A penalty to EV based quadratically on body armour
  *                  encumbrance.
  */
-int player::adjusted_body_armour_penalty(int scale) const
+int player::adjusted_body_armour_penalty() const
 {
     const int base_ev_penalty = unadjusted_body_armour_penalty();
     const int armour_skill = you.skill(SK_ARMOUR);
@@ -5647,16 +5645,14 @@ int player::adjusted_body_armour_penalty(int scale) const
  * @param scale     A scale to multiply the result by, to avoid precision loss.
  * @return          A penalty to EV based on shield weight.
  */
-int player::adjusted_shield_penalty(int scale) const
+int player::adjusted_shield_penalty() const
 {
     const item_def *shield_l = slot_item(EQ_SHIELD, false);
     if (!shield_l)
         return 0;
 
     const int base_shield_penalty = -property(*shield_l, PARM_EVASION) / 10;
-    return 2 * base_shield_penalty * base_shield_penalty
-           * (270 - skill(SK_SHIELDS, 10)) * scale
-           / (25 + 5 * strength()) / 270;
+    return base_shield_penalty - skill(SK_SHIELDS, 10);
 }
 
 /**

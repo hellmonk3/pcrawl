@@ -2152,7 +2152,7 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
     }
 
     const int DELAY_SCALE = 100;
-    const int aevp = you.adjusted_body_armour_penalty(DELAY_SCALE);
+    const int aevp = you.adjusted_body_armour_penalty();
     if (crawl_state.need_save
         && verbose
         && aevp

@@ -3855,7 +3855,7 @@ int get_real_mp(bool include_items)
     enp *= 100 + (you.get_mutation_level(MUT_HIGH_MAGIC) * 10)
                - (you.get_mutation_level(MUT_LOW_MAGIC) * 10);
     enp /= 100 * scale;
-    
+
     enp += species::get_mp_modifier(you.species);
 
     // This is our "rotted" base, applied after multipliers

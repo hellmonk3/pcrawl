@@ -2151,25 +2151,6 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
         description += _armour_ac_change(item);
     }
 
-    const int DELAY_SCALE = 100;
-    const int aevp = you.adjusted_body_armour_penalty();
-    if (crawl_state.need_save
-        && verbose
-        && aevp
-        && !is_shield(item)
-        && _you_are_wearing_item(item))
-    {
-        // TODO: why doesn't this show shield effect? Reconcile with
-        // _display_attack_delay
-        description += "\n\nYour current strength and Armour skill "
-                       "slows attacks with missile weapons (like "
-                        + you.weapon()->name(DESC_YOUR) + ") ";
-        if (aevp >= DELAY_SCALE)
-            description += make_stringf("by %.1f.", aevp / (10.0f * DELAY_SCALE));
-        else
-            description += "only slightly.";
-    }
-
     return description;
 }
 

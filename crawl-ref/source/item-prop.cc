@@ -2158,11 +2158,6 @@ bool is_short_blade(const item_def &item)
     }
 }
 
-bool is_slowed_by_armour(const item_def *item)
-{
-    return item && is_range_weapon(*item);
-}
-
 const char *ammo_name(missile_type ammo)
 {
     return ammo < 0 || ammo >= NUM_MISSILES ? "eggplant"

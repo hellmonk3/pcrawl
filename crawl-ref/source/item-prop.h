@@ -175,7 +175,6 @@ bool is_crossbow(const item_def &item) PURE;
 bool is_axe(const item_def &item) PURE;
 bool is_polearm(const item_def &item) PURE;
 bool is_short_blade(const item_def &item) PURE;
-bool is_slowed_by_armour(const item_def *item) PURE;
 const char *ammo_name(missile_type ammo) IMMUTABLE;
 bool is_throwable(const actor *actor, const item_def &wpn) PURE;
 bool is_launcher_ammo(const item_def &wpn) PURE;

@@ -3198,23 +3198,7 @@ static void _display_attack_delay()
     else
         delay = you.attack_delay(nullptr).expected();
 
-    const bool at_min_delay = true;
-    const bool shield_penalty = you.adjusted_shield_penalty(2) > 0;
-    string penalty_msg = "";
-    if (shield_penalty)
-    {
-        // TODO: add amount, as in item description (see _describe_armour)
-        // double parens are awkward
-        penalty_msg =
-            make_stringf( " (and is slowed by your %s)",
-                          shield_penalty ? "shield" : "armour");
-    }
-
-    mprf("Your attack delay is about %.1f%s%s.",
-         delay / 10.0f,
-         at_min_delay ?
-            " (and cannot be improved with additional weapon skill)" : "",
-         penalty_msg.c_str());
+    mprf("Your attack delay is about %.1f.", delay / 10.0f);
 }
 
 /**

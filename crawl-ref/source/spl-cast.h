@@ -93,7 +93,6 @@ void surge_power_wand(const int mp_cost);
 int list_spells(bool toggle_with_I = true, bool viewing = false,
                 bool allow_preselect = true,
                 const string &title = "cast");
-int raw_spell_fail(spell_type spell);
 int calc_spell_power(spell_type spell);
 int calc_spell_range(spell_type spell, int power = 0, bool allow_bonus = true,
                      bool ignore_shadows = false);
@@ -122,13 +121,8 @@ spret your_spells(spell_type spell, int powc = 0, bool actual_spell = true,
                   const item_def* const evoked_item = nullptr,
                   dist *_target = nullptr, bool force_failure = false);
 
-extern const char *fail_severity_adjs[];
-
-int max_miscast_damage(spell_type spell);
 int fail_severity(spell_type spell);
 int failure_rate_colour(spell_type spell);
-int failure_rate_to_int(int fail);
-string failure_rate_to_string(int fail);
 
 int power_to_barcount(int power);
 
@@ -140,7 +134,6 @@ int spell_acc(spell_type spell);
 string spell_range_string(spell_type spell);
 string range_string(int range, int maxrange, char32_t caster_char);
 string spell_schools_string(spell_type spell);
-string spell_failure_rate_string(spell_type spell);
 string spell_noise_string(spell_type spell, int chop_wiz_display_width = 0);
 
 void spell_skills(spell_type spell, set<skill_type> &skills);

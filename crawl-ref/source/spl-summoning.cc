@@ -1497,7 +1497,7 @@ static spell_type servitor_spells[] =
 spell_type player_servitor_spell()
 {
     for (const spell_type spell : servitor_spells)
-        if (you.has_spell(spell) && raw_spell_fail(spell) < 50)
+        if (you.has_spell(spell))
             return spell;
     return SPELL_NO_SPELL;
 }
@@ -1529,8 +1529,7 @@ static void _init_servitor_monster(monster &mon, const actor& caster, int pow)
 
     for (const spell_type spell : servitor_spells)
     {
-        if (caster.has_spell(spell)
-            && (caster_mon || raw_spell_fail(spell) < 50))
+        if (caster.has_spell(spell))
         {
             mon.spells.emplace_back(spell, 0, MON_SPELL_WIZARD);
             spell_levels += spell_difficulty(spell);

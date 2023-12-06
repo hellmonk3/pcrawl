@@ -1286,12 +1286,6 @@ namespace quiver
             qdesc.cprintf("%s", spell == SPELL_MAXWELLS_COUPLING ?
                                 "Capacitive Coupling" : spell_title(spell));
 
-            if (fail_severity(spell) > 0)
-            {
-                qdesc.cprintf(" (%s)",
-                        failure_rate_to_string(raw_spell_fail(spell)).c_str());
-            }
-
             return qdesc;
         }
 
@@ -1303,7 +1297,6 @@ namespace quiver
                 // some extra stuff for fire order in particular: don't
                 // show spells that are dangerous to cast or forbidden.
                 // These can still be force-quivered.
-                && fail_severity(spell) < Options.fail_severity_to_quiver
                 && spell_highlight_by_utility(spell, COL_UNKNOWN) != COL_FORBIDDEN;
         }
 

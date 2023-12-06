@@ -85,7 +85,6 @@
 static int _spell_enhancement(spell_type spell);
 static int _apply_enhancement(const int initial_power,
                               const int enhancer_levels);
-static string _spell_failure_rate_description(spell_type spell);
 
 void surge_power(const int enhanced)
 {
@@ -134,10 +133,7 @@ static string _spell_base_description(spell_type spell, bool viewing)
         desc << string(60 - so_far, ' ');
     desc << "</" << colour_to_str(highlight) <<">";
 
-    // spell fail rate, level
-    const string failure_rate = spell_failure_rate_string(spell);
-    const int width = strwidth(formatted_string::parse_string(failure_rate).tostring());
-    desc << failure_rate << string(9-width, ' ');
+    // spell level
     desc << spell_difficulty(spell);
     desc << " ";
 
@@ -321,38 +317,12 @@ static void _apply_post_zap_effect(spell_type spell)
 {
     switch (spell)
     {
-    case SPELL_SANDBLAST:
-        you.time_taken = you.time_taken * 3 / 2;
-        break;
     case SPELL_KISS_OF_DEATH:
         drain_player(100, true, true);
         break;
     default:
         break;
     }
-}
-
-static int _apply_spellcasting_success_boosts(spell_type spell, int chance)
-{
-    int fail_reduce = 100;
-
-    if (have_passive(passive_t::spells_success) && vehumet_supports_spell(spell))
-    {
-        // [dshaligram] Fail rate multiplier used to be .5, scaled
-        // back to 67%.
-        fail_reduce = fail_reduce * 2 / 3;
-    }
-
-    const int wizardry = player_wizardry();
-
-    if (wizardry > 0)
-      fail_reduce = fail_reduce * 6 / (7 + wizardry);
-
-    // Hard cap on fail rate reduction.
-    if (fail_reduce < 50)
-        fail_reduce = 50;
-
-    return chance * fail_reduce / 100;
 }
 
 static int _skill_power(spell_type spell)
@@ -370,90 +340,6 @@ static int _skill_power(spell_type spell)
     }
     return power + you.skill(SK_SPELLCASTING);
 }
-
-
-/**
- * Calculate the player's failure rate with the given spell, including all
- * modifiers. (Armour, mutations, statuses effects, etc.)
- *
- * @param spell     The spell in question.
- * @return          A failure rate. This is *not* a percentage - for a human-
- *                  readable version, call _get_true_fail_rate().
- */
-int raw_spell_fail(spell_type spell)
-{
-    int chance = 60;
-
-    // Don't cap power for failure rate purposes.
-    // scale by 6, which I guess was chosen because it seems to work.
-    // realistic range for spellpower: -6 to -366 (before scale -1 to -61)
-    chance -= _skill_power(spell) * 6 / 100;
-    chance -= (you.intel() * 2); // realistic range: -2 to -70
-
-    const int armour_shield_penalty = player_armour_shield_spell_penalty();
-    chance += armour_shield_penalty; // range: 0 to 500 in extreme cases.
-                                     // A midlevel melee character in plate
-                                     // might have 40 or 50, and a caster in a
-                                     // robe would usually have 0.
-
-    static const int difficulty_by_level[] =
-    {
-        0,
-        3,
-        15,
-        35,
-
-        70,
-        100,
-        150,
-
-        200,
-        260,
-        340,
-    };
-    const int spell_level = spell_difficulty(spell);
-    ASSERT_RANGE(spell_level, 0, (int) ARRAYSZ(difficulty_by_level));
-    chance += difficulty_by_level[spell_level]; // between 0 and 330
-
-    // since chance is passed through a 3rd degree polynomial, cap the
-    // value to avoid any overflow issues. We choose 210 by solving for chance2
-    // = 200 in the polynomial -- it gets capped at 100 ultimately, but we
-    // need a bunch of headroom in case some later calculations lower the value
-    // below 100 after this.
-    chance = min(chance, 210);
-
-    // This polynomial is a smoother approximation of a breakpoint-based
-    // calculation that originates pre-DCSS, mapping `chance` at this point to
-    // values from around 0 to around 45. (see
-    // https://crawl.develz.org/tavern/viewtopic.php?f=8&t=23414 for some of
-    // the history.)  It was calculated by |amethyst (based on one from minmay
-    // in that thread) and converted to integer values using 262144 as a
-    // convenient power of 2 denominator, then converted to its current form
-    // by Horner's rule, and then tweaked slightly.
-    //
-    // The regular (integer) polynomial form before Horner's rule is:
-    //          (x*x*x + 426*x*x + 82670*x + 7245398) / 262144
-    //
-    // https://www.wolframalpha.com/input/?i=graph+of+y%3D(((x+%2B+426)*x+%2B+82670)*x+%2B+7245398)+%2F+262144+and+y%3D100+and+x%3D125.1+with+x+from+-192+to+126.1
-    //
-    // If you think this is weird, you should see what was here before.
-    int chance2 = max((((chance + 426) * chance + 82670) * chance + 7245398)
-                      / 262144, 0);
-
-    chance2 -= 2 * you.get_mutation_level(MUT_SUBDUED_MAGIC);
-    chance2 += 4 * you.get_mutation_level(MUT_WILD_MAGIC);
-    chance2 += 4 * you.get_mutation_level(MUT_ANTI_WIZARDRY);
-    if (player_channeling())
-        chance2 += 10;
-
-    chance2 += you.duration[DUR_VERTIGO] ? 7 : 0;
-
-    // Apply the effects of Vehumet and items of wizardry.
-    chance2 = _apply_spellcasting_success_boosts(spell, chance2);
-
-    return min(max(chance2, 0), 100);
-}
-
 
 /*
  * Calculate spell power.
@@ -787,9 +673,8 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
                 }
                 else
                 {
-                    mprf(MSGCH_PROMPT, "Casting: <w>%s</w> <lightgrey>(%s)</lightgrey>",
-                                       spell_title(you.last_cast_spell),
-                                       _spell_failure_rate_description(you.last_cast_spell).c_str());
+                    mprf(MSGCH_PROMPT, "Casting: <w>%s</w>",
+                                       spell_title(you.last_cast_spell));
                     mprf(MSGCH_PROMPT, "Confirm with . or Enter, or press "
                                        "? or * to list all spells.");
                 }
@@ -1058,7 +943,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
  *                      false if it is a spell being cast normally.
  * @return              Whether the spellcasting should be aborted.
  */
-static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
+static bool _spellcasting_aborted(spell_type spell)
 {
     string msg;
 
@@ -1087,34 +972,6 @@ static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
                 return true;
             }
             break;
-        }
-    }
-
-    const int severity = fail_severity(spell);
-    const string failure_rate = spell_failure_rate_string(spell);
-    if (Options.fail_severity_to_confirm > 0
-        && Options.fail_severity_to_confirm <= severity
-        && !crawl_state.disables[DIS_CONFIRMATIONS]
-        && !fake_spell)
-    {
-        if (failure_rate_to_int(raw_spell_fail(spell)) == 100)
-        {
-            mprf(MSGCH_WARN, "It is impossible to cast this spell "
-                    "(100%% risk of failure)!");
-            return true;
-        }
-
-        string prompt = make_stringf("The spell is %s to miscast "
-                                     "(%s risk of failure)%s",
-                                     fail_severity_adjs[severity],
-                                     failure_rate.c_str(),
-                                     severity > 1 ? "!" : ".");
-
-        prompt = make_stringf("%s Continue anyway?", prompt.c_str());
-        if (!yesno(prompt.c_str(), false, 'n'))
-        {
-            canned_msg(MSG_OK);
-            return true;
         }
     }
 
@@ -1802,7 +1659,7 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
 
     // [dshaligram] Any action that depends on the spellcasting attempt to have
     // succeeded must be performed after the switch.
-    if (!wiz_cast && _spellcasting_aborted(spell, !actual_spell))
+    if (!wiz_cast && _spellcasting_aborted(spell))
         return spret::abort;
 
     const spell_flags flags = get_spell_flags(spell);
@@ -1881,11 +1738,6 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
             : is_targeted ? "Aiming" : "Casting";
         string title = make_stringf("%s: <%s>%s</%s>", verb.c_str(),
                     spell_title_color, spell_title(spell), spell_title_color);
-        if (actual_spell)
-        {
-            title += make_stringf(" <lightgrey>(%s)</lightgrey>",
-                _spell_failure_rate_description(spell).c_str());
-        }
 
         spell_targeting_behaviour beh(spell);
 
@@ -1936,63 +1788,9 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
     else if (actual_spell)
         surge_power(_spell_enhancement(spell));
 
-    // Enhancers only matter for calc_spell_power() and raw_spell_fail().
-    // Not sure about this: is it flavour or misleading? (jpeg)
-
     int fail = 0;
     if (evoked_wand && evoked_wand->charges == 0)
         return spret::fail;
-    else if (actual_spell)
-    {
-        int spfl = random2avg(100, 3);
-
-        if (!you_worship(GOD_SIF_MUNA)
-            && you.penance[GOD_SIF_MUNA] && one_chance_in(20))
-        {
-            god_speaks(GOD_SIF_MUNA, "You feel a surge of divine spite.");
-
-            // This will cause failure and increase the miscast effect.
-            spfl = -you.penance[GOD_SIF_MUNA];
-        }
-        else if (spell_typematch(spell, spschool::necromancy)
-                 && !you_worship(GOD_KIKUBAAQUDGHA)
-                 && you.penance[GOD_KIKUBAAQUDGHA]
-                 && one_chance_in(20))
-        {
-            // And you thought you'd Haunt your way out of penance...
-            simple_god_message(" does not allow the disloyal to dabble in "
-                               "death!", GOD_KIKUBAAQUDGHA);
-
-            // The spell still goes through, but you get a miscast anyway.
-            miscast_effect(you, nullptr,
-                           {miscast_source::god, GOD_KIKUBAAQUDGHA},
-                           spschool::necromancy,
-                           spell_difficulty(spell),
-                           you.experience_level,
-                           "the malice of Kikubaaqudgha");
-        }
-        else if (vehumet_supports_spell(spell)
-                 && !you_worship(GOD_VEHUMET)
-                 && you.penance[GOD_VEHUMET]
-                 && one_chance_in(20))
-        {
-            // And you thought you'd Fire Storm your way out of penance...
-            simple_god_message(" does not allow the disloyal to dabble in "
-                               "destruction!", GOD_VEHUMET);
-
-            // The spell still goes through, but you get a miscast anyway.
-            miscast_effect(you, nullptr, {miscast_source::god, GOD_VEHUMET},
-                           spschool::conjuration,
-                           spell_difficulty(spell),
-                           you.experience_level,
-                           "the malice of Vehumet");
-        }
-
-        const int spfail_chance = raw_spell_fail(spell);
-
-        if (spfl < spfail_chance)
-            fail = spfail_chance - spfl;
-    }
 
     dprf("Spell #%d, power=%d", spell, powc);
 
@@ -2433,73 +2231,6 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     return spret::none;
 }
 
-// get_true_fail_rate: Takes the raw failure to-beat number
-// and converts it to the actual chance of failure:
-// the probability that random2avg(100,3) < raw_fail.
-// Should probably use more constants, though I doubt the spell
-// success algorithms will really change *that* much.
-// Called only by failure_rate_to_int
-static double _get_true_fail_rate(int raw_fail)
-{
-    // Need 3*random2avg(100,3) = random2(101) + random2(101) + random2(100)
-    // to be (strictly) less than 3*raw_fail. Fun with tetrahedral numbers!
-
-    // How many possible outcomes, considering all three dice?
-    const int outcomes = 101 * 101 * 100;
-    const int target = raw_fail * 3;
-
-    if (target <= 100)
-    {
-        // The failures are exactly the triples of nonnegative integers
-        // that sum to < target.
-        return double(_tetrahedral_number(target)) / outcomes;
-    }
-    if (target <= 200)
-    {
-        // Some of the triples that sum to < target would have numbers
-        // greater than 100, or a last number greater than 99, so aren't
-        // possible outcomes. Apply the principle of inclusion-exclusion
-        // by subtracting out these cases. The set of triples with first
-        // number > 100 is isomorphic to the set of triples that sum to
-        // 101 less; likewise for the second and third numbers (100 less
-        // in the last case). Two or more out-of-range numbers would have
-        // resulted in a sum of at least 201, so there is no overlap
-        // among the three cases we are subtracting.
-        return double(_tetrahedral_number(target)
-                      - 2 * _tetrahedral_number(target - 101)
-                      - _tetrahedral_number(target - 100)) / outcomes;
-    }
-    // The random2avg distribution is symmetric, so the last interval is
-    // essentially the same as the first interval.
-    return double(outcomes - _tetrahedral_number(300 - target)) / outcomes;
-}
-
-const double fail_hp_fraction[] =
-{
-    .10,
-    .30,
-    .50,
-    .70,
-};
-/**
- * Compute the maximum miscast damage from the given spell
- *
- * The miscast code uses
- *     dam = div_rand_round(roll_dice(level, level + raw_fail), MISCAST_DIVISOR)
- */
-int max_miscast_damage(spell_type spell)
-{
-    int raw_fail = raw_spell_fail(spell);
-    int level = spell_difficulty(spell);
-
-    // Impossible to get a damaging miscast
-    if (level * level * raw_fail <= MISCAST_THRESHOLD)
-        return 0;
-
-    return div_round_up(level * (raw_fail + level), MISCAST_DIVISOR);
-}
-
-
 /**
  * Compute the tier of maximum severity of a miscast
  * @param spell     The spell to be checked.
@@ -2516,85 +2247,14 @@ int max_miscast_damage(spell_type spell)
  */
 int fail_severity(spell_type spell)
 {
-    const int raw_fail = raw_spell_fail(spell);
-    const int level = spell_difficulty(spell);
-
-    // Impossible to get a damaging miscast
-    if (level * level * raw_fail <= MISCAST_THRESHOLD)
-        return 0;
-
-    const int max_damage = max_miscast_damage(spell);
-
-    for (int i = 0; i < 4; ++i)
-        if (max_damage <= fail_hp_fraction[i] * get_real_hp(true))
-            return i + 1;
-
-    return 5;
+    return 0;
 }
-
-const char *fail_severity_adjs[] =
-{
-    "safe",
-    "mildly dangerous",
-    "dangerous",
-    "quite dangerous",
-    "extremely dangerous",
-    "astonishingly dangerous",
-};
-COMPILE_CHECK(ARRAYSZ(fail_severity_adjs) > 3);
 
 // Chooses a colour for the failure rate display for a spell. The colour is
 // based on the chance of getting a severity >= 2 miscast.
 int failure_rate_colour(spell_type spell)
 {
-    const int severity = fail_severity(spell);
-    return severity == 0 ? LIGHTGREY :
-           severity == 1 ? WHITE :
-           severity == 2 ? YELLOW :
-           severity == 3 ? LIGHTRED :
-           severity == 4 ? RED
-                         : MAGENTA;
-}
-
-//Converts the raw failure rate into a number to be displayed.
-int failure_rate_to_int(int fail)
-{
-    if (fail <= 0)
-        return 0;
-    else if (fail >= 100)
-        return (fail + 100)/2;
-    else
-        return max(1, (int) (100 * _get_true_fail_rate(fail)));
-}
-
-/**
- * Convert the given failure rate into a percent, and return it as a string.
- *
- * @param fail      A raw failure rate (not a percent!)
- * @return          E.g. "79%".
- */
-string failure_rate_to_string(int fail)
-{
-    return make_stringf("%d%%", failure_rate_to_int(fail));
-}
-
-string spell_failure_rate_string(spell_type spell)
-{
-    const string failure = failure_rate_to_string(raw_spell_fail(spell));
-    const string colour = colour_to_str(failure_rate_colour(spell));
-    return make_stringf("<%s>%s</%s>",
-            colour.c_str(), failure.c_str(), colour.c_str());
-}
-
-static string _spell_failure_rate_description(spell_type spell)
-{
-    const string failure = failure_rate_to_string(raw_spell_fail(spell));
-    const char *severity_adj = fail_severity_adjs[fail_severity(spell)];
-    const string colour = colour_to_str(failure_rate_colour(spell));
-    const char *col = colour.c_str();
-
-    return make_stringf("<%s>%s</%s>; <%s>%s</%s> risk of failure",
-            col, severity_adj, col, col, failure.c_str(), col);
+    return LIGHTGREY;
 }
 
 string spell_noise_string(spell_type spell, int chop_wiz_display_width)

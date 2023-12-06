@@ -576,7 +576,7 @@ void zappy(zap_type z_type, int power, bool is_monster, bolt &pbolt)
     if (zinfo->is_enchantment)
         pbolt.hit = AUTOMATIC_HIT;
     else
-        pbolt.hit = zap_to_hit(z_type, power, is_monster);
+        pbolt.hit = 100;
 
     pbolt.damage = zap_damage(z_type, power, is_monster);
 
@@ -2919,28 +2919,17 @@ bool bolt::fuzz_invis_tracer()
 // A first step towards to-hit sanity for beams. We're still being
 // very kind to the player, but it should be fairer to monsters than
 // 4.0.
-static bool _test_beam_hit(int attack, int defence, bool pierce,
-                           bool repel, defer_rand &r)
+static bool _test_beam_hit(int hit, int ev, bool repel)
 {
-    if (attack == AUTOMATIC_HIT)
+    if (hit == AUTOMATIC_HIT)
         return true;
 
-    if (pierce)
-    {
-        if (repel && attack >= 2) // don't increase acc of 0
-            attack = r[0].random_range((attack + 1) / 2 + 1, attack);
-    }
-    else if (repel)
-        attack = r[0].random2(attack);
+    if (repel)
+        ev += 50;
 
-    dprf(DIAG_BEAM, "Beam attack: %d, defence: %d", attack, defence);
+    hit = random2(hit);
 
-    attack = r[1].random2(attack);
-    defence = r[2].random2avg(defence, 2);
-
-    dprf(DIAG_BEAM, "Beam new attack: %d, defence: %d", attack, defence);
-
-    return attack >= defence;
+    return hit - max(ev, 100 - MIN_HIT_PERCENTAGE) >= 0;
 }
 
 bool bolt::is_harmless(const monster* mon) const
@@ -3154,23 +3143,6 @@ void bolt::tracer_affect_player()
     extra_range_used += range_used_on_hit();
 }
 
-int bolt::apply_lighting(int base_hit, const actor &targ) const
-{
-    if (targ.invisible() && !can_see_invis)
-        base_hit /= 2;
-
-    // We multiply these lighting effects by 2, since they're applied
-    // before rolling to-hit (and hence will get halved later)
-
-    if (targ.backlit(false))
-        base_hit += BACKLIGHT_TO_HIT_BONUS * 2;
-
-    if (!nightvision && targ.umbra())
-        base_hit -= UMBRA_TO_HIT_MALUS * 2;
-
-    return base_hit;
-}
-
 /* Determine whether the beam hit or missed the player, and tell them if it
  * missed.
  *
@@ -3191,37 +3163,27 @@ bool bolt::misses_player()
     const int dodge = you.evasion();
     int real_tohit  = hit;
 
-    if (real_tohit != AUTOMATIC_HIT)
-        real_tohit = apply_lighting(real_tohit, you);
-
     const int SH = player_shield_class();
     if ((player_omnireflects() && is_omnireflectable()
          || is_blockable())
         && you.shielded()
+        && !you.shield_exhausted()
         && !aimed_at_feet
         && SH > 0)
     {
         bool blocked = false;
         if (hit == AUTOMATIC_HIT)
         {
-            // 50% chance of blocking ench-type effects at 10 displayed sh
-            blocked = x_chance_in_y(SH, omnireflect_chance_denom(SH));
+            // % out of 100
+            blocked = x_chance_in_y(SH, 100);
 
             dprf(DIAG_BEAM, "%smnireflected: %d/%d chance",
-                 blocked ? "O" : "Not o", SH, omnireflect_chance_denom(SH));
+                 blocked ? "O" : "Not o", SH, 100);
         }
         else
         {
-            // We use the original to-hit here.
-            // (so that effects increasing dodge chance don't increase
-            // block...?)
-            const int testhit = random2(hit * 130 / 100
-                                        + you.shield_block_penalty());
-
-            const int block = you.shield_bonus();
-
-            dprf(DIAG_BEAM, "Beamshield: hit: %d, block %d", testhit, block);
-            blocked = testhit < block;
+            dprf(DIAG_BEAM, "Beamshield: hit: %d, block %d", 100, SH);
+            blocked = x_chance_in_y(SH, 100);
         }
 
         if (blocked)
@@ -3270,12 +3232,12 @@ bool bolt::misses_player()
 
     bool repel = you.missile_repulsion();
 
-    if (!_test_beam_hit(real_tohit, dodge, pierce, 0, r))
+    if (!_test_beam_hit(real_tohit, dodge, 0))
     {
         mprf("The %s misses you.", name.c_str());
         count_action(CACT_DODGE, DODGE_EVASION);
     }
-    else if (repel && !_test_beam_hit(real_tohit, dodge, pierce, repel, r))
+    else if (repel && !_test_beam_hit(real_tohit, dodge, repel))
     {
         mprf("The %s is repelled.", name.c_str());
         count_action(CACT_DODGE, DODGE_REPEL);
@@ -4832,8 +4794,7 @@ bool bolt::attempt_block(monster* mon)
     if (shield_block <= 0)
         return false;
 
-    const int sh_hit = random2(hit * 130 / 100 + mon->shield_block_penalty());
-    if (sh_hit >= shield_block)
+    if (x_chance_in_y(shield_block, 100) || mon->shield_exhausted())
         return false;
 
     item_def *shield = mon->mslot_item(MSLOT_SHIELD);
@@ -5040,27 +5001,21 @@ void bolt::affect_monster(monster* mon)
     // Make a copy of the to-hit before we modify it.
     int beam_hit = hit;
 
-    if (beam_hit != AUTOMATIC_HIT)
-        beam_hit = apply_lighting(beam_hit, *mon);
-
     // The monster may block the beam.
     if (!engulfs && is_blockable() && attempt_block(mon))
         return;
 
     defer_rand r;
-    int rand_ev = random2(mon->evasion());
+    int ev = mon->evasion();
     bool repel = mon->missile_repulsion();
 
-    // FIXME: We're randomising mon->evasion, which is further
-    // randomised inside test_beam_hit. This is so we stay close to the
-    // 4.0 to-hit system (which had very little love for monsters).
-    if (!engulfs && !_test_beam_hit(beam_hit, rand_ev, pierce, repel, r))
+    if (!engulfs && !_test_beam_hit(beam_hit, ev, repel))
     {
         // If the PLAYER cannot see the monster, don't tell them anything!
         if (mon->observable())
         {
             // if it would have hit otherwise...
-            if (_test_beam_hit(beam_hit, rand_ev, pierce, 0, r))
+            if (_test_beam_hit(beam_hit, ev, 0))
             {
                 msg::stream << mon->name(DESC_THE) << " "
                             << "repels the " << name

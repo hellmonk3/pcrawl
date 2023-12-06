@@ -101,38 +101,11 @@ int to_hit_pct(const monster_info& mi, attack &atk, bool melee)
         return 100;
 
     if (ev <= 0)
-        return 100 - MIN_HIT_MISS_PERCENTAGE / 2;
+        return 100;
 
-    int hits = 0;
-    for (int rolled_mhit = 0; rolled_mhit < to_land; rolled_mhit++)
-    {
-        // Apply post-roll manipulations:
-        int adjusted_mhit = rolled_mhit + mi.lighting_modifiers();
+    ev += mi.lighting_modifiers();
 
-        adjusted_mhit += atk.post_roll_to_hit_modifiers(adjusted_mhit, false);
-
-        // Duplicates ranged_attack::post_roll_to_hit_modifiers().
-        if (!melee)
-        {
-            if (mi.is(MB_BULLSEYE_TARGET))
-            {
-                adjusted_mhit += calc_spell_power(SPELL_DIMENSIONAL_BULLSEYE)
-                                 / 2 / BULLSEYE_TO_HIT_DIV;
-            }
-
-            if (mi.is(MB_REPEL_MSL))
-                adjusted_mhit -= (adjusted_mhit + 1) / 2;
-        }
-
-        if (adjusted_mhit >= ev)
-            hits++;
-    }
-
-    double hit_chance = ((double)hits) / to_land;
-    // Apply Bayes Theorem to account for auto hit and miss.
-    hit_chance = hit_chance * (1 - MIN_HIT_MISS_PERCENTAGE / 200.0) + (1 - hit_chance) * MIN_HIT_MISS_PERCENTAGE / 200.0;
-
-    return (int)(hit_chance*100);
+    return max(MIN_HIT_PERCENTAGE, 100 - ev);
 }
 
 /**
@@ -146,11 +119,6 @@ int mon_to_hit_base(int hd, bool skilled)
 {
     const int hd_mult = skilled ? 5 : 3;
     return 18 + hd * hd_mult / 2;
-}
-
-int mon_shield_bypass(int hd)
-{
-    return 15 + hd * 2 / 3;
 }
 
 /**
@@ -167,42 +135,17 @@ int mon_to_hit_pct(int to_land, int ev)
         return 100;
 
     if (ev <= 0)
-        return 100 - MIN_HIT_MISS_PERCENTAGE / 2;
+        return 100;
 
-    ++to_land; // per calc_to_hit()
-
-    int hits = 0;
-    for (int ev1 = 0; ev1 < ev; ev1++)
-        for (int ev2 = 0; ev2 < ev; ev2++)
-            hits += max(0, to_land - (ev1 + ev2));
-
-    double hit_chance = ((double)hits) / (to_land * ev * ev);
-
-    // Apply Bayes Theorem to account for auto hit and miss.
-    hit_chance = hit_chance * (1 - MIN_HIT_MISS_PERCENTAGE / 200.0)
-              + (1 - hit_chance) * MIN_HIT_MISS_PERCENTAGE / 200.0;
-
-    return (int)(hit_chance*100);
+    return max(MIN_HIT_PERCENTAGE, 100 - ev);
 }
 
-int mon_beat_sh_pct(int bypass, int sh)
+int mon_beat_sh_pct(int sh)
 {
     if (sh <= 0)
         return 100;
 
-    sh *= 2; // per shield_bonus()
-
-    int hits = 0;
-    for (int sh1 = 0; sh1 < sh; sh1++)
-    {
-        for (int sh2 = 0; sh2 < sh; sh2++)
-        {
-            int adj_sh = (sh1 + sh2) / (3*2) - 1;
-            hits += max(0, bypass - adj_sh);
-        }
-    }
-    const int denom = sh * sh * bypass;
-    return hits * 100 / denom;
+    return max(0, min(100, 100 - sh));
 }
 
 /**
@@ -931,60 +874,9 @@ void attack_multiple_targets(actor &attacker, list<actor*> &targets,
  * @param weapon The weapon to be considered.
  * @returns The level of the relevant skill you must reach.
  */
-int weapon_min_delay_skill(const item_def &weapon)
+int weapon_skill_requirement(const item_def &weapon)
 {
-    const int speed = property(weapon, PWPN_SPEED);
-    const int mindelay = weapon_min_delay(weapon, false);
-    return (speed - mindelay) * 2;
-}
-
-/**
- * How fast will this weapon get from your skill training?
- *
- * @param weapon the weapon to be considered.
- * @param check_speed whether to take it into account if the weapon has the
- *                    speed brand.
- * @return How many aut the fastest possible attack with this weapon would take.
- */
-int weapon_min_delay(const item_def &weapon, bool check_speed)
-{
-    const int base = property(weapon, PWPN_SPEED);
-    if (is_unrandom_artefact(weapon, UNRAND_WOODCUTTERS_AXE))
-        return base;
-
-    int min_delay = base/2;
-
-    // All weapons have min delay 7 or better
-    if (min_delay > 7)
-        min_delay = 7;
-
-    // ...except crossbows...
-    if (is_crossbow(weapon) && min_delay < 10)
-        min_delay = 10;
-
-    // ... and unless it would take more than skill 27 to get there.
-    // Round up the reduction from skill, so that min delay is rounded down.
-    min_delay = max(min_delay, base - (MAX_SKILL_LEVEL + 1)/2);
-
-    if (check_speed)
-        min_delay = weapon_adjust_delay(weapon, min_delay, false);
-
-    // never go faster than speed 3 (ie 3.33 attacks per round)
-    if (min_delay < 3)
-        min_delay = 3;
-
-    return min_delay;
-}
-
-/// Adjust delay based on weapon brand.
-int weapon_adjust_delay(const item_def &weapon, int base, bool random)
-{
-    const brand_type brand = get_weapon_brand(weapon);
-    if (brand == SPWPN_SPEED)
-        return random ? div_rand_round(base * 2, 3) : (base * 2) / 3;
-    if (brand == SPWPN_HEAVY)
-        return random ? div_rand_round(base * 3, 2) : (base * 3) / 2;
-    return base;
+    return property(weapon, PWPN_SK);
 }
 
 int mons_weapon_damage_rating(const item_def &launcher)
@@ -1282,39 +1174,13 @@ int archer_bonus_damage(int hd)
     return hd * 4 / 3;
 }
 
-/**
- * Apply the player's attributes to multiply damage dealt with the given weapon skill.
- */
-int stat_modify_damage(int damage, skill_type wpn_skill, bool using_weapon)
+int apply_weapon_skill(int damage, skill_type wpn_skill, bool penalty)
 {
-    // At 10 strength, damage is multiplied by 1.0
-    // Each point of strength over 10 increases this by 0.025 (2.5%),
-    // strength below 10 reduces the multiplied by the same amount.
-    // Minimum multiplier is 0.01 (1%) (reached at -30 str).
-    const int attr = you.strength();
-    damage *= max(1.0, 75 + 2.5 * attr);
-    damage /= 100;
+    const int sklvl = you.skill(wpn_skill, 1);
 
-    return damage;
-}
+    damage += sklvl;
 
-int apply_weapon_skill(int damage, skill_type wpn_skill, bool random)
-{
-    const int sklvl = you.skill(wpn_skill, 100);
-    damage *= 2500 + maybe_random2(sklvl + 1, random);
-    damage /= 2500;
-    return damage;
-}
-
-int apply_fighting_skill(int damage, bool aux, bool random)
-{
-    const int base = aux? 40 : 30;
-    const int sklvl = you.skill(SK_FIGHTING, 100);
-
-    damage *= base * 100 + maybe_random2(sklvl + 1, random);
-    damage /= base * 100;
-
-    return damage;
+    return penalty ? damage / 2 : damage;
 }
 
 int throwing_base_damage_bonus(const item_def &proj)

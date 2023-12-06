@@ -976,7 +976,7 @@ bool melee_attack::attack()
     // Calculate various ev values and begin to check them to determine the
     // correct handle_phase_ handler.
     const int ev = defender->evasion(false, attacker);
-    ev_margin = test_hit(to_hit, ev, !attacker->is_player());
+    ev_margin = test_hit(to_hit, ev, false);
     bool shield_blocked = attack_shield_blocked(true);
 
     // Stuff for god conduct, this has to remain here for scope reasons.
@@ -1456,18 +1456,9 @@ bool melee_attack::player_aux_test_hit()
 
     const int evasion = defender->evasion(false, attacker);
 
-    if (player_under_penance(GOD_ELYVILON)
-        && god_hates_your_god(GOD_ELYVILON)
-        && to_hit >= evasion
-        && one_chance_in(20))
-    {
-        simple_god_message(" blocks your attack.", GOD_ELYVILON);
-        return false;
-    }
+    bool auto_hit = one_chance_in(10);
 
-    bool auto_hit = one_chance_in(30);
-
-    if (to_hit >= evasion || auto_hit)
+    if (random2(to_hit) >= evasion || auto_hit)
         return true;
 
     mprf("Your %s misses %s.", aux_attack.c_str(),
@@ -1504,8 +1495,7 @@ bool melee_attack::player_aux_unarmed()
         if (atk == UNAT_CONSTRICT && !attacker->can_constrict(*defender, CONSTRICT_MELEE))
             continue;
 
-        to_hit = random2(aux_to_hit());
-        to_hit += post_roll_to_hit_modifiers(to_hit, false);
+        to_hit = 100;
 
         handle_noise(defender->pos());
         alert_nearby_monsters();
@@ -1545,11 +1535,7 @@ bool melee_attack::player_aux_apply(unarmed_attack_type atk)
 
     if (atk != UNAT_TOUCH)
     {
-        aux_damage  = stat_modify_damage(aux_damage, SK_UNARMED_COMBAT, false);
-
         aux_damage  = random2(aux_damage);
-
-        aux_damage  = apply_fighting_skill(aux_damage, true, true);
 
         aux_damage  = player_apply_misc_modifiers(aux_damage);
 
@@ -2435,17 +2421,6 @@ int melee_attack::calc_to_hit(bool random)
         return AUTOMATIC_HIT;
 
     return mhit;
-}
-
-int melee_attack::post_roll_to_hit_modifiers(int mhit, bool random)
-{
-    int modifiers = attack::post_roll_to_hit_modifiers(mhit, random);
-
-    // Electric charges feel bad when they miss, so make them miss less often.
-    if (charge_pow > 0)
-        modifiers += 5;
-
-    return modifiers;
 }
 
 void melee_attack::player_stab_check()
@@ -3538,9 +3513,7 @@ void melee_attack::do_minotaur_retaliation()
 
     // Use the same damage formula as a regular headbutt.
     int dmg = AUX_HEADBUTT.get_damage(true);
-    dmg = stat_modify_damage(dmg, SK_UNARMED_COMBAT, false);
     dmg = random2(dmg);
-    dmg = apply_fighting_skill(dmg, true, true);
     dmg = player_apply_misc_modifiers(dmg);
     dmg = player_apply_slaying_bonuses(dmg, true);
     dmg = player_apply_final_multipliers(dmg, true);

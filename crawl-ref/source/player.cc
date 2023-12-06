@@ -1913,29 +1913,19 @@ void update_acrobat_status()
     you.redraw_evasion = true;
 }
 
-// An evasion factor based on the player's body size, smaller == higher
-// evasion size factor.
-static int _player_evasion_size_factor(bool base = false)
-{
-    // XXX: you.body_size() implementations are incomplete, fix.
-    const size_type size = you.body_size(PSIZE_BODY, base);
-    return 2 * (SIZE_MEDIUM - size);
-}
-
 // Determines racial shield preferences for acquirement. (Formicids get a
 // bonus for larger shields compared to other medium-sized races).
 // TODO: rethink this
 int player_shield_racial_factor()
 {
-    return you.has_mutation(MUT_QUADRUMANOUS) ? -2 // Same as trolls, etc.
-           : _player_evasion_size_factor(true);
+    return 0;
 }
 
 
 // The total EV penalty to the player for all their worn armour items
 // with a base EV penalty (i.e. EV penalty as a base armour property,
 // not as a randart property).
-static int _player_adjusted_evasion_penalty(const int scale)
+static int _player_adjusted_evasion_penalty()
 {
     int piece_armour_evasion_penalty = 0;
 
@@ -1952,8 +1942,7 @@ static int _player_adjusted_evasion_penalty(const int scale)
             piece_armour_evasion_penalty += penalty;
     }
 
-    return piece_armour_evasion_penalty * scale / 10 +
-           you.adjusted_body_armour_penalty(scale);
+    return piece_armour_evasion_penalty + you.adjusted_body_armour_penalty();
 }
 
 // Player EV bonuses for various effects and transformations. This
@@ -1996,7 +1985,7 @@ static int _player_evasion_bonuses()
 }
 
 // Player EV scaling for being flying tengu or swimming merfolk.
-static int _player_scale_evasion(int prescaled_ev, const int scale)
+static int _player_scale_evasion(int prescaled_ev)
 {
     if (you.duration[DUR_PETRIFYING] || you.caught())
         prescaled_ev /= 2;
@@ -2005,98 +1994,46 @@ static int _player_scale_evasion(int prescaled_ev, const int scale)
     if (feat_is_water(env.grid(you.pos()))
         && you.get_mutation_level(MUT_NIMBLE_SWIMMER) >= 2)
     {
-        const int ev_bonus = max(2 * scale, prescaled_ev / 4);
+        const int ev_bonus = max(2, prescaled_ev / 4);
         return prescaled_ev + ev_bonus;
     }
 
     return prescaled_ev;
 }
 
-/**
- * What is the player's bonus to EV from dodging when not paralysed, after
- * accounting for size & body armour penalties?
- *
- * First, calculate base dodge bonus (linear with dodging * dex),
- * and armour dodge penalty (base armour evp, increased for small races &
- * decreased for large, then with a magic "3" subtracted from it to make the
- * penalties not too harsh).
- *
- * If the player's strength is greater than the armour dodge penalty, return
- *      base dodge * (1 - dodge_pen / (str*2)).
- * E.g., if str is twice dodge penalty, return 3/4 of base dodge. If
- * str = dodge_pen * 4, return 7/8...
- *
- * If str is less than dodge penalty, return
- *      base_dodge * str / (dodge_pen * 2).
- * E.g., if str = dodge_pen / 2, return 1/4 of base dodge. if
- * str = dodge_pen / 4, return 1/8...
- *
- * For either equation, if str = dodge_pen, the result is base_dodge/2.
- *
- * @param scale     A scale to multiply the result by, to avoid precision loss.
- * @return          A bonus to EV, multiplied by the scale.
- */
-static int _player_armour_adjusted_dodge_bonus(int scale)
-{
-    const int dodge_bonus =
-        (800 + you.skill(SK_DODGING, 10) * you.dex() * 8) * scale
-        / (20 - _player_evasion_size_factor()) / 10 / 10;
-
-    const int armour_dodge_penalty = you.unadjusted_body_armour_penalty() - 3;
-    if (armour_dodge_penalty <= 0)
-        return dodge_bonus;
-
-    const int str = max(1, you.strength());
-    if (armour_dodge_penalty >= str)
-        return dodge_bonus * str / (armour_dodge_penalty * 2);
-    return dodge_bonus - dodge_bonus * armour_dodge_penalty / (str * 2);
-}
-
-// Total EV for player using the revised 0.6 evasion model.
+// Total EV for player.
 static int _player_evasion(bool ignore_helpless)
 {
-    const int size_factor = _player_evasion_size_factor();
-    // Size is all that matters when paralysed or at 0 dex.
-    if ((you.cannot_act() || you.duration[DUR_CLUMSY]
+    // no evasion while paralyzed, treed, or backlit.
+    if ((you.cannot_act() || you.duration[DUR_CLUMSY] || you.backlit()
             || you.form == transformation::tree)
         && !ignore_helpless)
     {
-        return max(1, 2 + size_factor / 2);
+        return 0;
     }
 
-    const int scale = 100;
-    const int size_base_ev = (10 + size_factor) * scale;
+    const int natural_evasion = you.skill(SK_DODGING, 7)
+        - _player_adjusted_evasion_penalty();
 
-    const int vertigo_penalty = you.duration[DUR_VERTIGO] ? 5 * scale : 0;
-
-    const int natural_evasion =
-        size_base_ev
-        + _player_armour_adjusted_dodge_bonus(scale)
-        - _player_adjusted_evasion_penalty(scale)
-        - you.adjusted_shield_penalty(scale)
-        - vertigo_penalty;
-
-    const int evasion_bonuses = _player_evasion_bonuses() * scale;
+    const int evasion_bonuses = _player_evasion_bonuses();
 
     const int final_evasion =
-        _player_scale_evasion(natural_evasion, scale) + evasion_bonuses;
+        _player_scale_evasion(natural_evasion) + evasion_bonuses;
 
-    return unscale_round_up(final_evasion, scale);
+    return final_evasion;
 }
 
 // Returns the spellcasting penalty (increase in spell failure) for the
 // player's worn body armour and shield.
 int player_armour_shield_spell_penalty()
 {
-    const int scale = 100;
-
     const int body_armour_penalty =
-        max(19 * you.adjusted_body_armour_penalty(scale), 0);
+        max(19 * you.adjusted_body_armour_penalty(), 0);
 
     const int total_penalty = body_armour_penalty
-                 + 19 * you.adjusted_shield_penalty(scale);
+                 + 19 * you.adjusted_shield_penalty();
 
-    return max(total_penalty, 0) / scale;
+    return max(total_penalty, 0);
 }
 
 /**
@@ -2125,19 +2062,12 @@ static int _sh_from_shield(const item_def &item)
     if (item.sub_type == ARM_ORB)
         return 0;
 
-    const int base_shield = property(item, PARM_AC) * 2;
+    const int base_shield = property(item, PARM_AC);
 
-    // bonus applied only to base, see above for effect:
-    int shield = base_shield * 50;
-    shield += base_shield * you.skill(SK_SHIELDS, 5) / 2;
+    int shield = base_shield * (100 + you.skill(SK_SHIELDS, 20));
 
-    shield += item.plus * 200;
+    shield += item.plus * 100;
 
-    shield += you.skill(SK_SHIELDS, 38);
-
-    shield += 3 * 38;
-
-    shield += you.dex() * 38 * (base_shield + 13) / 26;
     return shield;
 }
 
@@ -2160,7 +2090,7 @@ int player_shield_class()
     // mutations
     // +4, +6, +8 (displayed values)
     shield += (you.get_mutation_level(MUT_LARGE_BONE_PLATES) > 0
-               ? you.get_mutation_level(MUT_LARGE_BONE_PLATES) * 400 + 400
+               ? you.get_mutation_level(MUT_LARGE_BONE_PLATES) * 200 + 200
                : 0);
 
     if (you.get_mutation_level(MUT_CONDENSATION_SHIELD) > 0
@@ -2174,18 +2104,17 @@ int player_shield_class()
     shield += you.wearing(EQ_AMULET, AMU_REFLECTION) * AMU_REFLECT_SH * 100;
     shield += you.scan_artefacts(ARTP_SHIELDING) * 200;
 
-    return (shield + 50) / 100;
+    return shield / 100;
 }
 
 /**
  * Calculate the SH value that should be displayed to players.
  *
- * Exactly half the internal value, for legacy reasons.
  * @return      The SH value to be displayed.
  */
 int player_displayed_shield_class()
 {
-    return player_shield_class() / 2;
+    return player_shield_class();
 }
 
 /**
@@ -3250,17 +3179,6 @@ static void _display_movement_speed()
                             : "very slow");
 }
 
-static void _display_tohit()
-{
-#ifdef DEBUG_DIAGNOSTICS
-    melee_attack attk(&you, nullptr);
-
-    const int to_hit = attk.calc_to_hit(false);
-
-    dprf("To-hit: %d", to_hit);
-#endif
-}
-
 /**
  * Print a message indicating the player's attack delay with their current
  * weapon (if applicable).
@@ -3278,28 +3196,7 @@ static void _display_attack_delay()
     else
         delay = you.attack_delay(nullptr).expected();
 
-    const bool at_min_delay = weapon
-                              && you.skill(item_attack_skill(*weapon))
-                                 >= weapon_min_delay_skill(*weapon);
-    const bool shield_penalty = you.adjusted_shield_penalty(2) > 0;
-    const bool armour_penalty = is_slowed_by_armour(weapon)
-                                && you.adjusted_body_armour_penalty(2) > 0;
-    string penalty_msg = "";
-    if (shield_penalty || armour_penalty)
-    {
-        // TODO: add amount, as in item description (see _describe_armour)
-        // double parens are awkward
-        penalty_msg =
-            make_stringf( " (and is slowed by your %s)",
-                         shield_penalty && armour_penalty ? "shield and armour" :
-                         shield_penalty ? "shield" : "armour");
-    }
-
-    mprf("Your attack delay is about %.1f%s%s.",
-         delay / 10.0f,
-         at_min_delay ?
-            " (and cannot be improved with additional weapon skill)" : "",
-         penalty_msg.c_str());
+    mprf("Your attack delay is about %.1f.", delay / 10.0f);
 }
 
 /**
@@ -3352,7 +3249,6 @@ void display_char_status()
         mpr(cinfo);
 
     _display_movement_speed();
-    _display_tohit();
     _display_attack_delay();
     _display_damage_rating();
 
@@ -3888,15 +3784,14 @@ int get_real_hp(bool trans, bool drained)
 {
     int hitp;
 
-    hitp  = you.experience_level * 11 / 2 + 8;
+    hitp  = you.experience_level * 50;
     hitp += you.hp_max_adj_perm;
     // Important: we shouldn't add Heroism boosts here.
     // ^ The above is a 2011 comment from 1kb, in 2021 this isn't
     // archaeologied for further explanation, but the below now adds Ash boosts
     // to fighting to the HP calculation while preventing it for Heroism
     // - eb
-    hitp += you.experience_level * you.skill(SK_FIGHTING, 5, false, false) / 70
-          + (you.skill(SK_FIGHTING, 3, false, false) + 1) / 2;
+    hitp += you.skill(SK_FIGHTING, 5, false, false);
 
     // Racial modifier.
     hitp *= 10 + species::get_hp_modifier(you.species);
@@ -3949,28 +3844,23 @@ int get_real_mp(bool include_items)
 
     const int scale = 100;
     int spellcasting = you.skill(SK_SPELLCASTING, 1 * scale, false, false);
-    int scaled_xl = you.experience_level * scale;
-
-    // the first 4 experience levels give an extra .5 mp up to your spellcasting
-    // the last 4 give no mp
-    int enp = min(23 * scale, scaled_xl);
+    int enp = 10 * scale;
 
     int spell_extra = spellcasting; // 100%
     int invoc_extra = you.skill(SK_INVOCATIONS, 1 * scale, false, false) / 2; // 50%
     int highest_skill = max(spell_extra, invoc_extra);
-    enp += highest_skill + min(8 * scale, min(highest_skill, scaled_xl)) / 2;
+    enp += highest_skill;
 
     // Analogous to ROBUST/FRAIL
     enp *= 100 + (you.get_mutation_level(MUT_HIGH_MAGIC) * 10)
                - (you.get_mutation_level(MUT_LOW_MAGIC) * 10);
     enp /= 100 * scale;
-//    enp = stepdown_value(enp, 9, 18, 45, 100)
+
     enp += species::get_mp_modifier(you.species);
 
     // This is our "rotted" base, applied after multipliers
     enp += you.mp_max_adj;
 
-    // Now applied after scaling so that power items are more useful -- bwr
     if (include_items)
     {
         enp += 9 * you.wearing(EQ_RINGS, RING_MAGICAL_POWER);
@@ -5652,10 +5542,6 @@ bool player::liquefied_ground() const
            && ground_level() && !is_insubstantial();
 }
 
-int player::shield_block_penalty() const
-{
-    return 5 * shield_blocks * shield_blocks;
-}
 
 /**
  * Returns whether the player currently has any kind of shield.
@@ -5680,7 +5566,7 @@ int player::shield_bonus() const
     if (shield_class <= 0)
         return -100;
 
-    return random2avg(shield_class * 2, 2) / 3 - 1;
+    return shield_class;
 }
 
 int player::shield_bypass_ability(int tohit) const
@@ -5736,13 +5622,15 @@ int player::unadjusted_body_armour_penalty() const
  * @return          A penalty to EV based quadratically on body armour
  *                  encumbrance.
  */
-int player::adjusted_body_armour_penalty(int scale) const
+int player::adjusted_body_armour_penalty() const
 {
     const int base_ev_penalty = unadjusted_body_armour_penalty();
+    const int armour_skill = you.skill(SK_ARMOUR);
 
-    // New formula for effect of str on aevp: (2/5) * evp^2 / (str+3)
-    return 2 * base_ev_penalty * base_ev_penalty * (450 - skill(SK_ARMOUR, 10))
-           * scale / (5 * (strength() + 3)) / 450;
+    if (armour_skill > base_ev_penalty)
+        return 0;
+
+    return 10 * (base_ev_penalty - armour_skill);
 }
 
 /**
@@ -5751,16 +5639,14 @@ int player::adjusted_body_armour_penalty(int scale) const
  * @param scale     A scale to multiply the result by, to avoid precision loss.
  * @return          A penalty to EV based on shield weight.
  */
-int player::adjusted_shield_penalty(int scale) const
+int player::adjusted_shield_penalty() const
 {
     const item_def *shield_l = slot_item(EQ_SHIELD, false);
     if (!shield_l)
         return 0;
 
     const int base_shield_penalty = -property(*shield_l, PARM_EVASION) / 10;
-    return 2 * base_shield_penalty * base_shield_penalty
-           * (270 - skill(SK_SHIELDS, 10)) * scale
-           / (25 + 5 * strength()) / 270;
+    return base_shield_penalty - skill(SK_SHIELDS, 10);
 }
 
 /**

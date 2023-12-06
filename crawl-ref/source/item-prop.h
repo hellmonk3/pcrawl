@@ -131,6 +131,7 @@ bool is_offhand(const item_def &item) PURE;
 bool is_shield_incompatible(const item_def &weapon,
                             const item_def *shield = nullptr) PURE;
 bool shield_reflects(const item_def &shield) PURE;
+int shield_block_limit(const item_def &shield) PURE;
 
 int guile_adjust_willpower(int wl) PURE;
 
@@ -174,7 +175,6 @@ bool is_crossbow(const item_def &item) PURE;
 bool is_axe(const item_def &item) PURE;
 bool is_polearm(const item_def &item) PURE;
 bool is_short_blade(const item_def &item) PURE;
-bool is_slowed_by_armour(const item_def *item) PURE;
 const char *ammo_name(missile_type ammo) IMMUTABLE;
 bool is_throwable(const actor *actor, const item_def &wpn) PURE;
 bool is_launcher_ammo(const item_def &wpn) PURE;
@@ -182,7 +182,7 @@ launch_retval is_launched(const actor *actor, const item_def &missile) PURE;
 
 bool ammo_always_destroyed(const item_def &missile) PURE;
 bool ammo_never_destroyed(const item_def &missile) PURE;
-int  ammo_type_destroy_chance(int missile_type) PURE;
+int  ammo_type_skill_req(int missile_type) PURE;
 int  ammo_type_damage(int missile_type) PURE;
 
 

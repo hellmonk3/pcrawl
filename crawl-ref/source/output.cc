@@ -1060,7 +1060,7 @@ static void _print_stats_ac(int x, int y)
 static void _print_stats_ev(int x, int y)
 {
     CGOTOXY(x+4, y, GOTO_STAT);
-    textcolour(you.duration[DUR_PETRIFYING]
+    textcolour(you.duration[DUR_PETRIFYING] || you.backlit()
                || you.cannot_act() ? RED
                                    : _boosted_ev() ? LIGHTBLUE
                                                     : HUD_VALUE_COLOUR);

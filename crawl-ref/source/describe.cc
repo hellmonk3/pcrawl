@@ -1193,11 +1193,10 @@ static string _describe_mutant_beast(const monster_info &mi)
  */
 static int _item_training_target(const item_def &item)
 {
-    const int throw_dam = property(item, PWPN_DAMAGE);
     if (item.base_type == OBJ_WEAPONS || item.base_type == OBJ_STAVES)
-        return weapon_min_delay_skill(item) * 10;
+        return weapon_skill_requirement(item) * 10;
     if (item.base_type == OBJ_MISSILES && is_throwable(&you, item))
-        return (((10 + throw_dam / 2) - FASTEST_PLAYER_THROWING_SPEED) * 2) * 10;
+        return ammo_type_skill_req(item.sub_type) * 10;
     if (item.base_type == OBJ_TALISMANS)
         return get_form(form_for_talisman(item))->min_skill * 10;
     return 0;
@@ -1346,24 +1345,6 @@ static void _append_skill_target_desc(string &description, skill_type skill,
     }
 }
 
-static int _get_delay(const item_def &item)
-{
-    if (!is_range_weapon(item))
-        return you.attack_delay_with(nullptr, false, &item).expected();
-    item_def fake_proj;
-    populate_fake_projectile(item, fake_proj);
-    return you.attack_delay_with(&fake_proj, false, &item).expected();
-}
-
-static string _desc_attack_delay(const item_def &item)
-{
-    const int base_delay = property(item, PWPN_SPEED);
-    const int cur_delay = _get_delay(get_item_known_info(item));
-    if (weapon_adjust_delay(item, base_delay, false) == cur_delay)
-        return "";
-    return make_stringf("\n    Current attack delay: %.1f.", (float)cur_delay / 10);
-}
-
 static string _describe_brand(brand_type brand)
 {
     switch (brand) {
@@ -1431,24 +1412,22 @@ string damage_rating(const item_def *item)
                                !item ? unarmed_base_damage_bonus(false) :
                                     heavy_dam; // 0 for non-heavy weapons
     const skill_type skill = item ? _item_training_skill(*item) : SK_UNARMED_COMBAT;
-    const int stat_mult = stat_modify_damage(100, skill, true);
     // Throwing weapons and UC only get a damage mult from Fighting skill,
     // not from Throwing/UC skill.
     const bool use_weapon_skill = item && !thrown;
-    const int weapon_skill_mult = use_weapon_skill ? apply_weapon_skill(100, skill, false) : 100;
-    const int skill_mult = apply_fighting_skill(weapon_skill_mult, false, false);
 
     const int slaying = slaying_bonus(thrown, false);
     const int ench = item && item_ident(*item, ISFLAG_KNOW_PLUSES) ? item->plus : 0;
     const int plusses = slaying + ench;
+    const bool penalty = thrown ? ammo_type_skill_req(item->sub_type) > you.skill(skill)
+                                : item ? weapon_skill_requirement(*item) > you.skill(skill)
+                                : false;
 
-    const int DAM_RATE_SCALE = 100;
-    int rating = (base_dam + extra_base_dam) * DAM_RATE_SCALE;
-    rating = stat_modify_damage(rating, skill, true);
+    int rating = (base_dam + extra_base_dam);
     if (use_weapon_skill)
-        rating = apply_weapon_skill(rating, skill, false);
-    rating = apply_fighting_skill(rating, false, false);
-    rating /= DAM_RATE_SCALE;
+        rating = apply_weapon_skill(rating, skill, penalty);
+    if (thrown && penalty)
+        rating /= 2;
     rating += plusses;
 
     const string base_dam_desc = thrown ? make_stringf("[%d + %d (Thrw)]",
@@ -1458,6 +1437,11 @@ string damage_rating(const item_def *item)
                    brand == SPWPN_HEAVY ? make_stringf("[%d + %d (Hvy)]",
                                                        base_dam, extra_base_dam) :
                                           make_stringf("%d", base_dam);
+
+    string skill_desc = use_weapon_skill ? make_stringf(" + Skill %d", you.skill(skill))
+                                         : "";
+
+    string penalty_desc = penalty ? " / 2" : "";
 
     string plusses_desc;
     if (plusses)
@@ -1473,13 +1457,11 @@ string damage_rating(const item_def *item)
     const string brand_desc = thrown ? _describe_missile_brand(*item) : "";
 
     return make_stringf(
-        "%d (Base %s x %d%% (%s) x %d%% (%s)%s)%s.",
+        "%d (Base %s%s%s%s)%s.",
         rating,
         base_dam_desc.c_str(),
-        stat_mult,
-        "Str",
-        skill_mult,
-        use_weapon_skill ? "Skill" : "Fight",
+        penalty_desc.c_str(),
+        skill_desc.c_str(),
         plusses_desc.c_str(),
         brand_desc.c_str());
 }
@@ -1488,7 +1470,7 @@ static void _append_weapon_stats(string &description, const item_def &item)
 {
     const int base_dam = property(item, PWPN_DAMAGE);
     const skill_type skill = _item_training_skill(item);
-    const int mindelay_skill = _item_training_target(item);
+    const int required_skill = _item_training_target(item);
 
     const bool below_target = _is_below_training_target(item, true);
     const bool can_set_target = below_target
@@ -1522,57 +1504,22 @@ static void _append_weapon_stats(string &description, const item_def &item)
     }
 
     description += make_stringf(
-        "Base attack delay: %.1f\n"
-        "This weapon's minimum attack delay (%.1f) is reached at skill level %d.",
-            (float) property(item, PWPN_SPEED) / 10,
-            (float) weapon_min_delay(item, item_brand_known(item)) / 10,
-            mindelay_skill / 10);
+        "Skill requirement: %d\n"
+        "This weapon deals half damage below skill level %d.",
+        required_skill / 10, required_skill / 10);
 
     const bool want_player_stats = !is_useless_item(item) && crawl_state.need_save;
     if (want_player_stats)
     {
         description += "\n    "
-            + _your_skill_desc(skill, can_set_target, mindelay_skill);
+            + _your_skill_desc(skill, can_set_target, required_skill);
     }
 
     if (below_target)
-        _append_skill_target_desc(description, skill, mindelay_skill);
-
-    if (is_slowed_by_armour(&item))
-    {
-        const int penalty_scale = 100;
-        const int armour_penalty = you.adjusted_body_armour_penalty(penalty_scale);
-        description += "\n";
-        if (armour_penalty)
-        {
-            const item_def *body_armour = you.slot_item(EQ_BODY_ARMOUR, false);
-            description += (body_armour ? uppercase_first(
-                                              body_armour->name(DESC_YOUR))
-                                        : "Your heavy armour");
-
-            const bool significant = armour_penalty >= penalty_scale;
-            if (significant)
-            {
-                description +=
-                    make_stringf(" slows your attacks with this weapon by %.1f",
-                                 armour_penalty / (10.0f * penalty_scale));
-            }
-            else
-                description += " slightly slows your attacks with this weapon";
-        }
-        else
-        {
-            description += "Wearing heavy armour would reduce your attack "
-                           "speed with this weapon";
-        }
-        description += ".";
-    }
+        _append_skill_target_desc(description, skill, required_skill);
 
     if (want_player_stats)
-    {
-        description += _desc_attack_delay(item);
         description += "\nDamage rating: " + damage_rating(&item);
-    }
 
     const string brand_desc = _describe_weapon_brand(item);
     if (!brand_desc.empty())
@@ -1891,34 +1838,13 @@ static string _describe_ammo(const item_def &item)
         }
     }
 
-    const int dam = property(item, PWPN_DAMAGE);
     const bool player_throwable = is_throwable(&you, item);
     if (player_throwable)
     {
-        const int throw_delay = (10 + dam / 2);
         const int target_skill = _item_training_target(item);
 
-        const bool below_target = _is_below_training_target(item, true);
-        const bool can_set_target = below_target && in_inventory(item)
-            && !you.has_mutation(MUT_DISTRIBUTED_TRAINING);
-
-        description += make_stringf(
-            "\n\nBase damage: %d  Base attack delay: %.1f"
-            "\nThis projectile's minimum attack delay (%.1f) "
-                "is reached at skill level %d.",
-            dam,
-            (float) throw_delay / 10,
-            (float) FASTEST_PLAYER_THROWING_SPEED / 10,
-            target_skill / 10
-        );
-
-        if (!is_useless_item(item))
-        {
-            description += "\n    " +
-                    _your_skill_desc(SK_THROWING, can_set_target, target_skill);
-        }
-        if (below_target)
-            _append_skill_target_desc(description, SK_THROWING, target_skill);
+        description += make_stringf("\nIt deals half damage below skill %d.",
+                       target_skill / 10);
 
         if (!is_useless_item(item) && property(item, PWPN_DAMAGE))
             description += "\nDamage rating: " + damage_rating(&item);
@@ -1935,7 +1861,7 @@ static string _describe_ammo(const item_def &item)
 static string _warlock_mirror_reflect_desc()
 {
     const int SH = crawl_state.need_save ? player_shield_class() : 0;
-    const int reflect_chance = 100 * SH / omnireflect_chance_denom(SH);
+    const int reflect_chance = min(SH, 100);
     return "\n\nWith your current SH, it has a " + to_string(reflect_chance) +
            "% chance to reflect attacks against your willpower and other "
            "normally unblockable effects.";
@@ -2133,8 +2059,10 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
         {
             description += "Base shield rating: "
                         + to_string(property(item, PARM_AC));
-            description += "       Encumbrance rating: "
+            description += "     Encumbrance rating: "
                         + to_string(-property(item, PARM_EVASION) / 10);
+            description += "     Max blocks/turn: "
+                        + to_string(shield_block_limit(item));
             if (is_unrandom_artefact(item, UNRAND_WARLOCK_MIRROR))
                 description += _warlock_mirror_reflect_desc();
         }
@@ -2145,7 +2073,7 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
                         + to_string(property(item, PARM_AC));
             if (get_armour_slot(item) == EQ_BODY_ARMOUR)
             {
-                description += "       Encumbrance rating: "
+                description += "       Skill Requirement: "
                             + to_string(-evp / 10);
             }
             // Bardings reduce evasion by a fixed amount, and don't have any of
@@ -2221,26 +2149,6 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
         && !is_offhand(item))
     {
         description += _armour_ac_change(item);
-    }
-
-    const int DELAY_SCALE = 100;
-    const int aevp = you.adjusted_body_armour_penalty(DELAY_SCALE);
-    if (crawl_state.need_save
-        && verbose
-        && aevp
-        && !is_shield(item)
-        && _you_are_wearing_item(item)
-        && is_slowed_by_armour(you.weapon()))
-    {
-        // TODO: why doesn't this show shield effect? Reconcile with
-        // _display_attack_delay
-        description += "\n\nYour current strength and Armour skill "
-                       "slows attacks with missile weapons (like "
-                        + you.weapon()->name(DESC_YOUR) + ") ";
-        if (aevp >= DELAY_SCALE)
-            description += make_stringf("by %.1f.", aevp / (10.0f * DELAY_SCALE));
-        else
-            description += "only slightly.";
     }
 
     return description;
@@ -5102,9 +5010,6 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
     }
     // We ignore pproj because monsters never have it passively.
 
-    // We ignore the EV penalty for not being able to see an enemy because, if you
-    // can't see an enemy, you can't get a monster description for them. (Except through
-    // ?/M, but let's neglect that for now.)
     const int ev = you.evasion();
 
     const int to_land = weapon && is_unrandom_artefact(*weapon, UNRAND_SNIPER) ? AUTOMATIC_HIT :
@@ -5112,9 +5017,8 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
     const int beat_ev_chance = mon_to_hit_pct(to_land, ev);
 
     const int shield_class = player_shield_class();
-    const int shield_bypass = mon_shield_bypass(mi.hd);
     // ignore penalty for unseen attacker, as with EV above
-    const int beat_sh_chance = mon_beat_sh_pct(shield_bypass, shield_class);
+    const int beat_sh_chance = mon_beat_sh_pct(shield_class);
 
     const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
     result << " (about " << hit_chance << "% to hit you)";

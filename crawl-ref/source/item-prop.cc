@@ -132,17 +132,17 @@ static const armour_def Armour_prop[] =
             { SPARM_NORMAL,          3 },
             { SPARM_WILLPOWER,       4 },
     }},
-    { ARM_LEATHER_ARMOUR,       "leather armour",         3,  -40,   20,
+    { ARM_LEATHER_ARMOUR,       "leather armour",         3,  -10,   20,
         EQ_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, true, 0, BASIC_BODY_EGOS },
-    { ARM_RING_MAIL,            "ring mail",              5,  -70,   40,
+    { ARM_RING_MAIL,            "ring mail",              5,  -20,   40,
         EQ_BODY_ARMOUR, SIZE_SMALL,  SIZE_MEDIUM, true, 1000, BASIC_BODY_EGOS },
-    { ARM_SCALE_MAIL,           "scale mail",             6, -100,   40,
+    { ARM_SCALE_MAIL,           "scale mail",             6, -40,   40,
         EQ_BODY_ARMOUR, SIZE_SMALL,  SIZE_MEDIUM, true, 1000, BASIC_BODY_EGOS },
-    { ARM_CHAIN_MAIL,           "chain mail",             8, -140,   45,
+    { ARM_CHAIN_MAIL,           "chain mail",             8, -60,   45,
         EQ_BODY_ARMOUR, SIZE_SMALL,  SIZE_MEDIUM, true, 1000, HEAVY_BODY_EGOS },
-    { ARM_PLATE_ARMOUR,         "plate armour",          10, -180,   230,
+    { ARM_PLATE_ARMOUR,         "plate armour",          10, -80,   230,
         EQ_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, true, 1000, HEAVY_BODY_EGOS },
-    { ARM_CRYSTAL_PLATE_ARMOUR, "crystal plate armour",  14, -230,   800,
+    { ARM_CRYSTAL_PLATE_ARMOUR, "crystal plate armour",  14, -90,   800,
         EQ_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, false, 500 },
 
 #if TAG_MAJOR_VERSION == 34
@@ -277,8 +277,8 @@ struct weapon_def
     int                 dam;
     /// The base to-hit bonus of the weapon.
     int                 hit;
-    /// The number of aut it takes to swing the weapon with 0 skill.
-    int                 speed;
+    /// The skill requirement for full damage.
+    int                 requirement;
 
     /// The weapon skill corresponding to this weapon's use.
     skill_type          skill;
@@ -463,7 +463,7 @@ static const weapon_def Weapon_prop[] =
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CRUSHING, 0, 0, 0, {} },
 #endif
-    { WPN_WHIP,              "whip",                6,  2, 11,
+    { WPN_WHIP,              "whip",                6,  2, 1,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLASHING, 4, 0, 25, {
             { SPWPN_NORMAL,        34 },
@@ -483,13 +483,13 @@ static const weapon_def Weapon_prop[] =
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CRUSHING, 0, 0, 0, M_AND_F_BRANDS },
 #endif
-    { WPN_MACE,              "mace",                8,  3, 14,
+    { WPN_MACE,              "mace",                8,  3, 2,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CRUSHING, 9, 10, 30, M_AND_F_BRANDS },
-    { WPN_FLAIL,             "flail",              10,  0, 14,
+    { WPN_FLAIL,             "flail",              10,  0, 4,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CRUSHING, 8, 10, 35, M_AND_F_BRANDS },
-    { WPN_MORNINGSTAR,       "morningstar",        13, -2, 15,
+    { WPN_MORNINGSTAR,       "morningstar",        13, -2, 6,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CRUSHING | DAM_PIERCE, 7, 10, 40, {
             { SPWPN_PROTECTION,     30 },
@@ -505,16 +505,16 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_PAIN,            2 },
             { SPWPN_VAMPIRISM,       2 },
         }},
-    { WPN_DEMON_WHIP,        "demon whip",         11,  1, 11,
+    { WPN_DEMON_WHIP,        "demon whip",         11,  1, 5,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLASHING, 0, 2, 150, DEMON_BRANDS },
-    { WPN_SACRED_SCOURGE,    "sacred scourge",     12,  0, 11,
+    { WPN_SACRED_SCOURGE,    "sacred scourge",     12,  0, 5,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLASHING, 0, 0, 200, HOLY_BRANDS },
-    { WPN_DIRE_FLAIL,        "dire flail",         13, -3, 13,
+    { WPN_DIRE_FLAIL,        "dire flail",         13, -3, 5,
         SK_MELEE_WEAPONS, SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_CRUSHING | DAM_PIERCE, 2, 10, 40, M_AND_F_BRANDS },
-    { WPN_EVENINGSTAR,       "eveningstar",        15, -1, 15,
+    { WPN_EVENINGSTAR,       "eveningstar",        15, -1, 7,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CRUSHING | DAM_PIERCE, 0, 2, 150, {
             { SPWPN_PROTECTION,     30 },
@@ -530,18 +530,18 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_PAIN,            2 },
             { SPWPN_VAMPIRISM,       2 },
         }},
-    { WPN_GREAT_MACE,        "great mace",         17, -4, 17,
+    { WPN_GREAT_MACE,        "great mace",         17, -4, 7,
         SK_MELEE_WEAPONS, SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_CRUSHING, 3, 10, 65, M_AND_F_BRANDS },
-    { WPN_GIANT_CLUB,        "giant club",         20, -6, 16,
+    { WPN_GIANT_CLUB,        "giant club",         20, -6, 7,
         SK_MELEE_WEAPONS, SIZE_LARGE, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_CRUSHING, 1, 10, 17, CLUB_BRANDS },
-    { WPN_GIANT_SPIKED_CLUB, "giant spiked club",  22, -7, 18,
+    { WPN_GIANT_SPIKED_CLUB, "giant spiked club",  22, -7, 7,
         SK_MELEE_WEAPONS, SIZE_LARGE, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_CRUSHING | DAM_PIERCE, 1, 10, 19, CLUB_BRANDS },
 
     // Short Blades
-    { WPN_DAGGER,            "dagger",              4,  6, 10,
+    { WPN_DAGGER,            "dagger",              4,  6, 1,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 10, 10, 20, {
             { SPWPN_VENOM,          28 },
@@ -558,7 +558,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_DISTORTION,      1 },
             { SPWPN_ANTIMAGIC,       1 },
         }},
-    { WPN_QUICK_BLADE,       "quick blade",         4,  6, 12,
+    { WPN_QUICK_BLADE,       "quick blade",         4,  6, 2,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 0, 2, 150, {
             { SPWPN_NORMAL,         43 },
@@ -573,10 +573,10 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_DISTORTION,      1 },
             { SPWPN_ANTIMAGIC,       1 },
         }},
-    { WPN_SHORT_SWORD,       "short sword",         5,  4, 10,
+    { WPN_SHORT_SWORD,       "short sword",         5,  4, 2,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 8, 10, 30, SBL_BRANDS },
-    { WPN_RAPIER,           "rapier",               7,  4, 12,
+    { WPN_RAPIER,           "rapier",               7,  4, 4,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 8, 10, 40, SBL_BRANDS },
 #if TAG_MAJOR_VERSION == 34
@@ -587,28 +587,28 @@ static const weapon_def Weapon_prop[] =
 
 
     // Long Blades
-    { WPN_FALCHION,              "falchion",               8,  2, 13,
+    { WPN_FALCHION,              "falchion",               8,  2, 2,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLICING, 7, 10, 30, LBL_BRANDS }, // DAMV_CHOPPING...?
-    { WPN_LONG_SWORD,            "long sword",            10,  1, 14,
+    { WPN_LONG_SWORD,            "long sword",            10,  1, 4,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLICING, 7, 10, 35, LBL_BRANDS },
-    { WPN_SCIMITAR,              "scimitar",              12, 0, 14,
+    { WPN_SCIMITAR,              "scimitar",              12, 0, 5,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLICING, 6, 10, 40, LBL_BRANDS },
-    { WPN_DEMON_BLADE,           "demon blade",           13, -1, 13,
+    { WPN_DEMON_BLADE,           "demon blade",           13, -1, 5,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLICING, 0, 2, 150, DEMON_BRANDS },
-    { WPN_EUDEMON_BLADE,         "eudemon blade",         14, -2, 12,
+    { WPN_EUDEMON_BLADE,         "eudemon blade",         14, -2, 5,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLICING, 0, 0, 200, HOLY_BRANDS },
-    { WPN_DOUBLE_SWORD,          "double sword",          15, -1, 15,
+    { WPN_DOUBLE_SWORD,          "double sword",          15, -1, 7,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
         DAMV_SLICING, 0, 2, 150, LBL_BRANDS },
-    { WPN_GREAT_SWORD,           "great sword",           17, -3, 17,
+    { WPN_GREAT_SWORD,           "great sword",           17, -3, 7,
         SK_MELEE_WEAPONS,  SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_SLICING, 6, 10, 65, LBL_BRANDS },
-    { WPN_TRIPLE_SWORD,          "triple sword",          19, -4, 18,
+    { WPN_TRIPLE_SWORD,          "triple sword",          19, -4, 9,
         SK_MELEE_WEAPONS,  SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_SLICING, 0, 2, 100, LBL_BRANDS },
 #if TAG_MAJOR_VERSION == 34
@@ -633,24 +633,24 @@ static const weapon_def Weapon_prop[] =
 #endif
 
     // Axes
-    { WPN_HAND_AXE,          "hand axe",            7,  3, 13,
+    { WPN_HAND_AXE,          "hand axe",            7,  3, 3,
         SK_MELEE_WEAPONS,       SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CHOPPING, 9, 10, 30, AXE_BRANDS },
-    { WPN_WAR_AXE,           "war axe",            11,  0, 15,
+    { WPN_WAR_AXE,           "war axe",            11,  0, 5,
         SK_MELEE_WEAPONS,       SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CHOPPING, 7, 10, 35, AXE_BRANDS },
-    { WPN_BROAD_AXE,         "broad axe",          13, -2, 16,
+    { WPN_BROAD_AXE,         "broad axe",          13, -2, 7,
         SK_MELEE_WEAPONS,       SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
         DAMV_CHOPPING, 4, 10, 40, AXE_BRANDS },
-    { WPN_BATTLEAXE,         "battleaxe",          15, -4, 17,
+    { WPN_BATTLEAXE,         "battleaxe",          15, -4, 7,
         SK_MELEE_WEAPONS,       SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_CHOPPING, 6, 10, 65, AXE_BRANDS },
-    { WPN_EXECUTIONERS_AXE,  "executioner's axe",  18, -6, 19,
+    { WPN_EXECUTIONERS_AXE,  "executioner's axe",  18, -6, 9,
         SK_MELEE_WEAPONS,       SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_CHOPPING, 0, 2, 100, AXE_BRANDS },
 
     // Polearms
-    { WPN_SPEAR,             "spear",               6,  4, 11,
+    { WPN_SPEAR,             "spear",               6,  4, 2,
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 8, 10, 30, {
             { SPWPN_NORMAL,     46 },
@@ -663,10 +663,10 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_PAIN,        2 },
             { SPWPN_ANTIMAGIC,   2 },
         }},
-    { WPN_TRIDENT,           "trident",             9,  1, 13,
+    { WPN_TRIDENT,           "trident",             9,  1, 4,
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
         DAMV_PIERCING, 6, 10, 35, POLEARM_BRANDS },
-    { WPN_HALBERD,           "halberd",            13, -3, 15,
+    { WPN_HALBERD,           "halberd",            13, -3, 5,
         SK_MELEE_WEAPONS,     SIZE_MEDIUM, NUM_SIZE_LEVELS,  MI_NONE,
         DAMV_CHOPPING | DAM_PIERCE, 5, 10, 40, POLEARM_BRANDS },
 #if TAG_MAJOR_VERSION == 34
@@ -674,25 +674,25 @@ static const weapon_def Weapon_prop[] =
         SK_MELEE_WEAPONS,     SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_SLICING, 0, 0, 0, POLEARM_BRANDS },
 #endif
-    { WPN_DEMON_TRIDENT,     "demon trident",      12,  1, 13,
+    { WPN_DEMON_TRIDENT,     "demon trident",      12,  1, 6,
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
         DAMV_PIERCING, 0, 2, 150, DEMON_BRANDS },
-    { WPN_TRISHULA,          "trishula",           13,  0, 13,
+    { WPN_TRISHULA,          "trishula",           13,  0, 6,
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
         DAMV_PIERCING, 0, 0, 200, HOLY_BRANDS },
-    { WPN_GLAIVE,            "glaive",             15, -3, 17,
+    { WPN_GLAIVE,            "glaive",             15, -3, 7,
         SK_MELEE_WEAPONS,     SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_CHOPPING, 5, 10, 65, POLEARM_BRANDS },
-    { WPN_BARDICHE,          "bardiche",           18, -6, 19,
+    { WPN_BARDICHE,          "bardiche",           18, -6, 9,
         SK_MELEE_WEAPONS,     SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_CHOPPING, 1, 2, 90, POLEARM_BRANDS },
 
     // Staves
     // WPN_STAFF is for weapon stats for magical staves only.
-    { WPN_STAFF,             "staff",               5,  5, 12,
+    { WPN_STAFF,             "staff",               5,  5, 2,
         SK_MELEE_WEAPONS,       SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
         DAMV_CRUSHING, 0, 0, 15, {} },
-    { WPN_QUARTERSTAFF,      "quarterstaff",        10, 3, 13,
+    { WPN_QUARTERSTAFF,      "quarterstaff",        10, 3, 4,
         SK_MELEE_WEAPONS,       SIZE_LITTLE, NUM_SIZE_LEVELS,  MI_NONE,
         DAMV_CRUSHING, 8, 10, 40, {
             { SPWPN_NORMAL,     50 },
@@ -705,7 +705,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_HOLY_WRATH,  2 },
             { SPWPN_ANTIMAGIC,   2 },
         }},
-    { WPN_LAJATANG,          "lajatang",            16,-3, 14,
+    { WPN_LAJATANG,          "lajatang",            16,-3, 6,
         SK_MELEE_WEAPONS,       SIZE_LITTLE, NUM_SIZE_LEVELS, MI_NONE,
         DAMV_SLICING, 2, 2, 150, {
             { SPWPN_NORMAL,         34 },
@@ -726,10 +726,10 @@ static const weapon_def Weapon_prop[] =
         DAMV_NON_MELEE, 0, 0, 0, {}, },
 #endif
 
-    { WPN_SLING,             "sling",               7,  0, 14,
+    { WPN_SLING,             "sling",               7,  0, 3,
         SK_RANGED_WEAPONS,   SIZE_LITTLE, SIZE_LITTLE, MI_SLING_BULLET,
         DAMV_NON_MELEE, 8, 10, 15, RANGED_BRANDS },
-    { WPN_HAND_CANNON,       "hand cannon",      16,  3, 19,
+    { WPN_HAND_CANNON,       "hand cannon",      16,  3, 7,
         SK_RANGED_WEAPONS,   SIZE_LITTLE, SIZE_LITTLE, MI_BOLT,
         DAMV_NON_MELEE, 0, 10, 35, {
             // Hand cannons appear late, so encourage use by reducing
@@ -748,19 +748,19 @@ static const weapon_def Weapon_prop[] =
         DAMV_NON_MELEE, 0, 0, 150, RANGED_BRANDS },
 #endif
 
-    { WPN_SHORTBOW,          "shortbow",            8,  2, 14,
+    { WPN_SHORTBOW,          "shortbow",            8,  2, 4,
         SK_RANGED_WEAPONS,   SIZE_LITTLE, NUM_SIZE_LEVELS, MI_ARROW,
         DAMV_NON_MELEE, 8, 10, 30, RANGED_BRANDS },
-    { WPN_ORCBOW,            "orcbow",             11, -3, 15,
+    { WPN_ORCBOW,            "orcbow",             11, -3, 6,
         SK_RANGED_WEAPONS,   SIZE_LITTLE, NUM_SIZE_LEVELS, MI_ARROW,
         DAMV_NON_MELEE, 8, 10, 35, RANGED_BRANDS },
-    { WPN_ARBALEST,          "arbalest",           16, -2, 19,
+    { WPN_ARBALEST,          "arbalest",           16, -2, 8,
         SK_RANGED_WEAPONS,   SIZE_LITTLE, NUM_SIZE_LEVELS, MI_BOLT,
         DAMV_NON_MELEE, 5, 10, 45, RANGED_BRANDS },
-    { WPN_LONGBOW,           "longbow",            14,  0, 17,
+    { WPN_LONGBOW,           "longbow",            14,  0, 7,
         SK_RANGED_WEAPONS,   SIZE_MEDIUM, NUM_SIZE_LEVELS, MI_ARROW,
         DAMV_NON_MELEE, 2, 10, 65, RANGED_BRANDS },
-    { WPN_TRIPLE_CROSSBOW,   "triple crossbow",    23, -2, 23,
+    { WPN_TRIPLE_CROSSBOW,   "triple crossbow",    23, -2, 9,
         SK_RANGED_WEAPONS,   SIZE_SMALL, NUM_SIZE_LEVELS, MI_BOLT,
         DAMV_NON_MELEE, 0, 2, 100, RANGED_BRANDS },
 
@@ -771,25 +771,25 @@ struct missile_def
     int         id;
     const char *name;
     int         dam;
-    int         mulch_rate;
+    int         skill_req;
     int         price;
 };
 
 static int Missile_index[NUM_MISSILES];
 static const missile_def Missile_prop[] =
 {
-    { MI_DART,          "dart",          0, 12, 3  },
+    { MI_DART,          "dart",          0, 1, 3  },
 #if TAG_MAJOR_VERSION == 34
     { MI_NEEDLE,        "needle",        0, 12, 2  },
 #endif
-    { MI_STONE,         "stone",         2, 8,  1  },
+    { MI_STONE,         "stone",         2, 1,  1  },
     { MI_ARROW,         "arrow",         0, 1,  2  },
     { MI_BOLT,          "bolt",          0, 1,  2  },
-    { MI_LARGE_ROCK,    "large rock",   20, 25, 15 },
+    { MI_LARGE_ROCK,    "large rock",   20, 5, 15 },
     { MI_SLING_BULLET,  "sling bullet",  0, 1,  5  },
-    { MI_JAVELIN,       "javelin",      10, 20, 30 },
-    { MI_THROWING_NET,  "throwing net",  0, 0,  30 },
-    { MI_BOOMERANG,     "boomerang",     6, 20, 20 },
+    { MI_JAVELIN,       "javelin",      10, 5, 30 },
+    { MI_THROWING_NET,  "throwing net",  0, 1,  30 },
+    { MI_BOOMERANG,     "boomerang",     6, 3, 20 },
 };
 
 #if TAG_MAJOR_VERSION == 34
@@ -2158,11 +2158,6 @@ bool is_short_blade(const item_def &item)
     }
 }
 
-bool is_slowed_by_armour(const item_def *item)
-{
-    return item && is_range_weapon(*item);
-}
-
 const char *ammo_name(missile_type ammo)
 {
     return ammo < 0 || ammo >= NUM_MISSILES ? "eggplant"
@@ -2247,9 +2242,9 @@ bool ammo_never_destroyed(const item_def &missile)
  * @param missile_type      The missile type to get the mulch chance for.
  * @return                  The inverse of the missile type's mulch chance.
  */
-int ammo_type_destroy_chance(int missile_type)
+int ammo_type_skill_req(int missile_type)
 {
-    return Missile_prop[ Missile_index[missile_type] ].mulch_rate;
+    return Missile_prop[ Missile_index[missile_type] ].skill_req;
 }
 
 /**
@@ -2717,8 +2712,8 @@ int property(const item_def &item, int prop_type)
             case PWPN_HIT:
                 return Weapon_prop[ Weapon_index[item.sub_type] ].hit
                        + artefact_property(item, ARTP_BASE_ACC);
-            case PWPN_SPEED:
-                return Weapon_prop[ Weapon_index[item.sub_type] ].speed
+            case PWPN_SK:
+                return Weapon_prop[ Weapon_index[item.sub_type] ].requirement
                        + artefact_property(item, ARTP_BASE_DELAY);
             }
         }
@@ -2726,8 +2721,8 @@ int property(const item_def &item, int prop_type)
             return Weapon_prop[ Weapon_index[item.sub_type] ].dam;
         else if (prop_type == PWPN_HIT)
             return Weapon_prop[ Weapon_index[item.sub_type] ].hit;
-        else if (prop_type == PWPN_SPEED)
-            return Weapon_prop[ Weapon_index[item.sub_type] ].speed;
+        else if (prop_type == PWPN_SK)
+            return Weapon_prop[ Weapon_index[item.sub_type] ].requirement;
         else if (prop_type == PWPN_ACQ_WEIGHT)
             return Weapon_prop[ Weapon_index[item.sub_type] ].acquire_weight;
         break;
@@ -2744,8 +2739,8 @@ int property(const item_def &item, int prop_type)
             return Weapon_prop[ Weapon_index[weapon_sub] ].dam;
         else if (prop_type == PWPN_HIT)
             return Weapon_prop[ Weapon_index[weapon_sub] ].hit;
-        else if (prop_type == PWPN_SPEED)
-            return Weapon_prop[ Weapon_index[weapon_sub] ].speed;
+        else if (prop_type == PWPN_SK)
+            return Weapon_prop[ Weapon_index[weapon_sub] ].requirement;
         break;
 
     default:
@@ -2983,6 +2978,19 @@ bool is_shield_incompatible(const item_def &weapon, const item_def *shield)
 bool shield_reflects(const item_def &shield)
 {
     return is_shield(shield) && get_armour_ego_type(shield) == SPARM_REFLECTION;
+}
+
+int shield_block_limit(const item_def &shield)
+{
+    if (!is_shield(shield))
+        return 0;
+    switch (shield.sub_type)
+    {
+    case ARM_BUCKLER:      return 2;
+    case ARM_KITE_SHIELD:  return 3;
+    case ARM_TOWER_SHIELD: return 4;
+    default:               return 0; // ?!
+    }
 }
 
 int guile_adjust_willpower(int wl)

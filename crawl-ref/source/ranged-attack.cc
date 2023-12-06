@@ -67,30 +67,6 @@ ranged_attack::ranged_attack(actor *attk, actor *defn, item_def *proj,
     needs_message = defender_visible;
 }
 
-int ranged_attack::post_roll_to_hit_modifiers(int mhit, bool random)
-{
-    int modifiers = attack::post_roll_to_hit_modifiers(mhit, random);
-
-    if (teleport && attacker->is_monster())
-        modifiers += attacker->as_monster()->get_hit_dice() * 3 / 2;
-    // XXX: Not reflected in visible to-hit display.
-    else if (defender && attacker->is_player()
-             && you.duration[DUR_DIMENSIONAL_BULLSEYE]
-             && (mid_t)you.props[BULLSEYE_TARGET_KEY].get_int()
-                 == defender->mid)
-    {
-        modifiers += maybe_random_div(
-                         calc_spell_power(SPELL_DIMENSIONAL_BULLSEYE),
-                         BULLSEYE_TO_HIT_DIV, random);
-    }
-
-    // Duplicates describe.cc::_to_hit_pct().
-    if (defender && defender->missile_repulsion())
-        modifiers -= (mhit + 1) / 2;
-
-    return modifiers;
-}
-
 bool ranged_attack::attack()
 {
     if (!handle_phase_attempted())
@@ -105,7 +81,8 @@ bool ranged_attack::attack()
     }
 
     const int ev = defender->evasion(false, attacker);
-    ev_margin = test_hit(to_hit, ev, !attacker->is_player());
+    const int repulsion = defender->missile_repulsion() ? 50 : 0;
+    ev_margin = test_hit(to_hit, ev + repulsion, false);
     bool shield_blocked = attack_shield_blocked(false);
 
     god_conduct_trigger conducts[3];
@@ -208,7 +185,7 @@ bool ranged_attack::handle_phase_dodged()
     const int ev = defender->evasion(false, attacker);
 
     const int orig_ev_margin =
-        test_hit(orig_to_hit, ev, !attacker->is_player());
+        test_hit(orig_to_hit, ev, false);
 
     if (defender->missile_repulsion() && orig_ev_margin >= 0)
     {
@@ -365,7 +342,13 @@ int ranged_attack::weapon_damage() const
     if (using_weapon())
         dam += property(*weapon, PWPN_DAMAGE);
     else if (attacker->is_player())
+    {
         dam += calc_base_unarmed_damage();
+        // insufficient skill penalty for throwing. Ranged weapons are handled
+        // alongside melee weapons in attack.cc calc_damage
+        if (you.skill(SK_THROWING) < ammo_type_skill_req(projectile->sub_type))
+            dam /= 2;
+    }
 
     return dam;
 }

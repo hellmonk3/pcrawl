@@ -245,16 +245,17 @@ public:
     virtual int evasion(bool ignore_helpless = false,
                         const actor *attacker = nullptr) const = 0;
     virtual bool shielded() const = 0;
+    virtual int shield_block_limit() const;
+    bool shield_exhausted() const;
     virtual int shield_bonus() const = 0;
-    virtual int shield_block_penalty() const = 0;
     virtual int shield_bypass_ability(int tohit) const = 0;
     virtual void shield_block_succeeded(actor *attacker);
     virtual bool missile_repulsion() const = 0;
 
     // Combat-related virtual class methods
     virtual int unadjusted_body_armour_penalty() const = 0;
-    virtual int adjusted_body_armour_penalty(int scale = 1) const = 0;
-    virtual int adjusted_shield_penalty(int scale) const = 0;
+    virtual int adjusted_body_armour_penalty() const = 0;
+    virtual int adjusted_shield_penalty() const = 0;
 
     virtual monster_type mons_species(bool zombie_base = false) const = 0;
 

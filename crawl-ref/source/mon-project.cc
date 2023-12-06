@@ -266,17 +266,14 @@ static void _fuzz_direction(const actor *caster, monster& mon, int pow)
 }
 
 // Alas, too much differs to reuse beam shield blocks :(
-static bool _iood_shielded(monster& mon, actor &victim)
+static bool _iood_shielded(actor &victim)
 {
-    if (!victim.shielded() || victim.incapacitated())
+    if (!victim.shielded() || victim.incapacitated() || victim.shield_exhausted())
         return false;
 
-    const int to_hit = 15 + (mons_is_projectile(mon.type) ?
-        mon.props[IOOD_POW].get_short()/12 : mon.get_hit_dice()/2);
-    const int con_block = random2(to_hit + victim.shield_block_penalty());
     const int pro_block = victim.shield_bonus();
-    dprf("iood shield: pro %d, con %d", pro_block, con_block);
-    return pro_block >= con_block;
+    dprf("iood shield: pro %d", pro_block);
+    return x_chance_in_y(pro_block, 100);
 }
 
 dice_def iood_damage(int pow, int dist, bool random)
@@ -521,7 +518,7 @@ move_again:
             }
         }
 
-        if (victim && _iood_shielded(mon, *victim))
+        if (victim && _iood_shielded(*victim))
         {
             if (!victim->reflection())
             {

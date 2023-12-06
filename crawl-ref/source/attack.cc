@@ -161,126 +161,8 @@ int attack::calc_pre_roll_to_hit(bool random)
     {
         return AUTOMATIC_HIT;
     }
-    int mhit;
 
-    // This if statement is temporary, it should be removed when the
-    // implementation of a more universal (and elegant) to-hit calculation
-    // is designed. The actual code is copied from the old mons_to_hit and
-    // player_to_hit methods.
-    if (stat_source().is_player())
-    {
-        mhit = 15 + (you.dex() / 2);
-        // fighting contribution
-        mhit += maybe_random_div(you.skill(SK_FIGHTING, 100), 100, random);
-
-        // weapon skill contribution
-        if (using_weapon())
-        {
-            if (wpn_skill != SK_FIGHTING)
-            {
-                if (you.skill(wpn_skill) < 1 && player_in_a_dangerous_place() && random)
-                    xom_is_stimulated(10); // Xom thinks that is mildly amusing.
-
-                mhit += maybe_random_div(you.skill(wpn_skill, 100), 100,
-                                         random);
-            }
-        }
-        else if (you.form_uses_xl())
-            mhit += maybe_random_div(you.experience_level * 100, 100, random);
-        else
-        {
-            // UC gets extra acc to compensate for lack of weapon enchantment.
-            if (wpn_skill == SK_UNARMED_COMBAT)
-                mhit += 6;
-
-            mhit += maybe_random_div(you.skill(wpn_skill, 100), 100,
-                                     random);
-        }
-
-        // weapon bonus contribution
-        if (using_weapon())
-        {
-            if (weapon->base_type == OBJ_WEAPONS)
-            {
-                mhit += weapon->plus;
-                mhit += property(*weapon, PWPN_HIT);
-            }
-            else if (weapon->base_type == OBJ_STAVES)
-                mhit += property(*weapon, PWPN_HIT);
-        }
-
-        // slaying bonus
-        mhit += slaying_bonus(wpn_skill == SK_THROWING);
-
-        // vertigo penalty
-        if (you.duration[DUR_VERTIGO])
-            mhit -= 5;
-
-        // mutation
-        if (you.get_mutation_level(MUT_EYEBALLS))
-            mhit += 2 * you.get_mutation_level(MUT_EYEBALLS) + 1;
-    }
-    else    // Monster to-hit.
-    {
-        mhit = calc_mon_to_hit_base();
-        if (using_weapon())
-            mhit += weapon->plus + property(*weapon, PWPN_HIT);
-
-        const int jewellery = attacker->as_monster()->inv[MSLOT_JEWELLERY];
-        if (jewellery != NON_ITEM
-            && env.item[jewellery].is_type(OBJ_JEWELLERY, RING_SLAYING))
-        {
-            mhit += env.item[jewellery].plus;
-        }
-
-        mhit += attacker->scan_artefacts(ARTP_SLAYING);
-    }
-
-    return mhit;
-}
-
-/**
- * Calculate to-hit modifiers for an attacker that apply after the player's roll.
- *
- * @param mhit The post-roll player's to-hit value.
- */
-int attack::post_roll_to_hit_modifiers(int mhit, bool /*random*/)
-{
-    int modifiers = 0;
-
-    // Penalties for both players and monsters:
-    modifiers -= attacker->inaccuracy_penalty();
-
-    if (attacker->confused())
-        modifiers += CONFUSION_TO_HIT_MALUS;
-
-    // If no defender, we're calculating to-hit for debug-display
-    // purposes, so don't drop down to defender code below
-    if (defender == nullptr)
-        return modifiers;
-
-    if (!defender->visible_to(attacker))
-    {
-        if (attacker->is_player())
-            modifiers -= 6;
-        else
-            modifiers -= mhit * 35 / 100;
-    }
-    else
-    {
-        // This can only help if you're visible!
-        const int how_transparent = you.get_mutation_level(MUT_TRANSLUCENT_SKIN);
-        if (defender->is_player() && how_transparent)
-            modifiers += TRANSLUCENT_SKIN_TO_HIT_MALUS * how_transparent;
-
-        // defender backlight bonus and umbra penalty.
-        if (defender->backlit(false))
-            modifiers += BACKLIGHT_TO_HIT_BONUS;
-        if (!attacker->nightvision() && defender->umbra())
-            modifiers += UMBRA_TO_HIT_MALUS;
-    }
-
-    return modifiers;
+    return random ? 100 : 100;
 }
 
 /**
@@ -293,20 +175,6 @@ int attack::calc_to_hit(bool random)
     int mhit = calc_pre_roll_to_hit(random);
     if (mhit == AUTOMATIC_HIT)
         return AUTOMATIC_HIT;
-
-    // hit roll
-    const actor &src = stat_source();
-    if (src.is_player())
-        mhit = maybe_random2(mhit, random);
-
-    mhit += post_roll_to_hit_modifiers(mhit, random);
-
-    // We already did this roll for players.
-    if (!src.is_player())
-        mhit = maybe_random2(mhit + 1, random);
-;
-    dprf(DIAG_COMBAT, "%s: to-hit: %d",
-         attacker->name(DESC_PLAIN).c_str(), mhit);
 
     return mhit;
 }
@@ -1128,26 +996,6 @@ int attack::calc_damage()
     {
         int damage = 0;
         int damage_max = 0;
-        if (using_weapon() || wpn_skill == SK_THROWING)
-        {
-            damage_max = adjusted_weapon_damage();
-            damage += random2(damage_max);
-
-            int wpn_damage_plus = 0;
-            if (weapon) // can be 0 for throwing projectiles
-                wpn_damage_plus = get_weapon_plus();
-
-            const int jewellery = attacker->as_monster()->inv[MSLOT_JEWELLERY];
-            if (jewellery != NON_ITEM
-                && env.item[jewellery].is_type(OBJ_JEWELLERY, RING_SLAYING))
-            {
-                wpn_damage_plus += env.item[jewellery].plus;
-            }
-
-            wpn_damage_plus += attacker->scan_artefacts(ARTP_SLAYING);
-
-            damage = _core_apply_slaying(damage, wpn_damage_plus);
-        }
 
         damage_max += attk_damage;
         damage     += 1 + random2(attk_damage);
@@ -1164,13 +1012,15 @@ int attack::calc_damage()
         potential_damage = using_weapon() || wpn_skill == SK_THROWING
             ? adjusted_weapon_damage() : calc_base_unarmed_damage();
 
-        potential_damage = stat_modify_damage(potential_damage, wpn_skill, using_weapon());
-
-        damage = random2(potential_damage+1);
 
         if (using_weapon())
-            damage = apply_weapon_skill(damage, wpn_skill, true);
-        damage = apply_fighting_skill(damage, false, true);
+        {
+            bool penalty = weapon_skill_requirement(*weapon) > you.skill(wpn_skill);
+            potential_damage = apply_weapon_skill(potential_damage, wpn_skill, penalty);
+        }
+
+        damage = 1 + random2(potential_damage);
+
         damage = player_apply_misc_modifiers(damage);
         damage = player_apply_slaying_bonuses(damage, false);
         damage = player_stab(damage);
@@ -1199,17 +1049,18 @@ int attack::test_hit(int to_land, int ev, bool randomise_ev)
 {
     int margin = AUTOMATIC_HIT;
     if (randomise_ev)
-        ev = random2avg(2*ev, 2);
+        ev = ev;
     if (to_land >= AUTOMATIC_HIT)
         return true;
-    else if (x_chance_in_y(MIN_HIT_MISS_PERCENTAGE, 100))
-        margin = (random2(2) ? 1 : -1) * AUTOMATIC_HIT;
-    else
-        margin = to_land - ev;
+
+    to_land = random2(to_land);
+
+    // cap miss % at 90
+    margin = to_land - min(ev, 100 - MIN_HIT_PERCENTAGE);
 
 #ifdef DEBUG_DIAGNOSTICS
-    dprf(DIAG_COMBAT, "to hit: %d; ev: %d; result: %s (%d)",
-         to_hit, ev, (margin >= 0) ? "hit" : "miss", margin);
+    dprf(DIAG_COMBAT, "ev: %d; result: %s (%d)",
+         ev, (margin >= 0) ? "hit" : "miss", margin);
 #endif
 
     return margin;
@@ -1247,19 +1098,17 @@ bool attack::attack_shield_blocked(bool verbose)
     if (defender->incapacitated())
         return false;
 
-    const int con_block = random2(attacker->shield_bypass_ability(to_hit)
-                                  + defender->shield_block_penalty());
     int pro_block = defender->shield_bonus();
 
-    if (!attacker->visible_to(defender))
-        pro_block /= 3;
+    dprf(DIAG_COMBAT, "Defender: %s, Pro-block: %d",
+         def_name(DESC_PLAIN).c_str(), pro_block);
 
-    dprf(DIAG_COMBAT, "Defender: %s, Pro-block: %d, Con-block: %d",
-         def_name(DESC_PLAIN).c_str(), pro_block, con_block);
-
-    if (pro_block >= con_block)
+    if (x_chance_in_y(pro_block, 100))
     {
         perceived_attack = true;
+
+        if (defender->shield_exhausted())
+            return false;
 
         if (ignores_shield(verbose))
             return false;
@@ -1603,31 +1452,14 @@ void attack::calc_elemental_brand_damage(beam_type flavour,
 
 int attack::player_stab_weapon_bonus(int damage)
 {
-    int stab_skill = you.skill(wpn_skill, 50) + you.skill(SK_STEALTH, 50);
+    int stab_skill = you.skill(wpn_skill,1) + you.skill(SK_STEALTH,1);
+
+    damage += stab_skill;
 
     if (player_good_stab())
     {
-        // We might be unarmed if we're using the hood of the Assassin.
-        const bool extra_good = using_weapon() && weapon->sub_type == WPN_DAGGER;
-        int bonus = you.dex() * (stab_skill + 100) / (extra_good ? 500 : 1000);
-
-        bonus   = stepdown_value(bonus, 10, 10, 30, 30);
-        damage += bonus;
-        damage *= 10 + div_rand_round(stab_skill, 100 * stab_bonus);
-        damage /= 10;
+        damage *= 2;
     }
-
-    // There's both a flat and multiplicative component to
-    // stab bonus damage.
-
-    damage *= 12 + div_rand_round(stab_skill, 100 * stab_bonus);
-    damage /= 12;
-
-    // The flat component is loosely based on the old stab_bypass bonus.
-    // Essentially, it's an extra quarter-point of damage for every
-    // point of weapon + stealth skill, divided by stab_bonus - that is,
-    // quartered again if the target isn't sleeping, paralysed, or petrified.
-    damage += random2(div_rand_round(stab_skill, 200 * stab_bonus));
 
     return damage;
 }
@@ -1650,12 +1482,7 @@ int attack::player_stab(int damage)
     }
 
     if (stab_bonus)
-    {
-        // Let's make sure we have some damage to work with...
-        damage = max(1, damage);
-
         damage = player_stab_weapon_bonus(damage);
-    }
 
     return damage;
 }

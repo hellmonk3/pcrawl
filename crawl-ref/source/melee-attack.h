@@ -51,7 +51,6 @@ public:
     // Applies attack damage and other effects.
     bool attack();
     int calc_to_hit(bool random) override;
-    int post_roll_to_hit_modifiers(int mhit, bool random) override;
 
     static void chaos_affect_actor(actor *victim);
 

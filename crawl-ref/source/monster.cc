@@ -412,8 +412,7 @@ random_var monster::attack_delay(const item_def *projectile,
     if (!weap || (projectile && is_throwable(this, *projectile)))
         return random_var(10);
 
-    random_var delay(weapon_adjust_delay(*weap, 10));
-    return delay;
+    return random_var(10);
 }
 
 int monster::has_claws(bool /*allow_tran*/) const
@@ -2730,30 +2729,7 @@ bool monster::shielded() const
 
 int monster::shield_bonus() const
 {
-    if (incapacitated())
-        return -100;
-
-    int sh = 0;
-    const item_def *shld = shield();
-    if (shld && get_armour_slot(*shld) == EQ_SHIELD)
-    {
-
-        int shld_c = property(*shld, PARM_AC) + shld->plus * 2;
-        shld_c = shld_c * 2 + (body_size(PSIZE_TORSO) - SIZE_MEDIUM)
-                            * (shld->sub_type - ARM_TOWER_SHIELD);
-        sh = random2avg(shld_c + get_hit_dice() * 4 / 3, 2) / 2;
-    }
-    // shielding from jewellery
-    const item_def *amulet = mslot_item(MSLOT_JEWELLERY);
-    if (amulet && amulet->sub_type == AMU_REFLECTION)
-        sh += AMU_REFLECT_SH;
-
-    return sh ? sh : -100;
-}
-
-int monster::shield_block_penalty() const
-{
-    return 4 * shield_blocks * shield_blocks;
+    return -100;
 }
 
 void monster::shield_block_succeeded(actor *attacker)
@@ -2765,7 +2741,7 @@ void monster::shield_block_succeeded(actor *attacker)
 
 int monster::shield_bypass_ability(int) const
 {
-    return mon_shield_bypass(get_hit_dice());
+    return 0;
 }
 
 bool monster::missile_repulsion() const
@@ -3019,33 +2995,13 @@ int monster::evasion(bool ignore_helpless, const actor* /*act*/) const
 {
     int ev = base_evasion();
 
-    // account for armour
-    for (int slot = MSLOT_ARMOUR; slot <= MSLOT_SHIELD; slot++)
-    {
-        const item_def* armour = mslot_item(static_cast<mon_inv_type>(slot));
-        if (armour)
-            ev += property(*armour, PARM_EVASION) / 60;
-    }
-
-    // evasion from jewellery
-    const item_def *ring = mslot_item(MSLOT_JEWELLERY);
-    if (ring && ring->sub_type == RING_EVASION)
-    {
-        const int jewellery_plus = ring->plus;
-        ASSERT(abs(jewellery_plus) < 30); // sanity check
-        ev += jewellery_plus;
-    }
-
-    // evasion from artefacts
-    ev += scan_artefacts(ARTP_EVASION);
-
     if (has_ench(ENCH_AGILE))
         ev += AGILITY_BONUS;
 
     if (ignore_helpless)
         return max(ev, 0);
 
-    if (paralysed() || petrified() || petrifying() || asleep())
+    if (paralysed() || petrified() || petrifying() || asleep() || backlit())
         return 0;
 
     if (caught() || is_constricted())

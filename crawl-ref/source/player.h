@@ -617,8 +617,6 @@ public:
     int         damage_type(int which_attack = -1) override;
     random_var  attack_delay(const item_def *projectile = nullptr,
                              bool rescale = true) const override;
-    random_var  attack_delay_with(const item_def *projectile, bool rescale,
-                                  const item_def *weapon) const;
     int         constriction_damage(constrict_type typ) const override;
     bool        constriction_does_damage(constrict_type /* typ */) const override
                     { return true; };
@@ -843,15 +841,14 @@ public:
 
     bool shielded() const override;
     int shield_bonus() const override;
-    int shield_block_penalty() const override;
     int shield_bypass_ability(int tohit) const override;
     void shield_block_succeeded(actor *attacker) override;
     bool missile_repulsion() const override;
 
     // Combat-related adjusted penalty calculation methods
     int unadjusted_body_armour_penalty() const override;
-    int adjusted_body_armour_penalty(int scale = 1) const override;
-    int adjusted_shield_penalty(int scale = 1) const override;
+    int adjusted_body_armour_penalty() const override;
+    int adjusted_shield_penalty() const override;
 
     bool wearing_light_armour(bool with_skill = false) const;
     int  skill(skill_type skill, int scale = 1, bool real = false,

@@ -519,7 +519,7 @@ protected:
                         : current_action == action::describe ? "(Describe)"
                         : current_action == action::hide ? "(Hide)    "
                         : "(Show)    ",
-                        you.divine_exegesis ? "         " : "Failure  "));
+                        "         "));
     }
 
 private:

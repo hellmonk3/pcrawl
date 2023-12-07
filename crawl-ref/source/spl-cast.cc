@@ -242,7 +242,7 @@ int list_spells(bool toggle_with_I, bool viewing, bool allow_preselect,
     {
         ToggleableMenuEntry* me =
             new ToggleableMenuEntry(
-                titlestring + "         Type                          Failure  Level",
+                titlestring + "         Type                          Level",
                 titlestring + "         Power     Damage    Range     Noise         ",
                 MEL_TITLE);
         spell_menu.set_title(me, true, true);

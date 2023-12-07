@@ -959,7 +959,7 @@ static void _sdump_spells(dump_params &par)
     {
         verb = par.se? "contained" : "contains";
         text += "Your spell library " + verb + " the following spells:\n\n";
-        text += " Spells                   Type           Power      Damage    Failure   Level" "\n";
+        text += " Spells                   Type           Power      Damage     Level" "\n";
 
         auto const library = get_sorted_spell_list(true, false);
 

@@ -1264,8 +1264,9 @@ static int _to_hit_pct(const monster_info& mi, int acc)
     if (acc == AUTOMATIC_HIT)
         return 100;
 
-    const bool rmsl = mi.is(MB_REPEL_MSL);
-    int ev = mi.ev + rmsl ? 50 : 0;
+    int ev = mi.ev;
+    if (mi.is(MB_REPEL_MSL))
+        ev += 50;
 
     return acc - min(ev, 100 - MIN_HIT_PERCENTAGE);
 }

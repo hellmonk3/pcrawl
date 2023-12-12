@@ -181,7 +181,6 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld,
 static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
                                       equipment_type slot);
 static void _equip_use_warning(const item_def& item);
-static void _equip_regeneration_item(const item_def& item);
 static void _deactivate_regeneration_item(const item_def& item, bool meld);
 
 static void _assert_valid_slot(equipment_type eq, equipment_type slot)
@@ -289,16 +288,6 @@ static void _equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld,
     {
         canned_msg(proprt[ARTP_MAGICAL_POWER] > 0 ? MSG_MANA_INCREASE
                                                   : MSG_MANA_DECREASE);
-    }
-
-    if (proprt[ARTP_REGENERATION]
-        && !unmeld
-        // If regen is an intrinsic property too, don't double print messages.
-        && !item.is_type(OBJ_JEWELLERY, AMU_REGENERATION)
-        && (item.base_type != OBJ_ARMOUR
-            || !armour_type_prop(item.sub_type, ARMF_REGENERATION)))
-    {
-        _equip_regeneration_item(item);
     }
 
     if (proprt[ARTP_FLY])
@@ -830,9 +819,6 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
 
     }
 
-    if (armour_type_prop(arm.sub_type, ARMF_REGENERATION) && !unmeld)
-        _equip_regeneration_item(arm);
-
     if (is_artefact(arm))
     {
         bool show_msgs = true;
@@ -1006,59 +992,12 @@ static void _remove_amulet_of_faith(item_def &item)
     lose_piety(piety_loss);
 }
 
-static void _equip_regeneration_item(const item_def &item)
-{
-    equipment_type eq_slot = item_equip_slot(item);
-    // currently regen is only on amulets and armour
-    bool plural = (eq_slot == EQ_BOOTS && item.sub_type != ARM_BARDING)
-                  || eq_slot == EQ_GLOVES;
-    string item_name = is_artefact(item) ? get_artefact_name(item)
-                                         : eq_slot == EQ_AMULET
-                                         ? "amulet"
-                                         : eq_slot == EQ_BODY_ARMOUR
-                                         ? "armour"
-                                         : item_slot_name(eq_slot);
-
-#if TAG_MAJOR_VERSION == 34
-    if (you.get_mutation_level(MUT_NO_REGENERATION))
-    {
-        mprf("The %s feel%s cold and inert.", item_name.c_str(),
-             plural ? "" : "s");
-        return;
-    }
-#endif
-    if (you.hp == you.hp_max)
-    {
-        mprf("The %s throb%s to your uninjured body.", item_name.c_str(),
-             plural ? " as they attune themselves" : "s as it attunes itself");
-        you.activated.set(eq_slot);
-        return;
-    }
-    mprf("The %s cannot attune %s to your injured body.", item_name.c_str(),
-         plural ? "themselves" : "itself");
-    you.activated.set(eq_slot, false);
-    return;
-}
-
 bool acrobat_boost_active()
 {
     return player_acrobatic()
            && you.duration[DUR_ACROBAT]
            && (!you.caught())
            && (!you.is_constricted());
-}
-
-static void _equip_amulet_of_mana_regeneration()
-{
-    if (!player_regenerates_mp())
-        mpr("The amulet feels cold and inert.");
-    else if (you.magic_points == you.max_magic_points)
-        you.props[MANA_REGEN_AMULET_ACTIVE] = 1;
-    else
-    {
-        mpr("The amulet cannot attune itself to your exhausted body.");
-        you.props[MANA_REGEN_AMULET_ACTIVE] = 0;
-    }
 }
 
 static void _equip_amulet_of_reflection()
@@ -1139,21 +1078,11 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld,
 
         break;
 
-    case AMU_REGENERATION:
-        if (!unmeld)
-            _equip_regeneration_item(item);
-        break;
-
     case AMU_ACROBAT:
         if (you.has_mutation(MUT_TENGU_FLIGHT))
             mpr("You feel no more acrobatic than usual.");
         else
             mpr("You feel ready to tumble and roll out of harm's way.");
-        break;
-
-    case AMU_MANA_REGENERATION:
-        if (!unmeld)
-            _equip_amulet_of_mana_regeneration();
         break;
 
     case AMU_REFLECTION:
@@ -1234,13 +1163,6 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
         if (!meld)
             _remove_amulet_of_faith(item);
         break;
-
-#if TAG_MAJOR_VERSION == 34
-    case AMU_GUARDIAN_SPIRIT:
-        if (you.species == SP_DEEP_DWARF && player_regenerates_mp())
-            mpr("Your magic begins regenerating once more.");
-        break;
-#endif
 
     case AMU_MANA_REGENERATION:
         if (!meld)

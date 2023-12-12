@@ -2453,10 +2453,6 @@ static vector<formatted_string> _get_overview_stats()
         entry.textcolour(HUD_CAPTION_COLOUR);
         entry.cprintf("Spells: ");
 
-        entry.textcolour(HUD_VALUE_COLOUR);
-        entry.cprintf("%d/%d levels left",
-                      player_spell_levels(), player_total_spell_levels());
-
         cols.add_formatted(3, entry.to_colour_string(), false);
         entry.clear();
     }
@@ -2540,22 +2536,6 @@ static vector<formatted_string> _get_overview_resistances(
                             player_willpower() == WILL_INVULN) + "\n";
 
     out += _stealth_bar(cwidth, 20) + "\n";
-
-    const int regen = player_regen(); // round up
-    out += chop_string("HPRegen", cwidth);
-    out += make_stringf("%d.%02d/turn\n", regen/100, regen%100);
-
-    out += chop_string("MPRegen", cwidth);
-#if TAG_MAJOR_VERSION == 34
-    const bool etheric = player_equip_unrand(UNRAND_ETHERIC_CAGE);
-    const int mp_regen = player_mp_regen() //round up
-                         + (etheric ? 50 : 0); // on average
-    out += make_stringf("%d.%02d/turn%s\n", mp_regen / 100, mp_regen % 100,
-                        etheric ? "*" : "");
-#else
-    const int mp_regen = player_mp_regen(); // round up
-    out += make_stringf("%d.%02d/turn\n", mp_regen / 100, mp_regen % 100);
-#endif
 
     cols.add_formatted(0, out, false);
 

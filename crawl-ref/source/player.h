@@ -1007,8 +1007,6 @@ int player_prot_life(bool allow_random = true, bool temp = true,
                      bool items = true);
 
 bool regeneration_is_inhibited(const monster *m=nullptr);
-int player_regen();
-int player_mp_regen();
 
 bool player_kiku_res_torment();
 
@@ -1047,7 +1045,6 @@ int player_spec_tmut();
 int player_speed();
 
 int player_spell_levels(bool floored = true);
-int player_total_spell_levels();
 
 int get_teleportitis_level();
 

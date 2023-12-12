@@ -1126,40 +1126,6 @@ int get_teleportitis_level()
     return you.get_mutation_level(MUT_TELEPORT) * 6;
 }
 
-// Computes bonuses to regeneration from most sources. Does not handle
-// slow regeneration, vampireness, or Trog's Hand.
-static int _player_bonus_regen()
-{
-    int rr = 0;
-
-    // Amulets, troll leather armour, and artefacts.
-    for (int slot = EQ_MIN_ARMOUR; slot <= EQ_MAX_WORN; ++slot)
-    {
-        if (you.melded[slot] || you.equip[slot] == -1 || !you.activated[slot])
-            continue;
-        const item_def &arm = you.inv[you.equip[slot]];
-        if (arm.base_type == OBJ_ARMOUR
-            && armour_type_prop(arm.sub_type, ARMF_REGENERATION))
-        {
-            rr += REGEN_PIP;
-        }
-        if (arm.is_type(OBJ_JEWELLERY, AMU_REGENERATION))
-            rr += REGEN_PIP;
-        if (is_artefact(arm))
-            rr += REGEN_PIP * artefact_property(arm, ARTP_REGENERATION);
-    }
-
-    // Fast heal mutation.
-    rr += you.get_mutation_level(MUT_REGENERATION) * REGEN_PIP;
-
-    // Powered By Death mutation, boosts regen by variable strength
-    // if the duration of the effect is still active.
-    if (you.duration[DUR_POWERED_BY_DEATH])
-        rr += you.props[POWERED_BY_DEATH_KEY].get_int() * 100;
-
-    return rr;
-}
-
 static bool _mons_inhibits_regen(const monster &m)
 {
     return mons_is_threatening(m)
@@ -1189,81 +1155,6 @@ bool regeneration_is_inhibited(const monster *m)
     return false;
 }
 
-int player_regen()
-{
-    // Note: if some condition can set rr = 0, can't be rested off, and
-    // would allow travel, please update is_sufficiently_rested.
-
-    int rr = 20 + you.hp_max / 6;
-
-    // Add in miscellaneous bonuses
-    rr += _player_bonus_regen();
-
-    // Before applying other effects, make sure that there's something
-    // to heal.
-    rr = max(1, rr);
-
-    // Bonus regeneration for alive vampires.
-    if (you.has_mutation(MUT_VAMPIRISM) && you.vampire_alive)
-        rr += 20;
-
-    if (you.duration[DUR_SICKNESS]
-        || !player_regenerates_hp())
-    {
-        rr = 0;
-    }
-
-    // Trog's Hand. This circumvents sickness or inhibited regeneration.
-    if (you.duration[DUR_TROGS_HAND])
-        rr += 100;
-
-    // Jiyva's passive healing also bypasses sickness, as befits a god.
-    if (have_passive(passive_t::jelly_regen))
-    {
-        // One regen pip at 1* piety, scaling to two pips at 6*.
-        // We use piety rank to avoid leaking piety info to the player.
-        rr += REGEN_PIP + (REGEN_PIP * (piety_rank(you.piety) - 1)) / 5;
-    }
-
-    return rr;
-}
-
-int player_mp_regen()
-{
-    if (you.has_mutation(MUT_HP_CASTING))
-        return 0;
-
-    int regen_amount = 7 + you.max_magic_points / 2;
-
-    if (you.get_mutation_level(MUT_MANA_REGENERATION))
-        regen_amount *= 2;
-
-    if (you.wearing(EQ_AMULET, AMU_MANA_REGENERATION)
-        && you.props[MANA_REGEN_AMULET_ACTIVE].get_int() == 1)
-    {
-        regen_amount += 40;
-        // grants a second pip on top of its base type
-        if (player_equip_unrand(UNRAND_VITALITY))
-            regen_amount += 40;
-    }
-
-    if (have_passive(passive_t::jelly_regen))
-    {
-        // We use piety rank to avoid leaking piety info to the player.
-        regen_amount += 25 + (25 * (piety_rank(you.piety) - 1)) / 5;
-    }
-
-    return regen_amount;
-}
-
-/**
- * How many spell levels does the player have total, including those used up
- * by memorised spells?
- */
-int player_total_spell_levels()
-{
-    return you.experience_level - 1 + you.skill(SK_SPELLCASTING, 2, false, false);
-}
 
 /**
  * How many spell levels does the player currently have available for
@@ -1271,7 +1162,7 @@ int player_total_spell_levels()
  */
 int player_spell_levels(bool floored)
 {
-    int sl = min(player_total_spell_levels(), 99);
+    int sl = 99;
 
     for (const spell_type spell : you.spells)
     {
@@ -4307,7 +4198,7 @@ int poison_survival()
 {
     if (!get_player_poisoning())
         return you.hp;
-    const int rr = player_regen();
+    const int rr = 0;
     const bool chei = have_passive(passive_t::slow_poison);
 #if TAG_MAJOR_VERSION == 34
     const bool dd = can_shave_damage();

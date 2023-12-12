@@ -2452,16 +2452,7 @@ int spell_power_percent(spell_type spell)
 
 string spell_power_string(spell_type spell)
 {
-#ifdef WIZARD
-    if (you.wizard)
-        return _wizard_spell_power_numeric_string(spell);
-#endif
-
-    const int percent = spell_power_percent(spell);
-    if (percent < 0)
-        return "N/A";
-    else
-        return make_stringf("%d%%", percent);
+    return _wizard_spell_power_numeric_string(spell);
 }
 
 int calc_spell_range(spell_type spell, int power, bool allow_bonus,

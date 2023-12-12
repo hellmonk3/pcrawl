@@ -2252,14 +2252,6 @@ bool activate_talent(const talent& tal, dist *target)
         if (beamfunc && beamfunc->beam.hit > 0 && !beamfunc->beam.is_explosion)
             args.get_desc_func = bind(desc_beam_hit_chance, placeholders::_1, hitfunc.get());
 
-        if (abil.failure.base_chance)
-        {
-            args.top_prompt +=
-                make_stringf(" <lightgrey>(%s risk of %s)</lightgrey>",
-                             failure_rate_to_string(tal.fail).c_str(),
-                             testbits(abil.flags, abflag::hostile) ? "hostile"
-                                                                   : "failure");
-        }
         args.behaviour = &beh;
         if (!is_targeted)
             args.default_place = you.pos();
@@ -3637,15 +3629,10 @@ string describe_talent(const talent& tal)
 {
     ASSERT(tal.which != ABIL_NON_ABILITY);
 
-    const string failure = failure_rate_to_string(tal.fail)
-        + (testbits(get_ability_def(tal.which).flags, abflag::hostile)
-           ? " hostile" : "");
-
     ostringstream desc;
     desc << left
          << chop_string(ability_name(tal.which), 32)
-         << chop_string(make_cost_description(tal.which), 32)
-         << chop_string(failure, 12);
+         << chop_string(make_cost_description(tal.which), 32);
     return trimmed_string(desc.str());
 }
 

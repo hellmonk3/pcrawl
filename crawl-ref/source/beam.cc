@@ -576,7 +576,7 @@ void zappy(zap_type z_type, int power, bool is_monster, bolt &pbolt)
     if (zinfo->is_enchantment)
         pbolt.hit = AUTOMATIC_HIT;
     else
-        pbolt.hit = 100;
+        pbolt.hit = max(100, zap_to_hit(z_type, power, is_monster));
 
     pbolt.damage = zap_damage(z_type, power, is_monster);
 
@@ -2929,7 +2929,7 @@ static bool _test_beam_hit(int hit, int ev, bool repel)
 
     hit = random2(hit);
 
-    return hit - max(ev, 100 - MIN_HIT_PERCENTAGE) >= 0;
+    return hit - min(ev, 100 - MIN_HIT_PERCENTAGE) >= 0;
 }
 
 bool bolt::is_harmless(const monster* mon) const

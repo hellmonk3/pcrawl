@@ -175,8 +175,7 @@ LUAFN(l_spells_path)
  */
 LUAFN(l_spells_fail)
 {
-    spell_type spell = spell_by_name(luaL_checkstring(ls, 1), false);
-    PLUARET(number, failure_rate_to_int(raw_spell_fail(spell)));
+    PLUARET(number, 0);
 }
 
 /*** The miscast severity of the spell as a number in [0,5].
@@ -192,8 +191,7 @@ LUAFN(l_spells_fail)
  */
 LUAFN(l_spells_fail_severity)
 {
-    spell_type spell = spell_by_name(luaL_checkstring(ls, 1), false);
-    PLUARET(number, fail_severity(spell));
+    PLUARET(number, 0);
 }
 
 /*** The current spellpower (as an integer percentage 0-100).

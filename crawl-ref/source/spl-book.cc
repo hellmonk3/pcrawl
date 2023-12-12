@@ -50,9 +50,9 @@
 struct sortable_spell
 {
     sortable_spell(spell_type s) : spell(s),
-                raw_fail(raw_spell_fail(s)),
-                fail_rate(failure_rate_to_int(raw_fail)),
-                fail_rate_colour(failure_rate_colour(s)),
+                raw_fail(0),
+                fail_rate(0),
+                fail_rate_colour(LIGHTGREY),
                 level(spell_levels_required(s)),
                 difficulty(spell_difficulty(s)),
                 name(spell_title(s)),
@@ -519,7 +519,7 @@ protected:
                         : current_action == action::describe ? "(Describe)"
                         : current_action == action::hide ? "(Hide)    "
                         : "(Show)    ",
-                        you.divine_exegesis ? "         " : "Failure  "));
+                        "         "));
     }
 
 private:
@@ -777,14 +777,7 @@ private:
                 desc << string(60 - so_far, ' ');
             desc << "</" << colour_to_str(colour) << ">";
 
-            if (you.divine_exegesis)
-                desc << string(9, ' ');
-            else
-            {
-                desc << "<" << colour_to_str(spell.fail_rate_colour) << ">";
-                desc << chop_string(failure_rate_to_string(spell.raw_fail), 9);
-                desc << "</" << colour_to_str(spell.fail_rate_colour) << ">";
-            }
+            desc << string(9, ' ');
 
             desc << spell.difficulty;
 
@@ -1044,20 +1037,6 @@ bool learn_spell(spell_type specspell, bool wizard, bool interactive)
 
     if (!mem_spell_warning_string.empty())
         mprf(MSGCH_WARN, "%s", mem_spell_warning_string.c_str());
-
-    if (!wizard)
-    {
-        const int severity = fail_severity(specspell);
-
-        if (raw_spell_fail(specspell) >= 100 && !vehumet_is_offering(specspell))
-            mprf(MSGCH_WARN, "This spell is impossible to cast!");
-        else if (severity > 0)
-        {
-            mprf(MSGCH_WARN, "This spell is %s to cast%s",
-                             fail_severity_adjs[severity],
-                             severity > 1 ? "!" : ".");
-        }
-    }
 
     if (interactive)
     {

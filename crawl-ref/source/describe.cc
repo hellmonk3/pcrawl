@@ -3935,14 +3935,6 @@ static string _player_spell_stats(const spell_type spell)
         return description; // all other info is player-dependent
     }
 
-
-    string failure;
-    if (you.divine_exegesis)
-        failure = "0%";
-    else
-        failure = failure_rate_to_string(raw_spell_fail(spell));
-    description += make_stringf("        Fail: %s", failure.c_str());
-
     const string damage_string = spell_damage_string(spell);
     const string max_dam_string = spell_max_damage_string(spell);
     const int acc = spell_acc(spell);
@@ -4048,55 +4040,6 @@ int hex_chance(const spell_type spell, const monster_info* mi)
 }
 
 /**
- * Describe miscast effects from a spell
- *
- * @param spell
- */
-static string _miscast_damage_string(spell_type spell)
-{
-    const map <spschool, string> damage_flavor = {
-        { spschool::conjuration, "irresistible" },
-        { spschool::necromancy, "draining" },
-        { spschool::fire, "fire" },
-        { spschool::ice, "cold" },
-        { spschool::air, "electric" },
-        { spschool::earth, "fragmentation" },
-        { spschool::poison, "poison" },
-    };
-
-    const map <spschool, string> special_flavor = {
-        { spschool::summoning, "summons a nameless horror" },
-        { spschool::transmutation, "further contaminates you" },
-        { spschool::translocation, "anchors you in place" },
-        { spschool::hexes, "slows you" },
-    };
-
-    spschools_type disciplines = get_spell_disciplines(spell);
-    vector <string> descs;
-
-    for (const auto &flav : special_flavor)
-        if (disciplines & flav.first)
-            descs.push_back(flav.second);
-
-    int dam = max_miscast_damage(spell);
-    vector <string> dam_flavors;
-    for (const auto &flav : damage_flavor)
-        if (disciplines & flav.first)
-            dam_flavors.push_back(flav.second);
-
-    if (!dam_flavors.empty())
-    {
-        descs.push_back(make_stringf("deals up to %d %s damage", dam,
-                                     comma_separated_line(dam_flavors.begin(),
-                                                         dam_flavors.end(),
-                                                         " or ").c_str()));
-    }
-
-    return (descs.size() > 1 ? "either " : "")
-         + comma_separated_line(descs.begin(), descs.end(), " or ", "; ");
-}
-
-/**
  * Describe mostly non-numeric player-specific information about a spell.
  *
  * (E.g., your god's opinion of it, whether it's in a high-level book that
@@ -4111,11 +4054,6 @@ static string _player_spell_desc(spell_type spell)
         return ""; // all info is player-dependent
 
     ostringstream description;
-
-    description << "Miscasting this spell causes magic contamination"
-                << (fail_severity(spell) ?
-                    " and also " + _miscast_damage_string(spell) : "")
-                << ".\n";
 
     if (spell == SPELL_BATTLESPHERE)
     {

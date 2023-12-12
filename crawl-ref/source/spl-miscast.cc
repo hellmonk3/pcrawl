@@ -622,7 +622,7 @@ void miscast_effect(spell_type spell, int fail)
     miscast_effect(you, nullptr, {miscast_source::spell},
                    school,
                    spell_difficulty(spell),
-                   raw_spell_fail(spell), string("miscasting ") + spell_title(spell));
+                   0, string("miscasting ") + spell_title(spell));
 }
 
 // Miscasts from other sources (god wrath, spellbinder melee, wild magic card,

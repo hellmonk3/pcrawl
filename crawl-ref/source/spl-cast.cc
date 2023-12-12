@@ -2232,30 +2232,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     return spret::none;
 }
 
-/**
- * Compute the tier of maximum severity of a miscast
- * @param spell     The spell to be checked.
- *
- * Tiers are defined by the relation between the maximum miscast damage
- * (given a miscast occurs):
- *
- * - safe, no chance of dangerous effect
- * - slightly dangerous, mdam <= 10% mhp
- * - dangerous, mdam <= 30% mhp
- * - quite dangerous, mdam <= 50% mhp
- * - extremely dangerous, mdam <= 70% mhp
- * - potentially lethal, higher mdam
- */
-int fail_severity(spell_type spell)
+int fail_severity()
 {
     return 0;
-}
-
-// Chooses a colour for the failure rate display for a spell. The colour is
-// based on the chance of getting a severity >= 2 miscast.
-int failure_rate_colour(spell_type spell)
-{
-    return LIGHTGREY;
 }
 
 string spell_noise_string(spell_type spell, int chop_wiz_display_width)

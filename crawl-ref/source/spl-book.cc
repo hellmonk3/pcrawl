@@ -52,7 +52,7 @@ struct sortable_spell
     sortable_spell(spell_type s) : spell(s),
                 raw_fail(0),
                 fail_rate(0),
-                fail_rate_colour(failure_rate_colour(s)),
+                fail_rate_colour(LIGHTGREY),
                 level(spell_levels_required(s)),
                 difficulty(spell_difficulty(s)),
                 name(spell_title(s)),

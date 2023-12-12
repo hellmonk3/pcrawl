@@ -121,8 +121,7 @@ spret your_spells(spell_type spell, int powc = 0, bool actual_spell = true,
                   const item_def* const evoked_item = nullptr,
                   dist *_target = nullptr, bool force_failure = false);
 
-int fail_severity(spell_type spell);
-int failure_rate_colour(spell_type spell);
+int fail_severity();
 
 int power_to_barcount(int power);
 

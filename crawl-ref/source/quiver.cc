@@ -1160,7 +1160,7 @@ namespace quiver
             else
             {
                 col_cache = spell_highlight_by_utility(spell,
-                                failure_rate_colour(spell), true, false);
+                                LIGHTGREY, true, false);
             }
         }
 

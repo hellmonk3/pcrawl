@@ -175,7 +175,6 @@ LUAFN(l_spells_path)
  */
 LUAFN(l_spells_fail)
 {
-    spell_type spell = spell_by_name(luaL_checkstring(ls, 1), false);
     PLUARET(number, 0);
 }
 
@@ -192,7 +191,6 @@ LUAFN(l_spells_fail)
  */
 LUAFN(l_spells_fail_severity)
 {
-    spell_type spell = spell_by_name(luaL_checkstring(ls, 1), false);
     PLUARET(number, 0);
 }
 

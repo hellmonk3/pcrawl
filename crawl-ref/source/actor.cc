@@ -344,15 +344,13 @@ bool actor::rampaging() const
 int actor::apply_ac(int damage, int max_damage, ac_type ac_rule, bool for_real) const
 {
     int ac = max(armour_class(), 0);
-    int gdr = gdr_perc();
     int saved = 0;
     switch (ac_rule)
     {
     case ac_type::none:
-        return damage; // no GDR, too
+        return damage;
     case ac_type::proportional:
         saved = damage - apply_chunked_AC(damage, ac);
-        saved = max(saved, div_rand_round(max_damage * gdr, 100));
         return max(damage - saved, 0);
 
     case ac_type::normal:
@@ -361,22 +359,17 @@ int actor::apply_ac(int damage, int max_damage, ac_type ac_rule, bool for_real) 
     case ac_type::half:
         saved = random2(1 + ac) / 2;
         ac /= 2;
-        gdr /= 2;
         break;
     case ac_type::triple:
         saved = random2(1 + ac);
         saved += random2(1 + ac);
         saved += random2(1 + ac);
         ac *= 3;
-        // apply GDR only twice rather than thrice, that's probably still waaay
-        // too good. 50% gives 75% rather than 100%, too.
-        gdr = 100 - gdr * gdr / 100;
         break;
     default:
         die("invalid AC rule");
     }
 
-    saved = max(saved, min(gdr * max_damage / 100, div_rand_round(ac, 2)));
     if (for_real && (damage > 0) && is_player())
     {
         const item_def *body_armour = slot_item(EQ_BODY_ARMOUR);

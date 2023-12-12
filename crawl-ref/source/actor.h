@@ -238,7 +238,6 @@ public:
     virtual bool can_throw_large_rocks() const = 0;
 
     virtual int armour_class() const = 0;
-    virtual int gdr_perc() const = 0;
     int apply_ac(int damage, int max_damage = 0,
                  ac_type ac_rule = ac_type::normal,
                  bool for_real = true) const;

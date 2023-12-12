@@ -1070,11 +1070,10 @@ int attack::apply_defender_ac(int damage, int damage_max, ac_type ac_rule) const
 {
     ASSERT(defender);
     int after_ac = defender->apply_ac(damage, damage_max, ac_rule);
-    dprf(DIAG_COMBAT, "AC: att: %s, def: %s, ac: %d, gdr: %d, dam: %d -> %d",
+    dprf(DIAG_COMBAT, "AC: att: %s, def: %s, ac: %d, dam: %d -> %d",
                  attacker->name(DESC_PLAIN, true).c_str(),
                  defender->name(DESC_PLAIN, true).c_str(),
                  defender->armour_class(),
-                 defender->gdr_perc(),
                  damage,
                  after_ac);
 

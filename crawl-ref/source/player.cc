@@ -6269,7 +6269,7 @@ int player_willpower(bool temp)
     if (player_equip_unrand(UNRAND_FOLLY))
         return 0;
 
-    int rm = you.experience_level * species::get_wl_modifier(you.species);
+    int rm = species::get_wl_modifier(you.species);
 
     // randarts
     rm += WL_PIP * you.scan_artefacts(ARTP_WILLPOWER);

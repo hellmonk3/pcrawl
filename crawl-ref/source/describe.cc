@@ -5070,8 +5070,8 @@ static void _describe_monster_wl(const monster_info& mi, ostringstream &result)
         return;
     }
 
-    const int bar_scale = WL_PIP;
-    _print_bar(mi.willpower(), bar_scale, "  Will:", result);
+    result << "  Will: ";
+    result << mi.willpower();
     result << "\n";
 }
 

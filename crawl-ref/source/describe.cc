@@ -417,9 +417,6 @@ static const vector<property_descriptor> & _get_all_artp_desc_data()
         { ARTP_ENHANCE_EARTH,
             "It increases your Earth Magic skill (%d).",
             prop_note::numeral },
-        { ARTP_ENHANCE_POISON,
-            "It increases your Poison Magic skill (%d).",
-            prop_note::numeral },
     };
     return data;
 }
@@ -509,7 +506,6 @@ static vector<string> _randart_propnames(const item_def& item,
         ARTP_ENHANCE_ICE,
         ARTP_ENHANCE_AIR,
         ARTP_ENHANCE_EARTH,
-        ARTP_ENHANCE_POISON,
     };
 
     const unrandart_entry *entry = nullptr;

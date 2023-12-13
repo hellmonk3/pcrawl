@@ -1555,7 +1555,9 @@ static void _debug_rap_stats(FILE *ostat)
         "ARTP_ENHANCE_ICE",
         "ARTP_ENHANCE_AIR",
         "ARTP_ENHANCE_EARTH",
+#if TAG_MAJOR_VERSION == 34
         "ARTP_ENHANCE_POISON",
+#endif
     };
     COMPILE_CHECK(ARRAYSZ(rap_names) == ARTP_NUM_PROPERTIES);
 

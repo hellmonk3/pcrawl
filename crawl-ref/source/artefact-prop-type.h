@@ -93,6 +93,8 @@ enum artefact_prop_type
     ARTP_ENHANCE_ICE,
     ARTP_ENHANCE_AIR,
     ARTP_ENHANCE_EARTH,
+#if TAG_MAJOR_VERSION == 34
     ARTP_ENHANCE_POISON,
+#endif
     ARTP_NUM_PROPERTIES
 };

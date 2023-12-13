@@ -1311,8 +1311,6 @@ static void _generate_book_item(item_def& item, bool allow_uniques,
 {
     if (force_type != OBJ_RANDOM)
         item.sub_type = force_type;
-    else if (x_chance_in_y(21 + item_level, 4200))
-        item.sub_type = BOOK_MANUAL; // skill manual - rare!
     else
         item.sub_type = choose_book_type(item_level);
 

@@ -844,123 +844,11 @@ static int _book_weight(book_type book)
     return total_weight;
 }
 
-static bool _is_magic_skill(int skill)
-{
-    return skill >= SK_SPELLCASTING && skill < SK_INVOCATIONS;
-}
-
-static bool _skill_useless_with_god(int skill)
-{
-    if (skill == SK_INVOCATIONS)
-    {
-        // No active invocations, or uses a different skill.
-        return invo_skill() != SK_INVOCATIONS
-               || you_worship(GOD_XOM)
-               || you_worship(GOD_VEHUMET)
-               || you_worship(GOD_NO_GOD);
-    }
-
-    switch (you.religion)
-    {
-    case GOD_TROG:
-        return _is_magic_skill(skill);
-    case GOD_ZIN:
-    case GOD_SHINING_ONE:
-    case GOD_ELYVILON:
-        return skill == SK_NECROMANCY;
-    default:
-        return false;
-    }
-}
-
-/**
- * Randomly decide whether the player should get a manual from a given instance
- * of book acquirement.
- *
- * @param agent     The source of the acquirement (e.g. a god)
- * @return          Whether the player should get a manual from this book
- *                  acquirement.
- */
-static bool _should_acquire_manual(int agent)
-{
-    // Manuals are too useful for Xom, and useless when gifted from Sif Muna.
-    if (agent == GOD_XOM || agent == GOD_SIF_MUNA)
-        return false;
-
-    int magic_weights = 0;
-    int other_weights = 0;
-
-    for (skill_type sk = SK_FIRST_SKILL; sk < NUM_SKILLS; ++sk)
-    {
-        const int weight = _skill_rdiv(sk);
-
-        if (_is_magic_skill(sk))
-            magic_weights += weight;
-        else
-            other_weights += weight;
-    }
-
-    if (you_worship(GOD_TROG))
-        magic_weights = 0;
-
-    // If someone has 25% or more magic skills, never give manuals.
-    // Otherwise, count magic skills double to bias against manuals
-    // for magic users.
-    return magic_weights * 3 < other_weights
-           && x_chance_in_y(other_weights, 2*magic_weights + other_weights);
-}
-
-/**
- * Turn a given book into an acquirement-quality manual.
- *
- * @param book[out]     The book to be turned into a manual.
- * @return              Whether a manual was successfully created.
- */
-static bool _acquire_manual(item_def &book)
-{
-    int weights[NUM_SKILLS] = { 0 };
-    int total_weights = 0;
-
-    for (skill_type sk = SK_FIRST_SKILL; sk < NUM_SKILLS; ++sk)
-    {
-        const int skl = _skill_rdiv(sk);
-
-        if (skl == 27 || is_useless_skill(sk))
-            continue;
-
-        int w = (skl < 12) ? skl + 3 : max(0, 25 - skl);
-
-        // Greatly reduce the chances of getting a manual for a skill
-        // you couldn't use unless you switched your religion.
-        if (_skill_useless_with_god(sk))
-            w /= 2;
-
-        weights[sk] = w;
-        total_weights += w;
-    }
-
-    // Are we too skilled to get any manuals?
-    if (total_weights == 0)
-        return false;
-
-    book.sub_type = BOOK_MANUAL;
-    book.skill = static_cast<skill_type>(
-                    choose_random_weighted(weights, end(weights)));
-    // Set number of bonus skill points.
-    book.skill_points = random_range(2000, 3000);
-    // Preidentify.
-    set_ident_flags(book, ISFLAG_IDENT_MASK);
-
-    return true;
-}
-
 static bool _do_book_acquirement(item_def &book, int agent)
 {
     // items() shouldn't make book a randart for acquirement items.
     ASSERT(!is_random_artefact(book));
 
-    if (_should_acquire_manual(agent))
-        return _acquire_manual(book);
     const int choice = random_choose_weighted(
                                     30, BOOK_RANDART_THEME,
        agent == GOD_SIF_MUNA ? 10 : 40, NUM_BOOKS, // normal books
@@ -1012,27 +900,7 @@ static bool _do_book_acquirement(item_def &book, int agent)
     }
     } // switch book choice
 
-
-    if (agent == GOD_XOM || agent == GOD_SIF_MUNA)
-        set_ident_flags(book, ISFLAG_IDENT_MASK);
-    else
-    {
-        // If we couldn't make a useful book, try to make a manual instead.
-        // We have to temporarily identify the book for this.
-        bool useless = false;
-        {
-            unwind_var<iflags_t> oldflags{book.flags};
-            book.flags |= ISFLAG_KNOW_TYPE;
-            useless = is_useless_item(book);
-        }
-        if (useless)
-        {
-            destroy_item(book);
-            book.base_type = OBJ_BOOKS;
-            book.quantity = 1;
-            return _acquire_manual(book);
-        }
-    }
+    set_ident_flags(book, ISFLAG_IDENT_MASK);
 
     return true;
 }

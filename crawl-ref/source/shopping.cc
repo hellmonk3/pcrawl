@@ -656,8 +656,6 @@ unsigned int item_value(item_def item, bool ident)
     {
         valued = 0;
         const book_type book = static_cast<book_type>(item.sub_type);
-        if (book == BOOK_MANUAL)
-            return 800;
 #if TAG_MAJOR_VERSION == 34
         if (book == BOOK_BUGGY_DESTRUCTION)
             break;

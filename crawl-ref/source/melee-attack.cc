@@ -3662,10 +3662,10 @@ void melee_attack::cleave_setup()
     cleave_targets.pop_front();
 }
 
-// cleave damage modifier for additional attacks: 70% of base damage
+// cleave damage modifier for additional attacks: 50% of base damage
 int melee_attack::cleave_damage_mod(int dam)
 {
-    return div_rand_round(dam * 7, 10);
+    return div_rand_round(dam * 5, 10);
 }
 
 // Martial strikes get modified by momentum and maneuver specific damage mods.

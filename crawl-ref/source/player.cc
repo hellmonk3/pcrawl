@@ -1914,19 +1914,6 @@ static int _player_evasion(bool ignore_helpless)
     return final_evasion;
 }
 
-// Returns the spellcasting penalty (increase in spell failure) for the
-// player's worn body armour and shield.
-int player_armour_shield_spell_penalty()
-{
-    const int body_armour_penalty =
-        max(19 * you.adjusted_body_armour_penalty(), 0);
-
-    const int total_penalty = body_armour_penalty
-                 + 19 * you.adjusted_shield_penalty();
-
-    return max(total_penalty, 0);
-}
-
 /**
  * How many spell-success-boosting ('wizardry') effects does the player have?
  *

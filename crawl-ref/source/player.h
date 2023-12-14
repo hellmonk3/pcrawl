@@ -71,7 +71,7 @@ static const int WL_PIP = 1;
 /// The cap for the player's Will, in units of WL\_PIP.
 static const int MAX_WILL_PIPS = 10;
 /// The standard unit of stealth; one level in %/@ screens
-static const int STEALTH_PIP = 50;
+static const int STEALTH_PIP = 1;
 
 /// The minimum aut cost for a player move (before haste)
 static const int FASTEST_PLAYER_MOVE_SPEED = 6;

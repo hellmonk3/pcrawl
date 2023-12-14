@@ -2033,31 +2033,9 @@ static const char* _determine_colour_string(int level, int max_level,
 
 int stealth_pips()
 {
-    // round up.
-    return (player_stealth() + STEALTH_PIP - 1) / STEALTH_PIP;
+    return player_stealth();
 }
 
-static string _stealth_bar(int label_length, int sw)
-{
-    string bar;
-    //no colouring
-    bar += _determine_colour_string(0, 5);
-    bar += chop_string("Stlth", label_length);
-
-    const int unadjusted_pips = stealth_pips();
-    const int bar_len = 10;
-    const int num_high_pips = unadjusted_pips % bar_len;
-    static const vector<char> pip_tiers = { ' ', '+', '*', '#', '!' };
-    const int max_tier = pip_tiers.size() - 1;
-    const int low_tier = min(unadjusted_pips / bar_len, max_tier);
-    const int high_tier = min(low_tier + 1, max_tier);
-
-    bar.append(num_high_pips, pip_tiers[high_tier]);
-    bar.append(bar_len-num_high_pips, pip_tiers[low_tier]);
-    bar += "\n";
-    linebreak_string(bar, sw);
-    return bar;
-}
 static string _status_mut_rune_list(int sw);
 
 // helper for print_overview_screen
@@ -2535,7 +2513,7 @@ static vector<formatted_string> _get_overview_resistances(
     out += _resist_composer("Will", cwidth, rmagi, MAX_WILL_PIPS, true,
                             player_willpower() == WILL_INVULN) + "\n";
 
-    out += _stealth_bar(cwidth, 20) + "\n";
+    out += make_stringf("Stlth:  %d", stealth_pips()) + "\n";
 
     cols.add_formatted(0, out, false);
 

@@ -33,7 +33,7 @@
 #include "transform.h"
 #include "traps.h"
 #include "travel.h"
-#include "zot.h" // decr_zot_clock
+#include "zot.h" // reset_zot_clock
 
 // Returns true if the monster has a path to the player, or it has to be
 // assumed that this is the case.
@@ -474,7 +474,6 @@ void revive()
     you.clear_fearmongers();
     you.attribute[ATTR_DIVINE_DEATH_CHANNEL] = 0;
     you.attribute[ATTR_SERPENTS_LASH] = 0;
-    decr_zot_clock(true);
     you.los_noise_level = 0;
     you.los_noise_last_turn = 0; // silence in death
 

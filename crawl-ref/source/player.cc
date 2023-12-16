@@ -744,9 +744,6 @@ void update_vision_range()
     // penalizing players with low LOS from items, don't shrink normal_vision.
     you.current_vision = you.normal_vision;
 
-    if (you.species == SP_METEORAN)
-        you.current_vision -= max(0, (bezotting_level() - 1) * 2); // spooky fx
-
     // scarf of shadows gives -1.
     if (you.wearing_ego(EQ_CLOAK, SPARM_SHADOWS))
         you.current_vision -= 1;

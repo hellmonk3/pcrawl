@@ -67,7 +67,7 @@
 #include "traps.h"
 #include "travel.h"
 #include "xom.h"
-#include "zot.h" // ZOT_CLOCK_PER_FLOOR
+#include "zot.h"
 
 int interrupt_block::interrupts_blocked = 0;
 
@@ -534,9 +534,7 @@ void BaseRunDelay::handle()
             // but when positive is used as a counter, so if it's a very large
             // number in the assert message, this is a wait delay
 
-            const int buggy_threshold = you.running.is_rest()
-                ? 700
-                : (ZOT_CLOCK_PER_FLOOR / BASELINE_DELAY / 3);
+            const int buggy_threshold = 700;
             ASSERTM(you.running.turns_passed < buggy_threshold,
                     "Excessive delay, %d turns passed, delay type %d",
                     you.running.turns_passed, you.running.runmode);

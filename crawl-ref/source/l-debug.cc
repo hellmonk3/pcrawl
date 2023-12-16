@@ -115,9 +115,6 @@ LUAFN(debug_generate_level)
 LUAFN(debug_reveal_mimics)
 {
     UNUSED(ls);
-    for (rectangle_iterator ri(1); ri; ++ri)
-        if (mimic_at(*ri))
-            discover_mimic(*ri);
     return 0;
 }
 

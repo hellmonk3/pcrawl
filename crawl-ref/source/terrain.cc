@@ -711,30 +711,6 @@ bool feat_is_valid_border(dungeon_feature_type feat)
            || feat == DNGN_ENDLESS_SALT;
 }
 
-/** Can this feature be a mimic?
- *
- *  @param feat the feature
- *  @param strict if true, disallow features for which being a mimic would be bad in
-                  normal generation; vaults can still use such mimics.
- *  @returns whether this could make a valid mimic type.
- */
-bool feat_is_mimicable(dungeon_feature_type feat, bool strict)
-{
-    if (!strict && feat != DNGN_FLOOR && feat != DNGN_SHALLOW_WATER
-        && feat != DNGN_DEEP_WATER)
-    {
-        return true;
-    }
-
-    if (feat == DNGN_ENTER_ZIGGURAT)
-        return false;
-
-    if (feat == DNGN_ENTER_SHOP)
-        return true;
-
-    return false;
-}
-
 /** Can creatures on this feature be shafted?
  *
  * @param feat The feature in question.

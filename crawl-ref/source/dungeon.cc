@@ -2612,48 +2612,6 @@ static void _ruin_level(Iterator iter,
     }
 }
 
-static bool _mimic_at_level()
-{
-    return !player_in_branch(BRANCH_TEMPLE)
-           && !player_in_branch(BRANCH_VESTIBULE)
-           && !player_in_branch(BRANCH_SLIME)
-           && !player_in_branch(BRANCH_TOMB)
-           && !player_in_branch(BRANCH_PANDEMONIUM)
-           && !player_in_hell()
-           && !crawl_state.game_is_tutorial();
-}
-
-static void _place_feature_mimics()
-{
-    for (rectangle_iterator ri(1); ri; ++ri)
-    {
-        const coord_def pos = *ri;
-        const dungeon_feature_type feat = env.grid(pos);
-
-        // Vault tag prevents mimic.
-        if (map_masked(pos, MMT_NO_MIMIC))
-            continue;
-
-        // Only features valid for mimicing.
-        if (!feat_is_mimicable(feat))
-            continue;
-
-        if (one_chance_in(FEATURE_MIMIC_CHANCE))
-        {
-            dprf(DIAG_DNGN, "Placed %s mimic at (%d,%d).",
-                 feat_type_name(feat), ri->x, ri->y);
-            env.level_map_mask(*ri) |= MMT_MIMIC;
-
-            // If we're mimicing a unique portal vault, give a chance for
-            // another one to spawn.
-            const char* dst = branches[stair_destination(pos).branch].abbrevname;
-            const string tag = "uniq_" + lowercase_string(dst);
-            if (get_uniq_map_tags().count(tag))
-                get_uniq_map_tags().erase(tag);
-        }
-    }
-}
-
 // Apply modifications (ruination, plant clumps) that should happen
 // regardless of game mode.
 static void _post_vault_build()
@@ -2723,9 +2681,6 @@ static void _build_dungeon_level()
         // XXX: Moved this here from builder_monsters so that
         //      connectivity can be ensured
         _place_uniques();
-
-        if (_mimic_at_level())
-            _place_feature_mimics();
 
         _place_traps();
 
@@ -5322,14 +5277,6 @@ static void _vault_grid_mapspec(vault_placement &place, const coord_def &where,
         place_spec_shop(where, *f.shop);
     else
         env.grid(where) = DNGN_FLOOR;
-
-    if (f.mimic > 0 && one_chance_in(f.mimic))
-    {
-        ASSERT(feat_is_mimicable(env.grid(where), false));
-        env.level_map_mask(where) |= MMT_MIMIC;
-    }
-    else if (f.no_mimic)
-        env.level_map_mask(where) |= MMT_NO_MIMIC;
 
     item_list &items = mapsp.get_items();
     dgn_place_multiple_items(items, where);

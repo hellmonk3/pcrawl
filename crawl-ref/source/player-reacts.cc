@@ -937,10 +937,6 @@ void player_reacts()
     if (you.duration[DUR_POISONING])
         handle_player_poison(you.time_taken);
 
-    // safety first: make absolutely sure that there's no mimic underfoot.
-    // (this can happen with e.g. apport.)
-    discover_mimic(you.pos());
-
     // Player stealth check.
     seen_monsters_react(stealth);
 

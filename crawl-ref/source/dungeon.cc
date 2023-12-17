@@ -3457,7 +3457,7 @@ static bool _builder_normal()
 
 static void _place_traps()
 {
-    const int num_traps = random2avg(2 * trap_rate_for_place(), 2);
+    const int num_traps = 1;
 
     ASSERT(num_traps >= 0);
     dprf("attempting to place %d traps", num_traps);
@@ -3467,7 +3467,7 @@ static void _place_traps()
         trap_def ts;
 
         int tries;
-        for (tries = 0; tries < 200; ++tries)
+        for (tries = 0; tries < 500; ++tries)
         {
             ts.pos.x = random2(GXM);
             ts.pos.y = random2(GYM);
@@ -3482,21 +3482,13 @@ static void _place_traps()
             }
         }
 
-        if (tries == 200)
+        if (tries == 500)
         {
-            dprf("tried %d times to place a trap & gave up", tries);
-            break;
+            throw dgn_veto_exception("Failed to place pressure plate.");
+            return;
         }
 
-        // Don't place dispersal traps in opaque vaults, they won't
-        // be later checked for connectivity and we might break them.
-        const trap_type type = random_trap_for_place(
-                                   !map_masked(ts.pos, MMT_OPAQUE));
-        if (type == NUM_TRAPS)
-        {
-            dprf("failed to find a trap type to place");
-            continue;
-        }
+        const trap_type type = TRAP_PLATE;
 
         ts.type = type;
         env.grid(ts.pos) = ts.feature();

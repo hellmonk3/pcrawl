@@ -1265,6 +1265,19 @@ level_id stair_destination(dungeon_feature_type feat, const string &dst,
     return level_id();
 }
 
+static void _lock_stairs()
+{
+    for (rectangle_iterator ri(0); ri; ++ri)
+    {
+        const dungeon_feature_type feat = env.grid(*ri);
+        if (feat_is_travelable_stair(feat) && feat_stair_direction(feat) == CMD_GO_DOWNSTAIRS)
+        {
+            temp_change_terrain(*ri, DNGN_SEALED_STAIRS_DOWN, INFINITE_DURATION,
+                                TERRAIN_CHANGE_DOOR_SEAL);
+        }
+    }
+}
+
 void down_stairs(dungeon_feature_type force_stair, bool force_known_shaft, bool update_travel_cache)
 {
     take_stairs(force_stair, false, force_known_shaft, update_travel_cache);
@@ -1337,6 +1350,8 @@ void new_level(bool restore)
 {
     print_stats_level();
     update_whereis();
+
+    _lock_stairs();
 
     _update_level_state();
 

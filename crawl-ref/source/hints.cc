@@ -2461,7 +2461,6 @@ static void _hints_describe_feature(int x, int y, ostringstream& ostr)
     case DNGN_TRAP_BOLT:
 #endif
     case DNGN_TRAP_NET:
-    case DNGN_TRAP_PLATE:
         ostr << "These nasty constructions can cause a range of "
                 "unpleasant effects. You won't be able to avoid "
                 "tripping traps by flying over them; their magic "

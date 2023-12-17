@@ -3370,7 +3370,7 @@ void start_explore(bool grab_items)
     if (!i_feel_safe(true, true))
         return;
 
-    if (should_fear_zot() && !yesno("Really explore while Zot is near?", false, 'n'))
+    if (should_fear_zot() && !yesno("Really explore with so little time left?", false, 'n'))
     {
         canned_msg(MSG_OK);
         return;

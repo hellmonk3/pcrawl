@@ -107,10 +107,7 @@ bool bezotted()
 
 bool should_fear_zot()
 {
-    return bezotted()
-        || you.has_mutation(MUT_SHORT_LIFESPAN)
-           && zot_clock_active()
-           && Options.fear_zot;
+    return bezotting_level_in(you.where_are_you) == 3;
 }
 
 // Reset the zot clock when the player enters a new level.

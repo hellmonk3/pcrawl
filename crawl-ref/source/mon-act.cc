@@ -70,7 +70,6 @@
 #include "viewchar.h"
 #include "view.h"
 
-static bool _handle_pickup(monster* mons);
 static void _mons_in_cloud(monster& mons);
 static bool _monster_move(monster* mons);
 static bool _monster_swaps_places(monster* mon, const coord_def& delta);
@@ -1084,74 +1083,6 @@ static void _handle_boulder_movement(monster& boulder)
         _swim_or_move_energy(boulder);
 }
 
-static void _mons_fire_wand(monster& mons, spell_type mzap, bolt &beem)
-{
-    if (!simple_monster_message(mons, " zaps a wand."))
-    {
-        if (!silenced(you.pos()))
-            mprf(MSGCH_SOUND, "You hear a zap.");
-    }
-    mons_cast(&mons, beem, mzap, MON_SPELL_EVOKE, false);
-    mons.lose_energy(EUT_ITEM);
-}
-
-static bool _handle_wand(monster& mons)
-{
-    item_def *wand = mons.mslot_item(MSLOT_WAND);
-    // Yes, there is a logic to this ordering {dlb}:
-    // (no there's not -- pf)
-    if (!wand
-        || wand->base_type != OBJ_WANDS
-
-        || !mons.get_foe()
-        || !cell_see_cell(mons.pos(), mons.get_foe()->pos(), LOS_SOLID_SEE)
-
-        || mons.asleep()
-        || mons_is_fleeing(mons)
-        || mons.pacified()
-        || mons.confused()
-        || mons_itemuse(mons) < MONUSE_STARTING_EQUIPMENT
-        || !mons.likes_wand(*wand)
-        || mons.has_ench(ENCH_SUBMERGED)
-
-        || x_chance_in_y(3, 4))
-    {
-        return false;
-    }
-
-    if (wand->charges <= 0)
-        return false;
-
-    if (item_type_removed(wand->base_type, wand->sub_type))
-        return false;
-
-    // Digging is handled elsewhere so that sensible (wall) targets are
-    // chosen.
-    if (wand->sub_type == WAND_DIGGING)
-        return false;
-
-    bolt beem;
-
-    const spell_type mzap =
-        spell_in_wand(static_cast<wand_type>(wand->sub_type));
-
-    if (!ai_action::is_viable(monster_spell_goodness(&mons, mzap)))
-        return false;
-
-    if (!setup_mons_cast(&mons, beem, mzap, true))
-        return false;
-
-    beem.source     = mons.pos();
-    beem.aux_source =
-        wand->name(DESC_QUALNAME, false, true, false, false);
-    fire_tracer(&mons, beem);
-    if (!mons_should_fire(beem))
-        return false;
-
-    _mons_fire_wand(mons, mzap, beem);
-    return true;
-}
-
 bool handle_throw(monster* mons, bolt & beem, bool teleport, bool check_only)
 {
     // Yes, there is a logic to this ordering {dlb}:
@@ -1550,12 +1481,6 @@ static bool _mons_take_special_action(monster &mons, int old_energy)
         }
     }
 
-    if (_handle_wand(mons))
-    {
-        DEBUG_ENERGY_USE_REF("_handle_wand()");
-        return true;
-    }
-
     if (_handle_swoop(mons))
     {
         DEBUG_ENERGY_USE_REF("_handle_swoop()");
@@ -1803,12 +1728,6 @@ void handle_monster_move(monster* mons)
         return;
     }
 
-    if (_handle_pickup(mons))
-    {
-        DEBUG_ENERGY_USE("handle_pickup()");
-        return;
-    }
-
     // Lurking monsters only stop lurking if their target is right
     // next to them, otherwise they just sit there.
     if (mons->has_ench(ENCH_SUBMERGED))
@@ -1846,7 +1765,7 @@ void handle_monster_move(monster* mons)
 
         // Confused monsters sometimes stumble about instead of moving with
         // purpose.
-        if (mons_is_confused(*mons) && !one_chance_in(3))
+        if (mons_is_confused(*mons) && !one_chance_in(3) && !mons->asleep())
         {
             set_random_target(mons);
             _confused_move_dir(mons);
@@ -2447,158 +2366,6 @@ static bool _jelly_divide(monster& parent)
         arena_placed_monster(child);
 
     return true;
-}
-
-// Only Jiyva jellies eat items.
-static bool _monster_eat_item(monster* mons)
-{
-    // Off-limit squares are off-limit.
-    if (testbits(env.pgrid(mons->pos()), FPROP_NO_JIYVA))
-        return false;
-
-    int hps_changed = 0;
-    int max_eat = roll_dice(1, 10);
-    int eaten = 0;
-    bool shown_msg = false;
-
-    // Jellies can swim, so don't check water
-    for (stack_iterator si(mons->pos());
-         si && eaten < max_eat && hps_changed < 50; ++si)
-    {
-        if (!item_is_jelly_edible(*si))
-            continue;
-
-        dprf("%s eating %s", mons->name(DESC_PLAIN, true).c_str(),
-             si->name(DESC_PLAIN).c_str());
-
-        int quant = si->quantity;
-
-        if (si->base_type != OBJ_GOLD)
-        {
-            quant = min(quant, max_eat - eaten);
-
-            hps_changed += quant * 3;
-            eaten += quant;
-        }
-        else
-        {
-            // Shouldn't be much trouble to digest a huge pile of gold!
-            if (quant > 500)
-                quant = 500 + roll_dice(2, (quant - 500) / 2);
-
-            hps_changed += quant / 10 + 1;
-            eaten++;
-        }
-
-        if (eaten && !shown_msg && player_can_hear(mons->pos()))
-        {
-            mprf(MSGCH_SOUND, "You hear a%s slurping noise.",
-                 you.see_cell(mons->pos()) ? "" : " distant");
-            shown_msg = true;
-        }
-
-        if (quant >= si->quantity)
-            item_was_destroyed(*si);
-        dec_mitm_item_quantity(si.index(), quant, false);
-    }
-
-    if (eaten > 0)
-    {
-        hps_changed = max(hps_changed, 1);
-        hps_changed = min(hps_changed, 50);
-
-        // This is done manually instead of using heal_monster(),
-        // because that function doesn't work quite this way. - bwr
-        const int avg_hp = mons_avg_hp(mons->type);
-        mons->hit_points += hps_changed;
-        mons->hit_points = min(MAX_MONSTER_HP,
-                               min(avg_hp * 4, mons->hit_points));
-        mons->max_hit_points = max(mons->hit_points, mons->max_hit_points);
-
-        _jelly_divide(*mons);
-    }
-
-    return eaten > 0;
-}
-
-
-static bool _handle_pickup(monster* mons)
-{
-    if (env.igrid(mons->pos()) == NON_ITEM
-        // Summoned monsters never pick anything up.
-        || mons->is_summoned() || mons->is_perm_summoned()
-        || mons->asleep() || mons->submerged())
-    {
-        return false;
-    }
-
-    // Flying over water doesn't let you pick up stuff. This is inexact, as
-    // a merfolk could be flying, but that's currently impossible except for
-    // being polar vortex'd, and with *that* low life expectancy let's not care.
-    dungeon_feature_type feat = env.grid(mons->pos());
-
-    if ((feat == DNGN_LAVA || feat == DNGN_DEEP_WATER) && mons->airborne())
-        return false;
-
-    int count_pickup = 0;
-
-    if (mons_eats_items(*mons) && _monster_eat_item(mons))
-        return false;
-
-    if (mons_itemuse(*mons) < MONUSE_WEAPONS_ARMOUR)
-        return false;
-
-    // Keep neutral, charmed, and friendly monsters from
-    // picking up stuff.
-    const bool never_pickup
-        = mons->neutral() || mons->friendly()
-          || have_passive(passive_t::neutral_slimes) && mons_is_slime(*mons)
-          || mons->has_ench(ENCH_CHARM) || mons->has_ench(ENCH_HEXED);
-
-
-    // Note: Monsters only look at stuff near the top of stacks.
-    //
-    // XXX: Need to put in something so that monster picks up
-    // multiple items (e.g. ammunition) identical to those it's
-    // carrying.
-    //
-    // Monsters may now pick up up to two items in the same turn.
-    // (jpeg)
-    for (stack_iterator si(mons->pos()); si; ++si)
-    {
-        if (!crawl_state.game_is_arena()
-            && (never_pickup
-                // Monsters being able to pick up items you've seen encourages
-                // tediously moving everything away from a place where they
-                // could use them. Maurice being able to pick up such items
-                // encourages killing Maurice, since there's just one of him.
-                // Usually.
-                || (testbits(si->flags, ISFLAG_SEEN)
-                    && !mons->has_attack_flavour(AF_STEAL)))
-            // ...but it's ok if it dropped the item itself.
-            && !(si->props.exists(DROPPER_MID_KEY)
-                 && si->props[DROPPER_MID_KEY].get_int() == (int)mons->mid))
-        {
-            // don't pick up any items beneath one that the player's seen,
-            // to prevent seemingly-buggy behavior (monsters picking up items
-            // from the middle of a stack while the player is watching)
-            return false;
-        }
-
-        if (si->flags & ISFLAG_NO_PICKUP)
-            continue;
-
-        if (mons->pickup_item(*si, you.see_cell(mons->pos()), false))
-        {
-            count_pickup++;
-            si->props.erase(DROPPER_MID_KEY);
-        }
-
-        if (count_pickup > 1 || coinflip())
-            break;
-    }
-
-    return count_pickup > 0;
 }
 
 static void _mons_open_door(monster& mons, const coord_def &pos)

@@ -2179,8 +2179,7 @@ static void _handle_stat_loss(int exp)
     if (!(you.attribute[ATTR_STAT_LOSS_XP] > 0))
         return;
 
-    int loss = div_rand_round(exp * 3 / 2,
-                              max(1, calc_skill_cost(you.skill_cost_level) - 3));
+    int loss = div_rand_round(exp * 3, 2);
     you.attribute[ATTR_STAT_LOSS_XP] -= loss;
     dprf("Stat loss points: %d", you.attribute[ATTR_STAT_LOSS_XP]);
     if (you.attribute[ATTR_STAT_LOSS_XP] <= 0)
@@ -2193,7 +2192,7 @@ static void _handle_hp_drain(int exp)
     if (!you.hp_max_adj_temp)
         return;
 
-    int loss = div_rand_round(exp, 4 * calc_skill_cost(you.skill_cost_level));
+    int loss = div_rand_round(exp, 4);
 
     // Make it easier to recover from very heavy levels of draining
     // (they're nasty enough as it is)
@@ -2293,7 +2292,7 @@ void apply_exp()
 
     train_skills();
     while (check_selected_skills()
-           && you.exp_available >= calc_skill_cost(you.skill_cost_level))
+           && you.exp_available >= 1)
     {
         train_skills();
     }

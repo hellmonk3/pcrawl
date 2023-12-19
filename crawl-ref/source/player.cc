@@ -2095,15 +2095,10 @@ int get_exp_progress()
     return (you.experience - current) * 100 / (next - current);
 }
 
-static void _recharge_xp_evokers(int exp)
+void recharge_xp_evokers()
 {
     FixedVector<item_def*, NUM_MISCELLANY> evokers(nullptr);
     list_charging_evokers(evokers);
-
-    const int xp_by_xl = exp_needed(you.experience_level+1, 0)
-                       - exp_needed(you.experience_level, 0);
-    const int skill_denom = 3 + you.skill_rdiv(SK_EVOCATIONS, 2, 13);
-    const int xp_factor = max(xp_by_xl / 5, 100) / skill_denom;
 
     for (int i = 0; i < NUM_MISCELLANY; ++i)
     {
@@ -2116,7 +2111,7 @@ static void _recharge_xp_evokers(int exp)
             continue;
 
         const int old_charges = evoker_charges(i);
-        debt = max(0, debt - div_rand_round(exp, xp_factor));
+        debt = max(0, debt - 1);
         const int gained = evoker_charges(i) - old_charges;
         if (gained)
             print_xp_evoker_recharge(*evoker, gained, silenced(you.pos()));
@@ -2271,7 +2266,6 @@ void apply_exp()
     // xp-gated effects that use sprint inflation
     _handle_stat_loss(skill_xp);
     _handle_temp_mutation(skill_xp);
-    _recharge_xp_evokers(skill_xp);
     _reduce_abyss_xp_timer(skill_xp);
     _handle_hp_drain(skill_xp);
 

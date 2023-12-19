@@ -1362,4 +1362,6 @@ void new_level(bool restore)
 
     if (player_in_branch(BRANCH_ZIGGURAT))
         you.zig_max = max(you.zig_max, you.depth);
+
+    recharge_xp_evokers();
 }

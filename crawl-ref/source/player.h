@@ -869,6 +869,7 @@ public:
     void be_agile(int pow);
 
     bool allies_forbidden();
+    int adjusted_casting_level(skill_type skill);
 
     // TODO: move this somewhere else
     void refresh_rampage_hints();

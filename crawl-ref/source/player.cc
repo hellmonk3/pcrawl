@@ -8226,3 +8226,16 @@ bool player::allies_forbidden()
     return get_mutation_level(MUT_NO_LOVE)
            || have_passive(passive_t::no_allies);
 }
+
+// The player's ability to cast a spell of a particular school
+// Adjusted by effects like wizardry
+int player::adjusted_casting_level(skill_type skill)
+{
+    if (skill < SK_FIRST_MAGIC_SCHOOL || skill > SK_LAST_MAGIC)
+        return 0;
+
+    int sklevel = you.skill(skill);
+    sklevel += player_wizardry();
+
+    return sklevel;
+}

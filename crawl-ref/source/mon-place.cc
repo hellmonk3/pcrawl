@@ -351,6 +351,20 @@ void spawn_random_monsters()
     update_screen();
 }
 
+// spawn test administrators for the clock
+void spawn_administrators()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        mgen_data mg(MONS_SERAPH);
+        mg.proximity = PROX_CLOSE_TO_PLAYER;
+        mg.foe = MHITYOU;
+        mons_place(mg);
+    }
+    viewwindow();
+    update_screen();
+}
+
 static bool _is_random_monster(monster_type mt)
 {
     return mt == RANDOM_MONSTER || mt == RANDOM_MOBILE_MONSTER

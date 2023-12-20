@@ -284,22 +284,14 @@ bool check_awaken(monster* mons, int stealth)
         return true;
 
 
-    int mons_perc = 10 + (mons_intel(*mons) * 4) + mons->get_hit_dice();
-
-    bool unnatural_stealthy = false; // "stealthy" only because of invisibility?
+    int mons_perc = mons->get_hit_dice();
 
     // Critters that are wandering but still have MHITYOU as their foe are
     // still actively on guard for the player, even if they can't see you.
     // Give them a large bonus -- handle_behaviour() will nuke 'foe' after
     // a while, removing this bonus.
     if (mons_is_wandering(*mons) && mons->foe == MHITYOU)
-        mons_perc += 15;
-
-    if (!you.visible_to(mons))
-    {
-        mons_perc -= 75;
-        unnatural_stealthy = true;
-    }
+        mons_perc *= 2;
 
     if (mons->asleep())
     {
@@ -307,31 +299,15 @@ bool check_awaken(monster* mons, int stealth)
         {
             // Monster is "hibernating"... reduce chance of waking.
             if (mons->has_ench(ENCH_SLEEP_WARY))
-                mons_perc -= 10;
-        }
-        else // unnatural creature
-        {
-            // Unnatural monsters don't actually "sleep", they just
-            // haven't noticed an intruder yet... we'll assume that
-            // they're diligently on guard.
-            mons_perc += 10;
+                mons_perc = 1;
         }
     }
 
-    if (mons_perc < 4)
-        mons_perc = 4;
+    if (mons_perc < 1)
+        mons_perc = 1;
 
-    if (x_chance_in_y(mons_perc + 1, stealth))
+    if (one_chance_in(stealth - mons_perc))
         return true; // Oops, the monster wakes up!
-
-    // You didn't wake the monster!
-    if (you.can_see(*mons) // to avoid leaking information
-        && !mons->wont_attack()
-        && !mons->neutral() // include pacified monsters
-        && mons_class_gives_xp(mons->type))
-    {
-        practise_sneaking(unnatural_stealthy);
-    }
 
     return false;
 }

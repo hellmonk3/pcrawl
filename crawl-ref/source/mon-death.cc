@@ -413,107 +413,6 @@ static void _gold_pile(item_def &corpse, monster_type corpse_class)
     you.redraw_title = true;
 }
 
-static void _create_monster_hide(monster_type mtyp, monster_type montype,
-                                 coord_def pos, bool silent)
-{
-    const armour_type type = hide_for_monster(mons_species(mtyp));
-    ASSERT(type != NUM_ARMOURS);
-
-    int o = items(false, OBJ_ARMOUR, type, 0);
-    squash_plusses(o);
-
-    if (o == NON_ITEM)
-        return;
-    item_def& item = env.item[o];
-
-    if (!invalid_monster_type(montype) && mons_is_unique(montype))
-        item.inscription = mons_type_name(montype, DESC_PLAIN);
-
-    /// Slightly randomized bonus enchantment for certain uniques' hides
-    static const map<monster_type, int> hide_avg_plusses = {
-        { MONS_SNORG, 2 },
-        { MONS_XTAHUA, 3 },
-        { MONS_BAI_SUZHEN, 3 },
-        { MONS_BAI_SUZHEN_DRAGON, 3 },
-    };
-
-    if (mtyp == MONS_DEEP_TROLL)
-    {
-        item.props[ITEM_TILE_NAME_KEY] = "deep_troll_leather";
-        item.props[WORN_TILE_NAME_KEY] = "deep_troll_leather";
-        bind_item_tile(item);
-    }
-    else if (mtyp == MONS_IRON_TROLL)
-    {
-        item.props[ITEM_TILE_NAME_KEY] = "iron_troll_leather";
-        item.props[WORN_TILE_NAME_KEY] = "iron_troll_leather";
-        bind_item_tile(item);
-    }
-
-    const int* bonus_plus = map_find(hide_avg_plusses, montype);
-    if (bonus_plus)
-        item.plus += random_range(*bonus_plus * 2/3, *bonus_plus * 3/2);
-
-    if (pos.origin())
-    {
-        set_ident_flags(item, ISFLAG_IDENT_MASK);
-        return;
-    }
-
-    move_item_to_grid(&o, pos);
-
-    // Don't display this message if the scales were dropped over
-    // lava/deep water, because then they are hardly intact.
-    if (you.see_cell(pos) && !silent && !feat_eliminates_items(env.grid(pos)))
-    {
-        // XXX: tweak for uniques/named monsters, somehow?
-        mprf("%s %s intact enough to wear.",
-             item.name(DESC_THE).c_str(),
-             mons_genus(mtyp) == MONS_DRAGON ? "are"  // scales are
-                                             : "is"); // troll armour is
-                                                      // XXX: refactor
-    }
-
-    // after messaging, for better results
-    set_ident_flags(item, ISFLAG_IDENT_MASK);
-}
-
-static void _create_monster_wand(monster_type mtyp, coord_def pos, bool silent)
-{
-    if (pos.origin())
-        return;
-
-    int w = items(false, OBJ_WANDS, OBJ_RANDOM,
-                  mons_class_hit_dice(mtyp));
-
-    if (w == NON_ITEM)
-        return;
-    item_def& item = env.item[w];
-    move_item_to_grid(&w, pos);
-
-    item.plus *= 2;
-
-    if (you.see_cell(pos) && !silent && !feat_eliminates_items(env.grid(pos)))
-    {
-        mprf("%s bone magically twists into %s.",
-             mons_type_name(mtyp, DESC_A).c_str(),
-             item.name(DESC_A).c_str());
-    }
-
-    set_ident_flags(item, ISFLAG_IDENT_MASK);
-}
-
-void maybe_drop_monster_organ(monster_type mon, monster_type orig,
-                              coord_def pos, bool silent)
-{
-    if (mons_class_leaves_hide(mon) && !one_chance_in(3))
-        _create_monster_hide(mon, orig, pos, silent);
-
-    // corpse RNG is enough for these right now
-    if (mons_class_leaves_wand(mon))
-        _create_monster_wand(mon, pos, silent);
-}
-
 /**
  * Create this monster's corpse in env.item at its position.
  *
@@ -2576,14 +2475,6 @@ item_def* monster_die(monster& mons, killer_type killer,
     {
         if (!silent && !wizard)
             _special_corpse_messaging(mons);
-        // message ordering... :(
-        if (corpse->base_type == OBJ_CORPSES // not gold
-            && !mons.props.exists(KIKU_WRETCH_KEY))
-        {
-            const monster_type orig = static_cast<monster_type>(corpse->orig_monnum);
-            maybe_drop_monster_organ(corpse->mon_type, orig,
-                                     item_pos(*corpse), silent);
-        }
     }
 
     ASSERT(mons.type != MONS_NO_MONSTER);

@@ -123,6 +123,7 @@ void mons_add_blame(monster* mon, const string &blame_string);
 void debug_bands();
 
 void replace_boris();
+void spawn_administrators();
 
 // Active monster band may influence gear generation on band followers.
 extern band_type active_monster_band;

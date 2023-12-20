@@ -263,7 +263,6 @@ const char * holiness_name(mon_holy_type_flags which_holiness);
 string holiness_description(mon_holy_type holiness);
 mon_holy_type mons_class_holiness(monster_type mc);
 
-void discover_mimic(const coord_def& pos);
 void discover_shifter(monster& shifter);
 
 bool mons_is_statue(monster_type mc);

@@ -71,7 +71,7 @@ static const int WL_PIP = 1;
 /// The cap for the player's Will, in units of WL\_PIP.
 static const int MAX_WILL_PIPS = 10;
 /// The standard unit of stealth; one level in %/@ screens
-static const int STEALTH_PIP = 50;
+static const int STEALTH_PIP = 1;
 
 /// The minimum aut cost for a player move (before haste)
 static const int FASTEST_PLAYER_MOVE_SPEED = 6;
@@ -869,6 +869,7 @@ public:
     void be_agile(int pow);
 
     bool allies_forbidden();
+    int adjusted_casting_level(skill_type skill);
 
     // TODO: move this somewhere else
     void refresh_rampage_hints();
@@ -992,7 +993,6 @@ bool is_effectively_light_armour(const item_def *item);
 bool player_effectively_in_light_armour();
 
 int player_shield_racial_factor();
-int player_armour_shield_spell_penalty();
 
 int player_movement_speed(bool check_terrain = true);
 
@@ -1061,6 +1061,7 @@ void display_char_status();
 void forget_map(bool rot = false);
 
 int get_exp_progress();
+void recharge_xp_evokers();
 unsigned int gain_exp(unsigned int exp_gained);
 void apply_exp();
 

@@ -143,7 +143,7 @@ bool trap_def::is_safe(actor* act) const
 
     // TODO: For now, just assume they're safe; they don't damage outright,
     // and the messages get old very quickly
-    if (type == TRAP_WEB) // && act->is_web_immune()
+    if (type == TRAP_WEB || type == TRAP_PLATE) // && act->is_web_immune()
         return true;
 
 #if TAG_MAJOR_VERSION == 34
@@ -762,8 +762,26 @@ void trap_def::trigger(actor& triggerer)
         break;
 
     case TRAP_PLATE:
-        dungeon_events.fire_position_event(DET_PRESSURE_PLATE, pos);
+        {
+        if (you_trigger)
+        {
+            bool terrain_changed = false;
+            for (map_marker *mark : env.markers.get_all(MAT_TERRAIN_CHANGE))
+            {
+                map_terrain_change_marker *marker =
+                    dynamic_cast<map_terrain_change_marker*>(mark);
+
+                if (marker->change_type == TERRAIN_CHANGE_DOOR_SEAL)
+                {
+                    terrain_changed = true;
+                    revert_terrain_change(marker->pos, TERRAIN_CHANGE_DOOR_SEAL);
+                }
+            }
+            if (terrain_changed)
+                mpr("The passage down unlocks.");
+        }
         break;
+        }
 
     default:
 #if TAG_MAJOR_VERSION == 34

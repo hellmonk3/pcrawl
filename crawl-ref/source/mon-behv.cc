@@ -553,16 +553,14 @@ void handle_behaviour(monster* mon)
                     // do a stealth check. If the foe
                     // fails, monster will then start
                     // tracking foe's CURRENT position,
-                    // but only for a few moves (smell and
-                    // intuition only go so far).
+                    // but only for a few moves.
                     if (mon->pos() == mon->target)
                     {
                         if (mon->foe == MHITYOU)
                         {
                             if (in_bounds(you.pos())
-                                && (x_chance_in_y(50, you.stealth())
-                                    || you.penance[GOD_ASHENZARI]
-                                       && coinflip()))
+                                && one_chance_in(you.stealth()
+                                                 - mon->get_hit_dice() * 2))
                             {
                                 mon->target = you.pos();
                             }

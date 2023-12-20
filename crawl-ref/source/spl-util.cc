@@ -1113,6 +1113,23 @@ bool casting_is_useless(spell_type spell, bool temp)
     return !casting_uselessness_reason(spell, temp).empty();
 }
 
+// Is the player sufficiently skilled to cast the spell?
+bool meets_casting_requirement(spell_type spell)
+{
+    const spschools_type disciplines = get_spell_disciplines(spell);
+    const int skillcount = count_bits(disciplines);
+    if (skillcount)
+    {
+        for (const auto bit : spschools_type::range())
+        {
+            if (disciplines & bit)
+                if (spell_difficulty(spell) > you.adjusted_casting_level(spell_type2skill(bit)))
+                    return false;
+        }
+    }
+    return true;
+}
+
 /**
  * Casting-specific checks that are involved when casting any spell or larger
  * groups of spells (e.g. entire schools). Includes MP (which does use the
@@ -1130,8 +1147,8 @@ string casting_uselessness_reason(spell_type spell, bool temp)
         if (you.duration[DUR_CONF] > 0)
             return "you're too confused to cast spells.";
 
-        if (spell_difficulty(spell) > you.experience_level)
-            return "you aren't experienced enough to cast this spell.";
+        if (!meets_casting_requirement(spell))
+            return "you aren't skilled enough to cast this spell.";
 
         if (you.has_mutation(MUT_HP_CASTING))
         {

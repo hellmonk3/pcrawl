@@ -189,7 +189,10 @@ dungeon_feature_type wizard_select_feature(bool mimic, bool allow_fprop)
     char specs[256];
     // TODO: this sub-ui is very annoying to use
     if (mimic)
-        mprf(MSGCH_PROMPT, "Create what kind of feature mimic? ");
+    {
+        mprf("no");
+        return DNGN_UNSEEN;
+    }
     else
         mprf(MSGCH_PROMPT, "Create which feature? ");
 
@@ -252,12 +255,6 @@ dungeon_feature_type wizard_select_feature(bool mimic, bool allow_fprop)
         }
     }
 
-    if (mimic && !feat_is_mimicable(feat, false)
-        && !yesno("This isn't a valid feature mimic. Create it anyway? ",
-                  true, 'n'))
-    {
-        feat = DNGN_UNSEEN;
-    }
     if (feat == DNGN_UNSEEN)
         canned_msg(MSG_OK);
     return feat;

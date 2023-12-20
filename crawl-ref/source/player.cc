@@ -216,8 +216,7 @@ bool check_moveto_trap(const coord_def& p, const string &move_verb,
         if (prompted)
             *prompted = true;
         prompt = make_stringf("Really %s %s that %s?", move_verb.c_str(),
-                              (trap->type == TRAP_ALARM
-                               || trap->type == TRAP_PLATE) ? "onto"
+                              (trap->type == TRAP_ALARM) ? "onto"
                               : "into",
                               feature_description_at(p, false, DESC_BASENAME).c_str());
         if (!yesno(prompt.c_str(), true, 'n'))
@@ -578,10 +577,6 @@ void moveto_location_effects(dungeon_feature_type old_feat,
     if (stepped)
         _moveto_maybe_repel_stairs();
 
-    // Reveal adjacent mimics.
-    for (adjacent_iterator ai(you.pos(), false); ai; ++ai)
-        discover_mimic(*ai);
-
     bool was_running = you.running;
 
     update_monsters_in_view();
@@ -743,9 +738,6 @@ void update_vision_range()
     // Halo and umbra radius scale with you.normal_vision, so to avoid
     // penalizing players with low LOS from items, don't shrink normal_vision.
     you.current_vision = you.normal_vision;
-
-    if (you.species == SP_METEORAN)
-        you.current_vision -= max(0, (bezotting_level() - 1) * 2); // spooky fx
 
     // scarf of shadows gives -1.
     if (you.wearing_ego(EQ_CLOAK, SPARM_SHADOWS))
@@ -1914,19 +1906,6 @@ static int _player_evasion(bool ignore_helpless)
     return final_evasion;
 }
 
-// Returns the spellcasting penalty (increase in spell failure) for the
-// player's worn body armour and shield.
-int player_armour_shield_spell_penalty()
-{
-    const int body_armour_penalty =
-        max(19 * you.adjusted_body_armour_penalty(), 0);
-
-    const int total_penalty = body_armour_penalty
-                 + 19 * you.adjusted_shield_penalty();
-
-    return max(total_penalty, 0);
-}
-
 /**
  * How many spell-success-boosting ('wizardry') effects does the player have?
  *
@@ -2116,15 +2095,10 @@ int get_exp_progress()
     return (you.experience - current) * 100 / (next - current);
 }
 
-static void _recharge_xp_evokers(int exp)
+void recharge_xp_evokers()
 {
     FixedVector<item_def*, NUM_MISCELLANY> evokers(nullptr);
     list_charging_evokers(evokers);
-
-    const int xp_by_xl = exp_needed(you.experience_level+1, 0)
-                       - exp_needed(you.experience_level, 0);
-    const int skill_denom = 3 + you.skill_rdiv(SK_EVOCATIONS, 2, 13);
-    const int xp_factor = max(xp_by_xl / 5, 100) / skill_denom;
 
     for (int i = 0; i < NUM_MISCELLANY; ++i)
     {
@@ -2137,7 +2111,7 @@ static void _recharge_xp_evokers(int exp)
             continue;
 
         const int old_charges = evoker_charges(i);
-        debt = max(0, debt - div_rand_round(exp, xp_factor));
+        debt = max(0, debt - 1);
         const int gained = evoker_charges(i) - old_charges;
         if (gained)
             print_xp_evoker_recharge(*evoker, gained, silenced(you.pos()));
@@ -2200,8 +2174,7 @@ static void _handle_stat_loss(int exp)
     if (!(you.attribute[ATTR_STAT_LOSS_XP] > 0))
         return;
 
-    int loss = div_rand_round(exp * 3 / 2,
-                              max(1, calc_skill_cost(you.skill_cost_level) - 3));
+    int loss = div_rand_round(exp * 3, 2);
     you.attribute[ATTR_STAT_LOSS_XP] -= loss;
     dprf("Stat loss points: %d", you.attribute[ATTR_STAT_LOSS_XP]);
     if (you.attribute[ATTR_STAT_LOSS_XP] <= 0)
@@ -2214,7 +2187,7 @@ static void _handle_hp_drain(int exp)
     if (!you.hp_max_adj_temp)
         return;
 
-    int loss = div_rand_round(exp, 4 * calc_skill_cost(you.skill_cost_level));
+    int loss = div_rand_round(exp, 4);
 
     // Make it easier to recover from very heavy levels of draining
     // (they're nasty enough as it is)
@@ -2293,7 +2266,6 @@ void apply_exp()
     // xp-gated effects that use sprint inflation
     _handle_stat_loss(skill_xp);
     _handle_temp_mutation(skill_xp);
-    _recharge_xp_evokers(skill_xp);
     _reduce_abyss_xp_timer(skill_xp);
     _handle_hp_drain(skill_xp);
 
@@ -2314,7 +2286,7 @@ void apply_exp()
 
     train_skills();
     while (check_selected_skills()
-           && you.exp_available >= calc_skill_cost(you.skill_cost_level))
+           && you.exp_available >= 1)
     {
         train_skills();
     }
@@ -2870,29 +2842,23 @@ int player_stealth()
     if (crawl_state.disables[DIS_MON_SIGHT])
         return 1000;
 
-    // berserking, "clumsy" (0-dex), sacrifice stealth.
+    // berserking, sacrifice stealth, backlit.
     if (you.berserk()
-        || you.duration[DUR_CLUMSY]
-        || you.get_mutation_level(MUT_NO_STEALTH))
+        || you.get_mutation_level(MUT_NO_STEALTH)
+        || you.backlit())
     {
         return 0;
     }
 
-    int stealth = you.dex() * 3;
+    int stealth = 1;
 
-    stealth += you.skill(SK_STEALTH, 15);
-
-    if (you.confused())
-        stealth /= 3;
+    stealth += you.skill(SK_STEALTH);
 
     const item_def *arm = you.slot_item(EQ_BODY_ARMOUR, false);
     if (arm)
     {
-        // [ds] New stealth penalty formula from rob: SP = 6 * (EP^2)
-        // Now 2 * EP^2 / 3 after EP rescaling.
-        const int evp = you.unadjusted_body_armour_penalty();
-        const int penalty = evp * evp * 2 / 3;
-        stealth -= penalty;
+        // subtract the body armour penalty
+        stealth -= you.adjusted_body_armour_penalty() / 10;
 
         const int pips = armour_type_prop(arm->sub_type, ARMF_STEALTH);
         stealth += pips * STEALTH_PIP;
@@ -2906,18 +2872,14 @@ int player_stealth()
         stealth += STEALTH_PIP * 2;
 
     // Mutations.
-    stealth += STEALTH_PIP * you.get_mutation_level(MUT_NIGHTSTALKER) / 3;
+    stealth += STEALTH_PIP * you.get_mutation_level(MUT_NIGHTSTALKER);
     stealth += STEALTH_PIP * you.get_mutation_level(MUT_THIN_SKELETAL_STRUCTURE);
     stealth += STEALTH_PIP * you.get_mutation_level(MUT_CAMOUFLAGE);
     if (you.has_mutation(MUT_TRANSLUCENT_SKIN))
         stealth += STEALTH_PIP;
 
-    // Radiating silence is the negative complement of shouting all the
-    // time... a sudden change from background noise to no noise is going
-    // to clue anything in to the fact that something is very wrong...
-    // a personal silence spell would naturally be different, but this
-    // silence radiates for a distance and prevents monster spellcasting,
-    // which pretty much gives away the stealth game.
+    // There was a paragraph of text justifying this. Here's a sentence instead.
+    // it's a balancing factor.
     if (you.duration[DUR_SILENCE])
         stealth -= STEALTH_PIP;
 
@@ -2933,34 +2895,10 @@ int player_stealth()
             stealth /= 2;       // splashy-splashy
     }
 
-    // If you've been tagged with Corona or are Glowing, the glow
-    // makes you extremely unstealthy.
-    if (you.backlit())
-        stealth = stealth * 2 / 5;
-
     // On the other hand, shrouding has the reverse effect, if you know
     // how to make use of it:
     if (you.umbra())
-    {
-        int umbra_mul = 1, umbra_div = 1;
-        if (you.umbra_radius() >= 0)
-        {
-            if (have_passive(passive_t::umbra))
-            {
-                umbra_mul = you.piety + MAX_PIETY;
-                umbra_div = MAX_PIETY;
-            }
-            if (player_equip_unrand(UNRAND_SHADOWS)
-                && 2 * umbra_mul < 3 * umbra_div)
-            {
-                umbra_mul = 3;
-                umbra_div = 2;
-            }
-        }
-
-        stealth *= umbra_mul;
-        stealth /= umbra_div;
-    }
+        stealth *= 2;
 
     if (you.form == transformation::shadow)
         stealth *= 2;
@@ -2968,14 +2906,8 @@ int player_stealth()
     // If you're surrounded by a storm, you're inherently pretty conspicuous.
     if (have_passive(passive_t::storm_shield))
     {
-        stealth = stealth
-                  * (MAX_PIETY - min((int)you.piety, piety_breakpoint(5)))
-                  / (MAX_PIETY - piety_breakpoint(0));
+        stealth /= 2;
     }
-    // The shifting glow from the Orb, while too unstable to negate invis
-    // or affect to-hit, affects stealth even more than regular glow.
-    if (player_has_orb())
-        stealth /= 3;
 
     stealth = max(0, stealth);
 
@@ -5509,7 +5441,6 @@ int player::unadjusted_body_armour_penalty() const
 /**
  * The encumbrance penalty to the player for their worn body armour.
  *
- * @param scale     A scale to multiply the result by, to avoid precision loss.
  * @return          A penalty to EV based quadratically on body armour
  *                  encumbrance.
  */
@@ -8287,4 +8218,17 @@ bool player::allies_forbidden()
 {
     return get_mutation_level(MUT_NO_LOVE)
            || have_passive(passive_t::no_allies);
+}
+
+// The player's ability to cast a spell of a particular school
+// Adjusted by effects like wizardry
+int player::adjusted_casting_level(skill_type skill)
+{
+    if (skill < SK_FIRST_MAGIC_SCHOOL || skill > SK_LAST_MAGIC)
+        return 0;
+
+    int sklevel = you.skill(skill);
+    sklevel += player_wizardry();
+
+    return sklevel;
 }

@@ -1042,7 +1042,7 @@ A ring that increases the strength of its wearer.
 %%%%
 ring of wizardry
 
-A ring that increases the success rate of its wearer's magical spells.
+A ring that reduces the skill requirement of spells by one.
 %%%%
 robe
 

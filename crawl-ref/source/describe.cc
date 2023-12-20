@@ -630,7 +630,7 @@ static const char* _jewellery_base_ability_description(int subtype)
         return "It sustains your strength, intelligence and dexterity.";
 #endif
     case RING_WIZARDRY:
-        return "It improves your spell success rate.";
+        return "It reduces the skill requirement of your spells by one.";
     case RING_FIRE:
         return "It enhances your fire magic.";
     case RING_ICE:

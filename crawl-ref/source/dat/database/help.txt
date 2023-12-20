@@ -249,43 +249,16 @@ skill-menu
 
                         <h>Skill management</h>
 
-You gain experience for killing monsters (and very few other activities). This
-experience is used to train skills. The skill screen allows you to select which
-skills to train.
+The skill screen shows your skills. When you descend to a new floor, it will
+let you select which skill to train.
 
-By pressing its letter, you can cycle if and how a skill is trained:
-  <darkgrey>- deselected</darkgrey>    Skill will not be trained.
-  + selected      Skill will be trained.
-  <w>* focused</w>       Skill will be weighted higher for training.
-
-Pressing a capital letter selects that skill and deselects all the others.
-This shortcut is useful when you want to train only one skill.
-
-Training can be done in two modes, which are toggled with the <w>/</w> key.
-  - automatic:    Skills are weighted based on your use of them.
-  - manual:       Experience is spread evenly across all activated skills.
-
-In training target mode you can set skill training targets: target skill levels
-at which training of the skill will be automatically disabled.
-
-How fast you train a skill is governed by the following factors:
-  - aptitude: Shown <white>white</white> in the Apt column. Higher numbers mean that less
-              experience is needed to advance a skill. Depends on species.
-  - skill manuals: Rare books giving an aptitude bonus of <lightred>+4</lightred> in one skill.
-
-On top of that, there are some effects which directly modify a skill, for
-example having trained a related skill (crosstraining), or certain god powers.
+There are some effects which directly modify a skill, for
+example certain god powers.
 Reduced skills are shown in <magenta>magenta</magenta>, and enhanced skills in <green>green</green>.
-The training percentage (in <brown>brown</brown>) shows the relative amount of experience
-which will be used to train this skill.
 
-Apart from (de)selecting skills, you also have the following toggles:
-  <w>/</w> :  Switch between automatic and manual training modes.
+Apart from selecting skills, you also have the following toggles:
   <w>*</w> :  Display all skills, even those which aren't currently useful.
   <w>?</w> :  Allows you to read the descriptions of skills.
-  <w>_</w> :  Show or hide skill level modifications (god powers, crosstraining).
-  <w>!</w> :  Switch between displaying training percentage, skill cost, or training
-       targets.
 %%%%
 spell-library
 <h>Spell Library</h>

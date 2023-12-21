@@ -2409,13 +2409,6 @@ static bool _player_cancels_vampire_bat_transformation()
     return !proceed_with_transformation;
 }
 
-static void _cause_vampire_bat_form_stat_drain()
-{
-    lose_stat(STAT_STR, VAMPIRE_BAT_FORM_STAT_DRAIN);
-    lose_stat(STAT_INT, VAMPIRE_BAT_FORM_STAT_DRAIN);
-    lose_stat(STAT_DEX, VAMPIRE_BAT_FORM_STAT_DRAIN);
-}
-
 static bool _evoke_orb_of_dispater(dist *target)
 {
     int power = you.skill(SK_EVOCATIONS, 8);
@@ -3180,7 +3173,6 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
             return spret::abort;
         fail_check();
         transform(100, transformation::bat);
-        _cause_vampire_bat_form_stat_drain();
         break;
 
     case ABIL_EXSANGUINATE:

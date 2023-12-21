@@ -2007,9 +2007,10 @@ static bool _fixup_stone_stairs(bool preserve_vault_stairs,
             needed_stairs = 1;
     }
 
-    replace = random_choose(DNGN_FOUNTAIN_BLUE,
-                            DNGN_FOUNTAIN_SPARKLING,
-                            DNGN_FOUNTAIN_BLOOD);
+    replace = random_choose_weighted(25, DNGN_FLOOR,
+                                     20, DNGN_FOUNTAIN_BLUE,
+                                      4, DNGN_FOUNTAIN_SPARKLING,
+                                      1, DNGN_FOUNTAIN_BLOOD);
 
     dprf(DIAG_DNGN, "Before culling: %d/%d %s stairs",
          (int)stairs.size(), needed_stairs, checking_up_stairs ? "up" : "down");

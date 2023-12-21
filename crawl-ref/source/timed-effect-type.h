@@ -12,9 +12,7 @@ enum timed_effect_type
     TIMER_CONTAM,
 #if TAG_MAJOR_VERSION == 34
     TIMER_DETERIORATION,
-#endif
     TIMER_GOD_EFFECTS,
-#if TAG_MAJOR_VERSION == 34
     TIMER_SCREAM,
     TIMER_FOOD_ROT,
 #endif

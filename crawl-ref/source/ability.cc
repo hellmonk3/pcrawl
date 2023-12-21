@@ -3374,20 +3374,6 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         you.one_time_ability_used.set(GOD_IGNIS);
         return spret::success;
 
-    case ABIL_RENOUNCE_RELIGION:
-        if (yesno("Really renounce your faith, foregoing its fabulous benefits?",
-                  false, 'n')
-            && yesno("Are you sure?", false, 'n'))
-        {
-            excommunication(true);
-        }
-        else
-        {
-            canned_msg(MSG_OK);
-            return spret::abort;
-        }
-        break;
-
     case ABIL_CONVERT_TO_BEOGH:
         god_pitch(GOD_BEOGH);
         if (you_worship(GOD_BEOGH))
@@ -3718,8 +3704,10 @@ bool player_has_ability(ability_type abil, bool include_unusable)
         return you.form == you.default_form
                && you.default_form != transformation::none;
     // TODO: other god abilities
+#if TAG_MAJOR_VERSION == 34
     case ABIL_RENOUNCE_RELIGION:
-        return !you_worship(GOD_NO_GOD);
+        return false;
+#endif
     case ABIL_CONVERT_TO_BEOGH:
         return env.level_state & LSTATE_BEOGH && can_convert_to_beogh();
     // pseudo-evocations from equipped items
@@ -3784,7 +3772,9 @@ vector<talent> your_talents(bool check_confused, bool include_unusable, bool ign
             ABIL_SIPHON_ESSENCE,
             ABIL_END_TRANSFORMATION,
             ABIL_BEGIN_UNTRANSFORM,
+#if TAG_MAJOR_VERSION == 34
             ABIL_RENOUNCE_RELIGION,
+#endif
             ABIL_CONVERT_TO_BEOGH,
             ABIL_EVOKE_BLINK,
             ABIL_EVOKE_TURN_INVISIBLE,

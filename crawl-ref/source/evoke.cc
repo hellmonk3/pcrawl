@@ -965,8 +965,7 @@ static bool _evoke_talisman(const item_def &talisman)
 
     count_action(CACT_FORM, (int)trans);
     start_delay<TransformDelay>(trans);
-    if (god_despises_item(talisman))
-        excommunication();
+
     you.turn_is_over = true;
     return true;
 }

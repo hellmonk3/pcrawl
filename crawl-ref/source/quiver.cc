@@ -1361,7 +1361,6 @@ namespace quiver
         case ABIL_RU_REJECT_SACRIFICES:
         case ABIL_HEPLIAKLQANA_IDENTITY:
         case ABIL_STOP_RECALL:
-        case ABIL_RENOUNCE_RELIGION:
         case ABIL_CONVERT_TO_BEOGH:
         // high price zone
         case ABIL_ZIN_DONATE_GOLD:

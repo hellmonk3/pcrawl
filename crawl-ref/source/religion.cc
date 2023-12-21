@@ -2358,7 +2358,7 @@ void dock_piety(int piety_loss, int penance)
     }
 
     if (you.piety < 1)
-        excommunication();
+        you.piety = 1;
     else if (penance)       // only if still in religion
     {
         if (last_penance_lecture != you.num_turns)
@@ -3443,13 +3443,6 @@ void set_god_ability_slots()
 {
     ASSERT(!you_worship(GOD_NO_GOD));
 
-    if (find(begin(you.ability_letter_table), end(you.ability_letter_table),
-             ABIL_RENOUNCE_RELIGION) == end(you.ability_letter_table)
-        && you.ability_letter_table[letter_to_index('X')] == ABIL_NON_ABILITY)
-    {
-        you.ability_letter_table[letter_to_index('X')] = ABIL_RENOUNCE_RELIGION;
-    }
-
     // Clear out other god invocations.
     for (ability_type& slot : you.ability_letter_table)
     {
@@ -3815,6 +3808,13 @@ void join_religion(god_type which_god)
     ASSERT(which_god != GOD_ECUMENICAL);
     ASSERT(!you.has_mutation(MUT_FORLORN));
 
+    // Stick to your vows.
+    if (!you_worship(GOD_NO_GOD))
+    {
+        mprf("You are already devoted to %s.", god_name(you.religion).c_str());
+        return;
+    }
+
     redraw_screen();
     update_screen();
 
@@ -3826,10 +3826,6 @@ void join_religion(god_type which_god)
         // doesn't matter if old_god isn't actually a good god; we check later
         // and then wipe it at the end of the function regardless
     }
-
-    // Leave your prior religion first.
-    if (!you_worship(GOD_NO_GOD))
-        excommunication(true, which_god);
 
     // Welcome to the fold!
     you.religion = static_cast<god_type>(which_god);

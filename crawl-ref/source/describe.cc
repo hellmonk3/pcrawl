@@ -1681,9 +1681,8 @@ static string _describe_weapon_brand(const item_def &item)
                      "you from drawing on the full power of this weapon.";
         }
     case SPWPN_BLINKING:
-        return "It warps and distorts space around it, and may blink, banish, "
-               "or inflict extra damage upon those it strikes. Unwielding it "
-               "can teleport you to foes or banish you to the Abyss.";
+        return "It may blink enemies you hit. The percent chance to blink an "
+               "enemy is equal to your translocations skill * 10";
     case SPWPN_PENETRATION:
         return "Any ammunition fired by it continues flying after striking "
                "targets, potentially hitting everything in its path until it "

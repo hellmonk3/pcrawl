@@ -396,7 +396,6 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
     {   { SPWPN_FLAMING,        13 },
         { SPWPN_DRAINING,       4 },
         { SPWPN_HEAVY,          4 },
-        { SPWPN_DISTORTION,     2 },
         { SPWPN_PAIN,           2 },
         { NUM_SPECIAL_WEAPONS,  20 }, // 5/9 chance of brand
     };
@@ -816,13 +815,13 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
             { { WPN_DAGGER,             1 }, },
             { 1, 0, 4 },
             { { SPWPN_CHAOS, 3 },
-              { SPWPN_DISTORTION, 1 } },
+              { SPWPN_BLINKING, 1 } },
         } },
         { MONS_AGNES,       { { { WPN_LAJATANG, 1 } } } },
         { MONS_SONJA, {
             { { WPN_DAGGER,             1 },
               { WPN_SHORT_SWORD,        1 }, }, {},
-            { { SPWPN_DISTORTION,       3 },
+            { { SPWPN_BLINKING,       3 },
               { SPWPN_VENOM,            2 },
               { SPWPN_DRAINING,         1 } },
         } },
@@ -948,7 +947,7 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
               { SPWPN_SPECTRAL,        5 },
               { SPWPN_PAIN,            4 },
               { SPWPN_HOLY_WRATH,      3 },
-              { SPWPN_DISTORTION,      2 },
+              { SPWPN_BLINKING,      2 },
               { SPWPN_CHAOS,           1 }, },
         } },
         { MONS_CERULEAN_IMP,  { { { WPN_SPEAR, 1 } }, {}, { { SPWPN_NORMAL, 1 } } } },
@@ -1187,15 +1186,6 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
         {
             set_item_ego_type(item, OBJ_WEAPONS, SPWPN_FLAMING);
             force_item = true;
-        }
-        break;
-
-    case MONS_THE_ENCHANTRESS:
-        if (one_chance_in(6))
-        {
-            force_item = true;
-            set_item_ego_type(item, OBJ_WEAPONS, SPWPN_DISTORTION);
-            item.plus  = random2(5);
         }
         break;
 

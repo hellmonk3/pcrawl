@@ -1524,7 +1524,7 @@ PLUS:     +8
 COLOUR:   ETC_WARP
 TILE:     urand_rift
 TILE_EQ:  rift
-BRAND:    SPWPN_DISTORTION
+BRAND:    SPWPN_BLINKING
 DBRAND:   Reach+:    It can reach especially far, and its reaching attacks
  ignore other creatures in the way.
 

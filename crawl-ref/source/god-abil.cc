@@ -162,8 +162,8 @@ bool bless_weapon(god_type god, brand_type brand, colour_t colour)
                        + " ";
     if (brand == SPWPN_PAIN)
         prompt += "bloodied with pain";
-    else if (brand == SPWPN_DISTORTION)
-        prompt += "corrupted with distortion";
+    else if (brand == SPWPN_BLINKING)
+        prompt += "blinkified";
     else
         prompt += "blessed with holy wrath";
     prompt += "?";

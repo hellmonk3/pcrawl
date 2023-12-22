@@ -1350,7 +1350,7 @@ static string _describe_brand(brand_type brand)
         // fallthrough to description
     case SPWPN_ACID:
     case SPWPN_CHAOS:
-    case SPWPN_DISTORTION:
+    case SPWPN_BLINKING:
     case SPWPN_DRAINING:
     case SPWPN_ELECTROCUTION:
     case SPWPN_FLAMING:
@@ -1680,7 +1680,7 @@ static string _describe_weapon_brand(const item_def &item)
             return desc + " Your inability to study Necromancy prevents "
                      "you from drawing on the full power of this weapon.";
         }
-    case SPWPN_DISTORTION:
+    case SPWPN_BLINKING:
         return "It warps and distorts space around it, and may blink, banish, "
                "or inflict extra damage upon those it strikes. Unwielding it "
                "can teleport you to foes or banish you to the Abyss.";

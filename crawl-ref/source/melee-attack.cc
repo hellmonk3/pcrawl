@@ -2964,7 +2964,7 @@ void melee_attack::mons_apply_attack_flavour()
 
     case AF_RIFT:
     case AF_DISTORT:
-        distortion_affects_defender();
+        blinking_affects_defender();
         break;
 
     case AF_RAGE:

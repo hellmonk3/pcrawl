@@ -1095,7 +1095,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "vampirism",
             "pain",
             "antimagic",
-            "distortion",
+            "blinking",
 #if TAG_MAJOR_VERSION == 34
             "reaching",
             "returning",

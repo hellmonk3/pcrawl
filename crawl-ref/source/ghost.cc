@@ -237,7 +237,7 @@ void ghost_demon::set_pan_lord_special_attack()
         20, _flavour_attack(AF_WEAKNESS),
         // High chance
         40, _brand_attack(SPWPN_ANTIMAGIC),
-        40, _brand_attack(SPWPN_DISTORTION),
+        40, _brand_attack(SPWPN_BLINKING),
         40, _brand_attack(SPWPN_CHAOS),
         40, _flavour_attack(AF_TRAMPLE)
     );

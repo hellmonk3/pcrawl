@@ -824,9 +824,6 @@ void monster::equip_weapon_message(item_def &item)
     case SPWPN_DRAINING:
         mpr("You sense an unholy aura.");
         break;
-    case SPWPN_DISTORTION:
-        mpr("Its appearance distorts for a moment.");
-        break;
     case SPWPN_CHAOS:
         mpr("It is briefly surrounded by a scintillating aura of "
             "random colours.");
@@ -953,10 +950,6 @@ void monster::unequip_weapon(item_def &item, bool msg)
 
         case SPWPN_VENOM:
             mpr("It stops dripping with poison.");
-            break;
-
-        case SPWPN_DISTORTION:
-            mpr("Its appearance distorts for a moment.");
             break;
 
         default:
@@ -1283,8 +1276,7 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         // allow Psyche to switch away from it.
         if (mons->type == MONS_PSYCHE)
         {
-            return get_weapon_brand(weapon) == SPWPN_CHAOS
-                   || get_weapon_brand(weapon) == SPWPN_DISTORTION;
+            return get_weapon_brand(weapon) == SPWPN_CHAOS;
         }
 
         // Don't switch Azrael away from the customary scimitar of

@@ -1047,7 +1047,7 @@ function weapon_value(it, cur, it2, sit)
     end
   end
   if ego then -- names are mostly in weapon_brands_verbose[]
-    if ego == "distortion" then
+    if ego == "blinking" then
       return -1,-1
     elseif ego == "holy wrath" then
       if intrinsic_evil() or you.god() == "Yredelemnul" then

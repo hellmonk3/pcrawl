@@ -196,7 +196,7 @@ unsigned int item_value(item_def item, bool ident)
                 valued *= 30;
                 break;
 
-            case SPWPN_DISTORTION:
+            case SPWPN_BLINKING:
             case SPWPN_ELECTROCUTION:
             case SPWPN_PAIN:
             case SPWPN_ACID: // Unrand-only.

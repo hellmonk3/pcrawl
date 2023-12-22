@@ -1306,7 +1306,7 @@ static monster* _find_monster_with_animateable_weapon()
             && weapon.quantity == 1
             && !is_range_weapon(weapon)
             && !is_special_unrandom_artefact(weapon)
-            && get_weapon_brand(weapon) != SPWPN_DISTORTION)
+            && get_weapon_brand(weapon) != SPWPN_BLINKING)
         {
             mons_wpn.push_back(*mi);
         }

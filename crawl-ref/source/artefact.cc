@@ -100,7 +100,7 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
 
     case GOD_LUGONU:
         // Abyss god: corruption.
-        if (item.base_type == OBJ_WEAPONS && brand != SPWPN_DISTORTION)
+        if (item.base_type == OBJ_WEAPONS && brand != SPWPN_BLINKING)
             return false;
         break;
 
@@ -520,7 +520,7 @@ static void _add_randart_weapon_brand(const item_def &item,
             13, SPWPN_ANTIMAGIC,
             13, SPWPN_PROTECTION,
             13, SPWPN_SPECTRAL,
-             3, SPWPN_DISTORTION,
+             3, SPWPN_BLINKING,
              3, SPWPN_CHAOS);
     }
 

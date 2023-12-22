@@ -3097,7 +3097,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         simple_god_message(" will brand one of your weapons with the "
                            "corruption of the Abyss.");
         // included in default force_more_message
-        if (!bless_weapon(GOD_LUGONU, SPWPN_DISTORTION, MAGENTA))
+        if (!bless_weapon(GOD_LUGONU, SPWPN_BLINKING, MAGENTA))
             return spret::abort;
         break;
 

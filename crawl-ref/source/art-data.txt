@@ -409,7 +409,7 @@ PLUS:    +1
 COLOUR:  ETC_HOLY
 TILE:    urand_brilliance
 TILE_EQ: mace_of_brilliance
-BRAND:   SPWPN_HOLY_WRATH
+BRAND:   SPWPN_SILVER
 AC:      5
 INT:     5
 LIFE:    1
@@ -522,8 +522,8 @@ COLOUR:   ETC_HOLY
 TILE:     unrand_zealot_sword
 TILE_EQ:  zealot_sword
 # fallback places a randart eudemon blade!
-BRAND:    SPWPN_HOLY_WRATH
-FB_BRAND: SPWPN_HOLY_WRATH
+BRAND:    SPWPN_SILVER
+FB_BRAND: SPWPN_SILVER
 EV:       3
 ANGRY:    20
 LIFE:     1
@@ -704,7 +704,7 @@ DBRAND:  Mutate:    It occasionally inflicts wild transmutation effects on those
 NAME:     great mace "Undeadhunter"
 INSCRIP:  deathbane,
 OBJ:      OBJ_WEAPONS/WPN_GREAT_MACE
-FB_BRAND: SPWPN_HOLY_WRATH
+FB_BRAND: SPWPN_SILVER
 PLUS:     +7
 COLOUR:   LIGHTGREY
 TILE:     urand_undeadhunter
@@ -1341,15 +1341,12 @@ NAME:    lajatang of Order
 INSCRIP: silver,
 OBJ:     OBJ_WEAPONS/WPN_LAJATANG
 # not really comparable...
-FB_BRAND: SPWPN_HOLY_WRATH
+BRAND: SPWPN_SILVER
 COLOUR:  ETC_SILVER
 TILE:    urand_order
 TILE_EQ: order
 PLUS:    +7
 BOOL:    rMut
-DBRAND:  Silver:    It inflicts extra damage upon those it strikes, and deals
- substantially increased damage to chaotic, mutated and magically transformed
- beings.
 
 ENUM:     FIRESTARTER
 NAME:     great mace "Firestarter"
@@ -1635,8 +1632,8 @@ NAME:     trishula "Condemnation"
 OBJ:      OBJ_WEAPONS/WPN_TRISHULA
 PLUS:     8
 COLOUR:   ETC_HOLY
-BRAND:    SPWPN_HOLY_WRATH
-FB_BRAND: SPWPN_HOLY_WRATH
+BRAND:    SPWPN_SILVER
+FB_BRAND: SPWPN_SILVER
 LIFE:     1
 BOOL:     fly, noises
 INSCRIP:  anguish,
@@ -1722,7 +1719,7 @@ PLUS:     +4
 COLOUR:   ETC_HOLY
 TILE:     spwpn_holy_axe
 TILE_EQ:  holy_axe
-BRAND:    SPWPN_HOLY_WRATH
+BRAND:    SPWPN_SILVER
 BOOL:     no_upgrade, fly, fragile
 INSCRIP:  Valiant
 DESCRIP:  Valiant:   It becomes more powerful as more dangerous foes come into

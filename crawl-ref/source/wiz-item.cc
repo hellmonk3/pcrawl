@@ -1077,7 +1077,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "normal",
             "explosive",
             "freezing",
-            "holy wrath",
+            "silver",
             "electrocution",
 #if TAG_MAJOR_VERSION == 34
             "orc slaying",

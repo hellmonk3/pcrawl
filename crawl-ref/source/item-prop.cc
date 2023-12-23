@@ -346,7 +346,7 @@ static const vector<brand_weight_tuple> SBL_BRANDS = {
     { SPWPN_DRAINING,        9 },
     { SPWPN_PROTECTION,      6 },
     { SPWPN_ELECTROCUTION,   6 },
-    { SPWPN_HOLY_WRATH,      5 },
+    { SPWPN_SILVER,      5 },
     { SPWPN_VAMPIRISM,       4 },
     { SPWPN_EXPLOSIVE,         4 },
     { SPWPN_FREEZING,        4 },
@@ -358,7 +358,7 @@ static const vector<brand_weight_tuple> SBL_BRANDS = {
 static const vector<brand_weight_tuple> M_AND_F_BRANDS = {
     { SPWPN_PROTECTION,     30 },
     { SPWPN_NORMAL,         28 },
-    { SPWPN_HOLY_WRATH,     15 },
+    { SPWPN_SILVER,     15 },
     { SPWPN_HEAVY,          14 },
     { SPWPN_DRAINING,       10 },
     { SPWPN_VENOM,           5 },
@@ -388,7 +388,7 @@ static const vector<brand_weight_tuple> DEMON_BRANDS = {
 
 /// brand weights for long blades.
 static const vector<brand_weight_tuple> LBL_BRANDS = {
-    { SPWPN_HOLY_WRATH,     23 },
+    { SPWPN_SILVER,     23 },
     { SPWPN_NORMAL,         19 },
     { SPWPN_HEAVY,          15 },
     { SPWPN_ELECTROCUTION,  10 },
@@ -416,7 +416,7 @@ static const vector<brand_weight_tuple> AXE_BRANDS = {
     { SPWPN_BLINKING,      2 },
     { SPWPN_ANTIMAGIC,       2 },
     { SPWPN_PAIN,            1 },
-    { SPWPN_HOLY_WRATH,      1 },
+    { SPWPN_SILVER,      1 },
 };
 
 /// brand weights for most polearms.
@@ -431,7 +431,7 @@ static const vector<brand_weight_tuple> POLEARM_BRANDS = {
     { SPWPN_BLINKING,  2 },
     { SPWPN_PAIN,        2 },
     { SPWPN_ANTIMAGIC,   2 },
-    { SPWPN_HOLY_WRATH,  1 },
+    { SPWPN_SILVER,  1 },
 };
 
 /// brand weights for ranged weapons.
@@ -447,7 +447,7 @@ static const vector<brand_weight_tuple> RANGED_BRANDS = {
 
 /// brand weights for holy (TSO-blessed) weapons.
 static const vector<brand_weight_tuple> HOLY_BRANDS = {
-    { SPWPN_HOLY_WRATH, 100 },
+    { SPWPN_SILVER, 100 },
 };
 
 
@@ -474,7 +474,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_EXPLOSIVE,        6 },
             { SPWPN_VAMPIRISM,      5 },
             { SPWPN_PAIN,           4 },
-            { SPWPN_HOLY_WRATH,     3 },
+            { SPWPN_SILVER,     3 },
             { SPWPN_BLINKING,     2 },
             { SPWPN_ANTIMAGIC,      1 },
         }},
@@ -494,7 +494,7 @@ static const weapon_def Weapon_prop[] =
         DAMV_CRUSHING | DAM_PIERCE, 7, 10, 40, {
             { SPWPN_PROTECTION,     30 },
             { SPWPN_NORMAL,         15 },
-            { SPWPN_HOLY_WRATH,     15 },
+            { SPWPN_SILVER,     15 },
             { SPWPN_DRAINING,       10 },
             { SPWPN_HEAVY,           9 },
             { SPWPN_VENOM,           5 },
@@ -519,7 +519,7 @@ static const weapon_def Weapon_prop[] =
         DAMV_CRUSHING | DAM_PIERCE, 0, 2, 150, {
             { SPWPN_PROTECTION,     30 },
             { SPWPN_DRAINING,       19 },
-            { SPWPN_HOLY_WRATH,     15 },
+            { SPWPN_SILVER,     15 },
             { SPWPN_NORMAL,          8 },
             { SPWPN_HEAVY,           6 },
             { SPWPN_VENOM,           6 },
@@ -550,7 +550,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_DRAINING,        9 },
             { SPWPN_PROTECTION,      6 },
             { SPWPN_ELECTROCUTION,   6 },
-            { SPWPN_HOLY_WRATH,      5 },
+            { SPWPN_SILVER,      5 },
             { SPWPN_VAMPIRISM,       4 },
             { SPWPN_EXPLOSIVE,         4 },
             { SPWPN_FREEZING,        4 },
@@ -566,7 +566,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_DRAINING,        9 },
             { SPWPN_PROTECTION,      6 },
             { SPWPN_ELECTROCUTION,   6 },
-            { SPWPN_HOLY_WRATH,      5 },
+            { SPWPN_SILVER,      5 },
             { SPWPN_VAMPIRISM,       4 },
             { SPWPN_EXPLOSIVE,         4 },
             { SPWPN_FREEZING,        4 },
@@ -702,7 +702,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_SPEED,       8 },
             { SPWPN_BLINKING,  2 },
             { SPWPN_PAIN,        2 },
-            { SPWPN_HOLY_WRATH,  2 },
+            { SPWPN_SILVER,  2 },
             { SPWPN_ANTIMAGIC,   2 },
         }},
     { WPN_LAJATANG,          "lajatang",            16,-3, 6,

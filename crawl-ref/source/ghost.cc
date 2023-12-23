@@ -411,7 +411,7 @@ void ghost_demon::init_pandemonium_lord(bool friendly)
 }
 
 static const set<brand_type> ghost_banned_brands =
-                { SPWPN_HOLY_WRATH, SPWPN_CHAOS };
+                { SPWPN_SILVER, SPWPN_CHAOS };
 
 void ghost_demon::init_player_ghost()
 {
@@ -909,7 +909,7 @@ bool debug_check_ghost(const ghost_demon &ghost)
     if (ghost.religion < GOD_NO_GOD || ghost.religion >= NUM_GODS)
         return false;
 
-    if (ghost.brand == SPWPN_HOLY_WRATH)
+    if (ghost.brand == SPWPN_SILVER)
         return false;
 
     // Ghosts don't get non-plain attack types and flavours.

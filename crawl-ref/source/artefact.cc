@@ -70,7 +70,7 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
     const int brand = get_weapon_brand(item);
     const int ego   = get_armour_ego_type(item);
 
-    if (is_evil_god(which_god) && brand == SPWPN_HOLY_WRATH)
+    if (is_evil_god(which_god) && brand == SPWPN_SILVER)
         return false;
     if (is_good_god(which_god)
         && (is_evil_brand(brand) || is_demonic(item)))
@@ -88,7 +88,7 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
 
     case GOD_SHINING_ONE:
         // Crusader god: holiness, honourable combat.
-        if (item.base_type == OBJ_WEAPONS && brand != SPWPN_HOLY_WRATH)
+        if (item.base_type == OBJ_WEAPONS && brand != SPWPN_SILVER)
             return false;
 
         if (artefact_property(item, ARTP_INVISIBLE)
@@ -475,7 +475,7 @@ static void _add_randart_weapon_brand(const item_def &item,
         return;
 
     if (is_blessed_weapon_type(item.sub_type))
-        item_props[ARTP_BRAND] = SPWPN_HOLY_WRATH;
+        item_props[ARTP_BRAND] = SPWPN_SILVER;
     else if (is_range_weapon(item))
     {
         item_props[ARTP_BRAND] = random_choose_weighted(
@@ -512,7 +512,7 @@ static void _add_randart_weapon_brand(const item_def &item,
             47, SPWPN_FREEZING,
             26, SPWPN_VENOM,
             26, SPWPN_DRAINING,
-            13, SPWPN_HOLY_WRATH,
+            13, SPWPN_SILVER,
             13, SPWPN_ELECTROCUTION,
             13, SPWPN_SPEED,
             13, SPWPN_VAMPIRISM,
@@ -1582,7 +1582,7 @@ static bool _randart_is_conflicting(const item_def &item,
     }
 
     if (item.base_type == OBJ_WEAPONS
-        && get_weapon_brand(item) == SPWPN_HOLY_WRATH
+        && get_weapon_brand(item) == SPWPN_SILVER
         && is_demonic(item))
     {
         return true;

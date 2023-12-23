@@ -453,7 +453,7 @@ static void _equip_weapon_effect(item_def& item, bool showMsgs, bool unmeld)
                             "glows with a cold blue light!");
                     break;
 
-                case SPWPN_HOLY_WRATH:
+                case SPWPN_SILVER:
                     mprf("%s softly glows with a divine radiance!",
                          item_name.c_str());
                     break;
@@ -607,7 +607,7 @@ static void _unequip_weapon_effect(item_def& real_item, bool showMsgs,
                 break;
 
             case SPWPN_FREEZING:
-            case SPWPN_HOLY_WRATH:
+            case SPWPN_SILVER:
                 if (showMsgs)
                     mprf("%s stops glowing.", msg.c_str());
                 break;

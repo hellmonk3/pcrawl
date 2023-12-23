@@ -408,7 +408,7 @@ const char* missile_brand_name(const item_def &item, mbn_type t)
 
 static const char *weapon_brands_terse[] =
 {
-    "", "explosive", "freeze", "holy", "elec",
+    "", "explosive", "freeze", "silver", "elec",
 #if TAG_MAJOR_VERSION == 34
     "obsolete", "obsolete",
 #endif
@@ -435,7 +435,7 @@ static const char *weapon_brands_terse[] =
 
 static const char *weapon_brands_verbose[] =
 {
-    "", "explosive", "freezing", "holy wrath", "electrocution",
+    "", "explosive", "freezing", "silver", "electrocution",
 #if TAG_MAJOR_VERSION == 34
     "orc slaying", "dragon slaying",
 #endif
@@ -462,7 +462,7 @@ static const char *weapon_brands_verbose[] =
 
 static const char *weapon_brands_adj[] =
 {
-    "", "explosive", "freezing", "holy", "electric",
+    "", "explosive", "freezing", "silver", "electric",
 #if TAG_MAJOR_VERSION == 34
     "orc-killing", "dragon-slaying",
 #endif
@@ -493,7 +493,7 @@ COMPILE_CHECK(ARRAYSZ(weapon_brands_adj) == NUM_SPECIAL_WEAPONS);
 
 static const set<brand_type> brand_prefers_adj =
             { SPWPN_VAMPIRISM, SPWPN_ANTIMAGIC, SPWPN_HEAVY, SPWPN_SPECTRAL,
-              SPWPN_EXPLOSIVE };
+              SPWPN_EXPLOSIVE, SPWPN_SILVER };
 
 /**
  * What's the name of a type of weapon brand?

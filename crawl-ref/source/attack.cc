@@ -596,7 +596,7 @@ static const vector<chaos_attack_type> chaos_types = {
       [](const actor &d) {
           return !d.is_summoned()
                  && bool(d.holiness() & (MH_NATURAL | MH_PLANT)); } },
-    { AF_HOLY,      SPWPN_HOLY_WRATH,    5,
+    { AF_HOLY,      SPWPN_SILVER,    5,
       [](const actor &d) { return d.holy_wrath_susceptible(); } },
     { AF_ANTIMAGIC, SPWPN_ANTIMAGIC,     5,
       [](const actor &d) { return d.antimagic_susceptible(); } },
@@ -623,7 +623,7 @@ brand_type attack::random_chaos_brand()
     {
     case SPWPN_EXPLOSIVE:         brand_name += "explosive"; break;
     case SPWPN_FREEZING:        brand_name += "freezing"; break;
-    case SPWPN_HOLY_WRATH:      brand_name += "holy wrath"; break;
+    case SPWPN_SILVER:      brand_name += "holy wrath"; break;
     case SPWPN_ELECTROCUTION:   brand_name += "electrocution"; break;
     case SPWPN_VENOM:           brand_name += "venom"; break;
     case SPWPN_DRAINING:        brand_name += "draining"; break;
@@ -1138,7 +1138,7 @@ bool attack::apply_damage_brand(const char *what)
 
     if (!damage_done
         && (brand == SPWPN_EXPLOSIVE || brand == SPWPN_FREEZING
-            || brand == SPWPN_HOLY_WRATH || brand == SPWPN_ANTIMAGIC
+            || brand == SPWPN_SILVER || brand == SPWPN_ANTIMAGIC
             || brand == SPWPN_VAMPIRISM))
     {
         // These brands require some regular damage to function.
@@ -1166,9 +1166,9 @@ bool attack::apply_damage_brand(const char *what)
         defender->expose_to_element(BEAM_COLD, 2);
         break;
 
-    case SPWPN_HOLY_WRATH:
+    case SPWPN_SILVER:
         if (defender->holy_wrath_susceptible())
-            special_damage = 1 + (random2(damage_done * 15) / 10);
+            special_damage = damage_done;
 
         if (special_damage && defender_visible)
         {

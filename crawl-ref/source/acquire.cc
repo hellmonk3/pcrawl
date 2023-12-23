@@ -922,7 +922,7 @@ static int _weapon_brand_quality(int brand, bool range)
         return 4;
     case SPWPN_ELECTROCUTION:
     case SPWPN_BLINKING:
-    case SPWPN_HOLY_WRATH:
+    case SPWPN_SILVER:
     case SPWPN_REAPING:
         return 3;
     case SPWPN_CHAOS:

@@ -5476,7 +5476,7 @@ void unmarshallItem(reader &th, item_def &item)
         default:                       break;
         }
         if (initial_type != item.sub_type)
-            set_item_ego_type(item, OBJ_WEAPONS, SPWPN_HOLY_WRATH);
+            set_item_ego_type(item, OBJ_WEAPONS, SPWPN_SILVER);
     }
 
     if (th.getMinorVersion() < TAG_MINOR_CONSUM_APPEARANCE)

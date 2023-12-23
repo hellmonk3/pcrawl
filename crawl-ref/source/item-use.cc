@@ -3054,7 +3054,7 @@ bool god_hates_brand(const int brand)
     if (you_worship(GOD_CHEIBRIADOS) && is_hasty_brand(brand))
         return true;
 
-    if (you_worship(GOD_YREDELEMNUL) && brand == SPWPN_HOLY_WRATH)
+    if (you_worship(GOD_YREDELEMNUL) && brand == SPWPN_SILVER)
         return true;
 
     return false;

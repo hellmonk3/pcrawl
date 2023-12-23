@@ -2763,7 +2763,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     case ABIL_TSO_BLESS_WEAPON:
         simple_god_message(" will bless one of your weapons.");
         // included in default force_more_message
-        if (!bless_weapon(GOD_SHINING_ONE, SPWPN_HOLY_WRATH, YELLOW))
+        if (!bless_weapon(GOD_SHINING_ONE, SPWPN_SILVER, YELLOW))
             return spret::abort;
         break;
 

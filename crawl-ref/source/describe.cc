@@ -1632,12 +1632,12 @@ static string _describe_weapon_brand(const item_def &item)
         return "It freezes victims, dealing an additional one-quarter of any "
                "damage that pierces defenders' armour. It may also slow down "
                "cold-blooded creatures.";
-    case SPWPN_HOLY_WRATH:
-        return "It has been blessed by the Shining One, dealing an additional "
-               "three-quarters of any damage that pierces undead and demons' "
-               "armour.";
+    case SPWPN_SILVER:
+        return "It deals additional damage equal to the original damage dealt "
+               "to undead and demons. The additional damage pierces armour.";
     case SPWPN_ELECTROCUTION:
-        return "It sometimes electrocutes victims (1/2 chance, 1d10 damage).";
+        return "It sometimes electrocutes victims (1/2 chance, 1d10 damage)."
+               "This damage pierces armour, but rElec prevents it.";
     case SPWPN_VENOM:
         return "It poisons victims.";
     case SPWPN_PROTECTION:
@@ -1816,11 +1816,8 @@ static string _describe_ammo(const item_def &item)
                            "one who threw it.";
             break;
         case SPMSL_SILVER:
-            description += "It deals increased damage compared to normal ammo "
-                           "and substantially increased damage to chaotic "
-                           "and magically transformed beings. It also inflicts "
-                           "extra damage against mutated beings, according to "
-                           "how mutated they are.";
+            description += "It deals additional damage equal to the original "
+                           "damage dealt to undead and demons.";
             break;
         }
     }

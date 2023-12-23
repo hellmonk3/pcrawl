@@ -2061,23 +2061,9 @@ bool curare_actor(actor* source, actor* target, int levels, string name,
 int silver_damages_victim(actor* victim, int damage, string &dmg_msg)
 {
     int ret = 0;
-    if (victim->how_chaotic()
-        || victim->is_player() && player_is_shapechanged())
+    if (victim->holy_wrath_susceptible())
     {
-        ret = damage * 3 / 4;
-    }
-    else if (victim->is_player())
-    {
-        // For mutation damage, we want to count innate mutations for
-        // demonspawn but not other species.
-        int multiplier = 5 * you.how_mutated(you.species == SP_DEMONSPAWN, true);
-        if (multiplier == 0)
-            return 0;
-
-        if (multiplier > 75)
-            multiplier = 75;
-
-        ret = damage * multiplier / 100;
+        ret = damage;
     }
     else
         return 0;

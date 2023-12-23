@@ -1637,7 +1637,7 @@ static string _describe_weapon_brand(const item_def &item)
                "three-quarters of any damage that pierces undead and demons' "
                "armour.";
     case SPWPN_ELECTROCUTION:
-        return "It sometimes electrocutes victims (1/4 chance, 8-20 damage).";
+        return "It sometimes electrocutes victims (1/2 chance, 1d10 damage).";
     case SPWPN_VENOM:
         return "It poisons victims.";
     case SPWPN_PROTECTION:

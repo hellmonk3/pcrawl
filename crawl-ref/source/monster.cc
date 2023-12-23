@@ -805,7 +805,7 @@ void monster::equip_weapon_message(item_def &item)
     bool message_given = true;
     switch (brand)
     {
-    case SPWPN_FLAMING:
+    case SPWPN_EXPLOSIVE:
         mpr("It bursts into flame!");
         break;
     case SPWPN_FREEZING:
@@ -936,7 +936,7 @@ void monster::unequip_weapon(item_def &item, bool msg)
         bool message_given = true;
         switch (brand)
         {
-        case SPWPN_FLAMING:
+        case SPWPN_EXPLOSIVE:
             mpr("It stops flaming.");
             break;
 
@@ -1284,7 +1284,7 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         if (mons->type == MONS_AZRAEL)
         {
             return wtype == WPN_SCIMITAR
-                   && get_weapon_brand(weapon) == SPWPN_FLAMING;
+                   && get_weapon_brand(weapon) == SPWPN_EXPLOSIVE;
         }
 
         if (mons->type == MONS_AGNES)

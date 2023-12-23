@@ -1740,6 +1740,55 @@ void shillelagh(actor *wielder, coord_def where, int pow)
         _shatter_player(pow, wielder, true);
 }
 
+void explosive_brand(actor *wielder, coord_def where, int pow)
+{
+
+    // Used to draw explosion cells
+    bolt beam_visual;
+    beam_visual.set_agent(wielder);
+    beam_visual.flavour       = BEAM_VISUAL;
+    beam_visual.glyph         = dchar_glyph(DCHAR_EXPLOSION);
+    beam_visual.colour        = RED;
+    beam_visual.ex_size       = 1;
+    beam_visual.is_explosion  = true;
+
+    vector <monster* > affected_monsters;
+    for (adjacent_iterator ai(where, false); ai; ++ai)
+    {
+        monster *mon = monster_at(*ai);
+        if (!mon || !mon->alive() || mon->submerged() || mon == wielder)
+            continue;
+
+        affected_monsters.push_back(mon);
+    }
+
+    if (you.can_see(*wielder))
+    {
+        mpr("There is an explosion!");
+    }
+
+    beam_visual.explosion_draw_cell(where);
+
+    // do the actual damage
+    for (auto mon : affected_monsters)
+    {
+        if(!mon || mon == nullptr || mon->type >= NUM_MONSTERS)
+            continue;
+        
+        int dam = div_rand_round(pow, 4);
+        if(you.can_see(*mon))
+        {
+            beam_visual.explosion_draw_cell(mon->pos());
+            if(dam > 0)
+                mprf("%s explodes!", mon->name(DESC_THE).c_str());
+        }
+        mon->hurt(wielder, dam);
+    }
+
+    update_screen();
+    scaled_delay(50);
+}
+
 dice_def scorch_damage(int pow, bool random)
 {
     if (random)

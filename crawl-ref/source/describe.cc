@@ -1353,7 +1353,6 @@ static string _describe_brand(brand_type brand)
     case SPWPN_BLINKING:
     case SPWPN_DRAINING:
     case SPWPN_ELECTROCUTION:
-    case SPWPN_FLAMING:
     case SPWPN_FREEZING:
     case SPWPN_VENOM:
     {
@@ -1625,17 +1624,10 @@ static string _describe_weapon_brand(const item_def &item)
 
     switch (brand)
     {
-    case SPWPN_FLAMING:
-    {
-        const int damtype = get_vorpal_type(item);
-        const string desc = "It burns victims, dealing an additional "
-                            "one-quarter of any damage that pierces defenders'"
-                            " armour.";
-        if (ranged || damtype != DVORP_SLICING && damtype != DVORP_CHOPPING)
-            return desc;
-        return desc +
-            " Big, fiery blades are also staple armaments of hydra-hunters.";
-    }
+    case SPWPN_EXPLOSIVE:
+        return "Dealing damage with it causes a loud explosion, which damages "
+               "the victim and all adjacent creatures (except the wielder) for "
+               "one-quarter of the damage dealt, piercing defenders' armour.";
     case SPWPN_FREEZING:
         return "It freezes victims, dealing an additional one-quarter of any "
                "damage that pierces defenders' armour. It may also slow down "

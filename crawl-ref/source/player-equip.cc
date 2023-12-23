@@ -442,7 +442,7 @@ static void _equip_weapon_effect(item_def& item, bool showMsgs, bool unmeld)
                 const string item_name = item.name(DESC_YOUR);
                 switch (special)
                 {
-                case SPWPN_FLAMING:
+                case SPWPN_EXPLOSIVE:
                     mprf("%s bursts into flame!", item_name.c_str());
                     break;
 
@@ -601,7 +601,7 @@ static void _unequip_weapon_effect(item_def& real_item, bool showMsgs,
 
             switch (brand)
             {
-            case SPWPN_FLAMING:
+            case SPWPN_EXPLOSIVE:
                 if (showMsgs)
                     mprf("%s stops flaming.", msg.c_str());
                 break;

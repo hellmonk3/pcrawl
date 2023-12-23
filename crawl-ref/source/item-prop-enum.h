@@ -132,7 +132,7 @@ enum brand_type // item_def.special
 {
     SPWPN_FORBID_BRAND = -1,
     SPWPN_NORMAL,
-    SPWPN_FLAMING,
+    SPWPN_EXPLOSIVE,
     SPWPN_FREEZING,
     SPWPN_HOLY_WRATH,
     SPWPN_ELECTROCUTION,

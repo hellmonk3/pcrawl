@@ -1918,7 +1918,7 @@ static tileidx_t _tileidx_monster_no_props(const monster_info& mon)
             const item_def * const weapon = mon.inv[MSLOT_WEAPON].get();
             if (weapon
                 && weapon->is_type(OBJ_WEAPONS, WPN_SCIMITAR)
-                && get_weapon_brand(*weapon) == SPWPN_FLAMING)
+                && get_weapon_brand(*weapon) == SPWPN_EXPLOSIVE)
             {
                 return TILEP_MONS_ERICA;
             }

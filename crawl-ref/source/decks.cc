@@ -1318,7 +1318,7 @@ static void _summon_dancing_weapon(int power)
         if (coinflip())
         {
             set_item_ego_type(wpn, OBJ_WEAPONS,
-                              random_choose(SPWPN_FLAMING, SPWPN_FREEZING));
+                              random_choose(SPWPN_EXPLOSIVE, SPWPN_FREEZING));
         }
         else
             set_item_ego_type(wpn, OBJ_WEAPONS, SPWPN_NORMAL);

@@ -226,7 +226,7 @@ void ghost_demon::set_pan_lord_special_attack()
         2, _flavour_attack(AF_DRAIN_DEX),
         10, _flavour_attack(AF_DROWN),
         // Normal chance
-        20, _brand_attack(SPWPN_FLAMING),
+        20, _brand_attack(SPWPN_EXPLOSIVE),
         20, _brand_attack(SPWPN_FREEZING),
         20, _brand_attack(SPWPN_ELECTROCUTION),
         20, _brand_attack(SPWPN_VAMPIRISM),
@@ -265,7 +265,7 @@ void ghost_demon::set_pan_lord_cloud_ring()
 {
     if (brand == SPWPN_ELECTROCUTION)
         cloud_ring_ench = ENCH_RING_OF_THUNDER;
-    else if (brand == SPWPN_FLAMING)
+    else if (brand == SPWPN_EXPLOSIVE)
         cloud_ring_ench = ENCH_RING_OF_FLAMES;
     else if (brand == SPWPN_CHAOS)
         cloud_ring_ench = ENCH_RING_OF_CHAOS;
@@ -480,7 +480,7 @@ void ghost_demon::init_player_ghost()
                 switch (static_cast<stave_type>(weapon.sub_type))
                 {
                 // very bad approximations
-                case STAFF_FIRE: brand = SPWPN_FLAMING; break;
+                case STAFF_FIRE: brand = SPWPN_EXPLOSIVE; break;
                 case STAFF_COLD: brand = SPWPN_FREEZING; break;
                 case STAFF_DEATH: brand = SPWPN_PAIN; break;
                 case STAFF_AIR: brand = SPWPN_ELECTROCUTION; break;

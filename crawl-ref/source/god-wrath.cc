@@ -1969,7 +1969,7 @@ static int _wu_jian_summon_weapons()
         const int subtype = random_choose(WPN_DIRE_FLAIL, WPN_QUARTERSTAFF,
                                           WPN_BROAD_AXE, WPN_GREAT_SWORD,
                                           WPN_RAPIER, WPN_GLAIVE);
-        const int ego = random_choose(SPWPN_HEAVY, SPWPN_FLAMING,
+        const int ego = random_choose(SPWPN_HEAVY, SPWPN_EXPLOSIVE,
                                       SPWPN_FREEZING, SPWPN_ELECTROCUTION,
                                       SPWPN_SPEED);
 

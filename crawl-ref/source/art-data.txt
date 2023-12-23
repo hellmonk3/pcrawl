@@ -338,7 +338,7 @@ PLUS:    +6
 COLOUR:  ETC_FIRE
 TILE:    spwpn_sword_of_cerebov
 TILE_EQ: sword_twist
-BRAND:   SPWPN_FLAMING
+BRAND:   SPWPN_EXPLOSIVE
 BOOL:    evil, nogen
 DBRAND:  Hellfire:  It temporarily reduces the fire resistance of those it
  strikes.
@@ -397,7 +397,7 @@ PLUS:    +6
 COLOUR:  ETC_FIRE
 TILE:    urand_flaming_death
 TILE_EQ: flaming_death
-BRAND:   SPWPN_FLAMING
+BRAND:   SPWPN_EXPLOSIVE
 BOOL:    skip_ego, nogen
 WILL:    1
 # end TAG_MAJOR_VERSION
@@ -533,7 +533,7 @@ DESCRIP:  Zealotry:  Whenever the wielder enters a berserk rage, their allies
 NAME:    arbalest "Damnation"
 INSCRIP: damnation
 OBJ:     OBJ_WEAPONS/WPN_ARBALEST
-FB_BRAND: SPWPN_FLAMING
+FB_BRAND: SPWPN_EXPLOSIVE
 PLUS:    +6
 COLOUR:  ETC_FIRE
 TILE:    urand_damnation
@@ -662,7 +662,7 @@ BOOL:    inv, tilerim, nogen
 NAME:    lance "Wyrmbane"
 OBJ:     OBJ_WEAPONS/WPN_SPEAR
 FALLBACK: OBJ_WEAPONS/WPN_DEMON_TRIDENT
-FB_BRAND: SPWPN_FLAMING
+FB_BRAND: SPWPN_EXPLOSIVE
 INSCRIP: slay drac,
 TYPE:    lance
 BASE_DAM: +2
@@ -1359,7 +1359,7 @@ COLOUR:   RED
 TILE:     urand_firestarter
 TILE_EQ:  firestarter
 PLUS:     +7
-BRAND:    SPWPN_FLAMING
+BRAND:    SPWPN_EXPLOSIVE
 DBRAND:   Immolate:  It fills those it strikes with an explosive inner flame.
 DESCRIP:  rFlCloud:  It grants immunity to clouds of flame.
 
@@ -1514,7 +1514,7 @@ PLUS:     +2
 COLOUR:   ETC_VEHUMET
 TILE:     urand_thermic_engine
 TILE_EQ:  thermic_engine
-BRAND:    SPWPN_FLAMING
+BRAND:    SPWPN_EXPLOSIVE
 
 ENUM:     RIFT
 NAME:     demon trident "Rift"
@@ -1769,7 +1769,7 @@ TILE:     spwpn_mule
 TILE_EQ:  mule
 PLUS:     7
 COLOUR:   ETC_INCARNADINE
-BRAND:    SPWPN_FLAMING
+BRAND:    SPWPN_EXPLOSIVE
 INSCRIP:  backblast,
 DBRAND:   Backblast: When fired, it often launches its wielder backwards.
 

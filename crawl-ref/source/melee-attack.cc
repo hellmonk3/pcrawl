@@ -2054,7 +2054,7 @@ bool melee_attack::consider_decapitation(int dam, int damage_type)
     // What's the largest number of heads the defender can have?
     const int limit = defender->type == MONS_LERNAEAN_HYDRA ? 27 : 20;
 
-    if (attacker->damage_brand() == SPWPN_FLAMING)
+    if (attacker->damage_brand() == SPWPN_EXPLOSIVE)
     {
         if (defender_visible)
             mpr("The flame cauterises the wound!");

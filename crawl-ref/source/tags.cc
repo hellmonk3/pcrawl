@@ -5283,9 +5283,9 @@ void unmarshallItem(reader &th, item_def &item)
     if (item.base_type == OBJ_WEAPONS && get_weapon_brand(item) == SPWPN_FLAME)
     {
         if (is_artefact(item))
-            artefact_set_property(item, ARTP_BRAND, SPWPN_FLAMING);
+            artefact_set_property(item, ARTP_BRAND, SPWPN_EXPLOSIVE);
         else
-            item.brand = SPWPN_FLAMING;
+            item.brand = SPWPN_EXPLOSIVE;
     }
 
     // Rescale old MR (range 35-99) to new discrete steps (40/80/120)

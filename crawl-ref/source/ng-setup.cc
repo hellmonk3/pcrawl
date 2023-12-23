@@ -263,7 +263,7 @@ void give_items_skills(const newgame_def& ng)
     if (you.char_class == JOB_CHAOS_KNIGHT)
         newgame_make_item(OBJ_WEAPONS, ng.weapon, 1, 0, SPWPN_CHAOS);
     else if (you.char_class == JOB_CINDER_ACOLYTE)
-        newgame_make_item(OBJ_WEAPONS, ng.weapon, 1, -1, SPWPN_FLAMING);
+        newgame_make_item(OBJ_WEAPONS, ng.weapon, 1, -1, SPWPN_EXPLOSIVE);
     else if (job_has_weapon_choice(you.char_class))
         newgame_make_item(OBJ_WEAPONS, ng.weapon);
 

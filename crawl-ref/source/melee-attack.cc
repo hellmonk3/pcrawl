@@ -2019,57 +2019,7 @@ bool melee_attack::player_monattk_hit_effects()
 
     // These effects apply only to monsters that are still alive:
 
-    // Returns true if the hydra was killed by the decapitation, in which case
-    // nothing more should be done to the hydra.
-    if (consider_decapitation(damage_done))
-        return false;
-
     return true;
-}
-
-/**
- * If appropriate, chop a head off the defender. (Usually a hydra.)
- *
- * @param dam           The damage done in the attack that may or may not chop
-  *                     off a head.
- * @param damage_type   The type of damage done in the attack.
- * @return              Whether the defender was killed by the decapitation.
- */
-bool melee_attack::consider_decapitation(int dam, int damage_type)
-{
-    const int dam_type = (damage_type != -1) ? damage_type :
-                                               attacker->damage_type();
-    if (!attack_chops_heads(dam, dam_type))
-        return false;
-
-    decapitate(dam_type);
-
-    if (!defender->alive())
-        return true;
-
-    // Only living hydras get to regenerate heads.
-    if (!(defender->holiness() & MH_NATURAL))
-        return false;
-
-    // What's the largest number of heads the defender can have?
-    const int limit = defender->type == MONS_LERNAEAN_HYDRA ? 27 : 20;
-
-    if (attacker->damage_brand() == SPWPN_EXPLOSIVE)
-    {
-        if (defender_visible)
-            mpr("The flame cauterises the wound!");
-        return false;
-    }
-
-    int heads = defender->heads();
-    if (heads >= limit - 1)
-        return false; // don't overshoot the head limit!
-
-    simple_monster_message(*defender->as_monster(), " grows two more!");
-    defender->as_monster()->num_heads += 2;
-    defender->heal(8 + random2(8));
-
-    return false;
 }
 
 /**
@@ -2652,15 +2602,6 @@ bool melee_attack::mons_attack_effects()
     // A tentacle may have banished its own parent/sibling and thus itself.
     if (!attacker->alive())
         return false;
-
-    // consider_decapitation() returns true if the defender was killed
-    // by the decapitation, in which case we should stop the rest of the
-    // attack, too.
-    if (consider_decapitation(damage_done,
-                              attacker->damage_type(attack_number)))
-    {
-        return false;
-    }
 
     const bool slippery = defender->is_player()
                           && adjacent(attacker->pos(), defender->pos())

@@ -569,10 +569,6 @@ private:
     bool pickup_misc(item_def &item, bool msg, bool force);
     bool pickup_missile(item_def &item, bool msg, bool force);
 
-    void equip_message(item_def &item);
-    void equip_weapon_message(item_def &item);
-    void equip_armour_message(item_def &item);
-    void equip_jewellery_message(item_def &item);
     void unequip_weapon(item_def &item, bool msg);
     void unequip_armour(item_def &item, bool msg);
     void unequip_jewellery(item_def &item, bool msg);

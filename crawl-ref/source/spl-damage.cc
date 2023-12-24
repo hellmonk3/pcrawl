@@ -1772,14 +1772,14 @@ void explosive_brand(actor *wielder, coord_def where, int pow)
     // do the actual damage
     for (auto mon : affected_monsters)
     {
-        if(!mon || mon == nullptr || mon->type >= NUM_MONSTERS)
+        if (!mon || mon == nullptr || mon->type >= NUM_MONSTERS)
             continue;
-        
+
         int dam = div_rand_round(pow, 4);
-        if(you.can_see(*mon))
+        if (you.can_see(*mon))
         {
             beam_visual.explosion_draw_cell(mon->pos());
-            if(dam > 0)
+            if (dam > 0)
                 mprf("%s explodes!", mon->name(DESC_THE).c_str());
         }
         mon->hurt(wielder, dam);

@@ -360,10 +360,10 @@ void attack::antimagic_affects_defender(int pow)
 void attack::pain_affects_defender()
 {
     actor &user = stat_source();
-    if (!one_chance_in(user.skill_rdiv(SK_NECROMANCY) + 1))
+    int sk = user.skill_rdiv(SK_NECROMANCY);
+    if (sk > 0 && (defender->holiness() & MH_NATURAL))
     {
-        special_damage += resist_adjust_damage(defender, BEAM_NEG,
-                              random2(1 + user.skill_rdiv(SK_NECROMANCY)));
+        special_damage += 1 + random2(sk * 2);
 
         if (special_damage && defender_visible)
         {

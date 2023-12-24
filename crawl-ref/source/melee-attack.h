@@ -77,7 +77,7 @@ private:
     bool check_unrand_effects() override;
 
     void rot_defender(int amount);
-    
+
     bool attack_chops_heads(int damage_done, int damage_type);
     void decapitate(int dam_type);
 

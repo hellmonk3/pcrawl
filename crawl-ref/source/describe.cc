@@ -1692,7 +1692,8 @@ static string _describe_weapon_brand(const item_def &item)
                "launches a second, slightly weaker strike. The spirit shares "
                "part of any damage it takes with its wielder.";
     case SPWPN_ACID:
-        return "It splashes victims with acid (2d4 damage, Corrosion).";
+        return "It inflicts corrosion (1/2 chance), reducing the victim's "
+               "armour by 10.";
     default:
         return "";
     }

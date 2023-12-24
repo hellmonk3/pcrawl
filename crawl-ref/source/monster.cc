@@ -2907,7 +2907,7 @@ int monster::armour_class() const
 
     // corrosion hurts.
     if (has_ench(ENCH_CORROSION))
-        ac -= 8;
+        ac -= 10;
 
     return max(ac, 0);
 }
@@ -3748,20 +3748,6 @@ bool monster::corrode_equipment(const char* corrosion_source, int degree)
     if (mons_is_avatar(type) || type == MONS_PLAYER_SHADOW)
         return false;
 
-    // rCorr protects against 50% of corrosion.
-    // As long as degree is at least 1, we'll apply the status once, because
-    // it doesn't look to me like applying it more times does anything.
-    // If I'm wrong, we should fix that.
-    if (res_corr())
-    {
-        degree = binomial(degree, 50);
-        if (!degree)
-        {
-            dprf("rCorr protects.");
-            return false;
-        }
-    }
-
     if (you.see_cell(pos()))
     {
         if (!has_ench(ENCH_CORROSION))
@@ -3783,24 +3769,15 @@ void monster::splash_with_acid(actor* evildoer)
     if (res_acid() == 3)
         return;
 
-    const int dam = roll_dice(2, 4);
-    const int post_res_dam = resist_adjust_damage(this, BEAM_ACID, dam);
-
     if (this->observable())
-    {
-        mprf("%s is splashed with acid%s", this->name(DESC_THE).c_str(),
-             attack_strength_punctuation(post_res_dam).c_str());
-    }
+        mprf("%s is corroded.", this->name(DESC_THE).c_str());
 
     acid_corrode(3);
-
-    if (post_res_dam > 0)
-        hurt(evildoer, post_res_dam, BEAM_ACID, KILLED_BY_ACID);
 }
 
 void monster::acid_corrode(int /*acid_strength*/)
 {
-    if (res_acid() < 3 && !one_chance_in(3))
+    if (res_acid() < 3 && coinflip())
         corrode_equipment();
 }
 

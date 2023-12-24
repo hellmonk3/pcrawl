@@ -890,7 +890,6 @@ int attack::player_apply_slaying_bonuses(int damage, bool aux)
                         || (weapon && is_range_weapon(*weapon)
                                    && using_weapon());
     damage_plus += slaying_bonus(throwing);
-    damage_plus -= 4 * you.corrosion_amount();
 
     // XXX: should this also trigger on auxes?
     if (!aux && !ranged)
@@ -1386,7 +1385,7 @@ void attack::calc_elemental_brand_damage(beam_type flavour,
                                          const char *what)
 {
     special_damage = resist_adjust_damage(defender, flavour,
-                                          random2(damage_done) / 2 + 1);
+                                          div_rand_round((damage_done), 4));
 
     if (needs_message && special_damage > 0 && verb)
     {

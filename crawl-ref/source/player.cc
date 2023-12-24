@@ -5873,10 +5873,7 @@ int player::corrosion_amount() const
     if (you.on_current_level && env.level_state & LSTATE_SLIMY_WALL)
         corrosion += slime_wall_corrosion(&you);
 
-    if (player_in_branch(BRANCH_DIS))
-        corrosion += 2;
-
-    return corrosion;
+    return min(corrosion, 1);
 }
 
 static int _meek_bonus()
@@ -5915,7 +5912,7 @@ int player::armour_class_with_specific_items(vector<const item_def *> items) con
             AC += _meek_bonus() * scale;
     }
 
-    AC -= 400 * corrosion_amount();
+    AC -= 1000 * corrosion_amount();
 
     AC += sanguine_armour_bonus();
 
@@ -6474,16 +6471,6 @@ bool player::resists_dislodge(string event) const
 
 bool player::corrode_equipment(const char* corrosion_source, int degree)
 {
-    // rCorr protects against 50% of corrosion.
-    if (res_corr())
-    {
-        degree = binomial(degree, 50);
-        if (!degree)
-        {
-            dprf("rCorr protects.");
-            return false;
-        }
-    }
     // always increase duration, but...
     increase_duration(DUR_CORROSION, 10 + roll_dice(2, 4), 50,
                       make_stringf("%s corrodes you!",
@@ -6493,18 +6480,16 @@ bool player::corrode_equipment(const char* corrosion_source, int degree)
     // Static environmental corrosion doesn't factor in
     int prev_corr = props[CORROSION_KEY].get_int();
     bool did_corrode = false;
-    for (int i = 0; i < degree; i++)
-        if (!x_chance_in_y(prev_corr, prev_corr + 7))
-        {
-            props[CORROSION_KEY].get_int()++;
-            prev_corr++;
-            did_corrode = true;
-        }
+    if (!prev_corr)
+    {
+        props[CORROSION_KEY].get_int()++;
+        prev_corr++;
+        did_corrode = true;
+    }
 
     if (did_corrode)
     {
         redraw_armour_class = true;
-        wield_change = true;
     }
     return true;
 }

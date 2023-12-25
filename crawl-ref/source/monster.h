@@ -410,6 +410,7 @@ public:
     bool is_fiery() const override;
     bool is_skeletal() const override;
     bool is_spiny() const;
+    bool stunned() const override;
     bool paralysed() const override;
     bool cannot_act() const override;
     bool confused() const override;

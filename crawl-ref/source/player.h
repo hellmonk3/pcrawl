@@ -796,6 +796,7 @@ public:
     bool is_dragonkind() const override;
 
     bool paralysed() const override;
+    bool stunned() const override;
     bool cannot_act() const override;
     bool confused() const override;
     bool caught() const override;

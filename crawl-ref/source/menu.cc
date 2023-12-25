@@ -2512,6 +2512,8 @@ bool MonsterMenuEntry::get_tiles(vector<tile_def>& tileset) const
         tileset.emplace_back(TILEI_NEUTRAL);
     else if (m->is(MB_PARALYSED))
         tileset.emplace_back(TILEI_PARALYSED);
+    else if (m->is(MB_STUNNED))
+        tileset.emplace_back(TILEI_PARALYSED);
     else if (m->is(MB_FLEEING))
         tileset.emplace_back(TILEI_FLEEING);
     else if (m->is(MB_STABBABLE))

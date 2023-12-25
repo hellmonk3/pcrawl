@@ -543,6 +543,13 @@ void monster::remove_enchantment_effect(const mon_enchant &me, bool quiet)
         behaviour_event(this, ME_EVAL);
         break;
 
+    case ENCH_STUN:
+        if (!quiet)
+            simple_monster_message(*this, " is no longer stunned.");
+
+        behaviour_event(this, ME_EVAL);
+        break;
+
     case ENCH_PETRIFIED:
         if (!quiet)
             simple_monster_message(*this, " is no longer petrified.");
@@ -1388,6 +1395,7 @@ void monster::apply_enchantment(const mon_enchant &me)
     case ENCH_MIGHT:
     case ENCH_FEAR:
     case ENCH_PARALYSIS:
+    case ENCH_STUN:
     case ENCH_PETRIFYING:
     case ENCH_PETRIFIED:
     case ENCH_SICK:
@@ -2118,7 +2126,7 @@ static const char *enchant_names[] =
     "ring_chaos", "ring_mutation", "ring_fog", "ring_ice", "ring_neg",
     "ring_acid", "ring_miasma", "concentrate_venom", "fire_champion",
     "anguished", "simulacra", "necrotizing", "glowing", "pursuing",
-    "bound", "bullseye_target",
+    "bound", "bullseye_target", "stunned",
     "buggy", // NUM_ENCHANTMENTS
 };
 
@@ -2328,6 +2336,9 @@ int mon_enchant::calc_duration(const monster* mons,
     }
     case ENCH_EXPLODING:
         return random_range(3, 7) * 10;
+
+    case ENCH_STUN:
+        return 10;
 
     case ENCH_PORTAL_PACIFIED:
         // Must be set by spell.

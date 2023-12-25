@@ -2474,6 +2474,11 @@ bool monster::confused_by_you() const
            || (me2.ench == ENCH_MAD && _you_responsible_for_ench(me2));
 }
 
+bool monster::stunned() const
+{
+    return has_ench(ENCH_STUN);
+}
+
 bool monster::paralysed() const
 {
     return has_ench(ENCH_PARALYSIS) || has_ench(ENCH_DUMB);
@@ -2481,7 +2486,7 @@ bool monster::paralysed() const
 
 bool monster::cannot_act() const
 {
-    return paralysed() || petrified();
+    return paralysed() || petrified() || stunned();
 }
 
 bool monster::asleep() const

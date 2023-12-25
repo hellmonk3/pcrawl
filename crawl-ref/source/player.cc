@@ -1888,7 +1888,8 @@ static int _player_scale_evasion(int prescaled_ev)
 static int _player_evasion(bool ignore_helpless)
 {
     // no evasion while paralyzed, treed, or backlit.
-    if ((you.cannot_act() || you.duration[DUR_CLUMSY] || you.backlit()
+    if ((you.duration[DUR_PARALYSIS] || you.duration[DUR_CLUMSY] 
+         || you.duration[DUR_PETRIFIED] || you.backlit()
             || you.form == transformation::tree)
         && !ignore_helpless)
     {
@@ -5323,9 +5324,14 @@ bool player::paralysed() const
     return duration[DUR_PARALYSIS];
 }
 
+bool player::stunned() const
+{
+    return duration[DUR_STUN];
+}
+
 bool player::cannot_act() const
 {
-    return asleep() || paralysed() || petrified();
+    return asleep() || paralysed() || petrified() || stunned();
 }
 
 bool player::confused() const

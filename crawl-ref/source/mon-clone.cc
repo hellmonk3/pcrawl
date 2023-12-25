@@ -156,6 +156,7 @@ static enchant_type _player_duration_to_mons_enchantment(duration_type dur)
     case DUR_MIGHT:     return ENCH_MIGHT;
     case DUR_BERSERK:   return ENCH_BERSERK;
     case DUR_POISONING: return ENCH_POISON;
+    case DUR_STUN:      return ENCH_STUN;
 
     default:            return ENCH_NONE;
     }

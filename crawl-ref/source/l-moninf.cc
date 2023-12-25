@@ -565,7 +565,7 @@ LUAFN(moninf_get_stabbability)
 {
     MONINF(ls, 1, mi);
     if (mi->is(MB_DORMANT) || mi->is(MB_SLEEPING) || mi->is(MB_PETRIFIED)
-            || mi->is(MB_PARALYSED))
+            || mi->is(MB_PARALYSED) || mi->is(MB_STUNNED))
     {
         lua_pushnumber(ls, 1.0);
     }

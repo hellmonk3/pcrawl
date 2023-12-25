@@ -1888,7 +1888,7 @@ static int _player_scale_evasion(int prescaled_ev)
 static int _player_evasion(bool ignore_helpless)
 {
     // no evasion while paralyzed, treed, or backlit.
-    if ((you.duration[DUR_PARALYSIS] || you.duration[DUR_CLUMSY] 
+    if ((you.duration[DUR_PARALYSIS] || you.duration[DUR_CLUMSY]
          || you.duration[DUR_PETRIFIED] || you.backlit()
             || you.form == transformation::tree)
         && !ignore_helpless)
@@ -6595,6 +6595,15 @@ void player::paralyse(const actor *who, int str, string source)
     end_wait_spells();
     redraw_armour_class = true;
     redraw_evasion = true;
+}
+
+void player::stun(actor *who)
+{
+    if (!duration[DUR_STUN])
+    {
+        mpr("You are stunned.");
+        duration[DUR_STUN] = BASELINE_DELAY;
+    }
 }
 
 void player::petrify(const actor *who, bool force)

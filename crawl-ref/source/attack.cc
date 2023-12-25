@@ -1332,6 +1332,10 @@ bool attack::apply_damage_brand(const char *what)
         defender->splash_with_acid(attacker);
         break;
 
+    case SPWPN_HEAVY:
+        attacker->stun(attacker);
+        break;
+
 
     default:
         if (using_weapon() && is_unrandom_artefact(*weapon, UNRAND_DAMNATION))

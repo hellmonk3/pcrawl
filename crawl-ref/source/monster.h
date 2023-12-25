@@ -462,6 +462,7 @@ public:
     bool poison(actor *agent, int amount = 1, bool force = false) override;
     bool sicken(int strength) override;
     void paralyse(const actor *, int str, string source = "") override;
+    void stun(actor *evildoer) override;
     void petrify(const actor *, bool force = false) override;
     bool fully_petrify(bool quiet = false) override;
     void slow_down(actor *, int str) override;

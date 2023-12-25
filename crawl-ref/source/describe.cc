@@ -1652,9 +1652,8 @@ static string _describe_weapon_brand(const item_def &item)
         return "Attacks with this weapon are significantly faster.";
     case SPWPN_HEAVY:
     {
-        string desc = ranged ? "Any ammunition fired from it" : "It";
-        return desc + " deals dramatically more damage, but attacks with "
-                      "it are much slower.";
+        return "Its maximum damage is 2.5x normal, but attacking with "
+                      "it will stun you for one turn.";
     }
     case SPWPN_CHAOS:
         return "Each hit has a different, random effect.";

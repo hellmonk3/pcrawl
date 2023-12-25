@@ -3854,6 +3854,12 @@ void monster::paralyse(const actor *atk, int strength, string /*cause*/)
     enchant_actor_with_flavour(this, atk, BEAM_PARALYSIS, strength);
 }
 
+void monster::stun(actor *atk)
+{
+    if (!stunned())
+        add_ench(mon_enchant(ENCH_STUN, 0));
+}
+
 void monster::petrify(const actor *atk, bool /*force*/)
 {
     enchant_actor_with_flavour(this, atk, BEAM_PETRIFY);

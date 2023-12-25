@@ -1195,8 +1195,8 @@ int brand_adjust_weapon_damage(int base_dam, int brand, bool random)
     if (brand != SPWPN_HEAVY)
         return base_dam;
     if (random)
-        return div_rand_round(base_dam * 9, 5);
-    return base_dam * 9 / 5;
+        return div_rand_round(base_dam * 5, 2);
+    return base_dam * 5 / 2;
 }
 
 int unarmed_base_damage()

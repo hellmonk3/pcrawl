@@ -1688,8 +1688,8 @@ static string _describe_weapon_brand(const item_def &item)
                "abilities and divine invocations are not affected.";
     case SPWPN_SPECTRAL:
         return "When its wielder attacks, the weapon's spirit leaps out and "
-               "launches a second, slightly weaker strike. The spirit shares "
-               "part of any damage it takes with its wielder.";
+               "launches a second strike (if there is enough space to summon "
+               "it). The spirit shares all damage it takes with its wielder.";
     case SPWPN_ACID:
         return "It inflicts corrosion (1/2 chance), reducing the victim's "
                "armour by 10.";

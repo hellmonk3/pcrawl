@@ -518,7 +518,7 @@ static void _add_randart_weapon_brand(const item_def &item,
             13, SPWPN_VAMPIRISM,
             13, SPWPN_PAIN,
             13, SPWPN_ANTIMAGIC,
-            13, SPWPN_PROTECTION,
+            13, SPWPN_SHIELDING,
             13, SPWPN_SPECTRAL,
              3, SPWPN_BLINKING,
              3, SPWPN_CHAOS);

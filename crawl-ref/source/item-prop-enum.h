@@ -141,7 +141,7 @@ enum brand_type // item_def.special
     SPWPN_DRAGON_SLAYING,
 #endif
     SPWPN_VENOM,
-    SPWPN_PROTECTION,
+    SPWPN_SHIELDING,
     SPWPN_DRAINING,
     SPWPN_SPEED,
     SPWPN_HEAVY,

@@ -1084,7 +1084,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "dragon slaying",
 #endif
             "venom",
-            "protection",
+            "shielding",
             "draining",
             "speed",
             "heavy",
@@ -1153,7 +1153,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "ponderous",
             "flight",
             "willpower",
-            "protection",
+            "shielding",
             "stealth",
             "resistance",
             "positive energy",

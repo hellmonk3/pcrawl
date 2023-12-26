@@ -1399,7 +1399,7 @@ COLOUR:  ETC_ENCHANT
 TILE:    urand_gyre
 TILE_EQ: gyre
 PLUS:    8
-BRAND:   SPWPN_PROTECTION
+BRAND:   SPWPN_SHIELDING
 FB_BRAND: SPWPN_FREEZING
 
 # start TAG_MAJOR_VERSION == 34
@@ -1622,7 +1622,7 @@ PLUS:       7
 COLOUR:     WHITE
 TILE:       urand_meek
 TILE_EQ:    staff_mage_two
-BRAND:      SPWPN_PROTECTION
+BRAND:      SPWPN_SHIELDING
 INSCRIP:    meekguard
 DBRAND:     Meekguard: It provides extra protection to wielders with little
  health.

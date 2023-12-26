@@ -1128,7 +1128,7 @@ bool attack::apply_damage_brand(const char *what)
 
     if (brand != SPWPN_EXPLOSIVE && brand != SPWPN_FREEZING
         && brand != SPWPN_ELECTROCUTION && brand != SPWPN_VAMPIRISM
-        && brand != SPWPN_PROTECTION && !defender->alive())
+        && brand != SPWPN_SHIELDING && !defender->alive())
     {
         // Most brands have no extra effects on just killed enemies, and the
         // effect would be often inappropriate.
@@ -1146,7 +1146,7 @@ bool attack::apply_damage_brand(const char *what)
 
     switch (brand)
     {
-    case SPWPN_PROTECTION:
+    case SPWPN_SHIELDING:
         if (attacker->is_player())
         {
             const monster* mon = defender->as_monster();

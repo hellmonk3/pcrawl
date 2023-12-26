@@ -1970,6 +1970,11 @@ int player_shield_class()
         shield += ICEMAIL_MAX * 100;
     }
 
+    if (you.duration[DUR_SPWPN_SHIELDING])
+    {
+        shield += 2000;
+    }
+
     shield += qazlal_sh_boost() * 100;
     shield += tso_sh_boost() * 100;
     shield += you.wearing(EQ_AMULET, AMU_REFLECTION) * AMU_REFLECT_SH * 100;
@@ -5374,6 +5379,7 @@ bool player::shielded() const
            || qazlal_sh_boost() > 0
            || you.wearing(EQ_AMULET, AMU_REFLECTION)
            || you.scan_artefacts(ARTP_SHIELDING)
+           || duration[DUR_SPWPN_SHIELDING]
            || (get_mutation_level(MUT_CONDENSATION_SHIELD)
                 && !you.duration[DUR_ICEMAIL_DEPLETED]);
 }
@@ -5910,13 +5916,6 @@ int player::armour_class_with_specific_items(vector<const item_def *> items) con
 
     if (duration[DUR_QAZLAL_AC])
         AC += 300;
-
-    if (duration[DUR_SPWPN_PROTECTION])
-    {
-        AC += 700;
-        if (player_equip_unrand(UNRAND_MEEK))
-            AC += _meek_bonus() * scale;
-    }
 
     AC -= 1000 * corrosion_amount();
 
@@ -8119,17 +8118,17 @@ void activate_sanguine_armour()
  */
 void refresh_weapon_protection()
 {
-    if (!you.duration[DUR_SPWPN_PROTECTION])
+    if (!you.duration[DUR_SPWPN_SHIELDING])
         mpr("Your weapon exudes an aura of protection.");
 
-    you.increase_duration(DUR_SPWPN_PROTECTION, 3 + random2(2), 5);
+    you.increase_duration(DUR_SPWPN_SHIELDING, 3 + random2(2), 5);
     you.redraw_armour_class = true;
 }
 
 void refresh_meek_bonus()
 {
     const string MEEK_KEY = "meek_ac_key";
-    const bool meek_possible = you.duration[DUR_SPWPN_PROTECTION]
+    const bool meek_possible = you.duration[DUR_SPWPN_SHIELDING]
                             && player_equip_unrand(UNRAND_MEEK);
     const int bonus_ac = _meek_bonus();
     if (!meek_possible || !bonus_ac)

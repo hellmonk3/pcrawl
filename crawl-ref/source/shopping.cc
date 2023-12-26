@@ -214,7 +214,7 @@ unsigned int item_value(item_def item, bool ident)
                 valued *= 18;
                 break;
 
-            case SPWPN_PROTECTION:
+            case SPWPN_SHIELDING:
             case SPWPN_VENOM:
                 valued *= 12;
                 break;

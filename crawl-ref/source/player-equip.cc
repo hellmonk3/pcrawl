@@ -472,7 +472,7 @@ static void _equip_weapon_effect(item_def& item, bool showMsgs, bool unmeld)
                     mprf("%s begins to drip with poison!", item_name.c_str());
                     break;
 
-                case SPWPN_PROTECTION:
+                case SPWPN_SHIELDING:
                     mprf("%s hums with potential!", item_name.c_str());
                     break;
 
@@ -622,12 +622,12 @@ static void _unequip_weapon_effect(item_def& real_item, bool showMsgs,
                     mprf("%s stops dripping with poison.", msg.c_str());
                 break;
 
-            case SPWPN_PROTECTION:
+            case SPWPN_SHIELDING:
                 if (showMsgs)
                     mprf("%s goes still.", msg.c_str());
-                if (you.duration[DUR_SPWPN_PROTECTION])
+                if (you.duration[DUR_SPWPN_SHIELDING])
                 {
-                    you.duration[DUR_SPWPN_PROTECTION] = 0;
+                    you.duration[DUR_SPWPN_SHIELDING] = 0;
                     you.redraw_armour_class = true;
                 }
                 break;

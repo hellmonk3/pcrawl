@@ -344,7 +344,7 @@ static const vector<brand_weight_tuple> SBL_BRANDS = {
     { SPWPN_VENOM,          17 },
     { SPWPN_SPEED,          10 },
     { SPWPN_DRAINING,        9 },
-    { SPWPN_PROTECTION,      6 },
+    { SPWPN_SHIELDING,      6 },
     { SPWPN_ELECTROCUTION,   6 },
     { SPWPN_SILVER,      5 },
     { SPWPN_VAMPIRISM,       4 },
@@ -356,7 +356,7 @@ static const vector<brand_weight_tuple> SBL_BRANDS = {
 
 /// brand weights for most m&f weapons
 static const vector<brand_weight_tuple> M_AND_F_BRANDS = {
-    { SPWPN_PROTECTION,     30 },
+    { SPWPN_SHIELDING,     30 },
     { SPWPN_NORMAL,         28 },
     { SPWPN_SILVER,     15 },
     { SPWPN_HEAVY,          14 },
@@ -392,7 +392,7 @@ static const vector<brand_weight_tuple> LBL_BRANDS = {
     { SPWPN_NORMAL,         19 },
     { SPWPN_HEAVY,          15 },
     { SPWPN_ELECTROCUTION,  10 },
-    { SPWPN_PROTECTION,      8 },
+    { SPWPN_SHIELDING,      8 },
     { SPWPN_FREEZING,        5 },
     { SPWPN_EXPLOSIVE,         5 },
     { SPWPN_DRAINING,        5 },
@@ -423,7 +423,7 @@ static const vector<brand_weight_tuple> AXE_BRANDS = {
 static const vector<brand_weight_tuple> POLEARM_BRANDS = {
     { SPWPN_NORMAL,     36 },
     { SPWPN_VENOM,      17 },
-    { SPWPN_PROTECTION, 12 },
+    { SPWPN_SHIELDING, 12 },
     { SPWPN_HEAVY,       9 },
     { SPWPN_EXPLOSIVE,     7 },
     { SPWPN_FREEZING,    7 },
@@ -492,7 +492,7 @@ static const weapon_def Weapon_prop[] =
     { WPN_MORNINGSTAR,       "morningstar",        13, -2, 6,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CRUSHING | DAM_PIERCE, 7, 10, 40, {
-            { SPWPN_PROTECTION,     30 },
+            { SPWPN_SHIELDING,     30 },
             { SPWPN_NORMAL,         15 },
             { SPWPN_SILVER,     15 },
             { SPWPN_DRAINING,       10 },
@@ -517,7 +517,7 @@ static const weapon_def Weapon_prop[] =
     { WPN_EVENINGSTAR,       "eveningstar",        15, -1, 7,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_CRUSHING | DAM_PIERCE, 0, 2, 150, {
-            { SPWPN_PROTECTION,     30 },
+            { SPWPN_SHIELDING,     30 },
             { SPWPN_DRAINING,       19 },
             { SPWPN_SILVER,     15 },
             { SPWPN_NORMAL,          8 },
@@ -548,7 +548,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_NORMAL,         20 },
             { SPWPN_SPEED,          10 },
             { SPWPN_DRAINING,        9 },
-            { SPWPN_PROTECTION,      6 },
+            { SPWPN_SHIELDING,      6 },
             { SPWPN_ELECTROCUTION,   6 },
             { SPWPN_SILVER,      5 },
             { SPWPN_VAMPIRISM,       4 },
@@ -564,7 +564,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_NORMAL,         43 },
             { SPWPN_VENOM,          17 },
             { SPWPN_DRAINING,        9 },
-            { SPWPN_PROTECTION,      6 },
+            { SPWPN_SHIELDING,      6 },
             { SPWPN_ELECTROCUTION,   6 },
             { SPWPN_SILVER,      5 },
             { SPWPN_VAMPIRISM,       4 },

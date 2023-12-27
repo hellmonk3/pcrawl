@@ -81,7 +81,7 @@ static const form_entry formdata[] =
     EQF_PHYSICAL, MR_VUL_POISON,
     FormDuration(10, PS_DOUBLE, 60), 0, 5, SIZE_TINY, 10,
     {}, true, {},
-    SPWPN_VENOM, LIGHTGREEN, "Fangs", ANIMAL_VERBS,
+    SPWPN_SPELLVAMP, LIGHTGREEN, "Fangs", ANIMAL_VERBS,
     FC_DEFAULT, FC_FORBID, FC_FORBID, false,
     "hiss", -4, "front pincers", "", "crawl onto", "flesh",
     { {"venomous fangs", "You have venomous fangs."},

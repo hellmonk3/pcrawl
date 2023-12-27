@@ -799,7 +799,7 @@ static bool _choose_chaos_upgrade(const monster& mon)
             // monster's ammo won't be an upgrade.
             int brand = get_weapon_brand(item);
             if (brand == SPWPN_EXPLOSIVE || brand == SPWPN_FREEZING
-                || brand == SPWPN_VENOM)
+                || brand == SPWPN_SPELLVAMP)
             {
                 special_launcher = true;
             }

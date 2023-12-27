@@ -1217,7 +1217,7 @@ public:
         if (you.get_mutation_level(MUT_WEAKNESS_STINGER) == 3)
             return SPWPN_WEAKNESS;
 
-        return you.get_mutation_level(MUT_STINGER) ? SPWPN_VENOM : SPWPN_NORMAL;
+        return you.get_mutation_level(MUT_STINGER) ? SPWPN_SPELLVAMP : SPWPN_NORMAL;
     }
 };
 
@@ -1560,7 +1560,7 @@ bool melee_attack::player_aux_apply(unarmed_attack_type atk)
             if (damage_brand == SPWPN_ACID)
                 defender->acid_corrode(3);
 
-            if (damage_brand == SPWPN_VENOM && coinflip())
+            if (damage_brand == SPWPN_SPELLVAMP && coinflip())
                 poison_monster(defender->as_monster(), &you);
 
             if (damage_brand == SPWPN_WEAKNESS

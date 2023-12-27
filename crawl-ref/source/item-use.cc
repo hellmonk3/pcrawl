@@ -3085,7 +3085,7 @@ static void _rebrand_weapon(item_def& wpn)
             new_brand = random_choose_weighted(2, SPWPN_EXPLOSIVE,
                                                2, SPWPN_FREEZING,
                                                2, SPWPN_HEAVY,
-                                               2, SPWPN_VENOM,
+                                               2, SPWPN_SPELLVAMP,
                                                2, SPWPN_SHIELDING,
                                                1, SPWPN_DRAINING,
                                                1, SPWPN_ELECTROCUTION,
@@ -3147,9 +3147,9 @@ static void _brand_weapon(item_def &wpn)
         mprf("%s thirsts for the lives of mortals!", itname.c_str());
         break;
 
-    case SPWPN_VENOM:
+    case SPWPN_SPELLVAMP:
         flash_colour = GREEN;
-        mprf("%s drips with poison.", itname.c_str());
+        mprf("%s hungers for magic.", itname.c_str());
         break;
 
     case SPWPN_ELECTROCUTION:

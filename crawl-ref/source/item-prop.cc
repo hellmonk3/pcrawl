@@ -341,7 +341,7 @@ struct weapon_def
 /// brand weights for non-dagger shortblades (short sword & rapier)
 static const vector<brand_weight_tuple> SBL_BRANDS = {
     { SPWPN_NORMAL,         33 },
-    { SPWPN_VENOM,          17 },
+    { SPWPN_SPELLVAMP,          17 },
     { SPWPN_SPEED,          10 },
     { SPWPN_DRAINING,        9 },
     { SPWPN_SHIELDING,      6 },
@@ -361,7 +361,7 @@ static const vector<brand_weight_tuple> M_AND_F_BRANDS = {
     { SPWPN_SILVER,     15 },
     { SPWPN_HEAVY,          14 },
     { SPWPN_DRAINING,       10 },
-    { SPWPN_VENOM,           5 },
+    { SPWPN_SPELLVAMP,           5 },
     { SPWPN_BLINKING,      1 },
     { SPWPN_ANTIMAGIC,       1 },
     { SPWPN_PAIN,            1 },
@@ -376,7 +376,7 @@ static const vector<brand_weight_tuple> CLUB_BRANDS = {
 /// brand weights for demon weapons (whip, blade, trident)
 static const vector<brand_weight_tuple> DEMON_BRANDS = {
     { SPWPN_NORMAL,         27 },
-    { SPWPN_VENOM,          19 },
+    { SPWPN_SPELLVAMP,          19 },
     { SPWPN_ELECTROCUTION,  16 },
     { SPWPN_DRAINING,       10 },
     { SPWPN_EXPLOSIVE,         7 },
@@ -397,7 +397,7 @@ static const vector<brand_weight_tuple> LBL_BRANDS = {
     { SPWPN_EXPLOSIVE,         5 },
     { SPWPN_DRAINING,        5 },
     { SPWPN_VAMPIRISM,       4 },
-    { SPWPN_VENOM,           2 },
+    { SPWPN_SPELLVAMP,           2 },
     { SPWPN_BLINKING,      2 },
     { SPWPN_PAIN,            1 },
     { SPWPN_ANTIMAGIC,       1 },
@@ -410,7 +410,7 @@ static const vector<brand_weight_tuple> AXE_BRANDS = {
     { SPWPN_ELECTROCUTION,  11 },
     { SPWPN_EXPLOSIVE,        10 },
     { SPWPN_FREEZING,       10 },
-    { SPWPN_VENOM,           8 },
+    { SPWPN_SPELLVAMP,           8 },
     { SPWPN_VAMPIRISM,       5 },
     { SPWPN_DRAINING,        3 },
     { SPWPN_BLINKING,      2 },
@@ -422,7 +422,7 @@ static const vector<brand_weight_tuple> AXE_BRANDS = {
 /// brand weights for most polearms.
 static const vector<brand_weight_tuple> POLEARM_BRANDS = {
     { SPWPN_NORMAL,     36 },
-    { SPWPN_VENOM,      17 },
+    { SPWPN_SPELLVAMP,      17 },
     { SPWPN_SHIELDING, 12 },
     { SPWPN_HEAVY,       9 },
     { SPWPN_EXPLOSIVE,     7 },
@@ -467,7 +467,7 @@ static const weapon_def Weapon_prop[] =
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLASHING, 4, 0, 25, {
             { SPWPN_NORMAL,        34 },
-            { SPWPN_VENOM,         16 },
+            { SPWPN_SPELLVAMP,         16 },
             { SPWPN_ELECTROCUTION, 16 },
             { SPWPN_DRAINING,       7 },
             { SPWPN_FREEZING,       6 },
@@ -497,7 +497,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_SILVER,     15 },
             { SPWPN_DRAINING,       10 },
             { SPWPN_HEAVY,           9 },
-            { SPWPN_VENOM,           5 },
+            { SPWPN_SPELLVAMP,           5 },
             { SPWPN_EXPLOSIVE,         4 },
             { SPWPN_FREEZING,        4 },
             { SPWPN_BLINKING,      2 },
@@ -522,7 +522,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_SILVER,     15 },
             { SPWPN_NORMAL,          8 },
             { SPWPN_HEAVY,           6 },
-            { SPWPN_VENOM,           6 },
+            { SPWPN_SPELLVAMP,           6 },
             { SPWPN_EXPLOSIVE,         6 },
             { SPWPN_FREEZING,        6 },
             { SPWPN_BLINKING,      2 },
@@ -544,7 +544,7 @@ static const weapon_def Weapon_prop[] =
     { WPN_DAGGER,            "dagger",              4,  6, 1,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 10, 10, 20, {
-            { SPWPN_VENOM,          28 },
+            { SPWPN_SPELLVAMP,          28 },
             { SPWPN_NORMAL,         20 },
             { SPWPN_SPEED,          10 },
             { SPWPN_DRAINING,        9 },
@@ -562,7 +562,7 @@ static const weapon_def Weapon_prop[] =
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 0, 2, 150, {
             { SPWPN_NORMAL,         43 },
-            { SPWPN_VENOM,          17 },
+            { SPWPN_SPELLVAMP,          17 },
             { SPWPN_DRAINING,        9 },
             { SPWPN_SHIELDING,      6 },
             { SPWPN_ELECTROCUTION,   6 },
@@ -654,7 +654,7 @@ static const weapon_def Weapon_prop[] =
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_PIERCING, 8, 10, 30, {
             { SPWPN_NORMAL,     46 },
-            { SPWPN_VENOM,      17 },
+            { SPWPN_SPELLVAMP,      17 },
             { SPWPN_HEAVY,      12 },
             { SPWPN_EXPLOSIVE,     7 },
             { SPWPN_FREEZING,    7 },
@@ -713,7 +713,7 @@ static const weapon_def Weapon_prop[] =
             { SPWPN_ELECTROCUTION,  12 },
             { SPWPN_VAMPIRISM,      12 },
             { SPWPN_SPECTRAL,        9 },
-            { SPWPN_VENOM,           7 },
+            { SPWPN_SPELLVAMP,           7 },
             { SPWPN_PAIN,            7 },
             { SPWPN_ANTIMAGIC,       4 },
             { SPWPN_BLINKING,      3 },

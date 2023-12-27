@@ -839,7 +839,7 @@ void monster::unequip_weapon(item_def &item, bool msg)
             mpr("It stops crackling.");
             break;
 
-        case SPWPN_VENOM:
+        case SPWPN_SPELLVAMP:
             mpr("It stops dripping with poison.");
             break;
 

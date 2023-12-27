@@ -1354,7 +1354,7 @@ static string _describe_brand(brand_type brand)
     case SPWPN_DRAINING:
     case SPWPN_ELECTROCUTION:
     case SPWPN_FREEZING:
-    case SPWPN_VENOM:
+    case SPWPN_SPELLVAMP:
     {
         const string brand_name = uppercase_first(brand_type_name(brand, true));
         return make_stringf(" + %s", brand_name.c_str());
@@ -1638,8 +1638,9 @@ static string _describe_weapon_brand(const item_def &item)
     case SPWPN_ELECTROCUTION:
         return "It sometimes electrocutes victims (1/2 chance, 1d10 damage)."
                "This damage pierces armour, but rElec prevents it.";
-    case SPWPN_VENOM:
-        return "It poisons victims.";
+    case SPWPN_SPELLVAMP:
+        return "It restores its wielder's magic when it slays a foe. The "
+               "amount of magic restored depends on the foe's difficulty.";
     case SPWPN_SHIELDING:
         return "It grants its wielder temporary protection after it strikes "
                "(+20% SH, lasts about 3 turns).";

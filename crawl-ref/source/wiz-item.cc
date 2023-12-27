@@ -1083,7 +1083,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "orc slaying",
             "dragon slaying",
 #endif
-            "venom",
+            "magic vamp",
             "shielding",
             "draining",
             "speed",

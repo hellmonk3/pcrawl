@@ -501,7 +501,7 @@ static void _add_randart_weapon_brand(const item_def &item,
             SPWPN_ELECTROCUTION,
             SPWPN_VAMPIRISM,
             SPWPN_PAIN,
-            SPWPN_VENOM);
+            SPWPN_SPELLVAMP);
         // fall back to regular melee brands 2/9 of the time
     }
     else
@@ -510,7 +510,7 @@ static void _add_randart_weapon_brand(const item_def &item,
             47, SPWPN_HEAVY,
             47, SPWPN_EXPLOSIVE,
             47, SPWPN_FREEZING,
-            26, SPWPN_VENOM,
+            26, SPWPN_SPELLVAMP,
             26, SPWPN_DRAINING,
             13, SPWPN_SILVER,
             13, SPWPN_ELECTROCUTION,

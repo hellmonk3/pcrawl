@@ -1308,7 +1308,7 @@ static void _summon_dancing_weapon(int power)
         wpn.sub_type = random_choose(WPN_QUARTERSTAFF, WPN_HAND_AXE);
 
         set_item_ego_type(wpn, OBJ_WEAPONS,
-                          random_choose(SPWPN_VENOM, SPWPN_NORMAL));
+                          random_choose(SPWPN_SPELLVAMP, SPWPN_NORMAL));
         break;
     case 1:
         // This is getting good.

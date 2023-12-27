@@ -584,7 +584,7 @@ static const vector<chaos_attack_type> chaos_types = {
       [](const actor &d) { return !d.is_icy(); } },
     { AF_ELEC,      SPWPN_ELECTROCUTION, 10,
       nullptr },
-    { AF_POISON,    SPWPN_VENOM,         10,
+    { AF_POISON,    SPWPN_SPELLVAMP,         10,
       [](const actor &d) {
           return !(d.holiness() & (MH_UNDEAD | MH_NONLIVING)); } },
     { AF_CHAOTIC,   SPWPN_CHAOS,         10,
@@ -625,7 +625,7 @@ brand_type attack::random_chaos_brand()
     case SPWPN_FREEZING:        brand_name += "freezing"; break;
     case SPWPN_SILVER:      brand_name += "holy wrath"; break;
     case SPWPN_ELECTROCUTION:   brand_name += "electrocution"; break;
-    case SPWPN_VENOM:           brand_name += "venom"; break;
+    case SPWPN_SPELLVAMP:           brand_name += "magic vamp"; break;
     case SPWPN_DRAINING:        brand_name += "draining"; break;
     case SPWPN_BLINKING:      brand_name += "blinking"; break;
     case SPWPN_VAMPIRISM:       brand_name += "vampirism"; break;
@@ -1123,7 +1123,8 @@ bool attack::apply_damage_brand(const char *what)
 
     if (brand != SPWPN_EXPLOSIVE && brand != SPWPN_FREEZING
         && brand != SPWPN_ELECTROCUTION && brand != SPWPN_VAMPIRISM
-        && brand != SPWPN_SHIELDING && !defender->alive())
+        && brand != SPWPN_SHIELDING && brand != SPWPN_SPELLVAMP
+        && !defender->alive())
     {
         // Most brands have no extra effects on just killed enemies, and the
         // effect would be often inappropriate.
@@ -1133,7 +1134,7 @@ bool attack::apply_damage_brand(const char *what)
     if (!damage_done
         && (brand == SPWPN_EXPLOSIVE || brand == SPWPN_FREEZING
             || brand == SPWPN_SILVER || brand == SPWPN_ANTIMAGIC
-            || brand == SPWPN_VAMPIRISM))
+            || brand == SPWPN_VAMPIRISM || brand == SPWPN_SPELLVAMP))
     {
         // These brands require some regular damage to function.
         return false;
@@ -1195,9 +1196,23 @@ bool attack::apply_damage_brand(const char *what)
 
         break;
 
-    case SPWPN_VENOM:
-        obvious_effect = apply_poison_damage_brand();
+    case SPWPN_SPELLVAMP:
+    {
+        if (!weapon
+            || damage_done < 1
+            || defender->alive()
+            || !attacker->is_player()
+            || you.magic_points == you.max_magic_points)
+        {
+            break;
+        }
+
+        int mp_boost = 1 + random2(defender->get_hit_dice());
+        obvious_effect = true;
+        canned_msg(MSG_GAIN_MAGIC);
+        inc_mp(mp_boost);
         break;
+    }
 
     case SPWPN_DRAINING:
         drain_defender();

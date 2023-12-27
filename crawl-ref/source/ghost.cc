@@ -219,7 +219,7 @@ void ghost_demon::set_pan_lord_special_attack()
 {
     const attack_form form = random_choose_weighted(
         // Low chance
-        10, _brand_attack(SPWPN_VENOM),
+        10, _brand_attack(SPWPN_SPELLVAMP),
         10, _brand_attack(SPWPN_DRAINING),
         4, _flavour_attack(AF_DRAIN_STR),
         4, _flavour_attack(AF_DRAIN_INT),
@@ -246,7 +246,7 @@ void ghost_demon::set_pan_lord_special_attack()
     if (form.flavour != AF_PLAIN)
         att_flav = form.flavour;
 
-    if (brand == SPWPN_VENOM && coinflip())
+    if (brand == SPWPN_SPELLVAMP && coinflip())
         att_type = AT_STING; // such flavour!
     switch (att_flav)
     {

@@ -4948,7 +4948,7 @@ int str_to_ego(object_class_type item_type, string ego_str)
         "orc_slaying",
         "dragon_slaying",
 #endif
-        "venom",
+        "magic vamp",
         "shielding",
         "draining",
         "speed",

@@ -1207,18 +1207,15 @@ bool attack::apply_damage_brand(const char *what)
     {
         if (!weapon
             || damage_done < 1
+            || defender->alive()
             || !actor_is_susceptible_to_vampirism(*defender)
             || attacker->stat_hp() == attacker->stat_maxhp()
-            || attacker->is_player() && you.duration[DUR_DEATHS_DOOR]
-            || x_chance_in_y(2, 5)
-               && !is_unrandom_artefact(*weapon, UNRAND_LEECH))
+            || attacker->is_player() && you.duration[DUR_DEATHS_DOOR])
         {
             break;
         }
 
-        int hp_boost = is_unrandom_artefact(*weapon, UNRAND_VAMPIRES_TOOTH)
-                       ? damage_done : 1 + random2(damage_done);
-        hp_boost = resist_adjust_damage(defender, BEAM_NEG, hp_boost);
+        int hp_boost = 1 + random2(2 * defender->get_hit_dice());
 
         if (hp_boost)
         {

@@ -1658,8 +1658,8 @@ static string _describe_weapon_brand(const item_def &item)
     case SPWPN_CHAOS:
         return "Each hit has a different, random effect.";
     case SPWPN_VAMPIRISM:
-        return "It occasionally heals its wielder for a portion "
-               "of the damage dealt when it wounds a living foe.";
+        return "It heals its wielder when it slays a living foe. The amount of "
+               "healing depends on the monster's difficulty.";
     case SPWPN_PAIN:
         {
             string desc = "It inflicts extra damage on living creatures "

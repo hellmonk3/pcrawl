@@ -4950,7 +4950,9 @@ int str_to_ego(object_class_type item_type, string ego_str)
 #endif
         "magic vamp",
         "shielding",
+#if TAG_MAJOR_VERSION == 34
         "draining",
+#endif
         "speed",
         "heavy",
 #if TAG_MAJOR_VERSION == 34

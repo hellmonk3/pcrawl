@@ -220,7 +220,6 @@ void ghost_demon::set_pan_lord_special_attack()
     const attack_form form = random_choose_weighted(
         // Low chance
         10, _brand_attack(SPWPN_SPELLVAMP),
-        10, _brand_attack(SPWPN_DRAINING),
         4, _flavour_attack(AF_DRAIN_STR),
         4, _flavour_attack(AF_DRAIN_INT),
         2, _flavour_attack(AF_DRAIN_DEX),
@@ -273,8 +272,6 @@ void ghost_demon::set_pan_lord_cloud_ring()
         cloud_ring_ench = ENCH_RING_OF_ICE;
     else if (att_flav == AF_CORRODE)
         cloud_ring_ench = ENCH_RING_OF_ACID;
-    else if (brand == SPWPN_DRAINING)
-        cloud_ring_ench = ENCH_RING_OF_DRAINING;
     else
     {
         cloud_ring_ench = random_choose_weighted(

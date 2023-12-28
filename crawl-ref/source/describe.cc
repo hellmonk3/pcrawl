@@ -1351,7 +1351,6 @@ static string _describe_brand(brand_type brand)
     case SPWPN_ACID:
     case SPWPN_CHAOS:
     case SPWPN_BLINKING:
-    case SPWPN_DRAINING:
     case SPWPN_ELECTROCUTION:
     case SPWPN_FREEZING:
     case SPWPN_SPELLVAMP:
@@ -1644,11 +1643,6 @@ static string _describe_weapon_brand(const item_def &item)
     case SPWPN_SHIELDING:
         return "It grants its wielder temporary protection after it strikes "
                "(+20% SH, lasts about 3 turns).";
-    case SPWPN_DRAINING:
-        return "It sometimes drains living victims (1/2 chance). This deals "
-               "an additional one-quarter of any damage that pierces "
-               "defenders' armour as well as a flat 2-4 damage, and also "
-               "weakens them slightly.";
     case SPWPN_SPEED:
         return "Attacks with this weapon are significantly faster.";
     case SPWPN_HEAVY:

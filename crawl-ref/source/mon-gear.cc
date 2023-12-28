@@ -394,7 +394,6 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
       { { SPWPN_SILVER,     1 } } };
     static const vector<pair<brand_type, int>> HELL_KNIGHT_BRANDS = // sum 45
     {   { SPWPN_EXPLOSIVE,        13 },
-        { SPWPN_DRAINING,       4 },
         { SPWPN_HEAVY,          4 },
         { SPWPN_PAIN,           2 },
         { NUM_SPECIAL_WEAPONS,  20 }, // 5/9 chance of brand
@@ -501,11 +500,11 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
         { MONS_GRUNN,
             { { { WPN_GLAIVE,            2 },
                 { WPN_BARDICHE,          1 },
-        }, { 1, 4, 9 }, { { SPWPN_DRAINING, 1 } } } },
+        }, { 1, 4, 9 }, { { SPWPN_VAMPIRISM, 1 } } } },
         { MONS_JEREMIAH,
             { { { WPN_TRIDENT,            1 },
         }, { 1, 2, 4 }, {
-            { SPWPN_DRAINING,  9 },
+            { SPWPN_SPELLVAMP,  9 },
             { SPWPN_VAMPIRISM, 1 },
         } } },
         { MONS_CRAZY_YIUF,
@@ -823,7 +822,7 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
               { WPN_SHORT_SWORD,        1 }, }, {},
             { { SPWPN_BLINKING,       3 },
               { SPWPN_SPELLVAMP,            2 },
-              { SPWPN_DRAINING,         1 } },
+              { SPWPN_VAMPIRISM,         1 } },
         } },
         { MONS_MAURICE,
             { { { WPN_DAGGER,           1 },
@@ -871,7 +870,7 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
               { WPN_BATTLEAXE,          1 },
               { WPN_GREAT_SWORD,        1 }, },
             { 1, 0, 3 },
-            { { SPWPN_DRAINING,      13 }, // total 45
+            { { SPWPN_VAMPIRISM,      13 }, // total 45
               { SPWPN_HEAVY,         7 },
               { SPWPN_FREEZING,      4 },
               { SPWPN_EXPLOSIVE,       4 },

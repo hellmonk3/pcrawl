@@ -206,7 +206,6 @@ unsigned int item_value(item_def item, bool ident)
                 break;
 
             case SPWPN_CHAOS:
-            case SPWPN_DRAINING:
             case SPWPN_EXPLOSIVE:
             case SPWPN_FREEZING:
             case SPWPN_HEAVY:

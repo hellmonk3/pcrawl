@@ -297,7 +297,7 @@ INSCRIP: curses,
 COLOUR:  ETC_DEATH
 TILE:    spwpn_scythe_of_curses
 TILE_EQ: finisher
-BRAND:   SPWPN_DRAINING
+BRAND:   SPWPN_VAMPIRISM
 VALUE:   800
 BOOL:    drain
 DBRAND:  Curses:    It inflicts powerful necromantic curses on any living foe it
@@ -383,7 +383,7 @@ PLUS:    +8
 COLOUR:  ETC_DARK
 TILE:    urand_bloodbane
 TILE_EQ: bloodbane
-BRAND:   SPWPN_DRAINING
+BRAND:   SPWPN_VAMPIRISM
 ANGRY:   5
 BOOL:    nogen
 STEALTH: -1
@@ -1145,7 +1145,7 @@ PLUS:     +16
 COLOUR:   ETC_UNHOLY
 TILE:     spwpn_demon_axe
 TILE_EQ:  demon_axe
-BRAND:    SPWPN_DRAINING
+BRAND:    SPWPN_VAMPIRISM
 FB_BRAND: SPWPN_PAIN
 BOOL:     evil, fly, drain
 INSCRIP:  demonic, Mesm
@@ -1612,7 +1612,7 @@ PLUS:       7
 COLOUR:     LIGHTRED
 TILE:       urand_throatcutter
 TILE_EQ:    throatcutter
-BRAND:      SPWPN_DRAINING
+BRAND:      SPWPN_VAMPIRISM
 INSCRIP:    coup de grace
 DBRAND:     Coup de Grace: It may instantly kill foes which have little health.
 

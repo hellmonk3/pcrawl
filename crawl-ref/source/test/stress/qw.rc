@@ -1071,13 +1071,6 @@ function weapon_value(it, cur, it2, sit)
       end
     elseif ego == "electrocution" then
       value = value + 150 -- not bad
-    elseif ego == "draining" then
-      if not extended then
-        value = value + 75
-      end
-      if tso then
-        return -1,-1
-      end
     elseif ego == "flaming" or ego == "freezing"
            or ego == "crushing" or ego == "slicing"
            or ego == "piercing" or ego == "chopping" or ego == "slashing" then

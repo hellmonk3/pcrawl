@@ -142,7 +142,9 @@ enum brand_type // item_def.special
 #endif
     SPWPN_SPELLVAMP,
     SPWPN_SHIELDING,
+#if TAG_MAJOR_VERSION == 34
     SPWPN_DRAINING,
+#endif
     SPWPN_SPEED,
     SPWPN_HEAVY,
 #if TAG_MAJOR_VERSION == 34

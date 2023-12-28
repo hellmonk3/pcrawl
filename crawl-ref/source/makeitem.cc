@@ -314,7 +314,6 @@ bool is_weapon_brand_ok(int type, int brand, bool /*strict*/)
     case SPWPN_ELECTROCUTION:
     case SPWPN_EXPLOSIVE:
     case SPWPN_FREEZING:
-    case SPWPN_DRAINING:
     case SPWPN_ANTIMAGIC:
     case SPWPN_ACID:
     case SPWPN_PAIN:
@@ -344,6 +343,7 @@ bool is_weapon_brand_ok(int type, int brand, bool /*strict*/)
     case SPWPN_FROST:
     case SPWPN_DRAGON_SLAYING:
     case SPWPN_EVASION:
+    case SPWPN_DRAINING:
         return false;
 #endif
 

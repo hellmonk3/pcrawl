@@ -1694,7 +1694,7 @@ void yred_make_bound_soul(monster* mon, bool force_hostile)
         item_def *wpn = mon->mslot_item(static_cast<mon_inv_type>(slot));
         if (wpn && get_weapon_brand(*wpn) == SPWPN_SILVER)
         {
-            set_item_ego_type(*wpn, OBJ_WEAPONS, SPWPN_DRAINING);
+            set_item_ego_type(*wpn, OBJ_WEAPONS, SPWPN_VAMPIRISM);
             convert2bad(*wpn);
         }
     }

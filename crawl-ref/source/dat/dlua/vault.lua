@@ -111,8 +111,7 @@ function hall_of_blades_weapon(e)
                  "executioner's axe", "eveningstar", "bardiche",
                  "lajatang"}
   local egos = {"flaming", "freezing", "electrocution", "venom",
-              "holy_wrath", "pain", "vampirism", "draining",
-              "antimagic"}
+              "holy_wrath", "pain", "vampirism", "antimagic"}
   local weapon1 = util.random_from(types)
   local weapon2 = weapon1
   while weapon2 == weapon1 do

@@ -476,10 +476,6 @@ static void _equip_weapon_effect(item_def& item, bool showMsgs, bool unmeld)
                     mprf("%s hums with potential!", item_name.c_str());
                     break;
 
-                case SPWPN_DRAINING:
-                    mpr("You sense an unholy aura.");
-                    break;
-
                 case SPWPN_SPEED:
                     mpr(you.hands_act("tingle", "!"));
                     break;

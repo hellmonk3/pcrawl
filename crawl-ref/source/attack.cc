@@ -589,9 +589,6 @@ static const vector<chaos_attack_type> chaos_types = {
           return !(d.holiness() & (MH_UNDEAD | MH_NONLIVING)); } },
     { AF_CHAOTIC,   SPWPN_CHAOS,         10,
       nullptr },
-    { AF_DRAIN,  SPWPN_DRAINING,      5,
-      [](const actor &d) {
-          return bool(d.holiness() & (MH_NATURAL | MH_PLANT)); } },
     { AF_VAMPIRIC,  SPWPN_VAMPIRISM,     5,
       [](const actor &d) {
           return !d.is_summoned()
@@ -626,7 +623,6 @@ brand_type attack::random_chaos_brand()
     case SPWPN_SILVER:      brand_name += "holy wrath"; break;
     case SPWPN_ELECTROCUTION:   brand_name += "electrocution"; break;
     case SPWPN_SPELLVAMP:           brand_name += "magic vamp"; break;
-    case SPWPN_DRAINING:        brand_name += "draining"; break;
     case SPWPN_BLINKING:      brand_name += "blinking"; break;
     case SPWPN_VAMPIRISM:       brand_name += "vampirism"; break;
     case SPWPN_ANTIMAGIC:       brand_name += "antimagic"; break;
@@ -1213,10 +1209,6 @@ bool attack::apply_damage_brand(const char *what)
         inc_mp(mp_boost);
         break;
     }
-
-    case SPWPN_DRAINING:
-        drain_defender();
-        break;
 
     case SPWPN_VAMPIRISM:
     {

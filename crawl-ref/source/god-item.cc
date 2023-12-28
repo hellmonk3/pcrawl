@@ -108,7 +108,6 @@ bool is_evil_brand(int brand)
 {
     switch (brand)
     {
-    case SPWPN_DRAINING:
     case SPWPN_PAIN:
     case SPWPN_VAMPIRISM:
     case SPWPN_REAPING:

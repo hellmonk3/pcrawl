@@ -3075,7 +3075,6 @@ static void _rebrand_weapon(item_def& wpn)
         {
             new_brand = random_choose_weighted(3, SPWPN_EXPLOSIVE,
                                                3, SPWPN_FREEZING,
-                                               3, SPWPN_DRAINING,
                                                3, SPWPN_HEAVY,
                                                1, SPWPN_ELECTROCUTION,
                                                1, SPWPN_CHAOS);
@@ -3087,7 +3086,6 @@ static void _rebrand_weapon(item_def& wpn)
                                                2, SPWPN_HEAVY,
                                                2, SPWPN_SPELLVAMP,
                                                2, SPWPN_SHIELDING,
-                                               1, SPWPN_DRAINING,
                                                1, SPWPN_ELECTROCUTION,
                                                1, SPWPN_SPECTRAL,
                                                1, SPWPN_VAMPIRISM,
@@ -3135,11 +3133,6 @@ static void _brand_weapon(item_def &wpn)
     case SPWPN_FREEZING:
         flash_colour = LIGHTCYAN;
         mprf("%s is covered with a thin layer of ice!", itname.c_str());
-        break;
-
-    case SPWPN_DRAINING:
-        flash_colour = DARKGREY;
-        mprf("%s craves living souls!", itname.c_str());
         break;
 
     case SPWPN_VAMPIRISM:

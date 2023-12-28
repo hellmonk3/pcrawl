@@ -150,7 +150,7 @@ static const form_entry formdata[] =
     EQF_NONE, MR_RES_COLD | mrd(MR_RES_NEG, 3),
     DEFAULT_DURATION, 0, 0, SIZE_CHARACTER, 10,
     {}, true, FormScaling().Base(6),
-    SPWPN_DRAINING, MAGENTA, "", DEFAULT_VERBS,
+    SPWPN_NORMAL, MAGENTA, "", DEFAULT_VERBS,
     FC_DEFAULT, FC_DEFAULT, FC_FORBID, true,
     "", 0, "", "", "", "bone",
     { { "vile attack", "Your melee and unarmed attacks drain, slow and weaken victims."},

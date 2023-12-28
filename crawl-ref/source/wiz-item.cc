@@ -1085,7 +1085,9 @@ static void _debug_acquirement_stats(FILE *ostat)
 #endif
             "magic vamp",
             "shielding",
+#if TAG_MAJOR_VERSION == 34
             "draining",
+#endif
             "speed",
             "heavy",
 #if TAG_MAJOR_VERSION == 34

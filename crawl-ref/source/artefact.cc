@@ -482,7 +482,6 @@ static void _add_randart_weapon_brand(const item_def &item,
             2, SPWPN_SPEED,
             2, SPWPN_ELECTROCUTION,
             2, SPWPN_ANTIMAGIC,
-            4, SPWPN_DRAINING,
             4, SPWPN_HEAVY,
             4, SPWPN_EXPLOSIVE,
             4, SPWPN_FREEZING);
@@ -495,7 +494,6 @@ static void _add_randart_weapon_brand(const item_def &item,
     else if (is_demonic(item) && x_chance_in_y(7, 9))
     {
         item_props[ARTP_BRAND] = random_choose(
-            SPWPN_DRAINING,
             SPWPN_EXPLOSIVE,
             SPWPN_FREEZING,
             SPWPN_ELECTROCUTION,
@@ -511,7 +509,6 @@ static void _add_randart_weapon_brand(const item_def &item,
             47, SPWPN_EXPLOSIVE,
             47, SPWPN_FREEZING,
             26, SPWPN_SPELLVAMP,
-            26, SPWPN_DRAINING,
             13, SPWPN_SILVER,
             13, SPWPN_ELECTROCUTION,
             13, SPWPN_SPEED,

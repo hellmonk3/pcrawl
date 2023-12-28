@@ -641,6 +641,8 @@ void wizard_apply_monster_blessing(monster* mon)
 
 void wizard_give_monster_item(monster* mon)
 {
+    return;
+
     mon_itemuse_type item_use = mons_itemuse(*mon);
     if (item_use < MONUSE_STARTING_EQUIPMENT)
     {
@@ -675,9 +677,6 @@ void wizard_give_monster_item(monster* mon)
     {
         mon_slot = MSLOT_ALT_WEAPON;
     }
-
-    if (!mon->take_item(player_slot, mon_slot))
-        mpr("Error: monster failed to take item.");
 }
 
 static void _move_player(const coord_def& where)

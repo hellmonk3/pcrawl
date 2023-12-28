@@ -713,74 +713,7 @@ static bool _check_tukima_validity(const actor *target)
  **/
 static void _animate_weapon(int pow, actor* target)
 {
-    item_def * const wpn = target->weapon();
-    ASSERT(wpn);
-    // If sac love, the weapon will go after you, not the target.
-    const bool hostile = you.allies_forbidden();
-    const int dur = min(2 + div_rand_round(random2(1 + pow), 5), 6);
-
-    mgen_data mg(MONS_DANCING_WEAPON,
-                 hostile ? BEH_HOSTILE : BEH_FRIENDLY,
-                 target->pos(),
-                 hostile ? MHITYOU : target->mindex(),
-                 hostile ? MG_NONE : MG_FORCE_BEH);
-    mg.set_summoned(&you, dur, SPELL_TUKIMAS_DANCE);
-    mg.props[TUKIMA_WEAPON] = *wpn;
-    mg.props[TUKIMA_POWER] = pow;
-
-    monster * const mons = create_monster(mg);
-
-    if (!mons)
-    {
-        mprf("%s twitches for a moment.", wpn->name(DESC_THE).c_str());
-        return;
-    }
-
-    // Don't haunt yourself under sac love.
-    if (!hostile)
-    {
-        mons->add_ench(mon_enchant(ENCH_HAUNTING, 1, target,
-                                   INFINITE_DURATION));
-        mons->foe = target->mindex();
-    }
-
-    // We are successful. Unwield the weapon, removing any wield effects.
-    mprf("%s dances into the air!", wpn->name(DESC_THE).c_str());
-
-    monster * const montarget = target->as_monster();
-    const int primary_weap = montarget->inv[MSLOT_WEAPON];
-    const mon_inv_type wp_slot = (primary_weap != NON_ITEM
-                                  && &env.item[primary_weap] == wpn) ?
-                                     MSLOT_WEAPON : MSLOT_ALT_WEAPON;
-    ASSERT(montarget->inv[wp_slot] != NON_ITEM);
-    ASSERT(&env.item[montarget->inv[wp_slot]] == wpn);
-
-    montarget->unequip(*(montarget->mslot_item(wp_slot)), false, true);
-    montarget->inv[wp_slot] = NON_ITEM;
-
-    // Also steal ammo for launchers.
-    if (is_range_weapon(*wpn))
-    {
-        const int ammo = montarget->inv[MSLOT_MISSILE];
-        if (ammo != NON_ITEM)
-        {
-            ASSERT(mons->inv[MSLOT_MISSILE] == NON_ITEM);
-            mons->inv[MSLOT_MISSILE] = ammo;
-            montarget->inv[MSLOT_MISSILE] = NON_ITEM;
-            env.item[ammo].set_holding_monster(*mons);
-        }
-    }
-
-    // Find out what our god thinks before killing the item.
-    conduct_type why = god_hates_item_handling(*wpn);
-
-    wpn->clear();
-
-    if (why)
-    {
-        simple_god_message(" booms: How dare you animate that foul thing!");
-        did_god_conduct(why, 10, true, mons);
-    }
+    return;
 }
 
 /**

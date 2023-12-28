@@ -1493,6 +1493,8 @@ static bool _valid_beogh_gift_targets_in_sight()
  */
 bool beogh_gift_item()
 {
+    return false;
+
     if (!_valid_beogh_gift_targets_in_sight())
     {
         mpr("No worthy followers in sight.");
@@ -1571,15 +1573,6 @@ bool beogh_gift_item()
                               use_alt_slot ? MSLOT_ALT_WEAPON :
                                              MSLOT_WEAPON;
 
-    item_def *floor_item = mons->take_item(item_slot, mslot);
-    if (!floor_item)
-    {
-        // this probably means move_to_grid in drop_item failed?
-        mprf(MSGCH_ERROR, "Gift failed: %s is unable to take %s.",
-                                        mons->name(DESC_THE, false).c_str(),
-                                        gift.name(DESC_THE, false).c_str());
-        return false;
-    }
     if (use_alt_slot)
         mons->swap_weapons();
 

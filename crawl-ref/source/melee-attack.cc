@@ -2932,11 +2932,6 @@ void melee_attack::mons_apply_attack_flavour()
         break;
 
     case AF_STEAL:
-        // Ignore monsters, for now.
-        if (!defender->is_player())
-            break;
-
-        attacker->as_monster()->steal_item_from_player();
         break;
 
     case AF_HOLY:

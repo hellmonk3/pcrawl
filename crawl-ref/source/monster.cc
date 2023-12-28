@@ -811,20 +811,6 @@ int monster::armour_bonus(const item_def &item) const
     return armour_ac + armour_plus;
 }
 
-/**
- * Applies appropriate effects when unequipping an item.
- *
- * Note: this method does NOT modify this->inv to point to NON_ITEM!
- * @param item  the item to be removed.
- * @param msg   whether to give a message
- * @param force whether to remove the item even if cursed.
- * @return whether the item was unequipped successfully.
- */
-bool monster::unequip(item_def &item, bool msg, bool force)
-{
-    return false;
-}
-
 void monster::lose_pickup_energy()
 {
     if (const monsterentry* entry = find_monsterentry())
@@ -967,8 +953,6 @@ bool monster::drop_item(mon_inv_type eslot, bool msg)
         || eslot == MSLOT_JEWELLERY
         || eslot == MSLOT_ALT_WEAPON && mons_wields_two_weapons(*this))
     {
-        if (!unequip(pitem, msg))
-            return false;
         was_unequipped = true;
     }
 
@@ -1118,12 +1102,6 @@ void monster::swap_weapons(maybe_bool maybe_msg)
 
     item_def *weap = mslot_item(MSLOT_WEAPON);
     item_def *alt  = mslot_item(MSLOT_ALT_WEAPON);
-
-    if (weap && !unequip(*weap, msg))
-    {
-        // Item was cursed.
-        return;
-    }
 
     swap(inv[MSLOT_WEAPON], inv[MSLOT_ALT_WEAPON]);
 
@@ -4740,230 +4718,6 @@ reach_type monster::reach_range() const
         range = max(range, weapon_reach(*wpn));
 
     return range;
-}
-
-void monster::steal_item_from_player()
-{
-    if (confused())
-    {
-        string msg = getSpeakString("Maurice confused nonstealing");
-        if (!msg.empty() && msg != "__NONE")
-        {
-            msg = replace_all(msg, "@The_monster@", name(DESC_THE));
-            mprf(MSGCH_TALK, "%s", msg.c_str());
-        }
-        return;
-    }
-    // Theft isn't very peaceful. More importantly, you would risk losing the
-    // item forever when the monster flees the level.
-    if (pacified())
-        return;
-
-    mon_inv_type mslot = NUM_MONSTER_SLOTS;
-    int steal_what  = -1;
-    int total_value = 0;
-    for (int m = 0; m < ENDOFPACK; ++m)
-    {
-        if (!you.inv[m].defined())
-            continue;
-
-        // Cannot unequip player.
-        // TODO: Allow stealing of the wielded weapon?
-        //       Needs to be unwielded properly and should never lead to
-        //       fatal stat loss.
-        // 1KB: I'd say no, weapon is being held, it's different from pulling
-        //      a wand from your pocket.
-        if (item_is_equipped(you.inv[m]))
-            continue;
-
-        // Maurice isn't skilled enough to steal stuff you're in the middle of
-        // using.
-        for (const /*shared_ptr<Delay>*/auto& delay : you.delay_queue)
-            if (delay->is_being_used(you.inv[m]))
-                continue;
-
-        mon_inv_type monslot = item_to_mslot(you.inv[m]);
-        if (monslot == NUM_MONSTER_SLOTS)
-            continue;
-
-        // Only try to steal stuff we can still store somewhere.
-        if (inv[monslot] != NON_ITEM)
-        {
-            if (monslot == MSLOT_WEAPON
-                && inv[MSLOT_ALT_WEAPON] == NON_ITEM)
-            {
-                monslot = MSLOT_ALT_WEAPON;
-            }
-            else
-                continue;
-        }
-
-        // Candidate for stealing.
-        const int value = item_value(you.inv[m], true);
-        total_value += value;
-
-        if (x_chance_in_y(value, total_value))
-        {
-            steal_what = m;
-            mslot      = monslot;
-        }
-    }
-
-    if (steal_what == -1 || you.gold > 0 && one_chance_in(10))
-    {
-        // Found no item worth stealing, try gold.
-        if (you.gold == 0)
-        {
-            if (silenced(pos()))
-                return;
-
-            string complaint = getSpeakString("Maurice nonstealing");
-            if (!complaint.empty())
-            {
-                complaint = replace_all(complaint, "@The_monster@",
-                                        name(DESC_THE));
-                mprf(MSGCH_TALK, "%s", complaint.c_str());
-            }
-
-            return;
-        }
-
-        const int stolen_amount = min(20 + random2(800), you.gold);
-        if (inv[MSLOT_GOLD] != NON_ITEM)
-        {
-            // If Maurice already's got some gold, simply increase the amount.
-            env.item[inv[MSLOT_GOLD]].quantity += stolen_amount;
-            // Don't re-tithe stolen gold under Zin.
-            env.item[inv[MSLOT_GOLD]].tithe_state = (you_worship(GOD_ZIN))
-                                                ? TS_NO_TITHE : TS_NO_PIETY;
-        }
-        else
-        {
-            // Else create a new item for this pile of gold.
-            const int idx = items(false, OBJ_GOLD, OBJ_RANDOM, 0);
-            if (idx == NON_ITEM)
-                return;
-
-            item_def &new_item = env.item[idx];
-            new_item.base_type = OBJ_GOLD;
-            new_item.sub_type  = 0;
-            // Don't re-tithe stolen gold under Zin.
-            new_item.tithe_state = (you_worship(GOD_ZIN)) ? TS_NO_TITHE
-                                                          : TS_NO_PIETY;
-            new_item.plus2     = 0;
-            new_item.special   = 0;
-            new_item.flags     = 0;
-            new_item.link      = NON_ITEM;
-            new_item.quantity  = stolen_amount;
-            new_item.pos.reset();
-            item_colour(new_item);
-
-            unlink_item(idx);
-
-            inv[MSLOT_GOLD] = idx;
-            new_item.set_holding_monster(*this);
-        }
-        mprf("%s steals %d gold piece%s!",
-             name(DESC_THE).c_str(),
-             stolen_amount,
-             stolen_amount != 1 ? "s" : "");
-
-        const string what = make_stringf("%s stole %d gold",
-                                        uppercase_first(name(DESC_A)).c_str(),
-                                        stolen_amount);
-        take_note(Note(NOTE_MESSAGE, 0, 0, what), true);
-
-        you.attribute[ATTR_GOLD_FOUND] -= stolen_amount;
-
-        you.del_gold(stolen_amount);
-        mprf("You now have %d gold piece%s.",
-             you.gold, you.gold != 1 ? "s" : "");
-
-        return;
-    }
-
-    ASSERT(steal_what != -1);
-    ASSERT(mslot != NUM_MONSTER_SLOTS);
-    ASSERT(inv[mslot] == NON_ITEM);
-
-    item_def* tmp = take_item(steal_what, mslot, true);
-    if (!tmp)
-        return;
-    item_def& new_item = *tmp;
-
-    // You'll want to autopickup it after killing Maurice.
-    new_item.flags |= ISFLAG_THROWN;
-}
-
-/**
- * "Give" a monster an item from the player's inventory.
- *
- * @param steal_what The slot in your inventory of the item.
- * @param mslot Which mon_inv_type to put the item in
- *
- * @returns new_item the new item, now in the monster's inventory.
- */
-item_def* monster::take_item(int steal_what, mon_inv_type mslot,
-                             bool is_stolen)
-{
-    // Create new item.
-    int index = get_mitm_slot(10);
-    if (index == NON_ITEM)
-        return nullptr;
-
-    item_def &new_item = env.item[index];
-
-    // Copy item.
-    new_item = you.inv[steal_what];
-
-    // If the item was stolen, randomize quantity
-    if (is_stolen)
-    {
-        const int stolen_amount = 1 + random2(new_item.quantity);
-        if (stolen_amount < new_item.quantity)
-        {
-            mprf("%s steals %d of %s!",
-                 name(DESC_THE).c_str(),
-                 stolen_amount,
-                 new_item.name(DESC_YOUR).c_str());
-        }
-        else
-        {
-            mprf("%s steals %s!",
-                 name(DESC_THE).c_str(),
-                 new_item.name(DESC_YOUR).c_str());
-        }
-        const string what = make_stringf("%s stole %s",
-                                        uppercase_first(name(DESC_A)).c_str(),
-                                        new_item.name(DESC_A).c_str());
-        take_note(Note(NOTE_MESSAGE, 0, 0, what), true);
-        new_item.quantity = stolen_amount;
-    }
-
-    // Drop the item already in the slot (including the shield
-    // if it's a two-hander).
-    // TODO: fail conditions here have an awkward ordering with the steal msgs
-    if ((mslot == MSLOT_WEAPON || mslot == MSLOT_ALT_WEAPON)
-        && inv[MSLOT_SHIELD] != NON_ITEM
-        && hands_reqd(new_item) == HANDS_TWO
-        && !drop_item(MSLOT_SHIELD, observable()))
-    {
-        return nullptr;
-    }
-    if (inv[mslot] != NON_ITEM && !drop_item(mslot, observable()))
-        return nullptr;
-
-    // Set the item as unlinked.
-    new_item.pos.reset();
-    new_item.link = NON_ITEM;
-    unlink_item(index);
-    inv[mslot] = index;
-    new_item.set_holding_monster(*this);
-
-    // Item is gone from player's inventory.
-    dec_inv_item_quantity(steal_what, new_item.quantity);
-
-    return &new_item;
 }
 
 /** Disarm this monster, and preferably pull the weapon into your tile.

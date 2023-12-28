@@ -329,24 +329,6 @@ monster* clone_mons(const monster* orig, bool quiet, bool* obvious,
     if (mons->has_ench(ENCH_BULLSEYE_TARGET))
         mons->del_ench(ENCH_BULLSEYE_TARGET);
 
-    // Duplicate objects, or unequip them if they can't be duplicated.
-    for (mon_inv_iterator ii(*mons); ii; ++ii)
-    {
-        const int old_index = ii->index();
-
-        const int new_index = get_mitm_slot(0);
-        if (new_index == NON_ITEM)
-        {
-            mons->unequip(env.item[old_index], false, true);
-            mons->inv[ii.slot()] = NON_ITEM;
-            continue;
-        }
-
-        mons->inv[ii.slot()] = new_index;
-        env.item[new_index] = env.item[old_index];
-        env.item[new_index].set_holding_monster(*mons);
-    }
-
     bool _obvious;
     if (obvious == nullptr)
         obvious = &_obvious;

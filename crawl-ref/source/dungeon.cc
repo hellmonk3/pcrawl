@@ -4840,83 +4840,6 @@ void dgn_place_multiple_items(item_list &list, const coord_def& where)
         dgn_place_item(list.get_item(i), where);
 }
 
-static void _dgn_give_mon_spec_items(mons_spec &mspec, monster *mon)
-{
-    ASSERT(mspec.place.is_valid());
-
-    unwind_var<int> save_speedinc(mon->speed_increment);
-
-    // Get rid of existing equipment.
-    for (mon_inv_iterator ii(*mon); ii; ++ii)
-    {
-        mon->unequip(*ii, false, true);
-        destroy_item(ii->index(), true);
-    }
-
-    item_list &list = mspec.items;
-
-    const int size = list.size();
-    for (int i = 0; i < size; ++i)
-    {
-        item_spec spec = list.get_item(i);
-
-        if (spec.base_type == OBJ_UNASSIGNED)
-            continue;
-
-        // Don't give monster a randart, and don't randomly give
-        // monster an ego item.
-        if (spec.base_type == OBJ_ARMOUR || spec.base_type == OBJ_WEAPONS
-            || spec.base_type == OBJ_MISSILES)
-        {
-            spec.allow_uniques = 0;
-            if (spec.ego == 0)
-                spec.ego = SP_FORBID_EGO;
-        }
-
-        const int item_level = _concretize_level(spec.level,
-                                                 mspec.place.absdepth());
-        for (int useless_tries = 0; true; useless_tries++)
-        {
-            int item_made;
-
-            if (spec.corpselike())
-                item_made = _dgn_item_corpse(spec, mon->pos());
-            else
-            {
-                item_made = items(spec.allow_uniques, spec.base_type,
-                                  spec.sub_type, item_level, spec.ego, NO_AGENT,
-                                  _get_custom_name(spec));
-
-                if (spec.level == ISPEC_MUNDANE)
-                    squash_plusses(item_made);
-            }
-
-            if (!(item_made == NON_ITEM || item_made == -1))
-            {
-                item_def &item(env.item[item_made]);
-
-                if (_apply_item_props(item, spec, (useless_tries >= 10), true))
-                {
-                    // Mark items on summoned monsters as such.
-                    if (mspec.abjuration_duration != 0)
-                        item.flags |= ISFLAG_SUMMONED;
-
-                    if (!mon->pickup_item(item, false, true))
-                        destroy_item(item_made, true);
-                    break;
-                }
-            }
-        }
-    }
-
-    // Pre-wield ranged weapons.
-    if (mon->inv[MSLOT_WEAPON] == NON_ITEM
-        && mon->inv[MSLOT_ALT_WEAPON] != NON_ITEM)
-    {
-        mon->swap_weapons(false);
-    }
-}
-
 static bool _should_veto_unique(monster_type type)
 {
     // Already generated.
@@ -5099,9 +5022,6 @@ monster* dgn_place_monster(mons_spec &mspec, coord_def where,
     // on the low side of the ood range, and vaults don't get this set.
     if (chose_ood)
         mons->props[MON_OOD_KEY].get_bool() = true;
-
-    if (!mspec.items.empty())
-        _dgn_give_mon_spec_items(mspec, mons);
 
     if (mspec.props.exists(MONSTER_TILE_KEY))
     {

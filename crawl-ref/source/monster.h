@@ -561,19 +561,6 @@ private:
 private:
     bool pickup(item_def &item, mon_inv_type slot, bool msg);
     void pickup_message(const item_def &item);
-    bool pickup_wand(item_def &item, bool msg, bool force = false);
-    bool pickup_scroll(item_def &item, bool msg);
-    bool pickup_potion(item_def &item, bool msg, bool force = false);
-    bool pickup_gold(item_def &item, bool msg);
-    bool pickup_launcher(item_def &launcher, bool msg, bool force = false);
-    bool pickup_melee_weapon(item_def &item, bool msg);
-    bool pickup_weapon(item_def &item, bool msg, bool force);
-    bool pickup_misc(item_def &item, bool msg, bool force);
-    bool pickup_missile(item_def &item, bool msg, bool force);
-
-    void unequip_weapon(item_def &item, bool msg);
-    void unequip_armour(item_def &item, bool msg);
-    void unequip_jewellery(item_def &item, bool msg);
 
     void init_with(const monster& mons);
 
@@ -586,9 +573,6 @@ private:
 
     bool decay_enchantment(enchant_type en, bool decay_degree = true);
 
-    bool wants_weapon(const item_def &item) const;
-    bool wants_armour(const item_def &item) const;
-    bool wants_jewellery(const item_def &item) const;
     void lose_pickup_energy();
     bool check_set_valid_home(const coord_def &place,
                               coord_def &chosen,

@@ -376,18 +376,6 @@ void attack::pain_affects_defender()
     }
 }
 
-static bool _is_chaos_polyable(const actor &defender)
-{
-    if (!defender.can_safely_mutate())
-        return false;  // no polymorphing undead
-
-    const monster* mon = defender.as_monster();
-    if (!mon)
-        return true;
-
-    return !mons_is_firewood(*mon) && !mons_invuln_will(*mon);
-}
-
 static bool _is_chaos_slowable(const actor &defender)
 {
     const monster* mon = defender.as_monster();
@@ -407,85 +395,50 @@ struct chaos_effect
 };
 
 static const vector<chaos_effect> chaos_effects = {
-    {
-        "clone", 1, [](const actor &d) {
-            return d.is_monster() && mons_clonable(d.as_monster(), true);
-        },
-        BEAM_NONE, [](attack &attack) {
-            actor &defender = *attack.defender;
-            ASSERT(defender.is_monster());
-            monster *clone = clone_mons(defender.as_monster());
-            if (!clone)
-                return false;
-
-            const bool obvious_effect = you.can_see(defender) && you.can_see(*clone);
-
-            if (one_chance_in(3))
-                clone->attitude = coinflip() ? ATT_FRIENDLY : ATT_NEUTRAL;
-
-            // The player shouldn't get new permanent followers from cloning.
-            if (clone->attitude == ATT_FRIENDLY && !clone->is_summoned())
-                clone->mark_summoned(6, true, MON_SUMM_CLONE);
-            else
-                clone->flags |= (MF_NO_REWARD | MF_HARD_RESET);
-
-            // Monsters being cloned is interesting.
-            xom_is_stimulated(clone->friendly() ? 12 : 25);
-            return obvious_effect;
-        },
-    },
-    {
-        "polymorph", 2, _is_chaos_polyable, BEAM_POLYMORPH,
-    },
-    {
-        "shifter", 1, [](const actor &defender)
-        {
-            const monster *mon = defender.as_monster();
-            return _is_chaos_polyable(defender)
-                   && mon && !mon->is_shapeshifter()
-                   && defender.holiness() & MH_NATURAL;
-        },
-        BEAM_NONE, [](attack &attack) {
-            monster* mon = attack.defender->as_monster();
-            ASSERT(_is_chaos_polyable(*attack.defender));
-            ASSERT(mon);
-            ASSERT(!mon->is_shapeshifter());
-
-            const bool obvious_effect = you.can_see(*attack.defender);
-            mon->add_ench(one_chance_in(3) ? ENCH_GLOWING_SHAPESHIFTER
-                                           : ENCH_SHAPESHIFTER);
-            // Immediately polymorph monster, just to make the effect obvious.
-            mon->polymorph();
-
-            // Xom loves it if this happens!
-            const int friend_factor = mon->friendly() ? 1 : 2;
-            const int glow_factor   = mon->has_ench(ENCH_SHAPESHIFTER) ? 1 : 2;
-            xom_is_stimulated(64 * friend_factor * glow_factor);
-
-            return obvious_effect;
-        },
-    },
-    {
-        "rage", 5, [](const actor &defender) {
+     {
+        "rage", 4, [](const actor &defender) {
             return defender.can_go_berserk();
         }, BEAM_NONE, [](attack &attack) {
-            attack.defender->go_berserk(false);
+            if (attack.defender->is_monster())
+            {
+                monster* mon = attack.defender->as_monster();
+                ASSERT(mon);
+                if (mon->can_go_frenzy()) {
+                    mon->go_frenzy(attack.attacker);
+                }
+            }
+            else
+                attack.defender->go_berserk(false);
+
             return you.can_see(*attack.defender);
         },
     },
-    { "hasting", 10, _is_chaos_slowable, BEAM_HASTE },
-    { "mighting", 10, nullptr, BEAM_MIGHT },
-    { "agilitying", 10, nullptr, BEAM_AGILITY },
-    { "resistance", 10, nullptr, BEAM_RESISTANCE, },
-    { "slowing", 10, _is_chaos_slowable, BEAM_SLOW },
+    { "hasting",  8, _is_chaos_slowable, BEAM_HASTE },
+    { "mighting", 8, nullptr, BEAM_MIGHT },
+    { "slowing",  16, _is_chaos_slowable, BEAM_SLOW },
+    { "confusing", 16, [](const actor &defender) {
+        return !(defender.clarity()); }, BEAM_CONFUSION },
+    { "will-halving", 16, [](const actor &defender) {
+       return !defender.is_monster()
+              || mons_invuln_will(*(defender.as_monster()));
+    }, BEAM_VULNERABILITY, },
+    { "ensnaring", 8, nullptr, BEAM_ENSNARE, },
     {
-        "paralysis", 5, [](const actor &defender) {
+        "stun", 8, [](const actor &defender) {
             return !defender.is_monster()
                     || !mons_is_firewood(*defender.as_monster());
-        }, BEAM_PARALYSIS,
+        }, BEAM_NONE, [](attack &attack) {
+            attack.defender->stun(attack.attacker);
+            return you.can_see(*attack.defender);
+        },
     },
     {
-        "petrify", 5, [](const actor &defender) {
+        "sleep", 8, [](const actor &defender) {
+            return defender.can_sleep();
+        }, BEAM_SLEEP,
+    },
+    {
+        "petrify", 8, [](const actor &defender) {
             return _is_chaos_slowable(defender) && !defender.res_petrify();
         }, BEAM_PETRIFY,
     },
@@ -573,34 +526,22 @@ struct chaos_attack_type
     function<bool(const actor& def)> valid;
 };
 
-// Chaos melee attacks randomly choose a brand from here, with brands that
-// definitely won't affect the target being invalid. Chaos itself should
+// Chaos melee attacks randomly choose a brand from here. Chaos itself should
 // always be a valid option, triggering a more unpredictable chaos_effect
 // instead of a normal attack brand when selected.
 static const vector<chaos_attack_type> chaos_types = {
-    { AF_FIRE,      SPWPN_EXPLOSIVE,       10,
-      [](const actor &d) { return !d.is_fiery(); } },
-    { AF_COLD,      SPWPN_FREEZING,      10,
-      [](const actor &d) { return !d.is_icy(); } },
-    { AF_ELEC,      SPWPN_ELECTROCUTION, 10,
-      nullptr },
-    { AF_POISON,    SPWPN_SPELLVAMP,         10,
-      [](const actor &d) {
-          return !(d.holiness() & (MH_UNDEAD | MH_NONLIVING)); } },
-    { AF_CHAOTIC,   SPWPN_CHAOS,         10,
-      nullptr },
-    { AF_VAMPIRIC,  SPWPN_VAMPIRISM,     5,
-      [](const actor &d) {
-          return !d.is_summoned()
-                 && bool(d.holiness() & (MH_NATURAL | MH_PLANT)); } },
-    { AF_HOLY,      SPWPN_SILVER,    5,
-      [](const actor &d) { return d.holy_wrath_susceptible(); } },
-    { AF_ANTIMAGIC, SPWPN_ANTIMAGIC,     5,
-      [](const actor &d) { return d.antimagic_susceptible(); } },
-    { AF_CONFUSE,   SPWPN_CONFUSE,       2,
-      [](const actor &d) { return !d.clarity(); } },
-    { AF_DISTORT,   SPWPN_BLINKING,    2,
-      nullptr },
+    { AF_FIRE,      SPWPN_EXPLOSIVE,       10, nullptr },
+    { AF_COLD,      SPWPN_FREEZING,        10, nullptr },
+    { AF_ELEC,      SPWPN_ELECTROCUTION,   10, nullptr },
+    { AF_ACID,      SPWPN_ACID,            10, nullptr },
+    { AF_PLAIN,     SPWPN_SHIELDING,       10, nullptr },
+    { AF_ANTIMAGIC, SPWPN_ANTIMAGIC,        5, nullptr },
+    { AF_HOLY,      SPWPN_SILVER,           5, nullptr },
+    { AF_PLAIN,     SPWPN_SPELLVAMP,        5, nullptr },
+    { AF_VAMPIRIC,  SPWPN_VAMPIRISM,        5, nullptr },
+    { AF_DISTORT,   SPWPN_BLINKING,         5, nullptr },
+    { AF_PAIN,      SPWPN_PAIN,             5, nullptr },
+    { AF_CHAOTIC,   SPWPN_CHAOS,           20 ,nullptr },
 };
 
 brand_type attack::random_chaos_brand()
@@ -620,14 +561,16 @@ brand_type attack::random_chaos_brand()
     {
     case SPWPN_EXPLOSIVE:         brand_name += "explosive"; break;
     case SPWPN_FREEZING:        brand_name += "freezing"; break;
-    case SPWPN_SILVER:      brand_name += "holy wrath"; break;
+    case SPWPN_SILVER:      brand_name += "silver"; break;
     case SPWPN_ELECTROCUTION:   brand_name += "electrocution"; break;
     case SPWPN_SPELLVAMP:           brand_name += "magic vamp"; break;
     case SPWPN_BLINKING:      brand_name += "blinking"; break;
     case SPWPN_VAMPIRISM:       brand_name += "vampirism"; break;
     case SPWPN_ANTIMAGIC:       brand_name += "antimagic"; break;
     case SPWPN_CHAOS:           brand_name += "chaos"; break;
-    case SPWPN_CONFUSE:         brand_name += "confusion"; break;
+    case SPWPN_ACID:         brand_name += "acid"; break;
+    case SPWPN_SHIELDING:         brand_name += "shielding"; break;
+    case SPWPN_PAIN:         brand_name += "pain"; break;
     default:                    brand_name += "BUGGY"; break;
     }
 

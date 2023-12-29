@@ -1651,7 +1651,9 @@ static string _describe_weapon_brand(const item_def &item)
                       "it will stun you for one turn.";
     }
     case SPWPN_CHAOS:
-        return "Each hit has a different, random effect.";
+        return "Each hit has a different, random effect. 4 in 5 times, it will "
+               "use another random brand effect. The other 1 in 5 times, it "
+               "instead inflicts a positive or negative status effect.";
     case SPWPN_VAMPIRISM:
         return "It heals its wielder when it slays a living foe. The amount of "
                "healing depends on the monster's difficulty.";

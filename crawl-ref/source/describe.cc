@@ -1350,12 +1350,10 @@ static string _describe_brand(brand_type brand)
         // fallthrough to description
     case SPWPN_ACID:
     case SPWPN_CHAOS:
-    case SPWPN_DISTORTION:
-    case SPWPN_DRAINING:
+    case SPWPN_BLINKING:
     case SPWPN_ELECTROCUTION:
-    case SPWPN_FLAMING:
     case SPWPN_FREEZING:
-    case SPWPN_VENOM:
+    case SPWPN_SPELLVAMP:
     {
         const string brand_name = uppercase_first(brand_type_name(brand, true));
         return make_stringf(" + %s", brand_name.c_str());
@@ -1621,58 +1619,47 @@ static string _describe_weapon_brand(const item_def &item)
         return "";
 
     const brand_type brand = get_weapon_brand(item);
-    const bool ranged = is_range_weapon(item);
 
     switch (brand)
     {
-    case SPWPN_FLAMING:
-    {
-        const int damtype = get_vorpal_type(item);
-        const string desc = "It burns victims, dealing an additional "
-                            "one-quarter of any damage that pierces defenders'"
-                            " armour.";
-        if (ranged || damtype != DVORP_SLICING && damtype != DVORP_CHOPPING)
-            return desc;
-        return desc +
-            " Big, fiery blades are also staple armaments of hydra-hunters.";
-    }
+    case SPWPN_EXPLOSIVE:
+        return "Dealing damage with it causes a loud explosion, which damages "
+               "the victim and all adjacent creatures (except the wielder) for "
+               "one-quarter of the damage dealt, piercing defenders' armour.";
     case SPWPN_FREEZING:
         return "It freezes victims, dealing an additional one-quarter of any "
-               "damage that pierces defenders' armour. It may also slow down "
-               "cold-blooded creatures.";
-    case SPWPN_HOLY_WRATH:
-        return "It has been blessed by the Shining One, dealing an additional "
-               "three-quarters of any damage that pierces undead and demons' "
-               "armour.";
+               "damage that pierces defenders' armour. It may also slow "
+               "nonresistant creatures; chance increases with damage dealt.";
+    case SPWPN_SILVER:
+        return "It deals additional damage equal to the original damage dealt "
+               "to undead and demons. The additional damage pierces armour.";
     case SPWPN_ELECTROCUTION:
-        return "It sometimes electrocutes victims (1/4 chance, 8-20 damage).";
-    case SPWPN_VENOM:
-        return "It poisons victims.";
-    case SPWPN_PROTECTION:
+        return "It sometimes electrocutes victims (1/2 chance, 1d10 damage)."
+               "This damage pierces armour, but rElec prevents it.";
+    case SPWPN_SPELLVAMP:
+        return "It restores its wielder's magic when it slays a foe. The "
+               "amount of magic restored depends on the foe's difficulty.";
+    case SPWPN_SHIELDING:
         return "It grants its wielder temporary protection after it strikes "
-               "(+7 AC).";
-    case SPWPN_DRAINING:
-        return "It sometimes drains living victims (1/2 chance). This deals "
-               "an additional one-quarter of any damage that pierces "
-               "defenders' armour as well as a flat 2-4 damage, and also "
-               "weakens them slightly.";
+               "(+20% SH, lasts about 3 turns).";
     case SPWPN_SPEED:
         return "Attacks with this weapon are significantly faster.";
     case SPWPN_HEAVY:
     {
-        string desc = ranged ? "Any ammunition fired from it" : "It";
-        return desc + " deals dramatically more damage, but attacks with "
-                      "it are much slower.";
+        return "Its maximum damage is 2.5x normal, but attacking with "
+               "it will stun you for one turn.";
     }
     case SPWPN_CHAOS:
-        return "Each hit has a different, random effect.";
+        return "Each hit has a different, random effect. 4 in 5 times, it will "
+               "use another random brand effect. The other 1 in 5 times, it "
+               "instead inflicts a positive or negative status effect.";
     case SPWPN_VAMPIRISM:
-        return "It occasionally heals its wielder for a portion "
-               "of the damage dealt when it wounds a living foe.";
+        return "It heals its wielder when it slays a living foe. The amount of "
+               "healing depends on the monster's difficulty.";
     case SPWPN_PAIN:
         {
-            string desc = "In the hands of one skilled in necromantic "
-                 "magic, it inflicts extra damage on living creatures.";
+            string desc = "It inflicts extra damage on living creatures "
+                 "depending on the wielder's necromancy skill (1d(necro*2)).";
             if (you_worship(GOD_TROG))
                 return desc + " Trog prevents you from unleashing this effect.";
             if (!is_useless_skill(SK_NECROMANCY))
@@ -1680,10 +1667,9 @@ static string _describe_weapon_brand(const item_def &item)
             return desc + " Your inability to study Necromancy prevents "
                      "you from drawing on the full power of this weapon.";
         }
-    case SPWPN_DISTORTION:
-        return "It warps and distorts space around it, and may blink, banish, "
-               "or inflict extra damage upon those it strikes. Unwielding it "
-               "can teleport you to foes or banish you to the Abyss.";
+    case SPWPN_BLINKING:
+        return "It may blink enemies you hit. The percent chance to blink an "
+               "enemy is equal to 10 + your translocations skill * 10";
     case SPWPN_PENETRATION:
         return "Any ammunition fired by it continues flying after striking "
                "targets, potentially hitting everything in its path until it "
@@ -1698,10 +1684,11 @@ static string _describe_weapon_brand(const item_def &item)
                "abilities and divine invocations are not affected.";
     case SPWPN_SPECTRAL:
         return "When its wielder attacks, the weapon's spirit leaps out and "
-               "launches a second, slightly weaker strike. The spirit shares "
-               "part of any damage it takes with its wielder.";
+               "launches a second strike (if there is enough space to summon "
+               "it). The spirit shares all damage it takes with its wielder.";
     case SPWPN_ACID:
-        return "It splashes victims with acid (2d4 damage, Corrosion).";
+        return "It inflicts corrosion (1/2 chance), reducing the victim's "
+               "armour by 10.";
     default:
         return "";
     }
@@ -1825,11 +1812,8 @@ static string _describe_ammo(const item_def &item)
                            "one who threw it.";
             break;
         case SPMSL_SILVER:
-            description += "It deals increased damage compared to normal ammo "
-                           "and substantially increased damage to chaotic "
-                           "and magically transformed beings. It also inflicts "
-                           "extra damage against mutated beings, according to "
-                           "how mutated they are.";
+            description += "It deals additional damage equal to the original "
+                           "damage dealt to undead and demons.";
             break;
         }
     }

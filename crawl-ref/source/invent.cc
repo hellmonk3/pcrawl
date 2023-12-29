@@ -1645,12 +1645,6 @@ bool needs_handle_warning(const item_def &item, operation_types oper,
     if (oper == OPER_WIELD // unwielding uses OPER_WIELD too
         && is_weapon(item))
     {
-        if (get_weapon_brand(item) == SPWPN_DISTORTION
-            && !have_passive(passive_t::safe_distortion))
-        {
-            return true;
-        }
-
         if (is_artefact(item) && artefact_property(item, ARTP_CONTAM))
         {
             if (_is_wielded(item) && you_worship(GOD_ZIN))

@@ -408,15 +408,19 @@ const char* missile_brand_name(const item_def &item, mbn_type t)
 
 static const char *weapon_brands_terse[] =
 {
-    "", "flame", "freeze", "holy", "elec",
+    "", "explosive", "freeze", "silver", "elec",
 #if TAG_MAJOR_VERSION == 34
     "obsolete", "obsolete",
 #endif
-    "venom", "protect", "drain", "speed", "heavy",
+    "mvamp", "shielding",
+#if TAG_MAJOR_VERSION == 34
+    "drain",
+#endif
+    "speed", "heavy",
 #if TAG_MAJOR_VERSION == 34
     "obsolete", "obsolete",
 #endif
-    "vamp", "pain", "antimagic", "distort",
+    "vamp", "pain", "antimagic", "blinking",
 #if TAG_MAJOR_VERSION == 34
     "obsolete", "obsolete",
 #endif
@@ -435,15 +439,19 @@ static const char *weapon_brands_terse[] =
 
 static const char *weapon_brands_verbose[] =
 {
-    "", "flaming", "freezing", "holy wrath", "electrocution",
+    "", "explosive", "freezing", "silver", "electrocution",
 #if TAG_MAJOR_VERSION == 34
     "orc slaying", "dragon slaying",
 #endif
-    "venom", "protection", "draining", "speed", "heavy",
+    "magic vamp", "shielding",
+#if TAG_MAJOR_VERSION == 34
+    "draining",
+#endif
+    "speed", "heavy",
 #if TAG_MAJOR_VERSION == 34
     "flame", "frost",
 #endif
-    "vampirism", "pain", "antimagic", "distortion",
+    "vampirism", "pain", "antimagic", "blinking",
 #if TAG_MAJOR_VERSION == 34
     "reaching", "returning",
 #endif
@@ -462,15 +470,19 @@ static const char *weapon_brands_verbose[] =
 
 static const char *weapon_brands_adj[] =
 {
-    "", "flaming", "freezing", "holy", "electric",
+    "", "explosive", "freezing", "silver", "electric",
 #if TAG_MAJOR_VERSION == 34
     "orc-killing", "dragon-slaying",
 #endif
-    "venomous", "protective", "draining", "fast", "heavy",
+    "magic vampiric", "shielding",
+#if TAG_MAJOR_VERSION == 34
+    "draining",
+#endif
+    "fast", "heavy",
 #if TAG_MAJOR_VERSION == 34
     "flaming", "freezing",
 #endif
-    "vampiric", "painful", "antimagic", "distorting",
+    "vampiric", "painful", "antimagic", "blinking",
 #if TAG_MAJOR_VERSION == 34
     "reaching", "returning",
 #endif
@@ -492,7 +504,8 @@ COMPILE_CHECK(ARRAYSZ(weapon_brands_verbose) == NUM_SPECIAL_WEAPONS);
 COMPILE_CHECK(ARRAYSZ(weapon_brands_adj) == NUM_SPECIAL_WEAPONS);
 
 static const set<brand_type> brand_prefers_adj =
-            { SPWPN_VAMPIRISM, SPWPN_ANTIMAGIC, SPWPN_HEAVY, SPWPN_SPECTRAL };
+            { SPWPN_VAMPIRISM, SPWPN_ANTIMAGIC, SPWPN_HEAVY, SPWPN_SPECTRAL,
+              SPWPN_EXPLOSIVE, SPWPN_SILVER };
 
 /**
  * What's the name of a type of weapon brand?

@@ -78,7 +78,6 @@ private:
 
     void rot_defender(int amount);
 
-    bool consider_decapitation(int damage_done, int damage_type = -1);
     bool attack_chops_heads(int damage_done, int damage_type);
     void decapitate(int dam_type);
 

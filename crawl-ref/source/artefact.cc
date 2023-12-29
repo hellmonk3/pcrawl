@@ -70,7 +70,7 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
     const int brand = get_weapon_brand(item);
     const int ego   = get_armour_ego_type(item);
 
-    if (is_evil_god(which_god) && brand == SPWPN_HOLY_WRATH)
+    if (is_evil_god(which_god) && brand == SPWPN_SILVER)
         return false;
     if (is_good_god(which_god)
         && (is_evil_brand(brand) || is_demonic(item)))
@@ -88,7 +88,7 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
 
     case GOD_SHINING_ONE:
         // Crusader god: holiness, honourable combat.
-        if (item.base_type == OBJ_WEAPONS && brand != SPWPN_HOLY_WRATH)
+        if (item.base_type == OBJ_WEAPONS && brand != SPWPN_SILVER)
             return false;
 
         if (artefact_property(item, ARTP_INVISIBLE)
@@ -100,7 +100,7 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
 
     case GOD_LUGONU:
         // Abyss god: corruption.
-        if (item.base_type == OBJ_WEAPONS && brand != SPWPN_DISTORTION)
+        if (item.base_type == OBJ_WEAPONS && brand != SPWPN_BLINKING)
             return false;
         break;
 
@@ -118,7 +118,7 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
     case GOD_TROG:
         // Limited selection of brands.
         if (brand != SPWPN_HEAVY
-            && brand != SPWPN_FLAMING
+            && brand != SPWPN_EXPLOSIVE
             && brand != SPWPN_ANTIMAGIC)
         {
             return false;
@@ -475,16 +475,15 @@ static void _add_randart_weapon_brand(const item_def &item,
         return;
 
     if (is_blessed_weapon_type(item.sub_type))
-        item_props[ARTP_BRAND] = SPWPN_HOLY_WRATH;
+        item_props[ARTP_BRAND] = SPWPN_SILVER;
     else if (is_range_weapon(item))
     {
         item_props[ARTP_BRAND] = random_choose_weighted(
             2, SPWPN_SPEED,
             2, SPWPN_ELECTROCUTION,
             2, SPWPN_ANTIMAGIC,
-            4, SPWPN_DRAINING,
             4, SPWPN_HEAVY,
-            4, SPWPN_FLAMING,
+            4, SPWPN_EXPLOSIVE,
             4, SPWPN_FREEZING);
 
         // Penetration is only allowed on crossbows.
@@ -495,32 +494,30 @@ static void _add_randart_weapon_brand(const item_def &item,
     else if (is_demonic(item) && x_chance_in_y(7, 9))
     {
         item_props[ARTP_BRAND] = random_choose(
-            SPWPN_DRAINING,
-            SPWPN_FLAMING,
+            SPWPN_EXPLOSIVE,
             SPWPN_FREEZING,
             SPWPN_ELECTROCUTION,
             SPWPN_VAMPIRISM,
             SPWPN_PAIN,
-            SPWPN_VENOM);
+            SPWPN_SPELLVAMP);
         // fall back to regular melee brands 2/9 of the time
     }
     else
     {
         item_props[ARTP_BRAND] = random_choose_weighted(
             47, SPWPN_HEAVY,
-            47, SPWPN_FLAMING,
+            47, SPWPN_EXPLOSIVE,
             47, SPWPN_FREEZING,
-            26, SPWPN_VENOM,
-            26, SPWPN_DRAINING,
-            13, SPWPN_HOLY_WRATH,
+            26, SPWPN_SPELLVAMP,
+            13, SPWPN_SILVER,
             13, SPWPN_ELECTROCUTION,
             13, SPWPN_SPEED,
             13, SPWPN_VAMPIRISM,
             13, SPWPN_PAIN,
             13, SPWPN_ANTIMAGIC,
-            13, SPWPN_PROTECTION,
+            13, SPWPN_SHIELDING,
             13, SPWPN_SPECTRAL,
-             3, SPWPN_DISTORTION,
+             3, SPWPN_BLINKING,
              3, SPWPN_CHAOS);
     }
 
@@ -1582,7 +1579,7 @@ static bool _randart_is_conflicting(const item_def &item,
     }
 
     if (item.base_type == OBJ_WEAPONS
-        && get_weapon_brand(item) == SPWPN_HOLY_WRATH
+        && get_weapon_brand(item) == SPWPN_SILVER
         && is_demonic(item))
     {
         return true;

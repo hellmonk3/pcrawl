@@ -129,6 +129,7 @@ static map<enchant_type, monster_info_flags> trivial_ench_mb_mappings = {
     { ENCH_TP,              MB_TELEPORTING },
     { ENCH_BOUND,           MB_BOUND },
     { ENCH_BULLSEYE_TARGET, MB_BULLSEYE_TARGET},
+    { ENCH_STUN,            MB_STUNNED },
 };
 
 static monster_info_flags ench_to_mb(const monster& mons, enchant_type ench)
@@ -1640,7 +1641,7 @@ bool monster_info::net_immune() const
 
 bool monster_info::cannot_move() const
 {
-    return is(MB_PARALYSED) || is(MB_PETRIFIED);
+    return is(MB_PARALYSED) || is(MB_PETRIFIED) || is(MB_STUNNED);
 }
 
 bool monster_info::airborne() const

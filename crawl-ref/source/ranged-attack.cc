@@ -675,9 +675,8 @@ bool ranged_attack::apply_missile_brand()
         break;
     }
     case SPMSL_SILVER:
-        special_damage = max(1 + random2(damage_done) / 3,
-                             silver_damages_victim(defender, damage_done,
-                                                   special_damage_message));
+        special_damage = silver_damages_victim(defender, damage_done,
+                                                   special_damage_message);
         break;
     case SPMSL_BLINDING:
         if (!dart_check(brand))

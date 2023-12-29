@@ -728,6 +728,7 @@ public:
     bool poison(actor *agent, int amount = 1, bool force = false) override;
     bool sicken(int amount) override;
     void paralyse(const actor *, int str, string source = "") override;
+    void stun(actor *evildoer) override;
     void petrify(const actor *, bool force = false) override;
     bool fully_petrify(bool quiet = false) override;
     void slow_down(actor *, int str) override;
@@ -796,6 +797,7 @@ public:
     bool is_dragonkind() const override;
 
     bool paralysed() const override;
+    bool stunned() const override;
     bool cannot_act() const override;
     bool confused() const override;
     bool caught() const override;

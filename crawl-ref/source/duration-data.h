@@ -535,7 +535,7 @@ static const duration_def duration_data[] =
       "sanguine armoured", "sanguine armour",
       "Your shed blood clings to and protects you.", D_NO_FLAGS,
         {{ "Your blood armour dries and flakes away.", _redraw_armour }}},
-    { DUR_SPWPN_PROTECTION, 0, "",
+    { DUR_SPWPN_SHIELDING, 0, "",
       "under a protective aura", "protection aura",
       "Your weapon is exuding a protective aura.", D_NO_FLAGS,
       {{ "", _redraw_armour }}},
@@ -609,6 +609,10 @@ static const duration_def duration_data[] =
       "jinxed", "jinxbite",
       "You are surrounded by jinxing sprites.", D_DISPELLABLE | D_EXPIRES,
       {{ "The jinxing sprites lose interest in you." }}},
+    { DUR_STUN,
+      RED, "Stun",
+      "stunned", "stunning",
+      "You are stunned.", D_DISPELLABLE},
 
     // The following are visible in wizmode only, or are handled
     // specially in the status lights and/or the % or @ screens.

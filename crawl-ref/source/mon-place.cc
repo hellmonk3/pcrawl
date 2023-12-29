@@ -1679,9 +1679,7 @@ void define_zombie(monster* mon, monster_type ztype, monster_type cs)
     mon->base_monster = ztype;
 
     mon->colour       = COLOUR_INHERIT;
-    mon->speed        = ((cs == MONS_SPECTRAL_THING || cs == MONS_BOUND_SOUL)
-                            ? mons_class_base_speed(mon->base_monster)
-                            : mons_class_zombie_base_speed(mon->base_monster));
+    mon->speed        = 10;
 
     // Turn off all melee ability flags except dual-wielding.
     mon->flags       &= (~MF_MELEE_MASK | MF_TWO_WEAPONS);
@@ -1692,7 +1690,13 @@ void define_zombie(monster* mon, monster_type ztype, monster_type cs)
     if (!mons_class_can_regenerate(mon->base_monster))
         mon->flags   |= MF_NO_REGEN;
 
-    roll_zombie_hp(mon);
+    if (cs == MONS_ZOMBIE)
+    {
+        mon->max_hit_points = 10;
+        mon->hit_points     = mon->max_hit_points;
+    }
+    else
+        roll_zombie_hp(mon);
 }
 
 /// Under what conditions should a band spawn with a monster?

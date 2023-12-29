@@ -3054,7 +3054,7 @@ bool god_hates_brand(const int brand)
     if (you_worship(GOD_CHEIBRIADOS) && is_hasty_brand(brand))
         return true;
 
-    if (you_worship(GOD_YREDELEMNUL) && brand == SPWPN_HOLY_WRATH)
+    if (you_worship(GOD_YREDELEMNUL) && brand == SPWPN_SILVER)
         return true;
 
     return false;
@@ -3073,21 +3073,19 @@ static void _rebrand_weapon(item_def& wpn)
     {
         if (is_range_weapon(wpn))
         {
-            new_brand = random_choose_weighted(3, SPWPN_FLAMING,
+            new_brand = random_choose_weighted(3, SPWPN_EXPLOSIVE,
                                                3, SPWPN_FREEZING,
-                                               3, SPWPN_DRAINING,
                                                3, SPWPN_HEAVY,
                                                1, SPWPN_ELECTROCUTION,
                                                1, SPWPN_CHAOS);
         }
         else
         {
-            new_brand = random_choose_weighted(2, SPWPN_FLAMING,
+            new_brand = random_choose_weighted(2, SPWPN_EXPLOSIVE,
                                                2, SPWPN_FREEZING,
                                                2, SPWPN_HEAVY,
-                                               2, SPWPN_VENOM,
-                                               2, SPWPN_PROTECTION,
-                                               1, SPWPN_DRAINING,
+                                               2, SPWPN_SPELLVAMP,
+                                               2, SPWPN_SHIELDING,
                                                1, SPWPN_ELECTROCUTION,
                                                1, SPWPN_SPECTRAL,
                                                1, SPWPN_VAMPIRISM,
@@ -3122,12 +3120,12 @@ static void _brand_weapon(item_def &wpn)
         mprf("%s becomes incredibly heavy!",itname.c_str());
         break;
 
-    case SPWPN_PROTECTION:
+    case SPWPN_SHIELDING:
         flash_colour = YELLOW;
         mprf("%s projects an invisible shield of force!",itname.c_str());
         break;
 
-    case SPWPN_FLAMING:
+    case SPWPN_EXPLOSIVE:
         flash_colour = RED;
         mprf("%s is engulfed in flames!", itname.c_str());
         break;
@@ -3137,19 +3135,14 @@ static void _brand_weapon(item_def &wpn)
         mprf("%s is covered with a thin layer of ice!", itname.c_str());
         break;
 
-    case SPWPN_DRAINING:
-        flash_colour = DARKGREY;
-        mprf("%s craves living souls!", itname.c_str());
-        break;
-
     case SPWPN_VAMPIRISM:
         flash_colour = DARKGREY;
         mprf("%s thirsts for the lives of mortals!", itname.c_str());
         break;
 
-    case SPWPN_VENOM:
+    case SPWPN_SPELLVAMP:
         flash_colour = GREEN;
-        mprf("%s drips with poison.", itname.c_str());
+        mprf("%s hungers for magic.", itname.c_str());
         break;
 
     case SPWPN_ELECTROCUTION:

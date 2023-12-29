@@ -196,7 +196,7 @@ unsigned int item_value(item_def item, bool ident)
                 valued *= 30;
                 break;
 
-            case SPWPN_DISTORTION:
+            case SPWPN_BLINKING:
             case SPWPN_ELECTROCUTION:
             case SPWPN_PAIN:
             case SPWPN_ACID: // Unrand-only.
@@ -206,16 +206,15 @@ unsigned int item_value(item_def item, bool ident)
                 break;
 
             case SPWPN_CHAOS:
-            case SPWPN_DRAINING:
-            case SPWPN_FLAMING:
+            case SPWPN_EXPLOSIVE:
             case SPWPN_FREEZING:
             case SPWPN_HEAVY:
-            case SPWPN_HOLY_WRATH:
+            case SPWPN_SILVER:
                 valued *= 18;
                 break;
 
-            case SPWPN_PROTECTION:
-            case SPWPN_VENOM:
+            case SPWPN_SHIELDING:
+            case SPWPN_SPELLVAMP:
                 valued *= 12;
                 break;
             }

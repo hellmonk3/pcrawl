@@ -1224,9 +1224,6 @@ KITEM:   D = any weapon randart ego:antimagic / \
 KITEM:   E = any weapon randart ego:chaos / \
              any useful weapon good_item ego:chaos / \
              any weapon ego:chaos w:2
-KITEM:   F = any weapon randart ego:distortion / \
-             any useful weapon good_item ego:distortion / \
-             any weapon ego:distortion w:2
 KITEM:   H = any weapon randart ego:draining / \
              any useful weapon good_item ego:draining / \
              any weapon ego:draining w:2

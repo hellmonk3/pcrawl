@@ -798,8 +798,8 @@ static bool _choose_chaos_upgrade(const monster& mon)
             // If the launcher alters its ammo, then branding the
             // monster's ammo won't be an upgrade.
             int brand = get_weapon_brand(item);
-            if (brand == SPWPN_FLAMING || brand == SPWPN_FREEZING
-                || brand == SPWPN_VENOM)
+            if (brand == SPWPN_EXPLOSIVE || brand == SPWPN_FREEZING
+                || brand == SPWPN_SPELLVAMP)
             {
                 special_launcher = true;
             }
@@ -1306,7 +1306,7 @@ static monster* _find_monster_with_animateable_weapon()
             && weapon.quantity == 1
             && !is_range_weapon(weapon)
             && !is_special_unrandom_artefact(weapon)
-            && get_weapon_brand(weapon) != SPWPN_DISTORTION)
+            && get_weapon_brand(weapon) != SPWPN_BLINKING)
         {
             mons_wpn.push_back(*mi);
         }
@@ -1314,46 +1314,6 @@ static monster* _find_monster_with_animateable_weapon()
     if (mons_wpn.empty())
         return nullptr;
     return mons_wpn[random2(mons_wpn.size())];
-}
-
-static void _xom_animate_monster_weapon(int sever)
-{
-    // Pick a random monster...
-    monster* mon = _find_monster_with_animateable_weapon();
-    if (!mon)
-        return;
-
-    god_speaks(GOD_XOM, _get_xom_speech("animate monster weapon").c_str());
-
-    // ...and get its weapon.
-    const int wpn = mon->inv[MSLOT_WEAPON];
-    ASSERT(wpn != NON_ITEM);
-
-    const int dur = min(2 + (random2(sever) / 5), 6);
-
-    mgen_data mg(MONS_DANCING_WEAPON, BEH_FRIENDLY, mon->pos(), mon->mindex());
-    mg.set_summoned(&you, dur, SPELL_TUKIMAS_DANCE, GOD_XOM);
-
-    mg.non_actor_summoner = "Xom";
-
-    monster *dancing = create_monster(mg);
-
-    if (!dancing)
-        return;
-
-    // Make the monster unwield its weapon.
-    mon->unequip(*(mon->mslot_item(MSLOT_WEAPON)), false, true);
-    mon->inv[MSLOT_WEAPON] = NON_ITEM;
-
-    mprf("%s %s dances into the air!",
-         apostrophise(mon->name(DESC_THE)).c_str(),
-         env.item[wpn].name(DESC_PLAIN).c_str());
-
-    destroy_item(dancing->inv[MSLOT_WEAPON]);
-
-    dancing->inv[MSLOT_WEAPON] = wpn;
-    env.item[wpn].set_holding_monster(*dancing);
-    dancing->colour = env.item[wpn].get_colour();
 }
 
 static void _xom_give_mutations(bool good)
@@ -3449,8 +3409,7 @@ static const map<xom_event_type, xom_event> xom_events = {
     { XOM_GOOD_SPELL, { "tension spell", _xom_random_spell }},
     { XOM_GOOD_CONFUSION, { "confuse monsters", _xom_confuse_monsters }},
     { XOM_GOOD_SINGLE_ALLY, { "single ally", _xom_send_one_ally }},
-    { XOM_GOOD_ANIMATE_MON_WPN, { "animate monster weapon",
-                                  _xom_animate_monster_weapon }},
+    { XOM_GOOD_ANIMATE_MON_WPN, { "animate monster weapon" }},
     { XOM_GOOD_RANDOM_ITEM, { "random item gift", _xom_random_item }},
     { XOM_GOOD_ACQUIREMENT, { "acquirement", _xom_acquirement }},
     { XOM_GOOD_ALLIES, { "summon allies", _xom_send_allies }},

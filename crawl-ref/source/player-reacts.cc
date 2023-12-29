@@ -211,6 +211,19 @@ static void _decrement_attraction(int delay)
         mpr("You feel less attractive to monsters.");
 }
 
+static void _decrement_stun(int delay)
+{
+    if (!you.duration[DUR_STUN])
+        return;
+
+    _decrement_a_duration(DUR_STUN, delay);
+
+    if (you.duration[DUR_STUN])
+        return;
+
+    mprf(MSGCH_DURATION, "You are no longer stunned.");
+}
+
 static void _decrement_paralysis(int delay)
 {
     _decrement_a_duration(DUR_PARALYSIS_IMMUNITY, delay);
@@ -457,6 +470,7 @@ void player_reacts_to_monsters()
 
     _decrement_attraction(you.time_taken);
     _decrement_paralysis(you.time_taken);
+    _decrement_stun(you.time_taken);
     _decrement_petrification(you.time_taken);
     if (_decrement_a_duration(DUR_SLEEP, you.time_taken))
         you.awaken();

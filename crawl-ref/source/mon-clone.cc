@@ -156,6 +156,7 @@ static enchant_type _player_duration_to_mons_enchantment(duration_type dur)
     case DUR_MIGHT:     return ENCH_MIGHT;
     case DUR_BERSERK:   return ENCH_BERSERK;
     case DUR_POISONING: return ENCH_POISON;
+    case DUR_STUN:      return ENCH_STUN;
 
     default:            return ENCH_NONE;
     }
@@ -327,24 +328,6 @@ monster* clone_mons(const monster* orig, bool quiet, bool* obvious,
     // Don't display non-functional bullseye targets
     if (mons->has_ench(ENCH_BULLSEYE_TARGET))
         mons->del_ench(ENCH_BULLSEYE_TARGET);
-
-    // Duplicate objects, or unequip them if they can't be duplicated.
-    for (mon_inv_iterator ii(*mons); ii; ++ii)
-    {
-        const int old_index = ii->index();
-
-        const int new_index = get_mitm_slot(0);
-        if (new_index == NON_ITEM)
-        {
-            mons->unequip(env.item[old_index], false, true);
-            mons->inv[ii.slot()] = NON_ITEM;
-            continue;
-        }
-
-        mons->inv[ii.slot()] = new_index;
-        env.item[new_index] = env.item[old_index];
-        env.item[new_index].set_holding_monster(*mons);
-    }
 
     bool _obvious;
     if (obvious == nullptr)

@@ -793,80 +793,6 @@ bool monster::likes_wand(const item_def &item) const
     return wand_charge_value(item.sub_type) + get_hit_dice() * 6 <= 72;
 }
 
-void monster::equip_weapon_message(item_def &item)
-{
-    const string str = " wields " +
-                       item.name(DESC_A, false, false, true, false,
-                                 ISFLAG_CURSED) + ".";
-    simple_monster_message(*this, str.c_str());
-
-    const int brand = get_weapon_brand(item);
-
-    bool message_given = true;
-    switch (brand)
-    {
-    case SPWPN_FLAMING:
-        mpr("It bursts into flame!");
-        break;
-    case SPWPN_FREEZING:
-        mpr(is_range_weapon(item) ? "It is covered in frost."
-                                  : "It glows with a cold blue light!");
-        break;
-    case SPWPN_HOLY_WRATH:
-        mpr("It softly glows with a divine radiance!");
-        break;
-    case SPWPN_ELECTROCUTION:
-        mprf(MSGCH_SOUND, "You hear the crackle of electricity.");
-        break;
-    case SPWPN_VENOM:
-        mpr("It begins to drip with poison!");
-        break;
-    case SPWPN_DRAINING:
-        mpr("You sense an unholy aura.");
-        break;
-    case SPWPN_DISTORTION:
-        mpr("Its appearance distorts for a moment.");
-        break;
-    case SPWPN_CHAOS:
-        mpr("It is briefly surrounded by a scintillating aura of "
-            "random colours.");
-        break;
-    case SPWPN_PENETRATION:
-    {
-        bool plural = true;
-        string hand = hand_name(true, &plural);
-        mprf("%s %s briefly %s through it before %s %s to get a "
-             "firm grip on it.",
-             pronoun(PRONOUN_POSSESSIVE).c_str(),
-             hand.c_str(),
-             // Not conj_verb: the monster isn't the subject.
-             conjugate_verb("pass", plural).c_str(),
-             pronoun(PRONOUN_SUBJECTIVE).c_str(),
-             conjugate_verb("manage", pronoun_plurality()).c_str());
-    }
-        break;
-    case SPWPN_REAPING:
-        mpr("It is briefly surrounded by shifting shadows.");
-        break;
-    case SPWPN_ACID:
-        mprf("It begins to drip corrosive slime!");
-        break;
-
-    default:
-        // A ranged weapon without special message is known to be unbranded.
-        if (brand != SPWPN_NORMAL || !is_range_weapon(item))
-            message_given = false;
-    }
-
-    if (message_given)
-    {
-        if (is_artefact(item) && !is_unrandom_artefact(item))
-            artefact_learn_prop(item, ARTP_BRAND);
-        else
-            set_ident_flags(item, ISFLAG_KNOW_TYPE);
-    }
-}
-
 /**
  * What AC bonus does the monster get from the given item?
  *
@@ -883,158 +809,6 @@ int monster::armour_bonus(const item_def &item) const
     const int armour_plus = item.plus;
     ASSERT(abs(armour_plus) < 30); // sanity check
     return armour_ac + armour_plus;
-}
-
-void monster::equip_armour_message(item_def &item)
-{
-    const string str = " wears " +
-                       item.name(DESC_A) + ".";
-    simple_monster_message(*this, str.c_str());
-}
-
-void monster::equip_jewellery_message(item_def &item)
-{
-    ASSERT(item.base_type == OBJ_JEWELLERY);
-
-    const string str = " puts on " +
-                       item.name(DESC_A) + ".";
-    simple_monster_message(*this, str.c_str());
-}
-
-void monster::equip_message(item_def &item)
-{
-    switch (item.base_type)
-    {
-    case OBJ_WEAPONS:
-    case OBJ_STAVES:
-        equip_weapon_message(item);
-        break;
-
-    case OBJ_ARMOUR:
-        equip_armour_message(item);
-        break;
-
-    case OBJ_JEWELLERY:
-        equip_jewellery_message(item);
-    break;
-
-    default:
-        break;
-    }
-}
-
-void monster::unequip_weapon(item_def &item, bool msg)
-{
-    if (msg)
-    {
-        const string str = " unwields " +
-                           item.name(DESC_A, false, false, true, false,
-                                     ISFLAG_CURSED) + ".";
-        msg = simple_monster_message(*this, str.c_str());
-    }
-
-    const int brand = get_weapon_brand(item);
-    if (msg && brand != SPWPN_NORMAL)
-    {
-        bool message_given = true;
-        switch (brand)
-        {
-        case SPWPN_FLAMING:
-            mpr("It stops flaming.");
-            break;
-
-        case SPWPN_HOLY_WRATH:
-            mpr("It stops glowing.");
-            break;
-
-        case SPWPN_ELECTROCUTION:
-            mpr("It stops crackling.");
-            break;
-
-        case SPWPN_VENOM:
-            mpr("It stops dripping with poison.");
-            break;
-
-        case SPWPN_DISTORTION:
-            mpr("Its appearance distorts for a moment.");
-            break;
-
-        default:
-            message_given = false;
-        }
-        if (message_given)
-        {
-            if (is_artefact(item) && !is_unrandom_artefact(item))
-                artefact_learn_prop(item, ARTP_BRAND);
-            else
-                set_ident_flags(item, ISFLAG_KNOW_TYPE);
-        }
-    }
-
-    monster *spectral_weapon = find_spectral_weapon(this);
-    if (spectral_weapon)
-        end_spectral_weapon(spectral_weapon, false);
-}
-
-void monster::unequip_armour(item_def &item, bool msg)
-{
-    if (msg)
-    {
-        const string str = " takes off " +
-                           item.name(DESC_A) + ".";
-        simple_monster_message(*this, str.c_str());
-    }
-}
-
-void monster::unequip_jewellery(item_def &item, bool msg)
-{
-    ASSERT(item.base_type == OBJ_JEWELLERY);
-
-    if (msg)
-    {
-        const string str = " takes off " +
-                           item.name(DESC_A) + ".";
-        simple_monster_message(*this, str.c_str());
-    }
-}
-
-/**
- * Applies appropriate effects when unequipping an item.
- *
- * Note: this method does NOT modify this->inv to point to NON_ITEM!
- * @param item  the item to be removed.
- * @param msg   whether to give a message
- * @param force whether to remove the item even if cursed.
- * @return whether the item was unequipped successfully.
- */
-bool monster::unequip(item_def &item, bool msg, bool force)
-{
-    if (!force && item.cursed())
-        return false;
-
-    switch (item.base_type)
-    {
-    case OBJ_WEAPONS:
-        if (!force && mons_class_is_animated_object(type))
-            return false;
-        unequip_weapon(item, msg);
-        break;
-
-    case OBJ_ARMOUR:
-        if (!force && mons_class_is_animated_object(type))
-            return false;
-        unequip_armour(item, msg);
-        break;
-
-    case OBJ_JEWELLERY:
-        unequip_jewellery(item, msg);
-        break;
-
-    default:
-        break;
-    }
-
-    return true;
 }
 
 void monster::lose_pickup_energy()
@@ -1137,8 +911,6 @@ bool monster::pickup(item_def &item, mon_inv_type slot, bool msg)
                 pickup_message(item);
             inc_mitm_item_quantity(inv[slot], item.quantity);
             destroy_item(item.index());
-            if (msg)
-                equip_message(item);
             lose_pickup_energy();
             return true;
         }
@@ -1161,11 +933,6 @@ bool monster::pickup(item_def &item, mon_inv_type slot, bool msg)
 
     item.set_holding_monster(*this);
 
-    if (msg)
-    {
-        pickup_message(item);
-        equip_message(item);
-    }
     lose_pickup_energy();
     return true;
 }
@@ -1186,8 +953,6 @@ bool monster::drop_item(mon_inv_type eslot, bool msg)
         || eslot == MSLOT_JEWELLERY
         || eslot == MSLOT_ALT_WEAPON && mons_wields_two_weapons(*this))
     {
-        if (!unequip(pitem, msg))
-            return false;
         was_unequipped = true;
     }
 
@@ -1215,9 +980,6 @@ bool monster::drop_item(mon_inv_type eslot, bool msg)
 
         if (!move_item_to_grid(&item_index, pos(), swimming()))
         {
-            // Re-equip item if we somehow failed to drop it.
-            if (was_unequipped && msg)
-                equip_message(pitem);
 
             return false;
         }
@@ -1225,37 +987,6 @@ bool monster::drop_item(mon_inv_type eslot, bool msg)
 
     inv[eslot] = NON_ITEM;
     return true;
-}
-
-bool monster::pickup_launcher(item_def &launch, bool msg, bool force)
-{
-    if (!force && !_needs_ranged_attack(this))
-        return false;
-
-    const int mdam_rating = mons_weapon_damage_rating(launch);
-    for (int i = MSLOT_WEAPON; i <= MSLOT_ALT_WEAPON; ++i)
-    {
-        auto slot = static_cast<mon_inv_type>(i);
-        const item_def *old_weapon = mslot_item(slot);
-        if (!old_weapon)
-            return pickup(launch, slot, msg);
-
-        // If the old weapon is better than the new one, or just as
-        // good and with as good a brand, don't bother swapping.
-        const int old_rating = mons_weapon_damage_rating(*old_weapon);
-        if (old_rating > mdam_rating)
-            continue;
-        if (old_rating == mdam_rating
-            && (get_weapon_brand(*old_weapon) != SPWPN_NORMAL
-                || get_weapon_brand(launch) == SPWPN_NORMAL))
-        {
-            continue;
-        }
-        if (drop_item(slot, msg))
-            return pickup(launch, slot, msg);
-    }
-
-    return false;
 }
 
 static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
@@ -1283,8 +1014,7 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         // allow Psyche to switch away from it.
         if (mons->type == MONS_PSYCHE)
         {
-            return get_weapon_brand(weapon) == SPWPN_CHAOS
-                   || get_weapon_brand(weapon) == SPWPN_DISTORTION;
+            return get_weapon_brand(weapon) == SPWPN_CHAOS;
         }
 
         // Don't switch Azrael away from the customary scimitar of
@@ -1292,7 +1022,7 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
         if (mons->type == MONS_AZRAEL)
         {
             return wtype == WPN_SCIMITAR
-                   && get_weapon_brand(weapon) == SPWPN_FLAMING;
+                   && get_weapon_brand(weapon) == SPWPN_EXPLOSIVE;
         }
 
         if (mons->type == MONS_AGNES)
@@ -1314,7 +1044,7 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
             return wtype == WPN_EXECUTIONERS_AXE;
 
         if (mons->type == MONS_MENNAS)
-            return get_weapon_brand(weapon) == SPWPN_HOLY_WRATH;
+            return get_weapon_brand(weapon) == SPWPN_SILVER;
 
         if (mons->type == MONS_FANNAR)
             return weapon.is_type(OBJ_STAVES, STAFF_COLD);
@@ -1337,7 +1067,7 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
     }
 
     if (mons->is_holy())
-        return is_blessed(weapon) || get_weapon_brand(weapon) == SPWPN_HOLY_WRATH;
+        return is_blessed(weapon) || get_weapon_brand(weapon) == SPWPN_SILVER;
 
     if (is_unrandom_artefact(weapon))
     {
@@ -1360,364 +1090,10 @@ static bool _is_signature_weapon(const monster* mons, const item_def &weapon)
     return false;
 }
 
-static int _ego_damage_bonus(item_def &item)
-{
-    switch (get_weapon_brand(item))
-    {
-    case SPWPN_NORMAL:      return 0;
-    case SPWPN_PROTECTION:  return 1;
-    default:                return 2;
-    }
-}
-
-bool monster::pickup_melee_weapon(item_def &item, bool msg)
-{
-    // Draconian monks are masters of unarmed combat.
-    if (type == MONS_DRACONIAN_MONK)
-        return false;
-
-    const bool dual_wielding = mons_wields_two_weapons(*this);
-    if (dual_wielding)
-    {
-        // If we have either weapon slot free, pick up the weapon.
-        if (inv[MSLOT_WEAPON] == NON_ITEM)
-            return pickup(item, MSLOT_WEAPON, msg);
-
-        if (inv[MSLOT_ALT_WEAPON] == NON_ITEM)
-            return pickup(item, MSLOT_ALT_WEAPON, msg);
-    }
-
-    const int new_wpn_dam = mons_weapon_damage_rating(item)
-                            + _ego_damage_bonus(item);
-    mon_inv_type eslot = NUM_MONSTER_SLOTS;
-    item_def *weap;
-
-    // Monsters have two weapon slots, one of which can be a ranged, and
-    // the other a melee weapon. (The exception being dual-wielders who can
-    // wield two melee weapons). The weapon in MSLOT_WEAPON is the one
-    // currently wielded (can be empty).
-
-    for (int i = MSLOT_WEAPON; i <= MSLOT_ALT_WEAPON; ++i)
-    {
-        auto slot = static_cast<mon_inv_type>(i);
-        weap = mslot_item(slot);
-
-        if (!weap)
-        {
-            // If no weapon in this slot, mark this one.
-            if (eslot == NUM_MONSTER_SLOTS)
-                eslot = slot;
-        }
-        else
-        {
-            if (is_range_weapon(*weap))
-                continue;
-
-            if (type == MONS_SIGMUND)
-                continue; // The scythe is a classic. Stick with it.
-
-            // Don't swap from a signature weapon to a non-signature one.
-            if (!_is_signature_weapon(this, item)
-                && _is_signature_weapon(this, *weap))
-            {
-                if (dual_wielding)
-                    continue;
-                else
-                    return false;
-            }
-
-            // If we get here, the weapon is a melee weapon.
-            // If the new weapon is better than the current one and not cursed,
-            // replace it. Otherwise, give up.
-            const int old_wpn_dam = mons_weapon_damage_rating(*weap)
-                                    + _ego_damage_bonus(*weap);
-
-            bool new_wpn_better = new_wpn_dam > old_wpn_dam;
-            if (new_wpn_dam == old_wpn_dam)
-            {
-                // Use shopping value as a crude estimate of resistances etc.
-                // XXX: This is not really logical as many properties don't
-                //      apply to monsters (e.g. flight, blink, berserk).
-                // For simplicity, don't apply this check to secondary weapons
-                // for dual wielding monsters.
-                int oldval = item_value(*weap, true);
-                int newval = item_value(item, true);
-
-                if (newval > oldval)
-                    new_wpn_better = true;
-            }
-
-            if (new_wpn_better && !weap->cursed())
-            {
-                if (!dual_wielding
-                    || slot == MSLOT_WEAPON
-                    || old_wpn_dam
-                       < mons_weapon_damage_rating(*mslot_item(MSLOT_WEAPON))
-                         + _ego_damage_bonus(*mslot_item(MSLOT_WEAPON)))
-                {
-                    eslot = slot;
-                    if (!dual_wielding)
-                        break;
-                }
-            }
-            else if (!dual_wielding)
-            {
-                // Only dual wielders want two melee weapons.
-                return false;
-            }
-        }
-    }
-
-    // No slot found to place this item.
-    if (eslot == NUM_MONSTER_SLOTS)
-        return false;
-
-    // Current item cannot be dropped.
-    if (inv[eslot] != NON_ITEM && !drop_item(eslot, msg))
-        return false;
-
-    return pickup(item, eslot, msg);
-}
-
-bool monster::wants_weapon(const item_def &weap) const
-{
-    if (!could_wield(weap))
-        return false;
-
-    // Blademasters and master archers like their starting weapon and
-    // don't want another, thank you.
-    if (type == MONS_DEEP_ELF_BLADEMASTER
-        || type == MONS_DEEP_ELF_MASTER_ARCHER)
-    {
-        return false;
-    }
-
-    // Monsters capable of dual-wielding will always prefer two weapons
-    // to a single two-handed one, however strong.
-    if (mons_wields_two_weapons(*this)
-        && hands_reqd(weap) == HANDS_TWO)
-    {
-        return false;
-    }
-
-    // Don't pick up a new weapon if we've been gifted one by the player.
-    if (is_range_weapon(weap) && props.exists(BEOGH_RANGE_WPN_GIFT_KEY))
-        return false;
-    else if (props.exists(BEOGH_MELEE_WPN_GIFT_KEY))
-        return false;
-
-    // Arcane spellcasters don't want -Cast.
-    if (is_actual_spellcaster()
-        && is_artefact(weap)
-        && artefact_property(weap, ARTP_PREVENT_SPELLCASTING))
-    {
-        return false;
-    }
-
-    // Nobody picks up giant clubs. Starting equipment is okay, of course.
-    if (is_giant_club_type(weap.sub_type))
-        return false;
-
-    return true;
-}
-
-bool monster::wants_armour(const item_def &item) const
-{
-    // Monsters that are capable of dual wielding won't pick up shields or orbs.
-    // Neither will monsters that are already wielding a two-hander.
-    if (is_offhand(item)
-        && (mons_wields_two_weapons(*this)
-            || mslot_item(MSLOT_WEAPON)
-               && hands_reqd(*mslot_item(MSLOT_WEAPON))
-                      == HANDS_TWO))
-    {
-        return false;
-    }
-
-    // Don't pick up new armour if we've been gifted something by the player.
-    if (is_offhand(item) && props.exists(BEOGH_SH_GIFT_KEY))
-        return false;
-    else if (props.exists(BEOGH_ARM_GIFT_KEY))
-        return false;
-
-    // Spellcasters won't pick up restricting armour, although they can
-    // start with one. Applies to arcane spells only, of course.
-    if (!pos().origin() && is_actual_spellcaster()
-        && (property(item, PARM_EVASION) / 10 < -5
-            || is_artefact(item)
-               && artefact_property(item, ARTP_PREVENT_SPELLCASTING)))
-    {
-        return false;
-    }
-
-    // Returns whether this armour is the monster's size.
-    return check_armour_size(item, body_size());
-}
-
-bool monster::wants_jewellery(const item_def &item) const
-{
-    // Arcane spellcasters don't want -Cast.
-    if (is_actual_spellcaster()
-        && is_artefact(item)
-        && artefact_property(item, ARTP_PREVENT_SPELLCASTING))
-    {
-        return false;
-    }
-
-    // TODO: figure out what monsters actually want rings or amulets
-    return true;
-}
-
-bool monster::pickup_weapon(item_def &item, bool msg, bool force)
-{
-    if (!force && !wants_weapon(item))
-        return false;
-
-    // Weapon pickup involves:
-    // - If we have no weapons, always pick this up.
-    // - If this is a melee weapon and we already have a melee weapon, pick
-    //   it up if it is superior to the one we're carrying (and drop the
-    //   one we have).
-    // - If it is a ranged weapon, and we already have a ranged weapon,
-    //   pick it up if it is better than the one we have.
-
-    if (is_range_weapon(item))
-        return pickup_launcher(item, msg, force);
-    return pickup_melee_weapon(item, msg);
-}
-
-/**
- * Have a monster pick up a missile item.
- *
- * @param item  The item to pick up.
- * @param msg   Whether to print a message about the pickup.
- * @param force If true, the monster will always try to pick up the item.
- * @return  True if the monster picked up the missile, false otherwise.
-*/
-bool monster::pickup_missile(item_def &item, bool msg, bool force)
-{
-    const item_def *miss = missiles();
-
-    if (!force)
-    {
-        if (item.sub_type == MI_THROWING_NET)
-        {
-            // Monster may not pick up trapping net.
-            if (caught() && item_is_stationary_net(item))
-                return false;
-        }
-        else // None of these exceptions hold for throwing nets.
-        {
-            // Spellcasters should not waste time with ammunition.
-            // Neither summons nor debuffs are counted for this purpose.
-            if (!force && mons_has_ranged_spell(*this, true, false))
-                return false;
-
-            // Monsters in a fight will only pick up missiles if doing so
-            // is worthwhile.
-            if (!mons_is_wandering(*this)
-                && foe != MHITYOU
-                && (item.quantity < 5 || miss && miss->quantity >= 7))
-            {
-                return false;
-            }
-        }
-    }
-
-    if (miss && items_stack(*miss, item))
-        return pickup(item, MSLOT_MISSILE, msg);
-
-    if (!force && !can_use_missile(item))
-        return false;
-
-        // Allow upgrading throwing weapon brands (XXX: improve this!)
-    if (miss
-        && item.sub_type == miss->sub_type
-        && (item.sub_type == MI_BOOMERANG || item.sub_type == MI_JAVELIN)
-        && get_ammo_brand(*miss) == SPMSL_NORMAL
-        && get_ammo_brand(item) != SPMSL_NORMAL)
-    {
-        if (!drop_item(MSLOT_MISSILE, msg))
-            return false;
-    }
-
-    return pickup(item, MSLOT_MISSILE, msg);
-}
-
-bool monster::pickup_wand(item_def &item, bool msg, bool force)
-{
-    if (!force)
-    {
-        // Don't pick up empty wands.
-        if (item.plus == 0)
-            return false;
-
-        // Only low-HD monsters bother with wands.
-        if (!likes_wand(item))
-            return false;
-
-        // Holy monsters and worshippers of good gods won't pick up evil
-        // wands.
-        if ((is_holy() || is_good_god(god)) && is_evil_item(item))
-            return false;
-    }
-
-    // If a monster already has a charged wand, don't bother.
-    // Otherwise, replace with a charged one.
-    if (item_def *wand = mslot_item(MSLOT_WAND))
-    {
-        if (wand->plus > 0 && !force)
-            return false;
-
-        if (!drop_item(MSLOT_WAND, msg))
-            return false;
-    }
-
-    if (pickup(item, MSLOT_WAND, msg))
-        return true;
-    else
-        return false;
-}
-
-bool monster::pickup_gold(item_def &item, bool msg)
-{
-    return pickup(item, MSLOT_GOLD, msg);
-}
-
-bool monster::pickup_misc(item_def &item, bool msg, bool force)
-{
-    // Monsters can't use any miscellaneous items right now, so don't
-    // let them pick them up unless explicitly given.
-    if (!force)
-        return false;
-    return pickup(item, MSLOT_MISCELLANY, msg);
-}
-
 // Eaten items are handled elsewhere, in _handle_pickup() in mon-act.cc.
 bool monster::pickup_item(item_def &item, bool msg, bool force)
 {
-    // Equipping stuff can be forced when initially equipping monsters.
-    if (!force && mons_is_fleeing(*this))
-        return false;
-
-    switch (item.base_type)
-    {
-    case OBJ_GOLD:
-        return pickup_gold(item, msg);
-    case OBJ_STAVES:
-    case OBJ_WEAPONS:
-        return pickup_weapon(item, msg, force);
-    case OBJ_MISSILES:
-        return pickup_missile(item, msg, force);
-    case OBJ_WANDS:
-        return pickup_wand(item, msg, force);
-    case OBJ_BOOKS:
-    case OBJ_TALISMANS:
-    case OBJ_MISCELLANY:
-        return pickup_misc(item, msg, force);
-    default:
-        return false;
-    }
+    return false;
 }
 
 void monster::swap_weapons(maybe_bool maybe_msg)
@@ -1727,16 +1103,7 @@ void monster::swap_weapons(maybe_bool maybe_msg)
     item_def *weap = mslot_item(MSLOT_WEAPON);
     item_def *alt  = mslot_item(MSLOT_ALT_WEAPON);
 
-    if (weap && !unequip(*weap, msg))
-    {
-        // Item was cursed.
-        return;
-    }
-
     swap(inv[MSLOT_WEAPON], inv[MSLOT_ALT_WEAPON]);
-
-    if (alt && msg)
-        equip_message(*alt);
 
     // Monsters can swap weapons really fast. :-)
     if ((weap || alt) && speed_increment >= 2)
@@ -2604,6 +1971,11 @@ bool monster::confused_by_you() const
            || (me2.ench == ENCH_MAD && _you_responsible_for_ench(me2));
 }
 
+bool monster::stunned() const
+{
+    return has_ench(ENCH_STUN);
+}
+
 bool monster::paralysed() const
 {
     return has_ench(ENCH_PARALYSIS) || has_ench(ENCH_DUMB);
@@ -2611,7 +1983,7 @@ bool monster::paralysed() const
 
 bool monster::cannot_act() const
 {
-    return paralysed() || petrified();
+    return paralysed() || petrified() || stunned();
 }
 
 bool monster::asleep() const
@@ -2750,35 +2122,6 @@ bool monster::missile_repulsion() const
 }
 
 /**
- * How many weapons of the given brand does this monster currently wield?
- *
- * @param mon           The monster in question.
- * @param brand         The brand in question.
- * @return              The number of the aforementioned weapons currently
- *                      wielded.
- */
-static int _weapons_with_prop(const monster *mon, brand_type brand)
-{
-    int wielded = 0;
-
-    const mon_inv_type last_weap_slot = mons_wields_two_weapons(*mon) ?
-                                        MSLOT_ALT_WEAPON :
-                                        MSLOT_WEAPON;
-    for (int i = MSLOT_WEAPON; i <= last_weap_slot; i++)
-    {
-        const item_def *weap = mon->mslot_item(static_cast<mon_inv_type>(i));
-        if (!weap)
-            continue;
-
-        const int weap_brand = get_weapon_brand(*weap);
-        if (brand == weap_brand)
-            wielded++;
-    }
-
-    return wielded;
-}
-
-/**
  * What AC bonus or penalty does a given zombie type apply to the base
  * monster type's?
  *
@@ -2885,9 +2228,6 @@ int monster::armour_class() const
 {
     int ac = base_armour_class();
 
-    // check for protection-brand weapons
-    ac += 5 * _weapons_with_prop(this, SPWPN_PROTECTION);
-
     // armour from ac
     const item_def *armour = mslot_item(MSLOT_ARMOUR);
     if (armour)
@@ -2915,7 +2255,7 @@ int monster::armour_class() const
 
     // corrosion hurts.
     if (has_ench(ENCH_CORROSION))
-        ac -= 8;
+        ac -= 10;
 
     return max(ac, 0);
 }
@@ -3756,20 +3096,6 @@ bool monster::corrode_equipment(const char* corrosion_source, int degree)
     if (mons_is_avatar(type) || type == MONS_PLAYER_SHADOW)
         return false;
 
-    // rCorr protects against 50% of corrosion.
-    // As long as degree is at least 1, we'll apply the status once, because
-    // it doesn't look to me like applying it more times does anything.
-    // If I'm wrong, we should fix that.
-    if (res_corr())
-    {
-        degree = binomial(degree, 50);
-        if (!degree)
-        {
-            dprf("rCorr protects.");
-            return false;
-        }
-    }
-
     if (you.see_cell(pos()))
     {
         if (!has_ench(ENCH_CORROSION))
@@ -3791,24 +3117,15 @@ void monster::splash_with_acid(actor* evildoer)
     if (res_acid() == 3)
         return;
 
-    const int dam = roll_dice(2, 4);
-    const int post_res_dam = resist_adjust_damage(this, BEAM_ACID, dam);
-
     if (this->observable())
-    {
-        mprf("%s is splashed with acid%s", this->name(DESC_THE).c_str(),
-             attack_strength_punctuation(post_res_dam).c_str());
-    }
+        mprf("%s is corroded.", this->name(DESC_THE).c_str());
 
     acid_corrode(3);
-
-    if (post_res_dam > 0)
-        hurt(evildoer, post_res_dam, BEAM_ACID, KILLED_BY_ACID);
 }
 
 void monster::acid_corrode(int /*acid_strength*/)
 {
-    if (res_acid() < 3 && !one_chance_in(3))
+    if (res_acid() < 3 && coinflip())
         corrode_equipment();
 }
 
@@ -4000,6 +3317,12 @@ void monster::confuse(actor *atk, int strength)
 void monster::paralyse(const actor *atk, int strength, string /*cause*/)
 {
     enchant_actor_with_flavour(this, atk, BEAM_PARALYSIS, strength);
+}
+
+void monster::stun(actor *atk)
+{
+    if (!stunned())
+        add_ench(mon_enchant(ENCH_STUN, 0));
 }
 
 void monster::petrify(const actor *atk, bool /*force*/)
@@ -5205,7 +4528,7 @@ void monster::react_to_damage(const actor *oppressor, int damage,
         actor *owner = actor_by_mid(summoner);
         if (owner && owner != oppressor && oppressor->mid != summoner)
         {
-            int shared_damage = div_rand_round(damage*7,10);
+            int shared_damage = damage;
             if (shared_damage > 0)
             {
                 if (owner->is_player())
@@ -5395,233 +4718,6 @@ reach_type monster::reach_range() const
         range = max(range, weapon_reach(*wpn));
 
     return range;
-}
-
-void monster::steal_item_from_player()
-{
-    if (confused())
-    {
-        string msg = getSpeakString("Maurice confused nonstealing");
-        if (!msg.empty() && msg != "__NONE")
-        {
-            msg = replace_all(msg, "@The_monster@", name(DESC_THE));
-            mprf(MSGCH_TALK, "%s", msg.c_str());
-        }
-        return;
-    }
-    // Theft isn't very peaceful. More importantly, you would risk losing the
-    // item forever when the monster flees the level.
-    if (pacified())
-        return;
-
-    mon_inv_type mslot = NUM_MONSTER_SLOTS;
-    int steal_what  = -1;
-    int total_value = 0;
-    for (int m = 0; m < ENDOFPACK; ++m)
-    {
-        if (!you.inv[m].defined())
-            continue;
-
-        // Cannot unequip player.
-        // TODO: Allow stealing of the wielded weapon?
-        //       Needs to be unwielded properly and should never lead to
-        //       fatal stat loss.
-        // 1KB: I'd say no, weapon is being held, it's different from pulling
-        //      a wand from your pocket.
-        if (item_is_equipped(you.inv[m]))
-            continue;
-
-        // Maurice isn't skilled enough to steal stuff you're in the middle of
-        // using.
-        for (const /*shared_ptr<Delay>*/auto& delay : you.delay_queue)
-            if (delay->is_being_used(you.inv[m]))
-                continue;
-
-        mon_inv_type monslot = item_to_mslot(you.inv[m]);
-        if (monslot == NUM_MONSTER_SLOTS)
-            continue;
-
-        // Only try to steal stuff we can still store somewhere.
-        if (inv[monslot] != NON_ITEM)
-        {
-            if (monslot == MSLOT_WEAPON
-                && inv[MSLOT_ALT_WEAPON] == NON_ITEM)
-            {
-                monslot = MSLOT_ALT_WEAPON;
-            }
-            else
-                continue;
-        }
-
-        // Candidate for stealing.
-        const int value = item_value(you.inv[m], true);
-        total_value += value;
-
-        if (x_chance_in_y(value, total_value))
-        {
-            steal_what = m;
-            mslot      = monslot;
-        }
-    }
-
-    if (steal_what == -1 || you.gold > 0 && one_chance_in(10))
-    {
-        // Found no item worth stealing, try gold.
-        if (you.gold == 0)
-        {
-            if (silenced(pos()))
-                return;
-
-            string complaint = getSpeakString("Maurice nonstealing");
-            if (!complaint.empty())
-            {
-                complaint = replace_all(complaint, "@The_monster@",
-                                        name(DESC_THE));
-                mprf(MSGCH_TALK, "%s", complaint.c_str());
-            }
-
-            return;
-        }
-
-        const int stolen_amount = min(20 + random2(800), you.gold);
-        if (inv[MSLOT_GOLD] != NON_ITEM)
-        {
-            // If Maurice already's got some gold, simply increase the amount.
-            env.item[inv[MSLOT_GOLD]].quantity += stolen_amount;
-            // Don't re-tithe stolen gold under Zin.
-            env.item[inv[MSLOT_GOLD]].tithe_state = (you_worship(GOD_ZIN))
-                                                ? TS_NO_TITHE : TS_NO_PIETY;
-        }
-        else
-        {
-            // Else create a new item for this pile of gold.
-            const int idx = items(false, OBJ_GOLD, OBJ_RANDOM, 0);
-            if (idx == NON_ITEM)
-                return;
-
-            item_def &new_item = env.item[idx];
-            new_item.base_type = OBJ_GOLD;
-            new_item.sub_type  = 0;
-            // Don't re-tithe stolen gold under Zin.
-            new_item.tithe_state = (you_worship(GOD_ZIN)) ? TS_NO_TITHE
-                                                          : TS_NO_PIETY;
-            new_item.plus2     = 0;
-            new_item.special   = 0;
-            new_item.flags     = 0;
-            new_item.link      = NON_ITEM;
-            new_item.quantity  = stolen_amount;
-            new_item.pos.reset();
-            item_colour(new_item);
-
-            unlink_item(idx);
-
-            inv[MSLOT_GOLD] = idx;
-            new_item.set_holding_monster(*this);
-        }
-        mprf("%s steals %d gold piece%s!",
-             name(DESC_THE).c_str(),
-             stolen_amount,
-             stolen_amount != 1 ? "s" : "");
-
-        const string what = make_stringf("%s stole %d gold",
-                                        uppercase_first(name(DESC_A)).c_str(),
-                                        stolen_amount);
-        take_note(Note(NOTE_MESSAGE, 0, 0, what), true);
-
-        you.attribute[ATTR_GOLD_FOUND] -= stolen_amount;
-
-        you.del_gold(stolen_amount);
-        mprf("You now have %d gold piece%s.",
-             you.gold, you.gold != 1 ? "s" : "");
-
-        return;
-    }
-
-    ASSERT(steal_what != -1);
-    ASSERT(mslot != NUM_MONSTER_SLOTS);
-    ASSERT(inv[mslot] == NON_ITEM);
-
-    item_def* tmp = take_item(steal_what, mslot, true);
-    if (!tmp)
-        return;
-    item_def& new_item = *tmp;
-
-    // You'll want to autopickup it after killing Maurice.
-    new_item.flags |= ISFLAG_THROWN;
-}
-
-/**
- * "Give" a monster an item from the player's inventory.
- *
- * @param steal_what The slot in your inventory of the item.
- * @param mslot Which mon_inv_type to put the item in
- *
- * @returns new_item the new item, now in the monster's inventory.
- */
-item_def* monster::take_item(int steal_what, mon_inv_type mslot,
-                             bool is_stolen)
-{
-    // Create new item.
-    int index = get_mitm_slot(10);
-    if (index == NON_ITEM)
-        return nullptr;
-
-    item_def &new_item = env.item[index];
-
-    // Copy item.
-    new_item = you.inv[steal_what];
-
-    // If the item was stolen, randomize quantity
-    if (is_stolen)
-    {
-        const int stolen_amount = 1 + random2(new_item.quantity);
-        if (stolen_amount < new_item.quantity)
-        {
-            mprf("%s steals %d of %s!",
-                 name(DESC_THE).c_str(),
-                 stolen_amount,
-                 new_item.name(DESC_YOUR).c_str());
-        }
-        else
-        {
-            mprf("%s steals %s!",
-                 name(DESC_THE).c_str(),
-                 new_item.name(DESC_YOUR).c_str());
-        }
-        const string what = make_stringf("%s stole %s",
-                                        uppercase_first(name(DESC_A)).c_str(),
-                                        new_item.name(DESC_A).c_str());
-        take_note(Note(NOTE_MESSAGE, 0, 0, what), true);
-        new_item.quantity = stolen_amount;
-    }
-
-    // Drop the item already in the slot (including the shield
-    // if it's a two-hander).
-    // TODO: fail conditions here have an awkward ordering with the steal msgs
-    if ((mslot == MSLOT_WEAPON || mslot == MSLOT_ALT_WEAPON)
-        && inv[MSLOT_SHIELD] != NON_ITEM
-        && hands_reqd(new_item) == HANDS_TWO
-        && !drop_item(MSLOT_SHIELD, observable()))
-    {
-        return nullptr;
-    }
-    if (inv[mslot] != NON_ITEM && !drop_item(mslot, observable()))
-        return nullptr;
-
-    // Set the item as unlinked.
-    new_item.pos.reset();
-    new_item.link = NON_ITEM;
-    unlink_item(index);
-    inv[mslot] = index;
-    new_item.set_holding_monster(*this);
-
-    if (mslot != MSLOT_ALT_WEAPON || mons_wields_two_weapons(*this))
-        equip_message(new_item);
-
-    // Item is gone from player's inventory.
-    dec_inv_item_quantity(steal_what, new_item.quantity);
-
-    return &new_item;
 }
 
 /** Disarm this monster, and preferably pull the weapon into your tile.

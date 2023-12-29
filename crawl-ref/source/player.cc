@@ -1888,7 +1888,8 @@ static int _player_scale_evasion(int prescaled_ev)
 static int _player_evasion(bool ignore_helpless)
 {
     // no evasion while paralyzed, treed, or backlit.
-    if ((you.cannot_act() || you.duration[DUR_CLUMSY] || you.backlit()
+    if ((you.duration[DUR_PARALYSIS] || you.duration[DUR_CLUMSY]
+         || you.duration[DUR_PETRIFIED] || you.backlit()
             || you.form == transformation::tree)
         && !ignore_helpless)
     {
@@ -1967,6 +1968,11 @@ int player_shield_class()
             && !you.duration[DUR_ICEMAIL_DEPLETED])
     {
         shield += ICEMAIL_MAX * 100;
+    }
+
+    if (you.duration[DUR_SPWPN_SHIELDING])
+    {
+        shield += 2000;
     }
 
     shield += qazlal_sh_boost() * 100;
@@ -3683,7 +3689,7 @@ int get_real_mp(bool include_items)
     enp /= 100;
 
     if (include_items && you.wearing_ego(EQ_WEAPON, SPWPN_ANTIMAGIC))
-        enp /= 3;
+        enp /= 2;
 
     enp = max(enp, 0);
 
@@ -5323,9 +5329,14 @@ bool player::paralysed() const
     return duration[DUR_PARALYSIS];
 }
 
+bool player::stunned() const
+{
+    return duration[DUR_STUN];
+}
+
 bool player::cannot_act() const
 {
-    return asleep() || paralysed() || petrified();
+    return asleep() || paralysed() || petrified() || stunned();
 }
 
 bool player::confused() const
@@ -5368,6 +5379,7 @@ bool player::shielded() const
            || qazlal_sh_boost() > 0
            || you.wearing(EQ_AMULET, AMU_REFLECTION)
            || you.scan_artefacts(ARTP_SHIELDING)
+           || duration[DUR_SPWPN_SHIELDING]
            || (get_mutation_level(MUT_CONDENSATION_SHIELD)
                 && !you.duration[DUR_ICEMAIL_DEPLETED]);
 }
@@ -5873,10 +5885,7 @@ int player::corrosion_amount() const
     if (you.on_current_level && env.level_state & LSTATE_SLIMY_WALL)
         corrosion += slime_wall_corrosion(&you);
 
-    if (player_in_branch(BRANCH_DIS))
-        corrosion += 2;
-
-    return corrosion;
+    return min(corrosion, 1);
 }
 
 static int _meek_bonus()
@@ -5908,14 +5917,7 @@ int player::armour_class_with_specific_items(vector<const item_def *> items) con
     if (duration[DUR_QAZLAL_AC])
         AC += 300;
 
-    if (duration[DUR_SPWPN_PROTECTION])
-    {
-        AC += 700;
-        if (player_equip_unrand(UNRAND_MEEK))
-            AC += _meek_bonus() * scale;
-    }
-
-    AC -= 400 * corrosion_amount();
+    AC -= 1000 * corrosion_amount();
 
     AC += sanguine_armour_bonus();
 
@@ -6474,16 +6476,6 @@ bool player::resists_dislodge(string event) const
 
 bool player::corrode_equipment(const char* corrosion_source, int degree)
 {
-    // rCorr protects against 50% of corrosion.
-    if (res_corr())
-    {
-        degree = binomial(degree, 50);
-        if (!degree)
-        {
-            dprf("rCorr protects.");
-            return false;
-        }
-    }
     // always increase duration, but...
     increase_duration(DUR_CORROSION, 10 + roll_dice(2, 4), 50,
                       make_stringf("%s corrodes you!",
@@ -6493,18 +6485,16 @@ bool player::corrode_equipment(const char* corrosion_source, int degree)
     // Static environmental corrosion doesn't factor in
     int prev_corr = props[CORROSION_KEY].get_int();
     bool did_corrode = false;
-    for (int i = 0; i < degree; i++)
-        if (!x_chance_in_y(prev_corr, prev_corr + 7))
-        {
-            props[CORROSION_KEY].get_int()++;
-            prev_corr++;
-            did_corrode = true;
-        }
+    if (!prev_corr)
+    {
+        props[CORROSION_KEY].get_int()++;
+        prev_corr++;
+        did_corrode = true;
+    }
 
     if (did_corrode)
     {
         redraw_armour_class = true;
-        wield_change = true;
     }
     return true;
 }
@@ -6604,6 +6594,15 @@ void player::paralyse(const actor *who, int str, string source)
     end_wait_spells();
     redraw_armour_class = true;
     redraw_evasion = true;
+}
+
+void player::stun(actor *who)
+{
+    if (!duration[DUR_STUN])
+    {
+        mpr("You are stunned.");
+        duration[DUR_STUN] = BASELINE_DELAY;
+    }
 }
 
 void player::petrify(const actor *who, bool force)
@@ -8119,17 +8118,17 @@ void activate_sanguine_armour()
  */
 void refresh_weapon_protection()
 {
-    if (!you.duration[DUR_SPWPN_PROTECTION])
+    if (!you.duration[DUR_SPWPN_SHIELDING])
         mpr("Your weapon exudes an aura of protection.");
 
-    you.increase_duration(DUR_SPWPN_PROTECTION, 3 + random2(2), 5);
+    you.increase_duration(DUR_SPWPN_SHIELDING, 3 + random2(2), 5);
     you.redraw_armour_class = true;
 }
 
 void refresh_meek_bonus()
 {
     const string MEEK_KEY = "meek_ac_key";
-    const bool meek_possible = you.duration[DUR_SPWPN_PROTECTION]
+    const bool meek_possible = you.duration[DUR_SPWPN_SHIELDING]
                             && player_equip_unrand(UNRAND_MEEK);
     const int bonus_ac = _meek_bonus();
     if (!meek_possible || !bonus_ac)

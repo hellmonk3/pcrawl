@@ -921,8 +921,8 @@ static int _weapon_brand_quality(int brand, bool range)
     case SPWPN_PENETRATION:
         return 4;
     case SPWPN_ELECTROCUTION:
-    case SPWPN_DISTORTION:
-    case SPWPN_HOLY_WRATH:
+    case SPWPN_BLINKING:
+    case SPWPN_SILVER:
     case SPWPN_REAPING:
         return 3;
     case SPWPN_CHAOS:
@@ -1009,7 +1009,7 @@ static void _adjust_brand(item_def &item, bool divine, int agent)
     {
         // 75% chance of a brand
         item.brand = random_choose(SPWPN_NORMAL, SPWPN_HEAVY,
-                                   SPWPN_FLAMING, SPWPN_ANTIMAGIC);
+                                   SPWPN_EXPLOSIVE, SPWPN_ANTIMAGIC);
         return;
     }
 

@@ -297,7 +297,7 @@ INSCRIP: curses,
 COLOUR:  ETC_DEATH
 TILE:    spwpn_scythe_of_curses
 TILE_EQ: finisher
-BRAND:   SPWPN_DRAINING
+BRAND:   SPWPN_VAMPIRISM
 VALUE:   800
 BOOL:    drain
 DBRAND:  Curses:    It inflicts powerful necromantic curses on any living foe it
@@ -338,7 +338,7 @@ PLUS:    +6
 COLOUR:  ETC_FIRE
 TILE:    spwpn_sword_of_cerebov
 TILE_EQ: sword_twist
-BRAND:   SPWPN_FLAMING
+BRAND:   SPWPN_EXPLOSIVE
 BOOL:    evil, nogen
 DBRAND:  Hellfire:  It temporarily reduces the fire resistance of those it
  strikes.
@@ -383,7 +383,7 @@ PLUS:    +8
 COLOUR:  ETC_DARK
 TILE:    urand_bloodbane
 TILE_EQ: bloodbane
-BRAND:   SPWPN_DRAINING
+BRAND:   SPWPN_VAMPIRISM
 ANGRY:   5
 BOOL:    nogen
 STEALTH: -1
@@ -397,7 +397,7 @@ PLUS:    +6
 COLOUR:  ETC_FIRE
 TILE:    urand_flaming_death
 TILE_EQ: flaming_death
-BRAND:   SPWPN_FLAMING
+BRAND:   SPWPN_EXPLOSIVE
 BOOL:    skip_ego, nogen
 WILL:    1
 # end TAG_MAJOR_VERSION
@@ -409,7 +409,7 @@ PLUS:    +1
 COLOUR:  ETC_HOLY
 TILE:    urand_brilliance
 TILE_EQ: mace_of_brilliance
-BRAND:   SPWPN_HOLY_WRATH
+BRAND:   SPWPN_SILVER
 AC:      5
 INT:     5
 LIFE:    1
@@ -522,8 +522,8 @@ COLOUR:   ETC_HOLY
 TILE:     unrand_zealot_sword
 TILE_EQ:  zealot_sword
 # fallback places a randart eudemon blade!
-BRAND:    SPWPN_HOLY_WRATH
-FB_BRAND: SPWPN_HOLY_WRATH
+BRAND:    SPWPN_SILVER
+FB_BRAND: SPWPN_SILVER
 EV:       3
 ANGRY:    20
 LIFE:     1
@@ -533,7 +533,7 @@ DESCRIP:  Zealotry:  Whenever the wielder enters a berserk rage, their allies
 NAME:    arbalest "Damnation"
 INSCRIP: damnation
 OBJ:     OBJ_WEAPONS/WPN_ARBALEST
-FB_BRAND: SPWPN_FLAMING
+FB_BRAND: SPWPN_EXPLOSIVE
 PLUS:    +6
 COLOUR:  ETC_FIRE
 TILE:    urand_damnation
@@ -592,7 +592,7 @@ PLUS:     +8 # Messed with sometimes
 COLOUR:   ETC_WATER
 TILE:     urand_octopus_king
 TILE_EQ:  trident_octopus_king
-BRAND:    SPWPN_VENOM
+BRAND:    SPWPN_SPELLVAMP
 BOOL:     no_upgrade
 
 NAME:    mithril axe "Arga"
@@ -662,7 +662,7 @@ BOOL:    inv, tilerim, nogen
 NAME:    lance "Wyrmbane"
 OBJ:     OBJ_WEAPONS/WPN_SPEAR
 FALLBACK: OBJ_WEAPONS/WPN_DEMON_TRIDENT
-FB_BRAND: SPWPN_FLAMING
+FB_BRAND: SPWPN_EXPLOSIVE
 INSCRIP: slay drac,
 TYPE:    lance
 BASE_DAM: +2
@@ -704,7 +704,7 @@ DBRAND:  Mutate:    It occasionally inflicts wild transmutation effects on those
 NAME:     great mace "Undeadhunter"
 INSCRIP:  deathbane,
 OBJ:      OBJ_WEAPONS/WPN_GREAT_MACE
-FB_BRAND: SPWPN_HOLY_WRATH
+FB_BRAND: SPWPN_SILVER
 PLUS:     +7
 COLOUR:   LIGHTGREY
 TILE:     urand_undeadhunter
@@ -720,7 +720,7 @@ PLUS:    +8
 COLOUR:  DARKGREY
 TILE:    urand_snakebite
 TILE_EQ: snakebite
-BRAND:   SPWPN_VENOM
+BRAND:   SPWPN_SPELLVAMP
 DBRAND:  Curare:    It occasionally inflicts asphyxiating poison on those it
  strikes, dealing poison damage and causing slowness.
 
@@ -1145,7 +1145,7 @@ PLUS:     +16
 COLOUR:   ETC_UNHOLY
 TILE:     spwpn_demon_axe
 TILE_EQ:  demon_axe
-BRAND:    SPWPN_DRAINING
+BRAND:    SPWPN_VAMPIRISM
 FB_BRAND: SPWPN_PAIN
 BOOL:     evil, fly, drain
 INSCRIP:  demonic, Mesm
@@ -1341,15 +1341,12 @@ NAME:    lajatang of Order
 INSCRIP: silver,
 OBJ:     OBJ_WEAPONS/WPN_LAJATANG
 # not really comparable...
-FB_BRAND: SPWPN_HOLY_WRATH
+BRAND: SPWPN_SILVER
 COLOUR:  ETC_SILVER
 TILE:    urand_order
 TILE_EQ: order
 PLUS:    +7
 BOOL:    rMut
-DBRAND:  Silver:    It inflicts extra damage upon those it strikes, and deals
- substantially increased damage to chaotic, mutated and magically transformed
- beings.
 
 ENUM:     FIRESTARTER
 NAME:     great mace "Firestarter"
@@ -1359,7 +1356,7 @@ COLOUR:   RED
 TILE:     urand_firestarter
 TILE_EQ:  firestarter
 PLUS:     +7
-BRAND:    SPWPN_FLAMING
+BRAND:    SPWPN_EXPLOSIVE
 DBRAND:   Immolate:  It fills those it strikes with an explosive inner flame.
 DESCRIP:  rFlCloud:  It grants immunity to clouds of flame.
 
@@ -1402,7 +1399,7 @@ COLOUR:  ETC_ENCHANT
 TILE:    urand_gyre
 TILE_EQ: gyre
 PLUS:    8
-BRAND:   SPWPN_PROTECTION
+BRAND:   SPWPN_SHIELDING
 FB_BRAND: SPWPN_FREEZING
 
 # start TAG_MAJOR_VERSION == 34
@@ -1514,7 +1511,7 @@ PLUS:     +2
 COLOUR:   ETC_VEHUMET
 TILE:     urand_thermic_engine
 TILE_EQ:  thermic_engine
-BRAND:    SPWPN_FLAMING
+BRAND:    SPWPN_EXPLOSIVE
 
 ENUM:     RIFT
 NAME:     demon trident "Rift"
@@ -1524,7 +1521,7 @@ PLUS:     +8
 COLOUR:   ETC_WARP
 TILE:     urand_rift
 TILE_EQ:  rift
-BRAND:    SPWPN_DISTORTION
+BRAND:    SPWPN_BLINKING
 DBRAND:   Reach+:    It can reach especially far, and its reaching attacks
  ignore other creatures in the way.
 
@@ -1615,7 +1612,7 @@ PLUS:       7
 COLOUR:     LIGHTRED
 TILE:       urand_throatcutter
 TILE_EQ:    throatcutter
-BRAND:      SPWPN_DRAINING
+BRAND:      SPWPN_VAMPIRISM
 INSCRIP:    coup de grace
 DBRAND:     Coup de Grace: It may instantly kill foes which have little health.
 
@@ -1625,7 +1622,7 @@ PLUS:       7
 COLOUR:     WHITE
 TILE:       urand_meek
 TILE_EQ:    staff_mage_two
-BRAND:      SPWPN_PROTECTION
+BRAND:      SPWPN_SHIELDING
 INSCRIP:    meekguard
 DBRAND:     Meekguard: It provides extra protection to wielders with little
  health.
@@ -1635,8 +1632,8 @@ NAME:     trishula "Condemnation"
 OBJ:      OBJ_WEAPONS/WPN_TRISHULA
 PLUS:     8
 COLOUR:   ETC_HOLY
-BRAND:    SPWPN_HOLY_WRATH
-FB_BRAND: SPWPN_HOLY_WRATH
+BRAND:    SPWPN_SILVER
+FB_BRAND: SPWPN_SILVER
 LIFE:     1
 BOOL:     fly, noises
 INSCRIP:  anguish,
@@ -1722,7 +1719,7 @@ PLUS:     +4
 COLOUR:   ETC_HOLY
 TILE:     spwpn_holy_axe
 TILE_EQ:  holy_axe
-BRAND:    SPWPN_HOLY_WRATH
+BRAND:    SPWPN_SILVER
 BOOL:     no_upgrade, fly, fragile
 INSCRIP:  Valiant
 DESCRIP:  Valiant:   It becomes more powerful as more dangerous foes come into
@@ -1769,7 +1766,7 @@ TILE:     spwpn_mule
 TILE_EQ:  mule
 PLUS:     7
 COLOUR:   ETC_INCARNADINE
-BRAND:    SPWPN_FLAMING
+BRAND:    SPWPN_EXPLOSIVE
 INSCRIP:  backblast,
 DBRAND:   Backblast: When fired, it often launches its wielder backwards.
 

@@ -298,30 +298,30 @@ bool is_weapon_brand_ok(int type, int brand, bool /*strict*/)
     if (type == WPN_QUICK_BLADE && brand == SPWPN_SPEED)
         return false;
 
-    if (is_demonic_weapon_type(type) && brand == SPWPN_HOLY_WRATH)
+    if (is_demonic_weapon_type(type) && brand == SPWPN_SILVER)
         return false;
 
     switch ((brand_type)brand)
     {
     // Universal brands.
     case SPWPN_NORMAL:
-    case SPWPN_VENOM:
-    case SPWPN_PROTECTION:
+    case SPWPN_SPELLVAMP:
+    case SPWPN_SHIELDING:
     case SPWPN_SPEED:
     case SPWPN_HEAVY:
     case SPWPN_CHAOS:
-    case SPWPN_HOLY_WRATH:
+    case SPWPN_SILVER:
     case SPWPN_ELECTROCUTION:
-    case SPWPN_FLAMING:
+    case SPWPN_EXPLOSIVE:
     case SPWPN_FREEZING:
-    case SPWPN_DRAINING:
     case SPWPN_ANTIMAGIC:
+    case SPWPN_ACID:
+    case SPWPN_PAIN:
         break;
 
     // Melee-only brands.
     case SPWPN_VAMPIRISM:
-    case SPWPN_PAIN:
-    case SPWPN_DISTORTION:
+    case SPWPN_BLINKING:
     case SPWPN_SPECTRAL:
     case SPWPN_REAPING: // only exists on Sword of Zonguldrok
         if (is_range_weapon(item))
@@ -330,7 +330,6 @@ bool is_weapon_brand_ok(int type, int brand, bool /*strict*/)
 
     // Ranged-only brands.
     case SPWPN_PENETRATION:
-    case SPWPN_ACID: // Only exists on Punk
         if (!is_range_weapon(item))
             return false;
         break;
@@ -344,6 +343,7 @@ bool is_weapon_brand_ok(int type, int brand, bool /*strict*/)
     case SPWPN_FROST:
     case SPWPN_DRAGON_SLAYING:
     case SPWPN_EVASION:
+    case SPWPN_DRAINING:
         return false;
 #endif
 

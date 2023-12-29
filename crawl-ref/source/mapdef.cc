@@ -4948,9 +4948,11 @@ int str_to_ego(object_class_type item_type, string ego_str)
         "orc_slaying",
         "dragon_slaying",
 #endif
-        "venom",
-        "protection",
+        "magic vamp",
+        "shielding",
+#if TAG_MAJOR_VERSION == 34
         "draining",
+#endif
         "speed",
         "heavy",
 #if TAG_MAJOR_VERSION == 34
@@ -4960,7 +4962,7 @@ int str_to_ego(object_class_type item_type, string ego_str)
         "vampirism",
         "pain",
         "antimagic",
-        "distortion",
+        "blinking",
 #if TAG_MAJOR_VERSION == 34
         "reaching",
         "returning",

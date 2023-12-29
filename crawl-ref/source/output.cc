@@ -633,6 +633,7 @@ static bool _boosted_ev()
 static bool _boosted_sh()
 {
     return you.duration[DUR_DIVINE_SHIELD]
+           || you.duration[DUR_SPWPN_SHIELDING]
            || qazlal_sh_boost() > 0
            || (you.get_mutation_level(MUT_CONDENSATION_SHIELD)
                 && !you.duration[DUR_ICEMAIL_DEPLETED]);
@@ -1111,9 +1112,6 @@ static void _print_stats_wp(int y)
     {
         item_def wpn = *you.weapon(); // copy
 
-        if (you.corrosion_amount() && wpn.base_type == OBJ_WEAPONS)
-            wpn.plus -= 4 * you.corrosion_amount();
-
         text = wpn.name(DESC_PLAIN, true, false, true);
     }
     else
@@ -1205,6 +1203,7 @@ static void _get_status_lights(vector<status_light>& out)
         STATUS_STR_ZERO, STATUS_INT_ZERO, STATUS_DEX_ZERO,
         STATUS_ALIVE_STATE,
         DUR_PARALYSIS,
+        DUR_STUN,
         DUR_CONF,
         DUR_PETRIFYING,
         DUR_PETRIFIED,

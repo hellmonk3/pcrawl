@@ -197,6 +197,7 @@ public:
     virtual bool sicken(int amount) = 0;
     virtual void paralyse(const actor *attacker, int strength,
                           string source = "") = 0;
+    virtual void stun(actor *attacker) = 0;
     virtual void petrify(const actor *attacker, bool force = false) = 0;
     virtual bool fully_petrify(bool quiet = false) = 0;
     virtual void slow_down(actor *attacker, int strength) = 0;
@@ -319,6 +320,7 @@ public:
     virtual int  dragon_level() const;
 
     virtual bool paralysed() const = 0;
+    virtual bool stunned() const = 0;
     virtual bool cannot_act() const = 0;
     virtual bool confused() const = 0;
     virtual bool caught() const = 0;

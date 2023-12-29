@@ -219,14 +219,13 @@ void ghost_demon::set_pan_lord_special_attack()
 {
     const attack_form form = random_choose_weighted(
         // Low chance
-        10, _brand_attack(SPWPN_VENOM),
-        10, _brand_attack(SPWPN_DRAINING),
+        10, _brand_attack(SPWPN_SPELLVAMP),
         4, _flavour_attack(AF_DRAIN_STR),
         4, _flavour_attack(AF_DRAIN_INT),
         2, _flavour_attack(AF_DRAIN_DEX),
         10, _flavour_attack(AF_DROWN),
         // Normal chance
-        20, _brand_attack(SPWPN_FLAMING),
+        20, _brand_attack(SPWPN_EXPLOSIVE),
         20, _brand_attack(SPWPN_FREEZING),
         20, _brand_attack(SPWPN_ELECTROCUTION),
         20, _brand_attack(SPWPN_VAMPIRISM),
@@ -237,7 +236,7 @@ void ghost_demon::set_pan_lord_special_attack()
         20, _flavour_attack(AF_WEAKNESS),
         // High chance
         40, _brand_attack(SPWPN_ANTIMAGIC),
-        40, _brand_attack(SPWPN_DISTORTION),
+        40, _brand_attack(SPWPN_BLINKING),
         40, _brand_attack(SPWPN_CHAOS),
         40, _flavour_attack(AF_TRAMPLE)
     );
@@ -246,7 +245,7 @@ void ghost_demon::set_pan_lord_special_attack()
     if (form.flavour != AF_PLAIN)
         att_flav = form.flavour;
 
-    if (brand == SPWPN_VENOM && coinflip())
+    if (brand == SPWPN_SPELLVAMP && coinflip())
         att_type = AT_STING; // such flavour!
     switch (att_flav)
     {
@@ -265,7 +264,7 @@ void ghost_demon::set_pan_lord_cloud_ring()
 {
     if (brand == SPWPN_ELECTROCUTION)
         cloud_ring_ench = ENCH_RING_OF_THUNDER;
-    else if (brand == SPWPN_FLAMING)
+    else if (brand == SPWPN_EXPLOSIVE)
         cloud_ring_ench = ENCH_RING_OF_FLAMES;
     else if (brand == SPWPN_CHAOS)
         cloud_ring_ench = ENCH_RING_OF_CHAOS;
@@ -273,8 +272,6 @@ void ghost_demon::set_pan_lord_cloud_ring()
         cloud_ring_ench = ENCH_RING_OF_ICE;
     else if (att_flav == AF_CORRODE)
         cloud_ring_ench = ENCH_RING_OF_ACID;
-    else if (brand == SPWPN_DRAINING)
-        cloud_ring_ench = ENCH_RING_OF_DRAINING;
     else
     {
         cloud_ring_ench = random_choose_weighted(
@@ -411,7 +408,7 @@ void ghost_demon::init_pandemonium_lord(bool friendly)
 }
 
 static const set<brand_type> ghost_banned_brands =
-                { SPWPN_HOLY_WRATH, SPWPN_CHAOS };
+                { SPWPN_SILVER, SPWPN_CHAOS };
 
 void ghost_demon::init_player_ghost()
 {
@@ -480,7 +477,7 @@ void ghost_demon::init_player_ghost()
                 switch (static_cast<stave_type>(weapon.sub_type))
                 {
                 // very bad approximations
-                case STAFF_FIRE: brand = SPWPN_FLAMING; break;
+                case STAFF_FIRE: brand = SPWPN_EXPLOSIVE; break;
                 case STAFF_COLD: brand = SPWPN_FREEZING; break;
                 case STAFF_DEATH: brand = SPWPN_PAIN; break;
                 case STAFF_AIR: brand = SPWPN_ELECTROCUTION; break;
@@ -909,7 +906,7 @@ bool debug_check_ghost(const ghost_demon &ghost)
     if (ghost.religion < GOD_NO_GOD || ghost.religion >= NUM_GODS)
         return false;
 
-    if (ghost.brand == SPWPN_HOLY_WRATH)
+    if (ghost.brand == SPWPN_SILVER)
         return false;
 
     // Ghosts don't get non-plain attack types and flavours.

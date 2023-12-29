@@ -1075,17 +1075,19 @@ static void _debug_acquirement_stats(FILE *ostat)
         const char* names[] =
         {
             "normal",
-            "flaming",
+            "explosive",
             "freezing",
-            "holy wrath",
+            "silver",
             "electrocution",
 #if TAG_MAJOR_VERSION == 34
             "orc slaying",
             "dragon slaying",
 #endif
-            "venom",
-            "protection",
+            "magic vamp",
+            "shielding",
+#if TAG_MAJOR_VERSION == 34
             "draining",
+#endif
             "speed",
             "heavy",
 #if TAG_MAJOR_VERSION == 34
@@ -1095,7 +1097,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "vampirism",
             "pain",
             "antimagic",
-            "distortion",
+            "blinking",
 #if TAG_MAJOR_VERSION == 34
             "reaching",
             "returning",
@@ -1153,7 +1155,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "ponderous",
             "flight",
             "willpower",
-            "protection",
+            "shielding",
             "stealth",
             "resistance",
             "positive energy",

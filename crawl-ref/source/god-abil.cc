@@ -152,7 +152,7 @@ bool bless_weapon(god_type god, brand_type brand, colour_t colour)
 
     item_def& wpn(you.inv[item_slot]);
     // TSO and KIKU allow blessing ranged weapons, but LUGONU does not.
-    if (!is_brandable_weapon(wpn, brand == SPWPN_HOLY_WRATH
+    if (!is_brandable_weapon(wpn, brand == SPWPN_SILVER
                                                                   || brand == SPWPN_PAIN, true))
     {
         return false;
@@ -162,8 +162,8 @@ bool bless_weapon(god_type god, brand_type brand, colour_t colour)
                        + " ";
     if (brand == SPWPN_PAIN)
         prompt += "bloodied with pain";
-    else if (brand == SPWPN_DISTORTION)
-        prompt += "corrupted with distortion";
+    else if (brand == SPWPN_BLINKING)
+        prompt += "blinkified";
     else
         prompt += "blessed with holy wrath";
     prompt += "?";
@@ -1493,6 +1493,8 @@ static bool _valid_beogh_gift_targets_in_sight()
  */
 bool beogh_gift_item()
 {
+    return false;
+
     if (!_valid_beogh_gift_targets_in_sight())
     {
         mpr("No worthy followers in sight.");
@@ -1571,15 +1573,6 @@ bool beogh_gift_item()
                               use_alt_slot ? MSLOT_ALT_WEAPON :
                                              MSLOT_WEAPON;
 
-    item_def *floor_item = mons->take_item(item_slot, mslot);
-    if (!floor_item)
-    {
-        // this probably means move_to_grid in drop_item failed?
-        mprf(MSGCH_ERROR, "Gift failed: %s is unable to take %s.",
-                                        mons->name(DESC_THE, false).c_str(),
-                                        gift.name(DESC_THE, false).c_str());
-        return false;
-    }
     if (use_alt_slot)
         mons->swap_weapons();
 
@@ -1692,9 +1685,9 @@ void yred_make_bound_soul(monster* mon, bool force_hostile)
     for (int slot = MSLOT_WEAPON; slot <= MSLOT_ALT_WEAPON; slot++)
     {
         item_def *wpn = mon->mslot_item(static_cast<mon_inv_type>(slot));
-        if (wpn && get_weapon_brand(*wpn) == SPWPN_HOLY_WRATH)
+        if (wpn && get_weapon_brand(*wpn) == SPWPN_SILVER)
         {
-            set_item_ego_type(*wpn, OBJ_WEAPONS, SPWPN_DRAINING);
+            set_item_ego_type(*wpn, OBJ_WEAPONS, SPWPN_VAMPIRISM);
             convert2bad(*wpn);
         }
     }

@@ -70,7 +70,7 @@ bool is_holy_item(const item_def& item, bool calc_unid)
         if (is_blessed(item))
             return true;
         if (calc_unid || item_brand_known(item))
-            return get_weapon_brand(item) == SPWPN_HOLY_WRATH;
+            return get_weapon_brand(item) == SPWPN_SILVER;
     }
 
     return false;
@@ -108,11 +108,9 @@ bool is_evil_brand(int brand)
 {
     switch (brand)
     {
-    case SPWPN_DRAINING:
     case SPWPN_PAIN:
     case SPWPN_VAMPIRISM:
     case SPWPN_REAPING:
-    case SPWPN_DISTORTION:
         return true;
     default:
         return false;
@@ -121,7 +119,7 @@ bool is_evil_brand(int brand)
 
 bool is_chaotic_brand(int brand)
 {
-    return brand == SPWPN_CHAOS || brand == SPWPN_DISTORTION;
+    return brand == SPWPN_CHAOS;
 }
 
 bool is_hasty_brand(int brand)

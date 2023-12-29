@@ -345,8 +345,11 @@ bool attack::blinking_affects_defender()
 
     if (defender_visible)
         obvious_effect = true;
-    if (!defender->no_tele() && x_chance_in_y(user.skill(SK_TRANSLOCATIONS), 10))
+    if (!defender->no_tele()
+            && x_chance_in_y(1 + user.skill(SK_TRANSLOCATIONS), 10))
+    {
         blink_fineff::schedule(defender);
+    }
 
     return false;
 }
@@ -1097,7 +1100,8 @@ bool attack::apply_damage_brand(const char *what)
 
     case SPWPN_FREEZING:
         calc_elemental_brand_damage(BEAM_COLD, "freeze", what);
-        defender->expose_to_element(BEAM_COLD, 2);
+        if (defender->res_cold() < 1 && x_chance_in_y(damage_done, 50))
+            defender->slow_down(attacker, 3);
         break;
 
     case SPWPN_SILVER:

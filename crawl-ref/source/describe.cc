@@ -1619,7 +1619,6 @@ static string _describe_weapon_brand(const item_def &item)
         return "";
 
     const brand_type brand = get_weapon_brand(item);
-    const bool ranged = is_range_weapon(item);
 
     switch (brand)
     {
@@ -1629,8 +1628,8 @@ static string _describe_weapon_brand(const item_def &item)
                "one-quarter of the damage dealt, piercing defenders' armour.";
     case SPWPN_FREEZING:
         return "It freezes victims, dealing an additional one-quarter of any "
-               "damage that pierces defenders' armour. It may also slow down "
-               "cold-blooded creatures.";
+               "damage that pierces defenders' armour. It may also slow "
+               "nonresistant creatures; chance increases with damage dealt.";
     case SPWPN_SILVER:
         return "It deals additional damage equal to the original damage dealt "
                "to undead and demons. The additional damage pierces armour.";
@@ -1648,7 +1647,7 @@ static string _describe_weapon_brand(const item_def &item)
     case SPWPN_HEAVY:
     {
         return "Its maximum damage is 2.5x normal, but attacking with "
-                      "it will stun you for one turn.";
+               "it will stun you for one turn.";
     }
     case SPWPN_CHAOS:
         return "Each hit has a different, random effect. 4 in 5 times, it will "
@@ -1670,7 +1669,7 @@ static string _describe_weapon_brand(const item_def &item)
         }
     case SPWPN_BLINKING:
         return "It may blink enemies you hit. The percent chance to blink an "
-               "enemy is equal to your translocations skill * 10";
+               "enemy is equal to 10 + your translocations skill * 10";
     case SPWPN_PENETRATION:
         return "Any ammunition fired by it continues flying after striking "
                "targets, potentially hitting everything in its path until it "

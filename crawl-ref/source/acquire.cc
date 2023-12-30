@@ -1276,7 +1276,9 @@ static void _create_acquirement_item(item_def &item)
 
     set_ident_type(item, true);
 
-    if (copy_item_to_grid(item, you.pos()))
+    if (move_item_to_inv(item))
+        canned_msg(MSG_SOMETHING_APPEARS);
+    else if (copy_item_to_grid(item, you.pos()))
         canned_msg(MSG_SOMETHING_APPEARS);
     else
         canned_msg(MSG_NOTHING_HAPPENS);

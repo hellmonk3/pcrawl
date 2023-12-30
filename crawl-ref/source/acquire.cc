@@ -554,67 +554,6 @@ static int _acquirement_jewellery_subtype(bool /*divine*/, int & /*quantity*/,
     return result;
 }
 
-static vector<pair<stave_type, int>> _base_staff_weights()
-{
-    vector<pair<stave_type, int>> weights = {
-        { STAFF_FIRE,        _skill_rdiv(SK_FIRE_MAGIC) },
-        { STAFF_COLD,        _skill_rdiv(SK_ICE_MAGIC) },
-        { STAFF_AIR,         _skill_rdiv(SK_AIR_MAGIC) },
-        { STAFF_EARTH,       _skill_rdiv(SK_EARTH_MAGIC) },
-        { STAFF_DEATH,       _skill_rdiv(SK_NECROMANCY) },
-        { STAFF_CONJURATION, _skill_rdiv(SK_CONJURATIONS) },
-        { NUM_STAVES,        5 },
-    };
-    return weights;
-}
-
-// return true if there are any non-id'd staves found
-static bool _remove_ided_staff_weights(vector<pair<stave_type, int>> &weights)
-{
-    bool found = false;
-    for (auto &weight : weights)
-    {
-        // leave random weight untouched
-        if (weight.first == NUM_STAVES)
-            continue;
-
-        if (get_ident_type(OBJ_STAVES, weight.first))
-            weight.second = 0;
-        else
-            found = true;
-    }
-    return found;
-}
-
-static bool _unided_acq_staves()
-{
-    vector<pair<stave_type, int>> weights = _base_staff_weights();
-    return _remove_ided_staff_weights(weights);
-}
-
-static int _acquirement_staff_subtype(bool /*divine*/, int & /*quantity*/,
-                                      int /*agent*/)
-{
-    vector<pair<stave_type, int>> weights = _base_staff_weights();
-    _remove_ided_staff_weights(weights);
-
-    stave_type staff = *random_choose_weighted(weights);
-
-    // chance to choose randomly, goes to 100% if all staves are id'd or 0
-    // skill. Just brute force it.
-    // should not be used in normal acquirement..
-    if (staff == NUM_STAVES)
-    {
-        do
-        {
-            staff = static_cast<stave_type>(random2(NUM_STAVES));
-        }
-        while (item_type_removed(OBJ_STAVES, staff));
-    }
-
-    return staff;
-}
-
 static const vector<pair<misc_item_type, int> > _misc_base_weights()
 {
     const bool no_allies = you.allies_forbidden();
@@ -672,42 +611,6 @@ static int _acquirement_misc_subtype(bool /*divine*/, int & /*quantity*/,
     return *choice;
 }
 
-/**
- * Choose a random type of wand to be generated via acquirement or god gifts.
- *
- * Heavily weighted toward more useful wands and wands the player hasn't yet
- * seen.
- *
- * @return          A random wand type.
- */
-static int _acquirement_wand_subtype(bool /*divine*/, int & /*quantity*/,
-                                     int /*agent */)
-{
-    const auto hex_wand_type = (wand_type)item_for_set(ITEM_SET_HEX_WANDS);
-    const auto beam_wand_type = (wand_type)item_for_set(ITEM_SET_BEAM_WANDS);
-    const auto blast_wand_type = (wand_type)item_for_set(ITEM_SET_BLAST_WANDS);
-    const int hex_wand_weight = hex_wand_type == WAND_CHARMING
-                                && you.allies_forbidden() ? 0 : 20;
-    vector<pair<wand_type, int>> weights = {
-        { beam_wand_type, 20 },
-        { blast_wand_type, 20 },
-        { hex_wand_type,  hex_wand_weight },
-        { WAND_MINDBURST, 8 },
-        { WAND_POLYMORPH, 5 },
-        { WAND_DIGGING,   5 },
-        { WAND_FLAME,     2 },
-    };
-
-    // Unknown wands get a huge weight bonus.
-    for (auto &weight : weights)
-        if (!get_ident_type(OBJ_WANDS, weight.first))
-            weight.second *= 2;
-
-    const wand_type* wand = random_choose_weighted(weights);
-    ASSERT(wand);
-    return *wand;
-}
-
 static int _acquirement_book_subtype(bool /*divine*/, int & /*quantity*/,
                                      int /*agent*/)
 {
@@ -722,7 +625,7 @@ static const acquirement_subtype_finder _subtype_finders[] =
     _acquirement_weapon_subtype,
     _acquirement_missile_subtype,
     _acquirement_armour_subtype,
-    _acquirement_wand_subtype,
+    0,
 #if TAG_MAJOR_VERSION == 34
     0, // no food
 #endif
@@ -730,7 +633,7 @@ static const acquirement_subtype_finder _subtype_finders[] =
     _acquirement_jewellery_subtype,
     0, // no potions
     _acquirement_book_subtype,
-    _acquirement_staff_subtype,
+    0,
     0, // no, you can't acquire the orb
     _acquirement_misc_subtype,
     0, // no corpses
@@ -1488,7 +1391,7 @@ static item_def _acquirement_item_def(object_class_type item_type)
     return item;
 }
 
-vector<object_class_type> shuffled_acquirement_classes(bool scroll)
+vector<object_class_type> shuffled_acquirement_classes()
 {
     vector<object_class_type> rand_classes;
 
@@ -1498,22 +1401,13 @@ vector<object_class_type> shuffled_acquirement_classes(bool scroll)
     if (!you.has_mutation(MUT_NO_GRASPING))
     {
         rand_classes.emplace_back(OBJ_WEAPONS);
-        // skip staves if player has already seen all the acquirable staves
-        if (_unided_acq_staves())
-            rand_classes.emplace_back(OBJ_STAVES);
     }
 
     rand_classes.emplace_back(OBJ_JEWELLERY);
     rand_classes.emplace_back(OBJ_BOOKS);
 
-    // dungeon generation
-    if (!scroll)
-    {
-        if (_unided_acq_misc())
-            rand_classes.emplace_back(OBJ_MISCELLANY);
-
-        rand_classes.emplace_back(OBJ_WANDS);
-    }
+    if (_unided_acq_misc())
+        rand_classes.emplace_back(OBJ_MISCELLANY);
 
     shuffle_array(rand_classes);
     return rand_classes;
@@ -1521,7 +1415,7 @@ vector<object_class_type> shuffled_acquirement_classes(bool scroll)
 
 void make_acquirement_items()
 {
-    vector<object_class_type> rand_classes = shuffled_acquirement_classes(true);
+    vector<object_class_type> rand_classes = shuffled_acquirement_classes();
     const int num_wanted = min(3, (int) rand_classes.size());
 
     CrawlVector &acq_items = you.props[ACQUIRE_ITEMS_KEY].get_vector();
@@ -1538,11 +1432,6 @@ void make_acquirement_items()
         if (item.defined())
             acq_items.push_back(item);
     }
-
-    // Gold is guaranteed.
-    auto gold_item = _acquirement_item_def(OBJ_GOLD);
-    if (gold_item.defined())
-            acq_items.push_back(gold_item);
 }
 
 /*

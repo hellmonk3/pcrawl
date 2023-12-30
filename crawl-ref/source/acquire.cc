@@ -667,10 +667,6 @@ static int _find_acquirement_subtype(object_class_type &class_wanted,
 
     do
     {
-        // Wands and misc have a common acquirement class.
-        if (class_wanted == OBJ_MISCELLANY)
-            class_wanted = random_choose(OBJ_WANDS, OBJ_MISCELLANY);
-
         if (_subtype_finders[class_wanted])
         {
             type_wanted =

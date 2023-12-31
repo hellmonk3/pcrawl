@@ -2009,6 +2009,9 @@ static const char* _item_ego_desc(special_armour_type ego)
     case SPARM_ENERGY:
         return "it may return the magic spent to cast spells, but lowers their "
                "success rate. It always returns the magic spent on miscasts.";
+    case SPARM_SPIKES:
+        return "it deals 1d10 damage to the attacker after blocking a melee "
+               "attack. ";
     default:
         return "it makes the wearer crave the taste of eggplant.";
     }

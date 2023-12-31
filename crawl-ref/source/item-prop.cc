@@ -98,6 +98,7 @@ static const vector<ego_weight_tuple> SHIELD_EGOS = {
     { SPARM_POISON_RESISTANCE, 3 },
     { SPARM_POSITIVE_ENERGY,   3 },
     { SPARM_REFLECTION,        6 },
+    { SPARM_SPIKES,            6 },
     { SPARM_PROTECTION,       12 },
 };
 

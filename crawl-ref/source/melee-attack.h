@@ -105,6 +105,7 @@ private:
     /* Retaliation Effects */
     void do_minotaur_retaliation();
     void maybe_riposte();
+    void shield_spikes();
 
     /* Item Effects */
     void do_starlight();

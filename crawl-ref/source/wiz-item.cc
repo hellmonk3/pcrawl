@@ -1180,6 +1180,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "mayhem",
             "guile",
             "energy",
+            "spikes",
             "INVALID",
         };
         COMPILE_CHECK(ARRAYSZ(names) == NUM_SPECIAL_ARMOURS);

@@ -402,79 +402,18 @@ static armour_type _pick_unseen_armour()
     return picked;
 }
 
-/**
- * Randomly choose a class of weapons (those using a specific weapon skill)
- * for acquirement to give the player. Weight toward the player's skills.
- *
- * @param divine    Whether this is a god gift, which are less strongly
- *                  tailored to the player's skills.
- * @return          An appropriate weapon skill; e.g. SK_LONG_BLADES.
- */
-static skill_type _acquirement_weapon_skill(bool divine)
-{
-    // reservoir sample.
-    int count = 0;
-    skill_type skill = SK_FIGHTING;
-    for (skill_type sk = SK_FIRST_WEAPON;
-         sk <= SK_LAST_WEAPON;
-         ++sk)
-    {
-        // Don't choose a skill that's useless
-        if (is_useless_skill(sk))
-            continue;
-
-        // Adding a small constant allows for the occasional
-        // weapon in an untrained skill.
-        int weight = _skill_rdiv(sk) + 1;
-        // Exaggerate the weighting if it's a scroll acquirement.
-        if (!divine)
-            weight = (weight + 1) * (weight + 2);
-        count += weight;
-
-        if (x_chance_in_y(weight, count))
-            skill = sk;
-    }
-
-    return skill;
-}
-
 static int _acquirement_weapon_subtype(bool divine, int & /*quantity*/, int agent)
 {
-    const skill_type skill = _acquirement_weapon_skill(divine);
-
-    int best_sk = 0;
-    for (int i = SK_FIRST_WEAPON;
-         i <= SK_LAST_WEAPON;
-         i++)
-    {
-        best_sk = max(best_sk, _skill_rdiv((skill_type)i));
-    }
-    best_sk = max(best_sk, _skill_rdiv(SK_UNARMED_COMBAT));
-
     // Now choose a subtype which uses that skill.
     int result = OBJ_RANDOM;
     int count = 0;
     item_def item_considered;
     item_considered.base_type = OBJ_WEAPONS;
-    // Let's guess the percentage of shield use the player did, this is
-    // based on empirical data where pure-shield MDs get skills like 17 sh
-    // 25 m&f and pure-shield Spriggans 7 sh 18 m&f.
-    const int shield_sk = _skill_rdiv(SK_SHIELDS)
-                          * species_apt_factor(SK_SHIELDS);
-    const int want_shield = min(2 * shield_sk, best_sk) + 10;
-    const int dont_shield = max(best_sk - shield_sk, 0) + 10;
-    // At XL 10, weapons of the handedness you want get weight *2, those of
-    // opposite handedness 1/2, assuming your shields usage is respectively
-    // 0% or 100% in the above formula. At skill 25 that's *3.5 .
     for (int i = 0; i < NUM_WEAPONS; ++i)
     {
-        const int wskill = item_attack_skill(OBJ_WEAPONS, i);
-
-        if (wskill != skill)
-            continue;
         item_considered.sub_type = i;
 
-        int acqweight = property(item_considered, PWPN_ACQ_WEIGHT) * 100;
+        int acqweight = property(item_considered, PWPN_ACQ_WEIGHT);
 
         if (!acqweight)
             continue;
@@ -483,28 +422,6 @@ static int _acquirement_weapon_subtype(bool divine, int & /*quantity*/, int agen
 
         if (two_handed && you.get_mutation_level(MUT_MISSING_HAND))
             continue;
-
-        // For non-Trog/Okawaru acquirements, give a boost to high-end items.
-        if (!divine && !is_range_weapon(item_considered))
-        {
-            if (acqweight < 500)
-                acqweight = 500;
-            // Quick blades get unproportionately hit by damage weighting.
-            if (i == WPN_QUICK_BLADE)
-                acqweight = acqweight * 25 / 9;
-            int damage = property(item_considered, PWPN_DAMAGE);
-            if (!two_handed)
-                damage = damage * 3 / 2;
-            damage *= damage * damage;
-        }
-
-        if (two_handed)
-            acqweight = acqweight * dont_shield / want_shield;
-        else
-            acqweight = acqweight * want_shield / dont_shield;
-
-        if (!you.seen_weapon[i])
-            acqweight *= 5; // strong emphasis on type variety, brands go only second
 
         // reservoir sampling
         if (x_chance_in_y(acqweight, count += acqweight))
@@ -809,32 +726,6 @@ static int _failed_acquirement(bool quiet)
     if (!quiet)
         mpr("The demon of the infinite void smiles upon you.");
     return NON_ITEM;
-}
-
-static int _weapon_brand_quality(int brand, bool range)
-{
-    switch (brand)
-    {
-    case SPWPN_SPEED:
-        return range ? 3 : 5;
-    case SPWPN_PENETRATION:
-        return 4;
-    case SPWPN_ELECTROCUTION:
-    case SPWPN_BLINKING:
-    case SPWPN_SILVER:
-    case SPWPN_REAPING:
-        return 3;
-    case SPWPN_CHAOS:
-        return 2;
-    default:
-        return 1;
-    case SPWPN_NORMAL:
-        return 0;
-    case SPWPN_PAIN:
-        return _skill_rdiv(SK_NECROMANCY) / 2;
-    case SPWPN_HEAVY:
-        return range ? 5 : 1;
-    }
 }
 
 static bool _armour_slot_seen(armour_type arm)

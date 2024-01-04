@@ -320,6 +320,7 @@ bool is_weapon_brand_ok(int type, int brand, bool /*strict*/)
     switch ((brand_type)brand)
     {
     // Universal brands.
+    case SPWPN_NORMAL:
     case SPWPN_EXPLOSIVE:
     case SPWPN_ELECTROCUTION:
     case SPWPN_FREEZING:

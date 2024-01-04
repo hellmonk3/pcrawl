@@ -911,16 +911,6 @@ static void _adjust_brand(item_def &item, bool divine, int agent)
                                    SPWPN_EXPLOSIVE, SPWPN_ANTIMAGIC);
         return;
     }
-
-    // Not from a god, so we should prefer better brands.
-    if (!divine && item.base_type == OBJ_WEAPONS)
-    {
-        while (_weapon_brand_quality(get_weapon_brand(item),
-                                     is_range_weapon(item)) < random2(6))
-        {
-            reroll_brand(item, ITEM_LEVEL);
-        }
-    }
 }
 
 /**
@@ -964,35 +954,25 @@ int acquirement_create_item(object_class_type class_wanted,
     ASSERT(class_wanted != OBJ_RANDOM);
 
     const bool divine = (agent == GOD_OKAWARU || agent == GOD_XOM
-                         || agent == GOD_TROG
-#if TAG_MAJOR_VERSION == 34
-                         || agent == GOD_PAKELLAS
-#endif
-                        );
+                         || agent == GOD_TROG);
     int thing_created = NON_ITEM;
     int quant = 1;
 #define MAX_ACQ_TRIES 40
     for (int item_tries = 0; item_tries < MAX_ACQ_TRIES; item_tries++)
     {
         int type_wanted = -1;
-        if (agent == GOD_XOM && class_wanted == OBJ_ARMOUR && one_chance_in(20))
-            type_wanted = _useless_armour_type();
-        else
-        {
-            // This may clobber class_wanted (e.g. staves)
-            type_wanted = _find_acquirement_subtype(class_wanted, quant,
+
+        // This may clobber class_wanted (e.g. staves)
+        type_wanted = _find_acquirement_subtype(class_wanted, quant,
                                                     divine, agent);
-        }
         ASSERT(type_wanted != -1);
 
         // Don't generate randart books in items(), we do that
         // ourselves.
         bool want_arts = (class_wanted != OBJ_BOOKS);
-        if (agent == GOD_TROG && !one_chance_in(3))
-            want_arts = false;
 
         thing_created = items(want_arts, class_wanted, type_wanted,
-                              ITEM_LEVEL, 0, agent);
+                              you.depth, 0, agent);
 
         if (thing_created == NON_ITEM)
         {

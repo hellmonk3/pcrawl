@@ -202,14 +202,12 @@ static bool _try_make_weapon_artefact(item_def& item, int force_type,
                                       int item_level, bool force_randart,
                                       int agent)
 {
-    if (item_level > 0 && x_chance_in_y(101 + item_level * 3, 4000)
-        || force_randart)
+    if (one_chance_in(5))
     {
         // Make a randart or unrandart.
 
-        // 1 in 20 randarts are unrandarts.
-        if (one_chance_in(item_level == ISPEC_GOOD_ITEM ? 7 : 20)
-            && !force_randart)
+        // unrand chance depends on item level.
+        if (x_chance_in_y(item_level, 100) && !force_randart)
         {
             if (_try_make_item_unrand(item, force_type, item_level, agent))
                 return true;
@@ -231,13 +229,8 @@ static bool _try_make_weapon_artefact(item_def& item, int force_type,
         if (_weapon_disallows_randart(item.sub_type))
             return false;
 
-        // Mean enchantment +5.
-        item.plus = 12 - biased_random2(10,2);
-        item.plus -= biased_random2(7,2);
-        item.plus -= biased_random2(7,2);
-
-        // On weapons, an enchantment of less than 0 is never viable.
-        item.plus = max(static_cast<int>(item.plus), random2(2));
+        // enchantment depends on item level.
+        item.plus = determine_nice_weapon_plusses(item_level);
 
         // The rest are normal randarts.
         make_item_randart(item);
@@ -248,25 +241,6 @@ static bool _try_make_weapon_artefact(item_def& item, int force_type,
     return false;
 }
 
-/**
- * The number of times to try finding a brand for a given weapon.
- *
- * Result may vary from call to call.
- */
-static int _num_brand_tries(const item_def& item, int item_level)
-{
-    if (item_level >= ISPEC_GIFT)
-        return 5;
-    if (is_demonic(item)
-        // Hand crossbows usually appear late, so encourage use.
-        || item.sub_type == WPN_HAND_CANNON
-        || x_chance_in_y(101 + item_level, 300))
-    {
-        return 1;
-    }
-    return 0;
-}
-
 brand_type determine_weapon_brand(const item_def& item, int item_level)
 {
     // Forced ego.
@@ -274,11 +248,53 @@ brand_type determine_weapon_brand(const item_def& item, int item_level)
         return static_cast<brand_type>(item.brand);
 
     const weapon_type wpn_type = static_cast<weapon_type>(item.sub_type);
-    const int tries       = _num_brand_tries(item, item_level);
     brand_type rc         = SPWPN_NORMAL;
 
-    for (int count = 0; count < tries && rc == SPWPN_NORMAL; ++count)
-        rc = choose_weapon_brand(wpn_type);
+    if (is_blessed_weapon_type(wpn_type))
+        rc = SPWPN_SILVER;
+    else if (is_range_weapon(item))
+    {
+        rc = random_choose_weighted(
+            10, SPWPN_EXPLOSIVE,
+            10, SPWPN_ELECTROCUTION,
+            10, SPWPN_FREEZING,
+            10, SPWPN_HEAVY,
+            10, SPWPN_SILVER,
+            10, SPWPN_ANTIMAGIC,
+            10, SPWPN_ACID,
+             5, SPWPN_REAPING,
+             5, SPWPN_PAIN,
+             5, SPWPN_BLINKING,
+             5, SPWPN_CHAOS);
+
+        // Penetration is only allowed on crossbows.
+        // This may change in future.
+        if (is_crossbow(item) && x_chance_in_y(10 + item_level, 50))
+            rc = SPWPN_PENETRATION;
+    }
+    else
+    {
+        // melee weapons
+        rc = random_choose_weighted(
+            10, SPWPN_EXPLOSIVE,
+            10, SPWPN_ELECTROCUTION,
+            10, SPWPN_FREEZING,
+            10, SPWPN_HEAVY,
+            10, SPWPN_SHIELDING,
+            10, SPWPN_VAMPIRISM,
+            10, SPWPN_SPELLVAMP,
+            10, SPWPN_SILVER,
+            10, SPWPN_ANTIMAGIC,
+            10, SPWPN_ACID,
+            10, SPWPN_SPECTRAL,
+             5, SPWPN_REAPING,
+             5, SPWPN_PAIN,
+             5, SPWPN_BLINKING,
+             5, SPWPN_CHAOS);
+    }
+
+    if (!is_weapon_brand_ok(item.sub_type, rc, true))
+        rc = SPWPN_NORMAL;
 
     ASSERT(is_weapon_brand_ok(item.sub_type, rc, true));
     return rc;
@@ -304,26 +320,24 @@ bool is_weapon_brand_ok(int type, int brand, bool /*strict*/)
     switch ((brand_type)brand)
     {
     // Universal brands.
-    case SPWPN_NORMAL:
-    case SPWPN_SPELLVAMP:
-    case SPWPN_SHIELDING:
-    case SPWPN_SPEED:
-    case SPWPN_HEAVY:
-    case SPWPN_CHAOS:
-    case SPWPN_SILVER:
-    case SPWPN_ELECTROCUTION:
     case SPWPN_EXPLOSIVE:
+    case SPWPN_ELECTROCUTION:
     case SPWPN_FREEZING:
+    case SPWPN_HEAVY:
+    case SPWPN_SILVER:
     case SPWPN_ANTIMAGIC:
     case SPWPN_ACID:
+    case SPWPN_REAPING:
     case SPWPN_PAIN:
+    case SPWPN_BLINKING:
+    case SPWPN_CHAOS:
         break;
 
     // Melee-only brands.
     case SPWPN_VAMPIRISM:
-    case SPWPN_BLINKING:
+    case SPWPN_SPELLVAMP:
     case SPWPN_SPECTRAL:
-    case SPWPN_REAPING: // only exists on Sword of Zonguldrok
+    case SPWPN_SHIELDING:
         if (is_range_weapon(item))
             return false;
         break;
@@ -344,6 +358,7 @@ bool is_weapon_brand_ok(int type, int brand, bool /*strict*/)
     case SPWPN_DRAGON_SLAYING:
     case SPWPN_EVASION:
     case SPWPN_DRAINING:
+    case SPWPN_SPEED:
         return false;
 #endif
 
@@ -374,22 +389,19 @@ static void _roll_weapon_type(item_def& item, int item_level)
     item.brand = SPWPN_NORMAL; // fall back to no brand
 }
 
-/// Plusses for a non-artefact weapon with positive plusses.
+/// Plusses for a weapon depending on item level.
 int determine_nice_weapon_plusses(int item_level)
 {
-    const int chance = (item_level >= ISPEC_GIFT ? 200 : item_level);
-
-    // Odd-looking, but this is how the algorithm compacts {dlb}.
     int plus = 0;
-    for (int i = 0; i < 4; ++i)
+    plus += random2(3);
+    
+    for (int i = 0; i < item_level; i++)
     {
-        plus += random2(3);
-
-        if (random2(425) > 35 + chance)
-            break;
+        if (one_chance_in(5))
+            plus++;
     }
 
-    return plus;
+    return min(plus, 9);
 }
 
 void set_artefact_brand(item_def &item, int brand)
@@ -448,51 +460,21 @@ static void _generate_weapon_item(item_def& item, bool allow_uniques,
 
     // Artefacts handled, let's make a normal item.
     const bool force_good = item_level >= ISPEC_GIFT;
-    const bool forced_ego = item.brand > 0;
     const bool no_brand   = item.brand == SPWPN_FORBID_BRAND;
 
     if (no_brand)
         set_item_ego_type(item, OBJ_WEAPONS, SPWPN_NORMAL);
-
-    // If it's forced to be a good item, reroll clubs.
-    while (force_good && force_type == OBJ_RANDOM && item.sub_type == WPN_CLUB)
-        _roll_weapon_type(item, item_level);
-
-    item.plus = 0;
-
-    if (item_level < 0)
+    else
     {
-        // Thoroughly damaged, could had been good once.
-        if (!no_brand && (forced_ego || one_chance_in(4)))
-        {
-            // Brand is set as for "good" items.
-            set_item_ego_type(item, OBJ_WEAPONS,
-                determine_weapon_brand(item, 2 + 2 * env.absdepth0));
-        }
-        item.plus -= 1 + random2(3);
-    }
-    else if ((force_good || is_demonic(item)
-              || item.sub_type == WPN_HAND_CANNON || forced_ego
-                    || x_chance_in_y(51 + item_level, 200))
-                && (!item.is_mundane() || force_good))
-    {
-        // Make a better item (possibly ego).
-        if (!no_brand)
-        {
-            set_item_ego_type(item, OBJ_WEAPONS,
+        set_item_ego_type(item, OBJ_WEAPONS,
                               determine_weapon_brand(item, item_level));
-        }
-
-        // if acquired item still not ego... enchant it up a bit.
-        if (force_good && item.brand == SPWPN_NORMAL)
-            item.plus += 2 + random2(3);
-
-        item.plus += determine_nice_weapon_plusses(item_level);
-
-        // squash boring items.
-        if (!force_good && item.brand == SPWPN_NORMAL && item.plus < 3)
-            item.plus = 0;
     }
+        
+    // if acquired item still not ego... enchant it up a bit.
+    if (force_good && item.brand == SPWPN_NORMAL)
+        item.plus += 2 + random2(3);
+
+    item.plus += determine_nice_weapon_plusses(item_level);
 }
 
 // Remember to update the code in is_missile_brand_ok if adding or altering
@@ -1793,10 +1775,6 @@ int items(bool allow_uniques,
 
     item.brand = force_ego;
 
-    // cap item_level unless an acquirement-level item {dlb}:
-    if (item_level > 50 && !force_good)
-        item_level = 50;
-
     // determine base_type for item generated {dlb}:
     if (force_class != OBJ_RANDOM)
     {
@@ -1808,33 +1786,12 @@ int items(bool allow_uniques,
         ASSERT(force_type == OBJ_RANDOM);
         // Total weight: 1660
         item.base_type = random_choose_weighted(
-                                    10, OBJ_STAVES,
-                                    45, OBJ_JEWELLERY,
-                                    45, OBJ_BOOKS,
-                                    70, OBJ_WANDS,
-                                   212, OBJ_ARMOUR,
-                                   212, OBJ_WEAPONS,
-                                   176, OBJ_POTIONS,
-                                   180, OBJ_MISSILES,
-                                   270, OBJ_SCROLLS,
-                                   440, OBJ_GOLD);
-
-        // misc items placement wholly dependent upon current depth {dlb}:
-        if (item_level > 7 && x_chance_in_y(11 + item_level, 9000))
-            item.base_type = OBJ_MISCELLANY;
-
-        if (item_level < 7
-            && item.base_type == OBJ_WANDS
-            && random2(7) >= item_level)
-        {
-            item.base_type = random_choose(OBJ_POTIONS, OBJ_SCROLLS);
-        }
-
-        // Sorry. Trying to get a high enough weight of talismans early
-        // so that folks can upgrade, etc, without deluging players with
-        // them later.
-        if (one_chance_in(100) && !x_chance_in_y(max(item_level, 5) * 2, 100))
-            item.base_type = OBJ_TALISMANS;
+                                    10, OBJ_JEWELLERY,
+                                    10, OBJ_BOOKS,
+                                    10, OBJ_ARMOUR,
+                                    10, OBJ_WEAPONS,
+                                    10, OBJ_MISSILES,
+                                    10, OBJ_MISCELLANY);
     }
 
     ASSERT(force_type == OBJ_RANDOM

@@ -460,7 +460,7 @@ static const weapon_def Weapon_prop[] =
 #endif
     { WPN_WHIP,              "whip",                6,  2, 1,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
-        DAMV_SLASHING, 4, 0, 25, {
+        DAMV_SLASHING, 4, 10, 25, {
             { SPWPN_NORMAL,        34 },
             { SPWPN_SPELLVAMP,         16 },
             { SPWPN_ELECTROCUTION, 16 },
@@ -500,7 +500,7 @@ static const weapon_def Weapon_prop[] =
         }},
     { WPN_DEMON_WHIP,        "demon whip",         11,  1, 5,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
-        DAMV_SLASHING, 0, 2, 150, DEMON_BRANDS },
+        DAMV_SLASHING, 0, 0, 150, DEMON_BRANDS },
     { WPN_SACRED_SCOURGE,    "sacred scourge",     12,  0, 5,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLASHING, 0, 0, 200, HOLY_BRANDS },
@@ -509,7 +509,7 @@ static const weapon_def Weapon_prop[] =
         DAMV_CRUSHING | DAM_PIERCE, 2, 10, 40, M_AND_F_BRANDS },
     { WPN_EVENINGSTAR,       "eveningstar",        15, -1, 7,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
-        DAMV_CRUSHING | DAM_PIERCE, 0, 2, 150, {
+        DAMV_CRUSHING | DAM_PIERCE, 0, 0, 150, {
             { SPWPN_SHIELDING,     30 },
             { SPWPN_SILVER,     15 },
             { SPWPN_NORMAL,          8 },
@@ -588,7 +588,7 @@ static const weapon_def Weapon_prop[] =
         DAMV_SLICING, 6, 10, 40, LBL_BRANDS },
     { WPN_DEMON_BLADE,           "demon blade",           13, -1, 5,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
-        DAMV_SLICING, 0, 2, 150, DEMON_BRANDS },
+        DAMV_SLICING, 0, 0, 150, DEMON_BRANDS },
     { WPN_EUDEMON_BLADE,         "eudemon blade",         14, -2, 5,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLICING, 0, 0, 200, HOLY_BRANDS },
@@ -666,7 +666,7 @@ static const weapon_def Weapon_prop[] =
 #endif
     { WPN_DEMON_TRIDENT,     "demon trident",      12,  1, 6,
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
-        DAMV_PIERCING, 0, 2, 150, DEMON_BRANDS },
+        DAMV_PIERCING, 0, 0, 150, DEMON_BRANDS },
     { WPN_TRISHULA,          "trishula",           13,  0, 6,
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
         DAMV_PIERCING, 0, 0, 200, HOLY_BRANDS },

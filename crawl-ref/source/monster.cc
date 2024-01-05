@@ -945,17 +945,6 @@ bool monster::drop_item(mon_inv_type eslot, bool msg)
 
     item_def& pitem = env.item[item_index];
 
-    // Unequip equipped items before dropping them; unequip() prevents
-    // cursed items from being removed.
-    bool was_unequipped = false;
-    if (eslot == MSLOT_WEAPON
-        || eslot == MSLOT_ARMOUR
-        || eslot == MSLOT_JEWELLERY
-        || eslot == MSLOT_ALT_WEAPON && mons_wields_two_weapons(*this))
-    {
-        was_unequipped = true;
-    }
-
     if (pitem.flags & ISFLAG_SUMMONED)
     {
         if (msg)

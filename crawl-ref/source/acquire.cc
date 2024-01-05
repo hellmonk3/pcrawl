@@ -114,13 +114,7 @@ M filtered_vector_select(vector<pair<M, int>> weights, function<bool(M)> filter)
 }
 
 /**
- * Choose a random slot to acquire armour for.
- *
- * For most races, even odds for all armour slots when acquiring, or 50-50
- * split between body armour/aux armour when getting god gifts.
- *
- * Nagas and Armataurs get a high extra chance for bardings, especially if they haven't
- * seen any yet.
+ * Choose a random slot to acquire armour for, biased heavily to open slots.
  *
  * Guaranteed to be wearable, in principle.
  *
@@ -129,19 +123,13 @@ M filtered_vector_select(vector<pair<M, int>> weights, function<bool(M)> filter)
  */
 static equipment_type _acquirement_armour_slot(bool divine)
 {
-    if (you.wear_barding()
-        && one_chance_in(you.seen_armour[ARM_BARDING] ? 4 : 2))
-    {
-        return EQ_BOOTS;
-    }
-
     vector<pair<equipment_type, int>> weights = {
-        { EQ_BODY_ARMOUR,   divine ? 5 : 1 },
-        { EQ_SHIELD,        1 },
-        { EQ_CLOAK,         1 },
-        { EQ_HELMET,        1 },
-        { EQ_GLOVES,        1 },
-        { EQ_BOOTS,         1 },
+        { EQ_BODY_ARMOUR,   you.slot_item(EQ_BODY_ARMOUR) ? 2 : 5 },
+        { EQ_SHIELD,        1 }, // TODO: adjust this based on weapon
+        { EQ_CLOAK,         you.slot_item(EQ_CLOAK) ? 1 : 5 },
+        { EQ_HELMET,        you.slot_item(EQ_HELMET) ? 1 : 5 },
+        { EQ_GLOVES,        you.slot_item(EQ_GLOVES) ? 1 : 5 },
+        { EQ_BOOTS,         you.slot_item(EQ_BOOTS) ? 1 : 5 },
     };
 
     return filtered_vector_select<equipment_type>(weights,

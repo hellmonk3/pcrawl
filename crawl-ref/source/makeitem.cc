@@ -58,13 +58,6 @@ int create_item_named(string name, coord_def pos, string *error)
     return item;
 }
 
-bool got_curare_roll(const int item_level)
-{
-    return one_chance_in(item_level > 27 ? 6   :
-                         item_level < 2  ? 15  :
-                         (364 - 7 * item_level) / 25);
-}
-
 /// A mapping from randomly-described object types to their per-game descript
 static map<object_class_type, item_description_type> _type_to_idesc = {
     {OBJ_WANDS, IDESC_WANDS},
@@ -395,7 +388,7 @@ int determine_nice_weapon_plusses(int item_level)
 {
     int plus = 0;
     plus += random2(3);
-    
+
     for (int i = 0; i < item_level; i++)
     {
         if (one_chance_in(5))
@@ -470,7 +463,7 @@ static void _generate_weapon_item(item_def& item, bool allow_uniques,
         set_item_ego_type(item, OBJ_WEAPONS,
                               determine_weapon_brand(item, item_level));
     }
-        
+
     // if acquired item still not ego... enchant it up a bit.
     if (force_good && item.brand == SPWPN_NORMAL)
         item.plus += 2 + random2(3);
@@ -489,16 +482,6 @@ static special_missile_type _determine_missile_brand(const item_def& item,
 
     special_missile_type rc = SPMSL_NORMAL;
 
-    // Weight of SPMSL_NORMAL
-    // Gifts from Trog/Oka can be unbranded boomerangs/javelins
-    // but not poisoned darts
-    int nw = item_level >= ISPEC_GOOD_ITEM ?   0 :
-             item_level == ISPEC_GIFT      ? 120
-                                           : random2(2000 - 55 * item_level);
-
-    // Weight of SPMSL_POISONED
-    int pw = item_level >= ISPEC_GIFT ? 0 : random2(2000 - 55 * item_level);
-
     switch (item.sub_type)
     {
     case MI_THROWING_NET:
@@ -511,7 +494,7 @@ static special_missile_type _determine_missile_brand(const item_def& item,
         break;
     case MI_DART:
         // Curare is special cased, all the others aren't.
-        if (got_curare_roll(item_level))
+        if (x_chance_in_y(5 + item_level, 50))
         {
             rc = SPMSL_CURARE;
             break;
@@ -519,12 +502,11 @@ static special_missile_type _determine_missile_brand(const item_def& item,
 
         rc = random_choose_weighted(60, SPMSL_BLINDING,
                                     20, SPMSL_FRENZY,
-                                    20, SPMSL_DISPERSAL,
-                                    pw, SPMSL_POISONED);
+                                    20, SPMSL_DISPERSAL);
         break;
     case MI_JAVELIN:
-        rc = random_choose_weighted(90, SPMSL_SILVER,
-                                    nw, SPMSL_NORMAL);
+        rc = random_choose_weighted(item_level, SPMSL_SILVER,
+                                    10, SPMSL_NORMAL);
         break;
     }
 
@@ -623,17 +605,11 @@ static void _generate_missile_item(item_def& item, int force_type,
                                    1,  MI_LARGE_ROCK);
     }
 
+    item.quantity = random_range(20, 60);
+
     // No fancy rocks -- break out before we get to special stuff.
     if (item.sub_type == MI_LARGE_ROCK)
-    {
-        item.quantity = 2 + random2avg(5,2);
         return;
-    }
-    else if (item.sub_type == MI_STONE)
-    {
-        item.quantity = roll_dice(2, 5) - 1;
-        return;
-    }
     else if (item.sub_type == MI_THROWING_NET) // no fancy nets, either
     {
         item.quantity = 1 + one_chance_in(4); // and only one, rarely two
@@ -645,8 +621,6 @@ static void _generate_missile_item(item_def& item, int force_type,
         set_item_ego_type(item, OBJ_MISSILES,
                            _determine_missile_brand(item, item_level));
     }
-
-    item.quantity = random_range(2, 6);
 }
 
 static bool _try_make_armour_artefact(item_def& item, int force_type,

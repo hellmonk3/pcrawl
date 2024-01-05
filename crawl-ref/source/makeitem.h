@@ -35,7 +35,6 @@ brand_type determine_weapon_brand(const item_def& item, int item_level);
 
 void set_artefact_brand(item_def &item, int brand);
 
-bool got_curare_roll(const int item_level);
 void reroll_brand(item_def &item, int item_level);
 
 void generate_wand_item(item_def& item, int force_type, int item_level);

@@ -437,14 +437,14 @@ static int _acquirement_missile_subtype(bool /*divine*/, int & /*quantity*/,
     // Choose from among all usable missile types.
     vector<pair<missile_type, int> > missile_weights;
 
-    missile_weights.emplace_back(MI_BOOMERANG, 50);
-    missile_weights.emplace_back(MI_DART, 75);
+    missile_weights.emplace_back(MI_BOOMERANG, 1);
+    missile_weights.emplace_back(MI_DART, 1);
 
     if (you.body_size() >= SIZE_MEDIUM)
-        missile_weights.emplace_back(MI_JAVELIN, 100);
+        missile_weights.emplace_back(MI_JAVELIN, 1);
 
     if (you.can_throw_large_rocks())
-        missile_weights.emplace_back(MI_LARGE_ROCK, 100);
+        missile_weights.emplace_back(MI_LARGE_ROCK, 1);
 
     return *random_choose_weighted(missile_weights);
 }

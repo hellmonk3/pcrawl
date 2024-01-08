@@ -383,6 +383,27 @@ static void _roll_weapon_type(item_def& item, int item_level)
     item.brand = SPWPN_NORMAL; // fall back to no brand
 }
 
+static int _determine_nice_armour_plusses(int item_level, equipment_type slot)
+{
+    int plus = 0;
+    int chance = 15;
+
+    if (slot == EQ_BODY_ARMOUR)
+        chance /= 3;
+
+    if (one_chance_in(50))
+        plus += 1 + random2(8);
+
+    for (int i = 0; i < item_level; i++)
+    {
+        if (one_chance_in(chance))
+            plus++;
+    }
+
+    // cap is handled elsewhere
+    return plus;
+}
+
 /// Plusses for a weapon depending on item level.
 int determine_nice_weapon_plusses(int item_level)
 {
@@ -627,52 +648,34 @@ static bool _try_make_armour_artefact(item_def& item, int force_type,
                                       int item_level, int agent)
 {
     const bool force_randart = item_level == ISPEC_RANDART;
-    if (!force_randart && (item_level <= 0
-                           || !x_chance_in_y(101 + item_level * 3, 4000)))
-    {
-        return false;
-    }
-    // Make a randart or unrandart.
 
-    // 1 in 20 randarts are unrandarts.
-    if (one_chance_in(item_level == ISPEC_GOOD_ITEM ? 7 : 20)
-        && !force_randart)
+    // unrand chance depends on item level.
+    if (x_chance_in_y(item_level, 100) && !force_randart)
     {
         if (_try_make_item_unrand(item, force_type, item_level, agent))
             return true;
     }
 
+    if (!force_randart && !one_chance_in(5))
+    {
+        return false;
+    }
+
     // The rest are normal randarts.
 
-    // 5% of boots become barding.
-    if (item.sub_type == ARM_BOOTS && one_chance_in(20))
-        item.sub_type = ARM_BARDING;
-
     // Determine enchantment.
-    if (!armour_is_enchantable(item) || one_chance_in(5))
+
+
+    if (!armour_is_enchantable(item))
         item.plus = 0;
     else
     {
         int max_plus = armour_max_enchant(item);
-        item.plus = random2(max_plus + 1);
-
-        if (one_chance_in(5))
-            item.plus += random2(max_plus + 6) / 2;
-
-        if (one_chance_in(6))
-            item.plus -= random2(max_plus + 6);
-
-        // On body armour, an enchantment of less than 0 is never viable.
-        // On aux armour & shields, going below -2 is likewise unviable.
-        // (You think you're better than the hat of the Alchemist?)
-        if (get_armour_slot(item) == EQ_BODY_ARMOUR)
-            item.plus = max(static_cast<int>(item.plus), random2(2));
-        else
-            item.plus = max(static_cast<int>(item.plus), random_range(-2, 1));
+        item.plus = _determine_nice_armour_plusses(item_level, get_armour_slot(item));
+        if (item.plus > max_plus)
+            item.plus = max_plus;
     }
 
-    // Needs to be done after the barding chance else we get randart
-    // bardings named Boots of xy.
     make_item_randart(item);
 
     return true;
@@ -818,29 +821,6 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
 }
 
 /**
- * Return the number of plusses required for a type of armour to be notable.
- * (From plus alone.)
- *
- * @param armour_type   The type of armour being considered.
- * @return              The armour plus value required to be interesting.
- */
-static int _armour_plus_threshold(equipment_type armour_type)
-{
-    switch (armour_type)
-    {
-        // body armour is very common; squelch most of it
-        case EQ_BODY_ARMOUR:
-            return 3;
-        // shields are fairly common
-        case EQ_SHIELD:
-            return 2;
-        // aux armour is relatively uncommon
-        default:
-            return 1;
-    }
-}
-
-/**
  * Pick an armour type (ex. plate armour), based on item_level
  *
  * @param item_level The rough power level of the item.
@@ -979,11 +959,6 @@ static void _generate_armour_item(item_def& item, bool allow_uniques,
         return;
     }
 
-    if (item.sub_type == ARM_BOOTS && one_chance_in(8))
-        item.sub_type = ARM_BARDING;
-
-    const bool force_good = item_level >= ISPEC_GIFT;
-    const bool forced_ego = (item.brand > 0);
     const bool no_ego     = (item.brand == SPARM_FORBID_EGO);
 
     if (item_always_has_ego(item))
@@ -991,38 +966,16 @@ static void _generate_armour_item(item_def& item, bool allow_uniques,
     else if (no_ego)
         item.brand = SPARM_NORMAL;
 
-    if (item_level < 0)
+    // Make a good item...
+    item.plus = _determine_nice_armour_plusses(item_level, get_armour_slot(item));
+
+    if (!no_ego)
     {
-        // Thoroughly damaged, could have been good once.
-        if (!no_ego && (forced_ego || one_chance_in(4)))
-        {
-            // Brand is set as for "good" items.
-            set_item_ego_type(item, OBJ_ARMOUR, _generate_armour_ego(item));
-        }
+        // ...an ego item, in fact.
+        set_item_ego_type(item, OBJ_ARMOUR, _generate_armour_ego(item));
 
-        item.plus -= 1 + random2(3);
-    }
-    else if ((forced_ego || item.sub_type == ARM_HAT
-                    || x_chance_in_y(51 + item_level, 250))
-                && !item.is_mundane() || force_good)
-    {
-        // Make a good item...
-        item.plus += random2(3);
-
-        if (item.sub_type <= ARM_PLATE_ARMOUR
-            && x_chance_in_y(21 + item_level, 300))
-        {
-            item.plus += random2(3);
-        }
-
-        if (!no_ego && x_chance_in_y(31 + item_level, 350))
-        {
-            // ...an ego item, in fact.
-            set_item_ego_type(item, OBJ_ARMOUR, _generate_armour_ego(item));
-
-            if (get_armour_ego_type(item) == SPARM_PONDEROUSNESS)
-                item.plus += 3 + random2(8);
-        }
+        if (get_armour_ego_type(item) == SPARM_PONDEROUSNESS)
+            item.plus += 3 + random2(8);
     }
 
     // Don't overenchant items.
@@ -1036,13 +989,6 @@ static void _generate_armour_item(item_def& item, bool allow_uniques,
     // Never give brands to scales or hides, in case of misbehaving vaults.
     if (armour_type_is_hide(static_cast<armour_type>(item.sub_type)))
         set_item_ego_type(item, OBJ_ARMOUR, SPARM_NORMAL);
-
-    // squash boring items.
-    if (!force_good && item.brand == SPARM_NORMAL && item.plus > 0
-        && item.plus < _armour_plus_threshold(get_armour_slot(item)))
-    {
-        item.plus = 0;
-    }
 }
 
 /**
@@ -1383,9 +1329,7 @@ static bool _try_make_jewellery_unrandart(item_def& item, int force_type,
     int type = (force_type == NUM_RINGS)     ? get_random_ring_type() :
                (force_type == NUM_JEWELLERY) ? get_random_amulet_type()
                                              : force_type;
-    if (item_level > 0
-        && one_chance_in(20)
-        && x_chance_in_y(101 + item_level * 3, 2000))
+    if (x_chance_in_y(item_level, 100))
     {
         if (_try_make_item_unrand(item, type, item_level, agent))
             return true;
@@ -1447,21 +1391,14 @@ static void _generate_jewellery_item(item_def& item, bool allow_uniques,
     }
     else
     {
-        if (force_type == NUM_RINGS)
-            item.sub_type = get_random_ring_type();
-        else if (force_type == NUM_JEWELLERY)
-            item.sub_type = get_random_amulet_type();
-        else
-            item.sub_type = (one_chance_in(4) ? get_random_amulet_type()
-                                              : get_random_ring_type());
+        item.sub_type = get_random_amulet_type();
     }
 
     item.plus = _determine_ring_plus(item.sub_type);
 
     // All jewellery base types should now work. - bwr
     if (item_level == ISPEC_RANDART
-        || allow_uniques && item_level > 0
-           && x_chance_in_y(101 + item_level * 3, 4000))
+        || one_chance_in(5))
     {
         make_item_randart(item);
     }

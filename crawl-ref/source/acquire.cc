@@ -301,14 +301,10 @@ static int _acquirement_jewellery_subtype(bool /*divine*/, int & /*quantity*/,
 {
     int result = 0;
 
-    // Rings are (number of usable rings) times as common as amulets.
-    const int ring_num = you.arm_count();
-
-    // Try ten times to give something the player hasn't seen.
-    for (int i = 0; i < 10; i++)
+    // Try a few times to give something the player hasn't seen.
+    for (int i = 0; i < 3; i++)
     {
-        result = one_chance_in(ring_num + 1) ? get_random_amulet_type()
-                                             : get_random_ring_type();
+        result = get_random_amulet_type();
 
         // If we haven't seen this yet, we're done.
         if (!get_ident_type(OBJ_JEWELLERY, result))

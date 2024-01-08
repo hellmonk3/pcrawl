@@ -113,6 +113,12 @@ M filtered_vector_select(vector<pair<M, int>> weights, function<bool(M)> filter)
     return *chosen_elem;
 }
 
+static bool _wielding_twohands()
+{
+    const item_def* wp = you.slot_item(EQ_WEAPON);
+    return wp && you.hands_reqd(*wp) == HANDS_TWO;
+}
+
 /**
  * Choose a random slot to acquire armour for, biased heavily to open slots.
  *
@@ -125,7 +131,7 @@ static equipment_type _acquirement_armour_slot(bool divine)
 {
     vector<pair<equipment_type, int>> weights = {
         { EQ_BODY_ARMOUR,   you.slot_item(EQ_BODY_ARMOUR) ? 2 : 5 },
-        { EQ_SHIELD,        1 }, // TODO: adjust this based on weapon
+        { EQ_SHIELD,        _wielding_twohands() ? 1 : 5 },
         { EQ_CLOAK,         you.slot_item(EQ_CLOAK) ? 1 : 5 },
         { EQ_HELMET,        you.slot_item(EQ_HELMET) ? 1 : 5 },
         { EQ_GLOVES,        you.slot_item(EQ_GLOVES) ? 1 : 5 },

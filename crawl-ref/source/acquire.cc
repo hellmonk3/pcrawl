@@ -733,24 +733,10 @@ int acquirement_create_item(object_class_type class_wanted,
             default:
                 break;
             }
-
-            // bump jewel acq power up a bit
-            if (one_chance_in(2) && !is_artefact(acq_item))
-                make_item_randart(acq_item);
         }
         else if (acq_item.base_type == OBJ_WEAPONS
                  && !is_unrandom_artefact(acq_item))
         {
-            // These can never get egos, and mundane versions are quite common,
-            // so guarantee artefact status. Rarity is a bit low to compensate.
-            // ...except actually, trog can give them antimagic brand, so...
-            if (is_giant_club_type(acq_item.sub_type)
-                && get_weapon_brand(acq_item) == SPWPN_NORMAL
-                && !one_chance_in(25))
-            {
-                make_item_randart(acq_item, true);
-            }
-
             if (agent == GOD_TROG)
                 acq_item.plus += random2(3);
             // God gifts (except Xom's) never have a negative enchantment

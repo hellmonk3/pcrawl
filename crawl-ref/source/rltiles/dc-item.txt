@@ -887,8 +887,8 @@ i-acrobat AMU_ACROBAT
 # i-acrobat AMU_ACROBAT AMU_ID_FIRST
 # end TAG_MAJOR_VERSION
 i-m-regeneration AMU_MANA_REGENERATION
+i-protection AMU_PROTECTION
 # start TAG_MAJOR_VERSION == 34
-i-gourmand AMU_THE_GOURMAND
 i-rage AMU_REMOVEME1
 i-rage AMU_REMOVEME2
 i-inaccuracy AMU_INACCURACY

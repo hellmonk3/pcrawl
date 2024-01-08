@@ -770,7 +770,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_REGENERATION:          return "obsoleteness";
         case RING_ATTENTION:             return "obsoleteness";
 #endif
-        case RING_PROTECTION:            return "protection";
+        case RING_PROTECTION:            return "obsoleteness";
         case RING_PROTECTION_FROM_FIRE:  return "protection from fire";
         case RING_POISON_RESISTANCE:     return "poison resistance";
         case RING_PROTECTION_FROM_COLD:  return "protection from cold";
@@ -808,7 +808,9 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_ACROBAT:           return "the acrobat";
 #if TAG_MAJOR_VERSION == 34
         case AMU_RAGE:              return "rage";
-        case AMU_THE_GOURMAND:      return "gourmand";
+#endif
+        case AMU_PROTECTION:        return "protection";
+#if TAG_MAJOR_VERSION == 34
         case AMU_HARM:              return "harm";
         case AMU_CONSERVATION:      return "conservation";
         case AMU_CONTROLLED_FLIGHT: return "controlled flight";
@@ -832,7 +834,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_REGENERATION:          return "obsoleteness";
         case RING_ATTENTION:             return "obsoleteness";
 #endif
-        case RING_PROTECTION:            return "AC";
+        case RING_PROTECTION:            return "obsoleteness";
         case RING_PROTECTION_FROM_FIRE:  return "rF+";
         case RING_POISON_RESISTANCE:     return "rPois";
         case RING_PROTECTION_FROM_COLD:  return "rC+";
@@ -861,6 +863,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_RAGE:                   return "+Rage";
 #endif
         case AMU_ACROBAT:                return "Acrobat";
+        case AMU_PROTECTION:             return "AC";
         case AMU_NOTHING:                return "";
         default: return "buggy";
         }

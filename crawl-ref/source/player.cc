@@ -5828,7 +5828,7 @@ int player::base_ac_with_specific_items(int scale,
             AC += 300;
     }
 
-    AC += wearing(EQ_RINGS_PLUS, RING_PROTECTION) * 100;
+    AC += wearing(EQ_AMULET, AMU_PROTECTION) * 400;
 
     //XXX: This doesn't take into account armour_items, so an unrand shield
     //     with +AC would have a buggy display.

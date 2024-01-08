@@ -4388,6 +4388,7 @@ bool get_item_by_name(item_def *item, const char* specs,
         case RING_SLAYING:
         case RING_PROTECTION:
         case RING_EVASION:
+        case AMU_PROTECTION:
             item->plus = 5;
         default:
             break;

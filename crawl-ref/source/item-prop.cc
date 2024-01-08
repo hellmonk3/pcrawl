@@ -871,7 +871,6 @@ const set<pair<object_class_type, int> > removed_items =
 #if TAG_MAJOR_VERSION == 34
     { OBJ_JEWELLERY, AMU_CONTROLLED_FLIGHT },
     { OBJ_JEWELLERY, AMU_CONSERVATION },
-    { OBJ_JEWELLERY, AMU_THE_GOURMAND },
     { OBJ_JEWELLERY, AMU_HARM },
     { OBJ_JEWELLERY, AMU_RAGE },
     { OBJ_JEWELLERY, AMU_INACCURACY },
@@ -2311,6 +2310,7 @@ bool jewellery_type_has_plusses(int jewel_type)
     case RING_SLAYING:
     case RING_PROTECTION:
     case RING_EVASION:
+    case AMU_PROTECTION:
         return true;
 
     default:

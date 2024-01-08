@@ -2222,15 +2222,6 @@ int monster::armour_class() const
     if (armour)
         ac += armour_bonus(*armour);
 
-    // armour from jewellery
-    const item_def *ring = mslot_item(MSLOT_JEWELLERY);
-    if (ring && ring->sub_type == RING_PROTECTION)
-    {
-        const int jewellery_plus = ring->plus;
-        ASSERT(abs(jewellery_plus) < 30); // sanity check
-        ac += jewellery_plus;
-    }
-
     // armour from artefacts
     ac += scan_artefacts(ARTP_AC);
 

@@ -107,7 +107,7 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return RING_POISON_RESISTANCE;
 
     if (s.substr(0, 2) == "AC")
-        return RING_PROTECTION;
+        return AMU_PROTECTION;
     if (s.substr(0, 2) == "MP")
         return RING_MAGICAL_POWER;
     if (s.substr(0, 4) == "Slay")

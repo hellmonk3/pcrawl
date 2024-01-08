@@ -253,7 +253,7 @@ const char* jewellery_base_ability_string(int subtype)
     case RING_TELEPORTATION:      return "*Tele";
     case RING_TELEPORT_CONTROL:   return "+cTele";
     case AMU_HARM:                return "Harm";
-    case AMU_THE_GOURMAND:        return "Gourm";
+    case AMU_PROTECTION:          return "Prot";
 #endif
     case AMU_MANA_REGENERATION:   return "RegenMP";
     case AMU_ACROBAT:             return "Acrobat";
@@ -642,8 +642,8 @@ static const char* _jewellery_base_ability_description(int subtype)
         return "It can be evoked for teleport control.";
     case AMU_HARM:
         return "It increases damage dealt and taken.";
-    case AMU_THE_GOURMAND:
-        return "It allows you to eat raw meat even when not hungry.";
+    case AMU_PROTECTION:
+        return "It increases your AC.";
 #endif
     case AMU_MANA_REGENERATION:
         return "It increases your rate of magic regeneration.";
@@ -2343,6 +2343,7 @@ static string _describe_jewellery(const item_def &item, bool verbose)
             switch (item.sub_type)
             {
             case RING_PROTECTION:
+            case AMU_PROTECTION:
                 description += make_stringf("\n\nIt affects your AC (%+d).",
                                             item.plus);
                 break;

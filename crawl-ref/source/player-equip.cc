@@ -1025,6 +1025,10 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld,
         you.redraw_armour_class = true;
         break;
 
+    case AMU_DARKNESS:
+        update_vision_range();
+        break;
+
     case RING_EVASION:
         you.redraw_evasion = true;
         break;
@@ -1133,6 +1137,10 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
 
     case AMU_REFLECTION:
         you.redraw_armour_class = true;
+        break;
+
+    case AMU_DARKNESS:
+        update_vision_range();
         break;
 
     case RING_EVASION:

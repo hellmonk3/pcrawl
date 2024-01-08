@@ -821,6 +821,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_FAITH:             return "faith";
         case AMU_REFLECTION:        return "reflection";
         case AMU_REGENERATION:      return "regeneration";
+        case AMU_DARKNESS:          return "darkness";
         default: return "buggy jewellery";
         }
     }
@@ -864,6 +865,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
 #endif
         case AMU_ACROBAT:                return "Acrobat";
         case AMU_PROTECTION:             return "AC";
+        case AMU_DARKNESS:               return "dark";
         case AMU_NOTHING:                return "";
         default: return "buggy";
         }

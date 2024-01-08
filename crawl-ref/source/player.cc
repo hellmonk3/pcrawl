@@ -743,6 +743,10 @@ void update_vision_range()
     if (you.wearing_ego(EQ_CLOAK, SPARM_SHADOWS))
         you.current_vision -= 1;
 
+    // so does amulet of darkness
+    if (you.wearing(EQ_AMULET, AMU_DARKNESS))
+        you.current_vision -= 1;
+
     // robe of Night.
     if (player_equip_unrand(UNRAND_NIGHT))
         you.current_vision = you.current_vision * 3 / 4;

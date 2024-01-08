@@ -6,6 +6,11 @@ much protection as the armour made from the scales of some larger dragons, it is
 somewhat lighter and less encumbering. It is also remarkably smooth, letting
 corrosive slime flow off it like water.
 %%%%
+amulet of darkness
+
+An amulet that reduces the wearer's range of vision. Naturally, if you can't see
+your enemies, they can't see you either.
+%%%%
 amulet of faith
 
 A charm crafted to call the attention of the gods to its wearer. This divine
@@ -27,6 +32,10 @@ of magic.
 amulet of nothing
 
 An amulet with no special properties.
+%%%%
+amulet of protection
+
+An amulet that raises your AC. It's like a piece of armour for your neck.
 %%%%
 amulet of reflection
 

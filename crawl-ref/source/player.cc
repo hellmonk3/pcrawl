@@ -1863,15 +1863,10 @@ static int _player_evasion_bonuses()
     if (you.props.exists(WU_JIAN_HEAVENLY_STORM_KEY))
         evbonus += you.props[WU_JIAN_HEAVENLY_STORM_KEY].get_int();
 
-    // If you have an active amulet of the acrobat and just moved or waited,
-    // get a massive EV bonus.
-    if (acrobat_boost_active())
-        evbonus += 15;
-
     return evbonus;
 }
 
-// Player EV scaling for being flying tengu or swimming merfolk.
+// Player EV scaling.
 static int _player_scale_evasion(int prescaled_ev)
 {
     if (you.duration[DUR_PETRIFYING] || you.caught())
@@ -1882,7 +1877,7 @@ static int _player_scale_evasion(int prescaled_ev)
         && you.get_mutation_level(MUT_NIMBLE_SWIMMER) >= 2)
     {
         const int ev_bonus = max(2, prescaled_ev / 4);
-        return prescaled_ev + ev_bonus;
+        prescaled_ev += ev_bonus;
     }
 
     return prescaled_ev;
@@ -1905,8 +1900,13 @@ static int _player_evasion(bool ignore_helpless)
 
     const int evasion_bonuses = _player_evasion_bonuses();
 
-    const int final_evasion =
+    int final_evasion =
         _player_scale_evasion(natural_evasion) + evasion_bonuses;
+
+    // If you have an active amulet of the acrobat and just moved or waited,
+    // get a massive EV bonus.
+    if (acrobat_boost_active())
+        final_evasion *= 2;
 
     return final_evasion;
 }
@@ -5952,11 +5952,7 @@ int player::evasion(bool ignore_helpless, const actor* act) const
 
     const int constrict_penalty = is_constricted() ? 3 : 0;
 
-    const bool attacker_invis = act && !act->visible_to(this);
-    const int invis_penalty
-        = attacker_invis && !ignore_helpless ? 10 : 0;
-
-    return base_evasion - constrict_penalty - invis_penalty;
+    return base_evasion - constrict_penalty;
 }
 
 bool player::heal(int amount)

@@ -271,6 +271,8 @@ enum jewellery_type
     AMU_REFLECTION,
     AMU_REGENERATION,
     AMU_DARKNESS,
+    AMU_WIZARDRY,
+    AMU_MAGICAL_POWER,
 
     NUM_JEWELLERY
 };

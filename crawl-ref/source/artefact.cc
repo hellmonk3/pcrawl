@@ -375,7 +375,7 @@ static map<jewellery_type, vector<jewellery_fake_artp>> jewellery_artps = {
     { AMU_REFLECTION, { { ARTP_SHIELDING, AMU_REFLECT_SH / 2} } },
     { AMU_PROTECTION, { { ARTP_AC, 0 } } },
 
-    { RING_MAGICAL_POWER, { { ARTP_MAGICAL_POWER, 9 } } },
+    { RING_MAGICAL_POWER, { { ARTP_MAGICAL_POWER, 5 } } },
     { RING_FLIGHT, { { ARTP_FLY, 1 } } },
     { RING_STEALTH, { { ARTP_STEALTH, 1 } } },
 

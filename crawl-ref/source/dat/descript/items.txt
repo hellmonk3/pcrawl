@@ -55,6 +55,10 @@ An amulet that allows the user to tumble and roll to evade the blows of their
 enemies, but only while moving and waiting. While taking other actions
 (including climbing stairs) the amulet conveys no benefits.
 %%%%
+amulet of wizardry
+
+An amulet that reduces the skill requirement of spells by one.
+%%%%
 animal skin
 
 A large piece of thick skin covered in fur, cut from the corpse of an animal

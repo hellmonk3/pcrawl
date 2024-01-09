@@ -1120,6 +1120,7 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
     case RING_SLAYING:
     case RING_STEALTH:
     case RING_WIZARDRY:
+    case AMU_WIZARDRY:
         break;
 
     case AMU_REGENERATION:
@@ -1155,7 +1156,6 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
         if (!you.has_mutation(MUT_HP_CASTING))
         {
             canned_msg(MSG_MANA_DECREASE);
-            pay_mp(9);
         }
         break;
 

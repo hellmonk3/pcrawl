@@ -268,6 +268,7 @@ const char* jewellery_base_ability_string(int subtype)
     case AMU_INACCURACY:          return "Inacc";
 #endif
     case AMU_DARKNESS:            return "Dark";
+    case AMU_WIZARDRY:            return "Wiz";
     }
     return "";
 }
@@ -630,7 +631,7 @@ static const char* _jewellery_base_ability_description(int subtype)
     case RING_SUSTAIN_ATTRIBUTES:
         return "It sustains your strength, intelligence and dexterity.";
 #endif
-    case RING_WIZARDRY:
+    case AMU_WIZARDRY:
         return "It reduces the skill requirement of your spells by one.";
     case RING_FIRE:
         return "It enhances your fire magic.";

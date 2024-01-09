@@ -1918,7 +1918,7 @@ static int _player_evasion(bool ignore_helpless)
  */
 int player_wizardry()
 {
-    return you.wearing(EQ_RINGS, RING_WIZARDRY)
+    return you.wearing(EQ_AMULET, AMU_WIZARDRY)
            + (you.get_mutation_level(MUT_BIG_BRAIN) == 3 ? 1 : 0);
 }
 
@@ -3685,7 +3685,7 @@ int get_real_mp(bool include_items)
 
     if (include_items)
     {
-        enp += 9 * you.wearing(EQ_RINGS, RING_MAGICAL_POWER);
+        enp += 5 * you.wearing(EQ_RINGS, RING_MAGICAL_POWER);
         enp +=     you.scan_artefacts(ARTP_MAGICAL_POWER);
     }
 

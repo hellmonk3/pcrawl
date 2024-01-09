@@ -96,7 +96,7 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return RING_TELEPORTATION;
 #endif
     if (s == "Wiz")
-        return RING_WIZARDRY;
+        return AMU_WIZARDRY;
     if (s == "SInv")
         return RING_SEE_INVISIBLE;
 #if TAG_MAJOR_VERSION == 34
@@ -111,7 +111,7 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
     if (s.substr(0, 2) == "AC")
         return AMU_PROTECTION;
     if (s.substr(0, 2) == "MP")
-        return RING_MAGICAL_POWER;
+        return AMU_MAGICAL_POWER;
     if (s.substr(0, 4) == "Slay")
         return RING_SLAYING;
 #if TAG_MAJOR_VERSION == 34

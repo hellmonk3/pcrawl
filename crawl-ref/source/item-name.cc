@@ -822,6 +822,8 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_REFLECTION:        return "reflection";
         case AMU_REGENERATION:      return "regeneration";
         case AMU_DARKNESS:          return "darkness";
+        case AMU_WIZARDRY:          return "wizardry";
+        case AMU_MAGICAL_POWER:     return "magical power";
         default: return "buggy jewellery";
         }
     }
@@ -853,7 +855,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_DEXTERITY:             return "Dex";
         case RING_INTELLIGENCE:          return "Int";
 #endif
-        case RING_MAGICAL_POWER:         return "MP+9";
+        case RING_MAGICAL_POWER:         return "MP+5";
         case RING_FLIGHT:                return "Fly";
 #if TAG_MAJOR_VERSION == 34
         case RING_LIFE_PROTECTION:       return "rN+";
@@ -3281,7 +3283,7 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
         case RING_POISON_RESISTANCE:
             return player_res_poison(false, temp, false) > 0;
 
-        case RING_WIZARDRY:
+        case AMU_WIZARDRY:
             return you_worship(GOD_TROG);
 
         case RING_FLIGHT:

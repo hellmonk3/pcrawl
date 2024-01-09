@@ -1928,6 +1928,16 @@ item_def* monster_die(monster& mons, killer_type killer,
     // Apply unrand effects.
     unrand_death_effects(&mons, killer);
 
+    // Apply vamp amulet, which does not care why the monster died
+    if (gives_player_xp && you.wearing(EQ_AMULET, AMU_VAMPIRISM)
+        && actor_is_susceptible_to_vampirism(mons))
+    {
+        const int hp = you.hp;
+        you.heal(random_range(1, mons.get_hit_dice()));
+        if (you.hp > hp)
+            mpr("You feel a bit better.");
+    }
+
     switch (killer)
     {
         case KILL_YOU:          // You kill in combat.

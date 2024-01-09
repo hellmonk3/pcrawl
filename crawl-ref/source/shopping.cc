@@ -547,7 +547,6 @@ unsigned int item_value(item_def item, bool ident)
                     break;
 
                 case RING_WIZARDRY:
-                case AMU_REGENERATION:
                 case AMU_GUARDIAN_SPIRIT:
                 case AMU_MANA_REGENERATION:
                 case AMU_ACROBAT:

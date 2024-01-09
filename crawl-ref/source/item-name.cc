@@ -820,7 +820,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_GUARDIAN_SPIRIT:   return "guardian spirit";
         case AMU_FAITH:             return "faith";
         case AMU_REFLECTION:        return "reflection";
-        case AMU_REGENERATION:      return "regeneration";
+        case AMU_VAMPIRISM:         return "vampirism";
         case AMU_DARKNESS:          return "darkness";
         case AMU_WIZARDRY:          return "wizardry";
         case AMU_MAGICAL_POWER:     return "magical power";
@@ -862,7 +862,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_LIFE_PROTECTION:       return "rN+";
 #endif
         case RING_WILLPOWER:             return "Will+";
-        case AMU_REGENERATION:           return "Regen";
+        case AMU_VAMPIRISM:              return "Vamp";
 #if TAG_MAJOR_VERSION == 34
         case AMU_RAGE:                   return "+Rage";
 #endif
@@ -3262,15 +3262,8 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
         case AMU_GUARDIAN_SPIRIT:
             return you.spirit_shield(false) || you.has_mutation(MUT_HP_CASTING);
 
-        case AMU_REGENERATION:
-            return
-#if TAG_MAJOR_VERSION == 34
-                   you.get_mutation_level(MUT_NO_REGENERATION) > 0 ||
-#endif
-                     (temp
-                       && (you.get_mutation_level(MUT_INHIBITED_REGENERATION) > 0
-                           || you.has_mutation(MUT_VAMPIRISM))
-                       && regeneration_is_inhibited());
+        case AMU_VAMPIRISM:
+            return is_good_god(you.religion);
 
         case AMU_MANA_REGENERATION:
             return !you.max_magic_points;

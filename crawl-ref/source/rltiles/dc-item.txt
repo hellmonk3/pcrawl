@@ -897,7 +897,7 @@ i-rage AMU_NOTHING
 i-spirit AMU_GUARDIAN_SPIRIT
 i-faith AMU_FAITH
 i-reflection AMU_REFLECTION
-i-regeneration AMU_REGENERATION
+i-vampirism AMU_VAMPIRISM
 i-darkness AMU_DARKNESS
 i-wizardry AMU_WIZARDRY
 i-magical-power AMU_MAGICAL_POWER

@@ -2357,9 +2357,9 @@ static string _describe_jewellery(const item_def &item, bool verbose)
                                             item.plus);
                 break;
 
-            case RING_SLAYING:
-                description += make_stringf("\n\nIt affects your accuracy and"
-                      " damage with ranged weapons and melee (%+d).",
+            case AMU_SLAYING:
+                description += make_stringf("\n\nIt affects your damage"
+                      " with ranged weapons and melee (%+d).",
                       item.plus);
                 break;
 

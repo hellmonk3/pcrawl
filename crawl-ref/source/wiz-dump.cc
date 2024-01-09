@@ -113,7 +113,7 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
     if (s.substr(0, 2) == "MP")
         return AMU_MAGICAL_POWER;
     if (s.substr(0, 4) == "Slay")
-        return RING_SLAYING;
+        return AMU_SLAYING;
 #if TAG_MAJOR_VERSION == 34
     if (s.substr(0, 3) == "Str")
         return RING_STRENGTH;

@@ -824,6 +824,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_DARKNESS:          return "darkness";
         case AMU_WIZARDRY:          return "wizardry";
         case AMU_MAGICAL_POWER:     return "magical power";
+        case AMU_SLAYING:           return "slaying";
         default: return "buggy jewellery";
         }
     }
@@ -844,7 +845,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
 #if TAG_MAJOR_VERSION == 34
         case RING_STRENGTH:              return "Str";
 #endif
-        case RING_SLAYING:               return "Slay";
+        case AMU_SLAYING:                return "Slay";
         case RING_SEE_INVISIBLE:         return "sInv";
 #if TAG_MAJOR_VERSION == 34
         case RING_RESIST_CORROSION:      return "rCorr";
@@ -855,7 +856,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_DEXTERITY:             return "Dex";
         case RING_INTELLIGENCE:          return "Int";
 #endif
-        case RING_MAGICAL_POWER:         return "MP+5";
+        case AMU_MAGICAL_POWER:          return "MP+5";
         case RING_FLIGHT:                return "Fly";
 #if TAG_MAJOR_VERSION == 34
         case RING_LIFE_PROTECTION:       return "rN+";

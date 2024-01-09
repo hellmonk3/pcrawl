@@ -900,7 +900,8 @@ i-reflection AMU_REFLECTION
 i-regeneration AMU_REGENERATION
 i-darkness AMU_DARKNESS
 i-wizardry AMU_WIZARDRY
-i-magical-power AMU_MAGICAL_POWER AMU_ID_LAST
+i-magical-power AMU_MAGICAL_POWER
+i-slaying AMU_SLAYING AMU_ID_LAST
 
 ####################OBJ_POTIONS
 %sdir item/potion

@@ -273,6 +273,7 @@ enum jewellery_type
     AMU_DARKNESS,
     AMU_WIZARDRY,
     AMU_MAGICAL_POWER,
+    AMU_SLAYING,
 
     NUM_JEWELLERY
 };

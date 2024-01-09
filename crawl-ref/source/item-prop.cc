@@ -2311,6 +2311,7 @@ bool jewellery_type_has_plusses(int jewel_type)
     case RING_PROTECTION:
     case RING_EVASION:
     case AMU_PROTECTION:
+    case AMU_SLAYING:
         return true;
 
     default:

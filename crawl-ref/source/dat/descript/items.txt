@@ -29,6 +29,10 @@ An amulet that increases the wearer's rate of magic regeneration. In order to
 function, it must first attune itself to the wearer's body with full reserves
 of magic.
 %%%%
+amulet of magical power
+
+An amulet that increases the wearer's maximum mana.
+%%%%
 amulet of nothing
 
 An amulet with no special properties.
@@ -48,6 +52,11 @@ amulet of regeneration
 
 An amulet that increases the wearer's rate of health regeneration. In order to
 function, it must first attune itself to the wearer's body at full health.
+%%%%
+amulet of slaying
+
+An amulet that increases damage dealt with weapons of all kinds as well as 
+unarmed combat and thrown items.
 %%%%
 amulet of the acrobat
 

@@ -804,7 +804,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_TELEPORTATION:         return "teleportation";
         case RING_TELEPORT_CONTROL:      return "teleport control";
 #endif
-        case AMU_MANA_REGENERATION: return "magic regeneration";
+        case AMU_WILLPOWER:         return "willpower";
         case AMU_ACROBAT:           return "the acrobat";
 #if TAG_MAJOR_VERSION == 34
         case AMU_RAGE:              return "rage";
@@ -869,6 +869,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_ACROBAT:                return "Acrobat";
         case AMU_PROTECTION:             return "AC";
         case AMU_DARKNESS:               return "dark";
+        case AMU_WILLPOWER:              return "Will+";
         case AMU_NOTHING:                return "";
         default: return "buggy";
         }
@@ -3264,9 +3265,6 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
 
         case AMU_VAMPIRISM:
             return is_good_god(you.religion);
-
-        case AMU_MANA_REGENERATION:
-            return !you.max_magic_points;
 
         case RING_MAGICAL_POWER:
             return you.has_mutation(MUT_HP_CASTING);

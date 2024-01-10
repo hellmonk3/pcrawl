@@ -255,7 +255,7 @@ const char* jewellery_base_ability_string(int subtype)
     case AMU_HARM:                return "Harm";
     case AMU_PROTECTION:          return "Prot";
 #endif
-    case AMU_MANA_REGENERATION:   return "RegenMP";
+    case AMU_WILLPOWER:           return "Will+";
     case AMU_ACROBAT:             return "Acrobat";
 #if TAG_MAJOR_VERSION == 34
     case AMU_CONSERVATION:        return "Cons";
@@ -647,8 +647,8 @@ static const char* _jewellery_base_ability_description(int subtype)
     case AMU_PROTECTION:
         return "It increases your AC.";
 #endif
-    case AMU_MANA_REGENERATION:
-        return "It increases your rate of magic regeneration.";
+    case AMU_WILLPOWER:
+        return "It increases your willpower.";
     case AMU_ACROBAT:
         return "It increases your evasion while moving and waiting.";
 #if TAG_MAJOR_VERSION == 34

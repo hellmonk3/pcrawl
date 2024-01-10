@@ -1123,6 +1123,7 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
     case AMU_WIZARDRY:
     case AMU_SLAYING:
     case AMU_VAMPIRISM:
+    case AMU_WILLPOWER:
         break;
 
     case RING_SEE_INVISIBLE:
@@ -1160,11 +1161,6 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
     case AMU_FAITH:
         if (!meld)
             _remove_amulet_of_faith(item);
-        break;
-
-    case AMU_MANA_REGENERATION:
-        if (!meld)
-            you.props[MANA_REGEN_AMULET_ACTIVE] = 0;
         break;
     }
 

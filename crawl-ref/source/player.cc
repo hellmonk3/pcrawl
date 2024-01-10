@@ -6207,7 +6207,7 @@ int player_willpower(bool temp)
     rm -= 2 * WL_PIP * you.wearing_ego(EQ_ALL_ARMOUR, SPARM_GUILE);
 
     // rings of willpower
-    rm += WL_PIP * you.wearing(EQ_RINGS, RING_WILLPOWER);
+    rm += WL_PIP * you.wearing(EQ_AMULET, AMU_WILLPOWER);
 
     // Mutations
     rm += WL_PIP * you.get_mutation_level(MUT_STRONG_WILLED);

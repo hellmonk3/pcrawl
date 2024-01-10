@@ -65,6 +65,11 @@ An amulet that thirsts for death. Each living foe (not counting summons) that
 dies while it is worn will heal the wearer for an amount between one and the
 foe's difficulty.
 %%%%
+amulet of willpower
+
+An amulet that increases the wearer's willpower, making them more resistant to
+certain hostile status effects.
+%%%%
 amulet of wizardry
 
 An amulet that reduces the skill requirement of spells by one.

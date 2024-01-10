@@ -125,7 +125,7 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return RING_STEALTH;
 #endif
     if (s.substr(0, 2) == "WL")
-        return RING_WILLPOWER;
+        return AMU_WILLPOWER;
 
     if (s.substr(0, 2) == "rF")
         return RING_PROTECTION_FROM_FIRE;

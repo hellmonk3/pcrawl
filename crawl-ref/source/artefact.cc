@@ -374,13 +374,13 @@ static map<jewellery_type, vector<jewellery_fake_artp>> jewellery_artps = {
     { AMU_REFLECTION, { { ARTP_SHIELDING, AMU_REFLECT_SH / 2} } },
     { AMU_PROTECTION, { { ARTP_AC, 0 } } },
 
-    { RING_MAGICAL_POWER, { { ARTP_MAGICAL_POWER, 5 } } },
+    { AMU_MAGICAL_POWER, { { ARTP_MAGICAL_POWER, 5 } } },
     { RING_FLIGHT, { { ARTP_FLY, 1 } } },
     { RING_STEALTH, { { ARTP_STEALTH, 1 } } },
 
     { RING_PROTECTION_FROM_FIRE, { { ARTP_FIRE, 1 } } },
     { RING_PROTECTION_FROM_COLD, { { ARTP_COLD, 1 } } },
-    { RING_WILLPOWER, { { ARTP_WILLPOWER, 1 } } },
+    { AMU_WILLPOWER, { { ARTP_WILLPOWER, 1 } } },
 
     { RING_FIRE, { { ARTP_FIRE, 1 }, { ARTP_COLD, -1 } } },
     { RING_ICE, { { ARTP_COLD, 1 }, { ARTP_FIRE, -1 } } },
@@ -575,9 +575,6 @@ static bool _artp_can_go_on_item(artefact_prop_type prop, const item_def &item,
         case ARTP_ANGRY:
         case ARTP_NOISE:
             return item_class == OBJ_WEAPONS && !is_range_weapon(item);
-        case ARTP_PREVENT_SPELLCASTING:
-            if (item.is_type(OBJ_JEWELLERY, AMU_MANA_REGENERATION))
-                return false;
             // fallthrough
         case ARTP_REGENERATION:
         case ARTP_INVISIBLE:

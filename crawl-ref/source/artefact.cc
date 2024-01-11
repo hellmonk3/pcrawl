@@ -1638,6 +1638,32 @@ static void _artefact_setup_prop_vectors(item_def &item)
     }
 }
 
+static bool _improvable_property(int artp, int val)
+{
+    switch (artp)
+    {
+    case ARTP_STEALTH:
+    case ARTP_WILLPOWER:
+        return val < 3;
+    case ARTP_AC:
+    case ARTP_SLAYING:
+        return val < 6;
+    case ARTP_ENHANCE_CONJ:
+    case ARTP_ENHANCE_HEXES:
+    case ARTP_ENHANCE_SUMM:
+    case ARTP_ENHANCE_NECRO:
+    case ARTP_ENHANCE_TLOC:
+    case ARTP_ENHANCE_TMUT:
+    case ARTP_ENHANCE_FIRE:
+    case ARTP_ENHANCE_ICE:
+    case ARTP_ENHANCE_AIR:
+    case ARTP_ENHANCE_EARTH:
+        return val < 9;
+    default:
+        return false;
+    }
+}
+
 bool item_can_be_randart(item_def &item)
 {
     switch (item.base_type)
@@ -1659,6 +1685,63 @@ bool modify_artps(item_def &item)
     if (!is_artefact(item))
     {
         make_item_plain_randart(item);
+        return true;
+    }
+
+    vector<pair<artefact_prop_type, int>> art_prop_weights;
+
+    for (int i = 0; i < ARTP_NUM_PROPERTIES; ++i)
+    {
+        art_prop_weights.emplace_back(static_cast<artefact_prop_type>(i),
+                                      artp_data[i].weight);
+    }
+
+    artefact_properties_t  proprt;
+    proprt.init(0);
+    artefact_properties(item, proprt);
+
+    int brand_prop = proprt[ARTP_BRAND] != 0 ? 1 : 0;
+
+    int improve_chance = _artefact_num_props(proprt) - brand_prop;
+    if (x_chance_in_y(1 + improve_chance, 6 - brand_prop))
+    {
+        //try improve an existing property before adding a new one
+        for (int tries = 0; tries < 500; ++tries)
+        {
+            int i = ARTP_NUM_PROPERTIES - random2(ARTP_NUM_PROPERTIES - ARTP_AC) - 1;
+            if (proprt[i] != 0 && _improvable_property(i, proprt[i]))
+            {
+                proprt[i] ++;
+                artefact_set_property(item,
+                                static_cast<artefact_prop_type>(i), proprt[i]);
+                return true;
+            }
+        }
+    }
+
+    // failed to improve an existing property
+    if (_artefact_num_props(proprt) >= 5 - brand_prop)
+       return false; // no space to add
+
+    int tries = 0;
+    while (tries < 500)
+    {
+        const artefact_prop_type *prop_ptr
+            = random_choose_weighted(art_prop_weights);
+        ASSERTM(prop_ptr, "all %d randart properties have weight 0?",
+                (int) art_prop_weights.size());
+        const artefact_prop_type prop = *prop_ptr;
+
+        //don't add invalid properties, don't add bad properties
+        if (!_artp_can_go_on_item(prop, item, proprt)
+                || !artp_potentially_good(prop))
+        {
+            tries++;
+            continue;
+        }
+        _add_good_randart_prop(prop, proprt);
+
+        artefact_set_property(item,prop, static_cast<int>(proprt[prop]));
         return true;
     }
 

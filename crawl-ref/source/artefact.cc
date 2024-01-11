@@ -1638,9 +1638,7 @@ static void _artefact_setup_prop_vectors(item_def &item)
     }
 }
 
-// If force_mundane is true, normally mundane items are forced to
-// nevertheless become artefacts.
-bool make_item_randart(item_def &item, bool force_mundane)
+bool item_can_be_randart(item_def &item)
 {
     switch (item.base_type)
     {
@@ -1648,10 +1646,43 @@ bool make_item_randart(item_def &item, bool force_mundane)
     case OBJ_ARMOUR:
     case OBJ_JEWELLERY:
     case OBJ_STAVES:
-        break;
+        return true;
     default:
         return false;
     }
+}
+
+// Modify an item's artefact properties. Return true if successfully changed
+// an artp or added a new one
+bool modify_artps(item_def &item)
+{
+    if (!is_artefact(item))
+    {
+        make_item_plain_randart(item);
+        return true;
+    }
+
+    return false;
+}
+
+// Turn an item into a randart with no properties
+void make_item_plain_randart(item_def &item)
+{
+    _artefact_setup_prop_vectors(item);
+    item.flags |= ISFLAG_RANDART;
+    _init_artefact_properties(item);
+    set_artefact_name(item, make_artefact_name(item, false));
+    item.props[ARTEFACT_APPEAR_KEY].get_string() =
+            make_artefact_name(item, true);
+}
+
+// If force_mundane is true, normally mundane items are forced to
+// nevertheless become artefacts.
+bool make_item_randart(item_def &item, bool force_mundane)
+{
+    // The item category cannot be a randart
+    if (!item_can_be_randart(item))
+        return false;
 
     // This item already is a randart.
     if (item.flags & ISFLAG_RANDART)
@@ -1659,10 +1690,6 @@ bool make_item_randart(item_def &item, bool force_mundane)
 
     // Not a truly random artefact.
     if (item.flags & ISFLAG_UNRANDART)
-        return false;
-
-    // Mundane items are much less likely to be artefacts.
-    if (!force_mundane && item.is_mundane() && !one_chance_in(5))
         return false;
 
     _artefact_setup_prop_vectors(item);

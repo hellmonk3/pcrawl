@@ -642,6 +642,93 @@ static string _why_reject(const item_def &item, int agent)
     return ""; // all OK
 }
 
+item_def item_based_on_equip()
+{
+    vector<equipment_type> eqtype;
+
+    item_def item;
+
+    for (int slot = EQ_WEAPON; slot <= EQ_AMULET; ++slot)
+    {
+        if (you.melded[slot] || you.equip[slot] == -1)
+            continue;
+
+        eqtype.emplace_back(static_cast<equipment_type>(slot));
+    }
+    if (eqtype.size() < 1)
+        return item;
+
+    shuffle_array(eqtype);
+
+    item = you.inv[you.equip[eqtype[0]]];
+
+    bool changed = false;
+
+    // improve our equipment type
+    switch (item.base_type)
+    {
+    case OBJ_WEAPONS:
+    {
+        brand_type brand = get_weapon_brand(item);
+
+        // maybe make the item an artifact or add more properties
+        if (one_chance_in(is_artefact(item) ? 3 : brand != SPWPN_NORMAL ? 5 : 10))
+        {
+            if (modify_artps(item))
+                changed = true;
+        }
+        // chance to roll a different weapon brand, or guaranteed rebrand
+        // if we can't raise enchant; this always works
+        if (item.plus >= MAX_WPN_ENCHANT
+                || one_chance_in(brand == SPWPN_NORMAL ? 3 : 6))
+        {
+            changed = true;
+            rebrand_weapon(item);
+        }
+        //if we didn't do anything else, increase the weapon's enchantment
+        else
+        {
+            changed = true;
+            item.plus = min(item.plus + 1 + random2(3), MAX_WPN_ENCHANT);
+        }
+        break;
+        }
+    case OBJ_ARMOUR:
+    {
+        int max_ench = armour_max_enchant(item);
+        // chance to turn the item into an artifact or add artifact properties
+        if (item.plus >= max_ench || one_chance_in(is_artefact(item) ? 3 : 5))
+        {
+            if (modify_artps(item))
+                changed = true;
+        }
+        // otherwise, raise enchantment. No rerolling armour brands.
+        else
+        {
+            item.plus = min(item.plus + 1 + random2(3), max_ench);
+            changed = true;
+        }
+        break;
+    }
+    case OBJ_JEWELLERY:
+    {
+        // all we can do is make an artifact
+        if (modify_artps(item))
+            changed = true;
+        break;
+    }
+    default:
+        break;
+    }
+
+    //only return the item if something was changed
+    if (changed)
+        return item;
+
+    item_def dummy;
+    return dummy;
+}
+
 int acquirement_create_item(object_class_type class_wanted,
                             int agent, bool quiet,
                             const coord_def &pos)
@@ -1044,6 +1131,11 @@ void make_acquirement_items()
         if (item.defined())
             acq_items.push_back(item);
     }
+
+    // Additional item based on one you already have equipped
+    auto upgrade_item = item_based_on_equip();
+    if (upgrade_item.defined())
+        acq_items.push_back(upgrade_item);
 }
 
 /*

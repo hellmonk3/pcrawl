@@ -3060,40 +3060,21 @@ bool god_hates_brand(const int brand)
     return false;
 }
 
-static void _rebrand_weapon(item_def& wpn)
+void rebrand_weapon(item_def& wpn)
 {
     const brand_type old_brand = get_weapon_brand(wpn);
-    monster * spect = find_spectral_weapon(&you);
-    if (&wpn == you.weapon() && old_brand == SPWPN_SPECTRAL && spect)
-        end_spectral_weapon(spect, false);
+
     brand_type new_brand = old_brand;
+
+    set_item_ego_type(wpn, OBJ_WEAPONS, SPWPN_NORMAL);
 
     // now try and find an appropriate brand
     while (old_brand == new_brand || god_hates_brand(new_brand))
     {
-        if (is_range_weapon(wpn))
-        {
-            new_brand = random_choose_weighted(3, SPWPN_EXPLOSIVE,
-                                               3, SPWPN_FREEZING,
-                                               3, SPWPN_HEAVY,
-                                               1, SPWPN_ELECTROCUTION,
-                                               1, SPWPN_CHAOS);
-        }
-        else
-        {
-            new_brand = random_choose_weighted(2, SPWPN_EXPLOSIVE,
-                                               2, SPWPN_FREEZING,
-                                               2, SPWPN_HEAVY,
-                                               2, SPWPN_SPELLVAMP,
-                                               2, SPWPN_SHIELDING,
-                                               1, SPWPN_ELECTROCUTION,
-                                               1, SPWPN_SPECTRAL,
-                                               1, SPWPN_VAMPIRISM,
-                                               1, SPWPN_CHAOS);
-        }
+        set_item_ego_type(wpn, OBJ_WEAPONS, determine_weapon_brand(wpn, you.depth));
+        new_brand = get_weapon_brand(wpn);
     }
 
-    set_item_ego_type(wpn, OBJ_WEAPONS, new_brand);
     convert2bad(wpn);
 }
 
@@ -3107,8 +3088,6 @@ static void _brand_weapon(item_def &wpn)
     you.wield_change = true;
 
     const string itname = _item_name(wpn);
-
-    _rebrand_weapon(wpn);
 
     bool success = true;
     colour_t flash_colour = BLACK;

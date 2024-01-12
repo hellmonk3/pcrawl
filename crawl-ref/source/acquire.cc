@@ -235,7 +235,7 @@ static armour_type _acquirement_body_armour(bool divine)
 
         const int evp = armour_prop(armour, PARM_EVASION);
         int diff = (evp - sk) * (evp - sk) / max(evp - sk, 1);
-        const int weight = 15 - diff;
+        const int weight = max(15 - diff, 0);
 
         if (weight)
         {

@@ -3638,7 +3638,10 @@ int get_real_hp(bool trans, bool drained)
         hitp += you.hp_max_adj_temp;
 
     if (trans)
+    {
         hitp += you.scan_artefacts(ARTP_HP);
+        hitp += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_HEALTH) * 12;
+    }
 
     // Being berserk makes you resistant to damage. I don't know why.
     if (trans && you.berserk())

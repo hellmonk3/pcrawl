@@ -730,6 +730,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         return !strict || type == ARM_ROBE;
 
     case SPARM_PONDEROUSNESS:
+    case SPARM_HEALTH:
         return true;
     case SPARM_PRESERVATION:
 #if TAG_MAJOR_VERSION > 34

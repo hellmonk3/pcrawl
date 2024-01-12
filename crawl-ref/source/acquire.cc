@@ -232,6 +232,9 @@ static armour_type _acquirement_body_armour(bool divine)
 
         if (!check_armour_size(armour, you.body_size(PSIZE_TORSO, true)))
             continue;
+        
+        if (armour_acq_weight(armour) == 0)
+            continue;
 
         const int evp = armour_prop(armour, PARM_EVASION);
         int diff = (evp - sk) * (evp - sk) / max(evp - sk, 1);

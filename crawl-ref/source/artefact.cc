@@ -1687,6 +1687,10 @@ bool modify_artps(item_def &item)
         make_item_plain_randart(item);
         return true;
     }
+    
+    // no upgrading unrandarts
+    if (is_unrandom_artefact(item))
+        return false;
 
     vector<pair<artefact_prop_type, int>> art_prop_weights;
 

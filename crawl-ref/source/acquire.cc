@@ -655,6 +655,10 @@ item_def item_based_on_equip()
     {
         if (you.melded[slot] || you.equip[slot] == -1)
             continue;
+        
+        // skip unrands
+        if (is_unrandom_artefact(you.inv[you.equip[slot]]))
+            continue;
 
         eqtype.emplace_back(static_cast<equipment_type>(slot));
     }

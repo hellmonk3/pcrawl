@@ -756,7 +756,7 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
         case SPARM_POSITIVE_ENERGY:
             mpr("You feel more protected from negative energy.");
             break;
-            
+
         case SPARM_HEALTH:
             mpr("You feel healthy.");
             break;
@@ -896,7 +896,7 @@ static void _unequip_armour_effect(item_def& item, bool meld,
     case SPARM_POSITIVE_ENERGY:
         mpr("You feel less protected from negative energy.");
         break;
-        
+
     case SPARM_HEALTH:
         mpr("You feel less healthy.");
         break;

@@ -232,7 +232,7 @@ static armour_type _acquirement_body_armour(bool divine)
 
         if (!check_armour_size(armour, you.body_size(PSIZE_TORSO, true)))
             continue;
-        
+
         if (armour_acq_weight(armour) == 0)
             continue;
 
@@ -655,7 +655,7 @@ item_def item_based_on_equip()
     {
         if (you.melded[slot] || you.equip[slot] == -1)
             continue;
-        
+
         // skip unrands
         if (is_unrandom_artefact(you.inv[you.equip[slot]]))
             continue;

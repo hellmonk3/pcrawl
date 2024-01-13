@@ -633,7 +633,7 @@ static int _gen_good_res_artp() { return 1; }
 static int _gen_bad_res_artp() { return -1; }
 
 /// Generate 'good' values for ARTP_HP/ARTP_MAGICAL_POWER
-static int _gen_good_hpmp_artp() { return 9; }
+static int _gen_good_hpmp_artp() { return 3 + random2(7); }
 
 /// Generate 'bad' values for ARTP_HP/ARTP_MAGICAL_POWER
 static int _gen_bad_hpmp_artp() { return -_gen_good_hpmp_artp(); }
@@ -688,7 +688,7 @@ static const artefact_prop_data artp_data[] =
     { "*Tele", ARTP_VAL_BOOL,  0,   // ARTP_CAUSE_TELEPORTATION,
         nullptr, []() { return 1; }, 0, 0 },
 #endif
-    { "-Tele", ARTP_VAL_BOOL, 25,   // ARTP_PREVENT_TELEPORTATION,
+    { "-Tele", ARTP_VAL_BOOL, 0,   // ARTP_PREVENT_TELEPORTATION,
         nullptr, []() { return 1; }, 0, 0 },
     { "*Rage", ARTP_VAL_POS, 30,    // ARTP_ANGRY,
         nullptr, []() { return 20; }, 0, 0 },
@@ -711,7 +711,7 @@ static const artefact_prop_data artp_data[] =
     { "MP", ARTP_VAL_ANY, 15,       // ARTP_MAGICAL_POWER,
         _gen_good_hpmp_artp, _gen_bad_hpmp_artp, 0, 0 },
     { "Delay", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_BASE_DELAY,
-    { "HP", ARTP_VAL_ANY, 0,       // ARTP_HP,
+    { "HP", ARTP_VAL_ANY, 15,       // ARTP_HP,
         _gen_good_hpmp_artp, _gen_bad_hpmp_artp, 0, 0 },
     { "Clar", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_CLARITY,
     { "BAcc", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 },  // ARTP_BASE_ACC,
@@ -720,7 +720,7 @@ static const artefact_prop_data artp_data[] =
 #if TAG_MAJOR_VERSION == 34
     { "+Fog", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_FOG,
 #endif
-    { "Regen", ARTP_VAL_BOOL, 35,   // ARTP_REGENERATION,
+    { "Regen", ARTP_VAL_BOOL, 0,   // ARTP_REGENERATION,
         []() { return 1; }, nullptr, 0, 0 },
 #if TAG_MAJOR_VERSION == 34
     { "SustAt", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_SUSTAT,
@@ -1549,6 +1549,8 @@ static bool _armour_ego_conflicts(artefact_properties_t &proprt)
         return proprt[ARTP_ANGRY];
     case SPARM_INVISIBILITY:
         return proprt[ARTP_INVISIBLE];
+    case SPARM_HEALTH:
+        return proprt[ARTP_HP];
 
     default:
         return false;
@@ -1651,6 +1653,8 @@ static bool _improvable_property(int artp, int val)
     case ARTP_ENHANCE_ICE:
     case ARTP_ENHANCE_AIR:
     case ARTP_ENHANCE_EARTH:
+    case ARTP_MAGICAL_POWER:
+    case ARTP_HP:
         return val < 9;
     default:
         return false;

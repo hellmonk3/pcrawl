@@ -341,8 +341,8 @@ static const vector<property_descriptor> & _get_all_artp_desc_data()
         { ARTP_NOISE,
             "It may make a loud noise when swung.",
             prop_note::plain },
-        { ARTP_PREVENT_SPELLCASTING,
-            "It prevents spellcasting.",
+        { ARTP_INHIBIT_SPELLCASTING,
+            "It raises the skill requirement to cast spells by one.",
             prop_note::plain },
         { ARTP_PREVENT_TELEPORTATION,
             "It prevents most forms of teleportation.",
@@ -457,7 +457,7 @@ static vector<string> _randart_propnames(const item_def& item,
     {
         // (Generally) negative attributes
         // These come first, so they don't get chopped off!
-        ARTP_PREVENT_SPELLCASTING,
+        ARTP_INHIBIT_SPELLCASTING,
         ARTP_PREVENT_TELEPORTATION,
         ARTP_CONTAM,
         ARTP_ANGRY,

@@ -1499,7 +1499,7 @@ static void _debug_rap_stats(FILE *ostat)
         "ARTP_BERSERK",
 #endif
         "ARTP_NOISE",
-        "ARTP_PREVENT_SPELLCASTING",
+        "ARTP_INHIBIT_SPELLCASTING",
 #if TAG_MAJOR_VERSION == 34
         "ARTP_CAUSE_TELEPORTATION",
 #endif

@@ -111,8 +111,8 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
             return false;
     case GOD_SIF_MUNA:
     case GOD_VEHUMET:
-        // The magic gods: no preventing spellcasting.
-        if (artefact_property(item, ARTP_PREVENT_SPELLCASTING))
+        // The magic gods: no inhibiting spellcasting.
+        if (artefact_property(item, ARTP_INHIBIT_SPELLCASTING))
             return false;
         break;
 
@@ -595,7 +595,7 @@ static bool _artp_can_go_on_item(artefact_prop_type prop, const item_def &item,
         case ARTP_ENHANCE_ICE:
         case ARTP_ENHANCE_AIR:
         case ARTP_ENHANCE_EARTH:
-            return !extant_props[ARTP_PREVENT_SPELLCASTING];
+            return !extant_props[ARTP_INHIBIT_SPELLCASTING];
         default:
             return true;
     }
@@ -682,7 +682,7 @@ static const artefact_prop_data artp_data[] =
 #endif
     { "*Noise", ARTP_VAL_POS, 30,    // ARTP_NOISE,
         nullptr, []() { return 2; }, 0, 0 },
-    { "-Cast", ARTP_VAL_BOOL, 25,   // ARTP_PREVENT_SPELLCASTING,
+    { "-Wiz", ARTP_VAL_BOOL, 25,   // ARTP_INHIBIT_SPELLCASTING,
         nullptr, []() { return 1; }, 0, 0 },
 #if TAG_MAJOR_VERSION == 34
     { "*Tele", ARTP_VAL_BOOL,  0,   // ARTP_CAUSE_TELEPORTATION,
@@ -1536,7 +1536,7 @@ static bool _armour_ego_conflicts(artefact_properties_t &proprt)
     case SPARM_GUILE:
         return proprt[ARTP_WILLPOWER];
     case SPARM_ENERGY:
-        return proprt[ARTP_PREVENT_SPELLCASTING];
+        return proprt[ARTP_INHIBIT_SPELLCASTING];
 
     // Duplicate effect.
     case SPARM_RAMPAGING:
@@ -1562,10 +1562,8 @@ static bool _randart_is_conflicting(const item_def &item,
 {
     // see also _artp_can_go_on_item
 
-    if (proprt[ARTP_PREVENT_SPELLCASTING]
-        && (proprt[ARTP_MAGICAL_POWER] > 0
-            || proprt[ARTP_ARCHMAGI]
-            || item.base_type == OBJ_STAVES))
+    if (proprt[ARTP_INHIBIT_SPELLCASTING]
+        && item.base_type == OBJ_STAVES)
     {
         return true;
     }
@@ -1884,8 +1882,8 @@ static void _make_faerie_armour(item_def &item)
             continue;
         }
 
-        // -Cast makes no sense on someone called "the Enchantress".
-        if (artefact_property(doodad, ARTP_PREVENT_SPELLCASTING))
+        // -Wiz makes no sense on someone called "the Enchantress".
+        if (artefact_property(doodad, ARTP_INHIBIT_SPELLCASTING))
             continue;
 
         if (one_chance_in(20))

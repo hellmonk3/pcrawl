@@ -1919,6 +1919,7 @@ static int _player_evasion(bool ignore_helpless)
 int player_wizardry()
 {
     return you.wearing(EQ_AMULET, AMU_WIZARDRY)
+           - you.scan_artefacts(ARTP_INHIBIT_SPELLCASTING)
            + (you.get_mutation_level(MUT_BIG_BRAIN) == 3 ? 1 : 0);
 }
 

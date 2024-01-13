@@ -133,7 +133,7 @@ int artefact_value(const item_def &item)
     if (prop[ARTP_PREVENT_TELEPORTATION])
         ret -= 10;
 
-    if (prop[ARTP_PREVENT_SPELLCASTING])
+    if (prop[ARTP_INHIBIT_SPELLCASTING])
         ret -= 10;
 
     if (prop[ARTP_CONTAM])

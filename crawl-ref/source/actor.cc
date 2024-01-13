@@ -276,7 +276,7 @@ int actor::archmagi(bool items) const
 
 bool actor::no_cast(bool items) const
 {
-    return items && scan_artefacts(ARTP_PREVENT_SPELLCASTING);
+    return false;
 }
 
 bool actor::reflection(bool items) const

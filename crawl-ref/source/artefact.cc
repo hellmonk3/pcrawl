@@ -18,6 +18,7 @@
 #include "branch.h"
 #include "colour.h"
 #include "database.h"
+#include "dungeon.h"
 #include "god-item.h"
 #include "item-name.h"
 #include "item-prop.h"
@@ -869,35 +870,27 @@ static void _add_good_randart_prop(artefact_prop_type prop,
                         be given.
  */
 static void _get_randart_properties(const item_def &item,
-                                    artefact_properties_t &item_props,
-                                    int quality = 0,
-                                    const int max_bad_props = 2)
+                                    artefact_properties_t &item_props)
 {
     const object_class_type item_class = item.base_type;
 
-    // If we didn't receive a quality level, figure out how good we want the
-    // artefact to be. The default calculation range is 1 to 7.
-    if (quality < 1)
-        quality = max(1, binomial(7, 30));
+    const int quality = env.absdepth0;
 
-    // then consider adding bad properties. the better the artefact, the more
-    // likely we add a bad property, up to a max of 2.
-    int bad = min(binomial(1 + div_rand_round(quality, 5), 30), max_bad_props);
+    // then consider adding bad properties.
+    int bad = one_chance_in(5 + quality) ? 1 : 0;
+
     // we start by assuming we'll allow one good property per quality level
     // and an additional one for each bad property.
-    int good = quality + bad;
-    // but we want avoid generating more then 4-ish properties properties or
-    // things get spammy. Extra "good" properties will be used to enhance
-    // properties only, not to add more distinct properties. There is still a
-    // small chance of >4 properties.
-    int max_properties = 4 + one_chance_in(20);
-    max_properties += one_chance_in(40);
-    int enhance = 0;
+    int good = bad + 1 + coinflip() + x_chance_in_y(quality, 40);
+    // but we want avoid generating more than 4 properties or
+    // things get spammy.
+    int max_properties = 4;
+
+    // enhance some properties, scaling with depth
+    int enhance = random2(div_rand_round(quality, 3));
+
     if (good + bad > max_properties)
-    {
-        enhance = good + bad - max_properties;
-        good = max_properties - bad;
-    }
+        enhance++;
 
     // initialize a vector of weighted artefact properties to pick from
     vector<pair<artefact_prop_type, int>> art_prop_weights;

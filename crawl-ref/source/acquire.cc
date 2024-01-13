@@ -761,7 +761,7 @@ int acquirement_create_item(object_class_type class_wanted,
         bool want_arts = (class_wanted != OBJ_BOOKS);
 
         thing_created = items(want_arts, class_wanted, type_wanted,
-                              you.depth, 0, agent);
+                              env.absdepth0, 0, agent);
 
         if (thing_created == NON_ITEM)
         {

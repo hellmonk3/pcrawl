@@ -1958,7 +1958,7 @@ static const char* _item_ego_desc(special_armour_type ego)
     case SPARM_PONDEROUSNESS:
         return "it is very cumbersome, stunning its wearer after movement.";
     case SPARM_FLYING:
-        return "it grants its wearer flight.";
+        return "it grants its wearer flight, negating floor hazards.";
     case SPARM_WILLPOWER:
         return "it increases its wearer's willpower, protecting "
                "against certain magical effects.";
@@ -2009,7 +2009,8 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it causes witnesses of the wearer's kills to go into a frenzy,"
                " attacking everything nearby with great strength and speed.";
     case SPARM_GUILE:
-        return "it weakens the willpower of the wielder and everyone they hex.";
+        return "it halves (rounded down) the willpower of the wielder and "
+               "everyone they hex.";
     case SPARM_ENERGY:
         return "it may return the magic spent to cast spells, but lowers their "
                "success rate. It always returns the magic spent on miscasts.";

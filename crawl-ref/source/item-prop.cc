@@ -2777,7 +2777,7 @@ bool gives_ability(const item_def &item)
             return false;
         const special_armour_type ego = get_armour_ego_type(item);
 
-        if (ego == SPARM_INVISIBILITY || ego == SPARM_FLYING)
+        if (ego == SPARM_INVISIBILITY)
             return true;
         break;
     }
@@ -2983,7 +2983,7 @@ int shield_block_limit(const item_def &shield)
 
 int guile_adjust_willpower(int wl)
 {
-    return max(0, wl - 2 * WL_PIP);
+    return max(0, wl / 2);
 }
 
 string item_base_name(const item_def &item)

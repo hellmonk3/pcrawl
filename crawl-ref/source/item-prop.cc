@@ -127,7 +127,7 @@ static const armour_def Armour_prop[] =
             { SPARM_COLD_RESISTANCE, 2 },
             { SPARM_FIRE_RESISTANCE, 2 },
             { SPARM_POSITIVE_ENERGY, 2 },
-            { SPARM_NORMAL,          3 },
+            { SPARM_STEALTH,         1 },
             { SPARM_WILLPOWER,       4 },
     }},
     { ARM_LEATHER_ARMOUR,       "leather armour",         3,  -10,   20,
@@ -178,8 +178,9 @@ static const armour_def Armour_prop[] =
 
     { ARM_HELMET,               "helmet",                 1,   0,   45,
         EQ_HELMET,      SIZE_SMALL,  SIZE_MEDIUM, true, 0, {
-            { SPARM_SEE_INVISIBLE, 1 },
-            { SPARM_INTELLIGENCE,  1 },
+            { SPARM_SEE_INVISIBLE,    1 },
+            { SPARM_COLD_RESISTANCE,  1 },
+            { SPARM_STEALTH,          1 },
     }},
 
 #if TAG_MAJOR_VERSION == 34
@@ -201,9 +202,11 @@ static const armour_def Armour_prop[] =
     // and shapeshift status.
     { ARM_BOOTS,                "boots",                  1,   0,   45,
         EQ_BOOTS,       SIZE_SMALL,  SIZE_MEDIUM, true, 0, {
-            { SPARM_FLYING,    1 },
-            { SPARM_STEALTH,   1 },
-            { SPARM_RAMPAGING, 1 },
+            { SPARM_FLYING,          1 },
+            { SPARM_STEALTH,         1 },
+            { SPARM_RAMPAGING,       1 },
+            { SPARM_INSULATION,      1 },
+            { SPARM_FIRE_RESISTANCE, 1 },
     }},
     // Changed max. barding size to large to allow for the appropriate
     // monster types (monsters don't differentiate between torso and general).

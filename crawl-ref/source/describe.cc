@@ -1953,8 +1953,8 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it increases the strength of its wearer (Str +3).";
     case SPARM_DEXTERITY:
         return "it increases the dexterity of its wearer (Dex +3).";
-    case SPARM_INTELLIGENCE:
-        return "it increases the intelligence of its wearer (Int +3).";
+    case SPARM_WIZARDRY:
+        return "it reduces the skill requirement of all spells by one.";
     case SPARM_PONDEROUSNESS:
         return "it is very cumbersome, stunning its wearer after movement.";
     case SPARM_FLYING:

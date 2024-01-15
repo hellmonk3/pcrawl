@@ -1918,6 +1918,7 @@ int player_wizardry()
 {
     return you.wearing(EQ_AMULET, AMU_WIZARDRY)
            - you.scan_artefacts(ARTP_INHIBIT_SPELLCASTING)
+           + you.wearing_ego(EQ_ALL_ARMOUR, SPARM_WIZARDRY)
            + (you.get_mutation_level(MUT_BIG_BRAIN) == 3 ? 1 : 0);
 }
 

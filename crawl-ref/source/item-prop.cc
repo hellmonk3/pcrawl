@@ -78,6 +78,7 @@ static const vector<ego_weight_tuple> BASIC_BODY_EGOS = {
     { SPARM_COLD_RESISTANCE,   7 },
     { SPARM_WILLPOWER,         4 },
     { SPARM_POSITIVE_ENERGY,   2 },
+    { SPARM_WIZARDRY,          2 },
 };
 
 // Total weight 100.
@@ -87,6 +88,7 @@ static const vector<ego_weight_tuple> HEAVY_BODY_EGOS = {
     { SPARM_WILLPOWER,          15 },
     { SPARM_PONDEROUSNESS,      7 },
     { SPARM_HEALTH,             7 },
+    { SPARM_WIZARDRY,           2 },
 };
 
 static const vector<ego_weight_tuple> SHIELD_EGOS = {
@@ -192,7 +194,7 @@ static const armour_def Armour_prop[] =
             { SPARM_NORMAL,        10 },
             { SPARM_STEALTH,       3 },
             { SPARM_WILLPOWER,     3 },
-            { SPARM_INTELLIGENCE,  2 },
+            { SPARM_WIZARDRY,      2 },
             { SPARM_REPULSION,     1 },
     }},
 

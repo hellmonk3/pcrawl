@@ -1944,8 +1944,8 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it protects its wearer from cold.";
     case SPARM_INSULATION:
         return "it protects its wearer from electricity.";
-    case SPARM_SEE_INVISIBLE:
-        return "it allows its wearer to see invisible things.";
+    case SPARM_DETECTION:
+        return "it reveals the location of stairs.";
     case SPARM_INVISIBILITY:
         return "when activated, it grants its wearer temporary "
                "invisibility, but also drains their maximum health.";

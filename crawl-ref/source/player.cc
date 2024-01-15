@@ -6853,8 +6853,6 @@ bool player::can_see_invisible() const
         return true;
 
     if (wearing(EQ_RINGS, RING_SEE_INVISIBLE)
-        // armour: (checks head armour only)
-        || wearing_ego(EQ_HELMET, SPARM_SEE_INVISIBLE)
         || you.duration[DUR_REVELATION])
     {
         return true;

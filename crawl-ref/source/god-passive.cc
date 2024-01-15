@@ -666,8 +666,11 @@ static bool is_ash_portal(dungeon_feature_type feat)
 {
     if (feat_is_portal_entrance(feat))
         return true;
+    if (feat_is_staircase(feat))
+        return true;
     switch (feat)
     {
+    case DNGN_SEALED_STAIRS_DOWN:
     case DNGN_ENTER_HELL:
     case DNGN_EXIT_DIS:
     case DNGN_EXIT_GEHENNA:
@@ -706,7 +709,7 @@ static bool _check_portal(coord_def where)
 
 int ash_detect_portals(bool all)
 {
-    if (!have_passive(passive_t::detect_portals))
+    if (!you.wearing_ego(EQ_ALL_ARMOUR, SPARM_DETECTION))
         return 0;
 
     int portals_found = 0;

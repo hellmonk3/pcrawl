@@ -818,7 +818,7 @@ BOOL:    nogen
 
 NAME:    crown of Dyrovepreva
 OBJ:     OBJ_ARMOUR/ARM_HAT
-FB_BRAND: SPARM_SEE_INVISIBLE
+FB_BRAND: SPARM_DETECTION
 PLUS:    +3
 COLOUR:  ETC_JEWEL
 TILE:    urand_dyrovepreva
@@ -864,7 +864,7 @@ BOOL:     fly, nogen
 ENUM:     HOOD_ASSASSIN
 NAME:     hood of the Assassin
 OBJ:      OBJ_ARMOUR/ARM_HAT
-FB_BRAND: SPARM_SEE_INVISIBLE
+FB_BRAND: SPARM_DETECTION
 INSCRIP:  Detect Stab+
 PLUS:     +2
 COLOUR:   BROWN

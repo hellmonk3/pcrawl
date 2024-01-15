@@ -40,7 +40,7 @@ function ready()
     crawl.sendkeys("g&o[boots" .. eol .. "flying" .. eol)
     crawl.sendkeys("g&o[gold dragon scales" .. eol .. "" .. eol)
     crawl.sendkeys("g&o[tower shield" .. eol .. "reflection" .. eol)
-    crawl.sendkeys("g&o[helmet" .. eol .. "see invis" .. eol)
+    crawl.sendkeys("g&o[helmet" .. eol .. "detection" .. eol)
     crawl.sendkeys("g&o[gloves" .. eol .. "strength" .. eol)
     crawl.sendkeys("g&o[cloak" .. eol .. "" .. eol)
     --# somehow ga doesn't work... why?

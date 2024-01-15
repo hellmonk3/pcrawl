@@ -2533,10 +2533,6 @@ bool get_armour_see_invisible(const item_def &arm)
 {
     ASSERT(arm.base_type == OBJ_ARMOUR);
 
-    // check for ego resistance
-    if (get_armour_ego_type(arm) == SPARM_SEE_INVISIBLE)
-        return true;
-
     return false;
 }
 

@@ -1147,7 +1147,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "fire resistance",
             "cold resistance",
             "insulation",
-            "see invis",
+            "detection",
             "invisibility",
             "strength",
             "magical power",

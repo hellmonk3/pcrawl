@@ -76,7 +76,6 @@ struct armour_def
 static const vector<ego_weight_tuple> BASIC_BODY_EGOS = {
     { SPARM_FIRE_RESISTANCE,   7 },
     { SPARM_COLD_RESISTANCE,   7 },
-    { SPARM_POISON_RESISTANCE, 5 },
     { SPARM_WILLPOWER,         4 },
     { SPARM_POSITIVE_ENERGY,   2 },
 };
@@ -85,7 +84,6 @@ static const vector<ego_weight_tuple> BASIC_BODY_EGOS = {
 static const vector<ego_weight_tuple> HEAVY_BODY_EGOS = {
     { SPARM_FIRE_RESISTANCE,    26 },
     { SPARM_COLD_RESISTANCE,    26 },
-    { SPARM_POISON_RESISTANCE,  19 },
     { SPARM_WILLPOWER,          15 },
     { SPARM_PONDEROUSNESS,      7 },
     { SPARM_HEALTH,             7 },
@@ -95,7 +93,6 @@ static const vector<ego_weight_tuple> SHIELD_EGOS = {
     { SPARM_RESISTANCE,        1 },
     { SPARM_FIRE_RESISTANCE,   3 },
     { SPARM_COLD_RESISTANCE,   3 },
-    { SPARM_POISON_RESISTANCE, 3 },
     { SPARM_POSITIVE_ENERGY,   3 },
     { SPARM_REFLECTION,        6 },
     { SPARM_SPIKES,            6 },
@@ -157,7 +154,6 @@ static const armour_def Armour_prop[] =
 
     { ARM_CLOAK,                "cloak",                  1,   0,   45,
         EQ_CLOAK,       SIZE_LITTLE, SIZE_LARGE, true, 0, {
-            { SPARM_POISON_RESISTANCE, 1 },
             { SPARM_WILLPOWER,         1 },
             { SPARM_STEALTH,           1 },
             { SPARM_PRESERVATION,      1 },
@@ -2466,10 +2462,6 @@ int get_armour_res_poison(const item_def &arm)
     // intrinsic armour abilities
     res += armour_type_prop(arm.sub_type, ARMF_RES_POISON);
 
-    // check ego resistance
-    if (get_armour_ego_type(arm) == SPARM_POISON_RESISTANCE)
-        res += 1;
-
     return res;
 }
 
@@ -2478,6 +2470,10 @@ int get_armour_res_elec(const item_def &arm, bool check_artp)
     ASSERT(arm.base_type == OBJ_ARMOUR);
 
     int res = 0;
+
+      // check ego resistance
+    if (get_armour_ego_type(arm) == SPARM_INSULATION)
+        res += 1;
 
     // intrinsic armour abilities
     res += armour_type_prop(arm.sub_type, ARMF_RES_ELEC);
@@ -2838,7 +2834,7 @@ bool gives_resistance(const item_def &item)
         const int ego = get_armour_ego_type(item);
         if (ego == SPARM_FIRE_RESISTANCE
             || ego == SPARM_COLD_RESISTANCE
-            || ego == SPARM_POISON_RESISTANCE
+            || ego == SPARM_INSULATION
             || ego == SPARM_WILLPOWER
             || ego == SPARM_RESISTANCE
             || ego == SPARM_PRESERVATION

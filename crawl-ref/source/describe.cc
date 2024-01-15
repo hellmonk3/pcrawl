@@ -1942,8 +1942,8 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it protects its wearer from fire.";
     case SPARM_COLD_RESISTANCE:
         return "it protects its wearer from cold.";
-    case SPARM_POISON_RESISTANCE:
-        return "it protects its wearer from poison.";
+    case SPARM_INSULATION:
+        return "it protects its wearer from electricity.";
     case SPARM_SEE_INVISIBLE:
         return "it allows its wearer to see invisible things.";
     case SPARM_INVISIBILITY:
@@ -1956,7 +1956,7 @@ static const char* _item_ego_desc(special_armour_type ego)
     case SPARM_INTELLIGENCE:
         return "it increases the intelligence of its wearer (Int +3).";
     case SPARM_PONDEROUSNESS:
-        return "it is very cumbersome, slowing its wearer's movement.";
+        return "it is very cumbersome, stunning its wearer after movement.";
     case SPARM_FLYING:
         return "it grants its wearer flight.";
     case SPARM_WILLPOWER:

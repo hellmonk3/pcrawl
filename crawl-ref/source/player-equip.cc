@@ -701,9 +701,8 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
             mpr("You feel resistant to cold.");
             break;
 
-        case SPARM_POISON_RESISTANCE:
-            if (player_res_poison(false, false, false) < 3)
-                mpr("You feel resistant to poison.");
+        case SPARM_INSULATION:
+            mpr("You feel insulated.");
             break;
 
         case SPARM_SEE_INVISIBLE:
@@ -839,9 +838,8 @@ static void _unequip_armour_effect(item_def& item, bool meld,
         mpr("You feel less resistant to cold.");
         break;
 
-    case SPARM_POISON_RESISTANCE:
-        if (player_res_poison() <= 0)
-            mpr("You no longer feel resistant to poison.");
+    case SPARM_INSULATION:
+        mpr("You feel less insulated.");
         break;
 
     case SPARM_SEE_INVISIBLE:

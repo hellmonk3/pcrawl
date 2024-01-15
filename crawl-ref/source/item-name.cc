@@ -557,7 +557,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
 #endif
         case SPARM_FIRE_RESISTANCE:   return "fire resistance";
         case SPARM_COLD_RESISTANCE:   return "cold resistance";
-        case SPARM_POISON_RESISTANCE: return "poison resistance";
+        case SPARM_INSULATION:        return "insulation";
         case SPARM_SEE_INVISIBLE:     return "see invisible";
         case SPARM_INVISIBILITY:      return "invisibility";
         case SPARM_STRENGTH:          return "strength";
@@ -607,7 +607,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
 #endif
         case SPARM_FIRE_RESISTANCE:   return "rF+";
         case SPARM_COLD_RESISTANCE:   return "rC+";
-        case SPARM_POISON_RESISTANCE: return "rPois";
+        case SPARM_INSULATION:        return "rElec";
         case SPARM_SEE_INVISIBLE:     return "SInv";
         case SPARM_INVISIBILITY:      return "+Inv";
         case SPARM_STRENGTH:          return "Str+3";

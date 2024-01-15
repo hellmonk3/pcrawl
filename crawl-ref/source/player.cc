@@ -1378,6 +1378,9 @@ int player_res_electricity(bool allow_random, bool temp, bool items)
         // staff
         re += you.wearing(EQ_STAFF, STAFF_AIR);
 
+        // armour ego
+        re += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_INSULATION);
+
         // body armour:
         const item_def *body_armour = you.slot_item(EQ_BODY_ARMOUR);
         if (body_armour)
@@ -1444,9 +1447,6 @@ int player_res_poison(bool allow_random, bool temp, bool items)
     {
         // rings of poison resistance
         rp += you.wearing(EQ_RINGS, RING_POISON_RESISTANCE);
-
-        // ego armour:
-        rp += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_POISON_RESISTANCE);
 
         // body armour:
         const item_def *body_armour = you.slot_item(EQ_BODY_ARMOUR);
@@ -1684,8 +1684,6 @@ int player_movement_speed(bool check_terrain)
     // armour
     if (player_equip_unrand(UNRAND_LIGHTNING_SCALES))
         mv -= 1;
-
-    mv += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_PONDEROUSNESS);
 
     // Cheibriados
     if (have_passive(passive_t::slowed))

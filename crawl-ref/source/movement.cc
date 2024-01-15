@@ -1101,6 +1101,9 @@ void move_player_action(coord_def move)
             remove_ice_movement();
             you.clear_far_engulf(false, true);
             apply_cloud_trail(old_pos);
+            // stun the player if they are wearing ponderous items
+            if (you.wearing_ego(EQ_ALL_ARMOUR, SPARM_PONDEROUSNESS))
+                you.stun(&you);
         }
 
         // Now it is safe to apply the swappee's location effects and add

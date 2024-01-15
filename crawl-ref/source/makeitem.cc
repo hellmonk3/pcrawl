@@ -721,6 +721,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
     case SPARM_JUMPING:
 #endif
     case SPARM_RAMPAGING:
+    case SPARM_INSULATION:
         return slot == EQ_BOOTS;
     case SPARM_STEALTH:
         return slot == EQ_BOOTS || slot == EQ_CLOAK
@@ -777,7 +778,6 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         if (type == ARM_HAT)
             return true;
         // deliberate fall-through
-    case SPARM_POISON_RESISTANCE:
     case SPARM_POSITIVE_ENERGY:
         if (type == ARM_PEARL_DRAGON_ARMOUR && brand == SPARM_POSITIVE_ENERGY)
             return false; // contradictory or redundant

@@ -762,6 +762,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
 
     case SPARM_SEE_INVISIBLE:
     case SPARM_INTELLIGENCE:
+    case SPARM_REPULSION:
         return slot == EQ_HELMET;
 
     case SPARM_FIRE_RESISTANCE:
@@ -795,7 +796,6 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
 #endif
                slot == EQ_SHIELD || !strict;
 
-    case SPARM_REPULSION:
     case SPARM_HARM:
 #if TAG_MAJOR_VERSION > 34
     case SPARM_INVISIBILITY:

@@ -4900,12 +4900,12 @@ int str_to_ego(object_class_type item_type, string ego_str)
 #endif
         "fire_resistance",
         "cold_resistance",
-        "poison_resistance",
+        "insulation",
         "see_invisible",
         "invisibility",
         "strength",
-        "dexterity",
-        "intelligence",
+        "magical_power",
+        "wizardry",
         "ponderousness",
         "flying",
         "willpower",
@@ -4917,7 +4917,7 @@ int str_to_ego(object_class_type item_type, string ego_str)
         "preservation",
         "reflection",
         "spirit_shield",
-        "hurling",
+        "sniping",
 #if TAG_MAJOR_VERSION == 34
         "jumping",
 #endif

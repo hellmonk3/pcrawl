@@ -304,7 +304,7 @@ unsigned int item_value(item_def item, bool ident)
                 break;
 
             case SPARM_COLD_RESISTANCE:
-            case SPARM_DEXTERITY:
+            case SPARM_MAGICAL_POWER:
             case SPARM_FIRE_RESISTANCE:
             case SPARM_SEE_INVISIBLE:
             case SPARM_WIZARDRY:

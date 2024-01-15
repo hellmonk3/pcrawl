@@ -719,8 +719,8 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
             notify_stat_change(STAT_STR, 3, false);
             break;
 
-        case SPARM_DEXTERITY:
-            notify_stat_change(STAT_DEX, 3, false);
+        case SPARM_MAGICAL_POWER:
+            mpr("You feel magical.");
             break;
 
         case SPARM_WIZARDRY:
@@ -854,8 +854,8 @@ static void _unequip_armour_effect(item_def& item, bool meld,
         notify_stat_change(STAT_STR, -3, false);
         break;
 
-    case SPARM_DEXTERITY:
-        notify_stat_change(STAT_DEX, -3, false);
+    case SPARM_MAGICAL_POWER:
+        mpr("You feel less magical.");
         break;
 
     case SPARM_WIZARDRY:

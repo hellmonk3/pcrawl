@@ -3688,7 +3688,8 @@ int get_real_mp(bool include_items)
 
     if (include_items)
     {
-        enp += 5 * you.wearing(EQ_RINGS, RING_MAGICAL_POWER);
+        enp += 5 * you.wearing(EQ_AMULET, RING_MAGICAL_POWER);
+        enp += 5 * you.wearing_ego(EQ_ALL_ARMOUR, SPARM_MAGICAL_POWER);
         enp +=     you.scan_artefacts(ARTP_MAGICAL_POWER);
     }
 

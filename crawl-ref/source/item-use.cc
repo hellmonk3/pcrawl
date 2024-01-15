@@ -2223,9 +2223,6 @@ static void _item_stat_bonus(const item_def &item, int &prop_str,
         case SPARM_STRENGTH:
             prop_str = 3;
             break;
-        case SPARM_DEXTERITY:
-            prop_dex = 3;
-            break;
         default:
             break;
         }

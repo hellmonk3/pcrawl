@@ -1951,8 +1951,8 @@ static const char* _item_ego_desc(special_armour_type ego)
                "invisibility, but also drains their maximum health.";
     case SPARM_STRENGTH:
         return "it increases the strength of its wearer (Str +3).";
-    case SPARM_DEXTERITY:
-        return "it increases the dexterity of its wearer (Dex +3).";
+    case SPARM_MAGICAL_POWER:
+        return "it increases the maximum magic of its wearer (MP +5).";
     case SPARM_WIZARDRY:
         return "it reduces the skill requirement of all spells by one.";
     case SPARM_PONDEROUSNESS:

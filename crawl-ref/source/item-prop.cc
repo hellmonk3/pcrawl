@@ -157,7 +157,6 @@ static const armour_def Armour_prop[] =
 
     { ARM_CLOAK,                "cloak",                  1,   0,   45,
         EQ_CLOAK,       SIZE_LITTLE, SIZE_LARGE, true, 0, {
-            { SPARM_WILLPOWER,         1 },
             { SPARM_STEALTH,           1 },
             { SPARM_PRESERVATION,      1 },
     }},
@@ -183,6 +182,7 @@ static const armour_def Armour_prop[] =
             { SPARM_REPULSION,        1 },
             { SPARM_SNIPING,          1 },
             { SPARM_MAGICAL_POWER,    1 },
+            { SPARM_WILLPOWER,        1 },
     }},
 
 #if TAG_MAJOR_VERSION == 34

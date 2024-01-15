@@ -712,6 +712,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
     case SPARM_NORMAL:
     case SPARM_WIZARDRY:
     case SPARM_MAGICAL_POWER:
+    case SPARM_WILLPOWER:
         return true;
 
     case SPARM_FLYING:
@@ -775,10 +776,6 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         }
         return true; // in portal vaults, these can happen on every slot
 
-    case SPARM_WILLPOWER:
-        if (type == ARM_HAT)
-            return true;
-        // deliberate fall-through
     case SPARM_POSITIVE_ENERGY:
         if (type == ARM_PEARL_DRAGON_ARMOUR && brand == SPARM_POSITIVE_ENERGY)
             return false; // contradictory or redundant

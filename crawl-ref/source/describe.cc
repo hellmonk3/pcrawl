@@ -1991,7 +1991,7 @@ static const char* _item_ego_desc(special_armour_type ego)
 #endif
     case SPARM_HARM:
         return "it increases damage dealt and taken.";
-    case SPARM_SHADOWS:
+    case SPARM_DARKNESS:
         return "it reduces the distance the wearer can be seen at "
                "and can see.";
     case SPARM_RAMPAGING:

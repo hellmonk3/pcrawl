@@ -778,7 +778,7 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
             mpr("You are surrounded by a repulsion field.");
             break;
 
-        case SPARM_SHADOWS:
+        case SPARM_DARKNESS:
             mpr("It gets dark.");
             update_vision_range();
             break;
@@ -917,7 +917,7 @@ static void _unequip_armour_effect(item_def& item, bool meld,
         mpr("The haze of the repulsion field disappears.");
         break;
 
-    case SPARM_SHADOWS:
+    case SPARM_DARKNESS:
         mpr("The dungeon's light returns to normal.");
         update_vision_range();
         break;

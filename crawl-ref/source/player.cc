@@ -739,8 +739,8 @@ void update_vision_range()
     // penalizing players with low LOS from items, don't shrink normal_vision.
     you.current_vision = you.normal_vision;
 
-    // scarf of shadows gives -1.
-    if (you.wearing_ego(EQ_CLOAK, SPARM_SHADOWS))
+    // orb of darkness gives -1.
+    if (you.wearing_ego(EQ_CLOAK, SPARM_DARKNESS))
         you.current_vision -= 1;
 
     // so does amulet of darkness

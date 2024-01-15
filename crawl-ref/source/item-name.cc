@@ -584,7 +584,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_CLOUD_IMMUNE:      return "cloud immunity";
 #endif
         case SPARM_HARM:              return "harm";
-        case SPARM_SHADOWS:           return "shadows";
+        case SPARM_DARKNESS:          return "darkness";
         case SPARM_RAMPAGING:         return "rampaging";
         case SPARM_INFUSION:          return "infusion";
         case SPARM_LIGHT:             return "light";
@@ -633,7 +633,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_CLOUD_IMMUNE:      return "obsolete";
 #endif
         case SPARM_HARM:              return "harm";
-        case SPARM_SHADOWS:           return "shadows";
+        case SPARM_DARKNESS:          return "darkness";
         case SPARM_RAMPAGING:         return "rampage";
         case SPARM_INFUSION:          return "infuse";
         case SPARM_LIGHT:             return "light";

@@ -1172,7 +1172,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "cloud immunity",
 #endif
             "harm",
-            "shadows",
+            "darkness",
             "rampaging",
             "infusion",
             "light",

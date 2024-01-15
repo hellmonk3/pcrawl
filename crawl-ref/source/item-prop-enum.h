@@ -494,7 +494,7 @@ enum special_armour_type
     SPARM_CLOUD_IMMUNE,
 #endif
     SPARM_HARM,
-    SPARM_SHADOWS,
+    SPARM_DARKNESS,
     SPARM_RAMPAGING,
     SPARM_INFUSION,
     SPARM_LIGHT,

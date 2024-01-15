@@ -1052,7 +1052,7 @@ int get_teleportitis_level();
 
 int player_monster_detect_radius();
 
-int slaying_bonus(bool throwing = false, bool random = true);
+int slaying_bonus(bool ranged = false, bool random = true);
 
 unsigned int exp_needed(int lev, int exp_apt = -99);
 bool will_gain_life(int lev);

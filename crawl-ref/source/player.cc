@@ -3210,14 +3210,14 @@ unsigned int exp_needed(int lev, int exp_apt)
 }
 
 // returns bonuses from rings of slaying, etc.
-int slaying_bonus(bool throwing, bool random)
+int slaying_bonus(bool ranged, bool random)
 {
     int ret = 0;
 
     ret += 4 * you.wearing(EQ_AMULET, AMU_SLAYING);
     ret += you.scan_artefacts(ARTP_SLAYING);
-    if (you.wearing_ego(EQ_GLOVES, SPARM_HURLING) && throwing)
-        ret += 4;
+    if (you.wearing_ego(EQ_GLOVES, SPARM_SNIPING) && ranged)
+        ret += 5;
 
     ret += 3 * augmentation_amount();
     ret += you.get_mutation_level(MUT_SHARP_SCALES);

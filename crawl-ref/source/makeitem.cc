@@ -756,13 +756,12 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
     case SPARM_INFUSION:
         if (!strict)
             return true;
-        // deliberate fall-through
-    case SPARM_HURLING:
         return slot == EQ_GLOVES;
 
     case SPARM_SEE_INVISIBLE:
     case SPARM_INTELLIGENCE:
     case SPARM_REPULSION:
+    case SPARM_SNIPING:
         return slot == EQ_HELMET;
 
     case SPARM_FIRE_RESISTANCE:

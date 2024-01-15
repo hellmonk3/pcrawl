@@ -1146,7 +1146,7 @@ static void _debug_acquirement_stats(FILE *ostat)
 #endif
             "fire resistance",
             "cold resistance",
-            "poison resistance",
+            "insulation",
             "see invis",
             "invisibility",
             "strength",
@@ -1163,7 +1163,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "preservation",
             "reflection",
             "spirit shield",
-            "hurling",
+            "sniping",
 #if TAG_MAJOR_VERSION == 34
             "jumping",
 #endif

@@ -169,7 +169,6 @@ static const armour_def Armour_prop[] =
 
     { ARM_GLOVES,               "gloves",                 1,   0,   45,
         EQ_GLOVES,      SIZE_SMALL,  SIZE_MEDIUM, true, 0, {
-            { SPARM_STRENGTH,  1 },
             { SPARM_STEALTH,   1 },
     }},
 
@@ -211,6 +210,7 @@ static const armour_def Armour_prop[] =
             { SPARM_FIRE_RESISTANCE, 1 },
             { SPARM_MAGICAL_POWER,   1 },
             { SPARM_EVASION,         1 },
+            { SPARM_STABILITY,       1 },
     }},
     // Changed max. barding size to large to allow for the appropriate
     // monster types (monsters don't differentiate between torso and general).

@@ -714,8 +714,8 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
                 mpr("You become transparent for a moment.");
             break;
 
-        case SPARM_STRENGTH:
-            notify_stat_change(STAT_STR, 3, false);
+        case SPARM_STABILITY:
+            mpr("You feel unmovable.");
             break;
 
         case SPARM_MAGICAL_POWER:
@@ -845,8 +845,8 @@ static void _unequip_armour_effect(item_def& item, bool meld,
         mpr("You feel less perceptive.");
         break;
 
-    case SPARM_STRENGTH:
-        notify_stat_change(STAT_STR, -3, false);
+    case SPARM_STABILITY:
+        mpr("You feel moved.");
         break;
 
     case SPARM_MAGICAL_POWER:

@@ -4903,7 +4903,7 @@ int str_to_ego(object_class_type item_type, string ego_str)
         "insulation",
         "detection",
         "invisibility",
-        "strength",
+        "stability",
         "magical_power",
         "wizardry",
         "ponderousness",

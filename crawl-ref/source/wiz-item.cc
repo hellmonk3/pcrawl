@@ -1149,7 +1149,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "insulation",
             "detection",
             "invisibility",
-            "strength",
+            "stability",
             "magical power",
             "wizardry",
             "ponderous",

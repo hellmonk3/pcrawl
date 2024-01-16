@@ -320,9 +320,6 @@ static int _strength_modifier(bool innate_only)
 
         result += chei_stat_boost();
 
-        // ego items of strength
-        result += 3 * count_worn_ego(SPARM_STRENGTH);
-
         // form
         result += get_form()->str_mod;
     }

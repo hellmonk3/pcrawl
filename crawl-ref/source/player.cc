@@ -6468,7 +6468,7 @@ void player::drain_stat(stat_type s, int amount)
  */
 bool player::resists_dislodge(string event) const
 {
-    if (!player_equip_unrand(UNRAND_MOUNTAIN_BOOTS))
+    if (!you.wearing_ego(EQ_BOOTS,SPARM_STABILITY))
         return false;
     if (!event.empty())
         mprf("Your boots keep you from %s.", event.c_str());

@@ -325,7 +325,7 @@ unsigned int item_value(item_def item, bool ident)
                 valued += 50;
                 break;
 
-            case SPARM_POSITIVE_ENERGY:
+            case SPARM_EVASION:
             case SPARM_REFLECTION:
             case SPARM_SPIKES:
             case SPARM_SPIRIT_SHIELD:

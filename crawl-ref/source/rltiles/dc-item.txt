@@ -535,7 +535,7 @@ i-protection BRAND_ARM_PROTECTION
 i-stealth BRAND_ARM_STEALTH
 %rim 1
 i-resistance BRAND_ARM_RESISTANCE
-i-positive-energy BRAND_ARM_POSITIVE_ENERGY
+i-evasion BRAND_ARM_EVASION
 i-archmagi BRAND_ARM_ARCHMAGI
 i-preservation BRAND_ARM_PRESERVATION
 i-reflection BRAND_ARM_REFLECTION

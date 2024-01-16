@@ -1158,7 +1158,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "shielding",
             "stealth",
             "resistance",
-            "positive energy",
+            "evasion",
             "archmagi",
             "preservation",
             "reflection",

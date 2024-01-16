@@ -570,7 +570,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_PROTECTION:        return "protection";
         case SPARM_STEALTH:           return "stealth";
         case SPARM_RESISTANCE:        return "resistance";
-        case SPARM_POSITIVE_ENERGY:   return "positive energy";
+        case SPARM_EVASION:           return "evasion";
         case SPARM_ARCHMAGI:          return "the Archmagi";
 #if TAG_MAJOR_VERSION == 34
         case SPARM_JUMPING:           return "jumping";
@@ -619,7 +619,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_PROTECTION:        return "AC+3";
         case SPARM_STEALTH:           return "Stlth+";
         case SPARM_RESISTANCE:        return "rC+ rF+";
-        case SPARM_POSITIVE_ENERGY:   return "rN+";
+        case SPARM_EVASION:           return "EV+15";
         case SPARM_ARCHMAGI:          return "Archmagi";
 #if TAG_MAJOR_VERSION == 34
         case SPARM_JUMPING:           return "obsolete";

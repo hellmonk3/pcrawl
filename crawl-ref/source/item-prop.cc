@@ -77,7 +77,6 @@ static const vector<ego_weight_tuple> BASIC_BODY_EGOS = {
     { SPARM_FIRE_RESISTANCE,   7 },
     { SPARM_COLD_RESISTANCE,   7 },
     { SPARM_WILLPOWER,         4 },
-    { SPARM_POSITIVE_ENERGY,   2 },
     { SPARM_WIZARDRY,          2 },
     { SPARM_MAGICAL_POWER,     1 },
 };
@@ -90,16 +89,18 @@ static const vector<ego_weight_tuple> HEAVY_BODY_EGOS = {
     { SPARM_PONDEROUSNESS,      7 },
     { SPARM_HEALTH,             7 },
     { SPARM_WIZARDRY,           2 },
+    { SPARM_LIGHT,              1 },
+    { SPARM_INFUSION,           1 },
 };
 
 static const vector<ego_weight_tuple> SHIELD_EGOS = {
     { SPARM_RESISTANCE,        1 },
     { SPARM_FIRE_RESISTANCE,   3 },
     { SPARM_COLD_RESISTANCE,   3 },
-    { SPARM_POSITIVE_ENERGY,   3 },
     { SPARM_REFLECTION,        6 },
     { SPARM_SPIKES,            6 },
     { SPARM_PROTECTION,       12 },
+    { SPARM_LIGHT,             1 },
 };
 
 // would be nice to lookup the name from monster_for_armour, but that
@@ -129,7 +130,6 @@ static const armour_def Armour_prop[] =
             { SPARM_RESISTANCE,      1 },
             { SPARM_COLD_RESISTANCE, 2 },
             { SPARM_FIRE_RESISTANCE, 2 },
-            { SPARM_POSITIVE_ENERGY, 2 },
             { SPARM_STEALTH,         1 },
             { SPARM_WILLPOWER,       4 },
     }},
@@ -171,7 +171,6 @@ static const armour_def Armour_prop[] =
         EQ_GLOVES,      SIZE_SMALL,  SIZE_MEDIUM, true, 0, {
             { SPARM_STRENGTH,  1 },
             { SPARM_STEALTH,   1 },
-            { SPARM_INFUSION,  1 },
     }},
 
     { ARM_HELMET,               "helmet",                 1,   0,   45,
@@ -182,6 +181,7 @@ static const armour_def Armour_prop[] =
             { SPARM_SNIPING,          1 },
             { SPARM_MAGICAL_POWER,    1 },
             { SPARM_WILLPOWER,        1 },
+            { SPARM_SPIRIT_SHIELD,    1 },
     }},
 
 #if TAG_MAJOR_VERSION == 34
@@ -191,12 +191,12 @@ static const armour_def Armour_prop[] =
 
     { ARM_HAT,                  "hat",                    0,   0,   40,
         EQ_HELMET,      SIZE_TINY, SIZE_LARGE, true, 0, {
-            { SPARM_NORMAL,        10 },
             { SPARM_STEALTH,       3 },
             { SPARM_WILLPOWER,     3 },
             { SPARM_WIZARDRY,      2 },
             { SPARM_REPULSION,     1 },
             { SPARM_MAGICAL_POWER, 1 },
+            { SPARM_SPIRIT_SHIELD, 1 },
     }},
 
     // Note that barding size is compared against torso so it currently
@@ -210,6 +210,7 @@ static const armour_def Armour_prop[] =
             { SPARM_INSULATION,      1 },
             { SPARM_FIRE_RESISTANCE, 1 },
             { SPARM_MAGICAL_POWER,   1 },
+            { SPARM_EVASION,         1 },
     }},
     // Changed max. barding size to large to allow for the appropriate
     // monster types (monsters don't differentiate between torso and general).
@@ -229,12 +230,12 @@ static const armour_def Armour_prop[] =
     // to calculate adjusted shield penalty.
     { ARM_ORB,                 "orb",                     0,   0,   90,
         EQ_SHIELD,      SIZE_LITTLE, SIZE_GIANT, true, 0, {
-            { SPARM_LIGHT,  1 },
             { SPARM_RAGE,   1 },
             { SPARM_MAYHEM, 1 },
             { SPARM_GUILE,  1 },
             { SPARM_ENERGY, 1 },
             { SPARM_DARKNESS,  1 },
+            { SPARM_INFUSION,  1 },
     }},
     { ARM_BUCKLER,             "buckler",                 3,  -50,  45,
         EQ_SHIELD,      SIZE_LITTLE, SIZE_MEDIUM, true, 0, SHIELD_EGOS },
@@ -2500,10 +2501,6 @@ int get_armour_life_protection(const item_def &arm)
     // intrinsic armour abilities
     res += armour_type_prop(arm.sub_type, ARMF_RES_NEG);
 
-    // check for ego resistance
-    if (get_armour_ego_type(arm) == SPARM_POSITIVE_ENERGY)
-        res += 1;
-
     return res;
 }
 
@@ -2840,8 +2837,7 @@ bool gives_resistance(const item_def &item)
             || ego == SPARM_INSULATION
             || ego == SPARM_WILLPOWER
             || ego == SPARM_RESISTANCE
-            || ego == SPARM_PRESERVATION
-            || ego == SPARM_POSITIVE_ENERGY)
+            || ego == SPARM_PRESERVATION)
         {
             return true;
         }

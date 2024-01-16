@@ -1631,9 +1631,6 @@ int player_prot_life(bool allow_random, bool temp, bool items)
 
     if (items)
     {
-        // armour (checks body armour only)
-        pl += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_POSITIVE_ENERGY);
-
         // pearl dragon counts
         const item_def *body_armour = you.slot_item(EQ_BODY_ARMOUR);
         if (body_armour)
@@ -1839,7 +1836,7 @@ static int _player_evasion_bonuses()
     if (you.duration[DUR_AGILITY])
         evbonus += AGILITY_BONUS;
 
-    evbonus += you.wearing(EQ_RINGS_PLUS, RING_EVASION);
+    evbonus += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_EVASION) * 15;
 
     evbonus += you.scan_artefacts(ARTP_EVASION);
 

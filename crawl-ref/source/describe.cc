@@ -1968,8 +1968,8 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it enhances the stealth of its wearer.";
     case SPARM_RESISTANCE:
         return "it protects its wearer from the effects of both fire and cold.";
-    case SPARM_POSITIVE_ENERGY:
-        return "it protects its wearer from the effects of negative energy.";
+    case SPARM_EVASION:
+        return "it increases its wearer's evasion (EV +15).";
     case SPARM_ARCHMAGI:
         return "it increases the power of its wearer's magical spells.";
     case SPARM_PRESERVATION:
@@ -1997,12 +1997,11 @@ static const char* _item_ego_desc(special_armour_type ego)
     case SPARM_RAMPAGING:
         return "its wearer takes one free step when moving towards enemies.";
     case SPARM_INFUSION:
-        return "it empowers each of its wearer's blows with a small part of "
-               "their magic.";
+        return "it expends 1 MP per melee attack to add 10 slaying.";
     case SPARM_LIGHT:
-        return "it surrounds the wearer with a glowing halo, revealing "
-               "invisible creatures, increasing accuracy against all within "
-               "it other than the wearer, and reducing the wearer's stealth.";
+        return "it surrounds the wearer with a glowing halo, ensuring "
+               "perfect accuracy against all within it other than the wearer, "
+               "and preventing stealth.";
     case SPARM_RAGE:
         return "it berserks the wearer when making melee attacks (20% chance).";
     case SPARM_MAYHEM:

@@ -725,6 +725,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
 #endif
     case SPARM_RAMPAGING:
     case SPARM_INSULATION:
+    case SPARM_EVASION:
         return slot == EQ_BOOTS;
     case SPARM_STEALTH:
         return slot == EQ_BOOTS || slot == EQ_CLOAK
@@ -755,7 +756,6 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         return slot == EQ_SHIELD;
 
     case SPARM_STRENGTH:
-    case SPARM_INFUSION:
         if (!strict)
             return true;
         return slot == EQ_GLOVES;
@@ -763,6 +763,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
     case SPARM_DETECTION:
     case SPARM_REPULSION:
     case SPARM_SNIPING:
+    case SPARM_SPIRIT_SHIELD:
         return slot == EQ_HELMET;
 
     case SPARM_FIRE_RESISTANCE:
@@ -776,22 +777,6 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         }
         return true; // in portal vaults, these can happen on every slot
 
-    case SPARM_POSITIVE_ENERGY:
-        if (type == ARM_PEARL_DRAGON_ARMOUR && brand == SPARM_POSITIVE_ENERGY)
-            return false; // contradictory or redundant
-
-        return slot == EQ_BODY_ARMOUR || slot == EQ_SHIELD || slot == EQ_CLOAK
-                       || !strict;
-
-    case SPARM_SPIRIT_SHIELD:
-        return
-#if TAG_MAJOR_VERSION == 34
-               type == ARM_HAT ||
-               type == ARM_CAP ||
-               type == ARM_SCARF ||
-#endif
-               slot == EQ_SHIELD || !strict;
-
     case SPARM_HARM:
 #if TAG_MAJOR_VERSION > 34
     case SPARM_INVISIBILITY:
@@ -802,6 +787,9 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         return type == ARM_SCARF;
 
     case SPARM_LIGHT:
+    case SPARM_INFUSION:
+        return slot == EQ_BODY_ARMOUR || slot == EQ_SHIELD;
+
     case SPARM_RAGE:
     case SPARM_MAYHEM:
     case SPARM_GUILE:

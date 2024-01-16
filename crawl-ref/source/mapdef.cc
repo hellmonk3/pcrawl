@@ -4914,7 +4914,7 @@ int str_to_ego(object_class_type item_type, string ego_str)
         "resistance",
         "evasion",
         "archmagi",
-        "preservation",
+        "fog",
         "reflection",
         "spirit_shield",
         "sniping",

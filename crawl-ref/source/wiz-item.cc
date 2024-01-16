@@ -1160,7 +1160,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "resistance",
             "evasion",
             "archmagi",
-            "preservation",
+            "fog",
             "reflection",
             "spirit shield",
             "sniping",

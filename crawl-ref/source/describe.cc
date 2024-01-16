@@ -1972,8 +1972,9 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it increases its wearer's evasion (EV +15).";
     case SPARM_ARCHMAGI:
         return "it increases the power of its wearer's magical spells.";
-    case SPARM_PRESERVATION:
-        return "it protects its wearer from the effects of acid and corrosion.";
+    case SPARM_FOG:
+        return "it releases fog to aid in escape when its wearer is damaged "
+               "(50% chance).";
     case SPARM_REFLECTION:
         return "it reflects blocked missile attacks back in the "
                "direction they came from.";

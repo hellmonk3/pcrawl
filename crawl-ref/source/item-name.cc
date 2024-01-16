@@ -575,7 +575,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
 #if TAG_MAJOR_VERSION == 34
         case SPARM_JUMPING:           return "jumping";
 #endif
-        case SPARM_PRESERVATION:      return "preservation";
+        case SPARM_FOG:               return "fog";
         case SPARM_REFLECTION:        return "reflection";
         case SPARM_SPIRIT_SHIELD:     return "spirit shield";
         case SPARM_SNIPING:           return "sniping";
@@ -624,7 +624,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
 #if TAG_MAJOR_VERSION == 34
         case SPARM_JUMPING:           return "obsolete";
 #endif
-        case SPARM_PRESERVATION:      return "rCorr";
+        case SPARM_FOG:               return "fog";
         case SPARM_REFLECTION:        return "reflect";
         case SPARM_SPIRIT_SHIELD:     return "Spirit";
         case SPARM_SNIPING:           return "snipe";

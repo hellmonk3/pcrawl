@@ -316,7 +316,7 @@ unsigned int item_value(item_def item, bool ident)
             case SPARM_PROTECTION:
             case SPARM_SNIPING:
             case SPARM_REPULSION:
-            case SPARM_PRESERVATION:
+            case SPARM_FOG:
             case SPARM_DARKNESS:
             case SPARM_RAMPAGING:
             case SPARM_INFUSION:

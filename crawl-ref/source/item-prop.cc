@@ -79,6 +79,7 @@ static const vector<ego_weight_tuple> BASIC_BODY_EGOS = {
     { SPARM_WILLPOWER,         4 },
     { SPARM_WIZARDRY,          2 },
     { SPARM_MAGICAL_POWER,     1 },
+    { SPARM_ARCHMAGI,          1 },
 };
 
 // Total weight 100.
@@ -132,6 +133,9 @@ static const armour_def Armour_prop[] =
             { SPARM_FIRE_RESISTANCE, 2 },
             { SPARM_STEALTH,         1 },
             { SPARM_WILLPOWER,       4 },
+            { SPARM_ARCHMAGI,        1 },
+            { SPARM_WIZARDRY,        2 },
+            { SPARM_MAGICAL_POWER,   1 },
     }},
     { ARM_LEATHER_ARMOUR,       "leather armour",         3,  -10,   20,
         EQ_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, true, 0, BASIC_BODY_EGOS },

@@ -734,7 +734,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
             || type == ARM_ROBE;
 
     case SPARM_ARCHMAGI:
-        return !strict || type == ARM_ROBE;
+        return !strict || slot == EQ_BODY_ARMOUR;
 
     case SPARM_PONDEROUSNESS:
     case SPARM_HEALTH:

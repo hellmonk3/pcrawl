@@ -1360,6 +1360,8 @@ void new_level(bool restore)
 
     cancel_polar_vortex();
 
+    maybe_artifact_mutate();
+
     if (player_in_branch(BRANCH_ZIGGURAT))
         you.zig_max = max(you.zig_max, you.depth);
 

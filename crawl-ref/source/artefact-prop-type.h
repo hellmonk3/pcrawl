@@ -69,7 +69,7 @@ enum artefact_prop_type
 #if TAG_MAJOR_VERSION == 34
     ARTP_RCORR,
 #endif
-    ARTP_RMUT,
+    ARTP_MUTATE,
 #if TAG_MAJOR_VERSION == 34
     ARTP_TWISTER,
 #endif

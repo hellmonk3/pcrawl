@@ -695,7 +695,7 @@ static const artefact_prop_data artp_data[] =
 #if TAG_MAJOR_VERSION == 34
     { "Hungry", ARTP_VAL_POS, 0, nullptr, nullptr, 0, 0 },// ARTP_METABOLISM,
 #endif
-    { "Contam", ARTP_VAL_POS, 20,   // ARTP_CONTAM
+    { "Contam", ARTP_VAL_POS, 0,   // ARTP_CONTAM
         nullptr, []() { return 1; }, 0, 0 },
 #if TAG_MAJOR_VERSION == 34
     { "Acc", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_ACCURACY,
@@ -730,7 +730,7 @@ static const artefact_prop_data artp_data[] =
     { "rCorr", ARTP_VAL_BOOL, 40,   // ARTP_RCORR,
         []() { return 1; }, nullptr, 0, 0 },
 #endif
-    { "rMut", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_RMUT,
+    { "Mut", ARTP_VAL_BOOL, 10, nullptr, nullptr, 0, 0 }, // ARTP_MUTATE,
 #if TAG_MAJOR_VERSION == 34
     { "+Twstr", ARTP_VAL_BOOL, 0,   // ARTP_TWISTER,
         []() { return 1; }, nullptr, 0, 0 },

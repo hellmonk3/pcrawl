@@ -98,3 +98,4 @@ bool delete_temp_mutation();
 tileidx_t get_mutation_tile(mutation_type mut);
 
 void set_evolution_mut_xp(bool malignant);
+void maybe_artifact_mutate();

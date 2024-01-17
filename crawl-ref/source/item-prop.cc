@@ -2869,8 +2869,7 @@ bool gives_resistance(const item_def &item)
             && (rap == ARTP_FIRE
                 || rap == ARTP_COLD
                 || rap == ARTP_ELECTRICITY
-                || rap == ARTP_WILLPOWER
-                || rap == ARTP_RMUT))
+                || rap == ARTP_WILLPOWER))
         {
             return true;
         }

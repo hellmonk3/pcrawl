@@ -638,12 +638,14 @@ static int _gen_good_hpmp_artp() { return 3 + random2(7); }
 /// Generate 'bad' values for ARTP_HP/ARTP_MAGICAL_POWER
 static int _gen_bad_hpmp_artp() { return -_gen_good_hpmp_artp(); }
 
+static int _gen_evasion_artp() { return 5 * (1 + random2(4)); }
+
 /// Generation info for artefact properties.
 static const artefact_prop_data artp_data[] =
 {
     { "Brand", ARTP_VAL_BRAND, 0, nullptr, nullptr, 0, 0 }, // ARTP_BRAND,
     { "AC", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0}, // ARTP_AC,
-    { "EV", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_EVASION,
+    { "EV", ARTP_VAL_ANY, 25, _gen_evasion_artp, nullptr, 0, 0 }, // ARTP_EVASION,
 #if TAG_MAJOR_VERSION == 34
     { "Str", ARTP_VAL_ANY, 0,     // ARTP_STRENGTH,
         _gen_good_stat_artp, _gen_bad_stat_artp, 7, 1 },

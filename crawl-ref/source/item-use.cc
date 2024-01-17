@@ -1251,11 +1251,6 @@ operation_types use_an_item_menu(item_def *&target, operation_types oper, int it
     return choice_made ? menu.oper : OPER_NONE;
 }
 
-static bool _safe_to_remove_or_wear(const item_def &item, const item_def
-                                    *old_item, bool remove, bool quiet = false);
-static bool _safe_to_remove_or_wear(const item_def &item,
-                                    bool remove, bool quiet = false);
-
 // Rather messy - we've gathered all the can't-wield logic from wield_weapon()
 // here.
 bool can_wield(const item_def *weapon, bool say_reason,
@@ -1537,10 +1532,6 @@ static bool _do_wield_weapon(item_def *to_wield, bool adjust_time_taken)
                 }
             }
 
-            // check if you'd get stat-zeroed
-            if (!_safe_to_remove_or_wear(*wpn, true))
-                return false;
-
             if (!unwield_item())
                 return false;
 
@@ -1591,9 +1582,6 @@ static bool _do_wield_weapon(item_def *to_wield, bool adjust_time_taken)
         canned_msg(MSG_OK);
         return false;
     }
-
-    if (!_safe_to_remove_or_wear(new_wpn, you.weapon(), false))
-        return false;
 
     // Unwield any old weapon.
     if (you.weapon())
@@ -2006,9 +1994,6 @@ static bool _do_wear_armour(item_def *to_wear)
     bool swapping = false;
     const equipment_type slot = get_armour_slot(*to_wear);
 
-    if (!_safe_to_remove_or_wear(*to_wear, you.slot_item(slot), false))
-        return false;
-
     if ((slot == EQ_CLOAK
            || slot == EQ_HELMET
            || slot == EQ_GLOVES
@@ -2091,11 +2076,6 @@ bool takeoff_armour(int item, bool noask)
     item_def& invitem = you.inv[item];
 
     if (!noask && !check_warning_inscriptions(invitem, OPER_TAKEOFF))
-        return false;
-
-    // It's possible to take this thing off, but if it would drop a stat
-    // below 0, we should get confirmation.
-    if (!noask && !_safe_to_remove_or_wear(invitem, true))
         return false;
 
     you.turn_is_over = true;
@@ -2209,111 +2189,12 @@ static int _prompt_ring_to_remove()
     return you.equip[eqslot];
 }
 
-// Calculate the stat bonus from an item.
-// XXX: This needs to match _stat_modifier() and get_item_description().
-static void _item_stat_bonus(const item_def &item, int &prop_str,
-                             int &prop_dex, int &prop_int, bool remove)
-{
-    prop_str = prop_dex = prop_int = 0;
-
-    if (item.base_type == OBJ_ARMOUR && item_type_known(item))
-    {
-        switch (item.brand)
-        {
-        default:
-            break;
-        }
-    }
-
-    if (!remove)
-    {
-        prop_str *= -1;
-        prop_int *= -1;
-        prop_dex *= -1;
-    }
-}
-
 enum class afsz
 {
     go, // asked the player, who said to to proceed.
     stop, // asked the player (or didn't because of "quiet"), who said to stop.
     noask // no <1 stats, so not asked.
 };
-
-static afsz _abort_for_stat_zero(const item_def &item, int prop_str,
-                                 int prop_dex, int prop_int,  bool remove,
-                                 bool quiet)
-{
-    stat_type red_stat = NUM_STATS;
-    if (prop_str >= you.strength() && you.strength() > 0)
-        red_stat = STAT_STR;
-    else if (prop_int >= you.intel() && you.intel() > 0)
-        red_stat = STAT_INT;
-    else if (prop_dex >= you.dex() && you.dex() > 0)
-        red_stat = STAT_DEX;
-
-    if (red_stat == NUM_STATS)
-        return afsz::noask;
-
-    if (quiet)
-        return afsz::stop;
-
-    string verb = "";
-    if (remove)
-    {
-        if (item.base_type == OBJ_WEAPONS)
-            verb = "Unwield";
-        else
-            verb = "Remov"; // -ing, not a typo
-    }
-    else
-    {
-        if (item.base_type == OBJ_WEAPONS)
-            verb = "Wield";
-        else
-            verb = "Wear";
-    }
-
-    string prompt = make_stringf("%sing this item will reduce your %s to zero "
-                                 "or below. Continue?", verb.c_str(),
-                                 stat_desc(red_stat, SD_NAME));
-    if (!yesno(prompt.c_str(), true, 'n', true, false))
-    {
-        canned_msg(MSG_OK);
-        return afsz::stop;
-    }
-    return afsz::go;
-}
-
-// Checks whether a to-be-worn or to-be-removed item affects
-// character stats and whether wearing/removing it could be fatal.
-// If so, warns the player, or just returns false if quiet is true.
-static bool _safe_to_remove_or_wear(const item_def &item, const item_def
-                                    *old_item, bool remove, bool quiet)
-{
-    if (remove && !safe_to_remove(item, quiet))
-        return false;
-
-    int str1 = 0, dex1 = 0, int1 = 0, str2 = 0, dex2 = 0, int2 = 0;
-    afsz asked = afsz::noask;
-    if (!remove && old_item)
-    {
-        _item_stat_bonus(*old_item, str1, dex1, int1, true);
-        asked = _abort_for_stat_zero(item, str1, dex1, int1, true, quiet);
-        if (afsz::stop == asked)
-            return false;
-    }
-    _item_stat_bonus(item, str2, dex2, int2, remove);
-    return afsz::go == asked
-        || afsz::stop != _abort_for_stat_zero(item, str1+str2, dex1+dex2,
-                                              int1+int2, remove, quiet);
-}
-
-static bool _safe_to_remove_or_wear(const item_def &item, bool remove,
-                                    bool quiet)
-{
-    return _safe_to_remove_or_wear(item, nullptr, remove, quiet);
-}
 
 // Checks whether removing an item would cause flight to end and the
 // player to fall to their death.
@@ -2425,9 +2306,6 @@ static bool _swap_rings(item_def& to_puton)
     // ring slot (even if we still have empty slots).
     else if (available == 1 && !Options.jewellery_prompt)
     {
-        if (!_safe_to_remove_or_wear(to_puton, &you.inv[unwanted], false))
-            return false;
-
         if (!remove_ring(unwanted, false, true))
             return false;
     }
@@ -2455,9 +2333,6 @@ static bool _swap_rings(item_def& to_puton)
             canned_msg(MSG_OK);
             return false;
         }
-
-        if (!_safe_to_remove_or_wear(to_puton, &you.inv[unwanted], false))
-            return false;
 
         if (!remove_ring(unwanted, false, true))
             return false;
@@ -2641,10 +2516,6 @@ static bool _puton_amulet(item_def &item,
 
     item_def *old_amu = you.slot_item(EQ_AMULET, true);
 
-    // Check for stat loss.
-    if (!_safe_to_remove_or_wear(item, old_amu, false))
-        return false;
-
     // Remove the previous one.
     if (old_amu && !remove_ring(old_amu->link, true, true))
         return false;
@@ -2706,10 +2577,6 @@ static bool _puton_ring(item_def &item, bool prompt_slot,
     // At this point, we know there's an empty slot for the ring/amulet we're
     // trying to equip.
 
-    // Check for stat loss.
-    if (!noask && !_safe_to_remove_or_wear(item, false))
-        return false;
-
     equipment_type hand_used = EQ_NONE;
     if (prompt_slot)
     {
@@ -2724,12 +2591,6 @@ static bool _puton_ring(item_def &item, bool prompt_slot,
         // Allow swapping out a ring.
         else if (you.slot_item(hand_used, true))
         {
-            if (!noask && !_safe_to_remove_or_wear(item,
-                you.slot_item(hand_used, true), false))
-            {
-                return false;
-            }
-
             if (!remove_ring(you.equip[hand_used], false, true))
                 return false;
 
@@ -2867,8 +2728,6 @@ bool remove_ring(int slot, bool announce, bool noask)
 
     const int removed_ring_slot = you.equip[hand_used];
     item_def &invitem = you.inv[removed_ring_slot];
-    if (!noask && !_safe_to_remove_or_wear(invitem, true))
-        return false;
 
     // Remove the ring.
     you.turn_is_over = true;

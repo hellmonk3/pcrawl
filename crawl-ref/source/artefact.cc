@@ -1553,6 +1553,16 @@ static bool _armour_ego_conflicts(artefact_properties_t &proprt)
         return proprt[ARTP_INVISIBLE];
     case SPARM_HEALTH:
         return proprt[ARTP_HP];
+    case SPARM_REPULSION:
+        return proprt[ARTP_RMSL];
+    case SPARM_EVASION:
+        return proprt[ARTP_EVASION];
+    case SPARM_ARCHMAGI:
+        return proprt[ARTP_ARCHMAGI];
+    case SPARM_INSULATION:
+        return proprt[ARTP_ELECTRICITY];
+    case SPARM_MAGICAL_POWER:
+        return proprt[ARTP_MAGICAL_POWER];
 
     default:
         return false;

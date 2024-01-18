@@ -390,6 +390,8 @@ static vector<ability_def> &_get_ability_list()
 
         { ABIL_TELEPORT, "Teleport",
             0, 0, 0, -1, {}, abflag::none },
+        { ABIL_BERSERK, "Berserk",
+            0, 0, 0, -1, {}, abflag::none },
 
         // INVOCATIONS:
         // Zin
@@ -1081,6 +1083,7 @@ ability_type fixup_ability(ability_type ability)
         return ability;
 
     case ABIL_TROG_BERSERK:
+    case ABIL_BERSERK:
         if (you.is_lifeless_undead() || you.stasis())
             return ABIL_NON_ABILITY;
         return ability;
@@ -1923,6 +1926,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
     }
 
     case ABIL_TROG_BERSERK:
+    case ABIL_BERSERK:
         return you.can_go_berserk(true, false, true)
                && (quiet || berserk_check_wielded_weapon());
 
@@ -2148,6 +2152,7 @@ unique_ptr<targeter> find_ability_targeter(ability_type ability)
     case ABIL_REVIVIFY:
     case ABIL_SHAFT_SELF:
     case ABIL_TELEPORT:
+    case ABIL_BERSERK:
 #if TAG_MAJOR_VERSION == 34
     case ABIL_HEAL_WOUNDS:
 #endif
@@ -2665,6 +2670,11 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     case ABIL_TELEPORT:
         you_teleport();
         you.props[TELEPORTED_KEY].get_bool() = true;
+        break;
+
+    case ABIL_BERSERK:
+        you.go_berserk(true);
+        you.props[AMULET_BERSERKED_KEY].get_bool() = true;
         break;
 
     case ABIL_EVOKE_DISPATER:
@@ -3739,6 +3749,10 @@ bool player_has_ability(ability_type abil, bool include_unusable)
         return you.wearing(EQ_AMULET, AMU_TELEPORTATION)
                && !you.get_mutation_level(MUT_NO_ARTIFICE)
                && !you.props.exists(TELEPORTED_KEY);
+    case ABIL_BERSERK:
+        return you.wearing(EQ_AMULET, AMU_RAGE)
+               && you.can_go_berserk(true,false,true,nullptr,true)
+               && !you.props.exists(AMULET_BERSERKED_KEY);
     default:
         // removed abilities handled here
         return false;
@@ -3796,6 +3810,7 @@ vector<talent> your_talents(bool check_confused, bool include_unusable, bool ign
             ABIL_EVOKE_DISPATER,
             ABIL_EVOKE_OLGREB,
             ABIL_TELEPORT,
+            ABIL_BERSERK,
 #ifdef WIZARD
             ABIL_WIZ_BUILD_TERRAIN,
             ABIL_WIZ_SET_TERRAIN,

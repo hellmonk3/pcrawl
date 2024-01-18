@@ -3642,6 +3642,8 @@ tileidx_t tileidx_ability(const ability_type ability)
         return TILEG_ABILITY_EVOKE_INVISIBILITY;
     case ABIL_TELEPORT:
         return TILEG_ABILITY_TELEPORT;
+    case ABIL_BERSERK:
+        return TILEG_ABILITY_BERSERK;
 
     // Divine abilities
     // Zin

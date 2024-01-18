@@ -106,6 +106,8 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
 
     if (s == "Tele")
         return AMU_TELEPORTATION;
+     if (s == "Rage")
+        return AMU_RAGE;
 
     if (s.substr(0, 2) == "AC")
         return AMU_PROTECTION;

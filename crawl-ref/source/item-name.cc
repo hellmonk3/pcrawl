@@ -808,9 +808,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
 #endif
         case AMU_WILLPOWER:         return "willpower";
         case AMU_ACROBAT:           return "the acrobat";
-#if TAG_MAJOR_VERSION == 34
         case AMU_RAGE:              return "rage";
-#endif
         case AMU_PROTECTION:        return "protection";
 #if TAG_MAJOR_VERSION == 34
         case AMU_HARM:              return "harm";
@@ -866,9 +864,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
 #endif
         case RING_WILLPOWER:             return "Will+";
         case AMU_VAMPIRISM:              return "Vamp";
-#if TAG_MAJOR_VERSION == 34
         case AMU_RAGE:                   return "+Rage";
-#endif
         case AMU_ACROBAT:                return "Acrobat";
         case AMU_PROTECTION:             return "AC";
         case AMU_DARKNESS:               return "dark";

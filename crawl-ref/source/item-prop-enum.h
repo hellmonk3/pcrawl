@@ -247,17 +247,13 @@ enum jewellery_type
     // Currently none.
     // XXX: trying to add one doesn't actually work
 
-#if TAG_MAJOR_VERSION == 34
+
     AMU_RAGE = 35,
     AMU_FIRST_AMULET = AMU_RAGE,
+#if TAG_MAJOR_VERSION == 34
     AMU_HARM,
 #endif
-#if TAG_MAJOR_VERSION > 34
-    AMU_ACROBAT = 35,
-    AMU_FIRST_AMULET = AMU_ACROBAT,
-#elif TAG_MAJOR_VERSION == 34
     AMU_ACROBAT,
-#endif
     AMU_WILLPOWER,
     AMU_PROTECTION,
 #if TAG_MAJOR_VERSION == 34

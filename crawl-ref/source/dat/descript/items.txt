@@ -53,6 +53,11 @@ amulet of slaying
 An amulet that increases damage dealt with weapons of all kinds as well as
 unarmed combat and thrown items.
 %%%%
+amulet of teleportation
+
+An amulet that can be activated once per floor to teleport the user to a
+different location.
+%%%%
 amulet of the acrobat
 
 An amulet that allows the user to tumble and roll to evade the blows of their

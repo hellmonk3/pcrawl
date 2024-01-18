@@ -1360,6 +1360,7 @@ void new_level(bool restore)
 
     cancel_polar_vortex();
 
+    reset_per_floor_props();
     maybe_artifact_mutate();
 
     if (player_in_branch(BRANCH_ZIGGURAT))

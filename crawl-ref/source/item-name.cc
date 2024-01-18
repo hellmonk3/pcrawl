@@ -827,6 +827,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_WIZARDRY:          return "wizardry";
         case AMU_MAGICAL_POWER:     return "magical power";
         case AMU_SLAYING:           return "slaying";
+        case AMU_TELEPORTATION:     return "teleportation";
         default: return "buggy jewellery";
         }
     }
@@ -873,6 +874,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_DARKNESS:               return "dark";
         case AMU_WILLPOWER:              return "Will+";
         case AMU_NOTHING:                return "";
+        case AMU_TELEPORTATION:          return "tele";
         default: return "buggy";
         }
     }
@@ -3257,6 +3259,9 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
         {
         case AMU_ACROBAT:
             return you.has_mutation(MUT_ACROBATIC);
+
+        case AMU_TELEPORTATION:
+            return you.stasis();
 
         case AMU_FAITH:
             return (you.has_mutation(MUT_FORLORN) && !you.religion) // ??

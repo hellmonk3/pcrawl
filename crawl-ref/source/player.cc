@@ -2125,6 +2125,12 @@ void recharge_xp_evokers()
     }
 }
 
+void reset_per_floor_props()
+{
+    if (you.props.exists(TELEPORTED_KEY))
+        you.props.erase(TELEPORTED_KEY);
+}
+
 /// Make progress toward the abyss spawning an exit/stairs.
 static void _reduce_abyss_xp_timer(int exp)
 {

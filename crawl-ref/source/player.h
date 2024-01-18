@@ -55,6 +55,7 @@
 #define DESCENT_DEBT_KEY "descent_debt"
 #define DESCENT_WATER_BRANCH_KEY "descent_water_branch"
 #define DESCENT_POIS_BRANCH_KEY "descent_poison_branch"
+#define TELEPORTED_KEY "teleported"
 
 // display/messaging breakpoints for penalties from Ru's MUT_HORROR
 #define HORROR_LVL_EXTREME  3
@@ -1064,6 +1065,7 @@ void forget_map(bool rot = false);
 
 int get_exp_progress();
 void recharge_xp_evokers();
+void reset_per_floor_props();
 unsigned int gain_exp(unsigned int exp_gained);
 void apply_exp();
 

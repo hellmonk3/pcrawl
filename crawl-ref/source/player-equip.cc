@@ -1125,6 +1125,7 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
     case AMU_SLAYING:
     case AMU_VAMPIRISM:
     case AMU_WILLPOWER:
+    case AMU_TELEPORTATION:
         break;
 
     case RING_SEE_INVISIBLE:

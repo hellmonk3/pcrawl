@@ -1351,12 +1351,12 @@ void new_level(bool restore)
     print_stats_level();
     update_whereis();
 
-    _lock_stairs();
-
     _update_level_state();
 
     if (restore)
         return;
+    
+    _lock_stairs();
 
     cancel_polar_vortex();
 

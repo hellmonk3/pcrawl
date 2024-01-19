@@ -3174,9 +3174,6 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
             case SPARM_REPULSION:
                 return temp && have_passive(passive_t::upgraded_storm_shield)
                        || you.get_mutation_level(MUT_DISTORTION_FIELD) == 3;
-            case SPARM_INVISIBILITY:
-                return you.has_mutation(MUT_NO_ARTIFICE)
-                       || !invis_allowed(true, nullptr, temp);
             default:
                 return false;
             }
@@ -3190,6 +3187,8 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
                 return !you.can_go_berserk(false, false, true, nullptr, temp);
             case SPARM_ENERGY:
                 return you.has_mutation(MUT_HP_CASTING);
+            case SPARM_INVISIBILITY:
+                return !invis_allowed(true, nullptr, temp);
             default:
                 return false;
             }

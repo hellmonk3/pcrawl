@@ -2132,6 +2132,9 @@ void reset_per_floor_props()
 
     if (you.props.exists(AMULET_BERSERKED_KEY))
         you.props.erase(AMULET_BERSERKED_KEY);
+
+    if (you.props.exists(WENT_INVIS_KEY))
+        you.props.erase(WENT_INVIS_KEY);
 }
 
 /// Make progress toward the abyss spawning an exit/stairs.

@@ -286,6 +286,9 @@ bool check_awaken(monster* mons, int stealth)
 
     int mons_perc = mons->get_hit_dice();
 
+    if (you.invisible())
+        mons_perc = 1;
+
     // Critters that are wandering but still have MHITYOU as their foe are
     // still actively on guard for the player, even if they can't see you.
     // Give them a large bonus -- handle_behaviour() will nuke 'foe' after

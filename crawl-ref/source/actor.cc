@@ -300,10 +300,10 @@ bool actor::rmut_from_item() const
     return false;
 }
 
-bool actor::evokable_invis() const
+int actor::evokable_invis() const
 {
-    return wearing_ego(EQ_CLOAK, SPARM_INVISIBILITY)
-           || scan_artefacts(ARTP_INVISIBLE);
+    return wearing_ego(EQ_SHIELD, SPARM_INVISIBILITY)
+           + scan_artefacts(ARTP_INVISIBLE);
 }
 
 // Return an int so we know whether an item is the sole source.

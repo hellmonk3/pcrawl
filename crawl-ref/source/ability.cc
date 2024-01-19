@@ -380,8 +380,8 @@ static vector<ability_def> &_get_ability_list()
         // EVOKE abilities use Evocations and come from items.
         { ABIL_EVOKE_BLINK, "Evoke Blink",
             0, 0, 0, -1, {fail_basis::evo, 40, 2}, abflag::none },
-        { ABIL_EVOKE_TURN_INVISIBLE, "Evoke Invisibility",
-            0, 0, 0, -1, {fail_basis::evo, 60, 2}, abflag::max_hp_drain },
+        { ABIL_EVOKE_TURN_INVISIBLE, "Invisibility",
+            0, 0, 0, -1, {}, abflag::none },
         // TODO: any way to automatically derive these from the artefact name?
         { ABIL_EVOKE_DISPATER, "Evoke Damnation",
             4, 100, 0, 6, {}, abflag::none },
@@ -929,8 +929,7 @@ const string make_cost_description(ability_type ability)
     if (abil.flags & abflag::instant)
         ret += ", Instant"; // not really a cost, more of a bonus - bwr
 
-    if (abil.flags & abflag::max_hp_drain
-        && (ability != ABIL_EVOKE_TURN_INVISIBLE || _invis_causes_drain()))
+    if (abil.flags & abflag::max_hp_drain)
     {
         ret += ", Drain";
     }
@@ -1050,13 +1049,9 @@ static const string _detailed_cost_description(ability_type ability)
     if (abil.flags & abflag::conf_ok)
         ret << "\nYou can use this ability even if confused.";
 
-    if (abil.flags & abflag::max_hp_drain
-        && (ability != ABIL_EVOKE_TURN_INVISIBLE || _invis_causes_drain()))
+    if (abil.flags & abflag::max_hp_drain)
     {
-        ret << "\nThis ability will temporarily drain your maximum health when used";
-        if (ability == ABIL_EVOKE_TURN_INVISIBLE)
-            ret << ", even unsuccessfully";
-        ret << ".";
+        ret << "\nThis ability will temporarily drain your maximum health when used.";
     }
 
 #if TAG_MAJOR_VERSION == 34
@@ -2695,14 +2690,14 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     case ABIL_WORD_OF_CHAOS:
         return word_of_chaos(40 + you.experience_level * 6, fail);
 
-    case ABIL_EVOKE_TURN_INVISIBLE:     // cloaks, randarts
+    case ABIL_EVOKE_TURN_INVISIBLE:     // orbs, randarts
         if (!invis_allowed())
             return spret::abort;
-        if (_invis_causes_drain())
-            drain_player(60, false, true); // yes, before the fail check!
-        fail_check();
-        potionlike_effect(POT_INVISIBILITY, you.skill(SK_EVOCATIONS, 2) + 5);
-        contaminate_player(1000 + random2(500), true);
+        potionlike_effect(POT_INVISIBILITY, you.skill(SK_HEXES, 2) + 5);
+        if (you.props.exists(WENT_INVIS_KEY))
+            you.props[WENT_INVIS_KEY].get_int() += 1;
+        else
+            you.props[WENT_INVIS_KEY] = 1;
         break;
 
     case ABIL_END_TRANSFORMATION:
@@ -3736,8 +3731,12 @@ bool player_has_ability(ability_type abil, bool include_unusable)
         return you.scan_artefacts(ARTP_BLINK)
                && !you.get_mutation_level(MUT_NO_ARTIFICE);
     case ABIL_EVOKE_TURN_INVISIBLE:
-        return you.evokable_invis()
-               && !you.get_mutation_level(MUT_NO_ARTIFICE);
+    {
+        int times_gone_invis = 0;
+        if (you.props.exists(WENT_INVIS_KEY))
+            times_gone_invis = you.props[WENT_INVIS_KEY].get_int();
+        return you.evokable_invis() > times_gone_invis;
+    }
     case ABIL_EVOKE_DISPATER:
         return player_equip_unrand(UNRAND_DISPATER)
                && !you.has_mutation(MUT_NO_ARTIFICE);

@@ -740,11 +740,6 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
     case SPARM_HEALTH:
         return true;
 
-#if TAG_MAJOR_VERSION == 34
-    case SPARM_INVISIBILITY:
-        return (slot == EQ_CLOAK && !strict) || type == ARM_SCARF;
-#endif
-
     case SPARM_REFLECTION:
     case SPARM_PROTECTION:
     case SPARM_SPIKES:
@@ -768,9 +763,6 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         return true; // in portal vaults, these can happen on every slot
 
     case SPARM_HARM:
-#if TAG_MAJOR_VERSION > 34
-    case SPARM_INVISIBILITY:
-#endif
 #if TAG_MAJOR_VERSION == 34
     case SPARM_CLOUD_IMMUNE:
 #endif
@@ -786,6 +778,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
     case SPARM_ENERGY:
     case SPARM_DARKNESS:
     case SPARM_FOG:
+    case SPARM_INVISIBILITY:
         return type == ARM_ORB;
 
     case NUM_SPECIAL_ARMOURS:

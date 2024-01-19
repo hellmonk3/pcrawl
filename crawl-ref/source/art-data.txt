@@ -793,7 +793,6 @@ DEX:     4
 
 NAME:     cloak of the Thief
 OBJ:      OBJ_ARMOUR/ARM_CLOAK
-FB_BRAND: SPARM_INVISIBILITY
 INSCRIP:  *Fog
 PLUS:     +2
 COLOUR:   ETC_DARK

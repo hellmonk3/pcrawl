@@ -304,7 +304,7 @@ public:
     virtual int extra_harm(bool items = true) const;
 
     virtual bool rmut_from_item() const;
-    virtual bool evokable_invis() const;
+    virtual int  evokable_invis() const;
 
     // Return an int so we know whether an item is the sole source.
     virtual int equip_flight() const;

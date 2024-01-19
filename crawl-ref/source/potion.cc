@@ -487,11 +487,12 @@ public:
                  : "You fade further into invisibility.");
         }
 
-        // Now multiple invisiblity casts aren't as good. -- bwr
+        int dur = 1 + div_rand_round(pow,2) + random2(pow);
+
         if (!you.duration[DUR_INVIS])
-            you.set_duration(DUR_INVIS, _scale_effect(15 + random2(pow), is_potion), 100);
+            you.set_duration(DUR_INVIS, _scale_effect(dur, is_potion), 100);
         else
-            you.increase_duration(DUR_INVIS, _scale_effect(random2(pow), is_potion), 100);
+            you.increase_duration(DUR_INVIS, _scale_effect(dur, is_potion), 100);
         return true;
     }
 

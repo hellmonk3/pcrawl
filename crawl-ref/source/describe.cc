@@ -1947,8 +1947,8 @@ static const char* _item_ego_desc(special_armour_type ego)
     case SPARM_DETECTION:
         return "it reveals the location of stairs.";
     case SPARM_INVISIBILITY:
-        return "when activated, it grants its wearer temporary "
-               "invisibility, but also drains their maximum health.";
+        return "when activated, it grants its wearer temporary invisibility; "
+               "the duration increases with its user's skill in Hexes.";
     case SPARM_STABILITY:
         return "it prevents unwanted movement effects, such as trampling.";
     case SPARM_MAGICAL_POWER:

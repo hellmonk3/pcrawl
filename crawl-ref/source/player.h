@@ -57,6 +57,7 @@
 #define DESCENT_POIS_BRANCH_KEY "descent_poison_branch"
 #define TELEPORTED_KEY "teleported"
 #define AMULET_BERSERKED_KEY "amulet_berserked"
+#define WENT_INVIS_KEY "went_invis"
 
 // display/messaging breakpoints for penalties from Ru's MUT_HORROR
 #define HORROR_LVL_EXTREME  3

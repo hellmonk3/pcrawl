@@ -672,7 +672,7 @@ static const artefact_prop_data artp_data[] =
     { "SInv", ARTP_VAL_BOOL, 0,    // ARTP_SEE_INVISIBLE,
         []() { return 1; }, nullptr, 0, 0 },
 #endif
-    { "+Inv", ARTP_VAL_BOOL, 15,    // ARTP_INVISIBLE,
+    { "+Inv", ARTP_VAL_BOOL, 10,    // ARTP_INVISIBLE,
         []() { return 1; }, nullptr, 0, 0 },
     { "Fly", ARTP_VAL_BOOL, 15,    // ARTP_FLY,
         []() { return 1; }, nullptr, 0, 0 },

@@ -166,7 +166,6 @@ static const armour_def Armour_prop[] =
     { ARM_SCARF,                "scarf",                  0,   0,   50,
         EQ_CLOAK,       SIZE_LITTLE, SIZE_LARGE, true, 0, {
             { SPARM_RESISTANCE,   1 },
-            { SPARM_INVISIBILITY, 1 },
             { SPARM_HARM,         1 },
     }},
 
@@ -235,11 +234,12 @@ static const armour_def Armour_prop[] =
         EQ_SHIELD,      SIZE_LITTLE, SIZE_GIANT, true, 0, {
             { SPARM_RAGE,   1 },
             { SPARM_MAYHEM, 1 },
-            { SPARM_GUILE,  1 },
+            { SPARM_GUILE,          1 },
             { SPARM_ENERGY, 1 },
-            { SPARM_DARKNESS,  1 },
-            { SPARM_INFUSION,  1 },
-            { SPARM_FOG,       1 },
+            { SPARM_DARKNESS,       1 },
+            { SPARM_INFUSION,       1 },
+            { SPARM_FOG,            1 },
+            { SPARM_INVISIBILITY,   1 },
     }},
     { ARM_BUCKLER,             "buckler",                 3,  -50,  45,
         EQ_SHIELD,      SIZE_LITTLE, SIZE_MEDIUM, true, 0, SHIELD_EGOS },

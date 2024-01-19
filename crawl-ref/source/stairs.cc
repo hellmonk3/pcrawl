@@ -1355,7 +1355,7 @@ void new_level(bool restore)
 
     if (restore)
         return;
-    
+
     _lock_stairs();
 
     cancel_polar_vortex();

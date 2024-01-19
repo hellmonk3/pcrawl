@@ -1883,7 +1883,7 @@ static int _player_evasion(bool ignore_helpless)
 {
     // no evasion while paralyzed, treed, or backlit.
     if ((you.duration[DUR_PARALYSIS] || you.duration[DUR_CLUMSY]
-         || you.duration[DUR_PETRIFIED] || you.backlit()
+         || you.duration[DUR_PETRIFIED] || you.backlit(false)
             || you.form == transformation::tree)
         && !ignore_helpless)
     {

@@ -692,7 +692,7 @@ static const artefact_prop_data artp_data[] =
 #endif
     { "-Tele", ARTP_VAL_BOOL, 0,   // ARTP_PREVENT_TELEPORTATION,
         nullptr, []() { return 1; }, 0, 0 },
-    { "*Rage", ARTP_VAL_POS, 30,    // ARTP_ANGRY,
+    { "*Rage", ARTP_VAL_POS, 0,    // ARTP_ANGRY,
         nullptr, []() { return 20; }, 0, 0 },
 #if TAG_MAJOR_VERSION == 34
     { "Hungry", ARTP_VAL_POS, 0, nullptr, nullptr, 0, 0 },// ARTP_METABOLISM,
@@ -729,7 +729,7 @@ static const artefact_prop_data artp_data[] =
 #endif
     { "nupgr", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 },// ARTP_NO_UPGRADE,
 #if TAG_MAJOR_VERSION == 34
-    { "rCorr", ARTP_VAL_BOOL, 40,   // ARTP_RCORR,
+    { "rCorr", ARTP_VAL_BOOL, 0,   // ARTP_RCORR,
         []() { return 1; }, nullptr, 0, 0 },
 #endif
     { "Mut", ARTP_VAL_BOOL, 10, nullptr, nullptr, 0, 0 }, // ARTP_MUTATE,
@@ -748,7 +748,7 @@ static const artefact_prop_data artp_data[] =
         nullptr, []() { return 1; }, 0, 0 },
 #endif
     { "SH", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_SHIELDING,
-    { "Harm", ARTP_VAL_BOOL, 25, // ARTP_HARM,
+    { "Harm", ARTP_VAL_BOOL, 0, // ARTP_HARM,
         []() {return 1;}, nullptr, 0, 0},
     { "Rampage", ARTP_VAL_BOOL, 25, // ARTP_RAMPAGING,
         []() {return 1;}, nullptr, 0, 0},

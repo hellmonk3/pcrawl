@@ -6614,7 +6614,7 @@ void player::stun(actor *who)
     if (!duration[DUR_STUN])
     {
         mpr("You are stunned.");
-        duration[DUR_STUN] = BASELINE_DELAY;
+        duration[DUR_STUN] = BASELINE_DELAY * 2;
     }
 }
 

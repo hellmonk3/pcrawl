@@ -233,7 +233,7 @@ static const armour_def Armour_prop[] =
     { ARM_ORB,                 "orb",                     0,   0,   90,
         EQ_SHIELD,      SIZE_LITTLE, SIZE_GIANT, true, 0, {
             { SPARM_RAGE,   1 },
-            { SPARM_MAYHEM, 1 },
+            { SPARM_MAYHEM,         1 },
             { SPARM_GUILE,          1 },
             { SPARM_ENERGY,         1 },
             { SPARM_DARKNESS,       1 },

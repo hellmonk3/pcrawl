@@ -758,11 +758,11 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
         case SPARM_HEALTH:
             mpr("You feel healthy.");
             break;
-            
+
         case SPARM_WEAKENING:
             mpr("You feel like your foes are weak.");
             break;
-            
+
         case SPARM_FRIENDSHIP:
             mpr("You feel friendly.");
             break;
@@ -901,11 +901,11 @@ static void _unequip_armour_effect(item_def& item, bool meld,
     case SPARM_HEALTH:
         mpr("You feel less healthy.");
         break;
-        
+
     case SPARM_FRIENDSHIP:
         mpr("You feel unfriendly.");
         break;
-        
+
     case SPARM_WEAKENING:
         mpr("You feel like your foes have been working out.");
         break;

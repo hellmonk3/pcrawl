@@ -1509,7 +1509,8 @@ int player_spec_fire()
 
     sf += you.wearing(EQ_STAFF, STAFF_FIRE);
 
-    sf += you.wearing(EQ_RINGS, RING_FIRE);
+    // Orb
+    sf += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_ELEMENTS);
 
     if (player_equip_unrand(UNRAND_SALAMANDER))
         sf++;
@@ -1526,7 +1527,8 @@ int player_spec_cold()
 
     sc += you.wearing(EQ_STAFF, STAFF_COLD);
 
-    sc += you.wearing(EQ_RINGS, RING_ICE);
+    // Orb
+    sc += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_ELEMENTS);
 
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         sc++;
@@ -1541,6 +1543,9 @@ int player_spec_earth()
     // Staves
     se += you.wearing(EQ_STAFF, STAFF_EARTH);
 
+    // Orb
+    se += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_ELEMENTS);
+
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         se++;
 
@@ -1553,6 +1558,9 @@ int player_spec_air()
 
     // Staves
     sa += you.wearing(EQ_STAFF, STAFF_AIR);
+
+    // Orb
+    sa += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_ELEMENTS);
 
     if (player_equip_unrand(UNRAND_ELEMENTAL_STAFF))
         sa++;
@@ -8227,6 +8235,13 @@ int player::adjusted_casting_level(skill_type skill)
         return 0;
 
     int sklevel = you.skill(skill);
+
+    if (skill == SK_EARTH_MAGIC || skill == SK_AIR_MAGIC
+        || skill == SK_FIRE_MAGIC || skill == SK_ICE_MAGIC)
+    {
+        sklevel += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_ELEMENTS);
+    }
+
     sklevel += player_wizardry();
 
     return sklevel;

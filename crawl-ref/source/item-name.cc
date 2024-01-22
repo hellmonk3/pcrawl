@@ -588,7 +588,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_RAMPAGING:         return "rampaging";
         case SPARM_INFUSION:          return "infusion";
         case SPARM_LIGHT:             return "light";
-        case SPARM_RAGE:              return "wrath";
+        case SPARM_ELEMENTS:          return "elements";
         case SPARM_MAYHEM:            return "mayhem";
         case SPARM_GUILE:             return "guile";
         case SPARM_ENERGY:            return "energy";
@@ -633,11 +633,11 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_CLOUD_IMMUNE:      return "obsolete";
 #endif
         case SPARM_HARM:              return "harm";
-        case SPARM_DARKNESS:          return "darkness";
+        case SPARM_DARKNESS:          return "dark";
         case SPARM_RAMPAGING:         return "rampage";
         case SPARM_INFUSION:          return "infuse";
         case SPARM_LIGHT:             return "light";
-        case SPARM_RAGE:              return "*Rage";
+        case SPARM_ELEMENTS:          return "elements";
         case SPARM_MAYHEM:            return "mayhem";
         case SPARM_GUILE:             return "guile";
         case SPARM_ENERGY:            return "*channel";
@@ -3183,8 +3183,6 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
             special_armour_type ego = get_armour_ego_type(item);
             switch (ego)
             {
-            case SPARM_RAGE:
-                return !you.can_go_berserk(false, false, true, nullptr, temp);
             case SPARM_ENERGY:
                 return you.has_mutation(MUT_HP_CASTING);
             case SPARM_INVISIBILITY:

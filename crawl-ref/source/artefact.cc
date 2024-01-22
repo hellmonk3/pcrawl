@@ -1547,8 +1547,6 @@ static bool _armour_ego_conflicts(artefact_properties_t &proprt)
         return proprt[ARTP_HARM];
     case SPARM_RESISTANCE:
         return proprt[ARTP_FIRE] || proprt[ARTP_COLD];
-    case SPARM_RAGE:
-        return proprt[ARTP_ANGRY];
     case SPARM_INVISIBILITY:
         return proprt[ARTP_INVISIBLE];
     case SPARM_HEALTH:

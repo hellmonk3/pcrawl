@@ -495,7 +495,7 @@ enum special_armour_type
     SPARM_RAMPAGING,
     SPARM_INFUSION,
     SPARM_LIGHT,
-    SPARM_RAGE,
+    SPARM_ELEMENTS,
     SPARM_MAYHEM,
     SPARM_GUILE,
     SPARM_ENERGY,

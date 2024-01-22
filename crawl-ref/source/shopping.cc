@@ -329,7 +329,7 @@ unsigned int item_value(item_def item, bool ident)
             case SPARM_SPIKES:
             case SPARM_SPIRIT_SHIELD:
             case SPARM_HARM:
-            case SPARM_RAGE:
+            case SPARM_ELEMENTS:
             case SPARM_MAYHEM:
             case SPARM_GUILE:
                 valued += 20;

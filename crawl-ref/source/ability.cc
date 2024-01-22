@@ -378,7 +378,7 @@ static vector<ability_def> &_get_ability_list()
             0, 0, 0, -1, {}, abflag::none },
 
         // EVOKE abilities use Evocations and come from items.
-        { ABIL_EVOKE_BLINK, "Evoke Blink",
+        { ABIL_EVOKE_BLINK, "Blink",
             0, 0, 0, -1, {fail_basis::evo, 40, 2}, abflag::none },
         { ABIL_EVOKE_TURN_INVISIBLE, "Invisibility",
             0, 0, 0, -1, {}, abflag::none },
@@ -2660,7 +2660,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     }
 
     case ABIL_EVOKE_BLINK:      // randarts
-        return cast_blink(min(50, 1 + you.skill(SK_EVOCATIONS, 3)), fail);
+        return cast_blink(10, fail);
 
     case ABIL_TELEPORT:
         you_teleport();
@@ -3728,8 +3728,7 @@ bool player_has_ability(ability_type abil, bool include_unusable)
         return env.level_state & LSTATE_BEOGH && can_convert_to_beogh();
     // pseudo-evocations from equipped items
     case ABIL_EVOKE_BLINK:
-        return you.scan_artefacts(ARTP_BLINK)
-               && !you.get_mutation_level(MUT_NO_ARTIFICE);
+        return you.scan_artefacts(ARTP_BLINK);
     case ABIL_EVOKE_TURN_INVISIBLE:
     {
         int times_gone_invis = 0;

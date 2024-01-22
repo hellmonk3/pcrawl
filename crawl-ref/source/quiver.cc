@@ -1870,6 +1870,7 @@ namespace quiver
             case MISC_HORN_OF_GERYON:
             case MISC_QUAD_DAMAGE:
             case MISC_PHANTOM_MIRROR:
+            case MISC_DUNGEON_ATLAS:
                 return false;
             default:
                 return true;

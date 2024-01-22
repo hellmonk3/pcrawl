@@ -567,6 +567,11 @@ A vial of pure dragon-blood, crystallized over many years. {{
 
 While transformed, any equipped weapons and armour are melded.
 %%%%
+dungeon atlas
+
+A magical book with seemingly infinite pages, containing maps of all the world's
+dungeons. Evoking it will map the current level.
+%%%%
 eggplant
 
 A rotten eggplant which you can throw at the Crawl developers. It's a bug if

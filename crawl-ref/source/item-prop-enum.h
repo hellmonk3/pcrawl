@@ -329,6 +329,7 @@ enum misc_item_type
 #endif
     MISC_TIN_OF_TREMORSTONES,
     MISC_CONDENSER_VANE,
+    MISC_DUNGEON_ATLAS,
 
     NUM_MISCELLANY,
     MISC_DECK_UNKNOWN = NUM_MISCELLANY,
@@ -360,6 +361,7 @@ const vector<misc_item_type> misc_types =
 #endif
     MISC_TIN_OF_TREMORSTONES,
     MISC_CONDENSER_VANE,
+    MISC_DUNGEON_ATLAS,
 };
 
 enum missile_type

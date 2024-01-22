@@ -583,7 +583,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
 #if TAG_MAJOR_VERSION == 34
         case SPARM_CLOUD_IMMUNE:      return "cloud immunity";
 #endif
-        case SPARM_HARM:              return "harm";
+        case SPARM_DETECT_MONS:       return "detect monsters";
         case SPARM_DARKNESS:          return "darkness";
         case SPARM_RAMPAGING:         return "rampaging";
         case SPARM_INFUSION:          return "infusion";
@@ -632,7 +632,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
 #if TAG_MAJOR_VERSION == 34
         case SPARM_CLOUD_IMMUNE:      return "obsolete";
 #endif
-        case SPARM_HARM:              return "harm";
+        case SPARM_DETECT_MONS:       return "detectmons";
         case SPARM_DARKNESS:          return "dark";
         case SPARM_RAMPAGING:         return "rampage";
         case SPARM_INFUSION:          return "infuse";

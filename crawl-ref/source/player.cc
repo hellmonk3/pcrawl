@@ -7593,7 +7593,7 @@ static string _constriction_description()
 int player_monster_detect_radius()
 {
     int radius = you.get_mutation_level(MUT_ANTENNAE) * 2;
-
+    radius += you.wearing_ego(EQ_SHIELD, SPARM_DETECT_MONS) * 6;
     if (player_equip_unrand(UNRAND_HOOD_ASSASSIN))
         radius = max(radius, 4);
     if (have_passive(passive_t::detect_montier))

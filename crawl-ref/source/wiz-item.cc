@@ -1176,7 +1176,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "rampaging",
             "infusion",
             "light",
-            "rage",
+            "elements",
             "mayhem",
             "guile",
             "energy",

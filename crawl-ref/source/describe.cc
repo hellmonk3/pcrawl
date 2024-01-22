@@ -1990,8 +1990,8 @@ static const char* _item_ego_desc(special_armour_type ego)
     case SPARM_CLOUD_IMMUNE:
         return "it does nothing special.";
 #endif
-    case SPARM_HARM:
-        return "it increases damage dealt and taken.";
+    case SPARM_DETECT_MONS:
+        return "it detects monsters in a 6 tile radius.";
     case SPARM_DARKNESS:
         return "it reduces the distance the wearer can be seen at "
                "and can see.";

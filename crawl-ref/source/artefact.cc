@@ -1543,8 +1543,6 @@ static bool _armour_ego_conflicts(artefact_properties_t &proprt)
     // Duplicate effect.
     case SPARM_RAMPAGING:
         return proprt[ARTP_RAMPAGING];
-    case SPARM_HARM:
-        return proprt[ARTP_HARM];
     case SPARM_RESISTANCE:
         return proprt[ARTP_FIRE] || proprt[ARTP_COLD];
     case SPARM_INVISIBILITY:

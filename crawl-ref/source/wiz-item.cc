@@ -1171,7 +1171,7 @@ static void _debug_acquirement_stats(FILE *ostat)
 #if TAG_MAJOR_VERSION == 34
             "cloud immunity",
 #endif
-            "harm",
+            "detect monsters",
             "darkness",
             "rampaging",
             "infusion",
@@ -1182,6 +1182,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "energy",
             "spikes",
             "health",
+            "weakening",
             "INVALID",
         };
         COMPILE_CHECK(ARRAYSZ(names) == NUM_SPECIAL_ARMOURS);

@@ -658,12 +658,13 @@ bool melee_attack::handle_phase_hit()
     }
     else if (defender->is_player())
     {
-        // These effects (mutations right now) are only triggered when
+        // These effects are only triggered when
         // the player is hit, each of them will verify their own required
         // parameters.
         do_passive_freeze();
         do_fiery_armour_burn();
         emit_foul_stench();
+        apply_weakness_ego();
     }
 
     return true;
@@ -3294,6 +3295,15 @@ void melee_attack::do_passive_freeze()
             mon->expose_to_element(BEAM_COLD, orig_hurted);
             print_wounds(*mon);
         }
+    }
+}
+
+void melee_attack::apply_weakness_ego()
+{
+    if (you.wearing_ego(EQ_ALL_ARMOUR, SPARM_WEAKENING)
+        && attacker->alive() && coinflip())
+    {
+        attacker->weaken(&you, 3);
     }
 }
 

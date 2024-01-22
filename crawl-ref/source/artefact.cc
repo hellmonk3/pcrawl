@@ -1643,16 +1643,17 @@ static void _artefact_setup_prop_vectors(item_def &item)
     }
 }
 
-static bool _improvable_property(int artp, int val)
+// return how much a property can be improved
+static int _improvable_property(int artp, int val)
 {
     switch (artp)
     {
     case ARTP_STEALTH:
     case ARTP_WILLPOWER:
-        return val < 3;
+        return val < 3 ? 1 : 0;
     case ARTP_AC:
     case ARTP_SLAYING:
-        return val < 6;
+        return val < 6 ? 1 : 0;
     case ARTP_ENHANCE_CONJ:
     case ARTP_ENHANCE_HEXES:
     case ARTP_ENHANCE_SUMM:
@@ -1663,11 +1664,15 @@ static bool _improvable_property(int artp, int val)
     case ARTP_ENHANCE_ICE:
     case ARTP_ENHANCE_AIR:
     case ARTP_ENHANCE_EARTH:
+        return val < 9 ? 1 : 0;
     case ARTP_MAGICAL_POWER:
+        return val < 15 ? 2 : 0;
     case ARTP_HP:
-        return val < 9;
+        return val < 18 ? 3 : 0;
+    case ARTP_EVASION:
+        return val < 50 ? 5 : 0;
     default:
-        return false;
+        return 0;
     }
 }
 
@@ -1720,9 +1725,10 @@ bool modify_artps(item_def &item)
         for (int tries = 0; tries < 500; ++tries)
         {
             int i = ARTP_NUM_PROPERTIES - random2(ARTP_NUM_PROPERTIES - ARTP_AC) - 1;
-            if (proprt[i] != 0 && _improvable_property(i, proprt[i]))
+            int boost = _improvable_property(i, proprt[i]);
+            if (proprt[i] != 0 && boost > 0)
             {
-                proprt[i] ++;
+                proprt[i] += boost;
                 artefact_set_property(item,
                                 static_cast<artefact_prop_type>(i), proprt[i]);
                 return true;

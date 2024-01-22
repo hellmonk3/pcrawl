@@ -1183,6 +1183,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             "spikes",
             "health",
             "weakening",
+            "friendship",
             "INVALID",
         };
         COMPILE_CHECK(ARRAYSZ(names) == NUM_SPECIAL_ARMOURS);

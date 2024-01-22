@@ -762,6 +762,10 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
         case SPARM_WEAKENING:
             mpr("You feel like your foes are weak.");
             break;
+            
+        case SPARM_FRIENDSHIP:
+            mpr("You feel friendly.");
+            break;
 
         case SPARM_ARCHMAGI:
             if (!you.skill(SK_SPELLCASTING))
@@ -896,6 +900,10 @@ static void _unequip_armour_effect(item_def& item, bool meld,
 
     case SPARM_HEALTH:
         mpr("You feel less healthy.");
+        break;
+        
+    case SPARM_FRIENDSHIP:
+        mpr("You feel unfriendly.");
         break;
         
     case SPARM_WEAKENING:

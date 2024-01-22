@@ -2023,6 +2023,8 @@ static const char* _item_ego_desc(special_armour_type ego)
     case SPARM_WEAKENING:
         return "it weakens foes that strike the wearer in melee (50% chance), "
                "reducing their melee damage.";
+    case SPARM_FRIENDSHIP:
+        return "it doesn't do anything, yet.";
     default:
         return "it makes the wearer crave the taste of eggplant.";
     }

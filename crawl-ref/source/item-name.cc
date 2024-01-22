@@ -595,6 +595,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_SPIKES:            return "spikes";
         case SPARM_HEALTH:            return "health";
         case SPARM_WEAKENING:         return "weakening";
+        case SPARM_FRIENDSHIP:        return "friendship";
         default:                      return "bugginess";
         }
     }
@@ -645,6 +646,7 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_SPIKES:            return "spiky";
         case SPARM_HEALTH:            return "HP+12";
         case SPARM_WEAKENING:         return "weak";
+        case SPARM_FRIENDSHIP:        return "friend";
         default:                      return "buggy";
         }
     }

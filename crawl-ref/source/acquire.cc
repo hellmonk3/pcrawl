@@ -130,12 +130,10 @@ static bool _wielding_twohands()
 static equipment_type _acquirement_armour_slot(bool divine)
 {
     vector<pair<equipment_type, int>> weights = {
-        { EQ_BODY_ARMOUR,   you.slot_item(EQ_BODY_ARMOUR) ? 2 : 5 },
-        { EQ_SHIELD,        _wielding_twohands() ? 1 : 5 },
-        { EQ_CLOAK,         you.slot_item(EQ_CLOAK) ? 1 : 5 },
-        { EQ_HELMET,        you.slot_item(EQ_HELMET) ? 1 : 5 },
-        { EQ_GLOVES,        you.slot_item(EQ_GLOVES) ? 1 : 5 },
-        { EQ_BOOTS,         you.slot_item(EQ_BOOTS) ? 1 : 5 },
+        { EQ_BODY_ARMOUR,   you.slot_item(EQ_BODY_ARMOUR) ? 3 : 9 },
+        { EQ_SHIELD,        _wielding_twohands() || you.slot_item(EQ_SHIELD) ? 1 : 3 },
+        { EQ_HELMET,        you.slot_item(EQ_HELMET) ? 1 : 3 },
+        { EQ_BOOTS,         you.slot_item(EQ_BOOTS) ? 1 : 3 },
     };
 
     return filtered_vector_select<equipment_type>(weights,

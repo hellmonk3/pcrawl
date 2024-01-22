@@ -92,6 +92,7 @@ static const vector<ego_weight_tuple> HEAVY_BODY_EGOS = {
     { SPARM_WIZARDRY,           2 },
     { SPARM_LIGHT,              1 },
     { SPARM_INFUSION,           1 },
+    { SPARM_ENERGY,             1 },
 };
 
 static const vector<ego_weight_tuple> SHIELD_EGOS = {
@@ -234,7 +235,7 @@ static const armour_def Armour_prop[] =
             { SPARM_RAGE,   1 },
             { SPARM_MAYHEM, 1 },
             { SPARM_GUILE,          1 },
-            { SPARM_ENERGY, 1 },
+            { SPARM_ENERGY,         1 },
             { SPARM_DARKNESS,       1 },
             { SPARM_INFUSION,       1 },
             { SPARM_FOG,            1 },

@@ -2012,8 +2012,7 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it halves (rounded down) the willpower of the wielder and "
                "everyone they hex.";
     case SPARM_ENERGY:
-        return "it may return the magic spent to cast spells, but lowers their "
-               "success rate. It always returns the magic spent on miscasts.";
+        return "it may return the magic spent to cast spells (20% chance). ";
     case SPARM_SPIKES:
         return "it deals 1d10 damage to the attacker after blocking a melee "
                "attack. ";

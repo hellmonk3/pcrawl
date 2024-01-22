@@ -770,12 +770,12 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
 
     case SPARM_LIGHT:
     case SPARM_INFUSION:
+    case SPARM_ENERGY:
         return slot == EQ_BODY_ARMOUR || slot == EQ_SHIELD;
 
     case SPARM_RAGE:
     case SPARM_MAYHEM:
     case SPARM_GUILE:
-    case SPARM_ENERGY:
     case SPARM_DARKNESS:
     case SPARM_FOG:
     case SPARM_INVISIBILITY:

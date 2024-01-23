@@ -836,6 +836,12 @@ will make you brilliant for a short time, halving the MP cost of all spells and
 improving their power. Evocations skill will increase the duration of the
 effect.
 %%%%
+magnet
+
+A very big magical (?) magnet. When evoked, creatures you can see will be
+forcibly translocated closer to you for a brief duration. Evocations skill
+increases the duration of the effect.
+%%%%
 morningstar
 
 A mace with a head covered in short spikes.
@@ -1409,7 +1415,7 @@ pebbles. When released, the elementals are drawn magnetically to the center of
 nearby monsters, where they literally explode with rage at their rest being
 disturbed. Tremorstones usually land slightly off-target, and the user is
 always at risk of being hit. However, armour is applied thrice against the
-explosion's damage, so a well-armoured wielder has little to fear. Evocations 
+explosion's damage, so a well-armoured wielder has little to fear. Evocations
 skill increases the number of explosions.
 %%%%
 trident

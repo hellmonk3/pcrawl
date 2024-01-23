@@ -346,7 +346,7 @@ public:
         mprf(MSGCH_DURATION, "You feel %sattractive to monsters.",
              was_attractive ? "more " : "");
 
-        const int add = _scale_effect(20 + random2(pow)/2, is_potion);
+        const int add = _scale_effect(10 + random2(pow * 5), is_potion);
         you.increase_duration(DUR_ATTRACTIVE, add);
         return true;
     }

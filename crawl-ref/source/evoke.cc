@@ -542,6 +542,13 @@ static bool _purple_statuette()
     return true;
 }
 
+static bool _magnet()
+{
+    int pow = you.skill(SK_EVOCATIONS);
+    potionlike_effect(POT_ATTRACTION, pow);
+    return true;
+}
+
 static int _gale_push_dist(const actor* agent, const actor* victim, int pow)
 {
     int dist = 1 + random2(pow / 20);
@@ -1304,6 +1311,15 @@ bool evoke_item(item_def& item, dist *preselect)
             {
                 expend_xp_evoker(item.sub_type);
                 mpr("The statuette turns a dull grey.");
+            }
+            break;
+
+        case MISC_MAGNET:
+            if (_magnet())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The magnet loses polarity!");
             }
             break;
 

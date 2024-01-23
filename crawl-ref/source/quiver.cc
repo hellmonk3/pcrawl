@@ -1875,6 +1875,7 @@ namespace quiver
             case MISC_MAGES_CHALICE:
             case MISC_BUTTERFLY_JAR:
             case MISC_PURPLE_STATUETTE:
+            case MISC_MAGNET:
                 return false;
             default:
                 return true;

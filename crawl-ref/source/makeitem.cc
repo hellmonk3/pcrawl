@@ -1498,6 +1498,7 @@ static void _generate_misc_item(item_def& item, int force_type, int item_level)
     case MISC_MAGES_CHALICE:
     case MISC_BUTTERFLY_JAR:
     case MISC_PURPLE_STATUETTE:
+    case MISC_MAGNET:
         you.generated_misc.insert(typ);
         break;
     default:

@@ -318,7 +318,7 @@ public:
 
         mprf(MSGCH_DURATION, "You feel %sclever all of a sudden.",
              were_brilliant ? "more " : "");
-        const int add = _scale_effect(35 + random2(pow), is_potion);
+        const int add = _scale_effect(5 + pow + random2(1 + pow), is_potion);
         you.increase_duration(DUR_BRILLIANCE, add, 80);
         return true;
     }

@@ -48,6 +48,7 @@
 #include "place.h"
 #include "player.h"
 #include "player-stats.h"
+#include "potion.h"
 #include "prompt.h"
 #include "religion.h"
 #include "shout.h"
@@ -513,6 +514,13 @@ void end_playing_harp(bool voluntary)
         mpr("Your playing has been interrupted!");
 
     you.set_duration(DUR_HARP, 0);
+}
+
+static bool _mages_chalice()
+{
+    int pow = you.skill(SK_EVOCATIONS);
+    potionlike_effect(POT_BRILLIANCE, pow);
+    return true;
 }
 
 static int _gale_push_dist(const actor* agent, const actor* victim, int pow)
@@ -1262,6 +1270,14 @@ bool evoke_item(item_def& item, dist *preselect)
             {
                 practise_evoking(1);
                 expend_xp_evoker(item.sub_type);
+            }
+            break;
+
+        case MISC_MAGES_CHALICE:
+            if (_mages_chalice())
+            {
+                expend_xp_evoker(item.sub_type);
+                mpr("The chalice dries up!");
             }
             break;
 

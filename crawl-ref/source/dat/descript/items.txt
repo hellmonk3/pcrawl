@@ -823,6 +823,13 @@ increases the damage done by the maw.
 
 While transformed, any body armour is melded.
 %%%%
+mage's chalice
+
+A goblet overflowing with the liquid thoughts of a great wizard. Evoking it
+will make you brilliant for a short time, halving the MP cost of all spells and
+improving their power. Evocations skill will increase the duration of the
+effect.
+%%%%
 morningstar
 
 A mace with a head covered in short spikes.

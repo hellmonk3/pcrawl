@@ -3897,6 +3897,8 @@ colour_t item_def::miscellany_colour() const
 #endif
         case MISC_QUAD_DAMAGE:
             return ETC_DARK;
+        case MISC_MAGES_CHALICE:
+            return LIGHTCYAN;
         case MISC_ZIGGURAT:
             return _zigfig_colour();
         default:

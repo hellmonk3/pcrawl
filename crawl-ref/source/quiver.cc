@@ -1871,6 +1871,7 @@ namespace quiver
             case MISC_QUAD_DAMAGE:
             case MISC_PHANTOM_MIRROR:
             case MISC_DUNGEON_ATLAS:
+            case MISC_HARP_OF_HEALING:
                 return false;
             default:
                 return true;

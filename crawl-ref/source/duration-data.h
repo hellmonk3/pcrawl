@@ -613,6 +613,10 @@ static const duration_def duration_data[] =
       RED, "Stun",
       "stunned", "stunning",
       "You are stunned.", D_DISPELLABLE},
+    { DUR_HARP,
+      LIGHTBLUE, "Harp",
+      "harp", "harp of healing",
+      "You are playing the harp of healing.", D_NO_FLAGS},
 
     // The following are visible in wizmode only, or are handled
     // specially in the status lights and/or the % or @ screens.

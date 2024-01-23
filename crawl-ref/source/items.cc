@@ -3878,6 +3878,7 @@ colour_t item_def::miscellany_colour() const
             return LIGHTRED;
         case MISC_SACK_OF_SPIDERS:
         case MISC_DUNGEON_ATLAS:
+        case MISC_HARP_OF_HEALING:
             return WHITE;
 #if TAG_MAJOR_VERSION == 34
         case MISC_LAMP_OF_FIRE:

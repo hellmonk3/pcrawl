@@ -330,6 +330,7 @@ static const vector<pair<misc_item_type, int> > _misc_base_weights()
         {MISC_PHIAL_OF_FLOODS,     20},
         {MISC_CONDENSER_VANE,      20},
         {MISC_DUNGEON_ATLAS,       20},
+        {MISC_HARP_OF_HEALING,     20},
     };
     // The player never needs more than one of any of these.
     for (auto &p : choices)

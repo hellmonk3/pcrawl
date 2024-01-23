@@ -1033,6 +1033,7 @@ static string misc_type_name(int type)
     case MISC_TIN_OF_TREMORSTONES:       return "tin of tremorstones";
     case MISC_CONDENSER_VANE:            return "condenser vane";
     case MISC_DUNGEON_ATLAS:             return "dungeon atlas";
+    case MISC_HARP_OF_HEALING:           return "harp of healing";
 
     default:
         return "buggy miscellaneous item";

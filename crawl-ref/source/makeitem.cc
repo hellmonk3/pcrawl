@@ -1494,6 +1494,7 @@ static void _generate_misc_item(item_def& item, int force_type, int item_level)
     case MISC_TIN_OF_TREMORSTONES:
     case MISC_CONDENSER_VANE:
     case MISC_DUNGEON_ATLAS:
+    case MISC_HARP_OF_HEALING:
         you.generated_misc.insert(typ);
         break;
     default:

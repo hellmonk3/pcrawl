@@ -1153,6 +1153,8 @@ misc_phantom_mirror MISC_PHANTOM_MIRROR
 misc_zigfig MISC_ZIGGURAT
 misc_quad MISC_QUAD_DAMAGE
 misc_dungeon_atlas MISC_DUNGEON_ATLAS
+misc_harp_of_healing MISC_HARP_OF_HEALING
+misc_harp_of_healing_inert MISC_HARP_OF_HEALING_INERT
 %sdir item/misc/runes
 generic MISC_RUNE_OF_ZOT
 rune_tartarus RUNE_TARTARUS

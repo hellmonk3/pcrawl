@@ -459,6 +459,62 @@ static bool _make_zig(item_def &zig)
     return true;
 }
 
+static bool _harp_of_healing()
+{
+    // Giant wall of special cases (probably missing some)
+    if (silenced(you.pos()))
+    {
+        mpr("You are unable to hear the harp's music.");
+        return false;
+    }
+    else if (you.confused())
+    {
+        mpr("You are in no state to start playing the harp!");
+        return false;
+    }
+    else if (you.duration[DUR_DEATHS_DOOR])
+    {
+        mpr("You cannot hear the harp's music in death's doorway!");
+        return false;
+    }
+
+    int pow = you.skill(SK_EVOCATIONS);
+
+    you.set_duration(DUR_HARP, 2 + pow);
+    mpr("You begin to play the harp.");
+    you.props[HARP_STARTED_KEY] = 1;
+    handle_playing_harp();
+
+    return true;
+}
+
+void handle_playing_harp()
+{
+    // Various special cases if user can no longer play harp
+    if (you.confused() || you.berserk() || you.duration[DUR_MESMERISED]
+        || silenced(you.pos()) || you.duration[DUR_DEATHS_DOOR])
+    {
+        end_playing_harp(false);
+        return;
+    }
+
+    // Heal for 5 hp per turn
+    inc_hp(5);
+
+    // Make noise
+    noisy(12, you.pos());
+}
+
+void end_playing_harp(bool voluntary)
+{
+    if (voluntary)
+        mpr("You stop playing the harp.");
+    else
+        mpr("Your playing has been interrupted!");
+
+    you.set_duration(DUR_HARP, 0);
+}
+
 static int _gale_push_dist(const actor* agent, const actor* victim, int pow)
 {
     int dist = 1 + random2(pow / 20);
@@ -1199,6 +1255,14 @@ bool evoke_item(item_def& item, dist *preselect)
             }
             else
                 return false;
+            break;
+
+        case MISC_HARP_OF_HEALING:
+            if (_harp_of_healing())
+            {
+                practise_evoking(1);
+                expend_xp_evoker(item.sub_type);
+            }
             break;
 
         case MISC_QUAD_DAMAGE:

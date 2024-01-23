@@ -58,6 +58,7 @@
 #define TELEPORTED_KEY "teleported"
 #define AMULET_BERSERKED_KEY "amulet_berserked"
 #define WENT_INVIS_KEY "went_invis"
+#define HARP_STARTED_KEY "harp_started"
 
 // display/messaging breakpoints for penalties from Ru's MUT_HORROR
 #define HORROR_LVL_EXTREME  3

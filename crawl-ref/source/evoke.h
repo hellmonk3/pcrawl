@@ -21,5 +21,6 @@ bool evoke_item(item_def &item, dist *target=nullptr);
 int wand_mp_cost();
 int wand_power(spell_type spell);
 void zap_wand(int slot = -1, dist *target=nullptr);
-
+void handle_playing_harp();
+void end_playing_harp(bool voluntary = true);
 void black_drac_breath();

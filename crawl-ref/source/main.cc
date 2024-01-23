@@ -1042,6 +1042,27 @@ static void _update_place_stats()
     curr_PlaceInfo.assert_validity();
 }
 
+/* If the user is playing the harp of healing, check to make sure they haven't
+ * moved or taken an action other than waiting.
+ */
+static void _do_playing_harp()
+{
+    if (!you.duration[DUR_HARP])
+        return;
+
+    // don't cancel harp if the last action was playing it.
+    if (you.props.exists(HARP_STARTED_KEY))
+    {
+        you.props.erase(HARP_STARTED_KEY);
+        return;
+    }
+
+    if (crawl_state.prev_cmd == CMD_WAIT)
+        handle_playing_harp();
+    else
+        end_playing_harp(true);
+}
+
 //
 //  This function handles the player's input. It's called from main(),
 //  from inside an endless loop.
@@ -1285,6 +1306,7 @@ static void _input()
             _do_berserk_no_combat_penalty();
 
         _do_wait_spells();
+        _do_playing_harp();
 
         world_reacts();
     }

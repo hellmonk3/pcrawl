@@ -770,6 +770,8 @@ static void _decrement_durations()
     if (you.duration[DUR_WATER_HOLD])
         handle_player_drowning(delay);
 
+    _decrement_a_duration(DUR_HARP, delay, "Your harp's song finishes.");
+
     if (you.duration[DUR_FLAYED])
     {
         bool near_ghost = false;

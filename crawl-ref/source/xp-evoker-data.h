@@ -31,7 +31,7 @@ static const unordered_map<misc_item_type, evoker_data, std::hash<int>> xp_evoke
     { MISC_HORN_OF_GERYON, { "horn_debt", 1, 1 } },
     { MISC_LIGHTNING_ROD,  { "rod_debt", 1, LIGHTNING_MAX_CHARGE } },
     { MISC_TIN_OF_TREMORSTONES, { "tin_debt", 2, 2 } },
-    { MISC_PHANTOM_MIRROR, { "mirror_debt", 1, 1 } },
+    { MISC_PHANTOM_MIRROR, { "mirror_debt", 3, 1 } },
     { MISC_BOX_OF_BEASTS, { "box_debt", 1, 1 } },
     { MISC_SACK_OF_SPIDERS, { "sack_debt", 1, 1,
         { "You hear chittering from %s. It's ready.",

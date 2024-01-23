@@ -759,18 +759,14 @@ static spret _phantom_mirror(dist *target)
         canned_msg(MSG_NOTHING_HAPPENS);
         return spret::fail;
     }
-    const int power = 5 + you.skill(SK_EVOCATIONS, 3);
-    int dur = min(6, max(1, (you.skill(SK_EVOCATIONS, 1) / 4 + 1)
-                         * (100 - victim->check_willpower(&you, power)) / 100));
+    const int power = you.skill(SK_EVOCATIONS);
+    int dur = min(6, 1 + random2(1 + div_rand_round(power, 2)));
 
     mon->mark_summoned(dur, true, SPELL_PHANTOM_MIRROR);
 
     mon->summoner = MID_PLAYER;
     mons_add_blame(mon, "mirrored by the player character");
     mon->add_ench(ENCH_PHANTOM_MIRROR);
-    mon->add_ench(mon_enchant(ENCH_DRAINED,
-                              div_rand_round(mon->get_experience_level(), 3),
-                              &you, INFINITE_DURATION));
 
     mon->behaviour = BEH_SEEK;
     set_nearest_monster_foe(mon);

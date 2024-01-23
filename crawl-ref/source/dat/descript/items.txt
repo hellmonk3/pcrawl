@@ -887,9 +887,7 @@ negative energies.
 phantom mirror
 
 A hand mirror which can create a reflection of a nearby creature, clouding
-in the process. The reflection's duration increases with Evocations skill and
-decreases with the willpower of the target. It is, invariably, slightly weaker
-than the creature it mirrors.
+in the process. The reflection's duration increases with Evocations skill.
 %%%%
 phial of floods
 

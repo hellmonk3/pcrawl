@@ -323,6 +323,7 @@ static const vector<pair<misc_item_type, int> > _misc_base_weights()
         {MISC_BOX_OF_BEASTS,       (no_allies ? 0 : 20)},
         {MISC_SACK_OF_SPIDERS,     (no_allies ? 0 : 20)},
         {MISC_PHANTOM_MIRROR,      (no_allies ? 0 : 20)},
+        {MISC_BUTTERFLY_JAR,       (no_allies ? 0 : 20)},
         // Tremorstones are better for heavily armoured characters.
         {MISC_TIN_OF_TREMORSTONES, 5 + _skill_rdiv(SK_ARMOUR) / 3},
         // everything else is evenly weighted
@@ -332,7 +333,7 @@ static const vector<pair<misc_item_type, int> > _misc_base_weights()
         {MISC_DUNGEON_ATLAS,       20},
         {MISC_HARP_OF_HEALING,     20},
         {MISC_MAGES_CHALICE,       20},
-        {MISC_BUTTERFLY_JAR,       20},
+        {MISC_PURPLE_STATUETTE,    20},
     };
     // The player never needs more than one of any of these.
     for (auto &p : choices)

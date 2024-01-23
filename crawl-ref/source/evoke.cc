@@ -44,6 +44,7 @@
 #include "mon-pick.h"
 #include "mon-place.h"
 #include "mutant-beast.h"
+#include "mutation.h"
 #include "nearby-danger.h" // i_feel_safe
 #include "place.h"
 #include "player.h"
@@ -529,8 +530,16 @@ static bool _butterfly_jar()
     int pow = you.skill(SK_EVOCATIONS);
     if (summon_butterflies(pow) == spret::success)
         return true;
-    
+
     return false;
+}
+
+static bool _purple_statuette()
+{
+    bool good = x_chance_in_y(you.skill(SK_EVOCATIONS), 10);
+    mutate(good ? RANDOM_GOOD_MUTATION : RANDOM_MUTATION,
+                  "purple statuette", false);
+    return true;
 }
 
 static int _gale_push_dist(const actor* agent, const actor* victim, int pow)
@@ -1290,12 +1299,20 @@ bool evoke_item(item_def& item, dist *preselect)
                 mpr("The chalice dries up!");
             }
             break;
-            
+
         case MISC_BUTTERFLY_JAR:
             if (_butterfly_jar())
             {
                 expend_xp_evoker(item.sub_type);
                 mpr("The butterfly jar is emptied!");
+            }
+            break;
+
+        case MISC_PURPLE_STATUETTE:
+            if (_purple_statuette())
+            {
+                expend_xp_evoker(item.sub_type);
+                mpr("The statuette turns a dull grey.");
             }
             break;
 

@@ -993,6 +993,12 @@ A potion which makes the drinker attract enemies, translocating them quickly clo
 for the duration of the effect. The effect is surprisingly subtle, and unwary
 victims may sleep through it entirely.
 %%%%
+purple statuette
+
+A small sculpture of a misshapen humanoid figure. Evoking it will mutate you.
+Evocations skill will slightly increase the chance that the resulting mutation
+is beneficial.
+%%%%
 quad damage
 
 A mysterious item resembling a rune of some kind. Once evoked, it will make the

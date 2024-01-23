@@ -1036,6 +1036,7 @@ static string misc_type_name(int type)
     case MISC_HARP_OF_HEALING:           return "harp of healing";
     case MISC_MAGES_CHALICE:             return "mage's chalice";
     case MISC_BUTTERFLY_JAR:             return "butterfly jar";
+    case MISC_PURPLE_STATUETTE:          return "purple statuette";
 
     default:
         return "buggy miscellaneous item";

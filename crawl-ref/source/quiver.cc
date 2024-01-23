@@ -1873,6 +1873,7 @@ namespace quiver
             case MISC_DUNGEON_ATLAS:
             case MISC_HARP_OF_HEALING:
             case MISC_MAGES_CHALICE:
+            case MISC_BUTTERFLY_JAR:
                 return false;
             default:
                 return true;

@@ -2791,6 +2791,9 @@ static tileidx_t _tileidx_misc(const item_def &item)
 
     case MISC_MAGES_CHALICE:
         return TILE_MISC_MAGES_CHALICE;
+        
+    case MISC_BUTTERFLY_JAR:
+        return TILE_MISC_BUTTERFLY_JAR;
 
     case MISC_HARP_OF_HEALING:
             return evoker_charges(item.sub_type) ? TILE_MISC_HARP_OF_HEALING

@@ -1408,10 +1408,9 @@ A set of dormant, magnetic earth elementals in the form of tiny, very heavy
 pebbles. When released, the elementals are drawn magnetically to the center of
 nearby monsters, where they literally explode with rage at their rest being
 disturbed. Tremorstones usually land slightly off-target, and the user is
-always at risk of being hit. However, armour is extremely effective at
-repelling the lightweight fragments of rock from a tremorstone's explosion, so
-a well-armoured wielder has little to fear. Evocations skill increases the
-number of explosions.
+always at risk of being hit. However, armour is applied thrice against the
+explosion's damage, so a well-armoured wielder has little to fear. Evocations 
+skill increases the number of explosions.
 %%%%
 trident
 

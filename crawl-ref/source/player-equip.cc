@@ -787,7 +787,6 @@ static void _equip_armour_effect(item_def& arm, bool unmeld,
             break;
 
         case SPARM_DARKNESS:
-            mpr("It gets dark.");
             update_vision_range();
             break;
 
@@ -934,7 +933,6 @@ static void _unequip_armour_effect(item_def& item, bool meld,
         break;
 
     case SPARM_DARKNESS:
-        mpr("The dungeon's light returns to normal.");
         update_vision_range();
         break;
 

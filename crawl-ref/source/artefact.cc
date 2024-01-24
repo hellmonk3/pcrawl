@@ -372,7 +372,7 @@ struct jewellery_fake_artp
 };
 
 static map<jewellery_type, vector<jewellery_fake_artp>> jewellery_artps = {
-    { AMU_REFLECTION, { { ARTP_SHIELDING, AMU_REFLECT_SH / 2} } },
+    { AMU_REFLECTION, { { ARTP_SHIELDING, AMU_REFLECT_SH } } },
     { AMU_PROTECTION, { { ARTP_AC, 0 } } },
 
     { AMU_MAGICAL_POWER, { { ARTP_MAGICAL_POWER, 5 } } },
@@ -1764,9 +1764,12 @@ bool modify_artps(item_def &item)
 // Turn an item into a randart with no properties
 void make_item_plain_randart(item_def &item)
 {
+    const auto brand = item.brand;
     _artefact_setup_prop_vectors(item);
     item.flags |= ISFLAG_RANDART;
     _init_artefact_properties(item);
+    if (brand > SPWPN_NORMAL)
+        set_artefact_brand(item, brand);
     set_artefact_name(item, make_artefact_name(item, false));
     item.props[ARTEFACT_APPEAR_KEY].get_string() =
             make_artefact_name(item, true);

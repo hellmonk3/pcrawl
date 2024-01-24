@@ -740,7 +740,7 @@ void update_vision_range()
     you.current_vision = you.normal_vision;
 
     // orb of darkness gives -1.
-    if (you.wearing_ego(EQ_CLOAK, SPARM_DARKNESS))
+    if (you.wearing_ego(EQ_ALL_ARMOUR, SPARM_DARKNESS))
         you.current_vision -= 1;
 
     // so does amulet of darkness

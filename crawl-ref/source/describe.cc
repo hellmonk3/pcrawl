@@ -243,32 +243,15 @@ const char* jewellery_base_ability_string(int subtype)
 {
     switch (subtype)
     {
-#if TAG_MAJOR_VERSION == 34
-    case RING_SUSTAIN_ATTRIBUTES: return "SustAt";
-#endif
-    case RING_WIZARDRY:           return "Wiz";
-    case RING_FIRE:               return "Fire";
-    case RING_ICE:                return "Ice";
-#if TAG_MAJOR_VERSION == 34
-    case RING_TELEPORTATION:      return "*Tele";
-    case RING_TELEPORT_CONTROL:   return "+cTele";
-    case AMU_HARM:                return "Harm";
-    case AMU_PROTECTION:          return "Prot";
-#endif
-    case AMU_WILLPOWER:           return "Will+";
+    case AMU_VAMPIRISM:           return "Vamp";
     case AMU_ACROBAT:             return "Acrobat";
-#if TAG_MAJOR_VERSION == 34
-    case AMU_CONSERVATION:        return "Cons";
-    case AMU_CONTROLLED_FLIGHT:   return "cFly";
-#endif
     case AMU_GUARDIAN_SPIRIT:     return "Spirit";
     case AMU_FAITH:               return "Faith";
     case AMU_REFLECTION:          return "Reflect";
-#if TAG_MAJOR_VERSION == 34
-    case AMU_INACCURACY:          return "Inacc";
-#endif
     case AMU_DARKNESS:            return "Dark";
     case AMU_WIZARDRY:            return "Wiz";
+    case AMU_RAGE:                return "+Rage";
+    case AMU_TELEPORTATION:       return "+Tele";
     }
     return "";
 }

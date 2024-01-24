@@ -1264,70 +1264,6 @@ static string _your_skill_desc(skill_type skill, bool show_target_button,
                             target_button_desc.c_str());
 }
 
-/**
- * Produce a description of a skill target for items where specific targets are
- * relevant.
- *
- * @param skill the skill to look at.
- * @param scaled_target a skill level target, scaled by 10.
- * @param training a training value, from 0 to 100. Need not be the actual training
- * value.
- */
-static string _skill_target_desc(skill_type skill, int scaled_target,
-                                        unsigned int training)
-{
-    string description = "";
-    scaled_target = min(scaled_target, 270);
-
-    const bool max_training = (training == 100);
-    const bool hypothetical = !crawl_state.need_save ||
-                                    (training != you.training[skill]);
-
-    const skill_diff diffs = skill_level_to_diffs(skill,
-                                (double) scaled_target / 10, training, false);
-    const int level_diff = xp_to_level_diff(diffs.experience / 10, 10);
-
-    if (max_training)
-        description += "At 100% training ";
-    else if (!hypothetical)
-    {
-        description += make_stringf("At current training (%d%%) ",
-                                        you.training[skill]);
-    }
-    else
-        description += make_stringf("At a training level of %d%% ", training);
-
-    description += make_stringf(
-        "you %sreach %d.%d in %s %d.%d XLs.",
-            hypothetical ? "would " : "",
-            scaled_target / 10, scaled_target % 10,
-            (you.experience_level + (level_diff + 9) / 10) > 27
-                                ? "the equivalent of" : "about",
-            level_diff / 10, level_diff % 10);
-    if (you.wizard)
-    {
-        description += make_stringf("\n    (%d xp, %d skp)",
-                                    diffs.experience, diffs.skill_points);
-    }
-    return description;
-}
-
-/**
- * Append two skill target descriptions: one for 100%, and one for the
- * current training rate.
- */
-static void _append_skill_target_desc(string &description, skill_type skill,
-                                        int scaled_target)
-{
-    if (!you.has_mutation(MUT_DISTRIBUTED_TRAINING))
-        description += "\n    " + _skill_target_desc(skill, scaled_target, 100);
-    if (you.training[skill] > 0 && you.training[skill] < 100)
-    {
-        description += "\n    " + _skill_target_desc(skill, scaled_target,
-                                                    you.training[skill]);
-    }
-}
-
 static string _describe_brand(brand_type brand)
 {
     switch (brand) {
@@ -1495,9 +1431,6 @@ static void _append_weapon_stats(string &description, const item_def &item)
         description += "\n    "
             + _your_skill_desc(skill, can_set_target, required_skill);
     }
-
-    if (below_target)
-        _append_skill_target_desc(description, skill, required_skill);
 
     if (want_player_stats)
         description += "\nDamage rating: " + damage_rating(&item);
@@ -2211,8 +2144,6 @@ static string _describe_talisman_form(const item_def &item, bool monster)
                                 && !you.has_mutation(MUT_DISTRIBUTED_TRAINING);
     description += _your_skill_desc(SK_SHAPESHIFTING, can_set_target,
                                     target_skill, "   ");
-    if (below_target)
-        _append_skill_target_desc(description, SK_SHAPESHIFTING, target_skill);
 
     // defenses
     const int hp = form->mult_hp(100, true);
@@ -2536,7 +2467,7 @@ string get_item_description(const item_def &item,
         else if (is_artefact(item) && item_type_known(item)
                  && item.base_type == OBJ_JEWELLERY)
         {
-            description << "It is an ancient artefact.";
+            description << "It is an artefact.";
             need_base_desc = false;
         }
 
@@ -2769,18 +2700,11 @@ string get_item_description(const item_def &item,
 
         if (is_artefact(item))
         {
-            if (item.base_type == OBJ_ARMOUR
-                || item.base_type == OBJ_WEAPONS)
-            {
-                description << "\nThis ancient artefact cannot be changed "
-                    "by magic or mundane means.";
-            }
             // Randart jewellery has already displayed this line.
-            else if (item.base_type != OBJ_JEWELLERY
-                     || (item_type_known(item) && is_unrandom_artefact(item)))
-            {
-                description << "\nIt is an ancient artefact.";
-            }
+            if (item.base_type != OBJ_JEWELLERY)
+                description << "\nIt is an artefact.";
+            if (is_unrandom_artefact(item))
+                description << "\nIt is a unique item and cannot be modified.";
         }
     }
 

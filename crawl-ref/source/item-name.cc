@@ -1013,7 +1013,6 @@ static string misc_type_name(int type)
     case MISC_BUGGY_EBONY_CASKET:        return "removed ebony casket";
     case MISC_FAN_OF_GALES:              return "removed fan of gales";
     case MISC_LAMP_OF_FIRE:              return "removed lamp of fire";
-    case MISC_BUGGY_LANTERN_OF_SHADOWS:  return "removed lantern of shadows";
 #endif
     case MISC_HORN_OF_GERYON:            return "horn of Geryon";
     case MISC_LIGHTNING_ROD:             return "lightning rod";
@@ -1038,6 +1037,7 @@ static string misc_type_name(int type)
     case MISC_BUTTERFLY_JAR:             return "butterfly jar";
     case MISC_PURPLE_STATUETTE:          return "purple statuette";
     case MISC_MAGNET:                    return "magnet";
+    case MISC_LANTERN_OF_SHADOWS:        return "lantern of shadows";
 
     default:
         return "buggy miscellaneous item";
@@ -3353,16 +3353,6 @@ string item_prefix(const item_def &item, bool temp)
 
     if (!item.defined())
         return "";
-
-    if (fully_identified(item))
-        prefixes.push_back("identified");
-    else if (item_ident(item, ISFLAG_KNOW_TYPE)
-             || get_ident_type(item))
-    {
-        prefixes.push_back("known");
-    }
-    else
-        prefixes.push_back("unidentified");
 
     if (god_hates_item(item))
     {

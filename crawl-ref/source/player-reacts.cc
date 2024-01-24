@@ -767,6 +767,9 @@ static void _decrement_durations()
         you.props.erase(XOM_CLOUD_TRAIL_TYPE_KEY);
     }
 
+    if (_decrement_a_duration(DUR_LANTERN, delay, "The shadows dissipate."))
+        update_vision_range();
+
     if (you.duration[DUR_WATER_HOLD])
         handle_player_drowning(delay);
 

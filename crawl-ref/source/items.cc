@@ -3865,6 +3865,7 @@ colour_t item_def::miscellany_colour() const
             return BROWN;
 #endif
         case MISC_LIGHTNING_ROD:
+        case MISC_LANTERN_OF_SHADOWS:
             return LIGHTGREY;
         case MISC_PHIAL_OF_FLOODS:
             return LIGHTBLUE;
@@ -3883,7 +3884,6 @@ colour_t item_def::miscellany_colour() const
 #if TAG_MAJOR_VERSION == 34
         case MISC_LAMP_OF_FIRE:
             return YELLOW;
-        case MISC_BUGGY_LANTERN_OF_SHADOWS:
         case MISC_BUGGY_EBONY_CASKET:
             return DARKGREY;
 #endif

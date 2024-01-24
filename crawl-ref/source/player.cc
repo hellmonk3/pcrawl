@@ -751,6 +751,10 @@ void update_vision_range()
     if (player_equip_unrand(UNRAND_NIGHT))
         you.current_vision = you.current_vision * 3 / 4;
 
+    // lantern of shadows applies last
+    if (you.duration[DUR_LANTERN])
+        you.current_vision = 1;
+
     ASSERT(you.current_vision > 0);
     set_los_radius(you.current_vision);
 }

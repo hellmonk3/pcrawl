@@ -520,15 +520,13 @@ void end_playing_harp(bool voluntary)
 
 static bool _mages_chalice()
 {
-    int pow = you.skill(SK_EVOCATIONS);
-    potionlike_effect(POT_BRILLIANCE, pow);
+    potionlike_effect(POT_BRILLIANCE, you.skill(SK_EVOCATIONS));
     return true;
 }
 
 static bool _butterfly_jar()
 {
-    int pow = you.skill(SK_EVOCATIONS);
-    if (summon_butterflies(pow) == spret::success)
+    if (summon_butterflies(you.skill(SK_EVOCATIONS)) == spret::success)
         return true;
 
     return false;
@@ -544,8 +542,17 @@ static bool _purple_statuette()
 
 static bool _magnet()
 {
+    potionlike_effect(POT_ATTRACTION, you.skill(SK_EVOCATIONS));
+    return true;
+}
+
+static bool _lantern_of_shadows()
+{
     int pow = you.skill(SK_EVOCATIONS);
-    potionlike_effect(POT_ATTRACTION, pow);
+    you.set_duration(DUR_LANTERN, 4 + random_range(div_rand_round(pow,2),
+                                                   div_rand_round(pow * 3,2)));
+    update_vision_range();
+    mpr("Your surroundings grow dim.");
     return true;
 }
 
@@ -1320,6 +1327,15 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 if (!evoker_charges(item.sub_type))
                     mpr("The magnet loses polarity!");
+            }
+            break;
+
+        case MISC_LANTERN_OF_SHADOWS:
+            if (_lantern_of_shadows())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The lantern brightens.");
             }
             break;
 

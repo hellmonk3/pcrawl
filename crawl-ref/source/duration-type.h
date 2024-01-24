@@ -245,5 +245,6 @@ enum duration_type
     DUR_JINXBITE_LOST_INTEREST,
     DUR_STUN,
     DUR_HARP,
+    DUR_LANTERN,
     NUM_DURATIONS
 };

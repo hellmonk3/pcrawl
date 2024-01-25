@@ -2325,7 +2325,7 @@ int monster::evasion(bool ignore_helpless, const actor* /*act*/) const
         return 0;
 
     if (caught() || is_constricted())
-        ev /= (body_size(PSIZE_BODY) + 2);
+        ev /= 2;
     else if (confused())
         ev /= 2;
 

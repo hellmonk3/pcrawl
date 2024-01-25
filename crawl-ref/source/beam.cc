@@ -6023,7 +6023,7 @@ const map<spell_type, explosion_sfx> spell_explosions = {
         "the roar of flame",
     } },
     { SPELL_FASTROOT, {
-        "The roots erupt in riotous growth!",
+        "The vines erupt in riotous growth!",
         "creaking and crackling",
     } },
     { SPELL_BLASTMOTE, {

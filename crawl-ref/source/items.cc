@@ -3870,6 +3870,7 @@ colour_t item_def::miscellany_colour() const
         case MISC_PHIAL_OF_FLOODS:
             return LIGHTBLUE;
         case MISC_BOX_OF_BEASTS:
+        case MISC_KUDZU_POT:
             return LIGHTGREEN; // ugh, but we're out of other options
 #if TAG_MAJOR_VERSION == 34
         case MISC_CRYSTAL_BALL_OF_ENERGY:

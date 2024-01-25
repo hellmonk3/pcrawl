@@ -730,6 +730,23 @@ static bool _phial_of_floods(dist *target)
     return false;
 }
 
+static bool _kudzu_pot(dist *target)
+{
+    dist target_local;
+    if (!target)
+        target = &target_local;
+
+    int power = 3 + you.skill(SK_EVOCATIONS);
+    you.props[FASTROOT_POWER_KEY] = power;
+
+    spret ret = your_spells(SPELL_FASTROOT, power, false, nullptr, target);
+
+    if (ret == spret::abort)
+        return false;
+
+    return true;
+}
+
 static spret _phantom_mirror(dist *target)
 {
     bolt beam;
@@ -1336,6 +1353,15 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 if (!evoker_charges(item.sub_type))
                     mpr("The lantern brightens.");
+            }
+            break;
+
+        case MISC_KUDZU_POT:
+            if (_kudzu_pot(preselect))
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The pot is emptied.");
             }
             break;
 

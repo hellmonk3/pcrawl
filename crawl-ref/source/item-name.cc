@@ -1038,6 +1038,7 @@ static string misc_type_name(int type)
     case MISC_PURPLE_STATUETTE:          return "purple statuette";
     case MISC_MAGNET:                    return "magnet";
     case MISC_LANTERN_OF_SHADOWS:        return "lantern of shadows";
+    case MISC_KUDZU_POT:                 return "pot of kudzu";
 
     default:
         return "buggy miscellaneous item";

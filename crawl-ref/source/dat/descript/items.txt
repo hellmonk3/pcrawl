@@ -914,6 +914,13 @@ plate armour
 A full suit of solid metal plate: cuirass, pauldrons, vambraces, waist plate
 and greaves. It provides excellent protection.
 %%%%
+pot of kudzu
+
+A pot full of invasive vines. Evoking the pot will constrict your target and
+adjacent foes, dealing damage over time and preventing movement until the
+target escapes. The vines will only sprout from solid  ground. Evocations skill
+will increase the damage dealt.
+%%%%
 potion of ambrosia
 
 A strange substance, produced by ghost moths. Consuming it causes regeneration

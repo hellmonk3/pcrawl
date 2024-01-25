@@ -5975,9 +5975,7 @@ int player::evasion(bool ignore_helpless, const actor* act) const
 {
     const int base_evasion = _player_evasion(ignore_helpless);
 
-    const int constrict_penalty = is_constricted() ? 3 : 0;
-
-    return base_evasion - constrict_penalty;
+    return base_evasion / is_constricted() ? 2 : 1;
 }
 
 bool player::heal(int amount)

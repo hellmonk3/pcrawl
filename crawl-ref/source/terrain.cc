@@ -2520,3 +2520,27 @@ void descent_reveal_stairs()
             _descent_reveal_around(*ri);
     }
 }
+
+// unlock the stairs down. Returns true if stairs were unlocked.
+bool unlock_stairs()
+{
+    bool terrain_changed = false;
+    for (map_marker *mark : env.markers.get_all(MAT_TERRAIN_CHANGE))
+    {
+        map_terrain_change_marker *marker =
+            dynamic_cast<map_terrain_change_marker*>(mark);
+
+        if (marker->change_type == TERRAIN_CHANGE_DOOR_SEAL)
+        {
+            terrain_changed = true;
+            revert_terrain_change(marker->pos, TERRAIN_CHANGE_DOOR_SEAL);
+        }
+    }
+    if (terrain_changed)
+    {
+        mpr("The passage down unlocks.");
+        return true;
+    }
+
+    return false;
+}

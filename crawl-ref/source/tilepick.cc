@@ -2802,6 +2802,9 @@ static tileidx_t _tileidx_misc(const item_def &item)
     case MISC_KUDZU_POT:
         return TILE_MISC_POT_OF_KUDZU;
 
+    case MISC_SKELETON_KEY:
+        return TILE_MISC_SKELETON_KEY;
+
     case MISC_HARP_OF_HEALING:
             return evoker_charges(item.sub_type) ? TILE_MISC_HARP_OF_HEALING
                                                  : TILE_MISC_HARP_OF_HEALING_INERT;

@@ -556,6 +556,24 @@ static bool _lantern_of_shadows()
     return true;
 }
 
+static bool _skeleton_key()
+{
+    int sk = you.skill(SK_EVOCATIONS);
+    if (sk < 5)
+    {
+        mprf("You need %d more evocations skill to understand how keys work.",
+             5 - sk);
+        return false;
+    }
+    else if (!unlock_stairs())
+    {
+        mpr("The key does not respond. Perhaps the way down is unlocked already.");
+        return false;
+    }
+
+    return true;
+}
+
 static int _gale_push_dist(const actor* agent, const actor* victim, int pow)
 {
     int dist = 1 + random2(pow / 20);
@@ -1312,6 +1330,8 @@ bool evoke_item(item_def& item, dist *preselect)
                 practise_evoking(1);
                 expend_xp_evoker(item.sub_type);
             }
+            else
+                return false;
             break;
 
         case MISC_MAGES_CHALICE:
@@ -1320,6 +1340,8 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 mpr("The chalice dries up!");
             }
+            else
+                return false;
             break;
 
         case MISC_BUTTERFLY_JAR:
@@ -1328,6 +1350,8 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 mpr("The butterfly jar is emptied!");
             }
+            else
+                return false;
             break;
 
         case MISC_PURPLE_STATUETTE:
@@ -1336,6 +1360,8 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 mpr("The statuette turns a dull grey.");
             }
+            else
+                return false;
             break;
 
         case MISC_MAGNET:
@@ -1345,6 +1371,8 @@ bool evoke_item(item_def& item, dist *preselect)
                 if (!evoker_charges(item.sub_type))
                     mpr("The magnet loses polarity!");
             }
+            else
+                return false;
             break;
 
         case MISC_LANTERN_OF_SHADOWS:
@@ -1354,6 +1382,8 @@ bool evoke_item(item_def& item, dist *preselect)
                 if (!evoker_charges(item.sub_type))
                     mpr("The lantern brightens.");
             }
+            else
+                return false;
             break;
 
         case MISC_KUDZU_POT:
@@ -1363,6 +1393,19 @@ bool evoke_item(item_def& item, dist *preselect)
                 if (!evoker_charges(item.sub_type))
                     mpr("The pot is emptied.");
             }
+            else
+                return false;
+            break;
+
+        case MISC_SKELETON_KEY:
+            if (_skeleton_key())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The skeleton key looks a little rusty.");
+            }
+            else
+                return false;
             break;
 
         case MISC_QUAD_DAMAGE:

@@ -1302,6 +1302,12 @@ short sword
 
 A personal stabbing weapon with a short grip.
 %%%%
+skeleton key
+
+A bone key with remote-unlock functionality. Evoking it will unlock the stairs
+on your current level. Because keys are very hard to understand, you need at
+least five Evocations skill to use this item.
+%%%%
 spear
 
 A hunting weapon consisting of a wooden shaft with a pointed metal head

@@ -1502,6 +1502,7 @@ static void _generate_misc_item(item_def& item, int force_type, int item_level)
     case MISC_LANTERN_OF_SHADOWS:
     case MISC_KUDZU_POT:
     case MISC_SKELETON_KEY:
+    case MISC_PANDEMONIUM_PIZZA:
         you.generated_misc.insert(typ);
         break;
     default:

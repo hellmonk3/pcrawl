@@ -891,6 +891,13 @@ pair of gloves
 A pair of gloves. They are worn on the hands, and cover all but the largest
 claws.
 %%%%
+pandemonium pizza
+
+A legendary pizza fresh from the infinite demonic realm of pandemonium.
+Eatvoking it will heal you for a random amount of your missing hp and randomly
+buff or debuff you for a short time. Evocations skill does not improve the
+effects of this item.
+%%%%
 pearl dragon scales
 
 The nacreous scales of a pearl dragon. It grants its wearer resistance to

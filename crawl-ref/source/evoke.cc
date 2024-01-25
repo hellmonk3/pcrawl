@@ -574,6 +574,62 @@ static bool _skeleton_key()
     return true;
 }
 
+static string _pandemonium_pizza_flavor()
+{
+    return random_choose("pepperoni and eggplant",
+                         "marshmallow and artichoke",
+                         "onion and radish",
+                         "corn",
+                         "watermelon and corned beef",
+                         "cheddar cheese and canteloupe",
+                         "raw oysters",
+                         "eel and mayonnaise",
+                         "salt",
+                         "uncooked dough",
+                         "chokos",
+                         "broccolini and strawberry",
+                         "tuna and pickle",
+                         "anchovy and honey",
+                         "kimchi and chocolate",
+                         "beet and black olive",
+                         "banana and salami");
+}
+
+static duration_type _pizza_buff()
+{
+    return random_choose(DUR_MIGHT,
+                         DUR_BRILLIANCE,
+                         DUR_AGILITY,
+                         DUR_BERSERK,
+                         DUR_HASTE,
+                         DUR_STEALTH,
+                         DUR_WEAK,
+                         DUR_VERTIGO,
+                         DUR_CORONA,
+                         DUR_CONF);
+}
+
+static bool _pandemonium_pizza()
+{
+    if (you.can_drink(true))
+    {
+        mprf("You eat a slice of pandemonium pizza. It tastes like %s.",
+             _pandemonium_pizza_flavor().c_str());
+    }
+    else
+        mprf("You rub yourself with a slice of pandemonium pizza, wishing you "
+             "could taste its delicious flavors.");
+
+
+    int mhp = get_real_hp(true, true);
+    you.heal(1 + random2(mhp - you.hp));
+
+    mpr("You feel a little weird.");
+    you.increase_duration(_pizza_buff(), 10 + random2(10));
+
+    return true;
+}
+
 static int _gale_push_dist(const actor* agent, const actor* victim, int pow)
 {
     int dist = 1 + random2(pow / 20);
@@ -1403,6 +1459,17 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 if (!evoker_charges(item.sub_type))
                     mpr("The skeleton key looks a little rusty.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_PANDEMONIUM_PIZZA:
+            if (_pandemonium_pizza())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("You're a bit out-pizza'd.");
             }
             else
                 return false;

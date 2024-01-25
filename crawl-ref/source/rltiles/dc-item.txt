@@ -1159,6 +1159,7 @@ misc_purple_statuette MISC_PURPLE_STATUETTE
 misc_magnet MISC_MAGNET
 misc_pot_of_kudzu MISC_POT_OF_KUDZU
 misc_skeleton_key MISC_SKELETON_KEY
+misc_pandemonium_pizza MISC_PANDEMONIUM_PIZZA
 %sdir item/misc/runes
 generic MISC_RUNE_OF_ZOT
 rune_tartarus RUNE_TARTARUS

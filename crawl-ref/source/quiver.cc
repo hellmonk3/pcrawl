@@ -1878,6 +1878,7 @@ namespace quiver
             case MISC_MAGNET:
             case MISC_LANTERN_OF_SHADOWS:
             case MISC_SKELETON_KEY:
+            case MISC_PANDEMONIUM_PIZZA:
                 return false;
             default:
                 return true;

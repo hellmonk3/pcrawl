@@ -3895,6 +3895,7 @@ colour_t item_def::miscellany_colour() const
         case MISC_CONDENSER_VANE:
         case MISC_BUTTERFLY_JAR:
         case MISC_MAGNET:
+        case MISC_JUMPER_CABLE:
             return WHITE;
 #if TAG_MAJOR_VERSION == 34
         case MISC_XOMS_CHESSBOARD:

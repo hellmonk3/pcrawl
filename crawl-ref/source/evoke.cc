@@ -622,11 +622,34 @@ static bool _pandemonium_pizza()
 
 
     int mhp = get_real_hp(true, true);
-    you.heal(1 + random2(mhp - you.hp));
+    int max_heal = (9 + you.skill(SK_EVOCATIONS)) * (mhp - you.hp) / 18;
+    you.heal(1 + random2(max_heal));
 
     mpr("You feel a little weird.");
     you.increase_duration(_pizza_buff(), 10 + random2(10));
 
+    return true;
+}
+
+static bool _jumper_cable()
+{
+    // fixed damage. kinda weird?
+    int damage = 30 - you.skill(SK_EVOCATIONS) * 3;
+    damage = resist_adjust_damage(&you, BEAM_ELECTRICITY, damage);
+
+    if (damage > you.hp)
+    {
+        mpr("You're too injured to use the jumper cable safely!");
+        return false;
+    }
+    if (!recharge_random_evoker())
+    {
+        mpr("You don't have anything to recharge!");
+        return false;
+    }
+
+    // notably should not be able to actually kill you.
+    ouch(damage, KILLED_BY_SELF_AIMED);
     return true;
 }
 
@@ -1470,6 +1493,17 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 if (!evoker_charges(item.sub_type))
                     mpr("You're a bit out-pizza'd.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_JUMPER_CABLE:
+            if (_jumper_cable())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The jumper cable gets twisted.");
             }
             else
                 return false;

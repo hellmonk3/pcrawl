@@ -1067,6 +1067,7 @@ void display_char_status();
 void forget_map(bool rot = false);
 
 int get_exp_progress();
+bool recharge_random_evoker();
 void recharge_xp_evokers();
 void reset_per_floor_props();
 unsigned int gain_exp(unsigned int exp_gained);

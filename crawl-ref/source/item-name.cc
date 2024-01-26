@@ -1041,6 +1041,7 @@ static string misc_type_name(int type)
     case MISC_KUDZU_POT:                 return "pot of kudzu";
     case MISC_SKELETON_KEY:              return "skeleton key";
     case MISC_PANDEMONIUM_PIZZA:         return "pandemonium pizza";
+    case MISC_JUMPER_CABLE:              return "jumper cable";
 
     default:
         return "buggy miscellaneous item";

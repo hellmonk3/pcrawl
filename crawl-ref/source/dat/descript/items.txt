@@ -764,6 +764,12 @@ range.
     end
 }}
 %%%%
+jumper cable
+
+Don't ask where the clamps go. Evoking this item will randomly recharge one of
+your other evocable items and deal elec damage to you. Evocations skill will
+decrease the damage received when using this item.
+%%%%
 kite shield
 
 A piece of wood and metal, to be strapped on one arm for defence.
@@ -895,8 +901,8 @@ pandemonium pizza
 
 A legendary pizza fresh from the infinite demonic realm of pandemonium.
 Eatvoking it will heal you for a random amount of your missing hp and randomly
-buff or debuff you for a short time. Evocations skill does not improve the
-effects of this item.
+buff or debuff you for a short time. Evocations skill will raise the maximum
+percentage of missing hp that can restored.
 %%%%
 pearl dragon scales
 

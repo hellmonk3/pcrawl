@@ -1344,9 +1344,6 @@ bool player::res_corr(bool allow_random, bool temp) const
         {
             return true;
         }
-
-        if (you.duration[DUR_RESISTANCE])
-            return true;
     }
 
     if (cur_form(temp)->res_acid())
@@ -1468,9 +1465,6 @@ int player_res_poison(bool allow_random, bool temp, bool items)
     // mutations:
     rp += you.get_mutation_level(MUT_POISON_RESISTANCE, temp);
     rp += you.get_mutation_level(MUT_SLIMY_GREEN_SCALES, temp) == 3 ? 1 : 0;
-
-    if (temp && you.duration[DUR_RESISTANCE])
-        rp++;
 
     if (form_rp > 0)
         rp += form_rp;

@@ -1138,6 +1138,12 @@ ring of wizardry
 
 A ring that reduces the skill requirement of spells by one.
 %%%%
+ring of resistance
+
+A magical ring not meant to be worn. Evoking the ring will temporarily provide
+resistance to fire, cold, and electricity. Evocations skill increases the
+duration of the effect.
+%%%%
 robe
 
 A large, loose-fitting, wide-sleeved outer garment made of light cloth. It

@@ -1161,6 +1161,7 @@ misc_pot_of_kudzu MISC_POT_OF_KUDZU
 misc_skeleton_key MISC_SKELETON_KEY
 misc_pandemonium_pizza MISC_PANDEMONIUM_PIZZA
 misc_jumper_cable MISC_JUMPER_CABLE
+misc_ring_of_resistance MISC_RING_OF_RESISTANCE
 %sdir item/misc/runes
 generic MISC_RUNE_OF_ZOT
 rune_tartarus RUNE_TARTARUS

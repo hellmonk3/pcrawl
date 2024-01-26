@@ -339,6 +339,7 @@ enum misc_item_type
     MISC_SKELETON_KEY,
     MISC_PANDEMONIUM_PIZZA,
     MISC_JUMPER_CABLE,
+    MISC_RING_OF_RESISTANCE,
 
     NUM_MISCELLANY,
     MISC_DECK_UNKNOWN = NUM_MISCELLANY,
@@ -380,6 +381,7 @@ const vector<misc_item_type> misc_types =
     MISC_SKELETON_KEY,
     MISC_PANDEMONIUM_PIZZA,
     MISC_JUMPER_CABLE,
+    MISC_RING_OF_RESISTANCE,
 };
 
 enum missile_type

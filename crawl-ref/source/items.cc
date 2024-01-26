@@ -3869,6 +3869,7 @@ colour_t item_def::miscellany_colour() const
         case MISC_LANTERN_OF_SHADOWS:
             return LIGHTGREY;
         case MISC_PHIAL_OF_FLOODS:
+        case MISC_RING_OF_RESISTANCE:
             return LIGHTBLUE;
         case MISC_BOX_OF_BEASTS:
         case MISC_KUDZU_POT:

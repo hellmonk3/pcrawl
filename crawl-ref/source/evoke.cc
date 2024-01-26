@@ -653,6 +653,18 @@ static bool _jumper_cable()
     return true;
 }
 
+static bool _ring_of_resistance()
+{
+    if (you.res_elec() > 0 && you.res_fire() > 0 && you.res_cold() > 0)
+    {
+        mpr("You're already resistant to everything.");
+        return false;
+    }
+
+    potionlike_effect(POT_RESISTANCE, you.skill(SK_EVOCATIONS));
+    return true;
+}
+
 static int _gale_push_dist(const actor* agent, const actor* victim, int pow)
 {
     int dist = 1 + random2(pow / 20);
@@ -1504,6 +1516,17 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 if (!evoker_charges(item.sub_type))
                     mpr("The jumper cable gets twisted.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_RING_OF_RESISTANCE:
+            if (_ring_of_resistance())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The ring of resistance dulls.");
             }
             else
                 return false;

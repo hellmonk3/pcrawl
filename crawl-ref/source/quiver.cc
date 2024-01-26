@@ -1880,6 +1880,7 @@ namespace quiver
             case MISC_SKELETON_KEY:
             case MISC_PANDEMONIUM_PIZZA:
             case MISC_JUMPER_CABLE:
+            case MISC_RING_OF_RESISTANCE:
                 return false;
             default:
                 return true;

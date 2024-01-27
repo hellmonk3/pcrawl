@@ -2814,6 +2814,12 @@ static tileidx_t _tileidx_misc(const item_def &item)
     case MISC_RING_OF_RESISTANCE:
         return TILE_MISC_RING_OF_RESISTANCE;
 
+    case MISC_CROWN_OF_LEAVES:
+        return TILE_MISC_CROWN_OF_LEAVES;
+
+    case MISC_LAMP_OF_IMMOLATION:
+        return TILE_MISC_LAMP_OF_IMMOLATION;
+
     case MISC_HARP_OF_HEALING:
             return evoker_charges(item.sub_type) ? TILE_MISC_HARP_OF_HEALING
                                                  : TILE_MISC_HARP_OF_HEALING_INERT;

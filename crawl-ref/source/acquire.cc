@@ -341,6 +341,8 @@ static const vector<pair<misc_item_type, int> > _misc_base_weights()
         {MISC_PANDEMONIUM_PIZZA,   20},
         {MISC_JUMPER_CABLE,        20},
         {MISC_RING_OF_RESISTANCE,  20},
+        {MISC_CROWN_OF_LEAVES,     20},
+        {MISC_LAMP_OF_IMMOLATION,  20},
     };
     // The player never needs more than one of any of these.
     for (auto &p : choices)

@@ -3860,6 +3860,7 @@ colour_t item_def::miscellany_colour() const
 #endif
         case MISC_PHANTOM_MIRROR:
         case MISC_PANDEMONIUM_PIZZA:
+        case MISC_LAMP_OF_IMMOLATION:
             return RED;
 #if TAG_MAJOR_VERSION == 34
         case MISC_STONE_OF_TREMORS:
@@ -3873,6 +3874,7 @@ colour_t item_def::miscellany_colour() const
             return LIGHTBLUE;
         case MISC_BOX_OF_BEASTS:
         case MISC_KUDZU_POT:
+        case MISC_CROWN_OF_LEAVES:
             return LIGHTGREEN; // ugh, but we're out of other options
 #if TAG_MAJOR_VERSION == 34
         case MISC_CRYSTAL_BALL_OF_ENERGY:

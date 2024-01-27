@@ -484,6 +484,15 @@ corpse
 
 A corpse. Useless and dead.
 %%%%
+crown of leaves
+
+A crown of magical leaves from a distant elven forest. Evoking the crown will
+temporarily transform you into a tree. In this form, you will be unable to move
+or evade attacks and all equipped armour will be melded, but you will have
+50% more HP and a large amount of AC. If you have no weapon, your unarmed damage
+will also be increased. Evocations skill will further increase the amount of AC
+granted by your transformation.
+%%%%
 crystal plate armour
 
 An incredibly heavy but extremely effective suit of crystalline armour.
@@ -778,6 +787,14 @@ lajatang
 
 A very rare and extremely effective weapon, featuring a pole with half-moon
 blades at both ends.
+%%%%
+lamp of immolation
+
+A lamp containing a trapped fire elemental; it never stops burning. Evoking the
+lamp will cause every creature you can see to be filled with inner flame.
+Affected creatures will explode violently when killed, dealing 2d20 fire damage
+and placing flame clouds in a 1 tile radius around them. Try to avoid standing
+in the blast zone. Evocations skill does not affect this item.
 %%%%
 lantern of shadows
 

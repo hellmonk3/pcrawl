@@ -42,7 +42,7 @@ function bailey_portal(e, ptype)
         feat_tile = "dngn_portal_bailey_gone",
         msg = messager })
   e.tags("uniq_bailey chance_bailey")
-  e.chance(1000)
+  e.chance(0)
 
   e.kfeat("O = enter_bailey")
   e.tile("c = wall_stone_smooth")

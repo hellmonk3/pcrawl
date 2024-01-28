@@ -47,8 +47,8 @@ end
 
 NAME:   gauntlet_entry_generic
 TAGS:   transparent extra uniq_gauntlet
-CHANCE: 5%
-DEPTH:  D:11-, Orc:$, Lair
+CHANCE: 0%
+DEPTH:  Zot
 : gauntlet_portal(_G)
 MAP
 O

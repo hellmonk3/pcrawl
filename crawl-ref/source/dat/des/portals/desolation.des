@@ -52,7 +52,7 @@ function desolation_portal(e)
         e.subst("c = x")
     end
 
-    e.chance(math.floor(dgn.desolation_chance_percent / 100 * 10000))
+    e.chance(0)
     -- Don't apply the chance in Vaults, since we use a Vaults room for that
     -- branch.
     e.depth_chance("Vaults", 0)

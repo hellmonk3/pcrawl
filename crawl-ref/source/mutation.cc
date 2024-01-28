@@ -3297,3 +3297,13 @@ void set_evolution_mut_xp(bool malignant)
     you.attribute[ATTR_EVOL_XP] = _evolution_mut_xp(malignant);
     dprf("setting evol XP to %d", you.attribute[ATTR_EVOL_XP]);
 }
+
+void maybe_artifact_mutate()
+{
+    int chance = you.scan_artefacts(ARTP_MUTATE);
+
+    if (x_chance_in_y(chance, 5))
+    {
+        mutate(RANDOM_MUTATION, "mutagenic artifact", false);
+    }
+}

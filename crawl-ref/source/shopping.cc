@@ -110,8 +110,7 @@ int artefact_value(const item_def &item)
     if (prop[ARTP_ELECTRICITY])
         ret += 10;
 
-    // only one meaningful level (hard to get):
-    if (prop[ARTP_RMUT])
+    if (prop[ARTP_MUTATE])
         ret += 8;
 
     // abilities:
@@ -133,7 +132,7 @@ int artefact_value(const item_def &item)
     if (prop[ARTP_PREVENT_TELEPORTATION])
         ret -= 10;
 
-    if (prop[ARTP_PREVENT_SPELLCASTING])
+    if (prop[ARTP_INHIBIT_SPELLCASTING])
         ret -= 10;
 
     if (prop[ARTP_CONTAM])
@@ -304,20 +303,20 @@ unsigned int item_value(item_def item, bool ident)
                 break;
 
             case SPARM_COLD_RESISTANCE:
-            case SPARM_DEXTERITY:
+            case SPARM_MAGICAL_POWER:
             case SPARM_FIRE_RESISTANCE:
-            case SPARM_SEE_INVISIBLE:
-            case SPARM_INTELLIGENCE:
+            case SPARM_DETECTION:
+            case SPARM_WIZARDRY:
             case SPARM_FLYING:
             case SPARM_STEALTH:
-            case SPARM_STRENGTH:
+            case SPARM_STABILITY:
             case SPARM_INVISIBILITY:
             case SPARM_WILLPOWER:
             case SPARM_PROTECTION:
-            case SPARM_HURLING:
+            case SPARM_SNIPING:
             case SPARM_REPULSION:
-            case SPARM_PRESERVATION:
-            case SPARM_SHADOWS:
+            case SPARM_FOG:
+            case SPARM_DARKNESS:
             case SPARM_RAMPAGING:
             case SPARM_INFUSION:
             case SPARM_LIGHT:
@@ -325,12 +324,12 @@ unsigned int item_value(item_def item, bool ident)
                 valued += 50;
                 break;
 
-            case SPARM_POSITIVE_ENERGY:
-            case SPARM_POISON_RESISTANCE:
+            case SPARM_EVASION:
             case SPARM_REFLECTION:
+            case SPARM_SPIKES:
             case SPARM_SPIRIT_SHIELD:
-            case SPARM_HARM:
-            case SPARM_RAGE:
+            case SPARM_DETECT_MONS:
+            case SPARM_ELEMENTS:
             case SPARM_MAYHEM:
             case SPARM_GUILE:
                 valued += 20;
@@ -546,9 +545,7 @@ unsigned int item_value(item_def item, bool ident)
                     break;
 
                 case RING_WIZARDRY:
-                case AMU_REGENERATION:
                 case AMU_GUARDIAN_SPIRIT:
-                case AMU_MANA_REGENERATION:
                 case AMU_ACROBAT:
                 case AMU_REFLECTION:
                     valued += 300;

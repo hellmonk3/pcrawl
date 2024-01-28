@@ -3859,16 +3859,22 @@ colour_t item_def::miscellany_colour() const
             return RED;
 #endif
         case MISC_PHANTOM_MIRROR:
+        case MISC_PANDEMONIUM_PIZZA:
+        case MISC_LAMP_OF_IMMOLATION:
             return RED;
 #if TAG_MAJOR_VERSION == 34
         case MISC_STONE_OF_TREMORS:
             return BROWN;
 #endif
         case MISC_LIGHTNING_ROD:
+        case MISC_LANTERN_OF_SHADOWS:
             return LIGHTGREY;
         case MISC_PHIAL_OF_FLOODS:
+        case MISC_RING_OF_RESISTANCE:
             return LIGHTBLUE;
         case MISC_BOX_OF_BEASTS:
+        case MISC_KUDZU_POT:
+        case MISC_CROWN_OF_LEAVES:
             return LIGHTGREEN; // ugh, but we're out of other options
 #if TAG_MAJOR_VERSION == 34
         case MISC_CRYSTAL_BALL_OF_ENERGY:
@@ -3877,17 +3883,22 @@ colour_t item_def::miscellany_colour() const
         case MISC_HORN_OF_GERYON:
             return LIGHTRED;
         case MISC_SACK_OF_SPIDERS:
+        case MISC_DUNGEON_ATLAS:
+        case MISC_HARP_OF_HEALING:
+        case MISC_SKELETON_KEY:
             return WHITE;
 #if TAG_MAJOR_VERSION == 34
         case MISC_LAMP_OF_FIRE:
             return YELLOW;
-        case MISC_BUGGY_LANTERN_OF_SHADOWS:
         case MISC_BUGGY_EBONY_CASKET:
             return DARKGREY;
 #endif
         case MISC_TIN_OF_TREMORSTONES:
             return BROWN;
         case MISC_CONDENSER_VANE:
+        case MISC_BUTTERFLY_JAR:
+        case MISC_MAGNET:
+        case MISC_JUMPER_CABLE:
             return WHITE;
 #if TAG_MAJOR_VERSION == 34
         case MISC_XOMS_CHESSBOARD:
@@ -3895,6 +3906,10 @@ colour_t item_def::miscellany_colour() const
 #endif
         case MISC_QUAD_DAMAGE:
             return ETC_DARK;
+        case MISC_MAGES_CHALICE:
+            return LIGHTCYAN;
+        case MISC_PURPLE_STATUETTE:
+            return MAGENTA;
         case MISC_ZIGGURAT:
             return _zigfig_colour();
         default:
@@ -4388,6 +4403,8 @@ bool get_item_by_name(item_def *item, const char* specs,
         case RING_SLAYING:
         case RING_PROTECTION:
         case RING_EVASION:
+        case AMU_PROTECTION:
+        case AMU_SLAYING:
             item->plus = 5;
         default:
             break;

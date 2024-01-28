@@ -835,10 +835,7 @@ int player::constriction_damage(constrict_type typ) const
         return roll_dice(2, div_rand_round(40 +
                    you.props[VILE_CLUTCH_POWER_KEY].get_int(), 25));
     case CONSTRICT_ROOTS:
-        // Assume we're using the wand.
-        // Min power 2d3, max power ~2d14 (also ramps over time)
-        return roll_dice(2, div_rand_round(20 +
-                    you.props[FASTROOT_POWER_KEY].get_int(), 10));
+        return roll_dice(1, you.props[FASTROOT_POWER_KEY].get_int());
     default:
         return roll_dice(2, div_rand_round(strength(), 5));
     }

@@ -750,7 +750,8 @@ IDEF(plus)
                && (item->sub_type == RING_PROTECTION
                    || item->sub_type == RING_SLAYING
                    || item->sub_type == RING_EVASION
-                   || item->sub_type == AMU_REFLECTION)))
+                   || item->sub_type == AMU_REFLECTION
+                   || item->sub_type == AMU_PROTECTION)))
     {
         lua_pushnumber(ls, item->plus);
     }

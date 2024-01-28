@@ -106,21 +106,21 @@ Shaft Self ability
 Sends you to a random position one to three floors down, as if you jumped into
 a shaft trap. It takes some time to dig the shaft.
 %%%%
-Evoke Blink ability
+Blink ability
 
 Randomly translocates the user a short distance. After translocating in this
-way, the ability cannot be activated again for a short period of time depending
-on Evocations skill.
+way, the ability cannot be activated again for a short period of time. Unlike
+the spell, your skills have no effect on the cooldown time for this ability.
 %%%%
 Evoke Berserk Rage ability
 
 <Berserk ability>
 %%%%
-Evoke Invisibility ability
+Invisibility ability
 
-Turns the user invisible. Turning invisible in this way causes magical
-contamination. Reaching high levels of contamination will cause you to glow
-brightly, nullifying the invisibility.
+Turns the user invisible, making it very hard for monsters to notice you; their
+perception becomes 1 instead of their difficulty. Each item with this ability
+can be activated once per floor.
 %%%%
 Evoke Thunderclouds ability
 

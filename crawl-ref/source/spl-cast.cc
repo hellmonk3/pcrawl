@@ -1580,7 +1580,7 @@ desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
         case SPELL_MOMENTUM_STRIKE:
             return bind(_desc_momentum_strike_hit_chance, placeholders::_1, powc);
         case SPELL_FASTROOT:
-            return bind(_desc_insubstantial, placeholders::_1, "immune to roots");
+            return bind(_desc_insubstantial, placeholders::_1, "immune to vines");
         case SPELL_STICKY_FLAME:
             return bind(_desc_insubstantial, placeholders::_1, "unstickable");
         case SPELL_PLASMA_BEAM:

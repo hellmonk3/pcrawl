@@ -5746,13 +5746,8 @@ mon_resist_type bolt::apply_enchantment_to_monster(monster* mon)
         if (!mon->has_ench(ENCH_INNER_FLAME)
             && mon->add_ench(mon_enchant(ENCH_INNER_FLAME, 0, agent())))
         {
-            if (simple_monster_message(*mon,
-                                       (mon->body_size(PSIZE_BODY) > SIZE_LARGE)
-                                        ? " is filled with an intense inner flame!"
-                                        : " is filled with an inner flame."))
-            {
+            if (simple_monster_message(*mon, " is filled with an inner flame."))
                 obvious_effect = true;
-            }
         }
         return MON_AFFECTED;
 
@@ -6023,7 +6018,7 @@ const map<spell_type, explosion_sfx> spell_explosions = {
         "the roar of flame",
     } },
     { SPELL_FASTROOT, {
-        "The roots erupt in riotous growth!",
+        "The vines erupt in riotous growth!",
         "creaking and crackling",
     } },
     { SPELL_BLASTMOTE, {

@@ -55,6 +55,10 @@
 #define DESCENT_DEBT_KEY "descent_debt"
 #define DESCENT_WATER_BRANCH_KEY "descent_water_branch"
 #define DESCENT_POIS_BRANCH_KEY "descent_poison_branch"
+#define TELEPORTED_KEY "teleported"
+#define AMULET_BERSERKED_KEY "amulet_berserked"
+#define WENT_INVIS_KEY "went_invis"
+#define HARP_STARTED_KEY "harp_started"
 
 // display/messaging breakpoints for penalties from Ru's MUT_HORROR
 #define HORROR_LVL_EXTREME  3
@@ -1052,7 +1056,7 @@ int get_teleportitis_level();
 
 int player_monster_detect_radius();
 
-int slaying_bonus(bool throwing = false, bool random = true);
+int slaying_bonus(bool ranged = false, bool random = true);
 
 unsigned int exp_needed(int lev, int exp_apt = -99);
 bool will_gain_life(int lev);
@@ -1063,7 +1067,9 @@ void display_char_status();
 void forget_map(bool rot = false);
 
 int get_exp_progress();
+bool recharge_random_evoker();
 void recharge_xp_evokers();
+void reset_per_floor_props();
 unsigned int gain_exp(unsigned int exp_gained);
 void apply_exp();
 

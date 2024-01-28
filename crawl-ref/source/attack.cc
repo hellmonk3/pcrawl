@@ -827,15 +827,15 @@ int attack::player_apply_slaying_bonuses(int damage, bool aux)
     if (!aux && using_weapon())
         damage_plus = get_weapon_plus();
 
-    const bool throwing = !weapon && wpn_skill == SK_THROWING;
-    const bool ranged = throwing
+    const bool ranged = !weapon && wpn_skill == SK_THROWING
                         || (weapon && is_range_weapon(*weapon)
                                    && using_weapon());
-    damage_plus += slaying_bonus(throwing);
+
+    damage_plus += slaying_bonus(ranged);
 
     // XXX: should this also trigger on auxes?
     if (!aux && !ranged)
-        damage_plus += you.infusion_amount() * 4;
+        damage_plus += you.infusion_amount() * 10;
 
     return _core_apply_slaying(damage, damage_plus);
 }

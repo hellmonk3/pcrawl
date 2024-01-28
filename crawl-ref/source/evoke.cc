@@ -44,10 +44,12 @@
 #include "mon-pick.h"
 #include "mon-place.h"
 #include "mutant-beast.h"
+#include "mutation.h"
 #include "nearby-danger.h" // i_feel_safe
 #include "place.h"
 #include "player.h"
 #include "player-stats.h"
+#include "potion.h"
 #include "prompt.h"
 #include "religion.h"
 #include "shout.h"
@@ -57,6 +59,7 @@
 #include "spl-clouds.h"
 #include "spl-damage.h"
 #include "spl-monench.h" // FASTROOT_POWER_KEY
+#include "spl-summoning.h"
 #include "spl-util.h"
 #include "state.h"
 #include "stepdown.h"
@@ -427,6 +430,11 @@ static bool _sack_of_spiders()
     return true;
 }
 
+static bool _dungeon_atlas()
+{
+    return magic_mapping(GDM, 100, false, false, false, false, false);
+}
+
 
 static bool _make_zig(item_def &zig)
 {
@@ -452,6 +460,238 @@ static bool _make_zig(item_def &zig)
     dungeon_terrain_changed(you.pos(), DNGN_ENTER_ZIGGURAT);
     mpr("You set the figurine down, and a mystic portal to a ziggurat forms.");
     return true;
+}
+
+static bool _harp_of_healing()
+{
+    // Giant wall of special cases (probably missing some)
+    if (silenced(you.pos()))
+    {
+        mpr("You are unable to hear the harp's music.");
+        return false;
+    }
+    else if (you.confused())
+    {
+        mpr("You are in no state to start playing the harp!");
+        return false;
+    }
+    else if (you.duration[DUR_DEATHS_DOOR])
+    {
+        mpr("You cannot hear the harp's music in death's doorway!");
+        return false;
+    }
+
+    int pow = you.skill(SK_EVOCATIONS);
+
+    you.set_duration(DUR_HARP, 2 + pow);
+    mpr("You begin to play the harp.");
+    you.props[HARP_STARTED_KEY] = 1;
+    handle_playing_harp();
+
+    return true;
+}
+
+void handle_playing_harp()
+{
+    // Various special cases if user can no longer play harp
+    if (you.confused() || you.berserk() || you.duration[DUR_MESMERISED]
+        || silenced(you.pos()) || you.duration[DUR_DEATHS_DOOR])
+    {
+        end_playing_harp(false);
+        return;
+    }
+
+    // Heal for 5 hp per turn
+    inc_hp(5);
+
+    // Make noise
+    noisy(12, you.pos());
+}
+
+void end_playing_harp(bool voluntary)
+{
+    if (voluntary)
+        mpr("You stop playing the harp.");
+    else
+        mpr("Your playing has been interrupted!");
+
+    you.set_duration(DUR_HARP, 0);
+}
+
+static bool _mages_chalice()
+{
+    potionlike_effect(POT_BRILLIANCE, you.skill(SK_EVOCATIONS));
+    return true;
+}
+
+static bool _butterfly_jar()
+{
+    if (summon_butterflies(you.skill(SK_EVOCATIONS)) == spret::success)
+        return true;
+
+    return false;
+}
+
+static bool _purple_statuette()
+{
+    bool good = x_chance_in_y(you.skill(SK_EVOCATIONS), 10);
+    mutate(good ? RANDOM_GOOD_MUTATION : RANDOM_MUTATION,
+                  "purple statuette", false);
+    return true;
+}
+
+static bool _magnet()
+{
+    potionlike_effect(POT_ATTRACTION, you.skill(SK_EVOCATIONS));
+    return true;
+}
+
+static bool _lantern_of_shadows()
+{
+    int pow = you.skill(SK_EVOCATIONS);
+    you.set_duration(DUR_LANTERN, 4 + random_range(div_rand_round(pow,2),
+                                                   div_rand_round(pow * 3,2)));
+    update_vision_range();
+    mpr("Your surroundings grow dim.");
+    return true;
+}
+
+static bool _skeleton_key()
+{
+    int sk = you.skill(SK_EVOCATIONS);
+    if (sk < 5)
+    {
+        mprf("You need %d more evocations skill to understand how keys work.",
+             5 - sk);
+        return false;
+    }
+    else if (!unlock_stairs())
+    {
+        mpr("The key does not respond. Perhaps the way down is unlocked already.");
+        return false;
+    }
+
+    return true;
+}
+
+static string _pandemonium_pizza_flavor()
+{
+    return random_choose("pepperoni and eggplant",
+                         "marshmallow and artichoke",
+                         "onion and radish",
+                         "corn",
+                         "watermelon and corned beef",
+                         "cheddar cheese and canteloupe",
+                         "raw oysters",
+                         "eel and mayonnaise",
+                         "salt",
+                         "uncooked dough",
+                         "chokos",
+                         "broccolini and strawberry",
+                         "tuna and pickle",
+                         "anchovy and honey",
+                         "kimchi and chocolate",
+                         "beet and black olive",
+                         "banana and salami");
+}
+
+static duration_type _pizza_buff()
+{
+    return random_choose(DUR_MIGHT,
+                         DUR_BRILLIANCE,
+                         DUR_AGILITY,
+                         DUR_BERSERK,
+                         DUR_HASTE,
+                         DUR_STEALTH,
+                         DUR_WEAK,
+                         DUR_VERTIGO,
+                         DUR_CORONA,
+                         DUR_CONF);
+}
+
+static bool _pandemonium_pizza()
+{
+    if (you.can_drink(true))
+    {
+        mprf("You eat a slice of pandemonium pizza. It tastes like %s.",
+             _pandemonium_pizza_flavor().c_str());
+    }
+    else
+        mprf("You rub yourself with a slice of pandemonium pizza, wishing you "
+             "could taste its delicious flavors.");
+
+
+    int mhp = get_real_hp(true, true);
+    int max_heal = (9 + you.skill(SK_EVOCATIONS)) * (mhp - you.hp) / 18;
+    you.heal(1 + random2(max_heal));
+
+    mpr("You feel a little weird.");
+    you.increase_duration(_pizza_buff(), 10 + random2(10));
+
+    return true;
+}
+
+static bool _jumper_cable()
+{
+    // fixed damage. kinda weird?
+    int damage = 30 - you.skill(SK_EVOCATIONS) * 3;
+    damage = resist_adjust_damage(&you, BEAM_ELECTRICITY, damage);
+
+    if (damage > you.hp)
+    {
+        mpr("You're too injured to use the jumper cable safely!");
+        return false;
+    }
+    if (!recharge_random_evoker())
+    {
+        mpr("You don't have anything to recharge!");
+        return false;
+    }
+
+    // notably should not be able to actually kill you.
+    ouch(damage, KILLED_BY_SELF_AIMED);
+    return true;
+}
+
+static bool _ring_of_resistance()
+{
+    if (you.res_elec() > 0 && you.res_fire() > 0 && you.res_cold() > 0)
+    {
+        mpr("You're already resistant to everything.");
+        return false;
+    }
+
+    potionlike_effect(POT_RESISTANCE, you.skill(SK_EVOCATIONS));
+    return true;
+}
+
+static bool _crown_of_leaves()
+{
+    if (!check_transform_into(transformation::tree, false))
+        return false;
+
+    potionlike_effect(POT_LIGNIFY, you.skill(SK_EVOCATIONS));
+
+    return true;
+}
+
+static bool _lamp_of_immolation()
+{
+    bool had_effect = false;
+    for (monster_near_iterator mi(you.pos(), LOS_NO_TRANS); mi; ++mi)
+    {
+        if (mi->add_ench(mon_enchant(ENCH_INNER_FLAME, 0, &you)))
+            had_effect = true;
+    }
+
+    if (had_effect)
+    {
+        mpr("The creatures around you are filled with an inner flame!");
+        return true;
+    }
+
+    mpr("There is nothing nearby to immolate.");
+    return false;
 }
 
 static int _gale_push_dist(const actor* agent, const actor* victim, int pow)
@@ -628,6 +868,23 @@ static bool _phial_of_floods(dist *target)
     return false;
 }
 
+static bool _kudzu_pot(dist *target)
+{
+    dist target_local;
+    if (!target)
+        target = &target_local;
+
+    int power = 3 + you.skill(SK_EVOCATIONS);
+    you.props[FASTROOT_POWER_KEY] = power;
+
+    spret ret = your_spells(SPELL_FASTROOT, power, false, nullptr, target);
+
+    if (ret == spret::abort)
+        return false;
+
+    return true;
+}
+
 static spret _phantom_mirror(dist *target)
 {
     bolt beam;
@@ -671,18 +928,14 @@ static spret _phantom_mirror(dist *target)
         canned_msg(MSG_NOTHING_HAPPENS);
         return spret::fail;
     }
-    const int power = 5 + you.skill(SK_EVOCATIONS, 3);
-    int dur = min(6, max(1, (you.skill(SK_EVOCATIONS, 1) / 4 + 1)
-                         * (100 - victim->check_willpower(&you, power)) / 100));
+    const int power = you.skill(SK_EVOCATIONS);
+    int dur = min(6, 1 + random2(1 + div_rand_round(power, 2)));
 
     mon->mark_summoned(dur, true, SPELL_PHANTOM_MIRROR);
 
     mon->summoner = MID_PLAYER;
     mons_add_blame(mon, "mirrored by the player character");
     mon->add_ench(ENCH_PHANTOM_MIRROR);
-    mon->add_ench(mon_enchant(ENCH_DRAINED,
-                              div_rand_round(mon->get_experience_level(), 3),
-                              &you, INFINITE_DURATION));
 
     mon->behaviour = BEH_SEEK;
     set_nearest_monster_foe(mon);
@@ -792,16 +1045,11 @@ static coord_def _fuzz_tremorstone_target(coord_def center)
 }
 
 /**
- * Number of explosions, scales up from 1 at 0 evo to 6 at 27 evo,
- * via a stepdown.
- *
- * Currently pow is just evo + 15, but the abstraction is kept around in
- * case an evocable enhancer returns to the game so that 0 evo with enhancer
- * gets some amount of enhancement.
+ * Number of explosions, scales up from 1 at 0 evo to 6 at 9 evo.
  */
 static int _tremorstone_count(int pow)
 {
-    return 1 + stepdown((pow - 15) / 3, 2, ROUND_CLOSE);
+    return 1 + div_rand_round(pow + 1, 2);
 }
 
 /**
@@ -834,7 +1082,7 @@ static spret _tremorstone()
     static const int RADIUS = 2;
     static const int SPREAD = 1;
     static const int RANGE = RADIUS + SPREAD;
-    const int pow = 15 + you.skill(SK_EVOCATIONS);
+    const int pow = you.skill(SK_EVOCATIONS);
     const int num_explosions = _tremorstone_count(pow);
 
     bolt beam;
@@ -1181,6 +1429,155 @@ bool evoke_item(item_def& item, dist *preselect)
                 expend_xp_evoker(item.sub_type);
                 if (!evoker_charges(item.sub_type))
                     mpr("The lightning rod overheats!");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_DUNGEON_ATLAS:
+            if (_dungeon_atlas())
+            {
+                expend_xp_evoker(item.sub_type);
+                mpr("The pages of the atlas turn blank!");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_HARP_OF_HEALING:
+            if (_harp_of_healing())
+            {
+                practise_evoking(1);
+                expend_xp_evoker(item.sub_type);
+            }
+            else
+                return false;
+            break;
+
+        case MISC_MAGES_CHALICE:
+            if (_mages_chalice())
+            {
+                expend_xp_evoker(item.sub_type);
+                mpr("The chalice dries up!");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_BUTTERFLY_JAR:
+            if (_butterfly_jar())
+            {
+                expend_xp_evoker(item.sub_type);
+                mpr("The butterfly jar is emptied!");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_PURPLE_STATUETTE:
+            if (_purple_statuette())
+            {
+                expend_xp_evoker(item.sub_type);
+                mpr("The statuette turns a dull grey.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_MAGNET:
+            if (_magnet())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The magnet loses polarity!");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_LANTERN_OF_SHADOWS:
+            if (_lantern_of_shadows())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The lantern brightens.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_KUDZU_POT:
+            if (_kudzu_pot(preselect))
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The pot is emptied.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_SKELETON_KEY:
+            if (_skeleton_key())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The skeleton key looks a little rusty.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_PANDEMONIUM_PIZZA:
+            if (_pandemonium_pizza())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("You're a bit out-pizza'd.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_JUMPER_CABLE:
+            if (_jumper_cable())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The jumper cable gets twisted.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_RING_OF_RESISTANCE:
+            if (_ring_of_resistance())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The ring of resistance dulls.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_CROWN_OF_LEAVES:
+            if (_crown_of_leaves())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The crown withers.");
+            }
+            else
+                return false;
+            break;
+
+        case MISC_LAMP_OF_IMMOLATION:
+            if (_lamp_of_immolation())
+            {
+                expend_xp_evoker(item.sub_type);
+                if (!evoker_charges(item.sub_type))
+                    mpr("The lamp burns out.");
             }
             else
                 return false;

@@ -945,17 +945,6 @@ bool monster::drop_item(mon_inv_type eslot, bool msg)
 
     item_def& pitem = env.item[item_index];
 
-    // Unequip equipped items before dropping them; unequip() prevents
-    // cursed items from being removed.
-    bool was_unequipped = false;
-    if (eslot == MSLOT_WEAPON
-        || eslot == MSLOT_ARMOUR
-        || eslot == MSLOT_JEWELLERY
-        || eslot == MSLOT_ALT_WEAPON && mons_wields_two_weapons(*this))
-    {
-        was_unequipped = true;
-    }
-
     if (pitem.flags & ISFLAG_SUMMONED)
     {
         if (msg)
@@ -2233,15 +2222,6 @@ int monster::armour_class() const
     if (armour)
         ac += armour_bonus(*armour);
 
-    // armour from jewellery
-    const item_def *ring = mslot_item(MSLOT_JEWELLERY);
-    if (ring && ring->sub_type == RING_PROTECTION)
-    {
-        const int jewellery_plus = ring->plus;
-        ASSERT(abs(jewellery_plus) < 30); // sanity check
-        ac += jewellery_plus;
-    }
-
     // armour from artefacts
     ac += scan_artefacts(ARTP_AC);
 
@@ -2345,7 +2325,7 @@ int monster::evasion(bool ignore_helpless, const actor* /*act*/) const
         return 0;
 
     if (caught() || is_constricted())
-        ev /= (body_size(PSIZE_BODY) + 2);
+        ev /= 2;
     else if (confused())
         ev /= 2;
 
@@ -3900,8 +3880,6 @@ bool monster::can_see_invisible() const
 
     else if (wearing(EQ_RINGS, RING_SEE_INVISIBLE))
         return true;
-    else if (wearing_ego(EQ_ALL_ARMOUR, SPARM_SEE_INVISIBLE))
-        return true;
 
     return false;
 }
@@ -4454,9 +4432,6 @@ int monster::action_energy(energy_use_type et) const
     if (has_ench(ENCH_ROLLING))
         move_cost -= 5;
 
-    if (wearing_ego(EQ_ALL_ARMOUR, SPARM_PONDEROUSNESS))
-        move_cost += 1;
-
     // Shadows move more quickly when blended with the darkness.
     // Change _monster_stat_description in describe.cc if you change this.
     if (type == MONS_SHADOW && invisible())
@@ -4561,15 +4536,6 @@ void monster::react_to_damage(const actor *oppressor, int damage,
 
     if (!alive())
         return;
-
-    if (!mons_is_tentacle_or_tentacle_segment(type)
-        && has_ench(ENCH_INNER_FLAME) && oppressor && damage)
-    {
-        mon_enchant i_f = get_ench(ENCH_INNER_FLAME);
-        if (you.see_cell(pos()))
-            mprf("Flame seeps out of %s.", name(DESC_THE).c_str());
-        check_place_cloud(CLOUD_FIRE, pos(), 3, actor_by_mid(i_f.source));
-    }
 
     const int corrode = corrosion_chance(scan_artefacts(ARTP_CORRODE));
     if (res_acid() < 3 && x_chance_in_y(corrode, 100))

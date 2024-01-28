@@ -1870,6 +1870,19 @@ namespace quiver
             case MISC_HORN_OF_GERYON:
             case MISC_QUAD_DAMAGE:
             case MISC_PHANTOM_MIRROR:
+            case MISC_DUNGEON_ATLAS:
+            case MISC_HARP_OF_HEALING:
+            case MISC_MAGES_CHALICE:
+            case MISC_BUTTERFLY_JAR:
+            case MISC_PURPLE_STATUETTE:
+            case MISC_MAGNET:
+            case MISC_LANTERN_OF_SHADOWS:
+            case MISC_SKELETON_KEY:
+            case MISC_PANDEMONIUM_PIZZA:
+            case MISC_JUMPER_CABLE:
+            case MISC_RING_OF_RESISTANCE:
+            case MISC_CROWN_OF_LEAVES:
+            case MISC_LAMP_OF_IMMOLATION:
                 return false;
             default:
                 return true;

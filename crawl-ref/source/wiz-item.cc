@@ -1146,24 +1146,24 @@ static void _debug_acquirement_stats(FILE *ostat)
 #endif
             "fire resistance",
             "cold resistance",
-            "poison resistance",
-            "see invis",
+            "insulation",
+            "detection",
             "invisibility",
-            "strength",
-            "dexterity",
-            "intelligence",
+            "stability",
+            "magical power",
+            "wizardry",
             "ponderous",
             "flight",
             "willpower",
             "shielding",
             "stealth",
             "resistance",
-            "positive energy",
+            "evasion",
             "archmagi",
-            "preservation",
+            "fog",
             "reflection",
             "spirit shield",
-            "hurling",
+            "sniping",
 #if TAG_MAJOR_VERSION == 34
             "jumping",
 #endif
@@ -1171,15 +1171,19 @@ static void _debug_acquirement_stats(FILE *ostat)
 #if TAG_MAJOR_VERSION == 34
             "cloud immunity",
 #endif
-            "harm",
-            "shadows",
+            "detect monsters",
+            "darkness",
             "rampaging",
             "infusion",
             "light",
-            "rage",
+            "elements",
             "mayhem",
             "guile",
             "energy",
+            "spikes",
+            "health",
+            "weakening",
+            "friendship",
             "INVALID",
         };
         COMPILE_CHECK(ARRAYSZ(names) == NUM_SPECIAL_ARMOURS);
@@ -1497,7 +1501,7 @@ static void _debug_rap_stats(FILE *ostat)
         "ARTP_BERSERK",
 #endif
         "ARTP_NOISE",
-        "ARTP_PREVENT_SPELLCASTING",
+        "ARTP_INHIBIT_SPELLCASTING",
 #if TAG_MAJOR_VERSION == 34
         "ARTP_CAUSE_TELEPORTATION",
 #endif
@@ -1533,7 +1537,7 @@ static void _debug_rap_stats(FILE *ostat)
 #if TAG_MAJOR_VERSION == 34
         "ARTP_RCORR",
 #endif
-        "ARTP_RMUT",
+        "ARTP_MUTATE",
 #if TAG_MAJOR_VERSION == 34
         "ARTP_TWISTER",
 #endif

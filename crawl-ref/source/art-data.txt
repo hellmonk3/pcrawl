@@ -91,7 +91,6 @@
 # * no_upgrade: Don't regenerate this item on load. Used for items with mutable
 #             state, e.g. Wyrmbane's growing enchantment.
 # * rmsl:     Passively repels missiles.
-# * rmut:     Grants mutation resistance.
 # * skip_ego: The item's ego is skipped in its inscription and description, to
 #             be replaced by INSCRIP: and DBRAND: entries.
 # * slow:     Randomly causes slowing when taking damage.
@@ -794,7 +793,6 @@ DEX:     4
 
 NAME:     cloak of the Thief
 OBJ:      OBJ_ARMOUR/ARM_CLOAK
-FB_BRAND: SPARM_INVISIBILITY
 INSCRIP:  *Fog
 PLUS:     +2
 COLOUR:   ETC_DARK
@@ -818,7 +816,7 @@ BOOL:    nogen
 
 NAME:    crown of Dyrovepreva
 OBJ:     OBJ_ARMOUR/ARM_HAT
-FB_BRAND: SPARM_SEE_INVISIBLE
+FB_BRAND: SPARM_DETECTION
 PLUS:    +3
 COLOUR:  ETC_JEWEL
 TILE:    urand_dyrovepreva
@@ -864,7 +862,7 @@ BOOL:     fly, nogen
 ENUM:     HOOD_ASSASSIN
 NAME:     hood of the Assassin
 OBJ:      OBJ_ARMOUR/ARM_HAT
-FB_BRAND: SPARM_SEE_INVISIBLE
+FB_BRAND: SPARM_DETECTION
 INSCRIP:  Detect Stab+
 PLUS:     +2
 COLOUR:   BROWN
@@ -989,7 +987,6 @@ TILE:    urand_alchemist
 TILE_EQ: turban_purple
 WILL:    1
 LIFE:    1
-BOOL:    rMut, rCorr
 
 ENUM:    FENCERS
 NAME:    fencer's gloves
@@ -1175,7 +1172,7 @@ LIFE:     1
 BOOL:     evil
 
 NAME:     amulet of Vitality
-OBJ:      OBJ_JEWELLERY/AMU_MANA_REGENERATION
+OBJ:      OBJ_JEWELLERY/AMU_WILLPOWER
 INSCRIP:  RegenMP++
 REGEN:    2
 COLOUR:   ETC_MUTAGENIC
@@ -1346,7 +1343,6 @@ COLOUR:  ETC_SILVER
 TILE:    urand_order
 TILE_EQ: order
 PLUS:    +7
-BOOL:    rMut
 
 ENUM:     FIRESTARTER
 NAME:     great mace "Firestarter"

@@ -18,6 +18,7 @@
 #include "branch.h"
 #include "colour.h"
 #include "database.h"
+#include "dungeon.h"
 #include "god-item.h"
 #include "item-name.h"
 #include "item-prop.h"
@@ -110,8 +111,8 @@ static bool _god_fits_artefact(const god_type which_god, const item_def &item,
             return false;
     case GOD_SIF_MUNA:
     case GOD_VEHUMET:
-        // The magic gods: no preventing spellcasting.
-        if (artefact_property(item, ARTP_PREVENT_SPELLCASTING))
+        // The magic gods: no inhibiting spellcasting.
+        if (artefact_property(item, ARTP_INHIBIT_SPELLCASTING))
             return false;
         break;
 
@@ -371,23 +372,23 @@ struct jewellery_fake_artp
 };
 
 static map<jewellery_type, vector<jewellery_fake_artp>> jewellery_artps = {
-    { AMU_REGENERATION, { { ARTP_REGENERATION, 1 } } },
-    { AMU_REFLECTION, { { ARTP_SHIELDING, AMU_REFLECT_SH / 2} } },
+    { AMU_REFLECTION, { { ARTP_SHIELDING, AMU_REFLECT_SH } } },
+    { AMU_PROTECTION, { { ARTP_AC, 0 } } },
 
-    { RING_MAGICAL_POWER, { { ARTP_MAGICAL_POWER, 9 } } },
+    { AMU_MAGICAL_POWER, { { ARTP_MAGICAL_POWER, 5 } } },
     { RING_FLIGHT, { { ARTP_FLY, 1 } } },
     { RING_STEALTH, { { ARTP_STEALTH, 1 } } },
 
     { RING_PROTECTION_FROM_FIRE, { { ARTP_FIRE, 1 } } },
     { RING_PROTECTION_FROM_COLD, { { ARTP_COLD, 1 } } },
-    { RING_WILLPOWER, { { ARTP_WILLPOWER, 1 } } },
+    { AMU_WILLPOWER, { { ARTP_WILLPOWER, 1 } } },
 
     { RING_FIRE, { { ARTP_FIRE, 1 }, { ARTP_COLD, -1 } } },
     { RING_ICE, { { ARTP_COLD, 1 }, { ARTP_FIRE, -1 } } },
 
     { RING_PROTECTION, { { ARTP_AC, 0 } } },
     { RING_EVASION, { { ARTP_EVASION, 0 } } },
-    { RING_SLAYING, { { ARTP_SLAYING, 0 } } },
+    { AMU_SLAYING, { { ARTP_SLAYING, 0 } } },
 };
 
 /**
@@ -575,9 +576,6 @@ static bool _artp_can_go_on_item(artefact_prop_type prop, const item_def &item,
         case ARTP_ANGRY:
         case ARTP_NOISE:
             return item_class == OBJ_WEAPONS && !is_range_weapon(item);
-        case ARTP_PREVENT_SPELLCASTING:
-            if (item.is_type(OBJ_JEWELLERY, AMU_MANA_REGENERATION))
-                return false;
             // fallthrough
         case ARTP_REGENERATION:
         case ARTP_INVISIBLE:
@@ -597,7 +595,7 @@ static bool _artp_can_go_on_item(artefact_prop_type prop, const item_def &item,
         case ARTP_ENHANCE_ICE:
         case ARTP_ENHANCE_AIR:
         case ARTP_ENHANCE_EARTH:
-            return !extant_props[ARTP_PREVENT_SPELLCASTING];
+            return !extant_props[ARTP_INHIBIT_SPELLCASTING];
         default:
             return true;
     }
@@ -635,17 +633,19 @@ static int _gen_good_res_artp() { return 1; }
 static int _gen_bad_res_artp() { return -1; }
 
 /// Generate 'good' values for ARTP_HP/ARTP_MAGICAL_POWER
-static int _gen_good_hpmp_artp() { return 9; }
+static int _gen_good_hpmp_artp() { return 3 + random2(7); }
 
 /// Generate 'bad' values for ARTP_HP/ARTP_MAGICAL_POWER
 static int _gen_bad_hpmp_artp() { return -_gen_good_hpmp_artp(); }
+
+static int _gen_evasion_artp() { return 5 * (1 + random2(4)); }
 
 /// Generation info for artefact properties.
 static const artefact_prop_data artp_data[] =
 {
     { "Brand", ARTP_VAL_BRAND, 0, nullptr, nullptr, 0, 0 }, // ARTP_BRAND,
     { "AC", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0}, // ARTP_AC,
-    { "EV", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_EVASION,
+    { "EV", ARTP_VAL_ANY, 25, _gen_evasion_artp, nullptr, 0, 0 }, // ARTP_EVASION,
 #if TAG_MAJOR_VERSION == 34
     { "Str", ARTP_VAL_ANY, 0,     // ARTP_STRENGTH,
         _gen_good_stat_artp, _gen_bad_stat_artp, 7, 1 },
@@ -672,7 +672,7 @@ static const artefact_prop_data artp_data[] =
     { "SInv", ARTP_VAL_BOOL, 0,    // ARTP_SEE_INVISIBLE,
         []() { return 1; }, nullptr, 0, 0 },
 #endif
-    { "+Inv", ARTP_VAL_BOOL, 15,    // ARTP_INVISIBLE,
+    { "+Inv", ARTP_VAL_BOOL, 10,    // ARTP_INVISIBLE,
         []() { return 1; }, nullptr, 0, 0 },
     { "Fly", ARTP_VAL_BOOL, 15,    // ARTP_FLY,
         []() { return 1; }, nullptr, 0, 0 },
@@ -684,20 +684,20 @@ static const artefact_prop_data artp_data[] =
 #endif
     { "*Noise", ARTP_VAL_POS, 30,    // ARTP_NOISE,
         nullptr, []() { return 2; }, 0, 0 },
-    { "-Cast", ARTP_VAL_BOOL, 25,   // ARTP_PREVENT_SPELLCASTING,
+    { "-Wiz", ARTP_VAL_BOOL, 25,   // ARTP_INHIBIT_SPELLCASTING,
         nullptr, []() { return 1; }, 0, 0 },
 #if TAG_MAJOR_VERSION == 34
     { "*Tele", ARTP_VAL_BOOL,  0,   // ARTP_CAUSE_TELEPORTATION,
         nullptr, []() { return 1; }, 0, 0 },
 #endif
-    { "-Tele", ARTP_VAL_BOOL, 25,   // ARTP_PREVENT_TELEPORTATION,
+    { "-Tele", ARTP_VAL_BOOL, 0,   // ARTP_PREVENT_TELEPORTATION,
         nullptr, []() { return 1; }, 0, 0 },
-    { "*Rage", ARTP_VAL_POS, 30,    // ARTP_ANGRY,
+    { "*Rage", ARTP_VAL_POS, 0,    // ARTP_ANGRY,
         nullptr, []() { return 20; }, 0, 0 },
 #if TAG_MAJOR_VERSION == 34
     { "Hungry", ARTP_VAL_POS, 0, nullptr, nullptr, 0, 0 },// ARTP_METABOLISM,
 #endif
-    { "Contam", ARTP_VAL_POS, 20,   // ARTP_CONTAM
+    { "Contam", ARTP_VAL_POS, 0,   // ARTP_CONTAM
         nullptr, []() { return 1; }, 0, 0 },
 #if TAG_MAJOR_VERSION == 34
     { "Acc", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_ACCURACY,
@@ -713,26 +713,26 @@ static const artefact_prop_data artp_data[] =
     { "MP", ARTP_VAL_ANY, 15,       // ARTP_MAGICAL_POWER,
         _gen_good_hpmp_artp, _gen_bad_hpmp_artp, 0, 0 },
     { "Delay", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_BASE_DELAY,
-    { "HP", ARTP_VAL_ANY, 0,       // ARTP_HP,
+    { "HP", ARTP_VAL_ANY, 15,       // ARTP_HP,
         _gen_good_hpmp_artp, _gen_bad_hpmp_artp, 0, 0 },
     { "Clar", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_CLARITY,
     { "BAcc", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 },  // ARTP_BASE_ACC,
     { "BDam", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 },  // ARTP_BASE_DAM,
-    { "RMsl", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_RMSL,
+    { "RMsl", ARTP_VAL_BOOL, 10, nullptr, nullptr, 0, 0 }, // ARTP_RMSL,
 #if TAG_MAJOR_VERSION == 34
     { "+Fog", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_FOG,
 #endif
-    { "Regen", ARTP_VAL_BOOL, 35,   // ARTP_REGENERATION,
+    { "Regen", ARTP_VAL_BOOL, 0,   // ARTP_REGENERATION,
         []() { return 1; }, nullptr, 0, 0 },
 #if TAG_MAJOR_VERSION == 34
     { "SustAt", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_SUSTAT,
 #endif
     { "nupgr", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 },// ARTP_NO_UPGRADE,
 #if TAG_MAJOR_VERSION == 34
-    { "rCorr", ARTP_VAL_BOOL, 40,   // ARTP_RCORR,
+    { "rCorr", ARTP_VAL_BOOL, 0,   // ARTP_RCORR,
         []() { return 1; }, nullptr, 0, 0 },
 #endif
-    { "rMut", ARTP_VAL_BOOL, 0, nullptr, nullptr, 0, 0 }, // ARTP_RMUT,
+    { "Mut", ARTP_VAL_BOOL, 10, nullptr, nullptr, 0, 0 }, // ARTP_MUTATE,
 #if TAG_MAJOR_VERSION == 34
     { "+Twstr", ARTP_VAL_BOOL, 0,   // ARTP_TWISTER,
         []() { return 1; }, nullptr, 0, 0 },
@@ -748,7 +748,7 @@ static const artefact_prop_data artp_data[] =
         nullptr, []() { return 1; }, 0, 0 },
 #endif
     { "SH", ARTP_VAL_ANY, 0, nullptr, nullptr, 0, 0 }, // ARTP_SHIELDING,
-    { "Harm", ARTP_VAL_BOOL, 25, // ARTP_HARM,
+    { "Harm", ARTP_VAL_BOOL, 0, // ARTP_HARM,
         []() {return 1;}, nullptr, 0, 0},
     { "Rampage", ARTP_VAL_BOOL, 25, // ARTP_RAMPAGING,
         []() {return 1;}, nullptr, 0, 0},
@@ -872,35 +872,27 @@ static void _add_good_randart_prop(artefact_prop_type prop,
                         be given.
  */
 static void _get_randart_properties(const item_def &item,
-                                    artefact_properties_t &item_props,
-                                    int quality = 0,
-                                    const int max_bad_props = 2)
+                                    artefact_properties_t &item_props)
 {
     const object_class_type item_class = item.base_type;
 
-    // If we didn't receive a quality level, figure out how good we want the
-    // artefact to be. The default calculation range is 1 to 7.
-    if (quality < 1)
-        quality = max(1, binomial(7, 30));
+    const int quality = env.absdepth0;
 
-    // then consider adding bad properties. the better the artefact, the more
-    // likely we add a bad property, up to a max of 2.
-    int bad = min(binomial(1 + div_rand_round(quality, 5), 30), max_bad_props);
+    // then consider adding bad properties.
+    int bad = one_chance_in(5 + quality) ? 1 : 0;
+
     // we start by assuming we'll allow one good property per quality level
     // and an additional one for each bad property.
-    int good = quality + bad;
-    // but we want avoid generating more then 4-ish properties properties or
-    // things get spammy. Extra "good" properties will be used to enhance
-    // properties only, not to add more distinct properties. There is still a
-    // small chance of >4 properties.
-    int max_properties = 4 + one_chance_in(20);
-    max_properties += one_chance_in(40);
-    int enhance = 0;
+    int good = bad + 1 + coinflip() + x_chance_in_y(quality, 40);
+    // but we want avoid generating more than 4 properties or
+    // things get spammy.
+    int max_properties = 4;
+
+    // enhance some properties, scaling with depth
+    int enhance = random2(div_rand_round(quality, 3));
+
     if (good + bad > max_properties)
-    {
-        enhance = good + bad - max_properties;
-        good = max_properties - bad;
-    }
+        enhance++;
 
     // initialize a vector of weighted artefact properties to pick from
     vector<pair<artefact_prop_type, int>> art_prop_weights;
@@ -1546,19 +1538,27 @@ static bool _armour_ego_conflicts(artefact_properties_t &proprt)
     case SPARM_GUILE:
         return proprt[ARTP_WILLPOWER];
     case SPARM_ENERGY:
-        return proprt[ARTP_PREVENT_SPELLCASTING];
+        return proprt[ARTP_INHIBIT_SPELLCASTING];
 
     // Duplicate effect.
     case SPARM_RAMPAGING:
         return proprt[ARTP_RAMPAGING];
-    case SPARM_HARM:
-        return proprt[ARTP_HARM];
     case SPARM_RESISTANCE:
         return proprt[ARTP_FIRE] || proprt[ARTP_COLD];
-    case SPARM_RAGE:
-        return proprt[ARTP_ANGRY];
     case SPARM_INVISIBILITY:
         return proprt[ARTP_INVISIBLE];
+    case SPARM_HEALTH:
+        return proprt[ARTP_HP];
+    case SPARM_REPULSION:
+        return proprt[ARTP_RMSL];
+    case SPARM_EVASION:
+        return proprt[ARTP_EVASION];
+    case SPARM_ARCHMAGI:
+        return proprt[ARTP_ARCHMAGI];
+    case SPARM_INSULATION:
+        return proprt[ARTP_ELECTRICITY];
+    case SPARM_MAGICAL_POWER:
+        return proprt[ARTP_MAGICAL_POWER];
 
     default:
         return false;
@@ -1570,10 +1570,8 @@ static bool _randart_is_conflicting(const item_def &item,
 {
     // see also _artp_can_go_on_item
 
-    if (proprt[ARTP_PREVENT_SPELLCASTING]
-        && (proprt[ARTP_MAGICAL_POWER] > 0
-            || proprt[ARTP_ARCHMAGI]
-            || item.base_type == OBJ_STAVES))
+    if (proprt[ARTP_INHIBIT_SPELLCASTING]
+        && item.base_type == OBJ_STAVES)
     {
         return true;
     }
@@ -1641,9 +1639,40 @@ static void _artefact_setup_prop_vectors(item_def &item)
     }
 }
 
-// If force_mundane is true, normally mundane items are forced to
-// nevertheless become artefacts.
-bool make_item_randart(item_def &item, bool force_mundane)
+// return how much a property can be improved
+static int _improvable_property(int artp, int val)
+{
+    switch (artp)
+    {
+    case ARTP_STEALTH:
+    case ARTP_WILLPOWER:
+        return val < 3 ? 1 : 0;
+    case ARTP_AC:
+    case ARTP_SLAYING:
+        return val < 6 ? 1 : 0;
+    case ARTP_ENHANCE_CONJ:
+    case ARTP_ENHANCE_HEXES:
+    case ARTP_ENHANCE_SUMM:
+    case ARTP_ENHANCE_NECRO:
+    case ARTP_ENHANCE_TLOC:
+    case ARTP_ENHANCE_TMUT:
+    case ARTP_ENHANCE_FIRE:
+    case ARTP_ENHANCE_ICE:
+    case ARTP_ENHANCE_AIR:
+    case ARTP_ENHANCE_EARTH:
+        return val < 9 ? 1 : 0;
+    case ARTP_MAGICAL_POWER:
+        return val < 15 ? 2 : 0;
+    case ARTP_HP:
+        return val < 18 ? 3 : 0;
+    case ARTP_EVASION:
+        return val < 50 ? 5 : 0;
+    default:
+        return 0;
+    }
+}
+
+bool item_can_be_randart(item_def &item)
 {
     switch (item.base_type)
     {
@@ -1651,10 +1680,108 @@ bool make_item_randart(item_def &item, bool force_mundane)
     case OBJ_ARMOUR:
     case OBJ_JEWELLERY:
     case OBJ_STAVES:
-        break;
+        return true;
     default:
         return false;
     }
+}
+
+// Modify an item's artefact properties. Return true if successfully changed
+// an artp or added a new one
+bool modify_artps(item_def &item)
+{
+    if (!is_artefact(item))
+    {
+        make_item_plain_randart(item);
+        return true;
+    }
+
+    // no upgrading unrandarts
+    if (is_unrandom_artefact(item))
+        return false;
+
+    vector<pair<artefact_prop_type, int>> art_prop_weights;
+
+    for (int i = 0; i < ARTP_NUM_PROPERTIES; ++i)
+    {
+        art_prop_weights.emplace_back(static_cast<artefact_prop_type>(i),
+                                      artp_data[i].weight);
+    }
+
+    artefact_properties_t  proprt;
+    proprt.init(0);
+    artefact_properties(item, proprt);
+
+    int brand_prop = proprt[ARTP_BRAND] != 0 ? 1 : 0;
+
+    int improve_chance = _artefact_num_props(proprt) - brand_prop;
+    if (x_chance_in_y(1 + improve_chance, 6 - brand_prop))
+    {
+        //try improve an existing property before adding a new one
+        for (int tries = 0; tries < 500; ++tries)
+        {
+            int i = ARTP_NUM_PROPERTIES - random2(ARTP_NUM_PROPERTIES - ARTP_AC) - 1;
+            int boost = _improvable_property(i, proprt[i]);
+            if (proprt[i] != 0 && boost > 0)
+            {
+                proprt[i] += boost;
+                artefact_set_property(item,
+                                static_cast<artefact_prop_type>(i), proprt[i]);
+                return true;
+            }
+        }
+    }
+
+    // failed to improve an existing property
+    if (_artefact_num_props(proprt) >= 5 - brand_prop)
+       return false; // no space to add
+
+    int tries = 0;
+    while (tries < 500)
+    {
+        const artefact_prop_type *prop_ptr
+            = random_choose_weighted(art_prop_weights);
+        ASSERTM(prop_ptr, "all %d randart properties have weight 0?",
+                (int) art_prop_weights.size());
+        const artefact_prop_type prop = *prop_ptr;
+
+        //don't add invalid properties, don't add bad properties
+        if (!_artp_can_go_on_item(prop, item, proprt)
+                || !artp_potentially_good(prop))
+        {
+            tries++;
+            continue;
+        }
+        _add_good_randart_prop(prop, proprt);
+
+        artefact_set_property(item,prop, static_cast<int>(proprt[prop]));
+        return true;
+    }
+
+    return false;
+}
+
+// Turn an item into a randart with no properties
+void make_item_plain_randart(item_def &item)
+{
+    const auto brand = item.brand;
+    _artefact_setup_prop_vectors(item);
+    item.flags |= ISFLAG_RANDART;
+    _init_artefact_properties(item);
+    if (brand > SPWPN_NORMAL)
+        set_artefact_brand(item, brand);
+    set_artefact_name(item, make_artefact_name(item, false));
+    item.props[ARTEFACT_APPEAR_KEY].get_string() =
+            make_artefact_name(item, true);
+}
+
+// If force_mundane is true, normally mundane items are forced to
+// nevertheless become artefacts.
+bool make_item_randart(item_def &item, bool force_mundane)
+{
+    // The item category cannot be a randart
+    if (!item_can_be_randart(item))
+        return false;
 
     // This item already is a randart.
     if (item.flags & ISFLAG_RANDART)
@@ -1662,10 +1789,6 @@ bool make_item_randart(item_def &item, bool force_mundane)
 
     // Not a truly random artefact.
     if (item.flags & ISFLAG_UNRANDART)
-        return false;
-
-    // Mundane items are much less likely to be artefacts.
-    if (!force_mundane && item.is_mundane() && !one_chance_in(5))
         return false;
 
     _artefact_setup_prop_vectors(item);
@@ -1776,8 +1899,8 @@ static void _make_faerie_armour(item_def &item)
             continue;
         }
 
-        // -Cast makes no sense on someone called "the Enchantress".
-        if (artefact_property(doodad, ARTP_PREVENT_SPELLCASTING))
+        // -Wiz makes no sense on someone called "the Enchantress".
+        if (artefact_property(doodad, ARTP_INHIBIT_SPELLCASTING))
             continue;
 
         if (one_chance_in(20))

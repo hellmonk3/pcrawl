@@ -89,6 +89,8 @@ enum ability_type
 #endif
     ABIL_EVOKE_DISPATER,
     ABIL_EVOKE_OLGREB,
+    ABIL_TELEPORT,
+    ABIL_BERSERK,
 
     // Divine abilities
     // Zin

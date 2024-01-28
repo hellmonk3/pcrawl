@@ -4757,7 +4757,7 @@ static object_class_type _concretize_type(const item_spec &spec)
         return ret;
     }
     if (spec.level == ISPEC_ACQUIREMENT)
-        return shuffled_acquirement_classes(false)[0];
+        return shuffled_acquirement_classes()[0];
     return spec.base_type;
 }
 

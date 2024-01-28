@@ -243,30 +243,15 @@ const char* jewellery_base_ability_string(int subtype)
 {
     switch (subtype)
     {
-#if TAG_MAJOR_VERSION == 34
-    case RING_SUSTAIN_ATTRIBUTES: return "SustAt";
-#endif
-    case RING_WIZARDRY:           return "Wiz";
-    case RING_FIRE:               return "Fire";
-    case RING_ICE:                return "Ice";
-#if TAG_MAJOR_VERSION == 34
-    case RING_TELEPORTATION:      return "*Tele";
-    case RING_TELEPORT_CONTROL:   return "+cTele";
-    case AMU_HARM:                return "Harm";
-    case AMU_THE_GOURMAND:        return "Gourm";
-#endif
-    case AMU_MANA_REGENERATION:   return "RegenMP";
+    case AMU_VAMPIRISM:           return "Vamp";
     case AMU_ACROBAT:             return "Acrobat";
-#if TAG_MAJOR_VERSION == 34
-    case AMU_CONSERVATION:        return "Cons";
-    case AMU_CONTROLLED_FLIGHT:   return "cFly";
-#endif
     case AMU_GUARDIAN_SPIRIT:     return "Spirit";
     case AMU_FAITH:               return "Faith";
     case AMU_REFLECTION:          return "Reflect";
-#if TAG_MAJOR_VERSION == 34
-    case AMU_INACCURACY:          return "Inacc";
-#endif
+    case AMU_DARKNESS:            return "Dark";
+    case AMU_WIZARDRY:            return "Wiz";
+    case AMU_RAGE:                return "+Rage";
+    case AMU_TELEPORTATION:       return "+Tele";
     }
     return "";
 }
@@ -339,8 +324,8 @@ static const vector<property_descriptor> & _get_all_artp_desc_data()
         { ARTP_NOISE,
             "It may make a loud noise when swung.",
             prop_note::plain },
-        { ARTP_PREVENT_SPELLCASTING,
-            "It prevents spellcasting.",
+        { ARTP_INHIBIT_SPELLCASTING,
+            "It raises the skill requirement to cast spells by one.",
             prop_note::plain },
         { ARTP_PREVENT_TELEPORTATION,
             "It prevents most forms of teleportation.",
@@ -360,8 +345,8 @@ static const vector<property_descriptor> & _get_all_artp_desc_data()
         { ARTP_REGENERATION,
             "It increases your rate of health regeneration.",
             prop_note::symbolic },
-        { ARTP_RMUT,
-            "It protects you from mutation.",
+        { ARTP_MUTATE,
+            "It sometimes mutates you when you descend (1/5 chance).",
             prop_note::plain },
         { ARTP_CORRODE,
             "It may corrode you when you take damage.",
@@ -455,7 +440,7 @@ static vector<string> _randart_propnames(const item_def& item,
     {
         // (Generally) negative attributes
         // These come first, so they don't get chopped off!
-        ARTP_PREVENT_SPELLCASTING,
+        ARTP_INHIBIT_SPELLCASTING,
         ARTP_PREVENT_TELEPORTATION,
         ARTP_CONTAM,
         ARTP_ANGRY,
@@ -478,7 +463,7 @@ static vector<string> _randart_propnames(const item_def& item,
         ARTP_COLD,
         ARTP_WILLPOWER,
         ARTP_REGENERATION,
-        ARTP_RMUT,
+        ARTP_MUTATE,
 
         // Quantitative attributes
         ARTP_HP,
@@ -629,7 +614,7 @@ static const char* _jewellery_base_ability_description(int subtype)
     case RING_SUSTAIN_ATTRIBUTES:
         return "It sustains your strength, intelligence and dexterity.";
 #endif
-    case RING_WIZARDRY:
+    case AMU_WIZARDRY:
         return "It reduces the skill requirement of your spells by one.";
     case RING_FIRE:
         return "It enhances your fire magic.";
@@ -642,11 +627,11 @@ static const char* _jewellery_base_ability_description(int subtype)
         return "It can be evoked for teleport control.";
     case AMU_HARM:
         return "It increases damage dealt and taken.";
-    case AMU_THE_GOURMAND:
-        return "It allows you to eat raw meat even when not hungry.";
+    case AMU_PROTECTION:
+        return "It increases your AC.";
 #endif
-    case AMU_MANA_REGENERATION:
-        return "It increases your rate of magic regeneration.";
+    case AMU_WILLPOWER:
+        return "It increases your willpower.";
     case AMU_ACROBAT:
         return "It increases your evasion while moving and waiting.";
 #if TAG_MAJOR_VERSION == 34
@@ -664,6 +649,8 @@ static const char* _jewellery_base_ability_description(int subtype)
     case AMU_INACCURACY:
         return "It reduces the accuracy of all your attacks.";
 #endif
+    case AMU_DARKNESS:
+        return "It reduces your range of vision.";
     }
     return "";
 }
@@ -1277,70 +1264,6 @@ static string _your_skill_desc(skill_type skill, bool show_target_button,
                             target_button_desc.c_str());
 }
 
-/**
- * Produce a description of a skill target for items where specific targets are
- * relevant.
- *
- * @param skill the skill to look at.
- * @param scaled_target a skill level target, scaled by 10.
- * @param training a training value, from 0 to 100. Need not be the actual training
- * value.
- */
-static string _skill_target_desc(skill_type skill, int scaled_target,
-                                        unsigned int training)
-{
-    string description = "";
-    scaled_target = min(scaled_target, 270);
-
-    const bool max_training = (training == 100);
-    const bool hypothetical = !crawl_state.need_save ||
-                                    (training != you.training[skill]);
-
-    const skill_diff diffs = skill_level_to_diffs(skill,
-                                (double) scaled_target / 10, training, false);
-    const int level_diff = xp_to_level_diff(diffs.experience / 10, 10);
-
-    if (max_training)
-        description += "At 100% training ";
-    else if (!hypothetical)
-    {
-        description += make_stringf("At current training (%d%%) ",
-                                        you.training[skill]);
-    }
-    else
-        description += make_stringf("At a training level of %d%% ", training);
-
-    description += make_stringf(
-        "you %sreach %d.%d in %s %d.%d XLs.",
-            hypothetical ? "would " : "",
-            scaled_target / 10, scaled_target % 10,
-            (you.experience_level + (level_diff + 9) / 10) > 27
-                                ? "the equivalent of" : "about",
-            level_diff / 10, level_diff % 10);
-    if (you.wizard)
-    {
-        description += make_stringf("\n    (%d xp, %d skp)",
-                                    diffs.experience, diffs.skill_points);
-    }
-    return description;
-}
-
-/**
- * Append two skill target descriptions: one for 100%, and one for the
- * current training rate.
- */
-static void _append_skill_target_desc(string &description, skill_type skill,
-                                        int scaled_target)
-{
-    if (!you.has_mutation(MUT_DISTRIBUTED_TRAINING))
-        description += "\n    " + _skill_target_desc(skill, scaled_target, 100);
-    if (you.training[skill] > 0 && you.training[skill] < 100)
-    {
-        description += "\n    " + _skill_target_desc(skill, scaled_target,
-                                                    you.training[skill]);
-    }
-}
-
 static string _describe_brand(brand_type brand)
 {
     switch (brand) {
@@ -1508,9 +1431,6 @@ static void _append_weapon_stats(string &description, const item_def &item)
         description += "\n    "
             + _your_skill_desc(skill, can_set_target, required_skill);
     }
-
-    if (below_target)
-        _append_skill_target_desc(description, skill, required_skill);
 
     if (want_player_stats)
         description += "\nDamage rating: " + damage_rating(&item);
@@ -1938,23 +1858,23 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it protects its wearer from fire.";
     case SPARM_COLD_RESISTANCE:
         return "it protects its wearer from cold.";
-    case SPARM_POISON_RESISTANCE:
-        return "it protects its wearer from poison.";
-    case SPARM_SEE_INVISIBLE:
-        return "it allows its wearer to see invisible things.";
+    case SPARM_INSULATION:
+        return "it protects its wearer from electricity.";
+    case SPARM_DETECTION:
+        return "it reveals the location of stairs.";
     case SPARM_INVISIBILITY:
-        return "when activated, it grants its wearer temporary "
-               "invisibility, but also drains their maximum health.";
-    case SPARM_STRENGTH:
-        return "it increases the strength of its wearer (Str +3).";
-    case SPARM_DEXTERITY:
-        return "it increases the dexterity of its wearer (Dex +3).";
-    case SPARM_INTELLIGENCE:
-        return "it increases the intelligence of its wearer (Int +3).";
+        return "when activated, it grants its wearer temporary invisibility; "
+               "the duration increases with its user's skill in Hexes.";
+    case SPARM_STABILITY:
+        return "it prevents unwanted movement effects, such as trampling.";
+    case SPARM_MAGICAL_POWER:
+        return "it increases the maximum magic of its wearer (MP +5).";
+    case SPARM_WIZARDRY:
+        return "it reduces the skill requirement of all spells by one.";
     case SPARM_PONDEROUSNESS:
-        return "it is very cumbersome, slowing its wearer's movement.";
+        return "it is very cumbersome, stunning its wearer after movement.";
     case SPARM_FLYING:
-        return "it grants its wearer flight.";
+        return "it grants its wearer flight, negating floor hazards.";
     case SPARM_WILLPOWER:
         return "it increases its wearer's willpower, protecting "
                "against certain magical effects.";
@@ -1964,51 +1884,63 @@ static const char* _item_ego_desc(special_armour_type ego)
         return "it enhances the stealth of its wearer.";
     case SPARM_RESISTANCE:
         return "it protects its wearer from the effects of both fire and cold.";
-    case SPARM_POSITIVE_ENERGY:
-        return "it protects its wearer from the effects of negative energy.";
+    case SPARM_EVASION:
+        return "it increases its wearer's evasion (EV +15).";
     case SPARM_ARCHMAGI:
         return "it increases the power of its wearer's magical spells.";
-    case SPARM_PRESERVATION:
-        return "it protects its wearer from the effects of acid and corrosion.";
+    case SPARM_FOG:
+        return "it releases fog to aid in escape when its wearer is damaged "
+               "(50% chance).";
     case SPARM_REFLECTION:
         return "it reflects blocked missile attacks back in the "
                "direction they came from.";
     case SPARM_SPIRIT_SHIELD:
         return "it causes incoming damage to be divided between "
                "the wearer's reserves of health and magic.";
-    case SPARM_HURLING:
-        return "it improves its wearer's accuracy and damage with "
-               "thrown weapons, such as rocks and javelins (Slay +4).";
+    case SPARM_SNIPING:
+        return "it improves its wearer's damage with ranged weapons and"
+               "thrown projectiles (Slay + 5).";
     case SPARM_REPULSION:
         return "it protects its wearer by repelling missiles.";
 #if TAG_MAJOR_VERSION == 34
     case SPARM_CLOUD_IMMUNE:
         return "it does nothing special.";
 #endif
-    case SPARM_HARM:
-        return "it increases damage dealt and taken.";
-    case SPARM_SHADOWS:
+    case SPARM_DETECT_MONS:
+        return "it detects monsters in a 6 tile radius.";
+    case SPARM_DARKNESS:
         return "it reduces the distance the wearer can be seen at "
                "and can see.";
     case SPARM_RAMPAGING:
         return "its wearer takes one free step when moving towards enemies.";
     case SPARM_INFUSION:
-        return "it empowers each of its wearer's blows with a small part of "
-               "their magic.";
+        return "it expends 1 MP per melee attack to add 10 slaying.";
     case SPARM_LIGHT:
-        return "it surrounds the wearer with a glowing halo, revealing "
-               "invisible creatures, increasing accuracy against all within "
-               "it other than the wearer, and reducing the wearer's stealth.";
-    case SPARM_RAGE:
-        return "it berserks the wearer when making melee attacks (20% chance).";
+        return "it surrounds the wearer with a glowing halo, ensuring "
+               "perfect accuracy against all within it other than the wearer, "
+               "and preventing stealth.";
+    case SPARM_ELEMENTS:
+        return "it decreases the skill requirement and increases the power of "
+               "earth, air, fire, and ice spells by one.";
     case SPARM_MAYHEM:
-        return "it causes witnesses of the wearer's kills to go into a frenzy,"
-               " attacking everything nearby with great strength and speed.";
+        return "when the wearer kills a monster, it will cause a random nearby "
+               "monster to go into a frenzy, attacking indiscriminately with "
+               "great strength and speed.";
     case SPARM_GUILE:
-        return "it weakens the willpower of the wielder and everyone they hex.";
+        return "it halves (rounded down) the willpower of the wielder and "
+               "everyone they hex.";
     case SPARM_ENERGY:
-        return "it may return the magic spent to cast spells, but lowers their "
-               "success rate. It always returns the magic spent on miscasts.";
+        return "it may return the magic spent to cast spells (20% chance). ";
+    case SPARM_SPIKES:
+        return "it deals 1d10 damage to the attacker after blocking a melee "
+               "attack. ";
+    case SPARM_HEALTH:
+        return "it increases the wearer's maximum hitpoints by 12.";
+    case SPARM_WEAKENING:
+        return "it weakens foes that strike the wearer in melee (50% chance), "
+               "reducing their melee damage.";
+    case SPARM_FRIENDSHIP:
+        return "it doesn't do anything, yet.";
     default:
         return "it makes the wearer crave the taste of eggplant.";
     }
@@ -2212,8 +2144,6 @@ static string _describe_talisman_form(const item_def &item, bool monster)
                                 && !you.has_mutation(MUT_DISTRIBUTED_TRAINING);
     description += _your_skill_desc(SK_SHAPESHIFTING, can_set_target,
                                     target_skill, "   ");
-    if (below_target)
-        _append_skill_target_desc(description, SK_SHAPESHIFTING, target_skill);
 
     // defenses
     const int hp = form->mult_hp(100, true);
@@ -2340,6 +2270,7 @@ static string _describe_jewellery(const item_def &item, bool verbose)
             switch (item.sub_type)
             {
             case RING_PROTECTION:
+            case AMU_PROTECTION:
                 description += make_stringf("\n\nIt affects your AC (%+d).",
                                             item.plus);
                 break;
@@ -2349,9 +2280,9 @@ static string _describe_jewellery(const item_def &item, bool verbose)
                                             item.plus);
                 break;
 
-            case RING_SLAYING:
-                description += make_stringf("\n\nIt affects your accuracy and"
-                      " damage with ranged weapons and melee (%+d).",
+            case AMU_SLAYING:
+                description += make_stringf("\n\nIt affects your damage"
+                      " with ranged weapons and melee (%+d).",
                       item.plus);
                 break;
 
@@ -2536,7 +2467,7 @@ string get_item_description(const item_def &item,
         else if (is_artefact(item) && item_type_known(item)
                  && item.base_type == OBJ_JEWELLERY)
         {
-            description << "It is an ancient artefact.";
+            description << "It is an artefact.";
             need_base_desc = false;
         }
 
@@ -2769,18 +2700,11 @@ string get_item_description(const item_def &item,
 
         if (is_artefact(item))
         {
-            if (item.base_type == OBJ_ARMOUR
-                || item.base_type == OBJ_WEAPONS)
-            {
-                description << "\nThis ancient artefact cannot be changed "
-                    "by magic or mundane means.";
-            }
             // Randart jewellery has already displayed this line.
-            else if (item.base_type != OBJ_JEWELLERY
-                     || (item_type_known(item) && is_unrandom_artefact(item)))
-            {
-                description << "\nIt is an ancient artefact.";
-            }
+            if (item.base_type != OBJ_JEWELLERY)
+                description << "\nIt is an artefact.";
+            if (is_unrandom_artefact(item))
+                description << "\nIt is a unique item and cannot be modified.";
         }
     }
 

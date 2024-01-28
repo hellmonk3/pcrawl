@@ -33,7 +33,7 @@ enum artefact_prop_type
     ARTP_BERSERK,
 #endif
     ARTP_NOISE,
-    ARTP_PREVENT_SPELLCASTING,
+    ARTP_INHIBIT_SPELLCASTING,
 #if TAG_MAJOR_VERSION == 34
     ARTP_CAUSE_TELEPORTATION,
 #endif
@@ -69,7 +69,7 @@ enum artefact_prop_type
 #if TAG_MAJOR_VERSION == 34
     ARTP_RCORR,
 #endif
-    ARTP_RMUT,
+    ARTP_MUTATE,
 #if TAG_MAJOR_VERSION == 34
     ARTP_TWISTER,
 #endif

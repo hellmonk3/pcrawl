@@ -557,12 +557,12 @@ const char* armour_ego_name(const item_def& item, bool terse)
 #endif
         case SPARM_FIRE_RESISTANCE:   return "fire resistance";
         case SPARM_COLD_RESISTANCE:   return "cold resistance";
-        case SPARM_POISON_RESISTANCE: return "poison resistance";
-        case SPARM_SEE_INVISIBLE:     return "see invisible";
+        case SPARM_INSULATION:        return "insulation";
+        case SPARM_DETECTION:         return "detection";
         case SPARM_INVISIBILITY:      return "invisibility";
-        case SPARM_STRENGTH:          return "strength";
-        case SPARM_DEXTERITY:         return "dexterity";
-        case SPARM_INTELLIGENCE:      return "intelligence";
+        case SPARM_STABILITY:         return "stability";
+        case SPARM_MAGICAL_POWER:     return "magical power";
+        case SPARM_WIZARDRY:          return "wizardry";
         case SPARM_PONDEROUSNESS:     return "ponderousness";
         case SPARM_FLYING:            return "flying";
 
@@ -570,28 +570,32 @@ const char* armour_ego_name(const item_def& item, bool terse)
         case SPARM_PROTECTION:        return "protection";
         case SPARM_STEALTH:           return "stealth";
         case SPARM_RESISTANCE:        return "resistance";
-        case SPARM_POSITIVE_ENERGY:   return "positive energy";
+        case SPARM_EVASION:           return "evasion";
         case SPARM_ARCHMAGI:          return "the Archmagi";
 #if TAG_MAJOR_VERSION == 34
         case SPARM_JUMPING:           return "jumping";
 #endif
-        case SPARM_PRESERVATION:      return "preservation";
+        case SPARM_FOG:               return "fog";
         case SPARM_REFLECTION:        return "reflection";
         case SPARM_SPIRIT_SHIELD:     return "spirit shield";
-        case SPARM_HURLING:           return "hurling";
+        case SPARM_SNIPING:           return "sniping";
         case SPARM_REPULSION:         return "repulsion";
 #if TAG_MAJOR_VERSION == 34
         case SPARM_CLOUD_IMMUNE:      return "cloud immunity";
 #endif
-        case SPARM_HARM:              return "harm";
-        case SPARM_SHADOWS:           return "shadows";
+        case SPARM_DETECT_MONS:       return "detect monsters";
+        case SPARM_DARKNESS:          return "darkness";
         case SPARM_RAMPAGING:         return "rampaging";
         case SPARM_INFUSION:          return "infusion";
         case SPARM_LIGHT:             return "light";
-        case SPARM_RAGE:              return "wrath";
+        case SPARM_ELEMENTS:          return "elements";
         case SPARM_MAYHEM:            return "mayhem";
         case SPARM_GUILE:             return "guile";
         case SPARM_ENERGY:            return "energy";
+        case SPARM_SPIKES:            return "spikes";
+        case SPARM_HEALTH:            return "health";
+        case SPARM_WEAKENING:         return "weakening";
+        case SPARM_FRIENDSHIP:        return "friendship";
         default:                      return "bugginess";
         }
     }
@@ -605,40 +609,44 @@ const char* armour_ego_name(const item_def& item, bool terse)
 #endif
         case SPARM_FIRE_RESISTANCE:   return "rF+";
         case SPARM_COLD_RESISTANCE:   return "rC+";
-        case SPARM_POISON_RESISTANCE: return "rPois";
-        case SPARM_SEE_INVISIBLE:     return "SInv";
+        case SPARM_INSULATION:        return "rElec";
+        case SPARM_DETECTION:         return "detect";
         case SPARM_INVISIBILITY:      return "+Inv";
-        case SPARM_STRENGTH:          return "Str+3";
-        case SPARM_DEXTERITY:         return "Dex+3";
-        case SPARM_INTELLIGENCE:      return "Int+3";
+        case SPARM_STABILITY:         return "Stable";
+        case SPARM_MAGICAL_POWER:     return "MP+5";
+        case SPARM_WIZARDRY:          return "Wiz";
         case SPARM_PONDEROUSNESS:     return "ponderous";
         case SPARM_FLYING:            return "Fly";
         case SPARM_WILLPOWER:         return "Will+";
         case SPARM_PROTECTION:        return "AC+3";
         case SPARM_STEALTH:           return "Stlth+";
         case SPARM_RESISTANCE:        return "rC+ rF+";
-        case SPARM_POSITIVE_ENERGY:   return "rN+";
+        case SPARM_EVASION:           return "EV+15";
         case SPARM_ARCHMAGI:          return "Archmagi";
 #if TAG_MAJOR_VERSION == 34
         case SPARM_JUMPING:           return "obsolete";
 #endif
-        case SPARM_PRESERVATION:      return "rCorr";
+        case SPARM_FOG:               return "fog";
         case SPARM_REFLECTION:        return "reflect";
         case SPARM_SPIRIT_SHIELD:     return "Spirit";
-        case SPARM_HURLING:           return "hurl";
+        case SPARM_SNIPING:           return "snipe";
         case SPARM_REPULSION:         return "repulsion";
 #if TAG_MAJOR_VERSION == 34
         case SPARM_CLOUD_IMMUNE:      return "obsolete";
 #endif
-        case SPARM_HARM:              return "harm";
-        case SPARM_SHADOWS:           return "shadows";
+        case SPARM_DETECT_MONS:       return "detectmons";
+        case SPARM_DARKNESS:          return "dark";
         case SPARM_RAMPAGING:         return "rampage";
         case SPARM_INFUSION:          return "infuse";
         case SPARM_LIGHT:             return "light";
-        case SPARM_RAGE:              return "*Rage";
+        case SPARM_ELEMENTS:          return "elements";
         case SPARM_MAYHEM:            return "mayhem";
         case SPARM_GUILE:             return "guile";
         case SPARM_ENERGY:            return "*channel";
+        case SPARM_SPIKES:            return "spiky";
+        case SPARM_HEALTH:            return "HP+12";
+        case SPARM_WEAKENING:         return "weak";
+        case SPARM_FRIENDSHIP:        return "friend";
         default:                      return "buggy";
         }
     }
@@ -768,7 +776,7 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_REGENERATION:          return "obsoleteness";
         case RING_ATTENTION:             return "obsoleteness";
 #endif
-        case RING_PROTECTION:            return "protection";
+        case RING_PROTECTION:            return "obsoleteness";
         case RING_PROTECTION_FROM_FIRE:  return "protection from fire";
         case RING_POISON_RESISTANCE:     return "poison resistance";
         case RING_PROTECTION_FROM_COLD:  return "protection from cold";
@@ -802,11 +810,11 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_TELEPORTATION:         return "teleportation";
         case RING_TELEPORT_CONTROL:      return "teleport control";
 #endif
-        case AMU_MANA_REGENERATION: return "magic regeneration";
+        case AMU_WILLPOWER:         return "willpower";
         case AMU_ACROBAT:           return "the acrobat";
-#if TAG_MAJOR_VERSION == 34
         case AMU_RAGE:              return "rage";
-        case AMU_THE_GOURMAND:      return "gourmand";
+        case AMU_PROTECTION:        return "protection";
+#if TAG_MAJOR_VERSION == 34
         case AMU_HARM:              return "harm";
         case AMU_CONSERVATION:      return "conservation";
         case AMU_CONTROLLED_FLIGHT: return "controlled flight";
@@ -816,7 +824,12 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case AMU_GUARDIAN_SPIRIT:   return "guardian spirit";
         case AMU_FAITH:             return "faith";
         case AMU_REFLECTION:        return "reflection";
-        case AMU_REGENERATION:      return "regeneration";
+        case AMU_VAMPIRISM:         return "vampirism";
+        case AMU_DARKNESS:          return "darkness";
+        case AMU_WIZARDRY:          return "wizardry";
+        case AMU_MAGICAL_POWER:     return "magical power";
+        case AMU_SLAYING:           return "slaying";
+        case AMU_TELEPORTATION:     return "teleportation";
         default: return "buggy jewellery";
         }
     }
@@ -830,14 +843,14 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_REGENERATION:          return "obsoleteness";
         case RING_ATTENTION:             return "obsoleteness";
 #endif
-        case RING_PROTECTION:            return "AC";
+        case RING_PROTECTION:            return "obsoleteness";
         case RING_PROTECTION_FROM_FIRE:  return "rF+";
         case RING_POISON_RESISTANCE:     return "rPois";
         case RING_PROTECTION_FROM_COLD:  return "rC+";
 #if TAG_MAJOR_VERSION == 34
         case RING_STRENGTH:              return "Str";
 #endif
-        case RING_SLAYING:               return "Slay";
+        case AMU_SLAYING:                return "Slay";
         case RING_SEE_INVISIBLE:         return "sInv";
 #if TAG_MAJOR_VERSION == 34
         case RING_RESIST_CORROSION:      return "rCorr";
@@ -848,18 +861,20 @@ const char* jewellery_effect_name(int jeweltype, bool terse)
         case RING_DEXTERITY:             return "Dex";
         case RING_INTELLIGENCE:          return "Int";
 #endif
-        case RING_MAGICAL_POWER:         return "MP+9";
+        case AMU_MAGICAL_POWER:          return "MP+5";
         case RING_FLIGHT:                return "Fly";
 #if TAG_MAJOR_VERSION == 34
         case RING_LIFE_PROTECTION:       return "rN+";
 #endif
         case RING_WILLPOWER:             return "Will+";
-        case AMU_REGENERATION:           return "Regen";
-#if TAG_MAJOR_VERSION == 34
+        case AMU_VAMPIRISM:              return "Vamp";
         case AMU_RAGE:                   return "+Rage";
-#endif
         case AMU_ACROBAT:                return "Acrobat";
+        case AMU_PROTECTION:             return "AC";
+        case AMU_DARKNESS:               return "dark";
+        case AMU_WILLPOWER:              return "Will+";
         case AMU_NOTHING:                return "";
+        case AMU_TELEPORTATION:          return "tele";
         default: return "buggy";
         }
     }
@@ -998,7 +1013,6 @@ static string misc_type_name(int type)
     case MISC_BUGGY_EBONY_CASKET:        return "removed ebony casket";
     case MISC_FAN_OF_GALES:              return "removed fan of gales";
     case MISC_LAMP_OF_FIRE:              return "removed lamp of fire";
-    case MISC_BUGGY_LANTERN_OF_SHADOWS:  return "removed lantern of shadows";
 #endif
     case MISC_HORN_OF_GERYON:            return "horn of Geryon";
     case MISC_LIGHTNING_ROD:             return "lightning rod";
@@ -1017,6 +1031,20 @@ static string misc_type_name(int type)
 #endif
     case MISC_TIN_OF_TREMORSTONES:       return "tin of tremorstones";
     case MISC_CONDENSER_VANE:            return "condenser vane";
+    case MISC_DUNGEON_ATLAS:             return "dungeon atlas";
+    case MISC_HARP_OF_HEALING:           return "harp of healing";
+    case MISC_MAGES_CHALICE:             return "mage's chalice";
+    case MISC_BUTTERFLY_JAR:             return "butterfly jar";
+    case MISC_PURPLE_STATUETTE:          return "purple statuette";
+    case MISC_MAGNET:                    return "magnet";
+    case MISC_LANTERN_OF_SHADOWS:        return "lantern of shadows";
+    case MISC_KUDZU_POT:                 return "pot of kudzu";
+    case MISC_SKELETON_KEY:              return "skeleton key";
+    case MISC_PANDEMONIUM_PIZZA:         return "pandemonium pizza";
+    case MISC_JUMPER_CABLE:              return "jumper cable";
+    case MISC_RING_OF_RESISTANCE:        return "ring of resistance";
+    case MISC_CROWN_OF_LEAVES:           return "crown of leaves";
+    case MISC_LAMP_OF_IMMOLATION:        return "lamp of immolation";
 
     default:
         return "buggy miscellaneous item";
@@ -3152,7 +3180,8 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
         if (is_artefact(item))
             return false;
 
-        if (item.sub_type == ARM_SCARF && (ident || item_type_known(item)))
+        if ((item.sub_type == ARM_HELMET  || item.sub_type == ARM_HAT)
+                && (ident || item_type_known(item)))
         {
             special_armour_type ego = get_armour_ego_type(item);
             switch (ego)
@@ -3162,9 +3191,6 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
             case SPARM_REPULSION:
                 return temp && have_passive(passive_t::upgraded_storm_shield)
                        || you.get_mutation_level(MUT_DISTORTION_FIELD) == 3;
-            case SPARM_INVISIBILITY:
-                return you.has_mutation(MUT_NO_ARTIFICE)
-                       || !invis_allowed(true, nullptr, temp);
             default:
                 return false;
             }
@@ -3174,10 +3200,10 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
             special_armour_type ego = get_armour_ego_type(item);
             switch (ego)
             {
-            case SPARM_RAGE:
-                return !you.can_go_berserk(false, false, true, nullptr, temp);
             case SPARM_ENERGY:
                 return you.has_mutation(MUT_HP_CASTING);
+            case SPARM_INVISIBILITY:
+                return !invis_allowed(true, nullptr, temp);
             default:
                 return false;
             }
@@ -3244,6 +3270,9 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
         case AMU_ACROBAT:
             return you.has_mutation(MUT_ACROBATIC);
 
+        case AMU_TELEPORTATION:
+            return you.stasis();
+
         case AMU_FAITH:
             return (you.has_mutation(MUT_FORLORN) && !you.religion) // ??
                     || you.has_mutation(MUT_FAITH)
@@ -3252,18 +3281,8 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
         case AMU_GUARDIAN_SPIRIT:
             return you.spirit_shield(false) || you.has_mutation(MUT_HP_CASTING);
 
-        case AMU_REGENERATION:
-            return
-#if TAG_MAJOR_VERSION == 34
-                   you.get_mutation_level(MUT_NO_REGENERATION) > 0 ||
-#endif
-                     (temp
-                       && (you.get_mutation_level(MUT_INHIBITED_REGENERATION) > 0
-                           || you.has_mutation(MUT_VAMPIRISM))
-                       && regeneration_is_inhibited());
-
-        case AMU_MANA_REGENERATION:
-            return !you.max_magic_points;
+        case AMU_VAMPIRISM:
+            return is_good_god(you.religion);
 
         case RING_MAGICAL_POWER:
             return you.has_mutation(MUT_HP_CASTING);
@@ -3274,7 +3293,7 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
         case RING_POISON_RESISTANCE:
             return player_res_poison(false, temp, false) > 0;
 
-        case RING_WIZARDRY:
+        case AMU_WIZARDRY:
             return you_worship(GOD_TROG);
 
         case RING_FLIGHT:
@@ -3341,16 +3360,6 @@ string item_prefix(const item_def &item, bool temp)
 
     if (!item.defined())
         return "";
-
-    if (fully_identified(item))
-        prefixes.push_back("identified");
-    else if (item_ident(item, ISFLAG_KNOW_TYPE)
-             || get_ident_type(item))
-    {
-        prefixes.push_back("known");
-    }
-    else
-        prefixes.push_back("unidentified");
 
     if (god_hates_item(item))
     {

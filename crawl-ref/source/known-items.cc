@@ -435,7 +435,6 @@ void check_item_knowledge(bool unknown_items)
 #if TAG_MAJOR_VERSION == 34
                 || is_deck_type(i)
                 || i == MISC_BUGGY_EBONY_CASKET
-                || i == MISC_BUGGY_LANTERN_OF_SHADOWS
                 || i == MISC_BOTTLED_EFREET
                 || i == MISC_RUNE_OF_ZOT
                 || i == MISC_STONE_OF_TREMORS

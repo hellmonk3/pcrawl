@@ -2338,7 +2338,7 @@ int mon_enchant::calc_duration(const monster* mons,
         return random_range(3, 7) * 10;
 
     case ENCH_STUN:
-        return 10;
+        return 20;
 
     case ENCH_PORTAL_PACIFIED:
         // Must be set by spell.

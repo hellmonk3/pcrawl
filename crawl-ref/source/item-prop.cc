@@ -74,47 +74,53 @@ struct armour_def
 
 // Total weight 25 (multiply by 4 for %s).
 static const vector<ego_weight_tuple> BASIC_BODY_EGOS = {
-    { SPARM_FIRE_RESISTANCE,   7 },
-    { SPARM_COLD_RESISTANCE,   7 },
-    { SPARM_POISON_RESISTANCE, 5 },
-    { SPARM_WILLPOWER,         4 },
-    { SPARM_POSITIVE_ENERGY,   2 },
+    { SPARM_FIRE_RESISTANCE,   2 },
+    { SPARM_COLD_RESISTANCE,   2 },
+    { SPARM_WILLPOWER,         2 },
+    { SPARM_MAGICAL_POWER,     2 },
+    { SPARM_WIZARDRY,          1 },
+    { SPARM_ARCHMAGI,          1 },
+    { SPARM_INFUSION,          1 },
+    { SPARM_FRIENDSHIP,        1 },
 };
 
 // Total weight 100.
 static const vector<ego_weight_tuple> HEAVY_BODY_EGOS = {
-    { SPARM_FIRE_RESISTANCE,    26 },
-    { SPARM_COLD_RESISTANCE,    26 },
-    { SPARM_POISON_RESISTANCE,  19 },
-    { SPARM_WILLPOWER,          15 },
-    { SPARM_POSITIVE_ENERGY,    7 },
-    { SPARM_PONDEROUSNESS,      7 },
+    { SPARM_FIRE_RESISTANCE,    2 },
+    { SPARM_COLD_RESISTANCE,    2 },
+    { SPARM_WILLPOWER,          2 },
+    { SPARM_PONDEROUSNESS,      2 },
+    { SPARM_HEALTH,             2 },
+    { SPARM_WIZARDRY,           1 },
+    { SPARM_INFUSION,           1 },
+    { SPARM_ENERGY,             1 },
+    { SPARM_WEAKENING,          1 },
+    { SPARM_FRIENDSHIP,         1 },
 };
 
 static const vector<ego_weight_tuple> SHIELD_EGOS = {
+    { SPARM_PROTECTION,        2 },
+    { SPARM_FIRE_RESISTANCE,   2 },
+    { SPARM_COLD_RESISTANCE,   2 },
+    { SPARM_REFLECTION,        2 },
+    { SPARM_SPIKES,            2 },
+    { SPARM_LIGHT,             2 },
     { SPARM_RESISTANCE,        1 },
-    { SPARM_FIRE_RESISTANCE,   3 },
-    { SPARM_COLD_RESISTANCE,   3 },
-    { SPARM_POISON_RESISTANCE, 3 },
-    { SPARM_POSITIVE_ENERGY,   3 },
-    { SPARM_REFLECTION,        6 },
-    { SPARM_PROTECTION,       12 },
 };
 
 // would be nice to lookup the name from monster_for_armour, but that
 // leads to static initialization races (plus 'gold' special case)
 #if TAG_MAJOR_VERSION == 34
-#define DRAGON_ARMOUR(id, name, ac, evp, prc, res)                          \
+#define DRAGON_ARMOUR(id, name, ac, evp, prc, acq, res)                     \
     { ARM_ ## id ## _DRAGON_HIDE, "removed " name " dragon hide", 0, 0, 0,  \
-      EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, false, 0, {}, res },             \
+      EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, false, acq, {}, res },       \
     { ARM_ ## id ## _DRAGON_ARMOUR, name " dragon scales",  ac, evp, prc,   \
-      EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, false, 25, {}, res }
+      EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, false, acq, {}, res }
 #else
-#define DRAGON_ARMOUR(id, name, ac, evp, prc, res)                          \
+#define DRAGON_ARMOUR(id, name, ac, evp, prc, acq, res)                     \
     { ARM_ ## id ## _DRAGON_ARMOUR, name " dragon scales",  ac, evp, prc,   \
-      EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, false, 25, {}, res }
+      EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, false, acq, {}, res }
 #endif
-
 // Note: the Little-Giant range is used to make armours which are very
 // flexible and adjustable and can be worn by any player character...
 // providing they also pass the shape test, of course.
@@ -122,18 +128,20 @@ static int Armour_index[NUM_ARMOURS];
 static const armour_def Armour_prop[] =
 {
     { ARM_ANIMAL_SKIN,          "animal skin",            2,   0,     3,
-        EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, true, 333 },
+        EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, true, 0 },
     { ARM_ROBE,                 "robe",                   2,   0,     7,
         EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_LARGE, true, 1000, {
-            { SPARM_RESISTANCE,      1 },
             { SPARM_COLD_RESISTANCE, 2 },
             { SPARM_FIRE_RESISTANCE, 2 },
-            { SPARM_POSITIVE_ENERGY, 2 },
-            { SPARM_NORMAL,          3 },
-            { SPARM_WILLPOWER,       4 },
+            { SPARM_WILLPOWER,       2 },
+            { SPARM_MAGICAL_POWER,   2 },
+            { SPARM_STEALTH,         2 },
+            { SPARM_ARCHMAGI,        2 },
+            { SPARM_WIZARDRY,        2 },
+            { SPARM_RESISTANCE,      1 },
     }},
     { ARM_LEATHER_ARMOUR,       "leather armour",         3,  -10,   20,
-        EQ_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, true, 0, BASIC_BODY_EGOS },
+        EQ_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, true,  1000, BASIC_BODY_EGOS },
     { ARM_RING_MAIL,            "ring mail",              5,  -20,   40,
         EQ_BODY_ARMOUR, SIZE_SMALL,  SIZE_MEDIUM, true, 1000, BASIC_BODY_EGOS },
     { ARM_SCALE_MAIL,           "scale mail",             6, -40,   40,
@@ -151,38 +159,33 @@ static const armour_def Armour_prop[] =
        ARMF_REGENERATION, },
 #endif
     { ARM_TROLL_LEATHER_ARMOUR, "troll leather armour",  3,  -40,    150,
-       EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, false, 50, {},
+       EQ_BODY_ARMOUR, SIZE_LITTLE, SIZE_GIANT, false, 0, {},
        ARMF_REGENERATION },
 
     { ARM_CLOAK,                "cloak",                  1,   0,   45,
         EQ_CLOAK,       SIZE_LITTLE, SIZE_LARGE, true, 0, {
-            { SPARM_POISON_RESISTANCE, 1 },
-            { SPARM_WILLPOWER,         1 },
             { SPARM_STEALTH,           1 },
-            { SPARM_PRESERVATION,      1 },
     }},
     { ARM_SCARF,                "scarf",                  0,   0,   50,
         EQ_CLOAK,       SIZE_LITTLE, SIZE_LARGE, true, 0, {
             { SPARM_RESISTANCE,   1 },
-            { SPARM_REPULSION,    1 },
-            { SPARM_INVISIBILITY, 1 },
-            { SPARM_HARM,         1 },
-            { SPARM_SHADOWS,      1 },
     }},
 
     { ARM_GLOVES,               "gloves",                 1,   0,   45,
         EQ_GLOVES,      SIZE_SMALL,  SIZE_MEDIUM, true, 0, {
-            { SPARM_DEXTERITY, 1 },
-            { SPARM_STRENGTH,  1 },
-            { SPARM_HURLING,   1 },
             { SPARM_STEALTH,   1 },
-            { SPARM_INFUSION,  1 },
     }},
 
     { ARM_HELMET,               "helmet",                 1,   0,   45,
         EQ_HELMET,      SIZE_SMALL,  SIZE_MEDIUM, true, 0, {
-            { SPARM_SEE_INVISIBLE, 1 },
-            { SPARM_INTELLIGENCE,  1 },
+            { SPARM_COLD_RESISTANCE,  1 },
+            { SPARM_STEALTH,          1 },
+            { SPARM_REPULSION,        1 },
+            { SPARM_SNIPING,          1 },
+            { SPARM_MAGICAL_POWER,    1 },
+            { SPARM_WILLPOWER,        1 },
+            { SPARM_SPIRIT_SHIELD,    1 },
+            { SPARM_DETECTION,        1 },
     }},
 
 #if TAG_MAJOR_VERSION == 34
@@ -192,11 +195,14 @@ static const armour_def Armour_prop[] =
 
     { ARM_HAT,                  "hat",                    0,   0,   40,
         EQ_HELMET,      SIZE_TINY, SIZE_LARGE, true, 0, {
-            { SPARM_NORMAL,        10 },
-            { SPARM_STEALTH,       3 },
-            { SPARM_WILLPOWER,     3 },
-            { SPARM_INTELLIGENCE,  2 },
-            { SPARM_SEE_INVISIBLE, 2 },
+            { SPARM_STEALTH,       1 },
+            { SPARM_WILLPOWER,     1 },
+            { SPARM_REPULSION,     1 },
+            { SPARM_MAGICAL_POWER, 1 },
+            { SPARM_SPIRIT_SHIELD, 1 },
+            { SPARM_DETECTION,     1 },
+            { SPARM_SNIPING,       1 },
+            { SPARM_WIZARDRY,      1 },
     }},
 
     // Note that barding size is compared against torso so it currently
@@ -204,9 +210,14 @@ static const armour_def Armour_prop[] =
     // and shapeshift status.
     { ARM_BOOTS,                "boots",                  1,   0,   45,
         EQ_BOOTS,       SIZE_SMALL,  SIZE_MEDIUM, true, 0, {
-            { SPARM_FLYING,    1 },
-            { SPARM_STEALTH,   1 },
-            { SPARM_RAMPAGING, 1 },
+            { SPARM_FLYING,          1 },
+            { SPARM_STEALTH,         1 },
+            { SPARM_RAMPAGING,       1 },
+            { SPARM_INSULATION,      1 },
+            { SPARM_FIRE_RESISTANCE, 1 },
+            { SPARM_MAGICAL_POWER,   1 },
+            { SPARM_EVASION,         1 },
+            { SPARM_STABILITY,       1 },
     }},
     // Changed max. barding size to large to allow for the appropriate
     // monster types (monsters don't differentiate between torso and general).
@@ -217,20 +228,28 @@ static const armour_def Armour_prop[] =
     { ARM_BARDING,         "barding",           4,  -60,  230,
         EQ_BOOTS,       SIZE_MEDIUM, SIZE_LARGE, true, 0, {
             { SPARM_FLYING,          1 },
-            { SPARM_COLD_RESISTANCE, 1 },
-            { SPARM_FIRE_RESISTANCE, 1 },
             { SPARM_STEALTH,         1 },
+            { SPARM_RAMPAGING,       1 },
+            { SPARM_INSULATION,      1 },
+            { SPARM_FIRE_RESISTANCE, 1 },
+            { SPARM_MAGICAL_POWER,   1 },
+            { SPARM_EVASION,         1 },
+            { SPARM_STABILITY,       1 },
     }},
 
     // Note: shields use ac-value as sh-value, EV pen is used as the basis
     // to calculate adjusted shield penalty.
     { ARM_ORB,                 "orb",                     0,   0,   90,
         EQ_SHIELD,      SIZE_LITTLE, SIZE_GIANT, true, 0, {
-            { SPARM_LIGHT,  1 },
-            { SPARM_RAGE,   1 },
-            { SPARM_MAYHEM, 1 },
-            { SPARM_GUILE,  1 },
-            { SPARM_ENERGY, 1 },
+            { SPARM_ELEMENTS,       1 },
+            { SPARM_MAYHEM,         1 },
+            { SPARM_GUILE,          1 },
+            { SPARM_ENERGY,         1 },
+            { SPARM_DARKNESS,       1 },
+            { SPARM_INFUSION,       1 },
+            { SPARM_FOG,            1 },
+            { SPARM_INVISIBILITY,   1 },
+            { SPARM_DETECT_MONS,    1 },
     }},
     { ARM_BUCKLER,             "buckler",                 3,  -50,  45,
         EQ_SHIELD,      SIZE_LITTLE, SIZE_MEDIUM, true, 0, SHIELD_EGOS },
@@ -240,25 +259,25 @@ static const armour_def Armour_prop[] =
         EQ_SHIELD,      SIZE_MEDIUM, SIZE_GIANT, true, 0, SHIELD_EGOS },
 
     // Following all ARM_ entries for the benefit of util/gather_items
-    DRAGON_ARMOUR(STEAM,       "steam",                   5,   0,   400,
+    DRAGON_ARMOUR(STEAM,       "steam",                   5,   0,   400, 0,
         ARMF_RES_STEAM),
-    DRAGON_ARMOUR(ACID,        "acid",                    6,  -50,  400,
+    DRAGON_ARMOUR(ACID,        "acid",                    6,  -50,  400, 0,
         ARMF_RES_CORR),
-    DRAGON_ARMOUR(QUICKSILVER, "quicksilver",             9,  -70,  600,
+    DRAGON_ARMOUR(QUICKSILVER, "quicksilver",             9,  -70,  600, 0,
         ARMF_WILLPOWER),
-    DRAGON_ARMOUR(SWAMP,       "swamp",                   7,  -70,  500,
+    DRAGON_ARMOUR(SWAMP,       "swamp",                   7,  -70,  500, 0,
         ARMF_RES_POISON),
-    DRAGON_ARMOUR(FIRE,        "fire",                    8, -110,  600,
+    DRAGON_ARMOUR(FIRE,        "fire",                    8, -110,  600, 0,
         ard(ARMF_RES_FIRE, 2) | ARMF_VUL_COLD),
-    DRAGON_ARMOUR(ICE,         "ice",                     9, -110,  600,
+    DRAGON_ARMOUR(ICE,         "ice",                     9, -110,  600, 0,
         ard(ARMF_RES_COLD, 2) | ARMF_VUL_FIRE),
-    DRAGON_ARMOUR(PEARL,       "pearl",                  10, -110, 1000,
+    DRAGON_ARMOUR(PEARL,       "pearl",                  10, -110, 1000, 0,
         ARMF_RES_NEG),
-    DRAGON_ARMOUR(STORM,       "storm",                  10, -150,  800,
+    DRAGON_ARMOUR(STORM,       "storm",                  10, -150,  800, 0,
         ARMF_RES_ELEC),
-    DRAGON_ARMOUR(SHADOW,      "shadow",                 11, -150,  800,
+    DRAGON_ARMOUR(SHADOW,      "shadow",                 11, -150,  800, 0,
         ard(ARMF_STEALTH, 4)),
-    DRAGON_ARMOUR(GOLD,        "gold",                   12, -230,  800,
+    DRAGON_ARMOUR(GOLD,        "gold",                   12, -230,  800, 0,
         ARMF_RES_FIRE | ARMF_RES_COLD | ARMF_RES_POISON),
 
 #undef DRAGON_ARMOUR
@@ -459,7 +478,7 @@ static const weapon_def Weapon_prop[] =
 #endif
     { WPN_WHIP,              "whip",                6,  2, 1,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
-        DAMV_SLASHING, 4, 0, 25, {
+        DAMV_SLASHING, 4, 10, 25, {
             { SPWPN_NORMAL,        34 },
             { SPWPN_SPELLVAMP,         16 },
             { SPWPN_ELECTROCUTION, 16 },
@@ -499,7 +518,7 @@ static const weapon_def Weapon_prop[] =
         }},
     { WPN_DEMON_WHIP,        "demon whip",         11,  1, 5,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
-        DAMV_SLASHING, 0, 2, 150, DEMON_BRANDS },
+        DAMV_SLASHING, 0, 0, 150, DEMON_BRANDS },
     { WPN_SACRED_SCOURGE,    "sacred scourge",     12,  0, 5,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLASHING, 0, 0, 200, HOLY_BRANDS },
@@ -508,7 +527,7 @@ static const weapon_def Weapon_prop[] =
         DAMV_CRUSHING | DAM_PIERCE, 2, 10, 40, M_AND_F_BRANDS },
     { WPN_EVENINGSTAR,       "eveningstar",        15, -1, 7,
         SK_MELEE_WEAPONS, SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
-        DAMV_CRUSHING | DAM_PIERCE, 0, 2, 150, {
+        DAMV_CRUSHING | DAM_PIERCE, 0, 0, 150, {
             { SPWPN_SHIELDING,     30 },
             { SPWPN_SILVER,     15 },
             { SPWPN_NORMAL,          8 },
@@ -587,7 +606,7 @@ static const weapon_def Weapon_prop[] =
         DAMV_SLICING, 6, 10, 40, LBL_BRANDS },
     { WPN_DEMON_BLADE,           "demon blade",           13, -1, 5,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
-        DAMV_SLICING, 0, 2, 150, DEMON_BRANDS },
+        DAMV_SLICING, 0, 0, 150, DEMON_BRANDS },
     { WPN_EUDEMON_BLADE,         "eudemon blade",         14, -2, 5,
         SK_MELEE_WEAPONS,  SIZE_LITTLE, SIZE_LITTLE, MI_NONE,
         DAMV_SLICING, 0, 0, 200, HOLY_BRANDS },
@@ -665,7 +684,7 @@ static const weapon_def Weapon_prop[] =
 #endif
     { WPN_DEMON_TRIDENT,     "demon trident",      12,  1, 6,
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
-        DAMV_PIERCING, 0, 2, 150, DEMON_BRANDS },
+        DAMV_PIERCING, 0, 0, 150, DEMON_BRANDS },
     { WPN_TRISHULA,          "trishula",           13,  0, 6,
         SK_MELEE_WEAPONS,     SIZE_LITTLE, SIZE_MEDIUM, MI_NONE,
         DAMV_PIERCING, 0, 0, 200, HOLY_BRANDS },
@@ -870,9 +889,7 @@ const set<pair<object_class_type, int> > removed_items =
 #if TAG_MAJOR_VERSION == 34
     { OBJ_JEWELLERY, AMU_CONTROLLED_FLIGHT },
     { OBJ_JEWELLERY, AMU_CONSERVATION },
-    { OBJ_JEWELLERY, AMU_THE_GOURMAND },
     { OBJ_JEWELLERY, AMU_HARM },
-    { OBJ_JEWELLERY, AMU_RAGE },
     { OBJ_JEWELLERY, AMU_INACCURACY },
     { OBJ_JEWELLERY, RING_REGENERATION },
     { OBJ_JEWELLERY, RING_SUSTAIN_ATTRIBUTES },
@@ -1240,8 +1257,13 @@ special_armour_type choose_armour_ego(armour_type arm_type)
 bool set_item_ego_type(item_def &item, object_class_type item_type,
                        int ego_type)
 {
-    if (item.base_type == item_type && !is_artefact(item))
+    if (item.base_type == item_type)
     {
+        if (is_artefact(item))
+        {
+            artefact_set_property(item, ARTP_BRAND, ego_type);
+            return true;
+        }
         item.brand = ego_type;
         return true;
     }
@@ -2310,6 +2332,8 @@ bool jewellery_type_has_plusses(int jewel_type)
     case RING_SLAYING:
     case RING_PROTECTION:
     case RING_EVASION:
+    case AMU_PROTECTION:
+    case AMU_SLAYING:
         return true;
 
     default:
@@ -2464,10 +2488,6 @@ int get_armour_res_poison(const item_def &arm)
     // intrinsic armour abilities
     res += armour_type_prop(arm.sub_type, ARMF_RES_POISON);
 
-    // check ego resistance
-    if (get_armour_ego_type(arm) == SPARM_POISON_RESISTANCE)
-        res += 1;
-
     return res;
 }
 
@@ -2476,6 +2496,10 @@ int get_armour_res_elec(const item_def &arm, bool check_artp)
     ASSERT(arm.base_type == OBJ_ARMOUR);
 
     int res = 0;
+
+      // check ego resistance
+    if (get_armour_ego_type(arm) == SPARM_INSULATION)
+        res += 1;
 
     // intrinsic armour abilities
     res += armour_type_prop(arm.sub_type, ARMF_RES_ELEC);
@@ -2494,10 +2518,6 @@ int get_armour_life_protection(const item_def &arm)
 
     // intrinsic armour abilities
     res += armour_type_prop(arm.sub_type, ARMF_RES_NEG);
-
-    // check for ego resistance
-    if (get_armour_ego_type(arm) == SPARM_POSITIVE_ENERGY)
-        res += 1;
 
     return res;
 }
@@ -2528,10 +2548,6 @@ bool get_armour_see_invisible(const item_def &arm)
 {
     ASSERT(arm.base_type == OBJ_ARMOUR);
 
-    // check for ego resistance
-    if (get_armour_ego_type(arm) == SPARM_SEE_INVISIBLE)
-        return true;
-
     return false;
 }
 
@@ -2540,8 +2556,7 @@ int get_armour_res_corr(const item_def &arm)
     ASSERT(arm.base_type == OBJ_ARMOUR);
 
     // intrinsic armour abilities
-    return get_armour_ego_type(arm) == SPARM_PRESERVATION
-           || armour_type_prop(arm.sub_type, ARMF_RES_CORR);
+    return armour_type_prop(arm.sub_type, ARMF_RES_CORR);
 }
 
 bool get_armour_rampaging(const item_def &arm, bool check_artp)
@@ -2776,7 +2791,7 @@ bool gives_ability(const item_def &item)
             return false;
         const special_armour_type ego = get_armour_ego_type(item);
 
-        if (ego == SPARM_INVISIBILITY || ego == SPARM_FLYING)
+        if (ego == SPARM_INVISIBILITY)
             return true;
         break;
     }
@@ -2836,11 +2851,9 @@ bool gives_resistance(const item_def &item)
         const int ego = get_armour_ego_type(item);
         if (ego == SPARM_FIRE_RESISTANCE
             || ego == SPARM_COLD_RESISTANCE
-            || ego == SPARM_POISON_RESISTANCE
+            || ego == SPARM_INSULATION
             || ego == SPARM_WILLPOWER
-            || ego == SPARM_RESISTANCE
-            || ego == SPARM_PRESERVATION
-            || ego == SPARM_POSITIVE_ENERGY)
+            || ego == SPARM_RESISTANCE)
         {
             return true;
         }
@@ -2870,8 +2883,7 @@ bool gives_resistance(const item_def &item)
             && (rap == ARTP_FIRE
                 || rap == ARTP_COLD
                 || rap == ARTP_ELECTRICITY
-                || rap == ARTP_WILLPOWER
-                || rap == ARTP_RMUT))
+                || rap == ARTP_WILLPOWER))
         {
             return true;
         }
@@ -2982,7 +2994,7 @@ int shield_block_limit(const item_def &shield)
 
 int guile_adjust_willpower(int wl)
 {
-    return max(0, wl - 2 * WL_PIP);
+    return max(0, wl / 2);
 }
 
 string item_base_name(const item_def &item)

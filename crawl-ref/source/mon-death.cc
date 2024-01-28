@@ -1234,11 +1234,8 @@ static void _orb_of_mayhem(actor& maniac, const monster& victim)
         if (mi->can_see(maniac) && mi->can_go_frenzy())
             witnesses.push_back(*mi);
 
-    if (coinflip() && !witnesses.empty())
-    {
+    if (!witnesses.empty())
         (*random_iterator(witnesses))->go_frenzy(&maniac);
-        did_god_conduct(DID_HASTY, 8, true);
-    }
 }
 
 static bool _mons_reaped(actor &killer, monster& victim)
@@ -1927,6 +1924,16 @@ item_def* monster_die(monster& mons, killer_type killer,
 
     // Apply unrand effects.
     unrand_death_effects(&mons, killer);
+
+    // Apply vamp amulet, which does not care why the monster died
+    if (gives_player_xp && you.wearing(EQ_AMULET, AMU_VAMPIRISM)
+        && actor_is_susceptible_to_vampirism(mons))
+    {
+        const int hp = you.hp;
+        you.heal(random_range(1, mons.get_hit_dice()));
+        if (you.hp > hp)
+            mpr("You feel a bit better.");
+    }
 
     switch (killer)
     {

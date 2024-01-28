@@ -62,12 +62,8 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
 #endif
                                                   )
 {
-    if (s == "Regen")
-#if TAG_MAJOR_VERSION == 34
-        return is_amulet ? AMU_REGENERATION : RING_REGENERATION;
-#else
-        return AMU_REGENERATION;
-#endif
+    if (s == "Vamp")
+        return AMU_VAMPIRISM;
 
 #if TAG_MAJOR_VERSION == 34
     if (s == "Inacc")
@@ -81,6 +77,8 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return AMU_REFLECTION;
     if (s == "Acrobat")
         return AMU_ACROBAT;
+    if (s == "Dark")
+        return AMU_DARKNESS;
 #if TAG_MAJOR_VERSION == 34
     if (s == "rCorr")
         return RING_RESIST_CORROSION;
@@ -94,7 +92,7 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return RING_TELEPORTATION;
 #endif
     if (s == "Wiz")
-        return RING_WIZARDRY;
+        return AMU_WIZARDRY;
     if (s == "SInv")
         return RING_SEE_INVISIBLE;
 #if TAG_MAJOR_VERSION == 34
@@ -106,12 +104,17 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
     if (s == "rPois")
         return RING_POISON_RESISTANCE;
 
+    if (s == "Tele")
+        return AMU_TELEPORTATION;
+     if (s == "Rage")
+        return AMU_RAGE;
+
     if (s.substr(0, 2) == "AC")
-        return RING_PROTECTION;
+        return AMU_PROTECTION;
     if (s.substr(0, 2) == "MP")
-        return RING_MAGICAL_POWER;
+        return AMU_MAGICAL_POWER;
     if (s.substr(0, 4) == "Slay")
-        return RING_SLAYING;
+        return AMU_SLAYING;
 #if TAG_MAJOR_VERSION == 34
     if (s.substr(0, 3) == "Str")
         return RING_STRENGTH;
@@ -127,7 +130,7 @@ static uint8_t _jewellery_type_from_artefact_prop(const string &s
         return RING_STEALTH;
 #endif
     if (s.substr(0, 2) == "WL")
-        return RING_WILLPOWER;
+        return AMU_WILLPOWER;
 
     if (s.substr(0, 2) == "rF")
         return RING_PROTECTION_FROM_FIRE;

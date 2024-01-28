@@ -634,14 +634,7 @@ static int _mons_class_halo_radius(monster_type type)
 
 int monster::halo_radius() const
 {
-    item_def* weap = mslot_item(MSLOT_WEAPON);
     int size = -1;
-
-    if (weap && is_unrandom_artefact(*weap, UNRAND_EOS))
-        size = 3;
-
-    if (wearing_ego(EQ_ALL_ARMOUR, SPARM_LIGHT))
-        size = 3;
 
     if (!(holiness() & MH_HOLY))
         return size;

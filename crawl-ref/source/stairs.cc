@@ -1351,14 +1351,17 @@ void new_level(bool restore)
     print_stats_level();
     update_whereis();
 
-    _lock_stairs();
-
     _update_level_state();
 
     if (restore)
         return;
 
+    _lock_stairs();
+
     cancel_polar_vortex();
+
+    reset_per_floor_props();
+    maybe_artifact_mutate();
 
     if (player_in_branch(BRANCH_ZIGGURAT))
         you.zig_max = max(you.zig_max, you.depth);

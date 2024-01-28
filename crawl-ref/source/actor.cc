@@ -220,8 +220,7 @@ int actor::inaccuracy_penalty() const
 
 bool actor::res_corr(bool /*allow_random*/, bool temp) const
 {
-    return temp && (wearing(EQ_BODY_ARMOUR, ARM_ACID_DRAGON_ARMOUR)
-                    || wearing_ego(EQ_ALL_ARMOUR, SPARM_PRESERVATION));
+    return temp && (wearing(EQ_BODY_ARMOUR, ARM_ACID_DRAGON_ARMOUR));
 }
 
 bool actor::cloud_immune(bool items) const
@@ -254,8 +253,7 @@ int actor::angry(bool items) const
     if (!items)
         return anger;
 
-    return anger + 20 * wearing_ego(EQ_ALL_ARMOUR, SPARM_RAGE)
-                 + scan_artefacts(ARTP_ANGRY);
+    return anger + scan_artefacts(ARTP_ANGRY);
 }
 
 bool actor::clarity(bool items) const
@@ -276,7 +274,7 @@ int actor::archmagi(bool items) const
 
 bool actor::no_cast(bool items) const
 {
-    return items && scan_artefacts(ARTP_PREVENT_SPELLCASTING);
+    return false;
 }
 
 bool actor::reflection(bool items) const
@@ -291,20 +289,20 @@ int actor::extra_harm(bool items) const
     if (!items)
         return 0;
 
-    int harm = wearing_ego(EQ_CLOAK, SPARM_HARM) + scan_artefacts(ARTP_HARM);
+    int harm = scan_artefacts(ARTP_HARM);
 
     return harm > 2 ? 2 : harm;
 }
 
 bool actor::rmut_from_item() const
 {
-    return scan_artefacts(ARTP_RMUT);
+    return false;
 }
 
-bool actor::evokable_invis() const
+int actor::evokable_invis() const
 {
-    return wearing_ego(EQ_CLOAK, SPARM_INVISIBILITY)
-           || scan_artefacts(ARTP_INVISIBLE);
+    return wearing_ego(EQ_SHIELD, SPARM_INVISIBILITY)
+           + scan_artefacts(ARTP_INVISIBLE);
 }
 
 // Return an int so we know whether an item is the sole source.

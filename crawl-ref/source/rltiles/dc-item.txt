@@ -521,12 +521,12 @@ i-fire-res BRAND_ARM_FIRE_RESISTANCE
 # i-fire-res BRAND_ARM_FIRE_RESISTANCE BRAND_ARM_FIRST
 # end TAG_MAJOR_VERSION
 i-cold-res BRAND_ARM_COLD_RESISTANCE
-i-poison-res BRAND_ARM_POISON_RESISTANCE
-i-see-invis BRAND_ARM_SEE_INVISIBLE
+i-insulation BRAND_ARM_INSULATION
+i-detection BRAND_ARM_DETECTION
 i-invisibility BRAND_ARM_INVISIBILITY
-i-strength BRAND_ARM_STRENGTH
-i-dexterity BRAND_ARM_DEXTERITY
-i-intelligence BRAND_ARM_INTELLIGENCE
+i-stability BRAND_ARM_STABILITY
+i-magical-power BRAND_ARM_MAGICAL_POWER
+i-wizardry BRAND_ARM_WIZARDRY
 i-ponderous BRAND_ARM_PONDEROUSNESS
 i-flying BRAND_ARM_FLYING
 i-magic-res BRAND_ARM_MAGIC_RESISTANCE
@@ -535,12 +535,12 @@ i-protection BRAND_ARM_PROTECTION
 i-stealth BRAND_ARM_STEALTH
 %rim 1
 i-resistance BRAND_ARM_RESISTANCE
-i-positive-energy BRAND_ARM_POSITIVE_ENERGY
+i-evasion BRAND_ARM_EVASION
 i-archmagi BRAND_ARM_ARCHMAGI
-i-preservation BRAND_ARM_PRESERVATION
+i-fog BRAND_ARM_FOG
 i-reflection BRAND_ARM_REFLECTION
 i-spirit BRAND_ARM_SPIRIT_SHIELD
-i-hurling BRAND_ARM_HURLING
+i-sniping BRAND_ARM_SNIPING
 # start TAG_MAJOR_VERSION == 34
 i-jumping BRAND_ARM_JUMPING
 # end TAG_MAJOR_VERSION
@@ -548,16 +548,20 @@ i-repulsion BRAND_ARM_REPULSION
 # start TAG_MAJOR_VERSION == 34
 i-cloud-immune BRAND_ARM_CLOUD_IMMUNE
 # end TAG_MAJOR_VERSION
-i-harm BRAND_ARM_HARM
-i-shadows BRAND_ARM_SHADOWS
+i-detect-mons BRAND_ARM_DETECT_MONS
+i-darkness BRAND_ARM_DARKNESS
 %rim 0
 i-lunging BRAND_ARM_LUNGING
 i-infusion BRAND_ARM_INFUSION
 i-light BRAND_ARM_LIGHT
-i-rage BRAND_ARM_RAGE
+i-elements BRAND_ARM_ELEMENTS
 i-mayhem BRAND_ARM_MAYHEM
 i-guile BRAND_ARM_GUILE
-i-energy BRAND_ARM_ENERGY BRAND_ARM_LAST
+i-energy BRAND_ARM_ENERGY
+i-spikes BRAND_ARM_SPIKES
+i-health BRAND_ARM_HEALTH
+i-weakening BRAND_ARM_WEAKENING
+i-friendship BRAND_ARM_FRIENDSHIP BRAND_ARM_LAST
 %rim 1
 
 ###########OBJ_WANDS
@@ -877,17 +881,14 @@ sun
 ###########icons
 %sdir item/amulet
 # These must be in the same order as the enum in item-prop-enum.h!
-# start TAG_MAJOR_VERSION == 34
 i-rage AMU_RAGE AMU_ID_FIRST
-i-harm AMU_HARM
-i-acrobat AMU_ACROBAT
-# end TAG_MAJOR_VERSION
-# start TAG_MAJOR_VERSION == 35
-# i-acrobat AMU_ACROBAT AMU_ID_FIRST
-# end TAG_MAJOR_VERSION
-i-m-regeneration AMU_MANA_REGENERATION
 # start TAG_MAJOR_VERSION == 34
-i-gourmand AMU_THE_GOURMAND
+i-harm AMU_HARM
+# end TAG_MAJOR_VERSION
+i-acrobat AMU_ACROBAT
+i-willpower AMU_WILLPOWER
+i-protection AMU_PROTECTION
+# start TAG_MAJOR_VERSION == 34
 i-rage AMU_REMOVEME1
 i-rage AMU_REMOVEME2
 i-inaccuracy AMU_INACCURACY
@@ -896,7 +897,12 @@ i-rage AMU_NOTHING
 i-spirit AMU_GUARDIAN_SPIRIT
 i-faith AMU_FAITH
 i-reflection AMU_REFLECTION
-i-regeneration AMU_REGENERATION AMU_ID_LAST
+i-vampirism AMU_VAMPIRISM
+i-darkness AMU_DARKNESS
+i-wizardry AMU_WIZARDRY
+i-magical-power AMU_MAGICAL_POWER
+i-slaying AMU_SLAYING
+i-teleportation AMU_TELEPORTATION AMU_ID_LAST
 
 ####################OBJ_POTIONS
 %sdir item/potion
@@ -1136,9 +1142,7 @@ misc_tremorstones MISC_TIN_OF_TREMORSTONES
 misc_vane MISC_CONDENSER_VANE
 misc_vane_inert MISC_CONDENSER_VANE_INERT
 %rim 1
-# start TAG_MAJOR_VERSION == 34
 misc_lantern MISC_LANTERN_OF_SHADOWS
-# end TAG_MAJOR_VERSION
 misc_horn MISC_HORN_OF_GERYON
 misc_box MISC_BOX_OF_BEASTS
 %rim 0
@@ -1146,6 +1150,20 @@ misc_sack MISC_SACK_OF_SPIDERS
 misc_phantom_mirror MISC_PHANTOM_MIRROR
 misc_zigfig MISC_ZIGGURAT
 misc_quad MISC_QUAD_DAMAGE
+misc_dungeon_atlas MISC_DUNGEON_ATLAS
+misc_harp_of_healing MISC_HARP_OF_HEALING
+misc_harp_of_healing_inert MISC_HARP_OF_HEALING_INERT
+misc_mages_chalice MISC_MAGES_CHALICE
+misc_butterfly_jar MISC_BUTTERFLY_JAR
+misc_purple_statuette MISC_PURPLE_STATUETTE
+misc_magnet MISC_MAGNET
+misc_pot_of_kudzu MISC_POT_OF_KUDZU
+misc_skeleton_key MISC_SKELETON_KEY
+misc_pandemonium_pizza MISC_PANDEMONIUM_PIZZA
+misc_jumper_cable MISC_JUMPER_CABLE
+misc_ring_of_resistance MISC_RING_OF_RESISTANCE
+misc_crown_of_leaves MISC_CROWN_OF_LEAVES
+misc_lamp_of_immolation MISC_LAMP_OF_IMMOLATION
 %sdir item/misc/runes
 generic MISC_RUNE_OF_ZOT
 rune_tartarus RUNE_TARTARUS

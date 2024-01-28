@@ -206,16 +206,15 @@ static const form_entry formdata[] =
     transformation::tree, MONS_ANIMATED_TREE, "Tree", "tree-form", "tree",
     "a tree.",
     0, 0, NUM_TALISMANS,
-    EQF_LEAR | SLOTF(EQ_CLOAK), MR_RES_POISON,
+    EQF_LEAR | SLOTF(EQ_CLOAK), MR_NO_FLAGS,
     BAD_DURATION, 0, 0, SIZE_CHARACTER, 15,
-    FormScaling().Base(20).Scaling(14).XLBased(), true, FormScaling().Base(9),
+    FormScaling().Base(15).Scaling(18).XLBased(), true, FormScaling().Base(9),
     SPWPN_NORMAL, BROWN, "Branches", { "hit", "smack", "pummel", "thrash" },
     FC_FORBID, FC_FORBID, FC_FORBID, false,
     "creak", 0, "branch", "root", "sway towards", "wood",
     {
         { "stationary", "Your roots penetrate the ground, keeping you stationary." },
         { "stasis", "You cannot be teleported."},
-        { "torment immunity", "You are immune to unholy pain and torment."},
     }
 },
 

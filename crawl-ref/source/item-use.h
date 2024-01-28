@@ -26,6 +26,7 @@ bool takeoff_armour(int index, bool noask = false);
 bool drink(item_def* potion = nullptr);
 
 bool god_hates_brand(const int brand);
+void rebrand_weapon(item_def& wpn);
 
 bool safe_to_remove(const item_def &item, bool quiet = false);
 

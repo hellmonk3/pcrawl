@@ -105,12 +105,16 @@ private:
     /* Retaliation Effects */
     void do_minotaur_retaliation();
     void maybe_riposte();
+    void shield_spikes();
 
     /* Item Effects */
     void do_starlight();
 
     /* Brand / Attack Effects */
     bool do_knockback(bool slippery);
+
+    /* Brand / Defense Effects */
+    void apply_weakness_ego();
 
     /* Output methods */
     void set_attack_verb(int damage) override;

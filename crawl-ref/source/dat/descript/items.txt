@@ -6,6 +6,11 @@ much protection as the armour made from the scales of some larger dragons, it is
 somewhat lighter and less encumbering. It is also remarkably smooth, letting
 corrosive slime flow off it like water.
 %%%%
+amulet of darkness
+
+An amulet that reduces the wearer's range of vision. Naturally, if you can't see
+your enemies, they can't see you either.
+%%%%
 amulet of faith
 
 A charm crafted to call the attention of the gods to its wearer. This divine
@@ -24,9 +29,17 @@ An amulet that increases the wearer's rate of magic regeneration. In order to
 function, it must first attune itself to the wearer's body with full reserves
 of magic.
 %%%%
+amulet of magical power
+
+An amulet that increases the wearer's maximum mana.
+%%%%
 amulet of nothing
 
 An amulet with no special properties.
+%%%%
+amulet of protection
+
+An amulet that raises your AC. It's like a piece of armour for your neck.
 %%%%
 amulet of reflection
 
@@ -35,16 +48,36 @@ no shield is worn, the force the amulet emits can serve as a weak shield on
 its own. Regardless, any ranged attacks the wearer blocks will be reflected
 back toward the attacker.
 %%%%
-amulet of regeneration
+amulet of slaying
 
-An amulet that increases the wearer's rate of health regeneration. In order to
-function, it must first attune itself to the wearer's body at full health.
+An amulet that increases damage dealt with weapons of all kinds as well as
+unarmed combat and thrown items.
+%%%%
+amulet of teleportation
+
+An amulet that can be activated once per floor to teleport the user to a
+different location.
 %%%%
 amulet of the acrobat
 
 An amulet that allows the user to tumble and roll to evade the blows of their
-enemies, but only while moving and waiting. While taking other actions
-(including climbing stairs) the amulet conveys no benefits.
+enemies, doubling evasion if their last action was moving or waiting. While
+taking other actions the amulet conveys no benefits.
+%%%%
+amulet of vampirism
+
+An amulet that thirsts for death. Each living foe (not counting summons) that
+dies while it is worn will heal the wearer for an amount between one and the
+foe's difficulty.
+%%%%
+amulet of willpower
+
+An amulet that increases the wearer's willpower, making them more resistant to
+certain hostile status effects.
+%%%%
+amulet of wizardry
+
+An amulet that reduces the skill requirement of spells by one.
 %%%%
 animal skin
 
@@ -418,6 +451,12 @@ buckler
 
 A small piece of wood and metal, to be strapped on one arm for defence.
 %%%%
+butterfly jar
+
+A jar full of butterflies. Evoking it will knock back nearby creatures and
+summon the butterflies. Higher evocations skill will increase the number of
+butterflies summoned by this effect.
+%%%%
 chain mail
 
 A suit of armour made entirely out of tiny metal rings.
@@ -444,6 +483,15 @@ power storm clouds, acidic fog and clouds of negative energy become available.
 corpse
 
 A corpse. Useless and dead.
+%%%%
+crown of leaves
+
+A crown of magical leaves from a distant elven forest. Evoking the crown will
+temporarily transform you into a tree. In this form, you will be unable to move
+or evade attacks and all equipped armour will be melded, but you will have
+50% more HP and a large amount of AC. If you have no weapon, your unarmed damage
+will also be increased. Evocations skill will further increase the amount of AC
+granted by your transformation.
 %%%%
 crystal plate armour
 
@@ -533,6 +581,11 @@ A vial of pure dragon-blood, crystallized over many years. {{
 }} Shapeshifting skill increases damage from claws and armour from scales.
 
 While transformed, any equipped weapons and armour are melded.
+%%%%
+dungeon atlas
+
+A magical book with seemingly infinite pages, containing maps of all the world's
+dungeons. Evoking it will map the current level.
 %%%%
 eggplant
 
@@ -671,6 +724,13 @@ A machine that fires bolts via applied alchemy. Some enchant their projectiles
 to fall forward instead of down, others bewitch the bolts with a fatal attraction
 to their targets. All are slow, loud, and blast out thick smoke with each shot.
 %%%%
+harp of healing
+
+A mystical instrument infused with restorative power. Evoking it allows the
+wielder to start playing the harp, healing them over time so long as they focus
+on playing and don't take any action besides waiting. Evocations skill increases
+the maximum duration of the effect.
+%%%%
 hat
 
 A cloth hat.
@@ -713,6 +773,12 @@ range.
     end
 }}
 %%%%
+jumper cable
+
+Don't ask where the clamps go. Evoking this item will randomly recharge one of
+your other evocable items and deal elec damage to you. Evocations skill will
+decrease the damage received when using this item.
+%%%%
 kite shield
 
 A piece of wood and metal, to be strapped on one arm for defence.
@@ -721,6 +787,20 @@ lajatang
 
 A very rare and extremely effective weapon, featuring a pole with half-moon
 blades at both ends.
+%%%%
+lamp of immolation
+
+A lamp containing a trapped fire elemental; it never stops burning. Evoking the
+lamp will cause every creature you can see to be filled with inner flame.
+Affected creatures will explode violently when killed, dealing 2d20 fire damage
+and placing flame clouds in a 1 tile radius around them. Try to avoid standing
+in the blast zone. Evocations skill does not affect this item.
+%%%%
+lantern of shadows
+
+A strange lantern that absorbs light, rather than producing it. Evoking the
+lantern will reduce your vision radius to 1 for a short duration. Evocations
+skill will increase the duration of the effect.
 %%%%
 large rock
 
@@ -778,6 +858,19 @@ increases the damage done by the maw.
 
 While transformed, any body armour is melded.
 %%%%
+mage's chalice
+
+A goblet overflowing with the liquid thoughts of a great wizard. Evoking it
+will make you brilliant for a short time, halving the MP cost of all spells and
+improving their power. Evocations skill will increase the duration of the
+effect.
+%%%%
+magnet
+
+A very big magical (?) magnet. When evoked, creatures you can see will be
+forcibly translocated closer to you for a brief duration. Evocations skill
+increases the duration of the effect.
+%%%%
 morningstar
 
 A mace with a head covered in short spikes.
@@ -821,6 +914,13 @@ pair of gloves
 A pair of gloves. They are worn on the hands, and cover all but the largest
 claws.
 %%%%
+pandemonium pizza
+
+A legendary pizza fresh from the infinite demonic realm of pandemonium.
+Eatvoking it will heal you for a random amount of your missing hp and randomly
+buff or debuff you for a short time. Evocations skill will raise the maximum
+percentage of missing hp that can restored.
+%%%%
 pearl dragon scales
 
 The nacreous scales of a pearl dragon. It grants its wearer resistance to
@@ -829,9 +929,7 @@ negative energies.
 phantom mirror
 
 A hand mirror which can create a reflection of a nearby creature, clouding
-in the process. The reflection's duration increases with Evocations skill and
-decreases with the willpower of the target. It is, invariably, slightly weaker
-than the creature it mirrors.
+in the process. The reflection's duration increases with Evocations skill.
 %%%%
 phial of floods
 
@@ -845,6 +943,13 @@ plate armour
 
 A full suit of solid metal plate: cuirass, pauldrons, vambraces, waist plate
 and greaves. It provides excellent protection.
+%%%%
+pot of kudzu
+
+A pot full of invasive vines. Evoking the pot will constrict your target and
+adjacent foes, dealing damage over time and preventing movement until the
+target escapes. The vines will only sprout from solid  ground. Evocations skill
+will increase the damage dealt.
 %%%%
 potion of ambrosia
 
@@ -934,6 +1039,12 @@ potion of attraction
 A potion which makes the drinker attract enemies, translocating them quickly closer
 for the duration of the effect. The effect is surprisingly subtle, and unwary
 victims may sleep through it entirely.
+%%%%
+purple statuette
+
+A small sculpture of a misshapen humanoid figure. Evoking it will mutate you.
+Evocations skill will slightly increase the chance that the resulting mutation
+is beneficial.
 %%%%
 quad damage
 
@@ -1043,6 +1154,12 @@ A ring that increases the strength of its wearer.
 ring of wizardry
 
 A ring that reduces the skill requirement of spells by one.
+%%%%
+ring of resistance
+
+A magical ring not meant to be worn. Evoking the ring will temporarily provide
+resistance to fire, cold, and electricity. Evocations skill increases the
+duration of the effect.
 %%%%
 robe
 
@@ -1221,6 +1338,12 @@ short sword
 
 A personal stabbing weapon with a short grip.
 %%%%
+skeleton key
+
+A bone key with remote-unlock functionality. Evoking it will unlock the stairs
+on your current level. Because keys are very hard to understand, you need at
+least five Evocations skill to use this item.
+%%%%
 spear
 
 A hunting weapon consisting of a wooden shaft with a pointed metal head
@@ -1346,10 +1469,9 @@ A set of dormant, magnetic earth elementals in the form of tiny, very heavy
 pebbles. When released, the elementals are drawn magnetically to the center of
 nearby monsters, where they literally explode with rage at their rest being
 disturbed. Tremorstones usually land slightly off-target, and the user is
-always at risk of being hit. However, armour is extremely effective at
-repelling the lightweight fragments of rock from a tremorstone's explosion, so
-a well-armoured wielder has little to fear. Evocations skill increases the
-number of explosions.
+always at risk of being hit. However, armour is applied thrice against the
+explosion's damage, so a well-armoured wielder has little to fear. Evocations
+skill increases the number of explosions.
 %%%%
 trident
 

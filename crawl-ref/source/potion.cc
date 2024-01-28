@@ -318,7 +318,7 @@ public:
 
         mprf(MSGCH_DURATION, "You feel %sclever all of a sudden.",
              were_brilliant ? "more " : "");
-        const int add = _scale_effect(35 + random2(pow), is_potion);
+        const int add = _scale_effect(5 + pow + random2(1 + pow), is_potion);
         you.increase_duration(DUR_BRILLIANCE, add, 80);
         return true;
     }
@@ -346,7 +346,7 @@ public:
         mprf(MSGCH_DURATION, "You feel %sattractive to monsters.",
              was_attractive ? "more " : "");
 
-        const int add = _scale_effect(20 + random2(pow)/2, is_potion);
+        const int add = _scale_effect(10 + random2(pow * 5), is_potion);
         you.increase_duration(DUR_ATTRACTIVE, add);
         return true;
     }
@@ -487,11 +487,12 @@ public:
                  : "You fade further into invisibility.");
         }
 
-        // Now multiple invisiblity casts aren't as good. -- bwr
+        int dur = 1 + div_rand_round(pow,2) + random2(pow);
+
         if (!you.duration[DUR_INVIS])
-            you.set_duration(DUR_INVIS, _scale_effect(15 + random2(pow), is_potion), 100);
+            you.set_duration(DUR_INVIS, _scale_effect(dur, is_potion), 100);
         else
-            you.increase_duration(DUR_INVIS, _scale_effect(random2(pow), is_potion), 100);
+            you.increase_duration(DUR_INVIS, _scale_effect(dur, is_potion), 100);
         return true;
     }
 
@@ -688,7 +689,7 @@ public:
     bool effect(bool=true, int pow = 40, bool is_potion=true) const override
     {
         mprf(MSGCH_DURATION, "You feel protected.");
-        const int add = _scale_effect(random2(pow) + 35, is_potion);
+        const int add = _scale_effect(random2(pow * 5) + 15, is_potion);
         you.increase_duration(DUR_RESISTANCE, add);
         return true;
     }

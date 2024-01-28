@@ -1568,11 +1568,6 @@ bool beogh_gift_item()
                               && is_range_weapon(gift) !=
                                  is_range_weapon(*mons_weapon);
 
-    const auto mslot = body_armour ? MSLOT_ARMOUR :
-                                    shield ? MSLOT_SHIELD :
-                              use_alt_slot ? MSLOT_ALT_WEAPON :
-                                             MSLOT_WEAPON;
-
     if (use_alt_slot)
         mons->swap_weapons();
 

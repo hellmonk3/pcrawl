@@ -60,7 +60,7 @@ void dgn_build_basic_level()
 
     vector<coord_def> upstairs;
 
-    _make_trail(35, 30, 35, 20, corrlength, intersect_chance, no_corr,
+    _make_trail(30, 15, 25, 10, corrlength, intersect_chance, no_corr,
                  begin, end);
 
     if (!begin.origin() && !end.origin())
@@ -84,7 +84,7 @@ void dgn_build_basic_level()
 
     begin.reset(); end.reset();
 
-    _make_trail(50, 20, 10, 15, corrlength, intersect_chance, no_corr,
+    _make_trail(20, 20, 10, 15, corrlength, intersect_chance, no_corr,
                  begin, end);
 
     if (!begin.origin() && !end.origin())
@@ -689,8 +689,8 @@ static void _big_room(int level_number)
 
         do
         {
-            const int left = 8 + random2(30);
-            const int top = 8 + random2(22);
+            const int left = 8 + random2(10);
+            const int top = 8 + random2(6);
             const int width = 21 + random2(10);
             const int height = 21 + random2(8);
             region = dgn_region(left, top, width, height);
@@ -829,8 +829,8 @@ static void _diamond_rooms(int level_number)
         dgn_region room;
         do
         {
-            const int left = 8 + random2(43);
-            const int top = 8 + random2(35);
+            const int left = 8 + random2(25);
+            const int top = 8 + random2(20);
             const int width = 6 + random2(15);
             const int height = 6 + random2(10);
             room = dgn_region(left, top, width, height);

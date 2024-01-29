@@ -62,31 +62,6 @@ default-depth: Vaults
 : crawl_require("dlua/v_layouts.lua")
 
 ################################################################################
-# Ring Layout
-#
-# A square corridor with rooms around the edge and in the center. It is possible
-# to lose
-#
-# The layouts all require no mirror or rotate, otherwise this messes with
-# placement of the sub vaults, since we have to be quite specific with where
-# we want them and how they are placed. This doesn't matter, because the
-# layouts are built in a way that is already symmetrically random.
-#
-# We call parameterised functions to build the levels. This means we can vary
-# the parameters with different DEPTH or WEIGHT settings to make certain
-# layout styles more or less likely.
-NAME: layout_vaults_ring
-DEPTH: Vaults
-WEIGHT: 25
-ORIENT: encompass
-CHANCE: 100%
-TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
-TAGS: no_hmirror no_vmirror chance_vaults uniq_vaults_ring layout_type_vaults
-: build_vaults_ring_layout(_G, 5, 20)
-MAP
-ENDMAP
-
-################################################################################
 # Omnibox
 #
 # This will generate anything from chaotic city to maze (through "square ring
@@ -94,8 +69,8 @@ ENDMAP
 #
 # Apologies if this is just too little code.
 NAME: layout_vaults_omnibox
-DEPTH: Vaults
-WEIGHT: 30
+DEPTH:  Vaults
+WEIGHT: 25
 ORIENT: encompass
 CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -116,8 +91,8 @@ ENDMAP
 # Generates junctions of various kinds, including big crosses, t-junctions, and
 # corners (potentially thick enough for cities in the middle) and more!
 NAME: layout_vaults_omnicross
-DEPTH: Vaults
-WEIGHT: 30
+DEPTH:  Vaults
+WEIGHT: 25
 ORIENT: encompass
 CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -168,7 +143,7 @@ ENDMAP
 # and we randomise things by omitting or jittering some segments
 NAME: layout_vaults_quadrants
 DEPTH: Vaults
-WEIGHT: 20
+WEIGHT: 0
 ORIENT: encompass
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
 TAGS: no_hmirror no_vmirror chance_vaults uniq_vaults_grid layout_type_vaults
@@ -223,7 +198,7 @@ ENDMAP
 # something very similar.
 NAME: layout_vaults_big_room
 DEPTH: Vaults
-WEIGHT: 20
+WEIGHT: 0
 ORIENT: encompass
 CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -234,7 +209,7 @@ ENDMAP
 
 NAME: layout_vaults_chaotic_city
 DEPTH: Vaults
-WEIGHT: 20
+WEIGHT: 0
 ORIENT: encompass
 CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -257,7 +232,7 @@ ENDMAP
 # Snakey maze consistently struggles to place rooms. Set to weight zero for now.
 NAME: layout_vaults_maze_snakey
 DEPTH: Vaults
-WEIGHT: 10
+WEIGHT: 0
 ORIENT: encompass
 CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -268,7 +243,7 @@ ENDMAP
 
 NAME: layout_vaults_maze_bifur
 DEPTH: Vaults
-WEIGHT: 10
+WEIGHT: 0
 ORIENT: encompass
 CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup

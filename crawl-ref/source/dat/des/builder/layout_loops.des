@@ -1204,7 +1204,7 @@ end
 #
 NAME:   layout_loops_ring
 DEPTH:  D, Elf, Lair
-WEIGHT: 15 (D), 5 (Elf), 8 (Lair)
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_corridors
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -1601,7 +1601,7 @@ ENDMAP
 #
 NAME:   layout_loops_corners
 DEPTH:  D, Elf
-WEIGHT: 5 (D), 15 (Elf)
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_corridors
 TAGS:   no_rotate no_vmirror no_hmirror

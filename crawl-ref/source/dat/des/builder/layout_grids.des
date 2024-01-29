@@ -123,7 +123,7 @@
 #
 NAME:   layout_big_grid
 DEPTH:  Lair
-WEIGHT: 2
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand no_rotate no_pool_fixup
 TAGS:   no_hmirror no_vmirror layout_type_open
@@ -155,7 +155,7 @@ TAGS:   no_hmirror no_vmirror layout_type_open
 #
 NAME:   layout_small_grid
 DEPTH:  D:9-, Lair, Depths, Pan
-WEIGHT: 5 (D), 5 (Lair), 3 (Depths), 10 (Pan)
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand no_rotate no_pool_fixup
 TAGS:   no_hmirror no_vmirror layout_type_passages

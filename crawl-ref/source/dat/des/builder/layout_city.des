@@ -573,17 +573,3 @@ TAGS:   unrand no_rotate no_hmirror no_vmirror
 }}
 MAP
 ENDMAP
-
-##############################################################
-# layout_geometric_city
-#
-# I (infiniplex) need to revise and add this one.  This
-# placeholder included here because I budgeted space for it when
-# working out the rations of layout types per branch.
-#
-#NAME:   layout_geometric_city
-#DEPTH:  Pan
-#WEIGHT: 25
-#ORIENT: encompass
-#TAGS:   overwritable layout allow_dup unrand layout_type_city
-#TAGS:   no_rotate no_vmirror no_hmirror

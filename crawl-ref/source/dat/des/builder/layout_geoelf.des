@@ -2,7 +2,6 @@
 # layout_geoelf.des: Layouts for Elf with geometric rooms
 #                    These are not the only Elf layouts
 #                    These layouts will build around primary vaults correctly.
-#                    There is another geoelf layout in layout_geoelf_castle.des.
 ###############################################################################
 
 # Required file contains overview

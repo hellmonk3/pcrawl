@@ -236,7 +236,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 #
 NAME:   layout_falls_marsh
 DEPTH:  Swamp, !Swamp:$
-WEIGHT: 10
+WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand no_pool_fixup layout_type_swamp
 {{

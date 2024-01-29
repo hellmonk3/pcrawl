@@ -82,7 +82,6 @@ static void _do_wizard_command(int wiz_command)
     case 'D': wizard_detect_creatures(); break;
     case CONTROL('D'): wizard_edit_durations(); break;
 
-    case 'e': do_trap_effects(); break;
     case 'E': wizard_freeze_time(); break;
     case CONTROL('E'): debug_dump_levgen(); break;
 

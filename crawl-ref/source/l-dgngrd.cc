@@ -96,6 +96,13 @@ static int dgn_builder_bounds(lua_State *ls)
     return 2;
 }
 
+static int dgn_large_builder_bounds(lua_State *ls)
+{
+    lua_pushnumber(ls, dgn_large_builder_x());
+    lua_pushnumber(ls, dgn_large_builder_y());
+    return 2;
+}
+
 static int dgn_in_bounds(lua_State *ls)
 {
     int x = luaL_safe_checkint(ls, 1);

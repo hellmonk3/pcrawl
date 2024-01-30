@@ -261,6 +261,16 @@ int dgn_builder_y()
     return GYM / 2;
 }
 
+int dgn_large_builder_x()
+{
+    return GXM * 2 / 3;
+}
+
+int dgn_large_builder_y()
+{
+    return GYM * 2 / 3;
+}
+
 /**********************************************************************
  * builder() - kickoff for the dungeon generator.
  *********************************************************************/

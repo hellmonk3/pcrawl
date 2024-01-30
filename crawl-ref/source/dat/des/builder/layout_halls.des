@@ -675,7 +675,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     end
   end
 
-  local GXM, GYM = dgn.builder_bounds()
+  local GXM, GYM = dgn.large_builder_bounds()
   extend_map{width = GXM, height = GYM}
   fill_area{fill="x"}
 

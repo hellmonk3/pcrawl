@@ -157,6 +157,7 @@ const struct luaL_reg dgn_grid_dlib[] =
 { "grid", dgn_grid },
 { "max_bounds", dgn_max_bounds },
 { "builder_bounds", dgn_builder_bounds },
+{ "large_builder_bounds", dgn_large_builder_bounds },
 { "in_bounds", dgn_in_bounds },
 { "distance", dgn_distance },
 

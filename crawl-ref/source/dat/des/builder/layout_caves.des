@@ -388,7 +388,7 @@ TAGS:   no_rotate no_hmirror no_vmirror
 
   local is_random = false -- crawl.coinflip()
 
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
   hyper.build_layout(_G,{
     name = "Cave Town",
     no_windows = true,

@@ -89,7 +89,6 @@ making, look at the following files:
   dat/des/variable
     float.des - floating vaults
     large_abstract.des - all regular vaults which have
-    large_themed.des   - ORIENT:encompass/northwest etc
     mini.des  - minivaults (no ORIENT line at all)
 
 There are also the following other directories:

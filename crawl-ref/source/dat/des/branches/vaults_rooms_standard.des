@@ -1666,23 +1666,6 @@ bbb..(..a....
 ....b....a....
 ENDMAP
 
-NAME: nicolae_vaults_sealed_display
-WEIGHT: 5
-TAGS: vaults_room no_windows no_descent
-KMASK: >* = no_monster_gen
-KMONS: 0 = 0 band / 0
-MAP
-xxxxxxx
-x..%x>x
-x+xxx+x
-x..x**x
-x.0x**x
-x..xmmx
-x.....x
-x.....x
-xxxx..x
-ENDMAP
-
 NAME: nicolae_vaults_puzzle_piece
 TAGS: vaults_room allow_dup
 SUBST: A : ._, B : ._, C : ._, D : ._, ) = )))0

@@ -124,6 +124,7 @@ default-depth: D:7-, Depths, Elf
 # Original (9x9 square) main vaults
 #
 NAME:     minmay_the_grid_2x2
+WEIGHT:   5
 SUBVAULT: A : the_grid
 SUBVAULT: B : the_grid
 SUBVAULT: C : the_grid
@@ -157,7 +158,7 @@ ENDMAP
 
 NAME:     minmay_the_grid_plus
 ORIENT:   float
-WEIGHT:   5
+WEIGHT:   2
 SUBVAULT: A : the_grid
 SUBVAULT: B : the_grid
 SUBVAULT: C : the_grid
@@ -202,7 +203,7 @@ ENDMAP
 
 NAME:     minmay_the_grid_plus_closed
 ORIENT:   float
-WEIGHT:   5
+WEIGHT:   1
 SUBVAULT: A : the_grid
 SUBVAULT: B : the_grid
 SUBVAULT: C : the_grid
@@ -247,6 +248,7 @@ ENDMAP
 
 NAME:     minmay_the_grid_3x2
 DEPTH:    D:9-, Depths, Elf
+WEIGHT:   2
 ORIENT:   float
 SUBVAULT: A : the_grid
 SUBVAULT: B : the_grid
@@ -283,6 +285,7 @@ ENDMAP
 
 NAME:     minmay_the_grid_net
 DEPTH:    D:9-, Depths, Elf
+WEIGHT:   1
 ORIENT:   float
 SUBVAULT: A : the_grid
 SUBVAULT: B : the_grid
@@ -330,6 +333,7 @@ ENDMAP
 NAME:     minmay_the_grid_4x2
 DEPTH:    D:9-, Depths, Elf
 ORIENT:   float
+WEIGHT:   1
 SUBVAULT: A : the_grid
 SUBVAULT: B : the_grid
 SUBVAULT: C : the_grid
@@ -367,6 +371,7 @@ ENDMAP
 
 NAME:     minmay_the_grid_3x3
 DEPTH:    D:9-, Depths, Elf
+WEIGHT:   1
 ORIENT:   float
 SUBVAULT: A : the_grid
 SUBVAULT: B : the_grid
@@ -420,6 +425,7 @@ ENDMAP
 NAME:       minmay_the_grid_triangle_9x9_recursive_2
 ORIENT:     float
 DEPTH:      D:7-, Depths, Elf
+WEIGHT:     5
 SUBVAULT:   A : the_grid_triangle_9x9_prize
 SUBVAULT:   B : the_grid_triangle_9x9
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -460,6 +466,7 @@ ENDMAP
 NAME:       minmay_the_grid_triangle_9x9_recursive_2_mashed
 ORIENT:     float
 DEPTH:      D:9-, Depths, Elf
+WEIGHT:     5
 SUBVAULT:   A : the_grid_triangle_9x9_prize
 SUBVAULT:   B : the_grid_triangle_9x9
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -494,6 +501,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_triangle_9x9_rhombus_thin
 ORIENT:     float
+WEIGHT:     5
 SUBVAULT:   A : the_grid_triangle_9x9
 SUBVAULT:   B : the_grid_triangle_9x9_prize
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -530,6 +538,7 @@ ENDMAP
 NAME:       minmay_the_grid_triangle_9x9_rhombus_thin_mashed
 ORIENT:     float
 DEPTH:      D:9-, Depths, Elf
+WEIGHT:     5
 SUBVAULT:   A : the_grid_triangle_9x9
 SUBVAULT:   B : the_grid_triangle_9x9_prize
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -565,6 +574,7 @@ ENDMAP
 NAME:       minmay_the_grid_triangle_9x9_line_8_mashed
 ORIENT:     float
 DEPTH:      D:11-, Depths, Elf
+WEIGHT:     1
 SUBVAULT:   A : the_grid_triangle_9x9
 SUBVAULT:   B : the_grid_triangle_9x9
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -593,6 +603,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_triangle_9x9_rhombus_full
 ORIENT:     float
+WEIGHT:     1
 SUBVAULT:   A : the_grid_triangle_9x9
 SUBVAULT:   B : the_grid_triangle_9x9
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -635,6 +646,7 @@ ENDMAP
 NAME:       minmay_the_grid_triangle_9x9_rhombus_full_mashed
 ORIENT:     float
 DEPTH:      D:11-, Depths, Elf
+WEIGHT:     1
 SUBVAULT:   A : the_grid_triangle_9x9
 SUBVAULT:   B : the_grid_triangle_9x9
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -671,74 +683,10 @@ MAP
 ........................
 ENDMAP
 
-# This shows that you need a lot of wasted space to prevent the geometry from
-# degenerating...
-NAME:       minmay_the_grid_triangle_9x9_recursive_3
-ORIENT:     float
-DEPTH:      D:11-, Depths, Elf
-SUBVAULT:   A : the_grid_triangle_9x9
-SUBVAULT:   B : the_grid_triangle_9x9
-SUBVAULT:   C : the_grid_triangle_9x9
-SUBVAULT:   D : the_grid_triangle_9x9_prize
-SUBVAULT:   E : the_grid_triangle_9x9
-SUBVAULT:   F : the_grid_triangle_9x9
-SUBVAULT:   G : the_grid_triangle_9x9
-SUBVAULT:   H : the_grid_triangle_9x9
-SUBVAULT:   I : the_grid_triangle_9x9
-: the_grid_main_setup(_G)
-SUBST:      y = n
-SUBST:      z = b
-MAP
-.............................................
-.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyy.
-..xxxxxxxxxxxxxx..xxxxxxxxxxxx..xxxxxxxxxyy..
- .x+IIIIIIIIIxxExxFFFFFFFFFxxGxxHHHHHHHHHxy.
- ..xIIIIIIIIIxxExxFFFFFFFFFxxGxxHHHHHHHHHx..
-  .xxIIIIIIIxxEEExxFFFFFFFxxGGGxxHHHHHHHxx.
-  ..xIIIIIIIxxEEExxFFFFFFFxxGGGxxHHHHHHHx..
-   .xxIIIIIxxEEEEExxFFFFFxxGGGGGxxHHHHHxx.
-   ..xIIIIIxxEEEEExxFFFFFxxGGGGGxxHHHHHx..
-    .xxIIIxxEEEEEEExxFFFxxGGGGGGGxxHHHxx.
-    ..xIIIxxEEEEEEExxFFFxxGGGGGGGxxHHHx..
-     .xxIxxEEEEEEEEExxFxxGGGGGGGGGxxHxx.
-     ..xIxxEEEEEEEEExxFxxGGGGGGGGGxxHx..
-      .xx..xyxyxyxyxxxx..xyxyxyxyxx.xx.
-      ..xxxxzxzxzxzxxxxxxxzxzxzxzxx.x..
-       .xxxxyxyxyxyx..xxxxyxyxyxyx.xx.
-       ..xxCCCCCCCCCxxAxxBBBBBBBBBxx..
-        .xxCCCCCCCCCxxAxxBBBBBBBBBxx.
-        ..xxCCCCCCCxxAAAxxBBBBBBBxx..
-         .xxCCCCCCCxxAAAxxBBBBBBBxx.
-         ..xxCCCCCxxAAAAAxxBBBBBxx..
-          .xxCCCCCxxAAAAAxxBBBBBxx.
-          ..xxCCCxxAAAAAAAxxBBBxx..
-           .xxCCCxxAAAAAAAxxBBBxx.
-           ..xxCxxAAAAAAAAAxxBxx..
-            .xxCxxAAAAAAAAAxxBxx.
-            ..xx.xxyxyxyxyx..xx..
-             .xx.xxzxzxzxzxxxxx.
-             ..xx.xyxyxyxyxxxx..
-              .xxxDDDDDDDDDxxx.
-              ..xxDDDDDDDDDxx..
-               .xxxDDDDDDDxxx.
-               ..xxDDDDDDDxx..
-                .xxxDDDDDxxx.
-                ..xxDDDDDxx..
-                 .xxxDDDxxx.
-                 ..xxDDDxx..
-                  .xxxDxxx.
-                  ..xxDxx..
-                   .xxyxx.
-                   ..yyy..
-                    .yyy.
-                    ..y..
-                     .y.
-                     ...
-ENDMAP
-
 NAME:       minmay_the_grid_triangle_9x9_recursive_3_mashed
 ORIENT:     float
 DEPTH:      D:11-, Depths, Elf
+WEIGHT:     1
 SUBVAULT:   A : the_grid_triangle_9x9
 SUBVAULT:   B : the_grid_triangle_9x9
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -791,6 +739,7 @@ ENDMAP
 #
 NAME:       minmay_the_grid_octo_2x2
 ORIENT:     float
+WEIGHT:     5
 SUBVAULT:   A : the_grid_octo
 SUBVAULT:   B : the_grid_octo
 SUBVAULT:   C : the_grid_octo
@@ -829,6 +778,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_octo_triangle
 ORIENT:     float
+WEIGHT:     5
 SUBVAULT:   A : the_grid_octo
 SUBVAULT:   B : the_grid_octo_prize
 SUBVAULT:   C : the_grid_octo
@@ -868,6 +818,7 @@ ENDMAP
 #
 NAME:       minmay_the_grid_square_5x5_5x5
 ORIENT:     float
+WEIGHT:     1
 DEPTH:      D:11-, Depths, Elf
 SUBVAULT:   A : the_grid_square_5x5
 SUBVAULT:   B : the_grid_square_5x5
@@ -934,6 +885,7 @@ ENDMAP
 NAME:       minmay_the_grid_square_5x5_4x4
 ORIENT:     float
 DEPTH:      D:9-, Depths, Elf
+WEIGHT:     1
 SUBVAULT:   A : the_grid_square_5x5
 SUBVAULT:   B : the_grid_square_5x5
 SUBVAULT:   C : the_grid_square_5x5
@@ -983,6 +935,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_square_5x5_3x3
 ORIENT:     float
+WEIGHT:     5
 SUBVAULT:   A : the_grid_square_5x5
 SUBVAULT:   B : the_grid_square_5x5
 SUBVAULT:   C : the_grid_square_5x5
@@ -1019,6 +972,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_square_5x5_5x5_mashed
 ORIENT:     float
+WEIGHT:     1
 DEPTH:      D:11-, Depths, Elf
 SUBVAULT:   A : the_grid_square_5x5
 SUBVAULT:   B : the_grid_square_5x5
@@ -1086,6 +1040,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_square_5x5_4x4_mashed
 ORIENT:     float
+WEIGHT:     1
 DEPTH:      D:11-, Depths, Elf
 SUBVAULT:   A : the_grid_square_5x5
 SUBVAULT:   B : the_grid_square_5x5
@@ -1139,6 +1094,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_square_5x5_3x3_mashed
 DEPTH:      D:11-, Depths, Elf
+WEIGHT:     5
 SUBVAULT:   A : the_grid_square_5x5
 SUBVAULT:   B : the_grid_square_5x5
 SUBVAULT:   C : the_grid_square_5x5
@@ -1182,6 +1138,7 @@ ENDMAP
 #
 NAME:       minmay_the_grid_four_pointed_star
 ORIENT:     float
+WEIGHT:     1
 SUBVAULT:   A : the_grid_triangle_9x9
 SUBVAULT:   B : the_grid_triangle_9x9
 SUBVAULT:   C : the_grid_triangle_9x9
@@ -1232,6 +1189,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_four_pointed_star_mashed
 ORIENT:     float
+WEIGHT:     1
 DEPTH:      D:9-, Depths, Elf
 SUBVAULT:   A : the_grid_triangle_9x9
 SUBVAULT:   B : the_grid_triangle_9x9
@@ -1287,6 +1245,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_octo_tiled_squarecenter
 ORIENT:     float
+WEIGHT:     1
 SUBVAULT:   A : the_grid_octo
 SUBVAULT:   B : the_grid_octo
 SUBVAULT:   C : the_grid_octo
@@ -1335,6 +1294,7 @@ ENDMAP
 
 NAME:       minmay_the_grid_octo_tiled_octocenter
 ORIENT:     float
+WEIGHT:     1
 SUBVAULT:   A : the_grid_octo
 SUBVAULT:   B : the_grid_octo
 SUBVAULT:   C : the_grid_octo
@@ -1384,6 +1344,7 @@ ENDMAP
 NAME:       minmay_the_grid_octo_tiled_squarecenter_mashed
 ORIENT:     float
 DEPTH:      D:11-, Depths, Elf
+WEIGHT:     1
 SUBVAULT:   A : the_grid_octo
 SUBVAULT:   B : the_grid_octo
 SUBVAULT:   C : the_grid_octo
@@ -1437,6 +1398,7 @@ ENDMAP
 NAME:       minmay_the_grid_octo_tiled_octocenter_mashed
 ORIENT:     float
 DEPTH:      D:11-, Depths, Elf
+WEIGHT:     1
 SUBVAULT:   A : the_grid_octo
 SUBVAULT:   B : the_grid_octo
 SUBVAULT:   C : the_grid_octo
@@ -1485,141 +1447,6 @@ MAP
  ..xxCCCCCxx..   ..xxBBBBBxx..
   ..xxx"xxx..     ..xxx"xxx..
    .........       .........
-ENDMAP
-
-# It was only a matter of time.
-# 50 subvaults, NO DOORS, and the "spiral mode" makes four paths (one for each
-# prize) because a single path would be excruciating.
-#
-# To read this vault I strongly recommend highlighting the character 'x' so you
-# can actually see the walls.
-NAME:       minmay_the_grid_ultimate
-TAGS:       no_monster_gen
-DEPTH:      Depths:2-4
-ORIENT:     encompass
-SUBVAULT:   A : the_grid_prize
-SUBVAULT:   B : the_grid_prize
-SUBVAULT:   C : the_grid_prize
-SUBVAULT:   D : the_grid_prize
-SUBVAULT:   E : the_grid_square_5x5
-SUBVAULT:   F : the_grid_square_5x5
-SUBVAULT:   G : the_grid_square_5x5
-SUBVAULT:   H : the_grid_square_5x5
-SUBVAULT:   I : the_grid_square_5x5
-SUBVAULT:   J : the_grid_square_5x5
-SUBVAULT:   K : the_grid_square_5x5
-SUBVAULT:   L : the_grid_square_5x5
-SUBVAULT:   M : the_grid_square_5x5
-SUBVAULT:   N : the_grid_square_5x5
-SUBVAULT:   O : the_grid_square_5x5
-SUBVAULT:   P : the_grid_square_5x5
-SUBVAULT:   Q : the_grid_square_5x5
-SUBVAULT:   R : the_grid_square_5x5
-SUBVAULT:   S : the_grid_square_5x5
-SUBVAULT:   T : the_grid_triangle_9x9
-SUBVAULT:   U : the_grid_triangle_9x9
-SUBVAULT:   V : the_grid_triangle_9x9
-SUBVAULT:   W : the_grid_triangle_9x9
-# weird, this was supposed to be X but subvault fails to generate on X so use
-# w instead
-SUBVAULT:   w : the_grid_triangle_9x9
-SUBVAULT:   Y : the_grid_triangle_9x9
-SUBVAULT:   Z : the_grid_triangle_9x9
-SUBVAULT:   a : the_grid_triangle_9x9
-SUBVAULT:   b : the_grid_triangle_9x9
-SUBVAULT:   c : the_grid_triangle_9x9
-SUBVAULT:   d : the_grid_triangle_9x9
-SUBVAULT:   e : the_grid_triangle_9x9
-SUBVAULT:   f : the_grid_triangle_9x9
-SUBVAULT:   g : the_grid_triangle_9x9
-SUBVAULT:   h : the_grid_triangle_9x9
-SUBVAULT:   i : the_grid_triangle_9x9
-# sorry it is too much of a pain to move
-SUBVAULT:   j : the_grid_square_5x5
-SUBVAULT:   k : the_grid_octo
-SUBVAULT:   l : the_grid_octo
-SUBVAULT:   m : the_grid_octo
-SUBVAULT:   n : the_grid_octo
-SUBVAULT:   o : the_grid_octo
-SUBVAULT:   p : the_grid_octo
-SUBVAULT:   q : the_grid_octo
-SUBVAULT:   r : the_grid_octo
-SUBVAULT:   s : the_grid
-SUBVAULT:   t : the_grid
-SUBVAULT:   u : the_grid
-SUBVAULT:   v : the_grid
-: the_grid_main_setup(_G,true)
-# statues and fountains near the stairs
-SUBST:      y = G
-SUBST:      z = T
-MAP
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xAAAAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxBBBBBBBBBx
-xAAAAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxBBBBBBBBBx
-xAAAAAAAAAxxEEEEExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxFFFFFxxBBBBBBBBBx
-xAAAAAAAAAxxEEEEExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxFFFFFxxBBBBBBBBBx
-xAAAAAAAAA""EEEEE.TTTTTTTTTxxxxxxxxxxxxxxxxxxxxxxxUUUUUUUUU.FFFFF""BBBBBBBBBx
-xAAAAAAAAAxxEEEEExTTTTTTTTTxxxxxxxxxxxxxxxxxxxxxxxUUUUUUUUUxFFFFFxxBBBBBBBBBx
-xAAAAAAAAAxxEEEEExXTTTTTTTxxxxxxxxxxxxxxxxxxxxxxxxxUUUUUUUxxFFFFFxxBBBBBBBBBx
-xAAAAAAAAAxxxx.xxxxTTTTTTTxxxxxxxxxxxxxxxxxxxxxxxxxUUUUUUUxxxx.xxxxBBBBBBBBBx
-xAAAAAAAAAxxkkkkkxxxTTTTTxxxlllllxxxxxxxxxxxmmmmmxxxUUUUUxxxnnnnnxxBBBBBBBBBx
-xxxxx.xxxxxkkkkkkkxxTTTTTxxlllllllxxxxxxxxxmmmmmmmxxUUUUUxxnnnnnnnxxxxx.xxxxx
-xxxxx.xxxxkkkkkkkkkxxTTTxxlllllllllxxxxxxxmmmmmmmmmxxUUUxxnnnnnnnnnxxxx.xxxxx
-xxxGGGGGxkkkkkkkkkkkxTTTxlllllllllllxxxxxmmmmmmmmmmmxUUUxnnnnnnnnnnnxHHHHHxxx
-xxxGGGGGxkkkkkkkkkkkxxTxxlllllllllllxxxxxmmmmmmmmmmmxxUxxnnnnnnnnnnnxHHHHHxxx
-xxxGGGGG.kkkkkkkkkkk""T""lllllllllll..V""mmmmmmmmmmm..U""nnnnnnnnnnn.HHHHHxxx
-xxxGGGGGxkkkkkkkkkkkxx.xxlllllllllllxxVxxmmmmmmmmmmmxx"xxnnnnnnnnnnnxHHHHHxxx
-xxxGGGGGxkkkkkkkkkkkxx.xxlllllllllllxVVVxmmmmmmmmmmmxx"xxnnnnnnnnnnnxHHHHHxxx
-xxxxx"xxxxkkkkkkkkkxxx.xxxlllllllllxxVVVxxmmmmmmmmmxxx"xxxnnnnnnnnnxxxx"xxxxx
-xxxxxWWxxxxkkkkkkkxxIIIIIxxlllllllxxVVVVVxxmmmmmmmxxJJJJJxxnnnnnnnxxxxwwxxxxx
-xxxxxWWWWxxxkkkkkxxxIIIIIxxxlllllxxxVVVVVxxxmmmmmxxxJJJJJxxxnnnnnxxxwwwwxxxxx
-xxxxxWWWWWWxxx"xxx..IIIIIxxxxx.xxxxVVVVVVVxxxx.xxxxxJJJJJ..xxx"xxxwwwwwwxxxxx
-xxxxxWWWWWWWWx"x...xIIIIIxxxKKKKKxxVVVVVVVxxLLLLLxxxJJJJJx...x"xwwwwwwwwxxxxx
-xxxxxWWWWWWWWWW..xxxIIIIIxxxKKKKKxVVVVVVVVVxLLLLLxxxJJJJJxxx..wwwwwwwwwwxxxxx
-xxxxxWWWWWWWWxxx"xxxxx"xxxxxKKKKK"VVVVVVVVV.LLLLLxxxxx.xxxxx"xxxwwwwwwwwxxxxx
-xxxxxWWWWWWxxxxYYxsssssssssxKKKKKxxxxxxxxxxxLLLLLxvvvvvvvvvxZZxxxxwwwwwwxxxxx
-xxxxxWWWWxxxxYYYYxsssssssssxKKKKKxxxxy.yxxxxLLLLLxvvvvvvvvvxZZZZxxxxwwwwxxxxx
-xxxxxWWxxxxYYYYYYxsssssssssxxx.xxxxy.....yxxxx"xxxvvvvvvvvvxZZZZZZxxxxwwxxxxx
-xxxxx.xxxYYYYYYYYxsssssssssxxy...y....]....y...yxxvvvvvvvvvxZZZZZZZZxxx.xxxxx
-xxxxx..YYYYYYYYYYxsssssssss.xxxy...z.....z...yxxx"vvvvvvvvvxZZZZZZZZZZ..xxxxx
-xxxxxxxxxYYYYYYYYxsssssssssxaaxxxy...(.)...yxxxbbxvvvvvvvvvxZZZZZZZZxxxxxxxxx
-xxxxxxxxxxxYYYYYYxsssssssssxaaaaxxxy.....yxxxbbbbxvvvvvvvvvxZZZZZZxxxxxxxxxxx
-xxxxxxxxxxxxxYYYYxsssssssssxaaaaaaxxxy.yxxxbbbbbbxvvvvvvvvvxZZZZxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxYYxsssssssssxaaaaaaaaxx.xxbbbbbbbbxvvvvvvvvvxZZxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxx.xxxxx.xxxxxaaaaaaaaaa.bbbbbbbbbbxxxxx.xxxxx.xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxccxtttttttttxaaaaaaaaxx.xxbbbbbbbbxuuuuuuuuuxddxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxccccxtttttttttxaaaaaaxxxy.yxxxbbbbbbxuuuuuuuuuxddddxxxxxxxxxxxxx
-xxxxxxxxxxxccccccxtttttttttxaaaaxxxy.....yxxxbbbbxuuuuuuuuuxddddddxxxxxxxxxxx
-xxxxxxxxxccccccccxtttttttttxaaxxxy...{.}...yxxxbbxuuuuuuuuuxddddddddxxxxxxxxx
-xxxxx..ccccccccccxttttttttt"xxxy...z.....z...yxxx.uuuuuuuuuxdddddddddd..xxxxx
-xxxxx.xxxccccccccxtttttttttxxy...y....[....y...yxxuuuuuuuuuxddddddddxxx.xxxxx
-xxxxxeexxxxccccccxtttttttttxxx"xxxxy.....yxxxx.xxxuuuuuuuuuxddddddxxxxffxxxxx
-xxxxxeeeexxxxccccxtttttttttxMMMMMxxxxy.yxxxxNNNNNxuuuuuuuuuxddddxxxxffffxxxxx
-xxxxxeeeeeexxxxccxtttttttttxMMMMMxxxxxxxxxxxNNNNNxuuuuuuuuuxddxxxxffffffxxxxx
-xxxxxeeeeeeeexxx"xxxxx.xxxxxMMMMM.ggggggggg"NNNNNxxxxx"xxxxx"xxxffffffffxxxxx
-xxxxxeeeeeeeeee..xxxOOOOOxxxMMMMMxgggggggggxNNNNNxxxjjjjjxxx..ffffffffffxxxxx
-xxxxxeeeeeeeex"x...xOOOOOxxxMMMMMxxgggggggxxNNNNNxxxjjjjjx...x"xffffffffxxxxx
-xxxxxeeeeeexxx"xxx..OOOOOxxxxx.xxxxgggggggxxxx.xxxxxjjjjj..xxx"xxxffffffxxxxx
-xxxxxeeeexxxoooooxxxOOOOOxxxpppppxxxgggggxxxqqqqqxxxjjjjjxxxrrrrrxxxffffxxxxx
-xxxxxeexxxxoooooooxxOOOOOxxpppppppxxgggggxxqqqqqqqxxjjjjjxxrrrrrrrxxxxffxxxxx
-xxxxx"xxxxoooooooooxxx"xxxpppppppppxxgggxxqqqqqqqqqxxx.xxxrrrrrrrrrxxxx"xxxxx
-xxxPPPPPxoooooooooooxx"xxpppppppppppxgggxqqqqqqqqqqqxx.xxrrrrrrrrrrrxQQQQQxxx
-xxxPPPPPxoooooooooooxx"xxpppppppppppxxgxxqqqqqqqqqqqxx.xxrrrrrrrrrrrxQQQQQxxx
-xxxPPPPP.ooooooooooo""h..ppppppppppp""g..qqqqqqqqqqq""i""rrrrrrrrrrr.QQQQQxxx
-xxxPPPPPxoooooooooooxxhxxpppppppppppxxxxxqqqqqqqqqqqxxixxrrrrrrrrrrrxQQQQQxxx
-xxxPPPPPxoooooooooooxhhhxpppppppppppxxxxxqqqqqqqqqqqxiiixrrrrrrrrrrrxQQQQQxxx
-xxxxx.xxxxoooooooooxxhhhxxpppppppppxxxxxxxqqqqqqqqqxxiiixxrrrrrrrrrxxxx.xxxxx
-xxxxx.xxxxxoooooooxxhhhhhxxpppppppxxxxxxxxxqqqqqqqxxiiiiixxrrrrrrrxxxxx.xxxxx
-xCCCCCCCCCxxoooooxxxhhhhhxxxpppppxxxxxxxxxxxqqqqqxxxiiiiixxxrrrrrxxDDDDDDDDDx
-xCCCCCCCCCxxxx.xxxxhhhhhhhxxxxxxxxxxxxxxxxxxxxxxxxxiiiiiiixxxx.xxxxDDDDDDDDDx
-xCCCCCCCCCxxRRRRRxxhhhhhhhxxxxxxxxxxxxxxxxxxxxxxxxxiiiiiiixxSSSSSxxDDDDDDDDDx
-xCCCCCCCCCxxRRRRRxhhhhhhhhhxxxxxxxxxxxxxxxxxxxxxxxiiiiiiiiixSSSSSxxDDDDDDDDDx
-xCCCCCCCCC""RRRRR.hhhhhhhhhxxxxxxxxxxxxxxxxxxxxxxxiiiiiiiii.SSSSS""DDDDDDDDDx
-xCCCCCCCCCxxRRRRRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxSSSSSxxDDDDDDDDDx
-xCCCCCCCCCxxRRRRRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxSSSSSxxDDDDDDDDDx
-xCCCCCCCCCxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxDDDDDDDDDx
-xCCCCCCCCCxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxDDDDDDDDDx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
 ################################################################################

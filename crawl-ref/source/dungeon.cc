@@ -4347,9 +4347,6 @@ static const vault_placement *_build_vault_impl(const map_def *vault,
             throw dgn_veto_exception("Pan map with disconnected zones");
     }
 
-    if (crawl_state.game_is_descent() && vault->get_tags_unsorted().count("no_descent"))
-        throw dgn_veto_exception("Illegal map for descent");
-
     unwind_var<string> placing(env.placing_vault, vault->name);
 
     vault_placement place;

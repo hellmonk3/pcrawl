@@ -4,8 +4,7 @@
 #                     is for abstract vaults - defined here as being vaults which
 #                     do not use a custom set of monsters, and/or have a more
 #                     abstract layout (often based on geometric shapes and
-#                     patterns). Use large_themed.des for vaults with a clear
-#                     theme to them.
+#                     patterns).
 #
 # Note that all maps for the Vaults branch system (including Vaults:$) reside in
 # vaults.des.
@@ -50,6 +49,7 @@ ENDMAP
 #
 NAME:   four-leaf_vault
 DEPTH:  D:12-, !D:$, Depths, !Depths:$
+WEIGHT: 1
 ORIENT: northwest
 MAP
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -90,6 +90,7 @@ ENDMAP
 #
 NAME:   cross_vault
 DEPTH:  D:12-, !D:$, Depths, !Depths:$
+WEIGHT: 1
 ORIENT: northwest
 MAP
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -127,6 +128,7 @@ ENDMAP
 NAME:    minmay_triangles_in_corner
 ORIENT:  southeast
 TAGS:    transparent
+WEIGHT:  1
 DEPTH:   D:12-, !D:$, Depths
 SUBST:   c : xcv
 MAP
@@ -160,32 +162,10 @@ MAP
 xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
-NAME:   minmay_three_patterns
-ORIENT: north
-DEPTH:  Depths, !Depths:$
-SUBST:  x : x:7 c:3, c : c:8 b:1 v:1
-MAP
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-x..xxx...xxxxx...xxxxxxx.......xx.......xx..xxx.x....x.xx...x.....x..x
-x...xxx...xxx.....xxxxx...x....xx..xxx..xx..xxx........xx...x..x.....x
-xx...xxx...x...c...xxx..x.x.x......xxx......xxx...xx........xx.cxxxx.x
-xxx...xxx.....ccc...x..xxxxxxx.....xxx.x..........xx..x...x....c.....x
-xxxx...xxx...ccc........x...x...xx...........xx......xx.x.xx...c..x..x
-x.xxx...x...ccc...x...xxx...xxx.xx.x....xxx..xx.xxx.xxxxxxxxx..cxxx..x
-x..xxx.....ccc...xxx....x...+........xx.xxx.....xxx...+...x....c.....x
-x...xxx...ccc.....xxx..xxxxxxx...xxx.xx.xxx.x...xxx..xx...xx...c.xxxxx
-xx...x...ccc...x...xxx..x.x.x....xxx..................x...x....c.....x
-xxx.....ccc...xxx...xxx...x...xx.xxx..x......xxx.x..xxxxxxxxx..c..x..x
-xxxx...ccc...xxx.....xxx......xx.........xx..xxx.....xx.x.xx...cccxx.x
-xxx...ccc...xxx...x...xxx...x........xx..xx..xxx..xx..x...x......c...x
-xx...ccc...xxx...xxx...xxx.......x...xx...........xx.............c...x
-x@..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxc@..x
-ENDMAP
-
 NAME:   minmay_fractal_lines_corner
 ORIENT: northwest
 TAGS:   transparent
+WEIGHT: 1
 DEPTH:  Depths
 SUBST:  z : xcvb
 MAP
@@ -222,6 +202,7 @@ ENDMAP
 NAME:   minmay_stepped
 ORIENT: northwest
 TAGS:   transparent
+WEIGHT: 1
 DEPTH:  D:12-, !D:$, Depths
 SUBST:  z : xcvb
 MAP
@@ -257,6 +238,7 @@ ENDMAP
 NAME:   minmay_outward_triangles
 ORIENT: northwest
 TAGS:   transparent
+WEIGHT: 1
 DEPTH:  D:12-, !D:$, Depths
 SUBST:  z : xcvb
 MAP
@@ -291,6 +273,7 @@ ENDMAP
 
 NAME:  grunt_bent_corner
 DEPTH: Depths, !Depths:$
+WEIGHT: 1
 ORIENT: northwest
 MAP
 xxxxxxxxxxxxxxxxxxcccccc
@@ -327,6 +310,7 @@ ENDMAP
 
 NAME:   grunt_twisty_corner
 ORIENT: southwest
+WEIGHT: 1
 DEPTH:  Depths, !Depths:$
 MAP
 xxxxxxxxxxxxxxxxxxxxxxxxxxc@
@@ -364,6 +348,7 @@ ENDMAP
 
 NAME:   kennysheep_snake
 ORIENT: west
+WEIGHT: 1
 TAGS:   no_trap_gen
 DEPTH:  D:12-, !D:$, Depths, !Depths:$, Snake
 MAP
@@ -400,6 +385,7 @@ ENDMAP
 
 NAME:   nicolae_aperiodic_l_corner
 TAGS:   transparent
+WEIGHT: 1
 DEPTH:  D:12-, Depths
 ORIENT: southwest
 MAP
@@ -436,4 +422,42 @@ c.......c.......c.......c.......c
 c.......+.......+.......+.......c
 c.......c.......c.......c.......c
 ccccccccccccccccccccccccccccccccc
+ENDMAP
+
+NAME:   minmay_smoke_and_mirrors
+ORIENT: northwest
+DEPTH:  D:10-
+WEIGHT: 1
+MARKER: F = lua:fog_machine { cloud_type="purple smoke", \
+            pow_min = 5, pow_max = 15, delay_min = 10,   \
+            delay_max = 50, size_min = 1, size_max = 5,  \
+            walk_dist = 0, spread_rate= 100 }
+SUBST:  F = .
+MAP
+xxxxxxxxxxxxxxxxxxxxxxxxxx
+xbbbbbbbbbbbbbbbbbbbbbbbbb
+xb....................Fbb.
+xb...bbbbb............bb..
+xb..bb...bb..........bb...
+xb.bb.....bb........bb....
+xb.........bb......bb.....
+xb..........bb....bb......
+xb.....bb...FbbbbbbF.....
+xb....bb....bb....bb.....
+xb...bb....bb......bb....
+xb..bb....bb........bb...
+xbbbb....bb....bb...Fbb..
+xb..bb........bb....bb..
+xb...bb......bb....bb...
+xb....bb....bb....bb....
+xb.....bbbbbb....bb.....
+xbbb........bb.........
+xb.bb........bb........
+xb..bb........bb.......
+xb...bb........bb.....
+xb...Fbb.............
+xb...bb.............
+xb..bb...........
+xb.bb........
+xb......
 ENDMAP

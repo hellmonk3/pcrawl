@@ -11,7 +11,7 @@ TAGS:   allow_dup extra luniq_serial decor nolayout_encompass
 DEPTH:  D, Depths, Snake, Lair
 CHANCE: 1%
 {{
-  local c = 4 + crawl.random2(3)*crawl.random2(2)
+  local c = 2 + crawl.random2(3)*crawl.random2(2)
   hook("post_place", function()
     dgn.place_maps{tag="coolio_serial_bayou", count=c}
   end)
@@ -106,6 +106,7 @@ ENDMAP
 NAME: serial_bayou_ford_a
 #a small pond that can be forded
 TAGS:  coolio_serial_bayou transparent extra decor
+WEIGHT: 3
 DEPTH: D, Depths, Snake, Lair
 SUBST: ? = Wt
 SUBST: V = Www
@@ -134,6 +135,7 @@ ENDMAP
 NAME:   serial_bayou_shore_a
 #a shore of a small lake
 TAGS:   coolio_serial_bayou extra decor transparent
+WEIGHT: 3
 ORIENT: east
 DEPTH:  D, Depths, Snake, Lair
 SUBST:  ? = Wt
@@ -207,6 +209,7 @@ ENDMAP
 NAME:  serial_bayou_lagoon_b
 #a big lagoon with a bridge thingy going through it
 TAGS:  coolio_serial_bayou
+WEIGHT:  1
 DEPTH: D, Depths, Snake, Lair
 SUBST: ? = Wt
 SUBST: V = Www
@@ -241,6 +244,7 @@ ENDMAP
 NAME:  serial_bayou_lake_a
 #a big lake
 TAGS:  coolio_serial_bayou transparent
+WEIGHT:  1
 DEPTH: D, Depths, Snake, Lair
 SUBST: ? = Wt
 SUBST: V = Www

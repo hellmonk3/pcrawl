@@ -15,7 +15,7 @@ TAGS:   layout_rooms
 DEPTH:  D, Depths, Elf, Crypt, Snake
 CHANCE: 1%
 {{
-  local c = 2 + crawl.random2(3)*crawl.random2(3)
+  local c = 2 + crawl.random2(4)*crawl.random2(2)
   hook("post_place", function()
     dgn.place_maps{tag="serial_corexii_hall", count=c}
   end)
@@ -135,7 +135,7 @@ ENDMAP
 
 NAME:   corexii_hall_statues_x
 DEPTH:  D, Depths, Elf, Crypt, Snake
-WEIGHT: 2
+WEIGHT: 1
 TAGS:   transparent extra allow_dup serial_corexii_hall decor
 SUBST:  T = T:3 V:3 G:1 .:3
 MAP
@@ -162,7 +162,7 @@ ENDMAP
 
 NAME:   chequers_hall_statues_y
 DEPTH:  D, Depths, Elf, Crypt, Snake
-WEIGHT: 2
+WEIGHT: 1
 TAGS:   transparent extra allow_dup serial_corexii_hall decor
 SUBST:  T = T:3 V:3 G:1 .:3
 MAP

@@ -1781,28 +1781,6 @@ MAP
 B
 ENDMAP
 
-# General overflow vault, can be used for all gods.
-NAME:     general_overflow_altar
-WEIGHT:   10
-TAGS:     no_monster_gen no_pool_fixup temple_overflow_generic_1 no_descent
-SHUFFLE:  xXY / xXY / xXY / abc
-SHUFFLE:  XY
-SUBST:    X=+, Y=x, a=w, b=w, c=w
-SHUFFLE:  ABCD
-SUBST:    A=>, C='GTU, D='
-SHUFFLE:  wll
-KMASK:    . = !opaque
-MAP
-........
-.xXYYxx.
-.xwwwwx.
-.xwABwx.
-.xwCDwx.
-.xwwwwx.
-.xxxxxx.
-........
-ENDMAP
-
 NAME:    old_standard_altar
 TAGS:    transparent allow_dup decor temple_overflow_generic_1
 SHUFFLE: cvxxxx
@@ -1906,25 +1884,6 @@ xpqrpqrpqrxx
 xrpqrpqrpqxx
 xx..pxp..xx
  xxxxxxxxx
-ENDMAP
-
-NAME:  lemuel_tele_altar
-TAGS:  temple_overflow_generic_1 transparent decor no_descent
-SUBST: D = ^ x
-KFEAT: ^ = teleport trap
-KMASK: 'B = opaque
-MAP
-...........
-.xxxx^xxxx.
-.x'''''''x.
-.x'''''''x.
-.x'''''''x.
-.D'''B'''D.
-.x'''''''x.
-.x'''''''x.
-.x'''''''x.
-.xxxxDxxxx.
-...........
 ENDMAP
 
 NAME:   mainiacjoe_overflow_brackets
@@ -2882,41 +2841,4 @@ ccc..cc...cc..ccc
    cccc...cccc
       ccOcc
        ccc
-ENDMAP
-
-NAME: gammafunk_temple_overflow_arena
-TAGS: temple_overflow_generic_3 temple_overflow_generic_2
-TAGS: temple_overflow_generic_1 no_monster_gen no_trap_gen no_tele_into no_descent
-WEIGHT: 1
-{{
-  local altarcount = 3
-  if not is_validating() then
-    altarcount = tonumber(get_overflow_altar_count(_G))
-  end
-  if altarcount == 1 then
-    subst("h = a")
-  elseif altarcount == 2 then
-    subst("B = a")
-  end
-}}
-SUBST: a = |*%$ .:80, 0 = 09., h = B, i : x., j : x., x : bcvx
-NSUBST: R = R / .
-MARKER: P = lua:transp_loc("temple_overflow_arena_entry")
-MARKER: Q = lua:transp_dest_loc("temple_overflow_arena_entry")
-MARKER: R = lua:transp_loc("temple_overflow_arena_exit")
-MARKER: S = lua:transp_dest_loc("temple_overflow_arena_exit")
-MAP
-  ...........
- ..nnnnnnnnn..
- .nn0..R...nn.
- .nG.ji0ij.Gn.
- .n..ij.ji%$n.
-..n......8*hn..
-@Pn..Q....$BnS@
-..n......9*hn..
- .n..ij.ji%$n.
- .nG.ji0ij.Gn.
- .nn0..R...nn.
- ..nnnnnnnnn..
-  ...........
 ENDMAP

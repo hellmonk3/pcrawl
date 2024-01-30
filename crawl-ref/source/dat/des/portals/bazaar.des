@@ -182,19 +182,6 @@ xx...xx
  xxxxx
 ENDMAP
 
-# Safe 2
-NAME:    bzr_entry_islet
-TAGS:    no_descent
-SHUFFLE: wwlW
-: place_bazaar_portal(_G)
-MAP
- wwwww
-wwwwwww
-ww<O>ww
-wwwwwww
- wwwww
-ENDMAP
-
 # Portal along the road
 NAME:    bzr_entry_road
 SHUFFLE: XU, TUV

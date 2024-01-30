@@ -39,6 +39,7 @@ default-depth: D:7-, Depths, Lair:2-
 
 NAME:     nzn_winding_woodlands_small
 ORIENT:   float
+WEIGHT:   5
 TAGS:     uniq_winding_woodlands transparent
 DEPTH:    D:7-, Depths, Lair:2-, Swamp:2-3
 SUBVAULT: A : winding_woodlands_5x15
@@ -76,6 +77,7 @@ ENDMAP
 NAME:     nzn_winding_woodlands_medium
 ORIENT:   float
 TAGS:     uniq_winding_woodlands transparent
+WEIGHT:   5
 DEPTH:    D:7-, Depths, Lair:2-, Swamp:2-3
 SUBVAULT: A : winding_woodlands_5x5
 SUBVAULT: B : winding_woodlands_5x15
@@ -118,6 +120,7 @@ ENDMAP
 NAME:     nzn_winding_woodlands_large
 ORIENT:   float
 TAGS:     uniq_winding_woodlands transparent
+WEIGHT:   1
 SUBVAULT: A : winding_woodlands_5x5
 SUBVAULT: B : winding_woodlands_5x15
 SUBVAULT: C : winding_woodlands_5x5
@@ -160,61 +163,10 @@ MAP
 .ccccccccccccccccccccccccccccc.
 ENDMAP
 
-NAME:     nzn_winding_woodlands_huge
-ORIENT:   float
-TAGS:     uniq_winding_woodlands transparent
-DEPTH:    D:11-, Depths, Lair:2-
-SUBVAULT: A : winding_woodlands_5x15
-SUBVAULT: B : winding_woodlands_5x15
-SUBVAULT: C : winding_woodlands_5x15
-SUBVAULT: D : winding_woodlands_5x15
-SUBVAULT: E : winding_woodlands_5x15
-SUBVAULT: F : winding_woodlands_5x15
-SUBVAULT: G : winding_woodlands_5x15
-SUBVAULT: H : winding_woodlands_5x15
-SUBVAULT: I : winding_woodlands_5x15
-SUBVAULT: J : winding_woodlands_5x15
-SUBVAULT: K : winding_woodlands_center
-SUBVAULT: L : winding_woodlands_center
-SUBVAULT: M : winding_woodlands_15x15
-SUBST:    ABCDEFGHIJKLM = t
-MAP
-@ccccccccccccccccccccccccccccccccccccccccccccccccc
-.cAAAAAAAAAAAAAAAcBBBBBBBBBBBBBBBcCCCCCCCCCCCCCCCc
-.cAAAAAAAAAAAAAAAcBBBBBBBBBBBBBBBcCCCCCCCCCCCCCCCc
-@.AAAAAAAAAAAAAAA.BBBBBBBBBBBBBBB.CCCCCCCCCCCCCCCc
-.cAAAAAAAAAAAAAAAcBBBBBBBBBBBBBBBcCCCCCCCCCCCCCCCc
-.cAAAAAAAAAAAAAAAcBBBBBBBBBBBBBBBcCCCCCCCCCCCCCCCc
-@cccccccccccccccccccccccc{ccccccccccccccc.cccccccc
- cLLLLLLLLLLLLLLLcccccccccccccccccDDDDDDDDDDDDDDDc
- cLLLLLLLLLLLLLLLcMMMMMMMMMMMMMMMcDDDDDDDDDDDDDDDc
- cLLLLLLLLLLLLLLLcMMMMMMMMMMMMMMMcDDDDDDDDDDDDDDDc
- cLLLLLLLLLLLLLLLcMMMMMMMMMMMMMMMcDDDDDDDDDDDDDDDc
- cLLLLLLLLLLLLLLLcMMMMMMMMMMMMMMMcDDDDDDDDDDDDDDDc
- cccccccc.ccccccccMMMMMMMMMMMMMMMcccccctt.ttcccccc
- cKKKKKKKKKKKKKKKcMMMMMMMMMMMMMMMcEEEEEEEEEEEEEEEc
- cKKKKKKKKKKKKKKKcMMMMMMMMMMMMMMMcEEEEEEEEEEEEEEEc
- cKKKKKKKKKKKKKKK.MMMMMMMMMMMMMMMcEEEEEEEEEEEEEEEc
- cKKKKKKKKKKKKKKKcMMMMMMMMMMMMMMMcEEEEEEEEEEEEEEEc
- cKKKKKKKKKKKKKKKcMMMMMMMMMMMMMMMcEEEEEEEEEEEEEEEc
- cccccctt.ttccccccMMMMMMMMMMMMMMMcccccctt.ttcccccc
- cJJJJJJJJJJJJJJJcMMMMMMMMMMMMMMMcFFFFFFFFFFFFFFFc
- cJJJJJJJJJJJJJJJcMMMMMMMMMMMMMMMcFFFFFFFFFFFFFFFc
- cJJJJJJJJJJJJJJJcMMMMMMMMMMMMMMMcFFFFFFFFFFFFFFFc
- cJJJJJJJJJJJJJJJcMMMMMMMMMMMMMMMcFFFFFFFFFFFFFFFc
- cJJJJJJJJJJJJJJJcccccccccccccccccFFFFFFFFFFFFFFFc
- cccccccc.ccccccccccccccc}ccccccccccccccc.cccccccc
- cIIIIIIIIIIIIIIIcHHHHHHHHHHHHHHHcGGGGGGGGGGGGGGGc
- cIIIIIIIIIIIIIIIcHHHHHHHHHHHHHHHcGGGGGGGGGGGGGGGc
- cIIIIIIIIIIIIIII.HHHHHHHHHHHHHHH.GGGGGGGGGGGGGGGc
- cIIIIIIIIIIIIIIIcHHHHHHHHHHHHHHHcGGGGGGGGGGGGGGGc
- cIIIIIIIIIIIIIIIcHHHHHHHHHHHHHHHcGGGGGGGGGGGGGGGc
- ccccccccccccccccccccccccccccccccccccccccccccccccc
-ENDMAP
-
 NAME:     nzn_winding_woodlands_cross
 ORIENT:   float
 TAGS:     uniq_winding_woodlands transparent
+WEIGHT:   1
 DEPTH:    D:7-, Depths, Lair:2-, Swamp:2-3
 SUBVAULT: A : winding_woodlands_5x15
 SUBVAULT: B : winding_woodlands_5x15
@@ -263,6 +215,7 @@ ENDMAP
 NAME:     nzn_winding_woodlands_three_and_one
 ORIENT:   float
 TAGS:     uniq_winding_woodlands transparent
+WEIGHT:   5
 DEPTH:    D:7-, Depths, Lair:2-, Swamp:2-3
 SUBVAULT: A : winding_woodlands_5x15
 SUBVAULT: B : winding_woodlands_5x15
@@ -299,6 +252,7 @@ ENDMAP
 
 NAME:     nzn_winding_woodlands_stair_cross
 ORIENT:   float
+WEIGHT:   1
 TAGS:     uniq_winding_woodlands transparent
 SUBVAULT: A : winding_woodlands_5x15
 SUBVAULT: B : winding_woodlands_center
@@ -345,6 +299,7 @@ ENDMAP
 
 NAME:     nzn_winding_woodlands_stair_trap
 ORIENT:   float
+WEIGHT:   1
 TAGS:     uniq_winding_woodlands transparent
 DEPTH:    D:11-, Depths, Lair:2-
 SUBVAULT: A : winding_woodlands_5x15

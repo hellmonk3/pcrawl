@@ -11,7 +11,7 @@
 NAME:    elethiomel_arrival_fortress_basement
 TAGS:    arrival no_monster_gen no_rotate transparent
 ORIENT:  float
-WEIGHT:  2
+WEIGHT:  1
 SHUFFLE: {[(
 SUBST:   [( = .
 SUBST:   c : cx
@@ -39,71 +39,11 @@ xccx.xccxxxxxxxxxxxxxxxxxxxcccccccx
 xxxx@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
-##############################################################
-# 46 x 14
-NAME:    elethiomel_arrival_infinity_welcomes_careful_drivers
-TAGS:    arrival no_rotate transparent
-ORIENT:  northwest
-KMASK:   a = no_monster_gen
-SUBST:   a : .
-SUBST:   ' : . x ':40, '=x.
-SUBST:   c : cxxx
-MAP
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxx....xxxxxxxxxxxxxxx....xx..xxx.''xxxxxx
-xxxxx''........xx...''.........''...'..xx...xx
-xxx'....ccccc...xxx.....ccccc......'......x..@
-x....ccccaaacccc.....ccccaaacccc.......''..xxx
-x..cccaaaaaaaaaccc+cccaaaaaaaaaccc....''..xxxx
-x'.caaaaaa{aaaaaa+a+aaaaaaTaaaaaa+.........xxx
-x'.cccaaaaaaaaaccc+cccaaaaaaaaaccc...''...xxxx
-x....ccccaaacccc.....ccccaaacccc......'..'.xxx
-x.......ccccc......'....ccccc......'.....xxxxx
-x'................'..xx........'....'....xxxxx
-x.''..xxx...''.....'..xx....'''..''.xxx''.xxxx
-x'xxxxxxxxxxxxxx..xxx.xxx..xxx....xxxxxx...xxx
-xxxxxxxxxxxxxxxxx@xxxxxxxx@xxxxxx@xxxxxxxx@xxx
-ENDMAP
-
-##############################################################################
-# 33 x 25
-NAME:    dpeg_arrival_central
-TAGS:    arrival transparent
-ORIENT:  float
-SHUFFLE: @ABC
-SUBST:   A=@x, B=@x, C=@x
-MAP
-          xxxxxx@xxxxxx
-        xxx...........xxx
-      xxx...xxx...xxx...xxx
-     xx...xxxx.....xxxx...xx
-    xx..xxxxx...]...xxxxx..xx
-   xx..xxxxx.........xxxxx..xx
-  xx..xxxxx...........xxxxx..xx
- xx..xxxxx......x......xxxxx..xx
-xx..xxxxx......xxx......xxxxx..x
-xx.xxxxx......xxxxx......xxxxx.xx
-x..xxxx......xxxxxxx......xxxx..x
-x.xxxx......xxxxxxxxx......xxxx.x
-A..........xxxxxxxxxxx..........C
-x.xxxx......xxxxxxxxx......xxxx.x
-x..xxxx......xxxxxxx......xxxx..x
-xx.xxxxx......xxxxx......xxxxx.xx
- x..xxxxx......xxx......xxxxx..x
- xx..xxxxx......x......xxxxx..xx
-  xx..xxxxx...........xxxxx..xx
-   xx..xxxxx.........xxxxx..xx
-    xx..xxxxx...{...xxxxx..xx
-     xx...xxxx.....xxxx...xx
-      xxx...xxx...xxx...xxx
-        xxx...........xxx
-          xxxxxxBxxxxxx
-ENDMAP
-
 ##############################################################################
 # 29 x 22
 NAME:    dpeg_arrival_castle
 TAGS:    arrival no_monster_gen no_rotate transparent
+WEIGHT:  1
 ORIENT:  float
 SHUFFLE: ]def
 SUBST:   c : cx
@@ -137,52 +77,12 @@ MAP
   .........................
 ENDMAP
 
-#############################################################################
-# 42x28
-NAME:    dpeg_cavernosity
-TAGS:    arrival no_monster_gen no_rotate transparent
-ORIENT:  float
-MONS:    fungus
-SHUFFLE: {[(, UVW, XYZ
-SUBST:   [( = T
-SUBST:   '=.x, U=+, V=x, W=x, X=+, Y=x, Z=x, b:xxxbcv
-RTILE:   x = wall_pebble_lightgray
-SUBST:   = : + x
-MAP
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxx''xxxxxxxxxxxxxxxxx.xxxxxxxxxxxxx
-xxx...x''...x...xxxxxxxxxxx.0..xxxxxxxxxxx
-xx..(....xx..''..xxxxxxxxxx.x.xxxxxxxxxxxx
-xx.....xxx'.xxx..xxxx''xxxx...xxxxxxxxxxxx
-xxx...xxxx=xxxxx.'xx'..'xxxx0xxxxxxxxxxxxx
-xxxxxxx'x=xxxxxx'.x..x.'xxx.xxxxxxxxxxxx..
-xxxxx''...'xxxxxx'..xx..'xxx..xxxxxxx.....
-xxxxx'..x'..xxxxxx'x'..x'xxxxx.xxxx.......
-xxxx..'xxx..'xxxxxxx'.xxxxxxx0x.Wx........
-xxxx..xxxxx..'xxxxx.....xxxx.xxxx.........
-xxxxx...xx'x..'xxx.......xxx0xxxx.........
-xxxx.....x'x..'xx...bbb...xUxVxx..........
-xxxx..{..xx..x''x..bbbbb....x'...........@
-xxxxx...xx''.xxx...bbbbb..x....x..........
-xxxxxxxxxxxx.'x.....bbb...xxxYxxx.........
-xxxxxxxxxxxxx....x.......xXx.xxxx.........
-xxxxxxxxxxxxxxx'xxx.....xxx..xxxxx........
-xxxxxxxxxxxxxx=xxxxxx..xxx..xxxxxxx.......
-xxxxxx'xxxxxx=xxxxxx.''xxx.xxxxxxxxxx.....
-xx...x.'xxxxx'.xxxxx'...Z1.xxxxxxxxxxxxx..
-x..[.......'...'x'xxx..'xx..xxxxxwxxwwxxxx
-x.....xxx...'x'..xxx..'xxxx1...wwwwwxxwxxx
-xx...xxxx''x'xxx'..'.xxxxxxxxx.wwwxxxxxxxx
-xxxxxxxxxxxxxxxxxx..xxxxxxxxxxwwxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
 ##############################################################################
 # 29 x 21
 NAME:    matt_arrival_debris
 TAGS:    arrival transparent
 ORIENT:  float
-WEIGHT:  2
+WEIGHT:  1
 SHUFFLE: {[(
 SUBST:   [( = .
 SUBST:   ' : . x ':40
@@ -211,50 +111,11 @@ x.........'......xx.........x
 xxxxxxxxxxx@xxxxxxxxxxxxxxxxx
 ENDMAP
 
-###########################################################
-# 43 x 26 -- but it feels smaller because it's not open and
-#            starts in a corner and is diagonally shaped
-# There's a forest outside the dungeon
-NAME:   kilobyte_arrival_exit_the_forest
-TAGS:   arrival no_rotate no_pool_fixup transparent
-ORIENT: northwest
-MONS:   plant
-FTILE:  .t1 = floor_moss
-KMASK:  Ww = no_monster_gen
-MAP
-ttttttttttttttttttttttttttttttttttttttttttt
-ttttttttt1.t1ttttttwwtttttttttttttttttttttt
-tttt...1..t....tttwwwttt.tttttttt....ttttt
-ttt..{..ttttt.t.tttwwwt...tttt.....t...tt
-tt......tttttt.ttttttwww...t.....ttttt..
-tttt..t.tttttt.ttttttttwww...ttttttttt..
-ttttt..tttttt.ttttttttttwwwWttttttttttt..
-ttttt.tttttt.tttttttttttttwWWtttttttttt.
-tttt..tttttt..tttttttttttt..wWwtttttt..
-tttt.ttttttttt..tttttttt...ttWttt.....
-tttt.ttttttttttt.ttttt...ttt.tt.....
-tttt.tttttttttttt.ttt.tttt...tt.....
-ttttt..ttttttttttt...ttttt.ttt....
-ttttttt..ttttt....tttttttt.t.....
-ttttttttt.....ttttttttttttt.t...@
-ttttttttttt1ttttttttttttttt...
-tttttttttttttttttttttttt....
-tttttttttttttttttttttt....
-tttttttttttttttttttt.....
-tttttttttttttttttt......
-ttttttttttttt..........
-tttttttt............
-ttt..............
-tt....
-t..
-t.
-ENDMAP
-
 #############################################################################
 # 33 x 23
 NAME:   dpeg_arrival_circle_labyrinth_a
 TAGS:   arrival no_monster_gen no_rotate transparent
-WEIGHT: 3
+WEIGHT: 1
 ORIENT: float
 NSUBST: . = d / .
 NSUBST: + = 3=+ / x
@@ -317,7 +178,7 @@ ENDMAP
 
 NAME:    dpeg_arrival_circle_labyrinth_c
 TAGS:    arrival no_monster_gen no_rotate transparent
-WEIGHT:  6
+WEIGHT:  1
 ORIENT:  float
 NSUBST:  X = 1:adgj / *:x
 SHUFFLE: ab, cd, ef, gh, ij, kl, mn
@@ -355,6 +216,7 @@ ENDMAP
 # Zaba's second arrival vault ever
 NAME:    arrival_zaba_pyramid
 TAGS:    arrival
+WEIGHT:  1
 ORIENT:  float
 KMASK:   a = no_monster_gen
 SUBST:   a : .
@@ -387,7 +249,7 @@ ENDMAP
 # 23x17
 # The large aboretum
 NAME:   minmay_arrival_arboretum_large
-WEIGHT: 2
+WEIGHT: 1
 TAGS:   arrival no_monster_gen
 ORIENT: float
 MONS:   plant / bush w:3, fungus col:any, fungus col:yellow, fungus col:red
@@ -427,7 +289,7 @@ ENDMAP
 ##############################################################
 # 32x29
 NAME:    minmay_arrival_shoal_huts
-WEIGHT:  5
+WEIGHT:  1
 TAGS:    arrival transparent
 ORIENT:  float
 SHUFFLE: {[(
@@ -496,43 +358,6 @@ xxxxxxxxx1.....1xxxxxxxxx
 ENDMAP
 
 ##############################################################################
-NAME:   co_arrival_hall_of_pillars
-TAGS:   arrival transparent
-ORIENT: float
-WEIGHT: 1
-SUBST:  c : cccccvvb
-MAP
-xxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxx...{...xxxxxxxxxx
-xxxxxxx.............xxxxxxx
-xxxxx...c..c...c..c...xxxxx
-xxxx...................xxxx
-xxxx...................xxxx
-xxx..c..c..c...c..c..c..xxx
-xxx.....................xxx
-xxx.....................xxx
-xxx..c..c..c...c..c..c..xxx
-xxx.....................xxx
-xxx.....................xxx
-xxx..c..c..G...G..c..c..xxx
-xxx.....................xxx
-xxx.....................xxx
-xxx..c..c..c...c..c..c..xxx
-xxx.....................xxx
-xxx.....................xxx
-xxx..c..c..c...c..c..c..xxx
-xxx.....................xxx
-xxx.....................xxx
-xxx..c..c..c...c..c..c..xxx
-xx.......................xx
-x.........................x
-...........................
-...........................
-@...@...@...@@@...@...@...@
-ENDMAP
-
-##############################################################################
 NAME:    roderic_lyre
 TAGS:    arrival no_monster_gen no_trap_gen no_rotate transparent
 ORIENT:  float
@@ -570,6 +395,7 @@ ENDMAP
 ##############################################################################
 NAME:    sevenhm_arrival_forest_fort_large_2
 TAGS:    arrival no_rotate no_monster_gen transparent
+WEIGHT:  1
 ORIENT:  northwest
 SUBST:   T : TTTV, p = tt., G = GGGG., z = ...T
 SHUFFLE: {[
@@ -596,7 +422,7 @@ ENDMAP
 NAME:    sevenhm_arrival_forest_fort_large_3
 TAGS:    arrival transparent
 ORIENT:  float
-WEIGHT:  3
+WEIGHT:  1
 SUBST:   T : TTTV, p = tt., G = GGG.
 NSUBST:  z = + / c, Z = + / c, X = + / c, > = > / .
 SHUFFLE: {[(
@@ -630,6 +456,7 @@ ENDMAP
 ##############################################################################
 NAME:    sevenhm_arrival_forest_fort_large_4
 TAGS:    arrival transparent
+WEIGHT:  1
 ORIENT:  northwest
 SUBST:   p = 11., G = G..
 NSUBST:  { = { / ., [ = [ / .
@@ -692,49 +519,11 @@ MAP
 11111111@11111111
 ENDMAP
 
-# This vault has over 400 monsters (as plants) -- can this be too many? --dpeg
-NAME:   roderic_crop_circles_arrival_large
-TAGS:   arrival no_trap_gen transparent
-ORIENT: float
-WEIGHT: 1
-MONS:   col:green plant, col:brown plant
-SUBST:  '=111.
-COLOUR: . = brown
-: if crawl.one_chance_in(5) then
-SUBST:  1 = 2:100 1:20
-: else
-SUBST:  1 = 1:100 2:10
-: end
-MAP
-111111.111111111'111111
-1111.....11111.....1111
-111.11111.111.11111.111
-11.1111111.1.1111111.11
-1.111111111.111111111.1
-1.111111111.111111111.1
-'.1111111..{..1111111.'
-1.111111.11.11.111111.1
-1.11111.111.111.11111.1
-11.111.111.1.111.111.11
-111.11.11.111.11.11.111
-1111.....11111.....1111
-111.11.11.111.11.11.111
-11.111.111.1.111.111.11
-1.11111.111.111.11111.1
-1.111111.11.11.111111.1
-'.1111111.....1111111.'
-1.111111111.111111111.1
-1.111111111.111111111.1
-11.1111111.1.1111111.11
-111.11111.111.11111.111
-1111.....11111.....1111
-111111'111111111'111111
-ENDMAP
-
 ##############################################################################
 # arrival octogonal star
 NAME:   roderic_octagonal_star
 TAGS:   arrival transparent
+WEIGHT: 1
 ORIENT: float
 MAP
    xxxx+xxxxxxx+xxxx
@@ -767,6 +556,7 @@ ENDMAP
 NAME:   lightli_arrival_farm
 ORIENT: float
 TAGS:   no_monster_gen arrival
+WEIGHT: 1
 MONS:   plant
 KPROP:  F1 = no_tele_into
 SUBST:  1 = 1:2 t:2 .:1
@@ -797,43 +587,11 @@ ENDMAP
 
 ##############################################################################
 
-NAME: nicolae_arrival_somewhat_less_tricky_arrival
-ORIENT: float
-TAGS: arrival no_monster_gen no_trap_gen transparent
-SHUFFLE: GTt, ab, cd, ef, gh, ij, kl
-SUBST: acegik = ., bdfhjl = x
-MAP
-@.......................@
-.........xxx+xxx.........
-..t....+xxxx.xxxx+....t..
-......xx.xx..xx..xx......
-....xxx..xx.xxx.xxxxx....
-....x...xxx.a...x...x....
-...xx.xxxxx.xbxxx.x.xx...
-..+xx.xxxx..x.....x..x+..
-..x.l....f.xx.xxxxxx..x..
-.xxkxxxxex..x.xx...xxxxx.
-.xxk...xexx+x+xx.x.x...x.
-.xxx.x.xexx...xx.x.x.x.x.
-.+.x.x.x..+.{.+..x.x.x.+.
-.x.x.x.x.xx...xxhx.x.xxx.
-.x...x.x.xx+x+xxhx...jxx.
-.xxxxx...xx.x..xhxxxxjxx.
-..x..xxxxxx.xx.g....i.x..
-..+x..x.....x..xxxx.xx+..
-...xx.x.xxxcx.xxxxx.xx...
-....x...x...d.xxx...x....
-....xxxxx.xxx.xx..xxx....
-......xx..xx..xx.xx......
-..t....+xxxx.xxxx+....t..
-.........xxx+xxx.........
-@.......................@
-ENDMAP
-
 #       arrival/large
 
 NAME:   kennysheep_arrival_seaside
 TAGS:   arrival no_monster_gen no_trap_gen transparent
+WEIGHT: 1
 ORIENT: southeast
 KMONS:  p = plant
 KFEAT:  W = open_sea
@@ -875,7 +633,7 @@ ENDMAP
 NAME:       psy_arrival_wood_between_worlds
 TAGS:       arrival no_monster_gen no_trap_gen no_pool_fixup transparent
 ORIENT:     float
-WEIGHT:     3
+WEIGHT:     1
 FTILE:      t.qG^P{ = floor_grass
 COLOUR:     . = green
 KMONS:      P = plant / bush
@@ -909,39 +667,6 @@ xxtttqPtt.ttt.ttPqtttxx
        xxxxxxxxx
 ENDMAP
 
-NAME:   wander_arrival_estate
-TAGS:   arrival no_monster_gen no_item_gen transparent
-ORIENT: float
-MAP
-.................
-.......T.T.......
-........U........
-.................
-.................
-..ccccc...ccccc..
-..c...ccncc...c..
-..c.G.......G.c..
-..c...........c..
-..ccc.......ccc..
-....c...{...c....
-....c.......c....
-....c.......c....
-....c.......c....
-....c.......c....
-....ccc...ccc....
-......c+++c......
-.................
-.....t.....t.....
-.................
-.....t.....t.....
-.................
-.....t.....t.....
-.................
-.....t.....t.....
-.................
-........@........
-ENDMAP
-
 NAME:    wander_arrival_abandoned_jail
 TAGS:    arrival no_monster_gen no_item_gen transparent
 ORIENT:  float
@@ -968,6 +693,7 @@ ENDMAP
 ##############################################################################
 NAME:    heliophobic_arrival_dark_side_of_the_moon
 TAGS:    arrival no_monster_gen no_trap_gen transparent
+WEIGHT:  1
 ORIENT:  float
 MARKER:  F = lua:fog_machine{ \
              pow_max = 32, delay_min = 20, delay_max = 200, \
@@ -1000,6 +726,7 @@ ENDMAP
 
 NAME:   tekkud_arrival_beachfront_property
 TAGS:   arrival no_monster_gen no_trap_gen no_pool_fixup
+WEIGHT: 1
 ORIENT: north
 KMASK:  .T = no_item_gen
 KFEAT:  z = open_sea
@@ -1035,6 +762,7 @@ ENDMAP
 # 25 x 25
 NAME:   orjb1_clovarrival
 TAGS:   arrival transparent no_monster_gen no_trap_gen
+WEIGHT: 1
 ORIENT: float
 MONS:   bush
 FTILE:  _1Wt = floor_grass

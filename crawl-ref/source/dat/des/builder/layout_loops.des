@@ -1326,7 +1326,7 @@ ENDMAP
 #
 NAME:   layout_loops_cross
 DEPTH:  D, Elf
-WEIGHT: 5 (D), 10 (Elf)
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_corridors
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -1337,22 +1337,21 @@ TAGS:   no_rotate no_vmirror no_hmirror
   local ROOM_BORDER = 1
 
   local CONNECTION_PLUS_OFFSET = 4
-  local CONNECTION_VARIATION_BIG = 5
+  local CONNECTION_VARIATION_BIG = 8
   local CONNECTION_VARIATION_SMALL = 3
 
   local PLACE_STAIRS_PERCENT = IS_ELF and 50 or 0
   local ROOM_CORNER_PERCENT  = IS_ELF and 25 or 20
 
-  -- Elf + length 20 arms can result in floor on map edge
-  local CROSS_ARM_LENGTH      = 5
-  local STAIR_ROOM_DISTANCE   = 4
+  local CROSS_ARM_LENGTH      = 10
+  local STAIR_ROOM_DISTANCE   = 7
   local STAIR_ROOM_SIZE_MIN   = 2
   local STAIR_ROOM_SIZE_RANGE = 2
   local STAIR_COUNT = 12
 
   local wall_glyph = getRandomWallMaterial()
 
-  local gxm, gym = dgn.builder_bounds()
+  local gxm, gym = dgn.large_builder_bounds()
   extend_map{width = gxm, height = gym, fill = wall_glyph}
 
   local positions_use = {}
@@ -1584,10 +1583,6 @@ TAGS:   no_rotate no_vmirror no_hmirror
     subst('F : .')
   end
   -- else place stairs randomly
-
-  if IS_ELF then
-    add_windows {wall = wall_glyph .. "m", open = ".", window = "m" }
-  end
 }}
 MAP
 ENDMAP

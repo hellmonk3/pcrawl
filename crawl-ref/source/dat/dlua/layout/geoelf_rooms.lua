@@ -624,17 +624,17 @@ end
 function geoelf.rooms.square_glass_box (room, radius)
   local inner_radius = crawl.random_range(1, radius - 2)
   for i = 0, inner_radius - 1 do
-    room[ i][ inner_radius] = geoelf.glyphs.GLASS
-    room[-i][ inner_radius] = geoelf.glyphs.GLASS
-    room[ i][-inner_radius] = geoelf.glyphs.GLASS
-    room[-i][-inner_radius] = geoelf.glyphs.GLASS
-    room[ inner_radius][ i] = geoelf.glyphs.GLASS
-    room[ inner_radius][-i] = geoelf.glyphs.GLASS
-    room[-inner_radius][ i] = geoelf.glyphs.GLASS
-    room[-inner_radius][-i] = geoelf.glyphs.GLASS
+    room[ i][ inner_radius] = geoelf.glyphs.WALL
+    room[-i][ inner_radius] = geoelf.glyphs.WALL
+    room[ i][-inner_radius] = geoelf.glyphs.WALL
+    room[-i][-inner_radius] = geoelf.glyphs.WALL
+    room[ inner_radius][ i] = geoelf.glyphs.WALL
+    room[ inner_radius][-i] = geoelf.glyphs.WALL
+    room[-inner_radius][ i] = geoelf.glyphs.WALL
+    room[-inner_radius][-i] = geoelf.glyphs.WALL
   end
 
-  local corner = geoelf.glyphs.GLASS
+  local corner = geoelf.glyphs.WALL
   local corner_style = crawl.random2(5)
   if (corner_style == 0) then
     corner = geoelf.rooms.GLASS_PLANTLIKE
@@ -647,14 +647,14 @@ function geoelf.rooms.square_glass_box (room, radius)
   room[-inner_radius][-inner_radius] = corner
 
   local door_pos = crawl.random_range(1 - inner_radius, inner_radius - 1)
-  room[door_pos][ inner_radius] = geoelf.glyphs.GLASS_DOOR
+  room[door_pos][ inner_radius] = geoelf.glyphs.DOOR
   if (crawl.random2(12) < inner_radius) then
     door_pos = crawl.random_range(1 - inner_radius, inner_radius - 1)
-    room[door_pos][-inner_radius] = geoelf.glyphs.GLASS_DOOR
+    room[door_pos][-inner_radius] = geoelf.glyphs.DOOR
   end
   if (crawl.random2(15) < inner_radius) then
     door_pos = crawl.random_range(1 - inner_radius, inner_radius - 1)
-    room[ inner_radius][door_pos] = geoelf.glyphs.GLASS_DOOR
+    room[ inner_radius][door_pos] = geoelf.glyphs.DOOR
   end
 end
 
@@ -760,11 +760,11 @@ end
 function geoelf.rooms.diamond_glass_plus (room, radius)
   local both = crawl.coinflip()
   for i = 1, radius do
-    room[ i][0] = geoelf.glyphs.GLASS
-    room[-i][0] = geoelf.glyphs.GLASS
+    room[ i][0] = geoelf.glyphs.WALL
+    room[-i][0] = geoelf.glyphs.WALL
     if (both) then
-      room[0][-i] = geoelf.glyphs.GLASS
-      room[0][ i] = geoelf.glyphs.GLASS
+      room[0][-i] = geoelf.glyphs.WALL
+      room[0][ i] = geoelf.glyphs.WALL
     end
   end
 
@@ -776,7 +776,7 @@ function geoelf.rooms.diamond_glass_plus (room, radius)
       room[0][0] = geoelf.rooms.GLASS_FEATURE
     end
   else
-    room[0][0] = geoelf.glyphs.GLASS
+    room[0][0] = geoelf.glyphs.WALL
   end
 
   if (both) then
@@ -785,13 +785,13 @@ function geoelf.rooms.diamond_glass_plus (room, radius)
     local door_x2 = crawl.random_range(1, radius - 1)
     local door_y1 = crawl.random_range(1, radius - 1)
     local door_y2 = crawl.random_range(1, radius - 1)
-    if (style ~= 0) then room[ door_x1][0] = geoelf.glyphs.GLASS_DOOR end
-    if (style ~= 1) then room[-door_x2][0] = geoelf.glyphs.GLASS_DOOR end
-    if (style ~= 2) then room[0][ door_y1] = geoelf.glyphs.GLASS_DOOR end
-    if (style ~= 3) then room[0][-door_y2] = geoelf.glyphs.GLASS_DOOR end
+    if (style ~= 0) then room[ door_x1][0] = geoelf.glyphs.DOOR end
+    if (style ~= 1) then room[-door_x2][0] = geoelf.glyphs.DOOR end
+    if (style ~= 2) then room[0][ door_y1] = geoelf.glyphs.DOOR end
+    if (style ~= 3) then room[0][-door_y2] = geoelf.glyphs.DOOR end
   else
     local door_x = crawl.random_range(1 - radius, radius - 1)
-    room[door_x][0] = geoelf.glyphs.GLASS_DOOR
+    room[door_x][0] = geoelf.glyphs.DOOR
   end
 end
 
@@ -892,11 +892,11 @@ end
 function geoelf.rooms.cross_glass_X (room, radius, center_radius)
   local both = crawl.coinflip()
   for i = 1, center_radius do
-    room[ i][ i] = geoelf.glyphs.GLASS
-    room[-i][-i] = geoelf.glyphs.GLASS
+    room[ i][ i] = geoelf.glyphs.WALL
+    room[-i][-i] = geoelf.glyphs.WALL
     if (both) then
-      room[ i][-i] = geoelf.glyphs.GLASS
-      room[-i][ i] = geoelf.glyphs.GLASS
+      room[ i][-i] = geoelf.glyphs.WALL
+      room[-i][ i] = geoelf.glyphs.WALL
     end
   end
 
@@ -908,7 +908,7 @@ function geoelf.rooms.cross_glass_X (room, radius, center_radius)
       room[0][0] = geoelf.rooms.GLASS_FEATURE
     end
   else
-    room[0][0] = geoelf.glyphs.GLASS
+    room[0][0] = geoelf.glyphs.WALL
   end
 end
 
@@ -916,10 +916,10 @@ function geoelf.rooms.cross_glass_5_parts (room, radius, center_radius)
   local wall_min = -center_radius - 1
   local wall_max =  center_radius + 1
   for i = -center_radius, center_radius do
-    room[i][wall_min] = geoelf.glyphs.GLASS
-    room[i][wall_max] = geoelf.glyphs.GLASS
-    room[wall_min][i] = geoelf.glyphs.GLASS
-    room[wall_max][i] = geoelf.glyphs.GLASS
+    room[i][wall_min] = geoelf.glyphs.WALL
+    room[i][wall_max] = geoelf.glyphs.WALL
+    room[wall_min][i] = geoelf.glyphs.WALL
+    room[wall_max][i] = geoelf.glyphs.WALL
   end
 
   local door_min = -center_radius + 1
@@ -928,24 +928,24 @@ function geoelf.rooms.cross_glass_5_parts (room, radius, center_radius)
   local door_x2 = crawl.random_range(door_min, door_max)
   local door_y1 = crawl.random_range(door_min, door_max)
   local door_y2 = crawl.random_range(door_min, door_max)
-  room[door_x1][wall_min] = geoelf.glyphs.GLASS_DOOR
-  room[door_x2][wall_max] = geoelf.glyphs.GLASS_DOOR
-  room[wall_min][door_y1] = geoelf.glyphs.GLASS_DOOR
-  room[wall_max][door_y2] = geoelf.glyphs.GLASS_DOOR
+  room[door_x1][wall_min] = geoelf.glyphs.DOOR
+  room[door_x2][wall_max] = geoelf.glyphs.DOOR
+  room[wall_min][door_y1] = geoelf.glyphs.DOOR
+  room[wall_max][door_y2] = geoelf.glyphs.DOOR
 end
 
 function geoelf.rooms.cross_glass_plus (room, radius, center_radius)
   local arm_length = crawl.random_range(1, radius - 1)
   for i = 1, arm_length - 1 do
-    room[ i][0] = geoelf.glyphs.GLASS
-    room[-i][0] = geoelf.glyphs.GLASS
-    room[0][ i] = geoelf.glyphs.GLASS
-    room[0][-i] = geoelf.glyphs.GLASS
+    room[ i][0] = geoelf.glyphs.WALL
+    room[-i][0] = geoelf.glyphs.WALL
+    room[0][ i] = geoelf.glyphs.WALL
+    room[0][-i] = geoelf.glyphs.WALL
   end
 
   local style   = crawl.random2(10)
-  local center  = geoelf.glyphs.GLASS
-  local arm_end = geoelf.glyphs.GLASS
+  local center  = geoelf.glyphs.WALL
+  local arm_end = geoelf.glyphs.WALL
   if (style == 0) then
     center = geoelf.rooms.GLASS_PLANTLIKE
   elseif (style == 1) then
@@ -1110,10 +1110,10 @@ end
 
 function geoelf.rooms.triangle_glass_wall (room, radius)
   for x = -radius + 1, radius do
-    room[x][0] = geoelf.glyphs.GLASS
+    room[x][0] = geoelf.glyphs.WALL
   end
   local door_x = crawl.random_range(-radius + 2, radius - 2)
-  room[door_x][0] = geoelf.glyphs.GLASS_DOOR
+  room[door_x][0] = geoelf.glyphs.DOOR
 end
 
 
@@ -1243,26 +1243,26 @@ end
 
 function geoelf.rooms.hexagon_glass_wall_S_N (room, radius)
   for y = -radius, radius do
-    room[0][y] = geoelf.glyphs.GLASS
+    room[0][y] = geoelf.glyphs.WALL
   end
   local door_y = crawl.random_range(-radius + 1, radius - 1)
-  room[0][door_y] = geoelf.glyphs.GLASS_DOOR
+  room[0][door_y] = geoelf.glyphs.DOOR
 end
 
 function geoelf.rooms.hexagon_glass_wall_SE_NW (room, radius)
   for x = 1, radius do
     local y = math.floor(x / 2)
-    room[ x][ y] = geoelf.glyphs.GLASS
-    room[-x][-y] = geoelf.glyphs.GLASS
+    room[ x][ y] = geoelf.glyphs.WALL
+    room[-x][-y] = geoelf.glyphs.WALL
   end
 
   -- We don't actually need a door because the wall is diagonal
   -- If the door isn't in the middle, it will be removed due
   --  to having insufficient walls around it
   if (crawl.one_chance_in(3)) then
-    room[0][0] = geoelf.glyphs.GLASS_DOOR
+    room[0][0] = geoelf.glyphs.DOOR
   else
-    room[0][0] = geoelf.glyphs.GLASS
+    room[0][0] = geoelf.glyphs.WALL
   end
 end
 

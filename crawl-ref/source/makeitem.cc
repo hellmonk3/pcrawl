@@ -747,10 +747,12 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
     case SPARM_SPIKES:
         return slot == EQ_SHIELD;
 
+    case SPARM_SPIRIT_SHIELD:
+        return slot == EQ_BODY_ARMOUR || slot == EQ_HELMET; //mtla
+
     case SPARM_DETECTION:
     case SPARM_REPULSION:
     case SPARM_SNIPING:
-    case SPARM_SPIRIT_SHIELD:
         return slot == EQ_HELMET;
 
     case SPARM_FIRE_RESISTANCE:

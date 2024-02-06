@@ -187,7 +187,7 @@ WEIGHT: 10
 ORIENT: encompass
 CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
-TAGS: no_hmirror no_vmirror chance_vaults uniq_vaults_cross layout_type_vaults
+TAGS: no_hmirror no_vmirror chance_vaults layout_type_vaults
 : build_vaults_cross_layout(_G)
 MAP
 ENDMAP
@@ -220,7 +220,7 @@ ENDMAP
 
 NAME: layout_vaults_maze
 DEPTH: Vaults
-WEIGHT: 10
+WEIGHT: 0
 ORIENT: encompass
 CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup

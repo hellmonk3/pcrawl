@@ -82,8 +82,8 @@ NAME:   layout_twisted_cross
 DEPTH:  Depths
 WEIGHT: 5
 ORIENT: encompass
-TAGS:   overwritable layout unrand layout_type_narrow_caves
-TAGS:   no_rotate no_vmirror no_hmirror uniq_layout_twisted_delve
+TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
+TAGS:   no_rotate no_vmirror no_hmirror
 {{
     local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym}
@@ -275,23 +275,23 @@ validate {{
 
 NAME:   layout_twisted_circle
 DEPTH:  Zot
-WEIGHT: 10
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
 TAGS:   no_rotate no_vmirror no_hmirror
 {{
-    local MAP_RADIUS = 12
+    local MAP_RADIUS = 16
 
     local ROOM_RADIUS_MIN = 3
     local ROOM_RADIUS_MAX = 5
-    local room_count      = crawl.random_range(10, 15)
+    local room_count      = crawl.random_range(6, 10)
 
     local DELVE_SIZE_MIN = 50
     local DELVE_SIZE_MAX = 100
     local delve_count    = crawl.random_range(15, 20)
     local delve_sanity   = 1000
 
-    local gxm, gym = dgn.builder_bounds()
+    local gxm, gym = dgn.large_builder_bounds()
     extend_map{width = gxm, height = gym, fill = "X"}
 
     -- this is the area we will use for the map
@@ -412,22 +412,18 @@ validate {{
 #
 NAME:   layout_spider_delve
 DEPTH:  Spider
-WEIGHT: 25
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 {{
     if is_validating() then return; end
 
-    local gxm, gym = dgn.builder_bounds()
+    local gxm, gym = dgn.large_builder_bounds()
     extend_map{width = gxm, height = gym}
     fill_area{fill = 'x', border = 'X'}
 
     local ngb_min = 2
-    local ngb_max = crawl.random_range(3, 6)
-    if crawl.one_chance_in(5) then
-      -- sometimes use a higher ngb_max. This may be overridden later
-      ngb_max = crawl.random_range(7, 8)
-    end
+    local ngb_max = crawl.random_range(3, 5)
     if crawl.one_chance_in(10) then
       -- sometimes use a more cramped layout
       ngb_min = 1

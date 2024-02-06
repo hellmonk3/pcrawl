@@ -176,9 +176,10 @@ void dgn_build_chaotic_city_level(dungeon_feature_type force_wall)
                                          5, DNGN_STONE_WALL,
                                          3, DNGN_METAL_WALL);
     }
-
-    dgn_replace_area(10, 10, (GXM / 2 - 10), (GYM / 2 - 10), DNGN_ROCK_WALL,
-                     DNGN_FLOOR, MMT_VAULT);
+    const int gx = GXM * 2 / 3;
+    const int gy = GYM * 2 / 3;
+    dgn_replace_area(10, 10, (gx - 10), (gy - 10),
+                        DNGN_ROCK_WALL, DNGN_FLOOR, MMT_VAULT);
 
     // replace_area can also be used to fill in:
     uint8_t b1x, b1y, b2x, b2y;
@@ -189,8 +190,8 @@ void dgn_build_chaotic_city_level(dungeon_feature_type force_wall)
         int room_height = 3 + random2(7);
         room_height += random2(5); // ditto
 
-        b1x = 11 + random2(GXM / 2 - 21 - room_width);
-        b1y = 11 + random2(GYM / 2 - 21 - room_height);
+        b1x = 11 + random2(gx - 21 - room_width);
+        b1y = 11 + random2(gy - 21 - room_height);
 
         b2x = b1x + room_width;
         b2y = b1y + room_height;

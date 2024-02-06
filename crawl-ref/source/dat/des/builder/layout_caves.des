@@ -23,7 +23,7 @@ WEIGHT: 5, 15 (Snake)
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 {{
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
 
   -- First pass
   -- These should be sprawling corridors that will connect up the
@@ -115,14 +115,14 @@ ENDMAP
 #       * It should be possible to fold most of these effects into layer_cave
 #
 NAME:   layout_cave_shapes
-DEPTH:  Lair, Snake, Depths
-WEIGHT: 3 (Lair), 5 (Snake), 10 (Depths)
+DEPTH:  D, Lair, Snake, Depths
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
-  local width = crawl.random_range(10,20)
+  local gxm,gym = dgn.large_builder_bounds()
+  local width = crawl.random_range(7,14)
   -- TODO: A lot of these functions should be moved into an e.g. procedural.complex namespace
   local function fcircle()
     return procedural.distance{ origin = { x = gxm/2, y = gym/2 }, radius = math.min(gxm,gym)/2-2 }
@@ -295,7 +295,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
 
   -- TODO: Add some branch-appropriate domain distortion / water
   -- TODO: Randomise scales of rooms and corridors (need to scale
@@ -423,7 +423,7 @@ ENDMAP
 #
 NAME:   layout_cocytus_water_paths
 DEPTH:  Coc
-WEIGHT: 10
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
@@ -435,8 +435,8 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
   -- Set a scale to produce some nice-sized chunks
   local depth_fraction = you.depth_fraction()
   local scale      = 0.95 + crawl.random_real() * 0.25 - depth_fraction * 0.35
-  local path_break = 0.15 + crawl.random_real() * 0.05 + depth_fraction * 0.05
-  local wall_break = 0.8  - crawl.random_real() * (0.6 - path_break)
+  local path_break = 0.30 + crawl.random_real() * 0.05 + depth_fraction * 0.05
+  local wall_break = 0.8  - crawl.random_real() * 0.45
 
   -- between outmost paths and outmost water
   local padding = 4 + crawl.random_real() * 6 + depth_fraction * 6
@@ -555,17 +555,14 @@ ENDMAP
 #
 NAME:   layout_ice_bergs
 DEPTH:  Coc
-WEIGHT: 10
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
   if is_validating() then return; end
   local gxm,gym = dgn.builder_bounds()
 
-  -- There is precedent for requiring flight in Coc, so could have
-  -- a chance that not all bergs will get connected up
-  -- Disabled until it's implemented better
-  local connect_up = true -- crawl.x_chance_in_y(5,6)
+  local connect_up = true
   local nilresult = 'w'
   if connect_up then
     local fcorridors = procedural.worley_diff{ scale = 0.15 }
@@ -575,13 +572,13 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 
   local fbord = procedural.border{ padding = 4,additive = true }
   local fcave = procedural.add(fbord,procedural.worley_diff { scale = 0.2 })
-  procedural.render_map(_G, fcave, function(v) return (v >= 0.8 and 'x' or nilresult) end)
+  procedural.render_map(_G, fcave, function(v) return (v >= 0.75 and 'x' or nilresult) end)
 
   local fbergs = procedural.worley_diff{ scale = 0.2 }
   fbergs = procedural.sub(fbergs,fbord)
   procedural.render_map(_G, fbergs, function(v)
-    if v > 0.6 then return "x"
-    elseif v > 0.2 then return "."
+    if v > 0.5 then return "x"
+    elseif v > 0.12 then return "."
     else return nil end
     -- return (v > 0.3 and '.' or nil)
   end)

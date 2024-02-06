@@ -99,8 +99,8 @@
 #  chance of lava pools instead of water pools (never mixed).
 #
 NAME:   layout_cave_pools
-DEPTH:  D:4-, Depths
-WEIGHT: 10, 15 (Depths)
+DEPTH:  D:2-, Depths
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -110,7 +110,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
 
     -- without a starting floor patch, spotty_map will crash
     mapgrd[gxm/2][gym/2] = '.'
-    spotty_map { boxy = false, iterations = 1000 }
+    spotty_map { boxy = false, iterations = 500 }
     remove_isolated_glyphs { find = "x", percent = 100 }
 
     local pool_contents = {}
@@ -124,7 +124,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
         if you.depth() >= crawl.random2(8) then
             pool_contents["l"] = you.absdepth() * crawl.random2(100) / 100
         else
-            pool_contents["w"] = you.absdepth() * crawl.random2(100) / 100
+            pool_contents["W"] = you.absdepth() * crawl.random2(100) / 100
         end
     end
 

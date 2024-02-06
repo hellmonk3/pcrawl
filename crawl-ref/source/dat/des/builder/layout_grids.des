@@ -14,7 +14,7 @@
 
   function render_grid(e, name, grid, paint)
 
-    local gxm,gym = dgn.builder_bounds()
+    local gxm,gym = dgn.large_builder_bounds()
     local build = {
       name = name,
       build_fixture = {
@@ -185,15 +185,15 @@ TAGS:   no_hmirror no_vmirror layout_type_passages
 # layout_long_grid
 #
 NAME:   layout_long_grid
-DEPTH:  D:9-, Lair, Depths, Pan
-WEIGHT: 10 (D), 5 (Lair), 7 (Depths), 10 (Pan)
+DEPTH:  Lair, Depths, Pan
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand no_rotate no_pool_fixup
 TAGS:   no_hmirror no_vmirror layout_type_passages
 {{
   if is_validating() then return; end
-  local min_size = you.in_branch("lair") and 1 or 2
-  local max_size = you.in_branch("lair") and 4 or 3
+  local min_size = 1
+  local max_size = 3
   local size = crawl.random_range(min_size,max_size)
 
   local grid_opts = {
@@ -201,10 +201,10 @@ TAGS:   no_hmirror no_vmirror layout_type_passages
     subdivide_initial_chance = 100,
     subdivide_level_multiplier = 1,
     minimum_size_x = size * 2,
-    minimum_size_y = size * crawl.random_range(4,6),
+    minimum_size_y = size * crawl.random_range(2,4),
   }
 
-  local min_fill = 40 + size * 10
+  local min_fill = 60 + size * 5
   local max_fill = 80 + size * 5
 
   local paint_opts = {
@@ -311,7 +311,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
   -- Also once grid connectivity stuff is worked out, would be good to not
   -- draw some of the outer shapes whilst not breaking connectivity.
 
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local grid_opts = {
@@ -404,14 +404,19 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 #       maybe an Elf version
 #
 NAME:   layout_grid_maze
-DEPTH:  D:9-, Snake, Tar
-WEIGHT: 5 (D), 10 (Snake), 20 (Tar)
+DEPTH:  D, Snake, Tar
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
 {{
   if is_validating() then return; end
 
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
+
+  if you.in_branch("D") then
+    gxm,gym = dgn.builder_bounds()
+  end
+
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local thin = crawl.one_chance_in(3)       -- Use thin or thick walls?

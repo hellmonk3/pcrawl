@@ -87,13 +87,13 @@
 #       and previous TODO are in, add to Elf with weight 10.
 #
 NAME:   layout_hall_layers
-DEPTH:  Lair
-WEIGHT: 7
+DEPTH:  D, Lair
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
 
   -- Actual corridor width will be double this; it gets increased later
   -- but it needs to be declared here so it's in scope for the callbacks
@@ -125,7 +125,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
     { weight = 10, func = function() return primitive.ringify(primitive.hexagon(crawl.random_range(5,15)),gym/3) end },
     { weight = 10, func = function() return procedural.mul(1.8,primitive.ringify(procedural.scale(primitive.triangle(),1,2),gym/6)) end },
     { weight = 10, func = function() return procedural.mul(width, procedural.map(procedural.scale(complex.cog(
-        crawl.random_range(10,30), -- Teeth
+        crawl.random_range(10,20), -- Teeth
         util.random_range_real(0.7,0.9), -- Inner distance
         util.random_range_real(0.3,0.6), -- Gap between teeth
         util.random_range_real(0,1)      -- Offset (TODO: Fix how the procedural works so we can align at 0 or 0.5 for symmettry)
@@ -187,9 +187,9 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
                or you.in_branch("Lair") and crawl.x_chance_in_y(2,3)
 
   if cave then
-    width = crawl.random_range(4,6)
+    width = crawl.random_range(3,4)
   else
-    width = crawl.random_range(2,3)
+    width = crawl.random_range(1,2)
   end
 
   local s1 = util.random_weighted_from("weight",shapes1)
@@ -238,7 +238,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
 
   -- TODO:
   --  * Implement chaotic gaps sizing
@@ -283,7 +283,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
 
   -- Make the rings
   local num_rings = crawl.random2avg(4,2)+4
@@ -363,7 +363,7 @@ ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
 {{
 
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
 
   local wall_break = util.random_range_real(.4,.6)
   local num_rings1 = crawl.random_range(5,8)
@@ -432,12 +432,12 @@ validate {{
 #
 NAME:   layout_cathedral_of_symmetry
 DEPTH:  Zot, Tar
-WEIGHT: 10
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
 
   -- zscale controls the symmetry within each repetition because with 0
   -- the coord bounces back and forth along a line instead of tracing
@@ -465,13 +465,13 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
   -- Scale of the underlying worley
   local wscale = .2
 
-  local border = crawl.random_range(3,6)
-  local margin = crawl.random_range(0,5)
+  local border = crawl.random_range(3,4)
+  local margin = crawl.random_range(0,3)
 
   local polarise = false
 
-  if you.in_branch("tar") then
-    -- Tar works best with a lot of dissonance but occasionally
+  if crawl.coinflip() then
+    -- a lot of dissonance but occasionally
     -- repeating elements
     zscale = util.random_range_real(0.2,0.6)
     zoff = util.random_range_real(0.1,0.3)
@@ -483,8 +483,8 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
     if you.at_branch_bottom() then
       reps = crawl.random2(4)+0.5
       xoff = 0
-      border = 6
-      margin = 8
+      border = 4
+      margin = 6
     end
 
     -- In Zot we want a strong set of symmetry and repetition
@@ -509,7 +509,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
     polarise = true
   end
 
-  local scale = 80/reps
+  local scale = 50/reps
   local breakpoint = 0.3
   local fbase = procedural.worley_diff{ scale = wscale }
   fbase = procedural.transform.wrapped_cylinder(fbase,scale,scale,zscale,zoff)

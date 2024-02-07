@@ -1168,20 +1168,6 @@ static int _describe_god(const string &key, const string &/*suffix*/,
     return 0; // no exact matches for gods, so output doesn't matter
 }
 
-static string _branch_transit_runes(branch_type br)
-{
-    if (br != BRANCH_VAULTS && br != BRANCH_ZOT)
-        return "";
-
-    string desc;
-    const bool exit = br == BRANCH_VAULTS;
-    const int num_runes = br == BRANCH_ZOT ? 3 : 1;
-    return make_stringf("\n\nThis branch can only be %sed while carrying at "
-                        "least %d rune%s of Zot.",
-                        exit ? "exit" : "enter",
-                        num_runes, num_runes > 1 ? "s" : "");
-}
-
 static string _branch_depth(branch_type br)
 {
     string desc;
@@ -1268,7 +1254,6 @@ static int _describe_branch(const string &key, const string &suffix,
         info += "\n\n" + noise_desc;
 
     info += _branch_location(branch)
-            + _branch_transit_runes(branch)
             + _branch_depth(branch)
             + _branch_subbranches(branch)
             + "\n\n"

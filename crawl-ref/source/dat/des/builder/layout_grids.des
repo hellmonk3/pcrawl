@@ -154,7 +154,7 @@ TAGS:   no_hmirror no_vmirror layout_type_open
 # layout_small_grid
 #
 NAME:   layout_small_grid
-DEPTH:  D:9-, Lair, Depths, Pan
+DEPTH:  D:2-, Lair, Depths, Pan
 WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand no_rotate no_pool_fixup

@@ -649,7 +649,7 @@ NAME:    nemelex_dance_club_becter
 TAGS:    temple_overflow_1 temple_overflow_nemelex_xobeh transparent
 TAGS:    no_rotate no_vmirror no_monster_gen no_item_gen
 TAGS:    uniq_altar_nemelex_xobeh
-DEPTH:   D:3-7
+DEPTH:   D:3-
 KFEAT:   _ = altar_nemelex_xobeh
 SHUFFLE:  -_
 COLOUR:  x = darkgray

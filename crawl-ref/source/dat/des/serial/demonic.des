@@ -29,7 +29,7 @@ end
 }}
 
 NAME:   serial_demonic
-DEPTH:  D:4-
+DEPTH:  D:3-
 TAGS:   extra luniq_serial nolayout_encompass
 CHANCE: 1%
 {{

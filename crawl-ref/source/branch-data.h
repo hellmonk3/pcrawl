@@ -25,7 +25,7 @@ const Branch branches[NUM_BRANCHES] =
       'D', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE, /*unused*/
       {} },
 
-    { BRANCH_TEMPLE, BRANCH_DUNGEON, 4, 7, 1, 5,
+    { BRANCH_TEMPLE, BRANCH_DUNGEON, -1, -1, 1, 5,
       brflag::no_items | brflag::fully_map,
       DNGN_ENTER_TEMPLE, DNGN_EXIT_TEMPLE, NUM_FEATURES,
       "Temple", "the Ecumenical Temple", "Temple",
@@ -117,14 +117,14 @@ const Branch branches[NUM_BRANCHES] =
       'M', { RUNE_SLIME }, branch_noise::quiet, 7,
       {BRANCH_LAIR, BRANCH_VAULTS } },
 
-    { BRANCH_VAULTS, BRANCH_DUNGEON, 13, 14, 5, 19,
+    { BRANCH_VAULTS, BRANCH_DEPTHS, 3, 3, 1, 19,
       brflag::dangerous_end,
       DNGN_ENTER_VAULTS, DNGN_EXIT_VAULTS, NUM_FEATURES,
       "Vaults", "the Vaults", "Vaults",
       nullptr,
       LIGHTGREY, BROWN,
       'V', { RUNE_VAULTS }, branch_noise::normal, 9,
-      {BRANCH_ELF, BRANCH_CRYPT } },
+      { BRANCH_DEPTHS } },
 #if TAG_MAJOR_VERSION == 34
 
     { BRANCH_BLADE, BRANCH_VAULTS, 3, 4, 1, 21,

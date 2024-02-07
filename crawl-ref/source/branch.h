@@ -130,7 +130,3 @@ string branch_rune_desc(branch_type br, bool remaining_only);
 branch_type rune_location(rune_type rune);
 
 vector<branch_type> random_choose_disabled_branches();
-
-bool vaults_is_locked();
-void lock_vaults();
-void unlock_vaults();

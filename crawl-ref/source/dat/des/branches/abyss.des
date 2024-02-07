@@ -309,7 +309,7 @@ ENDMAP
 
 NAME:    hangedman_abyss_or_decor_clamps
 TAGS:    transparent no_pool_fixup decor
-DEPTH:   D:8-, Depths, Abyss
+DEPTH:   D:2-, Depths, Abyss
 KFEAT:   @ = +
 SHUFFLE: ABCDEFGH, '"
 : if you.in_branch("Abyss") then

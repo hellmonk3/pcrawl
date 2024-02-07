@@ -460,13 +460,6 @@ static void _maybe_use_runes(dungeon_feature_type ftype)
         if (!you.level_visited(level_id(BRANCH_ZOT, 1)) && !crawl_state.game_is_descent())
             _rune_effect(ftype);
         break;
-    case DNGN_EXIT_VAULTS:
-        if (vaults_is_locked())
-        {
-            unlock_vaults();
-            _rune_effect(ftype);
-        }
-        break;
     default:
         break;
     }
@@ -957,12 +950,6 @@ void floor_transition(dungeon_feature_type how,
                 mpr("You feel Zot lose track of you.");
             if (you.species == SP_METEORAN)
                 update_vision_range();
-        }
-
-        if (how == DNGN_ENTER_VAULTS && !runes_in_pack())
-        {
-            lock_vaults();
-            mpr("The door slams shut behind you.");
         }
 
         if (branch == BRANCH_GAUNTLET)

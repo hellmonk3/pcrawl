@@ -98,7 +98,7 @@ ENDMAP
 
 NAME:   small_statue_alley_b
 TAGS:   uniq_statue_alley transparent extra decor
-DEPTH:  D:3-10
+DEPTH:  D:3
 WEIGHT: 2
 MAP
   xxxxxxx
@@ -188,7 +188,7 @@ ENDMAP
 
 NAME:  nrook_pool_corridor
 TAGS:  transparent extra decor
-DEPTH: D:5-, Depths
+DEPTH: D:4-, Depths
 MAP
  cccccccccccccccc
  c..............c
@@ -1573,7 +1573,7 @@ MAP
 ENDMAP
 
 NAME: nicolae_sextant
-DEPTH: D:5-, Depths
+DEPTH: D:3-, Depths
 TAGS: extra decor transparent
 WEIGHT: 1
 SUBST: y : b m v X:60, X : xxc
@@ -1603,7 +1603,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
 NAME: nicolae_twisting_strands
-DEPTH: D:10-, Depths, Elf
+DEPTH: D:3-, Depths, Elf
 TAGS: transparent extra decor
 WEIGHT: 1
 SHUFFLE: '!/^;, cd/AB
@@ -1640,7 +1640,7 @@ xxxxxxxx!'b.@.c'!xxxxxxxx
 ENDMAP
 
 NAME: nicolae_wwwww
-DEPTH: D:8-, Depths, Elf
+DEPTH: D:3-, Depths, Elf
 TAGS: decor extra transparent
 WEIGHT: 1
 SUBST: b : bcvmx
@@ -1717,7 +1717,7 @@ xtx...xtx...xtx
 ENDMAP
 
 NAME: nicolae_two_hexagons
-DEPTH: D:8-, Depths
+DEPTH: D:3-, Depths
 TAGS: transparent extra decor
 WEIGHT: 1
 SHUFFLE: ABCDEF, GHIJK, LMNOPQ, RSTUVW
@@ -2244,7 +2244,7 @@ DED
 ENDMAP
 
 NAME: nicolae_benzene_ring
-DEPTH: D:6-, Depths
+DEPTH: D:2-, Depths
 WEIGHT: 1
 TAGS: transparent extra decor
 MAP
@@ -2303,7 +2303,7 @@ ENDMAP
 
 NAME:  minivault_1
 TAGS:  transparent allow_dup extra ruin_abyss
-DEPTH: D:4-, Depths, Abyss
+DEPTH: D:2-, Depths, Abyss
 MAP
 ............
 ..xxxx+xxx..

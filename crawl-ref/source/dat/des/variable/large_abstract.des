@@ -12,43 +12,15 @@
 
 : crawl_require('dlua/vault.lua')
 
-default-depth: D:12-, !D:$, Depths, !Depths:$
+default-depth: Depths, !Depths:$
 
 ###############################################################################
-
-NAME:   minmay_thick_lines
-ORIENT: north
-TAGS:   transparent
-DEPTH:  D:4-, Depths
-WEIGHT: 1
-MAP
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxx..........................................................xxxx
-xxxxxxxx..................................xxx.........................xxx
-xxxxxx........................xxx.......xxxxx.......xxx................xx
-xxxxx..............xxx......xxxxx.....xxxxxxx.....xxxxx......xxx........x
-xxxx......xxx.....xxxx.....xxxxxx....xxxxxxx.....xxxxxx.....xxxx....xxx.x
-xxx......xxxx...xxxxxx...xxxxxxx....xxxxxxxx...xxxxxxx....xxxxxx...xxxx.x
-xxx.....xxxxx..xxxxxx...xxxxxxxx...xxxxxxxx...xxxxxxxx...xxxxxx...xxxxx.x
-xx.....xxxxx..xxxxxx...xxxxxxxx...xxxxxxxxx..xxxxxxxx...xxxxxx...xxxxx..x
-xx....xxxxx..xxxxxxx..xxxxxxxx...xxxxxxxxx..xxxxxxxx...xxxxxxx..xxxxx...x
-xx...xxxxx..xxxxxxx..xxxxxxxxx..xxxxxxxxx..xxxxxxxxx..xxxxxxx..xxxxx....x
-x...xxxxx..xxxxxxx...xxxxxxxx..xxxxxxxxx...xxxxxxxx..xxxxxxx..xxxxx.....x
-x..xxxxx...xxxxxx...xxxxxxxx..xxxxxxxxx...xxxxxxxx...xxxxxx..xxxxx......x
-x.xxxxx...xxxxxx...xxxxxxxx...xxxxxxxx...xxxxxxxx...xxxxxx..xxxxx.......x
-x.xxxx...xxxxxx....xxxxxxx...xxxxxxxx....xxxxxxx...xxxxxx...xxxx........x
-x.xxx....xxxx.....xxxxxx.....xxxxxxx....xxxxxx.....xxxx.....xxx.........x
-x........xxx......xxxxx.....xxxxxxx.....xxxxx......xxx..........
-        ..........xxx.......xxxxx.......xxx............
-                 ...........xxx.............
-                           .....
-ENDMAP
 
 ############################################################################
 # four-leaf vault
 #
 NAME:   four-leaf_vault
-DEPTH:  D:12-, !D:$, Depths, !Depths:$
+DEPTH:  Depths, !Depths:$
 WEIGHT: 1
 ORIENT: northwest
 MAP
@@ -89,7 +61,7 @@ ENDMAP
 # Cross-vault
 #
 NAME:   cross_vault
-DEPTH:  D:12-, !D:$, Depths, !Depths:$
+DEPTH:  Depths, !Depths:$
 WEIGHT: 1
 ORIENT: northwest
 MAP
@@ -129,7 +101,7 @@ NAME:    minmay_triangles_in_corner
 ORIENT:  southeast
 TAGS:    transparent
 WEIGHT:  1
-DEPTH:   D:12-, !D:$, Depths
+DEPTH:   Depths
 SUBST:   c : xcv
 MAP
                         ...x
@@ -203,7 +175,7 @@ NAME:   minmay_stepped
 ORIENT: northwest
 TAGS:   transparent
 WEIGHT: 1
-DEPTH:  D:12-, !D:$, Depths
+DEPTH:  Depths
 SUBST:  z : xcvb
 MAP
 xxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -239,7 +211,7 @@ NAME:   minmay_outward_triangles
 ORIENT: northwest
 TAGS:   transparent
 WEIGHT: 1
-DEPTH:  D:12-, !D:$, Depths
+DEPTH:  Depths
 SUBST:  z : xcvb
 MAP
 xxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -350,7 +322,7 @@ NAME:   kennysheep_snake
 ORIENT: west
 WEIGHT: 1
 TAGS:   no_trap_gen
-DEPTH:  D:12-, !D:$, Depths, !Depths:$, Snake
+DEPTH:  Depths, !Depths:$, Snake
 MAP
      cccccccccc
     cc........cc
@@ -386,7 +358,7 @@ ENDMAP
 NAME:   nicolae_aperiodic_l_corner
 TAGS:   transparent
 WEIGHT: 1
-DEPTH:  D:12-, Depths
+DEPTH:  Depths
 ORIENT: southwest
 MAP
 ccccccccccccccccc
@@ -426,7 +398,7 @@ ENDMAP
 
 NAME:   minmay_smoke_and_mirrors
 ORIENT: northwest
-DEPTH:  D:10-
+DEPTH:  D:3-
 WEIGHT: 1
 MARKER: F = lua:fog_machine { cloud_type="purple smoke", \
             pow_min = 5, pow_max = 15, delay_min = 10,   \

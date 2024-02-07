@@ -432,7 +432,7 @@ end
 ###############################################################################
 # Entry vaults that place for both ice cave difficulties.
 
-default-depth: D:11-, Lair, Orc, Elf, Swamp, Shoals, Snake, Spider
+default-depth: Pan
 
 NAME:   portal_ice_cave_entry_pillars_1
 TAGS:   transparent
@@ -512,25 +512,6 @@ MAP
 ..1..
 ENDMAP
 
-NAME:   portal_ice_cave_entry_animals_and_master
-TAGS:   patrolling no_monster_gen
-DEPTH:  D:11-13, Lair:3-, Orc
-WEIGHT: 5
-: ice_cave_portal(_G)
-MONS:   wolf, yak, polar bear, rime drake, ice dragon
-SUBST:  D = 12 .:1, E = 2 3:5 .:1, F = 3 4:2, H = 4:2 5:8
-MAP
-xx    xxxxxxx
-axxxxxxaaaaaxx
-aaxaaaaa...aax
-@aaaaDa.E.F.ax
-a.a..D...O.Hax
-aa.aaaD.E.F.ax
-xaaaaa.a...aax
-xxxxxaaaaaaaxx
-    xxxxxxxxx
-ENDMAP
-
 NAME:   portal_ice_cave_demonic_guard
 TAGS:   patrolling no_monster_gen
 : ice_cave_portal(_G)
@@ -595,25 +576,6 @@ MAP
  .a.a.a.
   .a.a.
    ...
-ENDMAP
-
-NAME:   portal_ice_cave_entry_horrid_things
-TAGS:   patrolling no_monster_gen transparent
-DEPTH:  D:14-, Elf, Snake, Swamp
-WEIGHT: 5
-: ice_cave_portal(_G)
-MONS:   white ugly thing, freezing wraith, azure jelly / white very ugly thing
-SUBST:  1 = 1., 2 = 2 .:3, 3 = 3:3 2:7
-MAP
-xxxxxxxxxxxxxxxxxxxxxxx
-xxaaaaaxaaaaaaaaaaxxxxx
-xaa...aaa........aaxxxx
-xa.....a....2..1..aaaaa
-xa..O..+..3...1.1.....+
-xa.....a....2..1..aaaaa
-xaa...aaa........aaxxxx
-xxaaaaaxaaaaaaaaaaxxxxx
-xxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
 NAME:   portal_ice_cave_entry_ice_statue_one

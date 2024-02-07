@@ -16,7 +16,7 @@
 # TODO: Rework and add at weight 5.  Possible ideas on devwiki.
 #
 NAME: layout_twisted_cavern
-DEPTH: D:4-, Depths
+DEPTH: D:2-, Depths
 WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves

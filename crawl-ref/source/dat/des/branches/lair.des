@@ -847,7 +847,7 @@ ENDMAP
 
 NAME:   wad_woods_minihive
 TAGS:   uniq_beehive
-DEPTH:  D:8-, Lair
+DEPTH:  D:2-, Lair
 ORIENT: float
 MONS:   killer bee, queen bee
 KMONS:  8 = meliai
@@ -885,7 +885,7 @@ ENDMAP
 
 NAME:   wad_woods_structure_01
 TAGS:   no_monster_gen
-DEPTH:  D:10-, Lair
+DEPTH:  D:2-, Lair
 ORIENT: float
 : wad_woods_setup(_G, "large", 5, false, 0, 0, 0)
 FTILE:  "2T = floor_grass
@@ -1305,7 +1305,7 @@ ENDMAP
 
 NAME:   kennysheep_basilisk_garden
 TAGS:   transparent
-DEPTH:  Lair:3-
+DEPTH:  Lair:2-
 NSUBST: . = 3 = ...G / *:.
 MAP
    .....

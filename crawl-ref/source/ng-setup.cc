@@ -580,13 +580,4 @@ static void _setup_generic(const newgame_def& ng,
     else
         you.save = new package(get_savedir_filename(you.your_name).c_str(),
                                true, true);
-
-    // pregen temple -- it's quick and easy, and this prevents a popup from
-    // happening. This needs to happen after you.save is created.
-    if (normal_dungeon_setup && you.deterministic_levelgen &&
-        !crawl_state.game_is_descent() && // disables temple
-        !pregen_dungeon(level_id(BRANCH_TEMPLE, 1)))
-    {
-        die("Builder failure while trying to generate temple!");
-    }
 }

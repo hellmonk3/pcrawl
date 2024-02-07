@@ -25,7 +25,7 @@ ENDMAP
 NAME: primary_mini_dummy
 TAGS: dummy
 DEPTH: 1-100, Pan, !Depths:1, !Abyss, !Gauntlet
-CHANCE: 10000 (Vaults), 5000
+CHANCE: 10000 (Vaults), 7500
 MAP
 x
 ENDMAP
@@ -47,7 +47,7 @@ DEPTH: D:1-11
 # by depth.
 TAGS: dummy
 ORIENT: float
-WEIGHT: 100
+WEIGHT: 400
 MAP
 x
 ENDMAP
@@ -61,7 +61,7 @@ DEPTH: Orc, Elf, Lair, Snake, Shoals, Swamp, Slime, Vaults, Crypt, Dis, Geh, Tar
 # by depth.
 TAGS: dummy
 ORIENT: float
-WEIGHT: 60
+WEIGHT: 100
 MAP
 x
 ENDMAP
@@ -73,7 +73,7 @@ NAME: dummy_balancer_extra
 DEPTH: Orc, Elf, Lair, Snake, Shoals, Swamp, Slime, Vaults, Crypt, Dis, Geh, Tar, Coc,  Spider, Abyss, Zot
 TAGS: dummy allow_dup extra
 ORIENT: float
-WEIGHT: 100
+WEIGHT: 150
 MAP
 x
 ENDMAP
@@ -84,7 +84,7 @@ ENDMAP
 NAME: mini_dummy
 DEPTH: 1-50, !D, !Depths, !Abyss, !Gauntlet
 TAGS: dummy
-WEIGHT: 90
+WEIGHT: 125
 MAP
 .
 ENDMAP

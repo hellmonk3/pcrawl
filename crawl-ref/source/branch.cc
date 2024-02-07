@@ -359,20 +359,3 @@ branch_type rune_location(rune_type rune)
 
     return NUM_BRANCHES;
 }
-
-static const string VAULTS_LOCKED_KEY = "LOCKED_VAULTS_ENTRANCE";
-
-bool vaults_is_locked()
-{
-    return you.props.exists(VAULTS_LOCKED_KEY);
-}
-
-void lock_vaults()
-{
-    you.props[VAULTS_LOCKED_KEY] = true;
-}
-
-void unlock_vaults()
-{
-    you.props.erase(VAULTS_LOCKED_KEY);
-}

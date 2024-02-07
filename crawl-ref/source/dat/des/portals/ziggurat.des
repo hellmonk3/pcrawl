@@ -11,7 +11,7 @@
 #
 # There is one Ziggurat in Depths.
 
-default-depth: Zot
+default-depth: Pan
 
 # In case there is an encompass vault on the level.
 NAME:   ziggurat_fallback

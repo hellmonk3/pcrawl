@@ -1221,8 +1221,7 @@ static string _branch_subbranches(branch_type br)
         if (it->parent_branch == br && !branch_is_unfinished(it->id))
             subbranch_names.push_back(it->longname);
 
-    // Lair's random branches are explained in the description.
-    if (!subbranch_names.empty() && br != BRANCH_LAIR)
+    if (!subbranch_names.empty())
     {
         desc += make_stringf("\n\nThis branch contains the entrance%s to %s.",
                              subbranch_names.size() > 1 ? "s" : "",

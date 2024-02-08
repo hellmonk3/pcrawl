@@ -1608,11 +1608,6 @@ void dgn_reset_level(bool enable_random_maps)
 
 static int _mon_die_size()
 {
-    // This is a very goofy hack to maintain historical populations.
-    // TODO: remove this!
-    if (you.where_are_you == BRANCH_LAIR && you.depth == 5)
-        return DEFAULT_MON_DIE_SIZE;
-
     const int size = branches[you.where_are_you].mon_die_size;
     if (you.where_are_you != BRANCH_DUNGEON)
         return size;

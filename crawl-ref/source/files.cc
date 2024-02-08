@@ -1923,21 +1923,8 @@ bool pregen_dungeon(const level_id &stopping_point)
         for (const level_id &new_level : to_generate)
         {
             string status = "\nbuilding ";
+            status += branches[new_level.branch].longname;
 
-            switch (new_level.branch)
-            {
-            case BRANCH_SPIDER:
-            case BRANCH_SNAKE:
-                status += "a lair branch";
-                break;
-            case BRANCH_SHOALS:
-            case BRANCH_SWAMP:
-                status += "another lair branch";
-                break;
-            default:
-                status += branches[new_level.branch].longname;
-                break;
-            }
             progress.set_status_text(status);
             dprf("Pregenerating %s:%d",
                 branches[new_level.branch].abbrevname, new_level.depth);

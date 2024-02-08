@@ -111,12 +111,6 @@ COMPILE_CHECK(ARRAYSZ(danger_branch_order) == NUM_BRANCHES);
 
 static const int number_of_branch_swap_pairs = 2;
 
-static const branch_type swap_branches[number_of_branch_swap_pairs][2] =
-{
-    {BRANCH_SHOALS, BRANCH_SWAMP},
-    {BRANCH_SPIDER, BRANCH_SNAKE}
-};
-
 branch_iterator::branch_iterator(branch_iterator_type type) :
     iter_type(type), i(0)
 {
@@ -161,18 +155,6 @@ branch_iterator branch_iterator::operator++(int)
     return copy;
 }
 
-vector<branch_type> random_choose_disabled_branches()
-{
-    // You will get one of Shoals/Swamp and one of Spider/Snake.
-    // This way you get one "water" branch and one "poison" branch.
-    vector<branch_type> disabled_branch;
-
-    for (int i=0; i < number_of_branch_swap_pairs; i++)
-        disabled_branch.push_back(swap_branches[i][random_choose(0,1)]);
-
-    return disabled_branch;
-}
-
 const Branch& your_branch()
 {
     return branches[you.where_are_you];
@@ -202,20 +184,6 @@ bool is_hell_subbranch(branch_type branch)
 bool is_hell_branch(branch_type branch)
 {
     return is_hell_subbranch(branch) || branch == BRANCH_VESTIBULE;
-}
-
-bool is_random_subbranch(branch_type branch)
-{
-    for (int i=0; i < number_of_branch_swap_pairs; i++)
-    {
-        for (int j=0; j < 2; j++)
-        {
-            if (branch == swap_branches[i][j])
-                return true;
-        }
-    }
-
-    return false;
 }
 
 bool is_connected_branch(const Branch *branch)

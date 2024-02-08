@@ -50,7 +50,7 @@ const Branch branches[NUM_BRANCHES] =
       nullptr,
       WHITE, ETC_ELVEN_BRICK,
       'E', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
-      {BRANCH_SWAMP, BRANCH_SNAKE, BRANCH_SHOALS, BRANCH_SPIDER } },
+      {BRANCH_SWAMP, BRANCH_SNAKE, BRANCH_SPIDER } },
 #if TAG_MAJOR_VERSION == 34
 
     { BRANCH_DWARF, BRANCH_ELF, -1, -1, 0, 17,
@@ -81,32 +81,32 @@ const Branch branches[NUM_BRANCHES] =
       'S', { RUNE_SWAMP }, branch_noise::loud, 8,
       {BRANCH_ORC} },
 
-    { BRANCH_SHOALS, BRANCH_LAIR, 2, 3, 4, 15,
+    { BRANCH_SHOALS, NUM_BRANCHES, -1, -1, 1, 15,
       brflag::dangerous_end,
       DNGN_ENTER_SHOALS, DNGN_EXIT_SHOALS, NUM_FEATURES,
       "Shoals", "the Shoals", "Shoals",
       nullptr,
       BROWN, BROWN,
       'A', { RUNE_SHOALS }, branch_noise::loud, DEFAULT_MON_DIE_SIZE,
-      {BRANCH_ORC} },
+      {} },
 
-    { BRANCH_SNAKE, BRANCH_LAIR, 2, 3, 4, 15,
+    { BRANCH_SNAKE, BRANCH_ELF, 3, 3, 3, 15,
       brflag::dangerous_end,
       DNGN_ENTER_SNAKE, DNGN_EXIT_SNAKE, NUM_FEATURES,
       "Snake Pit", "the Snake Pit", "Snake",
       nullptr,
       LIGHTGREEN, YELLOW,
       'P', { RUNE_SNAKE }, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
-      {BRANCH_ORC} },
+      { BRANCH_ELF, BRANCH_SWAMP } },
 
-    { BRANCH_SPIDER, BRANCH_LAIR, 2, 3, 4, 15,
+    { BRANCH_SPIDER, BRANCH_ELF, 3, 3, 3, 15,
       brflag::dangerous_end,
       DNGN_ENTER_SPIDER, DNGN_EXIT_SPIDER, NUM_FEATURES,
       "Spider Nest", "the Spider Nest", "Spider",
       nullptr,
       BROWN, YELLOW,
       'N', { RUNE_SPIDER }, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
-      {BRANCH_ORC} },
+      { BRANCH_ELF, BRANCH_SWAMP } },
 
     { BRANCH_SLIME, BRANCH_LAIR, 4, 5, 5, 17,
       brflag::no_items | brflag::dangerous_end | brflag::spotty,
@@ -156,14 +156,14 @@ const Branch branches[NUM_BRANCHES] =
       {} },
 #if TAG_MAJOR_VERSION > 34
 
-    { BRANCH_DEPTHS, BRANCH_DUNGEON, 15, 15, 4, 22,
+    { BRANCH_DEPTHS, BRANCH_SPIDER, 3, 3, 3, 22,
       brflag::none,
       DNGN_ENTER_DEPTHS, DNGN_EXIT_DEPTHS, NUM_FEATURES,
       "Depths", "the Depths", "Depths",
       nullptr,
       LIGHTGREY, BROWN,
       'U', {}, branch_noise::normal, 10,
-      {BRANCH_VAULTS, BRANCH_SLIME } },
+      { BRANCH_SPIDER, BRANCH_SNAKE } },
 #endif
 
     { BRANCH_VESTIBULE, NUM_BRANCHES, 27, 27, 1, 27,
@@ -211,7 +211,7 @@ const Branch branches[NUM_BRANCHES] =
       'Y', { RUNE_TARTARUS }, branch_noise::normal, HELL_MON_DIE_SIZE,
       {BRANCH_VESTIBULE} },
 
-    { BRANCH_ZOT, BRANCH_DEPTHS, 4, 4, 5, 27,
+    { BRANCH_ZOT, BRANCH_DEPTHS, 3, 3, 5, 27,
       brflag::dangerous_end,
       DNGN_ENTER_ZOT, DNGN_EXIT_ZOT, NUM_FEATURES,
       "Zot", "the Realm of Zot", "Zot",
@@ -252,7 +252,7 @@ const Branch branches[NUM_BRANCHES] =
              RUNE_GLOORX_VLOQ }, branch_noise::normal, 8,
       {} },
 
-    { BRANCH_ZIGGURAT, BRANCH_DEPTHS, 1, 4, 27, 27,
+    { BRANCH_ZIGGURAT, BRANCH_DUNGEON, -1, -1, 27, 27,
       brflag::no_x_level_travel | brflag::no_items,
       DNGN_ENTER_ZIGGURAT, DNGN_EXIT_ZIGGURAT, DNGN_FLOOR,
       "Ziggurat", "a ziggurat", "Zig",
@@ -374,14 +374,14 @@ const Branch branches[NUM_BRANCHES] =
 #endif
 #if TAG_MAJOR_VERSION == 34
 
-    { BRANCH_DEPTHS, BRANCH_DUNGEON, 15, 15, 4, 22,
+    { BRANCH_DEPTHS, BRANCH_SPIDER, 3, 3, 3, 22,
       brflag::none,
       DNGN_ENTER_DEPTHS, DNGN_EXIT_DEPTHS, NUM_FEATURES,
       "Depths", "the Depths", "Depths",
       nullptr,
       LIGHTGREY, BROWN,
       'U', {}, branch_noise::normal, 10,
-      {BRANCH_VAULTS, BRANCH_SLIME} },
+      { BRANCH_SPIDER, BRANCH_SNAKE } },
 #endif
 
     { BRANCH_DESOLATION, NUM_BRANCHES, -1, -1, 1, 20,

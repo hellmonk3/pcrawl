@@ -75,7 +75,6 @@ static bool _is_noteworthy_dlevel(level_id place)
         return true;
 
     return lev == _dungeon_branch_depth(branch)
-           || branch == BRANCH_DUNGEON && (lev % 5) == 0
            || branch != BRANCH_DUNGEON && lev == 1;
 }
 

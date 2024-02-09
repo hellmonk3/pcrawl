@@ -16,7 +16,7 @@ const Branch branches[NUM_BRANCHES] =
     //  travel shortcut, runes, ambient noise level, mon_die_size
     //  descent mode parent branches
 
-    { BRANCH_DUNGEON, NUM_BRANCHES, 0, 0, 15, 0,
+    { BRANCH_DUNGEON, NUM_BRANCHES, 0, 0, 5, 0,
       brflag::none,
       NUM_FEATURES, DNGN_EXIT_DUNGEON, NUM_FEATURES,
       "Dungeon", "the Dungeon", "D",
@@ -25,7 +25,7 @@ const Branch branches[NUM_BRANCHES] =
       'D', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE, /*unused*/
       {} },
 
-    { BRANCH_TEMPLE, BRANCH_DUNGEON, -1, -1, 1, 5,
+    { BRANCH_TEMPLE, NUM_BRANCHES, -1, -1, 1, 5,
       brflag::no_items | brflag::fully_map,
       DNGN_ENTER_TEMPLE, DNGN_EXIT_TEMPLE, NUM_FEATURES,
       "Temple", "the Ecumenical Temple", "Temple",
@@ -252,7 +252,7 @@ const Branch branches[NUM_BRANCHES] =
              RUNE_GLOORX_VLOQ }, branch_noise::normal, 8,
       {} },
 
-    { BRANCH_ZIGGURAT, BRANCH_DUNGEON, -1, -1, 27, 27,
+    { BRANCH_ZIGGURAT, NUM_BRANCHES, -1, -1, 27, 27,
       brflag::no_x_level_travel | brflag::no_items,
       DNGN_ENTER_ZIGGURAT, DNGN_EXIT_ZIGGURAT, DNGN_FLOOR,
       "Ziggurat", "a ziggurat", "Zig",

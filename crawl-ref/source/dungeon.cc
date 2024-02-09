@@ -3936,7 +3936,7 @@ static void _place_aquatic_monsters()
         || player_in_branch(BRANCH_ABYSS)
         || player_in_branch(BRANCH_PANDEMONIUM)
         || player_in_branch(BRANCH_ZOT)
-        || player_in_branch(BRANCH_DUNGEON) && you.depth < 6)
+        || player_in_branch(BRANCH_DUNGEON))
     {
         return;
     }

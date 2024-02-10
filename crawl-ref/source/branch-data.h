@@ -44,7 +44,7 @@ const Branch branches[NUM_BRANCHES] =
       { BRANCH_DUNGEON } },
 
     { BRANCH_ELF, BRANCH_LAIR, 3, 3, 3, 15,
-      brflag::dangerous_end,
+      brflag::none,
       DNGN_ENTER_ELF, DNGN_EXIT_ELF, NUM_FEATURES,
       "Elven Halls", "the Elven Halls", "Elf",
       nullptr,
@@ -127,7 +127,7 @@ const Branch branches[NUM_BRANCHES] =
       { BRANCH_DEPTHS } },
 #if TAG_MAJOR_VERSION == 34
 
-    { BRANCH_BLADE, BRANCH_VAULTS, 3, 4, 1, 21,
+    { BRANCH_BLADE, NUM_BRANCHES, -1, -1, 1, 21,
       brflag::no_items,
       DNGN_ENTER_BLADE, DNGN_EXIT_BLADE, NUM_FEATURES,
       "Hall of Blades", "the Hall of Blades", "Blade",

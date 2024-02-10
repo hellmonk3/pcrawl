@@ -7,9 +7,9 @@
 {{
 -- Vaults:$ common loot substitutions.
 function vaults_end_loot(e)
-    e.subst("? = | * .:43")
-    e.subst("| = | *:2")
-    e.subst("* = * |:2")
+    e.subst("? = .")
+    e.subst("| = .")
+    e.subst("* = .")
 end
 
 -- Vaults:$ cross-vault rune substitution. Turn 'O' into a rune (if it doesn't
@@ -34,6 +34,13 @@ end
 ############################################################
 # Above As Below
 #
+NAME:    dummy_vaults_entry
+TAGS:    vaults_entry
+KFEAT:   O = enter_vaults
+MAP
+O
+ENDMAP
+
 NAME:    erik_vaults_2
 TAGS:    vaults_entry transparent
 SUBST:   v : vxx, b : bcc
@@ -51,7 +58,7 @@ vvvvvv.vvvvvv
 ENDMAP
 
 NAME:   hellmonk_vaults_keyhole
-TAGS:   vaults_entry no_monster_gen
+TAGS:   vaults_entry
 ORIENT: north
 SUBST:  v : v:90 b
 KFEAT: O = enter_vaults

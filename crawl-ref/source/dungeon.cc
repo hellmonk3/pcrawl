@@ -3673,7 +3673,7 @@ static bool _place_vault_by_tag(const string &tag)
     return _build_secondary_vault(vault);
 }
 
-static bool _in_descent_parent(branch_type branch)
+static bool _in_parent(branch_type branch)
 {
     vector<branch_type> parents = descent_parents(branch);
     for (branch_type parent : parents)
@@ -3723,12 +3723,6 @@ static void _place_branch_entrances(bool use_vaults)
             }
     }
 
-    if (crawl_state.game_is_descent())
-    {
-        ASSERT(you.props.exists(DESCENT_WATER_BRANCH_KEY));
-        ASSERT(you.props.exists(DESCENT_POIS_BRANCH_KEY));
-    }
-
     // Place actual branch entrances.
     for (branch_iterator it; it; ++it)
     {
@@ -3737,22 +3731,9 @@ static void _place_branch_entrances(bool use_vaults)
         if (is_hell_branch(it->id) || branch_entrance_placed[it->id])
             continue;
 
-        bool brentry_allowed = false;
-
-        if (crawl_state.game_is_descent())
-        {
-            brentry_allowed = it->entry_stairs != NUM_FEATURES
-                && _in_descent_parent(it->id)
-                && it->id != you.props[DESCENT_WATER_BRANCH_KEY].get_int()
-                && it->id != you.props[DESCENT_POIS_BRANCH_KEY].get_int()
-                && at_branch_bottom();
-        }
-        else
-        {
-            brentry_allowed = it->entry_stairs != NUM_FEATURES
-                && player_in_branch(parent_branch(it->id))
-                && level_id::current() == brentry[it->id];
-        }
+        bool brentry_allowed = it->entry_stairs != NUM_FEATURES
+                            && _in_parent(it->id)
+                            && at_branch_bottom();
 
         if (brentry_allowed)
         {

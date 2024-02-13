@@ -1090,26 +1090,13 @@ void ShopMenu::purchase_selected()
     const bool too_expensive = (cost > you.gold);
     if (too_expensive)
     {
-        if (!crawl_state.game_is_descent())
-        {
-            more = formatted_string::parse_string(make_stringf(
-                    "<%s>You don't have enough money.</%s>\n",
-                    col.c_str(),
-                    col.c_str()));
-            more += old_more;
-            update_more();
-            return;
-        }
-        else if (you.props.exists(DESCENT_DEBT_KEY))
-        {
-            more = formatted_string::parse_string(make_stringf(
-                    "<%s>You're in debt! Pay it off first.</%s>\n",
-                    col.c_str(),
-                    col.c_str()));
-            more += old_more;
-            update_more();
-            return;
-        }
+        more = formatted_string::parse_string(make_stringf(
+                "<%s>You don't have enough money.</%s>\n",
+                col.c_str(),
+                col.c_str()));
+        more += old_more;
+        update_more();
+        return;
     }
     more = formatted_string::parse_string(make_stringf(
                "<%s>Purchase items%s for %d gold? %s (%s/N)</%s>\n",

@@ -2489,36 +2489,6 @@ void descent_crumble_stairs()
             view_update_at(*ri);
         }
     }
-
-    env.properties[DESCENT_STAIRS_KEY] = true;
-}
-
-static void _descent_reveal_around(coord_def p)
-{
-    force_show_update_at(p);
-    view_update_at(p);
-
-    for (radius_iterator ri(p, you.current_vision, C_SQUARE); ri; ++ri)
-    {
-        if (cell_see_cell_nocache(p, *ri))
-        {
-            force_show_update_at(*ri);
-            update_item_at(*ri, true);
-            set_terrain_visible(*ri);
-            view_update_at(*ri);
-        }
-    }
-}
-
-void descent_reveal_stairs()
-{
-    // possible this should be in another file.
-    for (rectangle_iterator ri(0); ri; ++ri)
-    {
-        dungeon_feature_type feat = env.grid(*ri);
-        if (_feat_is_descent_upstairs(feat))
-            _descent_reveal_around(*ri);
-    }
 }
 
 // unlock the stairs down. Returns true if stairs were unlocked.

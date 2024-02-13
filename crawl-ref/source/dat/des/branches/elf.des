@@ -875,5 +875,8 @@ TAGS:   nolayout_halls
 PLACE:  Elf:$
 ORIENT: float
 MAP
-.
+@..@
+....
+....
+@..@
 ENDMAP

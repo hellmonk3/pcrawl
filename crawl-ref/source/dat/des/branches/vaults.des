@@ -36,6 +36,7 @@ end
 #
 NAME:    dummy_vaults_entry
 TAGS:    vaults_entry
+WEIGHT:  150
 KFEAT:   O = enter_vaults
 MAP
 O
@@ -95,10 +96,6 @@ ENDMAP
 # example), which will be used to orient that corner towards the middle of
 # the map. Each quadrant must be capable of generating a rune, which
 # should be done by placing an 'O' glyph and calling vaults_end_rune(_G).
-#
-# There is a lot of variance among the possible quadrants but we do ensure
-# that (exactly) one quadrant with rich loot is generated. Those are tagged
-# vaults_end_quadrant_prize and come in their own section below.
 
 #############################################################
 # The main vault for Vaults:$.

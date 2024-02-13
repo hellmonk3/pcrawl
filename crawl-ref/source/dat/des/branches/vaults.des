@@ -10,6 +10,7 @@ function vaults_end_loot(e)
     e.subst("? = .")
     e.subst("| = .")
     e.subst("* = .")
+    e.subst("$ = .")
 end
 
 -- Vaults:$ cross-vault rune substitution. Turn 'O' into a rune (if it doesn't
@@ -191,7 +192,7 @@ ENDMAP
 NAME:  vaults_end_rune
 TAGS:  vaults_end_rune
 KMONS: O = 8 / 9
-KITEM: O = silver rune of Zot
+KFEAT: O = enter_zot
 MAP
 O
 ENDMAP
@@ -205,11 +206,6 @@ ENDMAP
 NAME:  vaults_end_norune
 TAGS:  vaults_end_norune allow_dup unrand
 KMONS: o = 8 / 9
-: if crawl.random2(13) == 12 then
-KFEAT:   o = any shop
-: else
-KITEM:   o = any good_item
-: end
 MAP
 o
 ENDMAP
@@ -890,87 +886,6 @@ xx.xxxx.xxxx$$$xxxx.xxxx.xx
 xx.9xx9.xxx$$$$$xxx.9xx9.xx
 x......xxx$$$$$$$xxx......x
  ..xxxxxx$$$$$$$$$xxxxxx..
-  xxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
-############################################################
-# One shop, 16 monsters
-NAME:    vaults_end_dpeg_shops1
-TAGS:    vaults_end_quadrant vaults_end_quadrant_mall unrand
-KFEAT:   S = any shop
-: if crawl.one_chance_in(4) then
-SUBST:   A = +, a = ., CD = x
-: else
-SHUFFLE: CD
-SUBST:   C = ., DAa = x
-: end
-SUBST:   9 = 8 9 .:20
-: vaults_end_loot(_G)
-: vaults_end_rune(_G)
-MAP
-  xxxxxxxxxxxxxxxxxxxxxxx
- ..xxxxxxxxxx.....xxxx...
-x...xxxxx.................x
-xx........................x
-xxx......................xx
-xxxx.....................xx
-xxxx.....................xx
-xxx......9xxxxxxx........xx
-xx......9xxxxxxxxx.......xx
-xx......xxx$999$xxx.......x
-xx......xC.9$$$9.xx.......x
-x.......CC.9$S$9Oxx.......x
-x.......xC.9$$$9.xx......xx
-x.......xAa$999$xxx......xx
-xx.......xAxDDDxxx9......xx
-xx........xxxDxxx9......xxx
-xx.....................xxxx
-xx.....................xxxx
-xx......................xxx
-x........................xx
-x.................xxxxx...x
- ....xxxx.....xxxxxxxxxx..
-  xxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
-############################################################
-# Consumable shops (scrolls, potions).
-# Monsters in rooms.
-NAME:    vaults_end_dpeg_shops2
-TAGS:    vaults_end_quadrant vaults_end_quadrant_mall unrand
-NSUBST:  A = 1:+ / *:x+
-NSUBST:  B = 1:+ / *:x+
-NSUBST:  C = 1:+ / *:x+
-NSUBST:  S = 3:S / 1:O / *:S99
-KFEAT:   S = scroll shop / distillery shop / abandoned_shop
-NSUBST:  ' = 20:9 / *:.
-NSUBST:  . = 5:9 / *:.
-SUBST:   9 = 8 9 .:20
-: vaults_end_loot(_G)
-: vaults_end_rune(_G)
-MAP
-  xxxxxxxxxxxxxxxxxxxxxxx
- .........................
-x.........................x
-x...xxxxx..xxxxx..xxxxx...x
-x...x'S'x..x'S'x..x'S'x...x
-x...x'''x..x'''x..x'''x...x
-x...xx+xx..xx+xx..xx+xx...x
-x.........................x
-x.........................x
-x...xxAxx..xxBxx..xxCxx...x
-x...x'''x..x'''x..x'''x...x
-x...x'S'x..x'S'x..x'S'x...x
-x...x'''x..x'''x..x'''x...x
-x...xxAxx..xxBxx..xxCxx...x
-x.........................x
-x.........................x
-x...xx+xx..xx+xx..xx+xx...x
-x...x'''x..x'''x..x'''x...x
-x...x'S'x..x'S'x..x'S'x...x
-x...xxxxx..xxxxx..xxxxx...x
-x.........................x
- .........................
   xxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
@@ -1975,49 +1890,6 @@ x.!x...............|xx....x
 ENDMAP
 
 ############################################################
-# Two guaranteed good shops. Perhaps more shops.
-# Almost all monsters are in the rooms.
-NAME:    vaults_end_dpeg_mall
-TAGS:    vaults_end_quadrant_prize vaults_end_quadrant_prize_mall unrand
-SHUFFLE: AB, CD
-SUBST:   A=+, B:xx+, C:xxx+, D:xxxx+
-NSUBST:  S = 2:S / 1:O / *:RRU9
-KFEAT:   S = jewellery shop / antique armour shop / distillery shop
-KFEAT:   R = general shop / book shop / scroll shop / antique weapon shop / distillery shop
-KFEAT:   U = stone_arch
-NSUBST:  ' = 22:9 / *:.
-NSUBST:  . = 2:9 / *:.
-SUBST:   9 = 8 9
-SUBST:   a : x.
-: vaults_end_loot(_G)
-: vaults_end_rune(_G)
-MAP
-  aaxxxxxxxxxxxxxxxxxxxaa
- .........................
-a.........................a
-a..................xxx....a
-x..............x+++xxx....x
-x..........x+++x'''xxx....x
-x..........x'''D'S'xx.....x
-x..........x'S'D'''xx.....x
-x........xxx'''xxxxxx.....x
-x........xxxBBBxxxxxx.....x
-x........xx''''xx.........x
-x......T.xx'ST'xx.T.......x
-x........xx''''xx.........x
-x....xxxxxxAAAxxx.........x
-x....xxxxxx'''xxx.........x
-x....xx'''C'S'x...........x
-x....xx'S'C'''x...........x
-x...xxx'''x+++x...........x
-x...xxx+++x...............x
-a...xxx...................a
-a.........................a
- ........................
-  aaxxxxxxxxxxxxxxxxxxxaa
-ENDMAP
-
-############################################################
 # 26 *, 16 monsters
 NAME:   vaults_end_minmay_bent_boxes
 TAGS:   vaults_end_quadrant_prize unrand
@@ -2362,7 +2234,6 @@ NAME:    vaults_end_nooodl_tilted_maze
 TAGS:    vaults_end_quadrant_prize unrand
 SUBST:   9 = 8 9 .:10
 NSUBST:  O = 1:O / *:|
-SUBST:   * = * $:4
 : vaults_end_loot(_G)
 : vaults_end_rune(_G)
 MAP

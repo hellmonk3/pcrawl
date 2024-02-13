@@ -18,22 +18,6 @@ end
 }}
 
 {{
--- Stuff for st's various vaults.
-function st_zot_vaults_setup(e)
-    e.tags("no_item_gen")
-    e.depth("Zot, !Zot:$")
-    e.kmons("D = acid dragon / fire dragon w:25 / ice dragon w:25 /\
-               storm dragon w:20 / shadow dragon w:20 / golden dragon /\
-               iron dragon w:5 / quicksilver dragon w:5 / bone dragon w:5 /\
-               lindwurm w:2 / rime drake w:2 / death drake w:2 /\
-               swamp dragon w:5")
-    e.kmons("d = base draconian / nonbase draconian")
-    e.kmons("Y = patrolling golden dragon")
-    e.kitem("Y = |")
-end
-}}
-
-{{
 -- Create colourful Zot glass
 function coloured_glass(e)
   e.shuffle('roygbiv')

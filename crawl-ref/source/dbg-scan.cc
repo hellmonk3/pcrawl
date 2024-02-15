@@ -622,8 +622,6 @@ void check_map_validity()
     dungeon_feature_type portal = DNGN_UNSEEN;
 
     dungeon_feature_type exit = DNGN_UNSEEN;
-    if (you.depth == 1 && !player_in_branch(root_branch))
-        exit = branches[you.where_are_you].exit_stairs;
 
     // these may require you to look farther:
     if (exit == DNGN_EXIT_PANDEMONIUM)

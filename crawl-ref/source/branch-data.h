@@ -211,7 +211,7 @@ const Branch branches[NUM_BRANCHES] =
       'Y', { RUNE_TARTARUS }, branch_noise::normal, HELL_MON_DIE_SIZE,
       {BRANCH_VESTIBULE} },
 
-    { BRANCH_ZOT, BRANCH_DEPTHS, 3, 3, 5, 27,
+    { BRANCH_ZOT, BRANCH_VAULTS, 1, 1, 5, 27,
       brflag::dangerous_end,
       DNGN_ENTER_ZOT, DNGN_EXIT_ZOT, NUM_FEATURES,
       "Zot", "the Realm of Zot", "Zot",
@@ -219,10 +219,10 @@ const Branch branches[NUM_BRANCHES] =
       "You feel the power of the Orb interfering with translocations here.",
       BLACK, BLACK, // set per-map
       'Z', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
-      {BRANCH_DEPTHS} },
+      {BRANCH_VAULTS} },
 #if TAG_MAJOR_VERSION == 34
 
-    { BRANCH_FOREST, BRANCH_VAULTS, 2, 3, 5, 19,
+    { BRANCH_FOREST, BRANCH_VAULTS, 1, 1, 5, 19,
       brflag::spotty,
       DNGN_ENTER_FOREST, DNGN_EXIT_FOREST, NUM_FEATURES,
       "Forest", "the Enchanted Forest", "Forest",

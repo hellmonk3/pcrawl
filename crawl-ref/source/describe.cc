@@ -3001,12 +3001,10 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
                 : make_stringf("through %s", desc_the.c_str());
             long_desc += make_stringf(
                     "\nWhile standing here, you can %s %s "
-                    "with the <w>%s</w> key%s.",
+                    "with the <w>%s</w> key.",
                     stair_dir == CMD_GO_DOWNSTAIRS ? "enter" : "exit",
                     how.c_str(),
-                    _esc_cmd_to_str(stair_dir).c_str(),
-                    (feat == DNGN_ENTER_ZOT || feat == DNGN_EXIT_VAULTS)
-                        ? " if you have enough runes" : "");
+                    _esc_cmd_to_str(stair_dir).c_str());
         }
     }
     else if (feat_is_altar(feat))

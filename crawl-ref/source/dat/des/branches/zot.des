@@ -13,7 +13,6 @@
 function zot_entry_setup(e)
     e.place("Depths:$")
     e.orient("float")
-    e.kfeat("O = enter_zot")
 end
 }}
 
@@ -47,191 +46,13 @@ end
 ##############################################################################
 ##############################################################################
 
-###########################
-# Something to give the builder a chance if massive vaults keep failing.
-# NOTE: Not currently used: larger entries are placed as primary vaults instead.
-#
-NAME:   zot_entry_small
+NAME:   zot_entry_dummy
 TAGS:   zot_entry
-COLOUR: c = lightmagenta
-COLOUR: .+ = magenta
-TILE:   c = wall_zot_magenta
-FTILE:  .O+ = floor_hall
 : zot_entry_setup(_G)
 MAP
-xxxxxxxxx
-xxxcccxxx
-xxcc.ccxx
-xcc...ccx
-xc..O..+@
-xcc...ccx
-xxcc.ccxx
-xxxcccxxx
-xxxxxxxxx
-ENDMAP
-
-NAME:   evilmike_zot_entry_round
-TAGS:   no_monster_gen zot_entry
-SUBST:  = = nnn+
-SUBST:  c: c:70 v:20 b:10
-SUBST:  v: vcxlmb, n: nnnnvbcx
-FTILE:  O.4G : floor_marble
-: zot_entry_setup(_G)
-MAP
-xxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxcccccccxxxxxxx
-xxxcccccc.....ccccccxx
-xxcc......vvv......ccx
-xxc.v.............v.cx
-xxc..v...nn=nn...v..cx
-xxc...nnnn...nnnn...cx
-xxc...n....G....n...cx
-xcc...n.G.....G.n...cc
-xc...nn....v....nn...c
-xc.v.n....v.v....n.v.+
-xc.v.+.G.v.O.v.G.=.v.+
-xc.v.n....v.v....n.v.+
-xc...nn....v....nn...c
-xcc...n.G.....G.n...cc
-xxc...n....G....n...cx
-xxc...nnnn...nnnn...cx
-xxc..v...nn=nn...v..cx
-xxc.v.............v.cx
-xxcc......vvv......ccx
-xxxcccccc.....ccccccxx
-xxxxxxxxcccccccxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
-NAME:   evilmike_zot_entry_hall
-TAGS:   no_monster_gen zot_entry patrolling
-TILE:   X = wall_zot_magenta
-COLOUR: X+- = magenta
-SUBST:  X = c
-FTILE:  -O+ = floor_hall
-SUBST:  - = .
-SUBST:  v: ....cnXblw, z:..cnXblw
-NSUBST: d = .
-SUBST:  D = +
-: zot_entry_setup(_G)
-MAP
-                   cccccccccccc
-                   cc.......ccc
-cccccccccccccccccccc.........cc
-ccccccdccdccdccdccc...XXXXX...c
-ccc..............dc..XX---XX..c
-D...vv.zz.vv.zz..cc..X-----X..c
-D...vv.zz.vv.zz..+...X--O--+..c
-D...vv.zz.vv.zz..cc..X-----X..c
-ccc..............dc..XX---XX..c
-ccccccdccdccdccdccc...XXXXX...c
-cccccccccccccccccccc.........cc
-                  ccc.......ccc
-                  ccccccccccccc
-ENDMAP
-
-NAME:   evilmike_zot_entry_basic
-TAGS:   no_monster_gen zot_entry transparent
-TILE:   c = wall_zot_magenta
-COLOUR: c+- = magenta
-FTILE:  O-+c = floor_hall
-SUBST:  - = .
-NSUBST: d = .
-: zot_entry_setup(_G)
-MAP
-....d....
-.dcc+ccd.
-.cc---cc.
-.c-----c.
-dc--O--cd
-.c-----c.
-.cc---cc.
-.dcccccd.
-....d....
-ENDMAP
-
-NAME:   evilmike_zot_entry_diamond
-TAGS:   no_monster_gen zot_entry transparent
-KFEAT:  A = stone_arch
-TILE:   c = wall_zot_magenta
-COLOUR: c- = magenta
-FTILE:  -O+Ac = floor_hall
-KPROP:  -OcA = no_tele_into
-SUBST:  - = .
-: zot_entry_setup(_G)
-MAP
-      .....
-     ..c+c..
-    ..cc-cc..
-   ..cc---cc..
-  ..cc--O--cc..
- ..cccc---cccc..
-..cc-ccc-ccc-cc..
-.cc---ccccc---cc.
-.+--A--ccc--A--+.
-.cc---ccccc---cc.
-..cc-ccc-ccc-cc..
- ..cccc---cccc..
-  ..cc--A--cc..
-   ..cc---cc..
-    ..cc-cc..
-     ..c+c..
-      .....
-ENDMAP
-
-NAME:   grunt_zot_entry_pinwheel
-TAGS:   no_monster_gen zot_entry patrolling transparent
-KFEAT:  A = stone_arch
-COLOUR: 123c+. = magenta
-FTILE:  123c+.AO = floor_hall
-NSUBST: A = 1:O / *:A
-: zot_entry_setup(_G)
-MAP
-       @
-     cc+cc
-    cc...c
-   cc...cc ccccc
-   c...cc cc...cc
-   c...c cc.....cc
-   c...ccc.......c
-   cc...cc..ccc..+@
-    cc..AcAcc cc.c
- ccc ccccccccc ccc
- c.cc ccAcA..cc
-@+..ccc..cc...cc
- c.......ccc...c
- cc.....cc c...c
-  cc...cc cc...c
-   ccccc cc...cc
-         c...cc
-         cc+cc
-           @
-ENDMAP
-
-NAME:   grunt_zot_entry_alcove
-TAGS:   no_monster_gen zot_entry transparent patrolling
-COLOUR: 9C-_ = magenta
-FTILE:  9C-_O = floor_hall
-SUBST:  _ = ., C = c
-NSUBST: @ = 1:@ / *:.
-: zot_entry_setup(_G)
-MAP
-     ccccccc
-    ccCCCCCcc
-    cCC_9_CCc
-    cC_____Cc
-    cC__O__Cc
-    cC_____Cc
-    cCC___CCc
-   cc.......cc
-  cc.........cc
- cc.....0.....cc
-cc.............cc
-.................
-@.......T.......@
- ...............
-   ....0.0....
-       .@.
+...
+...
+...
 ENDMAP
 
 ##############################################################################

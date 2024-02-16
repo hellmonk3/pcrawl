@@ -34,7 +34,7 @@
 #
 NAME:   layout_geoelf_grid
 DEPTH:  Elf
-WEIGHT: 5
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -163,7 +163,7 @@ ENDMAP
 #
 NAME:   layout_geoelf_diagonals
 DEPTH:  Elf
-WEIGHT: 5
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -319,7 +319,7 @@ ENDMAP
 #
 NAME:   layout_geoelf_octagon
 DEPTH:  Elf
-WEIGHT: 15
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 TAGS:   no_rotate no_vmirror no_hmirror

@@ -43,7 +43,7 @@
 #       weight 10.
 #
 NAME:   layout_stronghold
-DEPTH:  D:2-, Pan
+DEPTH:  D, Orc, Elf, Zot, Pan
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city
@@ -232,8 +232,8 @@ TAGS:   overwritable layout allow_dup unrand layout_type_city
 #  many as 5000, although 4000 is more likely.
 #
 NAME:   layout_irregular_city
-DEPTH:  D:2-, Slime, Pan
-WEIGHT: 15 (D), 10 (Pan)
+DEPTH:  D:2-, Orc, Elf, Snake, Slime, Pan
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city
 TAGS:   no_rotate no_hmirror no_vmirror
@@ -336,7 +336,7 @@ ENDMAP
 # A map with many boxes for rooms, mostly inside each other.
 #
 NAME:   layout_onion_city
-DEPTH:  Elf, Pan
+DEPTH:  Orc, Elf, Pan
 WEIGHT: 5
 ORIENT: encompass
 KFEAT:  ~ = closed_clear_door

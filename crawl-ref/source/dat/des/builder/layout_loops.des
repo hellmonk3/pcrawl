@@ -1325,8 +1325,8 @@ ENDMAP
 #  another (random) arm of the cross.
 #
 NAME:   layout_loops_cross
-DEPTH:  D, Elf
-WEIGHT: 5
+DEPTH:  D, Lair, Elf
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_corridors
 TAGS:   no_rotate no_vmirror no_hmirror

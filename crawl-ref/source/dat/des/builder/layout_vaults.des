@@ -69,10 +69,9 @@ default-depth: Vaults
 #
 # Apologies if this is just too little code.
 NAME: layout_vaults_omnibox
-DEPTH:  Vaults
-WEIGHT: 25
+DEPTH:  Orc, Snake
+WEIGHT: 10
 ORIENT: encompass
-CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
 TAGS: no_hmirror no_vmirror chance_vaults uniq_vaults_box layout_type_vaults
 {{
@@ -91,10 +90,9 @@ ENDMAP
 # Generates junctions of various kinds, including big crosses, t-junctions, and
 # corners (potentially thick enough for cities in the middle) and more!
 NAME: layout_vaults_omnicross
-DEPTH:  Vaults
-WEIGHT: 25
+DEPTH:  Snake
+WEIGHT: 10
 ORIENT: encompass
-CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
 TAGS: no_hmirror no_vmirror chance_vaults uniq_vaults_cross layout_type_vaults
 {{
@@ -125,10 +123,9 @@ ENDMAP
 #
 # Technically capable but unlikely to produce a quadrants layout.
 NAME: layout_vaults_omnigrid
-DEPTH: Vaults
-WEIGHT: 50
+DEPTH: Snake, Vaults
+WEIGHT: 5
 ORIENT: encompass
-CHANCE: 100%
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
 TAGS: no_hmirror no_vmirror chance_vaults uniq_vaults_grid layout_type_vaults
 : build_vaults_layout(_G, "Omnigrid", layout_primitive_omnigrid(), { max_rooms = 20, max_room_tries = 10, max_place_tries = 20 })
@@ -182,7 +179,7 @@ ENDMAP
 
 # This has a big cross bang in the center; omnicross can potentially do this but it's unlikely.
 NAME: layout_vaults_big_cross
-DEPTH: Vaults
+DEPTH: Orc, Vaults
 WEIGHT: 10
 ORIENT: encompass
 CHANCE: 100%

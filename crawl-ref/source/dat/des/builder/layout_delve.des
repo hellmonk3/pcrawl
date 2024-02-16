@@ -79,8 +79,8 @@ TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 #
 
 NAME:   layout_twisted_cross
-DEPTH:  Depths
-WEIGHT: 5
+DEPTH:  D, Zot
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -275,7 +275,7 @@ validate {{
 
 NAME:   layout_twisted_circle
 DEPTH:  Zot
-WEIGHT: 5
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -411,8 +411,8 @@ validate {{
 #       and "layout_type_open_caves" tag for more open version.
 #
 NAME:   layout_spider_delve
-DEPTH:  Spider
-WEIGHT: 5
+DEPTH:  Crypt, Lair, Swamp, Depths
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 {{

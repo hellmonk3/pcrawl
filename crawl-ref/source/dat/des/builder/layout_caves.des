@@ -18,8 +18,8 @@
 # functions from weighted selections and draw them overwritten.
 #
 NAME:   layout_layer_cave
-DEPTH:  D:4-, Lair, Snake
-WEIGHT: 5, 15 (Snake)
+DEPTH:  Depths
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 {{
@@ -115,7 +115,7 @@ ENDMAP
 #       * It should be possible to fold most of these effects into layer_cave
 #
 NAME:   layout_cave_shapes
-DEPTH:  D, Lair, Snake, Depths
+DEPTH:  Lair, Depths
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
@@ -289,8 +289,8 @@ validate {{
 # TODO: Widen the paths for Spider.
 #
 NAME:   layout_cave_pods
-DEPTH:  D:4-, Lair, Snake, Spider
-WEIGHT: 5, 15 (Lair)
+DEPTH:  Depths
+WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
@@ -328,8 +328,8 @@ ENDMAP
 # should really be folded in with randomisation
 #
 NAME:   layout_chambers
-DEPTH:  Snake, Spider, Pan
-WEIGHT: 15 (Snake), 5 (Spider), 10 (Pan)
+DEPTH:  D, Swamp, Crypt, Depths
+WEIGHT: 15 (Crypt), 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
@@ -364,8 +364,8 @@ ENDMAP
 # distinguishing feature for Snake. ~infiniplex
 #
 NAME:   layout_cave_town
-DEPTH:  Snake:2-
-WEIGHT: 5 (Snake:2), 15 (Snake:3), 50 (Snake:4)
+DEPTH:  Crypt, Depths
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand no_pool_fixup layout_type_city
 TAGS:   no_rotate no_hmirror no_vmirror
@@ -422,8 +422,8 @@ ENDMAP
 #  of water, and appeared in Gehenna.
 #
 NAME:   layout_cocytus_water_paths
-DEPTH:  Coc
-WEIGHT: 5
+DEPTH:  Swamp, Coc
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
@@ -484,7 +484,7 @@ ENDMAP
 #  values.  The middle values become the paths.
 #
 NAME:   layout_gehenna_lava_caves
-DEPTH:  Geh
+DEPTH:  Spider, Geh
 WEIGHT: 20
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
@@ -554,8 +554,8 @@ ENDMAP
 # layout_ice_bergs
 #
 NAME:   layout_ice_bergs
-DEPTH:  Coc
-WEIGHT: 5
+DEPTH:  Swamp, Coc
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{

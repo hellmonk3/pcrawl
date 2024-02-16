@@ -111,7 +111,7 @@
 #
 NAME:   layout_cellular_growth
 DEPTH:  Lair, Zot, Pan
-WEIGHT: 2 (Lair), 5 (Zot), 10 (Pan)
+WEIGHT: 5 (Lair), 5 (Zot), 10 (Pan)
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
 {{
@@ -236,8 +236,8 @@ ENDMAP
 #  -> This layout regenerates a lot.  Figure out why and fix it.
 #
 NAME:   layout_gridville
-DEPTH:  D:4-, Depths, Zot, Dis, Pan
-WEIGHT: 10 (D), 10 (Depths), 5 (Zot), 15 (Dis), 10 (Pan)
+DEPTH:  D, Orc, Elf, Snake, Dis, Pan
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
 {{
@@ -352,9 +352,8 @@ ENDMAP
 # TODO: Only place lava rooms in Depths, Zot, and Pan
 #
 NAME:   layout_gridlike
-DEPTH:  Elf, Lair, Snake, Crypt, Depths, Zot, Pan
-WEIGHT: 20 (Elf), 10 (Lair), 10 (Snake), 15 (Crypt)
-WEIGHT: 20 (Depths), 20 (Zot), 15 (Pan)
+DEPTH:  D, Orc, Elf, Snake, Zot, Pan
+WEIGHT: 20
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 TAGS:   no_rotate no_vmirror no_hmirror

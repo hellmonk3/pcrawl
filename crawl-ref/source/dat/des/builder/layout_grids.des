@@ -185,7 +185,7 @@ TAGS:   no_hmirror no_vmirror layout_type_passages
 # layout_long_grid
 #
 NAME:   layout_long_grid
-DEPTH:  Lair, Depths, Pan
+DEPTH:  Lair, Spider, Pan
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -296,8 +296,8 @@ TAGS:   no_rotate no_vmirror no_hmirror
 # draw each grid area.
 #
 NAME:   layout_grid_shapes
-DEPTH:  Snake, Pan
-WEIGHT: 5 (Snake), 10 (Pan)
+DEPTH:  Crypt, Depths, Zot, Pan
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
@@ -321,7 +321,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
     minimum_size = 8,
   }
 
-  local cavey = you.in_branch("snake")
+  local cavey = you.in_branch("crypt")
                 or (you.in_branch("pan") and crawl.coinflip())
   local distort = you.in_branch("zot")
 
@@ -404,7 +404,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 #       maybe an Elf version
 #
 NAME:   layout_grid_maze
-DEPTH:  D, Snake, Tar
+DEPTH:  D, Orc, Elf, Snake, Tar
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
@@ -422,7 +422,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_passages
   local thin = crawl.one_chance_in(3)       -- Use thin or thick walls?
   local detree = crawl.x_chance_in_y(9,10)  -- Cut out more walls to make a less tree-like layout
   local doors = crawl.x_chance_in_y(2,3)    -- Create doors sometimes instead of just holes in walls
-  local fortify = you.in_branch("Tar")      -- Add wall crennelations?
+  local fortify = you.in_branch("Snake")      -- Add wall crennelations?
 
   if you.in_branch("Lair") or you.in_branch("Snake") then
     thin = false

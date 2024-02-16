@@ -87,7 +87,7 @@
 #       and previous TODO are in, add to Elf with weight 10.
 #
 NAME:   layout_hall_layers
-DEPTH:  D, Lair
+DEPTH:  Lair, Depths
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
@@ -232,8 +232,8 @@ ENDMAP
 # gaps in the walls to connect everything up.
 #
 NAME:   layout_onion
-DEPTH:  Snake, Zot
-WEIGHT: 10 (Snake), 5 (Zot)
+DEPTH:  Crypt, Lair, Zot
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
 {{
@@ -277,8 +277,8 @@ ENDMAP
 #       way, like particle diffusion.
 #
 NAME:   layout_catacombs
-DEPTH:  Crypt, !Crypt:$, Tar
-WEIGHT: 10 (Crypt), 10 (Tar)
+DEPTH:  D, Crypt, Snake, Tar
+WEIGHT: 15
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 {{
@@ -357,7 +357,7 @@ validate {{
 # TODO: A better way of dealing with small maps
 #
 NAME:   layout_onion_interference
-DEPTH:  Snake, Zot:1-4
+DEPTH:  Crypt, Depths, Zot
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
@@ -431,7 +431,7 @@ validate {{
 # TODO: less open space on Zot
 #
 NAME:   layout_cathedral_of_symmetry
-DEPTH:  Zot, Tar
+DEPTH:  Crypt, Zot, Tar
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
@@ -540,8 +540,8 @@ ENDMAP
 #       Then remove minimum size validate as unneeded
 #
 NAME:   layout_concentric_octagons
-DEPTH:  Lair, Snake, Zot
-WEIGHT: 3 (Lair), 5 (Snake), 10 (Zot)
+DEPTH:  Elf, Zot
+WEIGHT: 7
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_passages
 TAGS:   no_rotate no_vmirror no_hmirror

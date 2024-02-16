@@ -99,8 +99,8 @@
 #  chance of lava pools instead of water pools (never mixed).
 #
 NAME:   layout_cave_pools
-DEPTH:  D:2-, Depths
-WEIGHT: 5
+DEPTH:  Crypt, Depths
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -154,8 +154,8 @@ ENDMAP
 #       connectivity failures when adding vaults
 #
 NAME:   layout_honeycomb
-DEPTH:  Snake, !Snake:$, Depths, Tar
-WEIGHT: 10 (Snake), 15 (Depths), 10 (Tar)
+DEPTH:  D, Lair, Zot, Tar
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_divisions
 TAGS:   no_rotate no_vmirror no_hmirror
@@ -228,7 +228,7 @@ ENDMAP
 #  middle.
 #
 NAME:   layout_gehenna_pools_basic
-DEPTH:  Geh
+DEPTH:  Spider, Geh
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
@@ -344,7 +344,7 @@ validate {{
 #  L-shape:      6/8 * 6/8     = 36/64 = 9/16 = 56.25%
 #
 NAME:   layout_gehenna_pools_box
-DEPTH:  Geh
+DEPTH:  Spider, Geh
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
@@ -415,7 +415,7 @@ validate {{
 #  connections are added so that all three paths are connected.
 #
 NAME:   layout_gehenna_pools_triple
-DEPTH:  Geh
+DEPTH:  Spider, Geh
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves

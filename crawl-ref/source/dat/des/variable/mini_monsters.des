@@ -173,7 +173,7 @@ ENDMAP
 
 NAME:  kb_rosetta
 TAGS:  vaults_hard transparent
-DEPTH: D, Depths, Vaults, Tower
+DEPTH: D, Depths, Tower
 SUBST: x : xcvmnt
 SUBST: X : GtTU
 MAP

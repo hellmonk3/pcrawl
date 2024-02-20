@@ -47,15 +47,15 @@ function desolation_portal(e)
 
     e.tags("uniq_desolation vaults_desolation no_monster_gen chance_desolation")
 
-    -- Replace stone walls with whatever wall type the Vaults level is using.
-    if you.in_branch("Vaults") then
+    -- Replace stone walls with whatever wall type the Fortress level is using.
+    if you.in_branch("Fortress") then
         e.subst("c = x")
     end
 
     e.chance(0)
-    -- Don't apply the chance in Vaults, since we use a Vaults room for that
+    -- Don't apply the chance in Fortress, since we use a Fortress room for that
     -- branch.
-    e.depth_chance("Vaults", 0)
+    e.depth_chance("Fortress", 0)
 end
 
 function desolation_ruins_setup(e)
@@ -72,7 +72,7 @@ end
 # Desolation entrance vaults
 ##############################################################################
 
-default-depth: Tower, !Tower:$, Vaults, !Vaults:$
+default-depth: Tower, !Tower:$, Fortress, !Fortress:$
 
 NAME:       portal_desolation_entry_ruin
 TAGS:       transparent
@@ -267,8 +267,8 @@ ENDMAP
 # you, [...] a loss of connection to any sense of place."
 NAME:   portal_desolation_entry_nicolae_menacing_earthworks
 TAGS:   transparent no_monster_gen
-# Shape doesn't work as well as a Vaults room.
-WEIGHT: 0 (Vaults), 3
+# Shape doesn't work as well as a Fortress room.
+WEIGHT: 0 (Fortress), 3
 : desolation_portal(_G)
 SUBST:  - = ...;
 FTILE:  ;Oc = FLOOR_SALT

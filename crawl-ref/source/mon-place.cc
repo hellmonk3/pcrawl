@@ -1735,7 +1735,7 @@ struct band_set
     vector<band_info> bands;
 };
 
-// We handle Vaults centaur warriors specially.
+// We handle Fortress centaur warriors specially.
 static const band_conditions centaur_band_condition
     = { 3, 10, []() { return !player_in_branch(BRANCH_SHOALS)
                           && !player_in_branch(BRANCH_VAULTS); }};

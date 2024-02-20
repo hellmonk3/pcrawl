@@ -799,7 +799,7 @@ function update_game_status()
     return
   end
   if game_status == "normal" and you.have_rune("silver")
-     and not where:find("Vaults") and not where:find("Abyss") then
+     and not where:find("Fortress") and not where:find("Abyss") then
     game_status = "shopping"
   end
   if game_status == "shopping" and c_persist.done_shopping then
@@ -1444,7 +1444,7 @@ local branch_data = {
   {"P", "Workshop"},
   {"N", "Forge"},
   {"M", "Slime"},
-  {"V", "Vaults"},
+  {"V", "Fortress"},
   {"C", "Crypt"},
   {"W", "Tomb"},
   {"D", "D:"},
@@ -5694,7 +5694,7 @@ function plan_simple_go_down()
      util.contains(c_persist.branches_entered, "L") then
     return false
   end
-  if where == "Vaults:4" and easy_runes() < 2 then
+  if where == "Fortress:4" and easy_runes() < 2 then
     return false
   end
   if where == "Tomb:1" or where == "Tomb:2" or where == "Tomb:3" then
@@ -6158,7 +6158,7 @@ function plan_new_travel()
   if cloudy then
     return false
   end
-  local back_to_D_places = { "Temple", "Armory:2", "Vaults:4"}
+  local back_to_D_places = { "Temple", "Armory:2", "Fortress:4"}
   if util.contains(back_to_D_places, where) then
     travel_destination = "D"
   end
@@ -6186,7 +6186,7 @@ function plan_new_travel()
   if where == "Shoals:4" and you.have_rune("barnacled") then
     travel_destination = "D"
   end
-  if where == "Vaults:5" and you.have_rune("silver") then
+  if where == "Fortress:5" and you.have_rune("silver") then
     if game_status == "tomb" then
       travel_destination = "C"
     else
@@ -8187,7 +8187,7 @@ function update_stuff()
       say("Entered " .. where .. ".")
     end
     c_persist.portals_found = { }
-    if where == "Vaults:5" and not v5_entry_turn then
+    if where == "Fortress:5" and not v5_entry_turn then
       v5_entry_turn = you.turns()
     end
   end

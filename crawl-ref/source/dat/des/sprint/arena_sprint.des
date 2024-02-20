@@ -439,7 +439,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 26 then
             mon_set = {
-                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: Fortress, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard w:50 / ancient lich w:5 / lich / yaktaur /\
                     yaktaur captain w:3 / stone giant / shadow dragon /\
@@ -513,7 +513,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 36 then
             mon_set = {
-                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: Fortress, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard / ancient lich w:5 / lich / yaktaur /\
                     yaktaur captain w:3 / stone giant / shadow dragon /\
@@ -589,7 +589,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         else -- Because somehow, the above stuff was too easy.
             mon_set = {
-                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: Fortress, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard / ancient lich w:15 / deep elf master archer w:3 /\
                     titan w:15 / golden dragon w:20 / glowing shapeshifter hd:20",
@@ -735,7 +735,7 @@ function arena_sprint_init_boss_table()
              "acid blob name:sulfuric n_adj col:white hp:450 / " ..
              "great orb of eyes name:greater_orb_of_eyes n_rpl n_des n_noc col:green hp:600",
              "slimy rune of zot"}
-    bs[5] = {"vault guard / place:Vaults", "mennas hp:250 / mara hp:300 / " ..
+    bs[5] = {"vault guard / place:Fortress", "mennas hp:250 / mara hp:300 / " ..
              "vault guard name:captain n_suf n_noc col:lightcyan hp:800 hd:26",
              "silver rune of zot"}
     if crawl.coinflip() then

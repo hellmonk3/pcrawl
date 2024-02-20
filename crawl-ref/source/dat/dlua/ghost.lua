@@ -35,7 +35,7 @@ function ghost_setup(e, vaults_setup, set_chance)
     -- if we're actually placing the vault in the Vaults branch.
     if vaults_setup then
         e.tags("vaults_ghost")
-        if you.in_branch("Vaults") then
+        if you.in_branch("Fortress") then
             e.subst("c = x")
         end
     end
@@ -43,7 +43,7 @@ function ghost_setup(e, vaults_setup, set_chance)
     if set_chance then
         e.tags("chance_player_ghost")
         -- Ensure we don't use CHANCE in Vaults.
-        e.depth_chance("Vaults", 0)
+        e.depth_chance("Fortress", 0)
         e.chance(math.floor(_GHOST_CHANCE_PERCENT / 100 * 10000))
     end
 end
@@ -179,7 +179,7 @@ function ghost_good_loot(e, kglyphs)
            jewellery = randart_jewellery
         end
         second_item = true
-    elseif you.in_branch("Vaults") or you.in_branch("Tower") then
+    elseif you.in_branch("Fortress") or you.in_branch("Tower") then
         aux = dgn.good_aux_armour
         jewellery = good_jewellery
         if crawl.coinflip() then

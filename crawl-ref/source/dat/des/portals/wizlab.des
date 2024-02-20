@@ -137,15 +137,15 @@ function wizlab_portal (e)
 
     e.tags("uniq_wizlab vaults_wizlab no_item_gen no_monster_gen chance_wizlab")
 
-    -- Replace stone walls with whatever wall type the Vaults level is using.
-    if you.in_branch("Vaults") then
+    -- Replace stone walls with whatever wall type the Fortress level is using.
+    if you.in_branch("Fortress") then
         e.subst("c = x")
     end
 
     e.chance(0)
-    -- Don't apply the chance in Vaults, since we use a Vaults room for that
+    -- Don't apply the chance in Fortress, since we use a Fortress room for that
     -- branch.
-    e.depth_chance("Vaults", 0)
+    e.depth_chance("Fortress", 0)
 end
 
 -- Destinations:
@@ -434,7 +434,7 @@ function wizlab_borgnjor_call_souls(data, triggerable, triggerer, marker, ev)
 end
 }}
 
-default-depth: Depths, Tower, Crypt, Vaults, !Vaults:$
+default-depth: Depths, Tower, Crypt, Fortress, !Fortress:$
 
 ###############################################################################
 # Portal entrances.
@@ -581,9 +581,9 @@ x.x.x.x.x..
 ENDMAP
 
 NAME:   mu_enter_wizlab_7
-# This one doesn't work as well in Vaults, since one entrance tends to become a
+# This one doesn't work as well in Fortress, since one entrance tends to become a
 # dead end.
-WEIGHT: 0 (Vaults)
+WEIGHT: 0 (Fortress)
 KFEAT:  apqr = x
 # Mimic the rock/floor colors of Zot:1-4
 COLOUR: a = white

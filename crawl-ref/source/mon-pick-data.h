@@ -461,9 +461,9 @@ static const vector<pop_entry> population[] =
   {  2,  8,   50, SEMI, MONS_FLOATING_EYE },
 },
 
-{ // The Vaults (OOD cap: 12)
-  // Vaults is essentially split in two: Vaults 1-4, the 'normal' part,
-  // and Vaults:5, the final challenge.
+{ // The Fortress (OOD cap: 12)
+  // Fortress is essentially split in two: Fortress 1-4, the 'normal' part,
+  // and Fortress:5, the final challenge.
   // Trying to keep total around 10,000 on each floor 1-4, roughly.
 
   // Easy enemies:
@@ -506,7 +506,7 @@ static const vector<pop_entry> population[] =
   {  1,  4,  350, RISE, MONS_PEACEKEEPER },
   {  1,  4,  300, RISE, MONS_SPHINX },
 
-  // Vaults:5 enemies. These weights are very roughly based on
+  // Fortress:5 enemies. These weights are very roughly based on
   // the monster frequency as of 0.26.
   // V:5 humans:
   {  5, 12, 1000, FALL, MONS_VAULT_WARDEN },
@@ -1223,7 +1223,7 @@ static const vector<pop_entry> population_water[] =
     },
     GENERIC_WATER_POP, // Forge
     GENERIC_WATER_POP, // Slime
-    GENERIC_WATER_POP, // Vaults
+    GENERIC_WATER_POP, // Fortress
 #if TAG_MAJOR_VERSION == 34
     GENERIC_WATER_POP, // Blade
 #endif
@@ -1324,7 +1324,7 @@ static const vector<pop_entry> population_lava[] =
     },
     GENERIC_LAVA_POP, // Forge
     GENERIC_LAVA_POP, // Slime
-    GENERIC_LAVA_POP, // Vaults
+    GENERIC_LAVA_POP, // Fortress
 #if TAG_MAJOR_VERSION == 34
     GENERIC_LAVA_POP, // Blade
 #endif

@@ -7,7 +7,7 @@ end
 local function sanity_checks()
   local places = {
     "Zot:$", "Workshop:$", "Swamp:$", "Forge:$", "Slime:$", "Tower:$",
-    "Vaults:$", "Tomb:$", "Coc:$", "Tar:$", "Dis:$", "Geh:$"
+    "Fortress:$", "Tomb:$", "Coc:$", "Tar:$", "Dis:$", "Geh:$"
   }
   for _, place in ipairs(places) do
     assert_place_has_map(place)

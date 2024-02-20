@@ -190,7 +190,7 @@ end
 
 -- Monster sets, in order:
 -- Lair, Workshop, Swamp, Shoals, Forge, Slime,
--- Armory, Tower, Vaults, Crypt, Tomb,
+-- Armory, Tower, Fortress, Crypt, Tomb,
 -- Abyss, Gehenna, Cocytus, Dis, Tartarus,
 -- Fire, Ice, Air, Earth, Negative Energy, Holy, Chaos
 -- Giants, Dragons, Draconians, Archers, Conjurers
@@ -274,7 +274,7 @@ end))
 mset(spec_fn(function ()
   local d = math.max(5, 25 - you.zigs_completed())
   local e = math.max(1, you.zigs_completed() + you.depth() - 11)
-  return "place:Vaults:$ w:" .. d * 2 .. " / place:Vaults:$ w:" .. d .. " / " ..
+  return "place:Fortress:$ w:" .. d * 2 .. " / place:Fortress:$ w:" .. d .. " / " ..
          "glowing shapeshifter / sphinx w:5 / " ..
          "titan w:" .. e .. " / golden dragon w:" .. e .. " / " ..
          "ancient lich w:" .. e / 2 .. " / dread lich w:" .. e / 2

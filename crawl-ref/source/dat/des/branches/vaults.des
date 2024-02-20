@@ -1,11 +1,11 @@
 ###############################################################################
-# vaults.des: Entries to the Vaults branch, and Vaults:$ set-up.
+# vaults.des: Entries to the Fortress branch, and Fortress:$ set-up.
 #
-# Vaults are scattered according to purpose across the rest of dat/des.
+# Fortress are scattered according to purpose across the rest of dat/des.
 ###############################################################################
 
 {{
--- Vaults:$ common loot substitutions.
+-- Fortress:$ common loot substitutions.
 function vaults_end_loot(e)
     e.subst("? = .")
     e.subst("| = .")
@@ -13,7 +13,7 @@ function vaults_end_loot(e)
     e.subst("$ = .")
 end
 
--- Vaults:$ cross-vault rune substitution. Turn 'O' into a rune (if it doesn't
+-- Fortress:$ cross-vault rune substitution. Turn 'O' into a rune (if it doesn't
 -- exist yet) or a good item. Note that this assumes that only one "prize"
 -- subvault is ever picked, and that it is the first subvault of the four.
 function vaults_end_rune(e)
@@ -29,7 +29,7 @@ end
 }}
 
 ###############################################################################
-# Vaults entries
+# Fortress entries
 ###############################################################################
 
 ############################################################
@@ -83,7 +83,7 @@ vv+++vv
 ENDMAP
 
 ###############################################################################
-# Vaults:$ last level of the vaults -- dungeon.cc will change all these 'x's
+# Fortress:$ last level of the vaults -- dungeon.cc will change all these 'x's
 ###############################################################################
 #
 # This map traditionally allows controlled teleports. Even with the now
@@ -91,7 +91,7 @@ ENDMAP
 # awkward to reach via teleport, and there is now always a monster on the
 # rune.
 #
-# Vaults:$ extensively uses subvaults. To provide another Vaults:$ quadrant
+# Fortress:$ extensively uses subvaults. To provide another Fortress:$ quadrant
 # variation, create a map tagged vaults_end_quadrant that is 27x23. It should
 # have three blank cells on one corner (see any existing quadrant for an
 # example), which will be used to orient that corner towards the middle of
@@ -99,10 +99,10 @@ ENDMAP
 # should be done by placing an 'O' glyph and calling vaults_end_rune(_G).
 
 #############################################################
-# The main vault for Vaults:$.
+# The main vault for Fortress:$.
 #
 NAME:     vaults_vault
-PLACE:    Vaults:$
+PLACE:    Fortress:$
 ORIENT:   encompass
 TAGS:     no_rotate no_dump
 SHUFFLE:  ABCD
@@ -185,7 +185,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
 ############################################################
-# Vaults:$ - the subvault used to place the rune.
+# Fortress:$ - the subvault used to place the rune.
 #
 # Used by the 'vaults_end_rune()' function in the prelude.
 #
@@ -198,7 +198,7 @@ O
 ENDMAP
 
 ############################################################
-# Vaults:$ - the subvault used for potential rune locations that do not
+# Fortress:$ - the subvault used for potential rune locations that do not
 # contain the real rune.
 #
 # Used by the 'vaults_end_rune()' function in the prelude.
@@ -211,7 +211,7 @@ o
 ENDMAP
 
 ############################################################
-# Vaults:$ - the subvault used for potential rune locations that do not
+# Fortress:$ - the subvault used for potential rune locations that do not
 # contain the rune, but rather a mimic of it!
 #
 # Used by the 'vaults_end_rune()' function in the prelude.
@@ -225,7 +225,7 @@ o
 ENDMAP
 
 ###############################################################################
-# Vaults:$ quadrants
+# Fortress:$ quadrants
 ###############################################################################
 
 ############################################################
@@ -1529,7 +1529,7 @@ x.xxx.................xxx.x
 ENDMAP
 
 ###############################################################################
-# Vaults:$ prize quadrants
+# Fortress:$ prize quadrants
 ###############################################################################
 
 ############################################################
@@ -2329,7 +2329,7 @@ x......9............9.....x
 ENDMAP
 
 ############################################################
-# Vaults:$ - Rooms Quadrant
+# Fortress:$ - Rooms Quadrant
 #
 # This quadrant uses a subvault for each room. Any subvault tagged
 # vaults_end_room_rune should be guaranteed to provide a rune. Any subvault
@@ -2375,7 +2375,7 @@ a.xxxxxxxxxEx..xxxxxxxxxx.a
   axxxxxxxxxxxxxxxxxxxxxa
 ENDMAP
 
-# Vaults:$ - Rooms Quadrant - Traps and Loot Subvault
+# Fortress:$ - Rooms Quadrant - Traps and Loot Subvault
 #            Replace each square with traps or loot, but mostly floor.
 NAME: vaults_end_room_traps_and_loot
 TAGS: vaults_end_room
@@ -2385,7 +2385,7 @@ SUBST: . = ?
 MAP
 ENDMAP
 
-# Vaults:$ - Rooms Quadrant - Border Subvault
+# Fortress:$ - Rooms Quadrant - Border Subvault
 #            Fill the room with loot, but leave an empty border.
 NAME: vaults_end_room_border
 TAGS: vaults_end_room
@@ -2408,7 +2408,7 @@ TAGS: vaults_end_room
 MAP
 ENDMAP
 
-# Vaults:$ - Rooms Quadrant - Diamond Subvault
+# Fortress:$ - Rooms Quadrant - Diamond Subvault
 #            Fill the room with money in a diamond pattern.
 NAME: vaults_end_room_diamond
 TAGS: vaults_end_room
@@ -2429,7 +2429,7 @@ TAGS: vaults_end_room
 MAP
 ENDMAP
 
-# Vaults:$ - Rooms Quadrant - Rune Subvault
+# Fortress:$ - Rooms Quadrant - Rune Subvault
 #            Potentially contains the rune.
 NAME: vaults_end_room_rune
 TAGS: vaults_end_room_rune

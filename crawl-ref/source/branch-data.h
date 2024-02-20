@@ -96,7 +96,7 @@ const Branch branches[NUM_BRANCHES] =
       "Workshop", "the Workshop", "Workshop",
       nullptr,
       LIGHTGREEN, YELLOW,
-      'P', { RUNE_SNAKE }, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
+      'W', { RUNE_SNAKE }, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
       { BRANCH_ELF, BRANCH_SWAMP } },
 
     { BRANCH_SPIDER, BRANCH_ELF, 3, 3, 3, 15,
@@ -120,7 +120,7 @@ const Branch branches[NUM_BRANCHES] =
     { BRANCH_VAULTS, BRANCH_DEPTHS, 3, 3, 1, 19,
       brflag::dangerous_end,
       DNGN_ENTER_VAULTS, DNGN_EXIT_VAULTS, NUM_FEATURES,
-      "Vaults", "the Vaults", "Vaults",
+      "Fortress", "the Fortress", "Fortress",
       nullptr,
       LIGHTGREY, BROWN,
       'V', { RUNE_VAULTS }, branch_noise::normal, 9,
@@ -152,7 +152,7 @@ const Branch branches[NUM_BRANCHES] =
       "Tomb", "the Tomb of the Ancients", "Tomb",
       nullptr,
       BROWN, BROWN,
-      'W', { RUNE_TOMB }, branch_noise::quiet, DEFAULT_MON_DIE_SIZE,
+      'P', { RUNE_TOMB }, branch_noise::quiet, DEFAULT_MON_DIE_SIZE,
       {} },
 #if TAG_MAJOR_VERSION > 34
 

@@ -23,8 +23,8 @@
 # lair rune preferences, current options are:
 # * random - no preference, chooses randomly
 # * nowater - does Workshop/Forge first
-# * smart - currently prefers Forge > Workshop/Swamp > Shoals
-# * dsmart - Swamp/Forge > Workshop > Shoals (DsBe data)
+# * smart - currently prefers Forge > Workshop/Storage > Shoals
+# * dsmart - Storage/Forge > Workshop > Shoals (DsBe data)
 : RUNE_PREFERENCE = "random"
 # plan for post-V:5, should end with zot
 # maximal example: "tso,tomb,hells,pan,slime,abyss,zig,zot"
@@ -1439,7 +1439,7 @@ local branch_data = {
   {"O", "Armory"},
   --{"E", "Elf"},
   {"L", "Lair"},
-  {"S", "Swamp"},
+  {"S", "Storage"},
   {"A", "Shoals"},
   {"P", "Workshop"},
   {"N", "Forge"},
@@ -6177,7 +6177,7 @@ function plan_new_travel()
   if where == "Workshop:4" and you.have_rune("serpentine") then
     travel_destination = "D"
   end
-  if where == "Swamp:4" and you.have_rune("decaying") then
+  if where == "Storage:4" and you.have_rune("decaying") then
     travel_destination = "D"
   end
   if where == "Forge:4" and you.have_rune("gossamer") then
@@ -6881,7 +6881,7 @@ function plan_stuck_clear_exclusions()
 end
 
 function plan_swamp_clear_exclusions()
-  if where ~= "Swamp:4" then
+  if where ~= "Storage:4" then
     return false
   end
   magic("X" .. control('e'))
@@ -6889,7 +6889,7 @@ function plan_swamp_clear_exclusions()
 end
 
 function plan_swamp_go_to_rune()
-  if where ~= "Swamp:4" or you.have_rune("decaying") then
+  if where ~= "Storage:4" or you.have_rune("decaying") then
     return false
   end
   if last_swamp_fail_count == c_persist.plan_fail_count.try_swamp_go_to_rune then
@@ -6901,7 +6901,7 @@ function plan_swamp_go_to_rune()
 end
 
 function plan_swamp_clouds_hack()
-  if where ~= "Swamp:4" then
+  if where ~= "Storage:4" then
     return false
   end
   if you.have_rune("decaying") and can_teleport() and teleport() then
@@ -6950,7 +6950,7 @@ function plan_swamp_clouds_hack()
       if (view.cloud_at(x,y) == "freezing vapour"
           or view.cloud_at(x,y) == "foul pestilence")
          and you.see_cell_no_trans(x,y) then
-        return random_step("Swamp:4")
+        return random_step("Storage:4")
       end
     end
   end

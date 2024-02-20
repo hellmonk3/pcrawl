@@ -70,7 +70,7 @@ function ready()
     crawl.call_dlua("dgn.set_random_mon_list('place:Abyss:$ /" ..
                        "place:D:$ / place:Depths:$ /" ..
                        "place:Armory:$ / place:Tower:$ / place:Lair:$ /" ..
-                       "place:Swamp:$ / place:Shoals:$ / place:Workshop:$ /" ..
+                       "place:Storage:$ / place:Shoals:$ / place:Workshop:$ /" ..
                        "place:Forge:$ / place:Slime:$ / place:Fortress:$ /" ..
                        "place:Crypt / place:Tomb:$ /" ..
                        "place:Hell w:5 / place:Coc:$ w:5 / place:Tar:$ w:5 /" ..

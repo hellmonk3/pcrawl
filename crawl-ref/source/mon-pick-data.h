@@ -297,7 +297,7 @@ static const vector<pop_entry> population[] =
   { 10, 11,   32, FLAT, MONS_WOLF_SPIDER },
 },
 
-{ // Swamp
+{ // Storage
   // Trying to keep total around 10000 on each floor, roughly.
   // Easy enemies:
   {  1,  4,   500, FALL, MONS_VAMPIRE_MOSQUITO },
@@ -1210,7 +1210,7 @@ static const vector<pop_entry> population_water[] =
     GENERIC_WATER_POP, // Dwarf
 #endif
     GENERIC_WATER_POP, // Lair
-    { // Swamp water monsters
+    { // Storage water monsters
       {  1,  4,   400, FLAT, MONS_SWAMP_WORM },
       {  1,  4,   100, FLAT, MONS_TYRANT_LEECH },
       {  1,  4,   100, FLAT, MONS_ALLIGATOR },
@@ -1314,7 +1314,7 @@ static const vector<pop_entry> population_lava[] =
     GENERIC_LAVA_POP, // Dwarf
 #endif
     GENERIC_LAVA_POP, // Lair
-    GENERIC_LAVA_POP, // Swamp
+    GENERIC_LAVA_POP, // Storage
     GENERIC_LAVA_POP, // Shoals
     { // Workshop lava monsters
       {  1,   4,  200, FLAT, MONS_LAVA_SNAKE },

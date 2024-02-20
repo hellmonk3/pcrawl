@@ -189,7 +189,7 @@ local function mset_if(condition, ...)
 end
 
 -- Monster sets, in order:
--- Lair, Workshop, Swamp, Shoals, Forge, Slime,
+-- Lair, Workshop, Storage, Shoals, Forge, Slime,
 -- Armory, Tower, Fortress, Crypt, Tomb,
 -- Abyss, Gehenna, Cocytus, Dis, Tartarus,
 -- Fire, Ice, Air, Earth, Negative Energy, Holy, Chaos
@@ -222,7 +222,7 @@ mset(spec_fn(function ()
   local e = math.floor(10 + you.zigs_completed() / 3)
   local f = 5 + you.zigs_completed() * 3
   local g = math.max(1, you.depth() + you.zigs_completed() - 9)
-  return "place:Swamp:$ w:" .. d .. " / hydra w:" .. e .. " / " ..
+  return "place:Storage:$ w:" .. d .. " / hydra w:" .. e .. " / " ..
          "swamp dragon w:" .. e .. "  / tentacled monstrosity w:" .. f .. " / " ..
          "shambling mangrove w:" .. f .. " / green death w:" .. g + 3 .. " / " ..
          "death drake w:" .. g .. " / golden dragon w:" .. g
@@ -480,7 +480,7 @@ mset(mons_panlord_gen)
 mset_if(depth_ge(14), with_props(spec_fn(function ()
   local d = math.max(2, math.floor(14 - you.zigs_completed() / 2))
   local e = 10 + you.zigs_completed()
-  return "place:Workshop:$ w:" .. d .. " / place:Swamp:$ w:" .. d .. " / " ..
+  return "place:Workshop:$ w:" .. d .. " / place:Storage:$ w:" .. d .. " / " ..
          "place:Shoals:$ w:" .. d .. " / place:Forge:$ w:" .. d .. " / " ..
          "nagaraja w:" .. e + 2 .. " / guardian serpent w:8 / " ..
          "hydra w:5 / swamp dragon w:5 / tentacled monstrosity w:" .. e .. " / " ..

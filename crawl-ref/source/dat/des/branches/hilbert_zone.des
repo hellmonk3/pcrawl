@@ -1,7 +1,7 @@
 {{
 function nicolae_spider_hilbert_setup(e)
     e.tags('transparent uniq_nico_spacefill')
-    e.depth('Swamp')
+    e.depth('Storage')
     e.orient('float')
     e.kmons('0 = 0 / 0 band w:3')
     e.kmons('9 = 9 / 9 band w:3')
@@ -24,7 +24,7 @@ end
 
 
 # Everybody's favorite space-filling curve generates a lot of twisty passages,
-# perfect for the ambience of the Swamp.
+# perfect for the ambience of the Storage.
 NAME:     nicolae_spider_hilbert_zone_1
 SUBVAULT: D : nico_hilbert_41
 SUBVAULT: E : nico_hilbert_41

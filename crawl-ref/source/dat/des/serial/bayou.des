@@ -3,7 +3,7 @@
 # Bayou is a new serial vault that can appear in Dungeon, Workshop and Lair.
 # There are no monster spawns so it can appear on any depth level.
 #
-# A Bayou level has a 'swampy' atmosphere (because everybody loves Swamp) by
+# A Bayou level has a 'swampy' atmosphere (because everybody loves Storage) by
 # placing a large number of ponds and lakes with thick vegetation.
 
 NAME:   serial_bayou

@@ -1,10 +1,10 @@
 ###############################################################################
-# swamp.des: All maps and branch endings relating to the Swamp.
+# swamp.des: All maps and branch endings relating to the Storage.
 #
 # <<1>>      Entries
 # <<2>>      Decorative vaults
 # <<3>>      Monster-placing vaults
-# <<4>>      Swamp end vaults
+# <<4>>      Storage end vaults
 #
 ###############################################################################
 ###############################################################################
@@ -38,7 +38,7 @@ end
 {{
 function swamp_ruins(e)
     e.tags('serial_swamp_ruin extra transparent unrand')
-    e.depth('Swamp')
+    e.depth('Storage')
     e.weight('6')
     e.tile('x = wall_brick_vines')
     e.ftile('- = floor_sandstone')
@@ -48,7 +48,7 @@ end
 
 ###############################################################################
 #
-# <<1>> Swamp entries.
+# <<1>> Storage entries.
 #       All must have the swamp_entry tag and place an enter_swamp feature.
 #
 ###############################################################################
@@ -91,7 +91,7 @@ ENDMAP
 #
 ###############################################################################
 
-default-depth: Swamp
+default-depth: Storage
 
 ###############################################################################
 # A series of pools by Jude.
@@ -168,12 +168,12 @@ MAP
 ENDMAP
 
 ###############################################################################
-# Other Swamp decorative vaults
+# Other Storage decorative vaults
 
-# Swamp's layout is chaotic and samey; fill it with decorative vaults.
+# Storage's layout is chaotic and samey; fill it with decorative vaults.
 NAME:   swamp_ruins_default
 TAGS:   luniq_extradecor chance_extradecor allow_dup extra no_dump
-PLACE:  Swamp, !Swamp:$
+PLACE:  Storage, !Storage:$
 {{
   local n = 1
   hook("post_place", function()
@@ -183,7 +183,7 @@ PLACE:  Swamp, !Swamp:$
 
 NAME:   serial_swamp_ruin
 TAGS:   luniq_serial luniq_extradecor chance_extradecor extra
-PLACE:  Swamp, !Swamp:$
+PLACE:  Storage, !Storage:$
 WEIGHT: 2
 {{
   local n = 2 + crawl.random2(2)
@@ -194,7 +194,7 @@ WEIGHT: 2
 
 NAME:   swamp_other_decor
 TAGS:   luniq_extradecor chance_extradecor allow_dup extra no_dump
-PLACE:  Swamp, !Swamp:$
+PLACE:  Storage, !Storage:$
 WEIGHT: 8
 {{
   local n = 1
@@ -264,7 +264,7 @@ ENDMAP
 
 NAME: nicolae_swamp_stair_fork
 TAGS: extra decor
-DEPTH: Swamp:2-, !Swamp:$
+DEPTH: Storage:2-, !Storage:$
 SHUFFLE: {}[]()
 SUBST: W = w., T = t.
 MAP
@@ -396,7 +396,7 @@ ENDMAP
 
 NAME:   wheals_swamp_sinkhole
 TAGS:   extra no_monster_gen decor
-DEPTH:  Swamp:1-2
+DEPTH:  Storage:1-2
 WEIGHT: 5
 KFEAT: ^ = shaft trap
 SUBST: u = Ww
@@ -1080,7 +1080,7 @@ ENDMAP
 
 ###############################################################################
 #
-# <<4>> Swamp ending vaults
+# <<4>> Storage ending vaults
 #
 # They come in two flavours: normal and themed. The first three are normal and
 # use regular swamp monsters. The other five have special themes, and are less
@@ -1092,7 +1092,7 @@ default-depth:
 
 NAME:    swamp
 TAGS:    transparent
-PLACE:   Swamp:$
+PLACE:   Storage:$
 WEIGHT:  20
 ORIENT:  float
 MAP

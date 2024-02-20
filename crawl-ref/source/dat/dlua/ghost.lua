@@ -171,7 +171,7 @@ function ghost_good_loot(e, kglyphs)
     elseif you.in_branch("Shoals")
       or you.in_branch("Workshop")
       or you.in_branch("Forge")
-      or you.in_branch("Swamp") then
+      or you.in_branch("Storage") then
         aux = dgn.good_aux_armour
         jewellery = good_jewellery
         if crawl.one_chance_in(3) then

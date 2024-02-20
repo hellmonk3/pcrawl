@@ -411,7 +411,7 @@ validate {{
 #       and "layout_type_open_caves" tag for more open version.
 #
 NAME:   layout_spider_delve
-DEPTH:  Crypt, Lair, Swamp, Depths
+DEPTH:  Crypt, Lair, Storage, Depths
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves

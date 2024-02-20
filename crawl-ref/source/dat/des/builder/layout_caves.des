@@ -235,7 +235,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 # should widen the occasional thin corridor at the end of each drip.
 #
 NAME:   layout_falls_marsh
-DEPTH:  Swamp, !Swamp:$
+DEPTH:  Storage, !Storage:$
 WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand no_pool_fixup layout_type_swamp
@@ -328,7 +328,7 @@ ENDMAP
 # should really be folded in with randomisation
 #
 NAME:   layout_chambers
-DEPTH:  D, Swamp, Crypt, Depths
+DEPTH:  D, Storage, Crypt, Depths
 WEIGHT: 15 (Crypt), 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
@@ -422,7 +422,7 @@ ENDMAP
 #  of water, and appeared in Gehenna.
 #
 NAME:   layout_cocytus_water_paths
-DEPTH:  Swamp, Coc
+DEPTH:  Storage, Coc
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
@@ -554,7 +554,7 @@ ENDMAP
 # layout_ice_bergs
 #
 NAME:   layout_ice_bergs
-DEPTH:  Swamp, Coc
+DEPTH:  Storage, Coc
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves

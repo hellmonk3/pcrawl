@@ -75,7 +75,7 @@ const Branch branches[NUM_BRANCHES] =
     { BRANCH_SWAMP, BRANCH_LAIR, 3, 3, 3, 15,
       brflag::dangerous_end | brflag::spotty,
       DNGN_ENTER_SWAMP, DNGN_EXIT_SWAMP, NUM_FEATURES,
-      "Swamp", "the Swamp", "Swamp",
+      "Cold Storage", "Cold Storage", "Storage",
       nullptr,
       BROWN, BROWN,
       'S', { RUNE_SWAMP }, branch_noise::loud, 8,

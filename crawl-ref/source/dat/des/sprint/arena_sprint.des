@@ -234,7 +234,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 5 then
             mon_set = {
-                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: D, Armory, Tower, Lair, Shoals, Storage, Forge, Workshop, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:6 w:15 / place:D:10 w:15 / w:2 edmund / w:2 maurice /\
                     w:1 psyche / w:1 joseph",
@@ -279,7 +279,7 @@ function arena_sprint_get_monster_set(round, boss)
              }
         elseif round <= 10 then
             mon_set = {
-                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: D, Armory, Tower, Lair, Shoals, Storage, Forge, Workshop, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:11 w:15 / place:D:14 w:15 / w:2 erica / w:2 harold /\
                     w:1 rupert",
@@ -289,7 +289,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "place:Tower",
                 "place:Lair:3 w:30 / rupert w:1",
                 "place:Shoals",
-                "place:Swamp",
+                "place:Storage",
                 "place:Forge",
                 "place:Workshop",
                 "jelly / floating eye / w:2 shining eye /\
@@ -327,7 +327,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 15 then
             mon_set = {
-                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: D, Armory, Tower, Lair, Shoals, Storage, Forge, Workshop, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:$ w:24 / w:1 louise / w:1 donald / w:1 kirke",
                 "w:20 place:Armory:$ / orc wizard / orc sorcerer w:3 / orc warrior / orc knight /\
@@ -335,7 +335,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "place:Tower:$",
                 "place:Lair:$ w:100 / hydra / catoblepas / dire elephant / w:5 gastronok",
                 "place:Shoals:$ w:20 / w:6 merfolk avatar / w:5 harpy",
-                "place:Swamp:$ w:20 / w:6 hydra / w:5 swamp dragon",
+                "place:Storage:$ w:20 / w:6 hydra / w:5 swamp dragon",
                 "place:Forge:$ w:20 / w:5 wolf spider / w:5 orb spider / w:2 emperor scorpion",
                 "place:Workshop:$ w:20 / w:5 naga mage / w:5 naga warrior / w:5 nagaraja",
                 "place:Slime",
@@ -373,7 +373,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 20 then
             mon_set = {
-                -- Branches: D, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: D, Armory, Tower, Shoals, Storage, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "place:D:$ w:30 / w:1 nikola / w:1 frederick",
                 "place:Armory:$ / orc sorcerer w:3 / orc knight / orc warlord w:3 /\
@@ -383,7 +383,7 @@ function arena_sprint_get_monster_set(round, boss)
                     deep elf master archer / place:Tower:$ w:200",
                 "place:Shoals:$ w:30 / merfolk javelineer / merfolk impaler /\
                     merfolk aquamancer",
-                "place:Swamp:$ / hydra / swamp dragon / w:5 green death",
+                "place:Storage:$ / hydra / swamp dragon / w:5 green death",
                 "place:Forge:$ / wolf spider / orb spider / w:5 emperor scorpion /\
                     w:5 ghost moth",
                 "place:Workshop:$ / naga mage / naga warrior / nagaraja /\
@@ -439,7 +439,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 26 then
             mon_set = {
-                -- Branches: Fortress, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: Fortress, Armory, Tower, Shoals, Storage, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard w:50 / ancient lich w:5 / lich / yaktaur /\
                     yaktaur captain w:3 / stone giant / shadow dragon /\
@@ -513,7 +513,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 36 then
             mon_set = {
-                -- Branches: Fortress, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: Fortress, Armory, Tower, Shoals, Storage, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard / ancient lich w:5 / lich / yaktaur /\
                     yaktaur captain w:3 / stone giant / shadow dragon /\
@@ -589,7 +589,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         else -- Because somehow, the above stuff was too easy.
             mon_set = {
-                -- Branches: Fortress, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
+                -- Branches: Fortress, Armory, Tower, Shoals, Storage, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard / ancient lich w:15 / deep elf master archer w:3 /\
                     titan w:15 / golden dragon w:20 / glowing shapeshifter hd:20",
@@ -691,7 +691,7 @@ function arena_sprint_init_boss_table()
                  "anaconda name:giant n_adj n_noc hp:130 col:lightred",
                  "serpentine rune of zot"}
     else
-        bs[1] = {"place:Swamp", "the lernaean hydra / " ..
+        bs[1] = {"place:Storage", "the lernaean hydra / " ..
                  "wizard name:witch n_rpl n_des n_noc col:green hp:130 " ..
                    "spells:mephitic_cloud.15.wizard;" ..
                           "summon_hydra.15.wizard;" ..

@@ -63,10 +63,10 @@ local function run_unique_tests()
 
   -- why does this go backwards??
   for depth = 4, 1, -1 do
-    test_uniques_blank("Swamp", depth, 1)
+    test_uniques_blank("Storage", depth, 1)
     if depth < 4 then
       -- otherwise problem with lernaean, like Dispater above
-      test_uniques_random("Swamp", depth, 1)
+      test_uniques_random("Storage", depth, 1)
     end
   end
 end

@@ -82,7 +82,7 @@ ENDMAP
 # Previously named "layout_swamp".
 #
 NAME:   layout_basic_swamp
-DEPTH:  Swamp
+DEPTH:  Storage
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_swamp

@@ -548,7 +548,7 @@ ENDMAP
 ###############################################################################
 # Entry vaults that only place hard ice cave entrances
 
-default-depth: D:14-, Tower, Swamp, Shoals, Workshop, Forge
+default-depth: D:14-, Tower, Storage, Shoals, Workshop, Forge
 
 NAME:   portal_ice_cave_entry_pillars_three
 TAGS:   transparent
@@ -583,7 +583,7 @@ TAGS:   no_monster_gen no_pool_fixup transparent
 : ice_cave_portal(_G)
 MONS:   ice statue
 KFEAT:  ^ = web trap
-: if you.in_branch("Swamp") then
+: if you.in_branch("Storage") then
 SUBST:  + = ., x = t
 : elseif you.in_branch("Shoals") then
 SUBST:  x = w
@@ -623,7 +623,7 @@ NAME:   portal_ice_cave_entry_dragon
 TAGS:   no_monster_gen no_pool_fixup patrolling
 MONS:   ice dragon
 : ice_cave_portal(_G)
-: if you.in_branch("Swamp") then
+: if you.in_branch("Storage") then
 SUBST:  x = t
 : elseif you.in_branch("Shoals") then
 SUBST:  x = w

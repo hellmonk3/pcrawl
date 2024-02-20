@@ -4815,7 +4815,7 @@ static branch_summon_pair _invitation_summons[] =
       {  1,   1,   20, FLAT, MONS_ORB_SPIDER },
     }},
   { BRANCH_SWAMP,
-    { // Swamp enemies
+    { // Storage enemies
       {  1,   1,   80, FLAT, MONS_BOG_BODY },
       {  1,   1,   60, FLAT, MONS_SWAMP_DRAKE },
       {  1,   1,   40, FLAT, MONS_GOLIATH_FROG },

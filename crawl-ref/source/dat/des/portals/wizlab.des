@@ -434,7 +434,7 @@ function wizlab_borgnjor_call_souls(data, triggerable, triggerer, marker, ev)
 end
 }}
 
-default-depth: Depths, Elf, Crypt, Vaults, !Vaults:$
+default-depth: Depths, Tower, Crypt, Vaults, !Vaults:$
 
 ###############################################################################
 # Portal entrances.

@@ -711,7 +711,7 @@ ENDMAP
 NAME:    hangedman_decor_cross_pass
 TAGS:    transparent extra decor no_pool_fixup
 ORIENT:  float
-DEPTH:   D:2-, Depths, Elf
+DEPTH:   D:2-, Depths, Tower
 WEIGHT:  1
 SHUFFLE: _- / _- / -_, '" / '" / "', !? / !? / !?
 SHUFFLE: HIJK / HIJK / IHKJ, LMNO / LMNO / MLON, PQRS / PQRS / QPSR

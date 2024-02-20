@@ -83,8 +83,8 @@
 #       mode and "layout_mode_passages" tag without it.
 # TODO: Needs to make narrower paths (e.g. max 5 width).  When
 #       that works, add to Zot at weight 15.
-# TODO: Elf needs a version that never does caves.  When that
-#       and previous TODO are in, add to Elf with weight 10.
+# TODO: Tower needs a version that never does caves.  When that
+#       and previous TODO are in, add to Tower with weight 10.
 #
 NAME:   layout_hall_layers
 DEPTH:  Lair, Depths
@@ -540,7 +540,7 @@ ENDMAP
 #       Then remove minimum size validate as unneeded
 #
 NAME:   layout_concentric_octagons
-DEPTH:  Elf, Zot
+DEPTH:  Tower, Zot
 WEIGHT: 7
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_passages

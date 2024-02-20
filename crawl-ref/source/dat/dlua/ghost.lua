@@ -179,7 +179,7 @@ function ghost_good_loot(e, kglyphs)
            jewellery = randart_jewellery
         end
         second_item = true
-    elseif you.in_branch("Vaults") or you.in_branch("Elf") then
+    elseif you.in_branch("Vaults") or you.in_branch("Tower") then
         aux = dgn.good_aux_armour
         jewellery = good_jewellery
         if crawl.coinflip() then

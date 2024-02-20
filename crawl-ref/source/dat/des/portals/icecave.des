@@ -58,7 +58,7 @@ end
 --[[
 Determine if we're placing a hard difficulty ice cave map. Possible depths for
 easy ice caves are D:11-13, Lair, Orc. Hard ice caves are placed in D:14-15,
-Elf and the Lair roulette branches. This function must be updated if the depth
+Tower and the Lair roulette branches. This function must be updated if the depth
 range of ice cave changes, which is set by the default-depth statement of the
 entry vault section or by the entry maps themselves.
 
@@ -548,7 +548,7 @@ ENDMAP
 ###############################################################################
 # Entry vaults that only place hard ice cave entrances
 
-default-depth: D:14-, Elf, Swamp, Shoals, Snake, Spider
+default-depth: D:14-, Tower, Swamp, Shoals, Snake, Spider
 
 NAME:   portal_ice_cave_entry_pillars_three
 TAGS:   transparent
@@ -701,7 +701,7 @@ ENDMAP
 # variable dgn.persist.ice_cave_hard, which is true for hard ice caves. Easy
 # ice caves should be challenging but completable for most characters in the
 # mid Dungeon, Lair, and Orc. Hard ice caves should be challenging for
-# characters in late Dungeon, Lair Branches, and Elf. If a map concept can
+# characters in late Dungeon, Lair Branches, and Tower. If a map concept can
 # somehow only work at one of the two difficulties, it should veto for the
 # other difficulty. For example, an easy-only map would veto for hard ice caves
 # with:

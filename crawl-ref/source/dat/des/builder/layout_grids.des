@@ -401,10 +401,10 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 # TODO: Fortify edges;
 #       randomise door positions;
 #       something unique in Pan;
-#       maybe an Elf version
+#       maybe an Tower version
 #
 NAME:   layout_grid_maze
-DEPTH:  D, Orc, Elf, Snake, Tar
+DEPTH:  D, Orc, Tower, Snake, Tar
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages

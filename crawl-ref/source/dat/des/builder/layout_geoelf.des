@@ -1,6 +1,6 @@
 ###############################################################################
-# layout_geoelf.des: Layouts for Elf with geometric rooms
-#                    These are not the only Elf layouts
+# layout_geoelf.des: Layouts for Tower with geometric rooms
+#                    These are not the only Tower layouts
 #                    These layouts will build around primary vaults correctly.
 ###############################################################################
 
@@ -33,7 +33,7 @@
 #   25 Rooms
 #
 NAME:   layout_geoelf_grid
-DEPTH:  Elf
+DEPTH:  Tower
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
@@ -162,7 +162,7 @@ ENDMAP
 #     24 Rooms
 #
 NAME:   layout_geoelf_diagonals
-DEPTH:  Elf
+DEPTH:  Tower
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
@@ -318,7 +318,7 @@ ENDMAP
 #      32--17-25
 #
 NAME:   layout_geoelf_octagon
-DEPTH:  Elf
+DEPTH:  Tower
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms

@@ -218,7 +218,7 @@ static const vector<pop_entry> population[] =
   {  3,  4,    4, FLAT, MONS_STONE_GIANT },
 },
 
-{ // Elven Halls (OOD cap: 7)
+{ // Mage Tower (OOD cap: 7)
   {  1,  5,   50, FLAT, MONS_ORC_HIGH_PRIEST },
   {  1,  6,   50, FLAT, MONS_ORC_SORCERER },
   {  1,  7, 1385, FLAT, MONS_DEEP_ELF_AIR_MAGE },

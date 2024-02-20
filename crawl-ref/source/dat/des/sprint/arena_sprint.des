@@ -234,13 +234,13 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 5 then
             mon_set = {
-                -- Branches: D, Orc, Elf, Lair, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: D, Orc, Tower, Lair, Shoals, Swamp, Spider, Snake, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:6 w:15 / place:D:10 w:15 / w:2 edmund / w:2 maurice /\
                     w:1 psyche / w:1 joseph",
                 "w:30 place:Orc / orc wizard / orc warrior / w:3 orc knight /\
                     orc priest / orc high priest w:1 / blork the orc w:3 / urug w:1",
-                "w:2 place:Elf / w:12 deep elf pyromancer / w:12 deep elf zephyrmancer",
+                "w:2 place:Tower / w:12 deep elf pyromancer / w:12 deep elf zephyrmancer",
                 "place:Lair / w:5 yak / w:3 komodo dragon / w:3 basilisk /\
                     w:1 death yak / river rat / hell rat / w:2 dream sheep",
                 "w:20 merfolk / w:5 merfolk siren / wyvern w:15 / centaur /\
@@ -279,14 +279,14 @@ function arena_sprint_get_monster_set(round, boss)
              }
         elseif round <= 10 then
             mon_set = {
-                -- Branches: D, Orc, Elf, Lair, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: D, Orc, Tower, Lair, Shoals, Swamp, Spider, Snake, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:11 w:15 / place:D:14 w:15 / w:2 erica / w:2 harold /\
                     w:1 rupert",
                 "w:20 place:Orc:$ / orc wizard / orc warrior / orc knight /\
                     orc priest / orc high priest w:3 / orc sorcerer w:2 /\
                     orc warlord w:1 / urug w:2",
-                "place:Elf",
+                "place:Tower",
                 "place:Lair:3 w:30 / rupert w:1",
                 "place:Shoals",
                 "place:Swamp",
@@ -327,12 +327,12 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 15 then
             mon_set = {
-                -- Branches: D, Orc, Elf, Lair, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: D, Orc, Tower, Lair, Shoals, Swamp, Spider, Snake, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:$ w:24 / w:1 louise / w:1 donald / w:1 kirke",
                 "w:20 place:Orc:$ / orc wizard / orc sorcerer w:3 / orc warrior / orc knight /\
                     orc warlord w:3 / orc priest / orc high priest w:4 / urug w:3",
-                "place:Elf:$",
+                "place:Tower:$",
                 "place:Lair:$ w:100 / hydra / catoblepas / dire elephant / w:5 gastronok",
                 "place:Shoals:$ w:20 / w:6 merfolk avatar / w:5 harpy",
                 "place:Swamp:$ w:20 / w:6 hydra / w:5 swamp dragon",
@@ -373,14 +373,14 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 20 then
             mon_set = {
-                -- Branches: D, Orc, Elf, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: D, Orc, Tower, Shoals, Swamp, Spider, Snake, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "place:D:$ w:30 / w:1 nikola / w:1 frederick",
                 "place:Orc:$ / orc sorcerer w:3 / orc knight / orc warlord w:3 /\
                     iron troll w:5 / stone giant w:5 / orc high priest w:4",
                 "deep elf high priest / deep elf demonologist / deep elf annihilator /\
                     deep elf sorcerer / deep elf death mage / deep elf blademaster /\
-                    deep elf master archer / place:Elf:$ w:200",
+                    deep elf master archer / place:Tower:$ w:200",
                 "place:Shoals:$ w:30 / merfolk javelineer / merfolk impaler /\
                     merfolk aquamancer",
                 "place:Swamp:$ / hydra / swamp dragon / w:5 green death",
@@ -439,7 +439,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 26 then
             mon_set = {
-                -- Branches: Vaults, Orc, Elf, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: Vaults, Orc, Tower, Shoals, Swamp, Spider, Snake, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard w:50 / ancient lich w:5 / lich / yaktaur /\
                     yaktaur captain w:3 / stone giant / shadow dragon /\
@@ -449,7 +449,7 @@ function arena_sprint_get_monster_set(round, boss)
                     moth of wrath",
                 "deep elf high priest / deep elf demonologist / deep elf annihilator /\
                     deep elf sorcerer / deep elf death mage / deep elf blademaster /\
-                    deep elf master archer / place:Elf:$ w:70",
+                    deep elf master archer / place:Tower:$ w:70",
                 "place:Shoals:$ / merfolk javelineer / merfolk impaler /\
                     merfolk aquamancer",
                 "hydra / swamp dragon / green death / death drake",
@@ -513,7 +513,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 36 then
             mon_set = {
-                -- Branches: Vaults, Orc, Elf, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: Vaults, Orc, Tower, Shoals, Swamp, Spider, Snake, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard / ancient lich w:5 / lich / yaktaur /\
                     yaktaur captain w:3 / stone giant / shadow dragon /\
@@ -523,7 +523,7 @@ function arena_sprint_get_monster_set(round, boss)
                     moth of wrath",
                 "deep elf high priest / deep elf demonologist / deep elf annihilator /\
                     deep elf sorcerer / deep elf death mage / deep elf blademaster /\
-                    deep elf master archer / place:Elf:$ w:20",
+                    deep elf master archer / place:Tower:$ w:20",
                 "place:Shoals:$ / merfolk javelineer / merfolk impaler /\
                     merfolk aquamancer",
                 "green death / death drake",
@@ -589,7 +589,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         else -- Because somehow, the above stuff was too easy.
             mon_set = {
-                -- Branches: Vaults, Orc, Elf, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: Vaults, Orc, Tower, Shoals, Swamp, Spider, Snake, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard / ancient lich w:15 / deep elf master archer w:3 /\
                     titan w:15 / golden dragon w:20 / glowing shapeshifter hd:20",
@@ -716,7 +716,7 @@ function arena_sprint_init_boss_table()
 
     if crawl.coinflip() then
         -- Elementalist boss is from mu_elemental_laboratory
-        bs[3] = {"place:Elf w:300 / deep elf sorcerer / deep elf blademaster / " ..
+        bs[3] = {"place:Tower w:300 / deep elf sorcerer / deep elf blademaster / " ..
                  "deep elf master archer / deep elf annihilator / deep elf high priest",
                  "fannar hp:400 hd:14 / " ..
                  "deep elf elementalist hp:400 " ..

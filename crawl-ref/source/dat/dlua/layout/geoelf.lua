@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 -- geoelf.lua: The layout engine that generates layouts of
---             geometric rooms for the Elf branch
+--             geometric rooms for the Tower branch
 --
 -- Main include for Geoelf layouts. This file (directly)
 --  contains the functions for specifying rooms and possible

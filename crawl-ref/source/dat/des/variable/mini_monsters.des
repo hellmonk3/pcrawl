@@ -68,7 +68,7 @@ function random_stair(e, symbol)
 end
 }}
 
-default-depth: D:9-, Depths, Elf
+default-depth: D:9-, Depths, Tower
 
 ################################################################################
 #
@@ -173,7 +173,7 @@ ENDMAP
 
 NAME:  kb_rosetta
 TAGS:  vaults_hard transparent
-DEPTH: D, Depths, Vaults, Elf
+DEPTH: D, Depths, Vaults, Tower
 SUBST: x : xcvmnt
 SUBST: X : GtTU
 MAP
@@ -357,7 +357,7 @@ ENDMAP
 # but they're mainly around for the decor (same principle as st's).
 NAME:    grunt_ministairs_1
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
   ...
@@ -371,7 +371,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_2
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
    .....
@@ -385,7 +385,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_3
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
     @
@@ -402,7 +402,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_4
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 NSUBST:  @ = 1:@ / *:.
 MAP
@@ -420,7 +420,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_5
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
         @
@@ -439,7 +439,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_6
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 NSUBST:  @ = 1:@ / *:.
 MAP
@@ -460,7 +460,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_7
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
     @
@@ -477,7 +477,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_8
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
     xxx
@@ -497,7 +497,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_9
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
  xx...
@@ -513,7 +513,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_10
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 NSUBST:  @ = 1:@ / *:.
 MAP
@@ -530,7 +530,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_11
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 NSUBST:  @ = 1:@ / *:.
 MAP
@@ -550,7 +550,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_12
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
 xxxxx     xxxxx
@@ -564,7 +564,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_13
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
    @         @
@@ -586,7 +586,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_14
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
       @
@@ -604,7 +604,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_15
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Zot, Snake, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
      @     @

@@ -43,7 +43,7 @@
 #       weight 10.
 #
 NAME:   layout_stronghold
-DEPTH:  D, Orc, Elf, Zot, Pan
+DEPTH:  D, Orc, Tower, Zot, Pan
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city
@@ -232,7 +232,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_city
 #  many as 5000, although 4000 is more likely.
 #
 NAME:   layout_irregular_city
-DEPTH:  D:2-, Orc, Elf, Snake, Slime, Pan
+DEPTH:  D:2-, Orc, Tower, Snake, Slime, Pan
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city
@@ -336,7 +336,7 @@ ENDMAP
 # A map with many boxes for rooms, mostly inside each other.
 #
 NAME:   layout_onion_city
-DEPTH:  Orc, Elf, Pan
+DEPTH:  Orc, Tower, Pan
 WEIGHT: 5
 ORIENT: encompass
 KFEAT:  ~ = closed_clear_door
@@ -566,8 +566,8 @@ TAGS:   unrand no_rotate no_hmirror no_vmirror
   connect_adjacent_rooms { min = 200, max = 500, replace = '+',
                           check_distance = crawl.random_range(5, 8) }
 
-  -- add windows to Elf
-  if (you.in_branch("Elf")) then
+  -- add windows to Tower
+  if (you.in_branch("Tower")) then
     add_windows (1, 1, gxm - 2, gym - 2, 0.2 + crawl.random_real() * 0.3)
   end
 }}

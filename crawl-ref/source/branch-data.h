@@ -31,7 +31,7 @@ const Branch branches[NUM_BRANCHES] =
       "Temple", "the Ecumenical Temple", "Temple",
       nullptr,
       LIGHTGREY, BROWN,
-      'T', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
+      'E', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
       {} },
 
     { BRANCH_ORC, BRANCH_DUNGEON, 5, 5, 3, 10,
@@ -46,10 +46,10 @@ const Branch branches[NUM_BRANCHES] =
     { BRANCH_ELF, BRANCH_LAIR, 3, 3, 3, 15,
       brflag::none,
       DNGN_ENTER_ELF, DNGN_EXIT_ELF, NUM_FEATURES,
-      "Elven Halls", "the Elven Halls", "Elf",
+      "Mage Tower", "the Mage Tower", "Tower",
       nullptr,
       WHITE, ETC_ELVEN_BRICK,
-      'E', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
+      'T', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
       { BRANCH_LAIR } },
 #if TAG_MAJOR_VERSION == 34
 

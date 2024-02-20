@@ -72,7 +72,7 @@ end
 # Desolation entrance vaults
 ##############################################################################
 
-default-depth: Elf, !Elf:$, Vaults, !Vaults:$
+default-depth: Tower, !Tower:$, Vaults, !Vaults:$
 
 NAME:       portal_desolation_entry_ruin
 TAGS:       transparent

@@ -16,7 +16,7 @@
 #   -> ??????? ice, ice beast, simulacrum, freezing clouds
 #   -> ??????? lava, fire vortex, lava snake, salamander
 #   -> ??????? lava, fire vortex, fire bat, fire elemental
-#   -> Elf     deep water, ball lightning, water elemental, air elemental, diamond obelisk
+#   -> Tower     deep water, ball lightning, water elemental, air elemental, diamond obelisk
 #
 # Most of these vaults come in three sizes/shapes depending on
 #  which characters of w, D and E turn into water.
@@ -95,7 +95,7 @@ function init_aquarium(e)
   e.kprop('! = no_tele_into')
   e.kprop('! = no_jiyva')
 
-  if you.in_branch("Elf") then
+  if you.in_branch("Tower") then
     -- if we get a diamond obelisk, the winds will kill
     --  everything else except the air elementals
     e.subst('w = w:' .. (nothing_weight + 64) .. ' _:1')
@@ -268,7 +268,7 @@ end
 NAME:    serial_aquarium
 TAGS:    allow_dup extra luniq_serial decor
 TAGS:    layout_rooms layout_corridors
-DEPTH:   D, Depths, Elf
+DEPTH:   D, Depths, Tower
 CHANCE:  1%
 {{
   if crawl.random2(6) < 2 then

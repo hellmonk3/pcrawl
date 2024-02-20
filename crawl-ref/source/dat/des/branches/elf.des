@@ -19,7 +19,7 @@ crawl_require('dlua/vault.lua')
 
 NAME:    elf_arrival_001
 ORIENT:  west
-DEPTH:   Elf
+DEPTH:   Tower
 SHUFFLE: asd/x$+
 SHUFFLE: fgh/x$+
 SUBST:   a = x, s = x, d = x, f = x, g = x, h = x
@@ -39,7 +39,7 @@ ENDMAP
 
 NAME:    elf_arrival_002
 ORIENT:  south
-DEPTH:   Elf
+DEPTH:   Tower
 MAP
 xxxxx@xxx@xxx@xxxxx
 xxxx...........xxxx
@@ -59,7 +59,7 @@ ENDMAP
 
 NAME:    eino_elf_arrival_customs
 ORIENT:  southwest
-DEPTH:   Elf
+DEPTH:   Tower
 MAP
 xxxxxxxxx
 x.+.....x
@@ -78,7 +78,7 @@ ENDMAP
 
 NAME:    eino_elf_arrival_shootout
 ORIENT:  float
-DEPTH:   Elf
+DEPTH:   Tower
 MAP
 xxxxxxxx@@@xxxxxxxx
 xxxx...........xxxx
@@ -99,7 +99,7 @@ ENDMAP
 
 NAME:   eino_elf_arrival_the_gate
 ORIENT: south
-DEPTH:   Elf
+DEPTH:   Tower
 MAP
 x.........x
 @.........@
@@ -118,7 +118,7 @@ ENDMAP
 
 NAME:   minmay_elf_arrival_plus
 ORIENT: float
-DEPTH:   Elf
+DEPTH:   Tower
 MAP
      x@...@x
      x.....x
@@ -141,7 +141,7 @@ ENDMAP
 
 NAME:   minmay_elf_arrival_summoners
 ORIENT: float
-DEPTH:   Elf
+DEPTH:   Tower
 KFEAT:  m = iron_grate
 MAP
   xxxxxxx
@@ -161,7 +161,7 @@ ENDMAP
 NAME:    nicolae_elf_arrival_aired_out
 TAGS:    transparent
 ORIENT:  float
-DEPTH:   Elf
+DEPTH:   Tower
 SHUFFLE: DEFH / JKLM
 SUBST:   DM = m, E = {, F = T, H = +, JKL = .
 MAP
@@ -179,7 +179,7 @@ ENDMAP
 
 NAME:   nicolae_elf_arrival_dilemma
 TAGS:   transparent
-DEPTH:  Elf
+DEPTH:  Tower
 WEIGHT: 5
 ORIENT: float
 SUBST:  T : TG
@@ -195,7 +195,7 @@ ENDMAP
 
 NAME:   nicolae_elf_arrival_fired_up
 TAGS:   transparent
-DEPTH:  Elf
+DEPTH:  Tower
 ORIENT: float
 KFEAT:  2 = T
 MAP
@@ -219,7 +219,7 @@ ENDMAP
 ##############################################################################
 
 NAME:    nicolae_elf_glass_and_crystal_pillar_1
-DEPTH:   Elf
+DEPTH:   Tower
 TAGS:    transparent extra allow_dup
 SHUFFLE: ab, bc
 SUBST:   a = m, b : mb, c = b, _ : .._
@@ -236,7 +236,7 @@ ________
 ENDMAP
 
 NAME:    nicolae_elf_glass_and_crystal_pillar_2
-DEPTH:   Elf
+DEPTH:   Tower
 TAGS:    transparent extra allow_dup
 SHUFFLE: ab, bc
 SUBST:   a = m, b : mb, c = b, _ : .._
@@ -252,7 +252,7 @@ _______
 ENDMAP
 
 NAME:    nicolae_elf_stair_hall
-DEPTH:   Elf
+DEPTH:   Tower
 TAGS:    extra
 SUBST:   v : vb
 SHUFFLE: {[(
@@ -275,7 +275,7 @@ xxc....vv..vv..cccx
 ENDMAP
 
 NAME:    nicolae_elf_stone_circles
-DEPTH:   Elf
+DEPTH:   Tower
 TAGS:    transparent allow_dup luniq
 SHUFFLE: za, bd
 SUBST:   a = A, b = B, zd = c
@@ -302,7 +302,7 @@ ccc.cccc.......cc
 ENDMAP
 
 NAME:   nicolae_elf_v_pinch
-DEPTH:  Elf
+DEPTH:  Tower
 TAGS:   transparent extra allow_dup luniq_pinch
 SUBST:  b : bc
 NSUBST: L = @ / ., R = @ / .
@@ -325,7 +325,7 @@ xxxxxxxxx
 ENDMAP
 
 NAME:   nicolae_elf_w_pinch
-DEPTH:  Elf
+DEPTH:  Tower
 TAGS:   transparent extra allow_dup luniq_pinch
 SUBST:  b : bc
 NSUBST: L = @ / ., R = @ / .
@@ -349,7 +349,7 @@ ENDMAP
 
 NAME:   nicolae_elf_m_pinch
 TAGS:   transparent extra allow_dup luniq_pinch
-DEPTH:  Elf
+DEPTH:  Tower
 SUBST:  b : bc
 NSUBST: L = @ / ., R = @ / .
 MAP
@@ -372,7 +372,7 @@ ENDMAP
 
 NAME:    nicolae_elf_big_sculpture_1
 TAGS:    transparent extra allow_dup
-DEPTH:   Elf
+DEPTH:   Tower
 SHUFFLE: abcdf
 SUBST:   a : .
 SHUFFLE: bcdef
@@ -391,7 +391,7 @@ ENDMAP
 
 NAME:    nicolae_elf_big_sculpture_2
 TAGS:    transparent extra allow_dup luniq
-DEPTH:   Elf
+DEPTH:   Tower
 SHUFFLE: mlk/mkl/nnn, abcdefghij
 SUBST:   ka = ., nbcd = v, e : .v, f : .v, g : .v, h : .v, i : .v, j : .v
 SUBST:   l : .v, m : .v, v : vbcx
@@ -415,7 +415,7 @@ ENDMAP
 
 NAME:    nicolae_elf_big_sculpture_3
 TAGS:    transparent extra allow_dup luniq
-DEPTH:   Elf
+DEPTH:   Tower
 : if crawl.coinflip() then
 SHUFFLE: bcegh
 SUBST:   b = .
@@ -448,7 +448,7 @@ ENDMAP
 
 NAME:    hangedman_elven_ridges
 TAGS:    extra transparent
-DEPTH:   Elf
+DEPTH:   Tower
 WEIGHT:  1
 MONS:    fungus
 SHUFFLE: ABCD, EF, GHIJKLMN
@@ -481,7 +481,7 @@ ENDMAP
 
 NAME:    hangedman_elven_pyramids
 TAGS:    extra transparent
-DEPTH:   Elf
+DEPTH:   Tower
 WEIGHT:  1
 SHUFFLE: ABCD, +-_, yz / yz / zy
 SUBST:   A : ZZ., B : Z., C : Z.., D = .
@@ -513,7 +513,7 @@ ENDMAP
 
 NAME:    hangedman_elf_targeted_burst
 TAGS:    transparent extra
-DEPTH:   Elf
+DEPTH:   Tower
 SUBST:   x : xxc, Y : yycvb, y : xxcbv, z : cbv, Z = cbvwl
 MAP
         x
@@ -534,7 +534,7 @@ ENDMAP
 
 NAME:    hangedman_elf_simple_split
 TAGS:    extra transparent
-DEPTH:   Elf
+DEPTH:   Tower
 MONS:    fungus
 SHUFFLE: de, fg, hijk, CD
 SUBST:   d : +., e : +x., f : +x., e : +.
@@ -561,7 +561,7 @@ ENDMAP
 
 NAME:   nicolae_elf_glassroom_feature
 TAGS:   transparent
-DEPTH:   Elf
+DEPTH:   Tower
 SHUFFLE: x_/m-
 SUBST:   S = GT
 CLEAR:   _
@@ -581,7 +581,7 @@ ENDMAP
 
 NAME:    nicolae_elf_variegated_diamond
 TAGS:    transparent
-DEPTH:   Elf
+DEPTH:   Tower
 KFEAT:   q = closed_clear_door
 SHUFFLE: +cb/+cv/+cn/+cx/+bc/+bv/+bx/+bn/+vc/+vb/+vx/+vn/+xc/+xb/+xv/+xn/\
          qnc/qnb/qnv/qnx
@@ -610,7 +610,7 @@ ENDMAP
 ##############################################################################
 
 NAME:   minmay_elf_crystal_pentagon
-DEPTH:  Elf
+DEPTH:  Tower
 ORIENT: float
 WEIGHT: 1
 MAP
@@ -636,7 +636,7 @@ ENDMAP
 
 NAME:   minmay_elf_crystal_hexagon
 TAGS:   misc_elf_vault
-DEPTH:  Elf
+DEPTH:  Tower
 ORIENT: float
 WEIGHT: 1
 MAP
@@ -661,7 +661,7 @@ ENDMAP
 
 NAME:   minmay_elf_crystal_heptagon
 TAGS:   misc_elf_vault
-DEPTH:  Elf
+DEPTH:  Tower
 ORIENT: float
 WEIGHT: 1
 MAP
@@ -685,7 +685,7 @@ bb..........b..bb
 ENDMAP
 
 NAME:   minmay_elf_crystal_octagon
-DEPTH:  Elf
+DEPTH:  Tower
 ORIENT: float
 WEIGHT: 1
 MAP
@@ -710,7 +710,7 @@ ENDMAP
 
 NAME:   nicolae_elf_blasts_and_bolts
 TAGS:   transparent
-DEPTH:  Elf
+DEPTH:  Tower
 WEIGHT: 1
 SUBST:  E = x.
 MAP
@@ -737,7 +737,7 @@ ccc..............ccc
 ENDMAP
 
 NAME:     infiniplex_blade_entry_pillars
-DEPTH:    Elf
+DEPTH:    Tower
 SUBST:    y : x...
 MAP
       .
@@ -757,7 +757,7 @@ MAP
 ENDMAP
 
 NAME:  nicolae_blade_entry_crossed_weapons
-DEPTH: Elf
+DEPTH: Tower
 MAP
 v.v.......v.v
 .v...v-v...v.
@@ -775,7 +775,7 @@ v.v.......v.v
 ENDMAP
 
 NAME: nicolae_blade_entry_diamond_columns
-DEPTH:  Elf
+DEPTH:  Tower
 SUBST: 1 = 1.., c : cv
 MAP
 .............
@@ -794,7 +794,7 @@ MAP
 ENDMAP
 
 NAME: nicolae_blade_entry_area_security
-DEPTH:  Elf
+DEPTH:  Tower
 SUBST: b : bc
 MAP
 ...ccccccc...
@@ -813,7 +813,7 @@ MAP
 ENDMAP
 
 NAME: nicolae_blade_entry_pointy_end
-DEPTH:  Elf
+DEPTH:  Tower
 MAP
       @
 vvvvvx.xvvvvv
@@ -832,7 +832,7 @@ vv.........vv
 ENDMAP
 
 NAME: nicolae_blade_entry_antechamber
-DEPTH:  Elf
+DEPTH:  Tower
 SUBST: A : xT
 MAP
 xxxxx.@.xxxxx
@@ -853,7 +853,7 @@ ENDMAP
 
 NAME:  nicolae_blade_lattice
 SUBST: b : bbbc, v : vvvm
-DEPTH:  Elf
+DEPTH:  Tower
 MAP
 ...b.....b...
 ..v-v...v-v..
@@ -872,7 +872,7 @@ ENDMAP
 
 NAME:   dummy_elf_end
 TAGS:   nolayout_halls
-PLACE:  Elf:$
+PLACE:  Tower:$
 ORIENT: float
 MAP
 @..@

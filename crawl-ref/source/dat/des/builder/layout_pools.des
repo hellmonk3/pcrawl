@@ -170,7 +170,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     remove_isolated_glyphs { find = "x", percent = 100 }
 
     local connection = {}
-    if you.in_branch("snake") then
+    if you.in_branch("Lair") then
         connection = '.'
     else
         connection = util.random_choose_weighted({{'.', 1}, {'+', 2}})
@@ -228,7 +228,7 @@ ENDMAP
 #  middle.
 #
 NAME:   layout_gehenna_pools_basic
-DEPTH:  Spider, Geh
+DEPTH:  Forge, Geh
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
@@ -344,7 +344,7 @@ validate {{
 #  L-shape:      6/8 * 6/8     = 36/64 = 9/16 = 56.25%
 #
 NAME:   layout_gehenna_pools_box
-DEPTH:  Spider, Geh
+DEPTH:  Forge, Geh
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
@@ -415,7 +415,7 @@ validate {{
 #  connections are added so that all three paths are connected.
 #
 NAME:   layout_gehenna_pools_triple
-DEPTH:  Spider, Geh
+DEPTH:  Forge, Geh
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves

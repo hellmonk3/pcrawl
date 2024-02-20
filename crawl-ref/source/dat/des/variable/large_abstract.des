@@ -322,7 +322,7 @@ NAME:   kennysheep_snake
 ORIENT: west
 WEIGHT: 1
 TAGS:   no_trap_gen
-DEPTH:  Depths, !Depths:$, Snake
+DEPTH:  Depths, !Depths:$, Workshop
 MAP
      cccccccccc
     cc........cc

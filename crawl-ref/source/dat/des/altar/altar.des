@@ -42,7 +42,6 @@ NAME:   basic_altar
 TAGS:   allow_dup extra no_monster_gen transparent decor
 DEPTH:  1-
 CHANCE: 20% (D:2)
-CHANCE: 10% (Snake)
 CHANCE: 5% (Lair, Slime, Crypt)
 CHANCE: 1% (Zot)
 CHANCE: 0

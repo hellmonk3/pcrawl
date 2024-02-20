@@ -242,7 +242,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
 
   -- TODO:
   --  * Implement chaotic gaps sizing
-  --  * Tune params a bit for Snake
+  --  * Tune params a bit for Workshop
 
   local wall_break = util.random_range_real(.4,.7)
 
@@ -253,7 +253,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
   -- Position on map
   fphase = procedural.translate(procedural.scale(fphase,math.min(gxm,gym)/2-2),gxm/2,gym/2)
 
-  if you.in_branch("Snake") then
+  if you.in_branch("Workshop") then
     fphase = procedural.transform.damped_distortion(fphase)
   end
 
@@ -277,7 +277,7 @@ ENDMAP
 #       way, like particle diffusion.
 #
 NAME:   layout_catacombs
-DEPTH:  D, Crypt, Snake, Tar
+DEPTH:  D, Crypt, Workshop, Tar
 WEIGHT: 15
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
@@ -387,7 +387,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
                                  math.min(gxm,gym)*(3+crawl.random2(2))/8),
                                  gxm/2+dir.x,gym/2+dir.y)
 
-  if you.in_branch("Snake") then
+  if you.in_branch("Workshop") then
     frings1 = procedural.transform.damped_distortion(frings1)
     frings2 = procedural.transform.damped_distortion(frings2)
   end
@@ -517,7 +517,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
   fbase = procedural.translate(fbase,scale*xoff/2,0)
   -- Perform polar transform.
   -- TODO: On certain settings this starts looking like a giant spiderweb. Should enable this
-  -- layout in Spider with tuned settings and polarise = true
+  -- layout in Forge with tuned settings and polarise = true
   if polarise then
     fbase = procedural.translate(procedural.transform.polar(fbase,gym/2,gxm,gym),gxm/2,gym/2)
   end
@@ -536,7 +536,7 @@ ENDMAP
 #
 # This is properly called a labyrinth, but that name is already taken
 #
-# TODO: Minimum area validation in Snake (can be disconnected).
+# TODO: Minimum area validation in Workshop (can be disconnected).
 #       Then remove minimum size validate as unneeded
 #
 NAME:   layout_concentric_octagons
@@ -826,7 +826,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     mapgrd[gxm/2][gym/2] = '.'
   end
 }}
-# Enforce minimum floor size - remove when connection is working in Snake
+# Enforce minimum floor size - remove when connection is working in Workshop
 validate {{
   return minimum_map_area.is_map_big_enough(_G, minimum_map_area.PASSAGES)
 }}

@@ -1935,7 +1935,7 @@ ENDMAP
 
 NAME:    nicolae_elevator_lobby_asterisk
 TAGS:    transparent decor luniq_nicolobby
-DEPTH:   D:2-, !D:$, Depths:2-, !Depths:$, Snake:2-, !Snake:$, Tower:2-, !Tower:$, \
+DEPTH:   D:2-, !D:$, Depths:2-, !Depths:$, Workshop:2-, !Workshop:$, Tower:2-, !Tower:$, \
          Crypt:2-, !Crypt:$
 SHUFFLE: FJ, DE/FH
 NSUBST:  E = 1={ / 1=}
@@ -2152,7 +2152,7 @@ ENDMAP
 
 NAME:  nicolae_twisty_statue_hallways
 TAGS:  transparent decor
-DEPTH: D, Depths, Snake, Tower
+DEPTH: D, Depths, Workshop, Tower
 MAP
     xxxxx
  @..x.x.x..@
@@ -2201,7 +2201,7 @@ ENDMAP
 NAME:  nicolae_letterblocks
 TAGS:  transparent
 WEIGHT: 1
-DEPTH: D:4-, Depths, Tower, Snake, Crypt
+DEPTH: D:4-, Depths, Tower, Workshop, Crypt
 : local glifz = "DEFHJKLMNOPQRSZapqrsyz-'`"
 : for i = 1, string.len(glifz), 1 do
 :    subvault(string.sub(glifz, i, i) .. " : nico_letterblock")
@@ -2234,7 +2234,7 @@ ENDMAP
 
 NAME:    nicolae_letter_subblock
 TAGS:    unrand transparent nico_letterblock allow_dup no_dump
-DEPTH:   D:4-, Depths, Tower, Snake, Crypt
+DEPTH:   D:4-, Depths, Tower, Workshop, Crypt
 SHUFFLE: DEF/-''/'--/'--/'--/'--/'-'
 SUBST:   D- : c, EF' = .
 MAP

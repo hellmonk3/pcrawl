@@ -1,10 +1,10 @@
 ###############################################################################
-# spider.des: All maps and branch endings relating to the Spider.
+# spider.des: All maps and branch endings relating to the Forge.
 #
 # <<1>>      Entries
 # <<2>>      Decorative vaults
 # <<3>>      Monster-placing vaults
-# <<4>>      Spider end vaults
+# <<4>>      Forge end vaults
 #
 ###############################################################################
 ###############################################################################
@@ -21,7 +21,7 @@ end
 
 ###############################################################################
 #
-# <<1>> Spider entries.
+# <<1>> Forge entries.
 #       All must have the spider_entry tag and place an enter_spider feature.
 #
 ###############################################################################
@@ -39,7 +39,7 @@ ENDMAP
 #
 ###############################################################################
 
-default-depth: Spider
+default-depth: Forge
 
 NAME:   hangedman_spider_mandibles
 TAGS:   extra transparent
@@ -123,7 +123,7 @@ ENDMAP
 
 NAME:    nicolae_spider_stair_cavern
 TAGS:
-DEPTH:   Spider:2-
+DEPTH:   Forge:2-
 SHUFFLE: {[(
 SUBST:   D = .x, . = .:100 ^:5
 KFEAT:   ^ = web trap
@@ -344,12 +344,12 @@ ENDMAP
 
 ###############################################################################
 #
-# <<4>> Spider ending vaults
+# <<4>> Forge ending vaults
 #
 ###############################################################################
 
 NAME:   spider_dummy_end
-PLACE:  Spider:$
+PLACE:  Forge:$
 WEIGHT: 20
 ORIENT: float
 MAP

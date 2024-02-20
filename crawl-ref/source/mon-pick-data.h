@@ -373,7 +373,7 @@ static const vector<pop_entry> population[] =
   {  3,  7,   30, PEAK, MONS_FORMLESS_JELLYFISH },
 },
 
-{ // Snake Pit
+{ // Workshop
   { -4,  4,  750, SEMI, MONS_NAGA },
   {  0,  4,  215, SEMI, MONS_SALAMANDER },
   {  0,  6,  315, SEMI, MONS_ANACONDA },
@@ -390,7 +390,7 @@ static const vector<pop_entry> population[] =
   {  2,  8,  100, SEMI, MONS_SALAMANDER_TYRANT },
 },
 
-{ // Spider Nest
+{ // Forge Nest
   // Easy enemies:
   {  1,  4,   200, FLAT, MONS_BOULDER_BEETLE },
   {  1,  4,   100, FALL, MONS_BOULDER_BEETLE },
@@ -1217,11 +1217,11 @@ static const vector<pop_entry> population_water[] =
       {  1,  4,  1050, FLAT, MONS_NO_MONSTER },
     },
     GENERIC_WATER_POP, // Shoals
-    { // Snake water monsters
+    { // Workshop water monsters
       {  1,   4,  100, FALL, MONS_ELECTRIC_EEL },
       {  0,   4,  200, RISE, MONS_SEA_SNAKE },
     },
-    GENERIC_WATER_POP, // Spider
+    GENERIC_WATER_POP, // Forge
     GENERIC_WATER_POP, // Slime
     GENERIC_WATER_POP, // Vaults
 #if TAG_MAJOR_VERSION == 34
@@ -1316,13 +1316,13 @@ static const vector<pop_entry> population_lava[] =
     GENERIC_LAVA_POP, // Lair
     GENERIC_LAVA_POP, // Swamp
     GENERIC_LAVA_POP, // Shoals
-    { // Snake lava monsters
+    { // Workshop lava monsters
       {  1,   4,  200, FLAT, MONS_LAVA_SNAKE },
       {  1,   4,  200, FLAT, MONS_SALAMANDER },
       {  0,   6,  65,  SEMI, MONS_SALAMANDER_MYSTIC },
       {  0,   6,  25,  RISE, MONS_SALAMANDER_TYRANT },
     },
-    GENERIC_LAVA_POP, // Spider
+    GENERIC_LAVA_POP, // Forge
     GENERIC_LAVA_POP, // Slime
     GENERIC_LAVA_POP, // Vaults
 #if TAG_MAJOR_VERSION == 34

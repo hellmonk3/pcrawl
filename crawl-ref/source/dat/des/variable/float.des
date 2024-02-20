@@ -1153,7 +1153,7 @@ ENDMAP
 
 NAME:    nicolae_integral_box
 TAGS:    transparent extra decor
-DEPTH:   D, Depths, Snake
+DEPTH:   D, Depths, Workshop
 WEIGHT:  1
 ORIENT:  float
 SHUFFLE: Pp/Pp/Pp/Qq, Rr/Rr/Rr/Ss
@@ -1250,7 +1250,7 @@ ENDMAP
 NAME:    nicolae_triple_integral
 TAGS:    transparent extra decor
 WEIGHT:  1
-DEPTH:   D, Depths, Snake
+DEPTH:   D, Depths, Workshop
 ORIENT:  float
 SHUFFLE: DE
 : if crawl.one_chance_in(3) and you.depth() > 1 then
@@ -1423,7 +1423,7 @@ ENDMAP
 
 NAME:    nrook_guardian_serpent_snake_passage
 ORIENT:  float
-DEPTH:   D:3-, Snake
+DEPTH:   D:3-, Workshop
 TAGS:    no_rotate
 SHUFFLE: yY/zZ
 SUBST:   y=., Y=+, Z=x, z=b

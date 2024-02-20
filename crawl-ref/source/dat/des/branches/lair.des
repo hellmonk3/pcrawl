@@ -3,10 +3,6 @@
 #           Content order: branch entries, vault sets, decorative vaults,
 #           other normal vaults, small ending vaults, large ending vaults.
 #
-#           Branches off of Lair can be found in their relevant file:
-#           Swamp - swamp.des                Shoals - shoals.des
-#           Snake Pit - snake.des            Spider Nest - spider.des
-#           Pits of Slime - slime.des
 ################################################################################
 
 {{
@@ -652,7 +648,7 @@ ENDMAP
 # Two separate small decorative vaults mixed into one:
 NAME:   lemuel_fruit_tree
 TAGS:   extra transparent decor
-DEPTH:  Lair, Snake
+DEPTH:  Lair, Workshop
 ORIENT: float
 MONS:   plant, fungus
 KITEM:  a : stone

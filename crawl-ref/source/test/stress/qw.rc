@@ -22,9 +22,9 @@
 : LATE_ORC = true
 # lair rune preferences, current options are:
 # * random - no preference, chooses randomly
-# * nowater - does Snake/Spider first
-# * smart - currently prefers Spider > Snake/Swamp > Shoals
-# * dsmart - Swamp/Spider > Snake > Shoals (DsBe data)
+# * nowater - does Workshop/Forge first
+# * smart - currently prefers Forge > Workshop/Swamp > Shoals
+# * dsmart - Swamp/Forge > Workshop > Shoals (DsBe data)
 : RUNE_PREFERENCE = "random"
 # plan for post-V:5, should end with zot
 # maximal example: "tso,tomb,hells,pan,slime,abyss,zig,zot"
@@ -1441,8 +1441,8 @@ local branch_data = {
   {"L", "Lair"},
   {"S", "Swamp"},
   {"A", "Shoals"},
-  {"P", "Snake"},
-  {"N", "Spider"},
+  {"P", "Workshop"},
+  {"N", "Forge"},
   {"M", "Slime"},
   {"V", "Vaults"},
   {"C", "Crypt"},
@@ -6174,13 +6174,13 @@ function plan_new_travel()
       travel_destination = "D"
     end
   end
-  if where == "Snake:4" and you.have_rune("serpentine") then
+  if where == "Workshop:4" and you.have_rune("serpentine") then
     travel_destination = "D"
   end
   if where == "Swamp:4" and you.have_rune("decaying") then
     travel_destination = "D"
   end
-  if where == "Spider:4" and you.have_rune("gossamer") then
+  if where == "Forge:4" and you.have_rune("gossamer") then
     travel_destination = "D"
   end
   if where == "Shoals:4" and you.have_rune("barnacled") then

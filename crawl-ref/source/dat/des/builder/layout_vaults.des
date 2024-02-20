@@ -69,7 +69,7 @@ default-depth: Vaults
 #
 # Apologies if this is just too little code.
 NAME: layout_vaults_omnibox
-DEPTH:  Armory, Snake
+DEPTH:  Armory, Workshop
 WEIGHT: 10
 ORIENT: encompass
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -90,7 +90,7 @@ ENDMAP
 # Generates junctions of various kinds, including big crosses, t-junctions, and
 # corners (potentially thick enough for cities in the middle) and more!
 NAME: layout_vaults_omnicross
-DEPTH:  Snake
+DEPTH:  Workshop
 WEIGHT: 10
 ORIENT: encompass
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -123,7 +123,7 @@ ENDMAP
 #
 # Technically capable but unlikely to produce a quadrants layout.
 NAME: layout_vaults_omnigrid
-DEPTH: Snake, Vaults
+DEPTH: Workshop, Vaults
 WEIGHT: 5
 ORIENT: encompass
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup

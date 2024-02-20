@@ -569,7 +569,7 @@ static void _show_commandline_options_help()
     puts("  -mapstat [<levels>] run map stats on the given range of levels");
     puts("      Defaults to entire dungeon; level ranges follow des DEPTH "
          "syntax.");
-    puts("      Examples: '-mapstat D,Depths' and '-mapstat Snake:1-4,Spider:1-4,Armory'");
+    puts("      Examples: '-mapstat D,Depths' and '-mapstat Workshop:1-4,Spider:1-4,Armory'");
     puts("  -dump-disconnect    In mapstat when a disconnected level is "
          "generated, dump");
     puts("      map to map.dump and exit");

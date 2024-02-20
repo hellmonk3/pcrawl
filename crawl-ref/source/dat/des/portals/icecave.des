@@ -548,7 +548,7 @@ ENDMAP
 ###############################################################################
 # Entry vaults that only place hard ice cave entrances
 
-default-depth: D:14-, Tower, Swamp, Shoals, Snake, Spider
+default-depth: D:14-, Tower, Swamp, Shoals, Workshop, Forge
 
 NAME:   portal_ice_cave_entry_pillars_three
 TAGS:   transparent
@@ -587,7 +587,7 @@ KFEAT:  ^ = web trap
 SUBST:  + = ., x = t
 : elseif you.in_branch("Shoals") then
 SUBST:  x = w
-: elseif you.in_branch("Spider") then
+: elseif you.in_branch("Forge") then
 SUBST:  + = ^
 : end
 MAP

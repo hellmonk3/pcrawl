@@ -236,7 +236,7 @@ ENDMAP
 #  -> This layout regenerates a lot.  Figure out why and fix it.
 #
 NAME:   layout_gridville
-DEPTH:  D, Armory, Tower, Snake, Dis, Pan
+DEPTH:  D, Armory, Tower, Workshop, Dis, Pan
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
@@ -352,7 +352,7 @@ ENDMAP
 # TODO: Only place lava rooms in Depths, Zot, and Pan
 #
 NAME:   layout_gridlike
-DEPTH:  D, Armory, Tower, Snake, Zot, Pan
+DEPTH:  D, Armory, Tower, Workshop, Zot, Pan
 WEIGHT: 20
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
@@ -401,7 +401,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     maxcorridor = crawl.random_range(1,2)
     fills = true
     mid_doors = true
-  elseif you.in_branch("Snake") then
+  elseif you.in_branch("Workshop") then
     corners = true
     corridor_doors = crawl.coinflip()
     random_rooms = crawl.coinflip()

@@ -234,7 +234,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 5 then
             mon_set = {
-                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:6 w:15 / place:D:10 w:15 / w:2 edmund / w:2 maurice /\
                     w:1 psyche / w:1 joseph",
@@ -279,7 +279,7 @@ function arena_sprint_get_monster_set(round, boss)
              }
         elseif round <= 10 then
             mon_set = {
-                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:11 w:15 / place:D:14 w:15 / w:2 erica / w:2 harold /\
                     w:1 rupert",
@@ -290,8 +290,8 @@ function arena_sprint_get_monster_set(round, boss)
                 "place:Lair:3 w:30 / rupert w:1",
                 "place:Shoals",
                 "place:Swamp",
-                "place:Spider",
-                "place:Snake",
+                "place:Forge",
+                "place:Workshop",
                 "jelly / floating eye / w:2 shining eye /\
                     w:2 golden eye / w:1 slime creature",
                 "killer bee w:15 / w:5 queen bee / w:1 oklob plant",
@@ -327,7 +327,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 15 then
             mon_set = {
-                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: D, Armory, Tower, Lair, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Hive, Crypt, Pan, Tomb
                 "place:D:$ w:24 / w:1 louise / w:1 donald / w:1 kirke",
                 "w:20 place:Armory:$ / orc wizard / orc sorcerer w:3 / orc warrior / orc knight /\
@@ -336,8 +336,8 @@ function arena_sprint_get_monster_set(round, boss)
                 "place:Lair:$ w:100 / hydra / catoblepas / dire elephant / w:5 gastronok",
                 "place:Shoals:$ w:20 / w:6 merfolk avatar / w:5 harpy",
                 "place:Swamp:$ w:20 / w:6 hydra / w:5 swamp dragon",
-                "place:Spider:$ w:20 / w:5 wolf spider / w:5 orb spider / w:2 emperor scorpion",
-                "place:Snake:$ w:20 / w:5 naga mage / w:5 naga warrior / w:5 nagaraja",
+                "place:Forge:$ w:20 / w:5 wolf spider / w:5 orb spider / w:2 emperor scorpion",
+                "place:Workshop:$ w:20 / w:5 naga mage / w:5 naga warrior / w:5 nagaraja",
                 "place:Slime",
                 "killer bee / queen bee / w:1 oklob plant",
                 "place:Crypt / w:2 josephine",
@@ -373,7 +373,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 20 then
             mon_set = {
-                -- Branches: D, Armory, Tower, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: D, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "place:D:$ w:30 / w:1 nikola / w:1 frederick",
                 "place:Armory:$ / orc sorcerer w:3 / orc knight / orc warlord w:3 /\
@@ -384,9 +384,9 @@ function arena_sprint_get_monster_set(round, boss)
                 "place:Shoals:$ w:30 / merfolk javelineer / merfolk impaler /\
                     merfolk aquamancer",
                 "place:Swamp:$ / hydra / swamp dragon / w:5 green death",
-                "place:Spider:$ / wolf spider / orb spider / w:5 emperor scorpion /\
+                "place:Forge:$ / wolf spider / orb spider / w:5 emperor scorpion /\
                     w:5 ghost moth",
-                "place:Snake:$ / naga mage / naga warrior / nagaraja /\
+                "place:Workshop:$ / naga mage / naga warrior / nagaraja /\
                     guardian serpent / anaconda",
                 "place:Slime:$",
                 "dancing weapon",
@@ -439,7 +439,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 26 then
             mon_set = {
-                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard w:50 / ancient lich w:5 / lich / yaktaur /\
                     yaktaur captain w:3 / stone giant / shadow dragon /\
@@ -453,9 +453,9 @@ function arena_sprint_get_monster_set(round, boss)
                 "place:Shoals:$ / merfolk javelineer / merfolk impaler /\
                     merfolk aquamancer",
                 "hydra / swamp dragon / green death / death drake",
-                "place:Spider:$ w:5 / wolf spider / orb spider / emperor scorpion /\
+                "place:Forge:$ w:5 / wolf spider / orb spider / emperor scorpion /\
                     ghost moth / moth of wrath",
-                "place:Snake:$ w:5 / naga mage / naga warrior / w:20 nagaraja /\
+                "place:Workshop:$ w:5 / naga mage / naga warrior / w:20 nagaraja /\
                     guardian serpent / w:5 anaconda",
                 "place:Slime:$ / acid blob / azure jelly / great orb of eyes",
                 "dancing weapon",
@@ -513,7 +513,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         elseif round <= 36 then
             mon_set = {
-                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard / ancient lich w:5 / lich / yaktaur /\
                     yaktaur captain w:3 / stone giant / shadow dragon /\
@@ -527,9 +527,9 @@ function arena_sprint_get_monster_set(round, boss)
                 "place:Shoals:$ / merfolk javelineer / merfolk impaler /\
                     merfolk aquamancer",
                 "green death / death drake",
-                "place:Spider:$ w:5 / orb spider w:5 / emperor scorpion /\
+                "place:Forge:$ w:5 / orb spider w:5 / emperor scorpion /\
                     ghost moth / moth of wrath",
-                "place:Snake:$ w:2 / w:40 nagaraja / guardian serpent / w:5 anaconda",
+                "place:Workshop:$ w:2 / w:40 nagaraja / guardian serpent / w:5 anaconda",
                 "place:Slime:$ / w:30 acid blob / azure jelly / floating eye /\
                     quicksilver ooze",
                 "dancing weapon ; bardiche",
@@ -589,7 +589,7 @@ function arena_sprint_get_monster_set(round, boss)
             }
         else -- Because somehow, the above stuff was too easy.
             mon_set = {
-                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Spider, Snake, Slime,
+                -- Branches: Vaults, Armory, Tower, Shoals, Swamp, Forge, Workshop, Slime,
                 -- Blade, Forest, Crypt, Pan, Tomb, Hell
                 "vault guard / ancient lich w:15 / deep elf master archer w:3 /\
                     titan w:15 / golden dragon w:20 / glowing shapeshifter hd:20",
@@ -686,7 +686,7 @@ function arena_sprint_init_boss_table()
 
     local bs = {}
     if crawl.coinflip() then
-        bs[1] = {"place:Snake", "aizul hd:7 hp:120 / " ..
+        bs[1] = {"place:Workshop", "aizul hd:7 hp:120 / " ..
                  "naga warrior name:naga_warlord n_rpl n_des n_noc col:cyan hp:130 / " ..
                  "anaconda name:giant n_adj n_noc hp:130 col:lightred",
                  "serpentine rune of zot"}
@@ -701,7 +701,7 @@ function arena_sprint_init_boss_table()
     end
 
     if crawl.coinflip() then
-        bs[2] = {"place:Spider", "arachne hp:250 / " ..
+        bs[2] = {"place:Forge", "arachne hp:250 / " ..
                  "wolf spider name:dire n_adj n_noc col:blue hp:300 / " ..
                  "jumping spider name:phase_spider n_rpl n_des never_corpse " ..
                     "col:lightgreen spells:blink_away.58.natural hp:300",

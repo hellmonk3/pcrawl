@@ -189,7 +189,7 @@ local function mset_if(condition, ...)
 end
 
 -- Monster sets, in order:
--- Lair, Snake, Swamp, Shoals, Spider, Slime,
+-- Lair, Workshop, Swamp, Shoals, Forge, Slime,
 -- Armory, Tower, Vaults, Crypt, Tomb,
 -- Abyss, Gehenna, Cocytus, Dis, Tartarus,
 -- Fire, Ice, Air, Earth, Negative Energy, Holy, Chaos
@@ -212,7 +212,7 @@ end), { weight = 5 }))
 mset(spec_fn(function ()
   local d = math.max(6, you.depth() * 2 + you.zigs_completed() - 2)
   local e = math.max(1, you.depth() + you.zigs_completed() - 18)
-  return "place:Snake:$ w:125 / naga sharpshooter w:5 / guardian serpent w:5 / " ..
+  return "place:Workshop:$ w:125 / naga sharpshooter w:5 / guardian serpent w:5 / " ..
          "salamander tyrant w:" .. d .. " / nagaraja w:" .. d .. " / " ..
          "quicksilver dragon w:" .. e
 end))
@@ -240,7 +240,7 @@ mset(spec_fn(function ()
   local d = 10 + you.zigs_completed() * 4
   local e = 30 + you.zigs_completed() * 5
   local f = 5 + you.zigs_completed()
-  return "place:Spider:$ w:250 / torpor snail w:" .. d .. " / " ..
+  return "place:Forge:$ w:250 / torpor snail w:" .. d .. " / " ..
          "emperor scorpion w:" .. d .. " / entropy weaver w:" .. d + 10 .. " / " ..
          "orb spider w:" .. d + 10 .. " / ghost moth w:" .. e .. " / " ..
          "moth of wrath w:" .. f
@@ -480,8 +480,8 @@ mset(mons_panlord_gen)
 mset_if(depth_ge(14), with_props(spec_fn(function ()
   local d = math.max(2, math.floor(14 - you.zigs_completed() / 2))
   local e = 10 + you.zigs_completed()
-  return "place:Snake:$ w:" .. d .. " / place:Swamp:$ w:" .. d .. " / " ..
-         "place:Shoals:$ w:" .. d .. " / place:Spider:$ w:" .. d .. " / " ..
+  return "place:Workshop:$ w:" .. d .. " / place:Swamp:$ w:" .. d .. " / " ..
+         "place:Shoals:$ w:" .. d .. " / place:Forge:$ w:" .. d .. " / " ..
          "nagaraja w:" .. e + 2 .. " / guardian serpent w:8 / " ..
          "hydra w:5 / swamp dragon w:5 / tentacled monstrosity w:" .. e .. " / " ..
          "merfolk aquamancer w:6 / merfolk javelineer w:" .. e - 2 .. " / " ..

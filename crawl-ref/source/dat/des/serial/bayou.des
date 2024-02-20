@@ -1,6 +1,6 @@
 # Bayou by coolio.
 #
-# Bayou is a new serial vault that can appear in Dungeon, Snake Pits and Lair.
+# Bayou is a new serial vault that can appear in Dungeon, Workshop and Lair.
 # There are no monster spawns so it can appear on any depth level.
 #
 # A Bayou level has a 'swampy' atmosphere (because everybody loves Swamp) by
@@ -8,7 +8,7 @@
 
 NAME:   serial_bayou
 TAGS:   allow_dup extra luniq_serial decor nolayout_encompass
-DEPTH:  D, Depths, Snake, Lair
+DEPTH:  D, Depths, Workshop, Lair
 CHANCE: 1%
 {{
   local c = 2 + crawl.random2(3)*crawl.random2(2)
@@ -19,7 +19,7 @@ CHANCE: 1%
 
 NAME:   serial_bayou_pond_a
 TAGS:   coolio_serial_bayou allow_dup extra decor
-DEPTH:  D, Depths, Snake, Lair
+DEPTH:  D, Depths, Workshop, Lair
 MONS:   plant
 SUBST:  ? = .WW2
 SUBST:  1 = 11.t
@@ -37,7 +37,7 @@ ENDMAP
 
 NAME:   serial_bayou_pond_b
 TAGS:   coolio_serial_bayou allow_dup extra decor
-DEPTH:  D, Depths, Snake, Lair
+DEPTH:  D, Depths, Workshop, Lair
 MONS:   plant
 SUBST:  ? = .WW21
 SUBST:  1 = 11.t
@@ -54,7 +54,7 @@ ENDMAP
 
 NAME:   serial_bayou_pond_c
 TAGS:   coolio_serial_bayou allow_dup extra decor
-DEPTH:  D, Depths, Snake, Lair
+DEPTH:  D, Depths, Workshop, Lair
 MONS:   plant
 SUBST:  ? = WWtt2
 SUBST:  . = ..W12
@@ -77,7 +77,7 @@ ENDMAP
 NAME:   serial_bayou_pond_d
 #small pond
 TAGS:  coolio_serial_bayou allow_dup extra decor
-DEPTH:  D, Depths, Snake, Lair
+DEPTH:  D, Depths, Workshop, Lair
 SUBST:  1 = 1W.
 SUBST:  W = WWWt
 KMONS:  1 = plant
@@ -92,7 +92,7 @@ ENDMAP
 NAME:serial_bayou_pond_e
 #small pond
 TAGS:  coolio_serial_bayou allow_dup extra decor
-DEPTH: D, Depths, Snake, Lair
+DEPTH: D, Depths, Workshop, Lair
 SUBST: W = WWW1.
 SUBST: . = ..t
 KMONS: 1 = plant
@@ -107,7 +107,7 @@ NAME: serial_bayou_ford_a
 #a small pond that can be forded
 TAGS:  coolio_serial_bayou transparent extra decor
 WEIGHT: 3
-DEPTH: D, Depths, Snake, Lair
+DEPTH: D, Depths, Workshop, Lair
 SUBST: ? = Wt
 SUBST: V = Www
 SUBST: W = WWWW1
@@ -137,7 +137,7 @@ NAME:   serial_bayou_shore_a
 TAGS:   coolio_serial_bayou extra decor transparent
 WEIGHT: 3
 ORIENT: east
-DEPTH:  D, Depths, Snake, Lair
+DEPTH:  D, Depths, Workshop, Lair
 SUBST:  ? = Wt
 SUBST:  V = Www
 SUBST:  W = WWW1
@@ -164,7 +164,7 @@ NAME:   serial_bayou_shore_b
 #a shore of a small pond, duplicable
 TAGS:   coolio_serial_bayou allow_dup extra decor transparent
 ORIENT: east
-DEPTH:  D, Depths, Snake, Lair
+DEPTH:  D, Depths, Workshop, Lair
 SUBST:  ? = Wt
 SUBST:  V = Www
 SUBST:  W = WWW1
@@ -183,7 +183,7 @@ ENDMAP
 
 NAME:   serial_bayou_lagoon_a
 TAGS:   coolio_serial_bayou transparent extra decor
-DEPTH:  D, Depths, Snake, Lair
+DEPTH:  D, Depths, Workshop, Lair
 SUBST:  ? = W11.
 SUBST:  w = wwt
 KMONS:  1 = plant
@@ -210,7 +210,7 @@ NAME:  serial_bayou_lagoon_b
 #a big lagoon with a bridge thingy going through it
 TAGS:  coolio_serial_bayou
 WEIGHT:  1
-DEPTH: D, Depths, Snake, Lair
+DEPTH: D, Depths, Workshop, Lair
 SUBST: ? = Wt
 SUBST: V = Www
 SUBST: W = WWWW1
@@ -245,7 +245,7 @@ NAME:  serial_bayou_lake_a
 #a big lake
 TAGS:  coolio_serial_bayou transparent
 WEIGHT:  1
-DEPTH: D, Depths, Snake, Lair
+DEPTH: D, Depths, Workshop, Lair
 SUBST: ? = Wt
 SUBST: V = Www
 SUBST: W = WWWW1
@@ -271,7 +271,7 @@ ENDMAP
 
 NAME:  serial_bayou_crossing
 TAGS:  coolio_serial_bayou transparent
-DEPTH: D, Depths, Snake, Lair
+DEPTH: D, Depths, Workshop, Lair
 SUBST: ? = W1tt
 SUBST: W = WWW.
 KMONS: 1 = plant

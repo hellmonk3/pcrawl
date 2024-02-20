@@ -1,17 +1,17 @@
 ###############################################################################
-# snake.des: All maps and branch endings relating to the Snake Pit.
+# snake.des: All maps and branch endings relating to the Workshop Pit.
 #
 # <<1>>      Entries
 # <<2>>      Decorative vaults
 # <<3>>      Monster-placing vaults
-# <<4>>      Snake end vaults
+# <<4>>      Workshop end vaults
 #
 ###############################################################################
 ###############################################################################
 
 ###############################################################################
 #
-# <<1>> Snake entries.
+# <<1>> Workshop entries.
 #       All must have the snake_entry tag and place an enter_snake feature.
 #
 ###############################################################################
@@ -98,7 +98,7 @@ ENDMAP
 #
 ###############################################################################
 
-default-depth: Snake
+default-depth: Workshop
 
 NAME:    hangedman_snake_thin_pillar_pass
 TAGS:    extra transparent
@@ -229,7 +229,7 @@ ENDMAP
 
 NAME:  nicolae_coiled_stairwell_down
 TAGS:  uniq_coiled_stairwell
-DEPTH: Snake, !Snake:$
+DEPTH: Workshop, !Workshop:$
 SUBST: } = }])>
 MAP
   xxxxxxx
@@ -251,7 +251,7 @@ ENDMAP
 
 NAME:  nicolae_coiled_stairwell_up
 TAGS:  uniq_coiled_stairwell
-DEPTH: Snake:2-
+DEPTH: Workshop:2-
 SUBST: { = {[(<
 MAP
   xxxxxxx
@@ -530,7 +530,7 @@ ENDMAP
 # https://www.youtube.com/watch?v=RmzgObMCicw
 NAME:  nicolae_snake_flat_spine
 TAGS:  transparent extra
-DEPTH: Snake
+DEPTH: Workshop
 MAP
         .....................
     ......cc.cc.cc.cc.cc.cc....
@@ -910,7 +910,7 @@ ENDMAP
 
 ###############################################################################
 #
-# <<4>> Snake ending vaults
+# <<4>> Workshop ending vaults
 #
 ###############################################################################
 
@@ -918,7 +918,7 @@ default-depth:
 
 NAME:    snake_dummy_end
 TAGS:    no_rotate
-PLACE:   Snake:$
+PLACE:   Workshop:$
 ORIENT:  float
 MAP
 @..@

@@ -12,7 +12,7 @@
 # TODO: Fill disconnected areas as per [Mantis->9044].
 #
 NAME:   layout_basic
-DEPTH:  D, Snake, Crypt, Depths, Zot, Pan
+DEPTH:  D, Workshop, Crypt, Depths, Zot, Pan
 WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
@@ -48,7 +48,7 @@ ENDMAP
 #       on deeper depths so it can be used for the whole branch.
 #
 NAME:   layout_chaotic_city
-DEPTH:  D, Lair, Snake
+DEPTH:  D, Lair, Workshop
 WEIGHT: 15
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city

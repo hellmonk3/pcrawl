@@ -4803,7 +4803,7 @@ struct branch_summon_pair
 static branch_summon_pair _invitation_summons[] =
 {
   { BRANCH_SNAKE,
-    { // Snake enemies
+    { // Workshop enemies
       {  1,   1,   80, FLAT, MONS_BLACK_MAMBA },
       {  1,   1,   40, FLAT, MONS_NAGA_WARRIOR },
       {  1,   1,   20, FLAT, MONS_MANA_VIPER },

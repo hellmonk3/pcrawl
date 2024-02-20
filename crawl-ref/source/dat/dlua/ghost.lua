@@ -169,8 +169,8 @@ function ghost_good_loot(e, kglyphs)
             second_item = true
         end
     elseif you.in_branch("Shoals")
-      or you.in_branch("Snake")
-      or you.in_branch("Spider")
+      or you.in_branch("Workshop")
+      or you.in_branch("Forge")
       or you.in_branch("Swamp") then
         aux = dgn.good_aux_armour
         jewellery = good_jewellery

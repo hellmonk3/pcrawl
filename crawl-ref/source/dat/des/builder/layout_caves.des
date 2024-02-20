@@ -110,8 +110,8 @@ ENDMAP
 # We optionally apply a fairly large-scale domain distortion to the underlying shape.
 # TODO: * Some flooding/river on 1/10 chance (certain branches)
 #       * More shape variety
-#       * Some shapes work better in certain branches. Snake/D could occasionally get straight edged shapes.
-#       * Snake should have domain distortion every time (use the one from Halls)
+#       * Some shapes work better in certain branches. Workshop/D could occasionally get straight edged shapes.
+#       * Workshop should have domain distortion every time (use the one from Halls)
 #       * It should be possible to fold most of these effects into layer_cave
 #
 NAME:   layout_cave_shapes
@@ -286,7 +286,7 @@ validate {{
 # Intended as a series of interconnected roughly geometrically-shaped rooms
 # for e.g. Dis/Zot, came out much more organic like a burrow of caves.
 #
-# TODO: Widen the paths for Spider.
+# TODO: Widen the paths for Forge.
 #
 NAME:   layout_cave_pods
 DEPTH:  Depths
@@ -303,7 +303,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
   local frooms = procedural.worley_diff{ scale = 0.15 }
   local fcorridors = procedural.worley_diff{ scale = 0.1 }
 
-  if you.in_branch("Snake") or you.in_branch("Spider") then
+  if you.in_branch("Workshop") or you.in_branch("Forge") then
     frooms = procedural.transform.damped_distortion(frooms)
     fcorridors = procedural.transform.damped_distortion(fcorridors)
   end
@@ -361,7 +361,7 @@ ENDMAP
 #       swamp / shoals) and add rooms to them
 #
 # I don't like this TODO.  In my mind, this layout makes a great
-# distinguishing feature for Snake. ~infiniplex
+# distinguishing feature for Workshop. ~infiniplex
 #
 NAME:   layout_cave_town
 DEPTH:  Crypt, Depths
@@ -484,7 +484,7 @@ ENDMAP
 #  values.  The middle values become the paths.
 #
 NAME:   layout_gehenna_lava_caves
-DEPTH:  Spider, Geh
+DEPTH:  Forge, Geh
 WEIGHT: 20
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves

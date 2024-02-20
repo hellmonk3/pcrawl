@@ -93,7 +93,7 @@ const Branch branches[NUM_BRANCHES] =
     { BRANCH_SNAKE, BRANCH_ELF, 3, 3, 3, 15,
       brflag::dangerous_end,
       DNGN_ENTER_SNAKE, DNGN_EXIT_SNAKE, NUM_FEATURES,
-      "Snake Pit", "the Snake Pit", "Snake",
+      "Workshop", "the Workshop", "Workshop",
       nullptr,
       LIGHTGREEN, YELLOW,
       'P', { RUNE_SNAKE }, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
@@ -102,10 +102,10 @@ const Branch branches[NUM_BRANCHES] =
     { BRANCH_SPIDER, BRANCH_ELF, 3, 3, 3, 15,
       brflag::dangerous_end,
       DNGN_ENTER_SPIDER, DNGN_EXIT_SPIDER, NUM_FEATURES,
-      "Spider Nest", "the Spider Nest", "Spider",
+      "Forge", "the Forge", "Forge",
       nullptr,
       BROWN, YELLOW,
-      'N', { RUNE_SPIDER }, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
+      'F', { RUNE_SPIDER }, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
       { BRANCH_ELF, BRANCH_SWAMP } },
 
     { BRANCH_SLIME, NUM_BRANCHES, -1, -1, 1, 17,
@@ -228,7 +228,7 @@ const Branch branches[NUM_BRANCHES] =
       "Forest", "the Enchanted Forest", "Forest",
       nullptr,
       BROWN, BROWN,
-      'F', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
+      'N', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
       {} },
 #endif
 

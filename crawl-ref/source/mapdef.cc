@@ -4163,7 +4163,7 @@ mons_list::mons_spec_slot mons_list::parse_mons_spec(string spec)
             mspec.type = RANDOM_MODERATE_OOD;
         else if (mspec.place.is_valid())
         {
-            // For monster specs such as place:Orc:4 zombie, we may
+            // For monster specs such as place:Armory:4 zombie, we may
             // have a monster modifier, in which case we set the
             // modifier in monbase.
             const mons_spec nspec = mons_by_name("orc " + mon_str);

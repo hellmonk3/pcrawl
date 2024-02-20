@@ -18,7 +18,7 @@
 : AUTO_START = false
 # experimental: do second lair rune branch before depths
 : EARLY_SECOND_RUNE = true
-# experimental: wait to do Orc until after D:15
+# experimental: wait to do Armory until after D:15
 : LATE_ORC = true
 # lair rune preferences, current options are:
 # * random - no preference, chooses randomly
@@ -1436,7 +1436,7 @@ add_autopickup_func(autopickup)
 -- branch data: interlevel travel code, where name
 local branch_data = {
   {"T", "Temple"},
-  {"O", "Orc"},
+  {"O", "Armory"},
   --{"E", "Elf"},
   {"L", "Lair"},
   {"S", "Swamp"},
@@ -4757,7 +4757,7 @@ function plan_unwield_weapon()
 end
 
 function plan_join_beogh()
-  if you.race() ~= "Hill Orc" or not want_altar() or you.confused() then
+  if you.race() ~= "Hill Armory" or not want_altar() or you.confused() then
     return false
   end
   for _,god in ipairs(god_options()) do
@@ -6158,7 +6158,7 @@ function plan_new_travel()
   if cloudy then
     return false
   end
-  local back_to_D_places = { "Temple", "Orc:2", "Vaults:4"}
+  local back_to_D_places = { "Temple", "Armory:2", "Vaults:4"}
   if util.contains(back_to_D_places, where) then
     travel_destination = "D"
   end

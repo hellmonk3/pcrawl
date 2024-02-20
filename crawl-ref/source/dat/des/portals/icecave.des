@@ -57,7 +57,7 @@ end
 
 --[[
 Determine if we're placing a hard difficulty ice cave map. Possible depths for
-easy ice caves are D:11-13, Lair, Orc. Hard ice caves are placed in D:14-15,
+easy ice caves are D:11-13, Lair, Armory. Hard ice caves are placed in D:14-15,
 Tower and the Lair roulette branches. This function must be updated if the depth
 range of ice cave changes, which is set by the default-depth statement of the
 entry vault section or by the entry maps themselves.
@@ -67,7 +67,7 @@ treturn bool True for hard difficulty, false for easy.
 function hard_ice_cave_difficulty()
 
     if you.in_branch("D") and you.depth() < 14 or you.in_branch("Lair") or
-       you.in_branch("Orc") then
+       you.in_branch("Armory") then
         return false
     end
 
@@ -481,8 +481,8 @@ SUBST: 1 = 2...
 :     else
 SUBST: 1 = 2.
 :     end
-# Orc
-: elseif you.in_branch("Orc") then
+# Armory
+: elseif you.in_branch("Armory") then
 SUBST: 1 = 112
 : else
 SUBST: 1 = 12
@@ -498,7 +498,7 @@ ENDMAP
 ###############################################################################
 # Entry vaults that only place easy ice cave entrances
 
-default-depth: D:11-13, Lair, Orc
+default-depth: D:11-13, Lair, Armory
 
 NAME:   portal_ice_cave_entry_imps
 TAGS:   patrolling no_monster_gen transparent
@@ -700,7 +700,7 @@ ENDMAP
 # Ideally all maps will implement an easy and a hard variant, checking the
 # variable dgn.persist.ice_cave_hard, which is true for hard ice caves. Easy
 # ice caves should be challenging but completable for most characters in the
-# mid Dungeon, Lair, and Orc. Hard ice caves should be challenging for
+# mid Dungeon, Lair, and Armory. Hard ice caves should be challenging for
 # characters in late Dungeon, Lair Branches, and Tower. If a map concept can
 # somehow only work at one of the two difficulties, it should veto for the
 # other difficulty. For example, an easy-only map would veto for hard ice caves

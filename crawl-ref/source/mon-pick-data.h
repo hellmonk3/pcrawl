@@ -197,7 +197,7 @@ static const vector<pop_entry> population[] =
 { // Temple
 },
 
-{ // Orcish Mines
+{ // Armory
   {  1,  4,  192, FLAT, MONS_ORC_WARRIOR },
   {  1,  4,   25, FLAT, MONS_ORC_PRIEST },
   {  1,  4,   25, FLAT, MONS_ORC_WIZARD },
@@ -1204,7 +1204,7 @@ static const vector<pop_entry> population_water[] =
       {  9,  32,  250, SEMI, MONS_NO_MONSTER },
     },
     GENERIC_WATER_POP, // Temple
-    GENERIC_WATER_POP, // Orc
+    GENERIC_WATER_POP, // Armory
     GENERIC_WATER_POP, // Elf
 #if TAG_MAJOR_VERSION == 34
     GENERIC_WATER_POP, // Dwarf
@@ -1308,7 +1308,7 @@ static const vector<pop_entry> population_lava[] =
       {  7,  27,  290, FLAT, MONS_NO_MONSTER },
     },
     GENERIC_LAVA_POP, // Temple
-    GENERIC_LAVA_POP, // Orc
+    GENERIC_LAVA_POP, // Armory
     GENERIC_LAVA_POP, // Elf
 #if TAG_MAJOR_VERSION == 34
     GENERIC_LAVA_POP, // Dwarf

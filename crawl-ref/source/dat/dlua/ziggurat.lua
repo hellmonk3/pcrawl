@@ -190,7 +190,7 @@ end
 
 -- Monster sets, in order:
 -- Lair, Snake, Swamp, Shoals, Spider, Slime,
--- Orc, Tower, Vaults, Crypt, Tomb,
+-- Armory, Tower, Vaults, Crypt, Tomb,
 -- Abyss, Gehenna, Cocytus, Dis, Tartarus,
 -- Fire, Ice, Air, Earth, Negative Energy, Holy, Chaos
 -- Giants, Dragons, Draconians, Archers, Conjurers
@@ -257,7 +257,7 @@ mset(spec_fn(function ()
   local d = math.max(2, 290 - 10 * you.depth() - you.zigs_completed())
   local e = 10 + you.zigs_completed()
   local f = math.max(0, math.floor(you.depth() + you.zigs_completed() / 2 - 20))
-  return "place:Orc:$ w:" .. d .. " / orc warlord w:" .. e .. " / " ..
+  return "place:Armory:$ w:" .. d .. " / orc warlord w:" .. e .. " / " ..
          "orc high priest w:" .. e .. " / orc sorcerer w:5 / " ..
          "stone giant w:5 / iron troll w:5 / " ..
          "moth of wrath w:" .. f .. " / juggernaut w:" .. e - 10

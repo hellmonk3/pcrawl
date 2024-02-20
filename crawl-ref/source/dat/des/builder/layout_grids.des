@@ -404,7 +404,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_open_caves
 #       maybe an Tower version
 #
 NAME:   layout_grid_maze
-DEPTH:  D, Orc, Tower, Snake, Tar
+DEPTH:  D, Armory, Tower, Snake, Tar
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages

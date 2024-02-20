@@ -71,7 +71,7 @@ function lone_ghost_extra_loot(e, none_glyph)
     elseif you.in_branch("Lair") then
         e.subst("d = *%")
         e.subst("e = %$" .. none_glyph .. none_glyph)
-    elseif you.in_branch("Orc") then
+    elseif you.in_branch("Armory") then
         e.subst("d = |*")
         e.subst("e = %$")
     else
@@ -160,7 +160,7 @@ function ghost_good_loot(e, kglyphs)
         if crawl.one_chance_in(4) then
             second_item = true
         end
-    elseif you.in_branch("Orc") then
+    elseif you.in_branch("Armory") then
         if crawl.coinflip() then
             aux = dgn.good_aux_armour
             jewellery = good_jewellery
@@ -222,11 +222,11 @@ end
 
 -- Determine the number of gold piles placed for ebering_ghost_gozag and
 -- ebering_vaults_ghost_gozag. Mean ranges from 3 to 15 from D:3-D:15 with
--- 12-13 in Orc and 15 elsewhere, and the actual number placed varies by +/- 3.
+-- 12-13 in Armory and 15 elsewhere, and the actual number placed varies by +/- 3.
 function setup_gozag_gold(e)
     if you.in_branch("D") then
         depth = you.depth()
-    elseif you.in_branch("Orc") then
+    elseif you.in_branch("Armory") then
         depth = 11 + you.depth()
     else
         depth = you.absdepth()

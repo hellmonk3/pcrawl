@@ -622,7 +622,7 @@ ENDMAP
 NAME:  bloody_makhleb
 TAGS:  uniq_altar_makhleb temple_overflow_1 temple_overflow_makhleb
 TAGS:  transparent decor
-DEPTH: D, Orc
+DEPTH: D, Armory
 KPROP: . = bloody / nothing
 KFEAT: _ = altar_makhleb
 : interest_check(_G)
@@ -744,7 +744,7 @@ ENDMAP
 NAME:    okawaru_metal_pillars_1_2
 TAGS:    temple_overflow_1 temple_overflow_okawaru uniq_altar_okawaru
 TAGS:    transparent decor
-DEPTH:   D, Orc
+DEPTH:   D, Armory
 WEIGHT:  7
 KFEAT:   _ = altar_okawaru
 SHUFFLE: v'
@@ -761,7 +761,7 @@ ENDMAP
 NAME:   okawaru_metal_pillars_3
 TAGS:   temple_overflow_1 temple_overflow_okawaru uniq_altar_okawaru
 TAGS:   transparent decor
-DEPTH:  D, Orc
+DEPTH:  D, Armory
 WEIGHT: 3
 KFEAT:  _ = altar_okawaru
 : interest_check(_G)

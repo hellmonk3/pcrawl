@@ -236,7 +236,7 @@ ENDMAP
 #  -> This layout regenerates a lot.  Figure out why and fix it.
 #
 NAME:   layout_gridville
-DEPTH:  D, Orc, Tower, Snake, Dis, Pan
+DEPTH:  D, Armory, Tower, Snake, Dis, Pan
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
@@ -352,7 +352,7 @@ ENDMAP
 # TODO: Only place lava rooms in Depths, Zot, and Pan
 #
 NAME:   layout_gridlike
-DEPTH:  D, Orc, Tower, Snake, Zot, Pan
+DEPTH:  D, Armory, Tower, Snake, Zot, Pan
 WEIGHT: 20
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms

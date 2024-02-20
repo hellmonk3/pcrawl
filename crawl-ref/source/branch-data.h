@@ -37,10 +37,10 @@ const Branch branches[NUM_BRANCHES] =
     { BRANCH_ORC, BRANCH_DUNGEON, 5, 5, 3, 10,
       brflag::spotty,
       DNGN_ENTER_ORC, DNGN_EXIT_ORC, NUM_FEATURES,
-      "Orcish Mines", "the Orcish Mines", "Orc",
+      "Armory", "the Armory", "Armory",
       nullptr,
       BROWN, BROWN,
-      'O', {}, branch_noise::normal, 6,
+      'A', {}, branch_noise::normal, 6,
       { BRANCH_DUNGEON } },
 
     { BRANCH_ELF, BRANCH_LAIR, 3, 3, 3, 15,
@@ -87,7 +87,7 @@ const Branch branches[NUM_BRANCHES] =
       "Shoals", "the Shoals", "Shoals",
       nullptr,
       BROWN, BROWN,
-      'A', { RUNE_SHOALS }, branch_noise::loud, DEFAULT_MON_DIE_SIZE,
+      'O', { RUNE_SHOALS }, branch_noise::loud, DEFAULT_MON_DIE_SIZE,
       {} },
 
     { BRANCH_SNAKE, BRANCH_ELF, 3, 3, 3, 15,

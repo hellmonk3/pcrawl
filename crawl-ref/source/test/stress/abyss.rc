@@ -69,7 +69,7 @@ function ready()
                    "debug.disable('afflictions')" .. eol .. esc)
     crawl.call_dlua("dgn.set_random_mon_list('place:Abyss:$ /" ..
                        "place:D:$ / place:Depths:$ /" ..
-                       "place:Orc:$ / place:Tower:$ / place:Lair:$ /" ..
+                       "place:Armory:$ / place:Tower:$ / place:Lair:$ /" ..
                        "place:Swamp:$ / place:Shoals:$ / place:Snake:$ /" ..
                        "place:Spider:$ / place:Slime:$ / place:Vaults:$ /" ..
                        "place:Crypt / place:Tomb:$ /" ..

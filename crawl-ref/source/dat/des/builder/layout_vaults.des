@@ -69,7 +69,7 @@ default-depth: Vaults
 #
 # Apologies if this is just too little code.
 NAME: layout_vaults_omnibox
-DEPTH:  Orc, Snake
+DEPTH:  Armory, Snake
 WEIGHT: 10
 ORIENT: encompass
 TAGS: overwritable layout allow_dup unrand no_rotate no_pool_fixup
@@ -179,7 +179,7 @@ ENDMAP
 
 # This has a big cross bang in the center; omnicross can potentially do this but it's unlikely.
 NAME: layout_vaults_big_cross
-DEPTH: Orc, Vaults
+DEPTH: Armory, Vaults
 WEIGHT: 10
 ORIENT: encompass
 CHANCE: 100%

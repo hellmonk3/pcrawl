@@ -2201,7 +2201,7 @@ formatted_string ShoppingListMenu::calc_title()
  * Describe the location of a given shopping list entry.
  *
  * @param thing     A shopping list entry.
- * @return          Something like [Orc:4], probably.
+ * @return          Something like [Armory:4], probably.
  */
 string ShoppingList::describe_thing_pos(const CrawlHashTable &thing)
 {

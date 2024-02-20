@@ -1,13 +1,13 @@
 ##############################################################################
-# orc.des: Entries to the Orcish Mines, and (mini)vaults which appear _only_
+# orc.des: Entries to the Armory, and (mini)vaults which appear _only_
 #          in the Mines. General (mini)vaults, which can also appear in the
 #          Mines, should go to vaults.des.
 ##############################################################################
 
 ##############################################################################
-# Orcish Mines entries
+# Armory entries
 ##############################################################################
-# Dummy Orc entry
+# Dummy Armory entry
 
 NAME:   orc_0_dummy
 TAGS:   orc_entry transparent
@@ -81,13 +81,13 @@ cccI.....Iccc
 ENDMAP
 
 ############################################################################
-# (Mini)vaults specific to the Orcish Mines
+# (Mini)vaults specific to the Armory
 ############################################################################
 
-default-depth: Orc
+default-depth: Armory
 
 ##################################
-# Dummy Orc minivault balancer.
+# Dummy Armory minivault balancer.
 #
 NAME: mines_dummy
 TAGS: dummy
@@ -120,7 +120,7 @@ ENDMAP
 # A temple (minmay)
 #
 NAME:   minmay_orc_temple_a
-DEPTH:  Orc
+DEPTH:  Armory
 KFEAT:  _ = altar_beogh
 MAP
 ccccccc
@@ -137,7 +137,7 @@ ENDMAP
 # Another temple (minmay)
 #
 NAME:   minmay_orc_temple_b
-DEPTH:  Orc
+DEPTH:  Armory
 KFEAT:  _ = altar_beogh
 MAP
   ccccccc
@@ -169,7 +169,7 @@ ENDMAP
 # Yet Another Temple
 NAME:   bh_open_orc_temple
 TAGS:   transparent
-DEPTH:  Orc
+DEPTH:  Armory
 KFEAT:  _ = altar_beogh
 MAP
      cccccccccc
@@ -191,7 +191,7 @@ ENDMAP
 
 NAME: nicolae_orc_crystal_geode
 TAGS: no_item_gen no_trap_gen luniq_orc_cave
-DEPTH: Orc
+DEPTH: Armory
 SUBST: B = b'
 MAP
  xxxxxxxx
@@ -207,7 +207,7 @@ ENDMAP
 
 NAME: nicolae_orc_lava_room
 TAGS: no_item_gen no_trap_gen luniq_orc_cave
-DEPTH: Orc
+DEPTH: Armory
 SUBST: L = l., X = lx
 MAP
    x.@xx
@@ -222,7 +222,7 @@ ENDMAP
 
 NAME: nicolae_orc_lost_temple
 TAGS: no_item_gen no_trap_gen luniq_orc_cave
-DEPTH: Orc
+DEPTH: Armory
 NSUBST: D = + / c
 SUBST: C = c.
 KFEAT: _ = altar_beogh
@@ -241,7 +241,7 @@ ENDMAP
 
 NAME: nicolae_orc_damp_corner
 TAGS: transparent decor extra
-DEPTH: Orc
+DEPTH: Armory
 SUBST: E = 1X, ' = ...WW11, X = xx.
 KMONS: 1 = fungus / nothing w:3
 KFEAT: 1 = W / . w:20
@@ -263,7 +263,7 @@ ENDMAP
 
 NAME: nicolae_orc_lava_tube
 TAGS: extra decor transparent
-DEPTH: Orc
+DEPTH: Armory
 SUBST: X = xx., L = ll., Z = lx
 MAP
                  xxxx@@@xx
@@ -285,7 +285,7 @@ ENDMAP
 
 NAME: nicolae_orc_pool_cavern
 TAGS: extra decor transparent
-DEPTH: Orc
+DEPTH: Armory
 SUBST: W = ww., X = x:80 .:40 w
 MAP
        xxx@@x
@@ -309,7 +309,7 @@ ENDMAP
 
 NAME: nicolae_orc_stony_grotto
 TAGS: extra decor transparent
-DEPTH: Orc
+DEPTH: Armory
 SUBST: X = xxxc...., C = xc, D = ...c
 MAP
   @Cxxxx
@@ -330,7 +330,7 @@ xxxxX..cc..C..XCx
 ENDMAP
 
 ############################################################################
-# Orc endings.
+# Armory endings.
 #
 # These generally place four random stores; particularly difficult endings
 # might consider placing four good quality stores.
@@ -340,7 +340,7 @@ default-depth:
 
 NAME:    orc_dummy_end
 TAGS:    no_rotate no_item_gen transparent
-PLACE:   Orc:$
+PLACE:   Armory:$
 ORIENT:  float
 MAP
 @..@

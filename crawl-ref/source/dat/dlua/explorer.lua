@@ -21,7 +21,7 @@ explorer.generation_order = {
                 "Depths:1", "Depths:2", "Depths:3", "Depths:4",
                 "Hell",
                 "Tower:1", "Tower:2", "Tower:3",
-                "Zot:1", "Zot:2", "Zot:3", "Zot:4", "Zot:5",
+                "Sanctum:1", "Sanctum:2", "Sanctum:3", "Sanctum:4", "Sanctum:5",
                 "Slime:1", "Slime:2", "Slime:3", "Slime:4", "Slime:5",
                 "Tomb:1", "Tomb:2", "Tomb:3",
                 "Tar:1", "Tar:2", "Tar:3", "Tar:4", "Tar:5", "Tar:6", "Tar:7",
@@ -87,7 +87,7 @@ function explorer.to_gendepth(depth)
 end
 
 -- a useful depth preset
-explorer.zot_depth = explorer.to_gendepth("Zot")
+explorer.zot_depth = explorer.to_gendepth("Sanctum")
 assert(explorer.zot_depth ~= 0)
 
 -- TODO: generalize, allow changing?

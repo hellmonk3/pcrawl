@@ -154,7 +154,7 @@ ENDMAP
 #       connectivity failures when adding vaults
 #
 NAME:   layout_honeycomb
-DEPTH:  D, Lair, Zot, Tar
+DEPTH:  D, Lair, Sanctum, Tar
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_divisions

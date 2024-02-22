@@ -214,9 +214,8 @@ const Branch branches[NUM_BRANCHES] =
     { BRANCH_ZOT, BRANCH_VAULTS, 1, 1, 5, 27,
       brflag::dangerous_end,
       DNGN_ENTER_ZOT, DNGN_EXIT_ZOT, NUM_FEATURES,
-      "Zot", "the Realm of Zot", "Zot",
-      "Welcome to the Realm of Zot!\n"
-      "You feel the power of the Orb interfering with translocations here.",
+      "Sanctum", "the Sanctum", "Sanctum",
+      nullptr,
       BLACK, BLACK, // set per-map
       'Z', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
       {BRANCH_VAULTS} },

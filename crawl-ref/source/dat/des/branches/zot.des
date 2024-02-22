@@ -17,7 +17,7 @@ end
 }}
 
 {{
--- Create colourful Zot glass
+-- Create colourful Sanctum glass
 function coloured_glass(e)
   e.shuffle('roygbiv')
   e.kfeat('roygbiv = m')
@@ -41,7 +41,7 @@ end
 ##############################################################################
 ##############################################################################
 #
-# Zot entries (D side)
+# Sanctum entries (D side)
 #
 ##############################################################################
 ##############################################################################
@@ -58,14 +58,14 @@ ENDMAP
 ##############################################################################
 ##############################################################################
 #
-# Zot petite vaults
+# Sanctum petite vaults
 #
 ##############################################################################
 ##############################################################################
 
-# There's few vaults on Zot:5, tone down their chances.
+# There's few vaults on Sanctum:5, tone down their chances.
 NAME: dummy_balancer_zot
-DEPTH: Zot:$
+DEPTH: Sanctum:$
 TAGS: dummy
 ORIENT: float
 WEIGHT: 110
@@ -78,7 +78,7 @@ ENDMAP
 
 NAME:   bh_zot_ikea_curve
 TAGS:   extra transparent
-DEPTH:  Zot
+DEPTH:  Sanctum
 MAP
 xxxxxxxxxxxxx
 @.....x.....@
@@ -96,7 +96,7 @@ ENDMAP
 
 NAME:   bh_zot_lava_cross
 TAGS:   extra
-DEPTH:  Zot
+DEPTH:  Sanctum
 MAP
      @@
     x..x
@@ -114,7 +114,7 @@ ENDMAP
 
 NAME:   bh_zot_levy_curve
 TAGS:   extra
-DEPTH:  Zot
+DEPTH:  Sanctum
 SUBST:  W = Ww
 MAP
           WWW.
@@ -140,7 +140,7 @@ ENDMAP
 NAME:    zot_minivault_1
 TAGS:    transparent
 WEIGHT:  20
-DEPTH:   Zot, !Zot:$
+DEPTH:   Sanctum, !Sanctum:$
 MAP
  xxxxxxxxxxx
 xxx...G...xxx
@@ -157,7 +157,7 @@ ENDMAP
 NAME:    zot_minivault_2
 TAGS:    transparent
 WEIGHT:  5
-DEPTH:   Zot, !Zot:$
+DEPTH:   Sanctum, !Sanctum:$
 MAP
  xxxxx@xxxxx
 xxxG.....Gxxx
@@ -179,7 +179,7 @@ ENDMAP
 NAME:    zot_minivault_3
 TAGS:    transparent
 WEIGHT:  5
-DEPTH:   Zot, !Zot:$
+DEPTH:   Sanctum, !Sanctum:$
 MAP
  xxxxxxxxxxx
 xxxx.....xxxx
@@ -205,7 +205,7 @@ ENDMAP
 # Based on orb_monky_within_orb
 NAME:    zot_minivault_4
 TAGS:    transparent
-DEPTH:   Zot, !Zot:$
+DEPTH:   Sanctum, !Sanctum:$
 COLOUR:  n = magenta
 TILE:    n = dngn_transparent_stone_magenta
 MAP
@@ -223,7 +223,7 @@ ENDMAP
 # Based on orb_monky_twist
 NAME:    zot_minivault_5
 TAGS:    transparent
-DEPTH:   Zot, !Zot:$
+DEPTH:   Sanctum, !Sanctum:$
 COLOUR:  n = magenta
 TILE:    n = dngn_transparent_stone_magenta
 MAP
@@ -242,7 +242,7 @@ ENDMAP
 NAME:    zot_minivault_8
 TAGS:    transparent
 WEIGHT:  5
-DEPTH:   Zot, !Zot:$
+DEPTH:   Sanctum, !Sanctum:$
 SUBST:   > = }]}
 MAP
  xxxxxxxxx
@@ -270,7 +270,7 @@ ENDMAP
 ####
 NAME: nicolae_moth_party
 TAGS: no_pool_fixup no_monster_gen
-DEPTH: Zot, !Zot:$
+DEPTH: Sanctum, !Sanctum:$
 ORIENT: north
 SUBST: l : lw
 MAP
@@ -297,7 +297,7 @@ ENDMAP
 
 NAME:    hangedman_zot_wheel_spokes
 TAGS:    transparent extra decor
-DEPTH:   Zot, !Zot:$
+DEPTH:   Sanctum, !Sanctum:$
 # Swap positions in unit's potential spots
 # with the spokes and / or the center, maybe.
 SHUFFLE: AGMBHN / AHMBGN / AGNBJM
@@ -333,7 +333,7 @@ ENDMAP
 # Some decorative multi-coloured glass columns
 NAME:   skrybe_zot_glass_1
 TAGS:   transparent decor no_pool_fixup
-DEPTH:  Zot
+DEPTH:  Sanctum
 SUBST: W : Wwl
 KMASK:  Wwl = no_monster_gen
 : coloured_glass(_G)
@@ -360,7 +360,7 @@ ENDMAP
 
 NAME:   skrybe_zot_glass_2
 TAGS:   transparent decor no_pool_fixup
-DEPTH:  Zot
+DEPTH:  Sanctum
 SUBST:  l : Wwl
 KPROP:  l = no_cloud_gen
 KMASK:  Wwl = no_monster_gen
@@ -379,7 +379,7 @@ ENDMAP
 
 NAME:   skrybe_zot_glass_3
 TAGS:   transparent decor no_pool_fixup
-DEPTH:  Zot
+DEPTH:  Sanctum
 SUBST:  l : Wwl
 SUBST:  ( : ([{.
 KMASK:  Wwl = no_monster_gen
@@ -412,7 +412,7 @@ ENDMAP
 ##############################################################################
 
 NAME:    hall_of_Zot
-PLACE:   Zot:$
+PLACE:   Sanctum:$
 ORIENT:  north
 TAGS:    no_dump no_trap_gen
 KITEM:   Z = Orb of Zot
@@ -501,7 +501,7 @@ ENDMAP
 ##############################################################################
 
 NAME:       hall_of_Zot_1
-DEPTH:      Zot:1
+DEPTH:      Sanctum:1
 CHANCE:     100%
 TAGS:       extra transparent allow_dup no_dump
 LFLOORCOL:  lightgrey
@@ -513,7 +513,7 @@ MAP
 ENDMAP
 
 NAME:       hall_of_Zot_2
-DEPTH:      Zot:2
+DEPTH:      Sanctum:2
 CHANCE:     100%
 TAGS:       extra transparent allow_dup no_dump
 LFLOORCOL:  white
@@ -525,7 +525,7 @@ MAP
 ENDMAP
 
 NAME:       hall_of_Zot_3
-DEPTH:      Zot:3
+DEPTH:      Sanctum:3
 CHANCE:     100%
 TAGS:       extra transparent allow_dup no_dump
 LFLOORCOL:  blue
@@ -537,7 +537,7 @@ MAP
 ENDMAP
 
 NAME:       hall_of_Zot_4
-DEPTH:      Zot:4
+DEPTH:      Sanctum:4
 CHANCE:     100%
 TAGS:       extra transparent allow_dup no_dump
 LFLOORCOL:  lightblue

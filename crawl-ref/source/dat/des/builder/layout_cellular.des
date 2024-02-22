@@ -110,8 +110,8 @@
 #       to remove that delay?
 #
 NAME:   layout_cellular_growth
-DEPTH:  Lair, Zot, Pan
-WEIGHT: 5 (Lair), 5 (Zot), 10 (Pan)
+DEPTH:  Lair, Sanctum, Pan
+WEIGHT: 5 (Lair), 5 (Sanctum), 10 (Pan)
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
 {{
@@ -349,10 +349,10 @@ ENDMAP
 #       longer appears in D.
 # TODO: Remove all "filled" rooms from Lair.  Lair ruination
 #       does strange and terrible things to them.
-# TODO: Only place lava rooms in Depths, Zot, and Pan
+# TODO: Only place lava rooms in Depths, Sanctum, and Pan
 #
 NAME:   layout_gridlike
-DEPTH:  D, Armory, Tower, Workshop, Zot, Pan
+DEPTH:  D, Armory, Tower, Workshop, Sanctum, Pan
 WEIGHT: 20
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms

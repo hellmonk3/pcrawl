@@ -1400,7 +1400,7 @@ function want_missile(it)
 end
 
 function autopickup(it, name)
-  if name:find("of Zot") then
+  if name:find("of Sanctum") then
     return true
   end
   if it.is_useless then
@@ -1454,7 +1454,7 @@ local branch_data = {
   {"G", "Geh"},
   {"X", "Coc"},
   {"Y", "Tar"},
-  {"Z", "Zot"},
+  {"Z", "Sanctum"},
 } -- hack
 
 -- portal data: where name, full name, feature name
@@ -4898,7 +4898,7 @@ function plan_use_id_scrolls()
     if it.class(true) == "wand" and not it.fully_identified and
        (it.name():find("empty") or
         it.name():find("digging")
-        and (where:find("Depths") or where:find("Zot"))) then
+        and (where:find("Depths") or where:find("Sanctum"))) then
       oldname = it.name()
       if read2(id_scroll, letter(it)) then
         say("IDENTIFYING " .. oldname)
@@ -4969,9 +4969,9 @@ function brand_is_great(brand)
   elseif brand == "vampirism" then
     return (you.race() == "Deep Dwarf" or not you.have_orb())
   elseif brand == "electrocution" then
-    return (where ~= "Zot:5")
+    return (where ~= "Sanctum:5")
   elseif brand == "holy wrath" then
-    return (where == "Zot:5" or you.have_orb() or PAN_RUNE or HELL_RUNE or GOLDEN_RUNE)
+    return (where == "Sanctum:5" or you.have_orb() or PAN_RUNE or HELL_RUNE or GOLDEN_RUNE)
   else
     return false
   end
@@ -5670,7 +5670,7 @@ function can_afford_any_shoplist_item()
   return false
 end
 
--- Clear out shopping list if no affordable items are left before entering Zot
+-- Clear out shopping list if no affordable items are left before entering Sanctum
 function clear_out_shopping_list()
   local shoplist = items.shopping_list()
   if not shoplist then
@@ -6960,7 +6960,7 @@ end
 function plan_dig_grate()
   local grate_mon_list
   local grate_count_needed = 3
-  if where:find("Zot") then
+  if where:find("Sanctum") then
     grate_mon_list = {"draconian stormcaller", "draconian scorcher"}
   elseif where == "Depths:4" then
     grate_mon_list = {"draconian stormcaller", "draconian scorcher",

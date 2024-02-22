@@ -208,7 +208,7 @@ end
 function arena_sprint_get_monster_set(round, boss)
     if not boss then
         if round == 27 then
-            return {"place:Zot:$ / orb guardian w:70 / tiamat / " ..
+            return {"place:Sanctum:$ / orb guardian w:70 / tiamat / " ..
                        "orb of fire / electric golem / killer klown / " ..
                        "ancient lich / moth of wrath"}
         end

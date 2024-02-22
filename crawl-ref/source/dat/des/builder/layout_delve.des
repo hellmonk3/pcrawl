@@ -79,7 +79,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 #
 
 NAME:   layout_twisted_cross
-DEPTH:  D, Zot
+DEPTH:  D, Sanctum
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
@@ -274,7 +274,7 @@ validate {{
 #
 
 NAME:   layout_twisted_circle
-DEPTH:  Zot
+DEPTH:  Sanctum
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
@@ -395,7 +395,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     -- general finishing stuff
     subst('X = x')
     zonify.map_fill_zones(_G, 1, 'x')
-    -- theme.D.caves_classic(_G) -- no special walls in Zot
+    -- theme.D.caves_classic(_G) -- no special walls in Sanctum
 }}
 # Enforce minimum floor size - otherwise could get very tiny floors
 validate {{

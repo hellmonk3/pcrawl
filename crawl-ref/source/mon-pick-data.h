@@ -747,7 +747,7 @@ POP_DEPTHS,
   {  1, 14,  400, RISE, MONS_TZITZIMITL },
 },
 
-{ // Zot
+{ // Sanctum
   {  1,  5,  970, FLAT, MONS_MOTH_OF_WRATH },
   {  1,  5,  192, RISE, MONS_GHOST_MOTH },
   {  1,  5,  113, FLAT, MONS_BLACK_DRACONIAN },
@@ -1193,7 +1193,7 @@ static const vector<pop_entry> pop_generic_late_zombie =
 }
 
 // This list must be in the same order as the branch-type enum values.
-// Shoals, Abyss, Pan, Zot, D:1-5 liquid monsters are blocked in dungeon.cc
+// Shoals, Abyss, Pan, Sanctum, D:1-5 liquid monsters are blocked in dungeon.cc
 static const vector<pop_entry> population_water[] =
 {
     { // Dungeon water monsters
@@ -1237,7 +1237,7 @@ static const vector<pop_entry> population_water[] =
     HELL_WATER_POP, // Geh
     HELL_WATER_POP, // Coc
     HELL_WATER_POP, // Tar
-    GENERIC_WATER_POP, // Zot
+    GENERIC_WATER_POP, // Sanctum
 #if TAG_MAJOR_VERSION == 34
     GENERIC_WATER_POP, // Forest
 #endif
@@ -1338,7 +1338,7 @@ static const vector<pop_entry> population_lava[] =
     HELL_LAVA_POP, // Geh
     HELL_LAVA_POP, // Coc
     HELL_LAVA_POP, // Tar
-    GENERIC_LAVA_POP, // Zot
+    GENERIC_LAVA_POP, // Sanctum
 #if TAG_MAJOR_VERSION == 34
     GENERIC_LAVA_POP, // Forest
 #endif

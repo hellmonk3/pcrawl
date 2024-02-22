@@ -340,7 +340,7 @@ ENDMAP
 # Previously named "layout_misc".
 #
 NAME:   layout_misc_corridors
-DEPTH:  D, Lair, Depths, Zot
+DEPTH:  D, Lair, Depths, Sanctum
 WEIGHT: 20
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_corridors
@@ -366,7 +366,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     local max_thickness = 1
     if you.in_branch("Crypt") then
         force_straight = true
-    elseif you.in_branch("Zot") then
+    elseif you.in_branch("Sanctum") then
         corridors = crawl.random_range(10, 16)
         force_straight = true
         allow_diagonals = crawl.coinflip()

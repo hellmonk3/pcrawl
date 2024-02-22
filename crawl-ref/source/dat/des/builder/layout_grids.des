@@ -296,7 +296,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
 # draw each grid area.
 #
 NAME:   layout_grid_shapes
-DEPTH:  Crypt, Depths, Zot, Pan
+DEPTH:  Crypt, Depths, Sanctum, Pan
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_open_caves

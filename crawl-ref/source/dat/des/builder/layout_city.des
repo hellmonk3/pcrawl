@@ -43,7 +43,7 @@
 #       weight 10.
 #
 NAME:   layout_stronghold
-DEPTH:  D, Armory, Tower, Zot, Pan
+DEPTH:  D, Armory, Tower, Sanctum, Pan
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city

@@ -82,7 +82,7 @@
 # TODO: Correctly assign "layout_type_open_caves" tag with cave
 #       mode and "layout_mode_passages" tag without it.
 # TODO: Needs to make narrower paths (e.g. max 5 width).  When
-#       that works, add to Zot at weight 15.
+#       that works, add to Sanctum at weight 15.
 # TODO: Tower needs a version that never does caves.  When that
 #       and previous TODO are in, add to Tower with weight 10.
 #
@@ -232,7 +232,7 @@ ENDMAP
 # gaps in the walls to connect everything up.
 #
 NAME:   layout_onion
-DEPTH:  Crypt, Lair, Zot
+DEPTH:  Crypt, Lair, Sanctum
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
@@ -357,7 +357,7 @@ validate {{
 # TODO: A better way of dealing with small maps
 #
 NAME:   layout_onion_interference
-DEPTH:  Crypt, Depths, Zot
+DEPTH:  Crypt, Depths, Sanctum
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_narrow_caves
@@ -428,10 +428,10 @@ validate {{
 #       for the openm version that sometimes appears.  If they
 #       are all mixed up, layout_type_open_caves is probably
 #       better.
-# TODO: less open space on Zot
+# TODO: less open space on Sanctum
 #
 NAME:   layout_cathedral_of_symmetry
-DEPTH:  Crypt, Zot, Tar
+DEPTH:  Crypt, Sanctum, Tar
 WEIGHT: 5
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
@@ -479,7 +479,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
     wscale = util.random_range_real(.06, .1)
     polarise = crawl.one_chance_in(4)
   else
-    -- Zot:5
+    -- Sanctum:5
     if you.at_branch_bottom() then
       reps = crawl.random2(4)+0.5
       xoff = 0
@@ -487,7 +487,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
       margin = 6
     end
 
-    -- In Zot we want a strong set of symmetry and repetition
+    -- In Sanctum we want a strong set of symmetry and repetition
     zscale = util.random_range_real(0,0.05)
     zoff = util.random_range_real(0,0.25)
     yscale = util.random_range_real(.1,.4)/reps + reps/10
@@ -504,7 +504,7 @@ TAGS:   overwritable layout allow_dup unrand central layout_type_open_caves
     end
   end
 
-  -- Zot:5 always gets a polar layout.
+  -- Sanctum:5 always gets a polar layout.
   if you.in_branch("zot") and you.at_branch_bottom() then
     polarise = true
   end
@@ -540,7 +540,7 @@ ENDMAP
 #       Then remove minimum size validate as unneeded
 #
 NAME:   layout_concentric_octagons
-DEPTH:  Tower, Zot
+DEPTH:  Tower, Sanctum
 WEIGHT: 7
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand central layout_type_passages
@@ -682,7 +682,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
   local CENTER_X = GXM / 2
   local CENTER_Y = GYM / 2
 
-  local HALLWAY_SIZE = you.in_branch("Zot") and 2 or 3
+  local HALLWAY_SIZE = you.in_branch("Sanctum") and 2 or 3
   local layer_size = 2 * crawl.random_range(HALLWAY_SIZE, HALLWAY_SIZE + 2)
   local center_radius = 2 * crawl.random_range(2, 3)
   local layer_size_diagonal = layer_size * 3 / 4  -- can have a .5 on it
@@ -814,9 +814,9 @@ TAGS:   no_rotate no_vmirror no_hmirror
   -- turn the plugs into ordinary walls and floor
   subst("c = x")
 
-  -- Smear the layout a la layout_big_octagon outside Zot.
+  -- Smear the layout a la layout_big_octagon outside Sanctum.
   -- (Actually, that's where this code originates.)
-  if not you.in_branch("Zot") then
+  if not you.in_branch("Sanctum") then
     local gxm, gym = dgn.builder_bounds()
     local iterations = 50 + crawl.random2(50) + crawl.random2(50)
     smear_map{iterations = iterations, boxy = false}

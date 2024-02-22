@@ -14,7 +14,7 @@ NAME: primary_dummy
 TAGS: dummy
 DEPTH: 1-100, !Zig, !Gauntlet, !Bazaar, !Trove, !Sewer, !Ossuary, !Bailey, !IceCv, !Volcano, !WizLab, !Desolation, !Arena, !Depths:2-, !Pan
 ORIENT: float
-CHANCE: 8333, 6666 (Zot), 10000 (Fortress)
+CHANCE: 8333, 6666 (Sanctum), 10000 (Fortress)
 MAP
 x
 ENDMAP
@@ -70,7 +70,7 @@ ENDMAP
 # Extra vaults for non-dungeon branches.
 #
 NAME: dummy_balancer_extra
-DEPTH: Armory, Tower, Lair, Workshop, Shoals, Storage, Slime, Fortress, Crypt, Dis, Geh, Tar, Coc,  Forge, Abyss, Zot
+DEPTH: Armory, Tower, Lair, Workshop, Shoals, Storage, Slime, Fortress, Crypt, Dis, Geh, Tar, Coc,  Forge, Abyss, Sanctum
 TAGS: dummy allow_dup extra
 ORIENT: float
 WEIGHT: 150

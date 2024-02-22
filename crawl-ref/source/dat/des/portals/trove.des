@@ -276,7 +276,7 @@ function trove.spell_skills (e)
 end
 }}
 
-default-depth: Zot
+default-depth: Sanctum
 
 ##############################################################################
 #

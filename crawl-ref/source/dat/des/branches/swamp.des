@@ -56,7 +56,7 @@ end
 # This is basically the dummy balancer.
 NAME:   swamp_mist
 TAGS:   swamp_entry transparent
-KFEAT:  O = enter_swamp
+KFEAT:  O = enter_storage
 MARKER: O = lua:fog_machine { \
              pow_min = 8, pow_max = 12, delay = 25, \
              size = 2, walk_dist = 1, spread_rate= 33 }
@@ -67,7 +67,7 @@ ENDMAP
 # Scenery, no threat.
 NAME:   swamp_mist_pool
 TAGS:   swamp_entry no_pool_fixup transparent
-KFEAT:  O = enter_swamp
+KFEAT:  O = enter_storage
 SHUFFLE: XYZ
 SUBST: Y : YX, Z : ZX, X = W, Y = w, Z = w
 MARKER: O = lua:fog_machine { \

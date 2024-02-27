@@ -18,7 +18,8 @@
 
 NAME:   dummy_snake_entry
 TAGS:   snake_entry transparent
-KFEAT:  O = enter_snake_pit
+WEIGHT: 100
+KFEAT:  O = enter_workshop
 MAP
 O
 ENDMAP
@@ -26,7 +27,7 @@ ENDMAP
 NAME:   minmay_snake_entry_guardpost_small
 TAGS:   snake_entry transparent
 ORIENT: float
-KFEAT:  O = enter_snake_pit
+KFEAT:  O = enter_workshop
 MAP
 ccc.@.ccc
 c.......c
@@ -43,7 +44,7 @@ NAME:   minmay_snake_entry_guardpost_medium
 TAGS:   snake_entry transparent
 WEIGHT: 5
 ORIENT: float
-KFEAT:  O = enter_snake_pit
+KFEAT:  O = enter_workshop
 MAP
    ccccccc
  ccc.....ccc
@@ -60,7 +61,7 @@ NAME:   minmay_snake_entry_guardpost_large
 TAGS:   snake_entry transparent
 WEIGHT: 2
 ORIENT: float
-KFEAT:  O = enter_snake_pit
+KFEAT:  O = enter_workshop
 MAP
 c@ccccccc
 c.......cc
@@ -79,7 +80,7 @@ ENDMAP
 
 NAME:   nicolae_snake_entry_squirm
 TAGS:   snake_entry patrolling transparent
-KFEAT:  O = enter_snake_pit
+KFEAT:  O = enter_workshop
 MAP
 xxxxxxxxxxxxxxx
 xxxxxxxxxxxx.xx

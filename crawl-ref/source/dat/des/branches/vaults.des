@@ -38,7 +38,7 @@ end
 NAME:    dummy_vaults_entry
 TAGS:    vaults_entry
 WEIGHT:  150
-KFEAT:   O = enter_vaults
+KFEAT:   O = enter_fortress
 MAP
 O
 ENDMAP
@@ -46,7 +46,7 @@ ENDMAP
 NAME:    erik_vaults_2
 TAGS:    vaults_entry transparent
 SUBST:   v : vxx, b : bcc
-KFEAT:   O = enter_vaults
+KFEAT:   O = enter_fortress
 MAP
 vvvvvv.vvvvvv
 vvvvvv.vvvvvv
@@ -63,7 +63,7 @@ NAME:   hellmonk_vaults_keyhole
 TAGS:   vaults_entry
 ORIENT: north
 SUBST:  v : v:90 b
-KFEAT: O = enter_vaults
+KFEAT: O = enter_fortress
 MAP
   vvv
  vv.vv
@@ -192,7 +192,7 @@ ENDMAP
 NAME:  vaults_end_rune
 TAGS:  vaults_end_rune
 KMONS: O = 8 / 9
-KFEAT: O = enter_zot
+KFEAT: O = enter_sanctum
 MAP
 O
 ENDMAP

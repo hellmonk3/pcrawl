@@ -403,9 +403,9 @@ A staircase to the Depths
 
 A staircase leading to the Depths.
 %%%%
-A gate to the Realm of Zot
+A gate to the Sanctum
 
-A gate leading to the Realm of Zot.
+A gate leading to the Sanctum.
 %%%%
 A gateway back into the Dungeon
 
@@ -463,9 +463,9 @@ A gateway leading out of Cocytus
 <A gateway leading out of Gehenna>
 %%%%
 
-A hole to the Spider Nest
+A staircase to the Forge
 
-A passage leading to the Spider Nest.
+A staircase leading to the Forge.
 %%%%
 A one-way gate to the infinite horrors of the Abyss
 
@@ -514,17 +514,17 @@ A staircase to the Ecumenical Temple
 
 A staircase leading to the Ecumenical Temple.
 %%%%
-A staircase to the Elven Halls
+A staircase to the Mage Tower
 
-A staircase leading to the Elven Halls.
+A staircase leading to the Mage Tower.
 %%%%
 A staircase to the Lair
 
 A staircase leading to the Lair of Beasts.
 %%%%
-A staircase to the Orcish Mines
+A staircase to the Armory
 
-A staircase leading to the Orcish Mines.
+A staircase leading to the Armory.
 %%%%
 A staircase to the Shoals
 
@@ -534,21 +534,21 @@ A staircase to the Slime Pits
 
 A staircase leading to the Slime Pits.
 %%%%
-A staircase to the Snake Pit
+A staircase to the Workshop
 
-A staircase leading to the Snake Pit.
+A staircase leading to the Workshop.
 %%%%
-A staircase to the Swamp
+A staircase to Cold Storage
 
-A staircase leading to the Swamp.
+A staircase leading to Cold Storage.
 %%%%
 A staircase to the Tomb
 
 A staircase leading to the Tomb of the Ancients.
 %%%%
-A gate to the Vaults
+A gate to the Fortress
 
-A gateway leading to the Vaults.
+A gateway leading to the Fortress.
 %%%%
 A transporter
 

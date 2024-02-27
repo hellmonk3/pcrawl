@@ -28,7 +28,7 @@ end
 
 NAME:   dummy_spider_entry
 TAGS:   spider_entry transparent
-KFEAT:  O = enter_spider_nest
+KFEAT:  O = enter_forge
 MAP
 O
 ENDMAP

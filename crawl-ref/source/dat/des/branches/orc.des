@@ -13,7 +13,7 @@ NAME:   orc_0_dummy
 TAGS:   orc_entry transparent
 WEIGHT: 150
 ORIENT: float
-KFEAT:  O = enter_orcish_mines
+KFEAT:  O = enter_armory
 MAP
 O
 ENDMAP
@@ -24,7 +24,7 @@ ENDMAP
 NAME: david_orc_1_choice
 TAGS: orc_entry
 ORIENT: float
-KFEAT: O = enter_orcish_mines
+KFEAT: O = enter_armory
 MAP
            xxx
         xxxxOxxxx
@@ -53,7 +53,7 @@ TAGS:   orc_entry
 WEIGHT: 1
 ORIENT: float
 KFEAT:  _ = altar_beogh
-KFEAT:  O = enter_orcish_mines
+KFEAT:  O = enter_armory
 MAP
 ccccc   ccccc
 c'''c   c'''c

@@ -16,3 +16,5 @@ int acquirement_create_item(object_class_type class_wanted, int agent,
                             bool quiet, const coord_def &pos = coord_def());
 
 vector<object_class_type> shuffled_acquirement_classes();
+
+item_def branch_specific_item();

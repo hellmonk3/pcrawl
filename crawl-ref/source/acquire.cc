@@ -711,7 +711,7 @@ item_def item_based_on_equip()
             item.plus = min(item.plus + 1 + random2(3), MAX_WPN_ENCHANT);
         }
         break;
-        }
+    }
     case OBJ_ARMOUR:
     {
         int max_ench = armour_max_enchant(item);
@@ -1151,10 +1151,54 @@ void make_acquirement_items()
             acq_items.push_back(item);
     }
 
+    // additional item based on branch
+    auto branch_item = branch_specific_item();
+    if (branch_item.defined())
+        acq_items.push_back(branch_item);
+
     // Additional item based on one you already have equipped
     auto upgrade_item = item_based_on_equip();
     if (upgrade_item.defined())
         acq_items.push_back(upgrade_item);
+}
+
+
+item_def branch_specific_item()
+{
+    item_def item;
+
+    const branch_type branch = you.where_are_you;
+
+    switch (branch)
+    {
+    case BRANCH_ORC: // weapon or armour
+    {
+        object_class_type type;
+        if (!you.has_mutation(MUT_NO_ARMOUR))
+            type = OBJ_ARMOUR;
+        if (!you.has_mutation(MUT_NO_GRASPING) && (coinflip() || !type))
+            type = OBJ_WEAPONS;
+        if (type)
+            item = _acquirement_item_def(type);
+        break;
+    }
+    case BRANCH_CRYPT: // necromancy theme items
+    case BRANCH_ELF: // books
+        item = _acquirement_item_def(OBJ_BOOKS);
+        break;
+    case BRANCH_SWAMP: // cold theme
+        break;
+    case BRANCH_SPIDER: // upgrades
+        item = item_based_on_equip();
+        break;
+    case BRANCH_SNAKE: // evocables
+        item = _acquirement_item_def(OBJ_MISCELLANY);
+        break;
+    default: // no additional item
+        break;
+    }
+
+    return item;
 }
 
 /*

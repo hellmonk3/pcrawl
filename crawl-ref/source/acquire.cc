@@ -236,7 +236,7 @@ static armour_type _acquirement_body_armour(bool divine)
 
         const int evp = armour_prop(armour, PARM_EVASION);
         int diff = (evp - sk) * (evp - sk) / max(evp - sk, 1);
-        const int weight = max(15 - diff, 0);
+        const int weight = max(15 - diff, 1);
 
         if (weight)
         {
@@ -621,6 +621,25 @@ static void _adjust_brand(item_def &item, bool divine, int agent)
                                    SPWPN_EXPLOSIVE, SPWPN_ANTIMAGIC);
         return;
     }
+}
+
+static void _force_cold_brand(item_def &item)
+{
+    if (is_artefact(item))
+        return;
+    
+    if (item.base_type == OBJ_ARMOUR)
+    {
+        if(is_armour_brand_ok(item.sub_type, SPARM_RESISTANCE, true)
+            && one_chance_in(5))
+        {
+            item.brand = SPARM_RESISTANCE;
+        }
+        else if (is_armour_brand_ok(item.sub_type, SPARM_COLD_RESISTANCE, true))
+            item.brand = SPARM_COLD_RESISTANCE;
+    }
+    else if (item.base_type == OBJ_WEAPONS)
+        item.brand = SPWPN_FREEZING;
 }
 
 /**
@@ -1168,26 +1187,35 @@ item_def branch_specific_item()
     item_def item;
 
     const branch_type branch = you.where_are_you;
+    
+    object_class_type type;
+    if (!you.has_mutation(MUT_NO_ARMOUR))
+        type = OBJ_ARMOUR;
+    if (!you.has_mutation(MUT_NO_GRASPING) && (coinflip() || !type))
+        type = OBJ_WEAPONS;
 
     switch (branch)
     {
     case BRANCH_ORC: // weapon or armour
     {
-        object_class_type type;
-        if (!you.has_mutation(MUT_NO_ARMOUR))
-            type = OBJ_ARMOUR;
-        if (!you.has_mutation(MUT_NO_GRASPING) && (coinflip() || !type))
-            type = OBJ_WEAPONS;
         if (type)
             item = _acquirement_item_def(type);
         break;
     }
     case BRANCH_CRYPT: // necromancy theme items
+        break;
     case BRANCH_ELF: // books
         item = _acquirement_item_def(OBJ_BOOKS);
         break;
     case BRANCH_SWAMP: // cold theme
+    {
+        if (type)
+        {
+            item = _acquirement_item_def(type);
+            _force_cold_brand(item);
+        }
         break;
+    }
     case BRANCH_SPIDER: // upgrades
         item = item_based_on_equip();
         break;

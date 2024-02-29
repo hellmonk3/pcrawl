@@ -16,7 +16,7 @@
 #   -> ??????? ice, ice beast, simulacrum, freezing clouds
 #   -> ??????? lava, fire vortex, lava snake, salamander
 #   -> ??????? lava, fire vortex, fire bat, fire elemental
-#   -> Elf     deep water, ball lightning, water elemental, air elemental, diamond obelisk
+#   -> Tower     deep water, ball lightning, water elemental, air elemental, diamond obelisk
 #
 # Most of these vaults come in three sizes/shapes depending on
 #  which characters of w, D and E turn into water.
@@ -95,7 +95,7 @@ function init_aquarium(e)
   e.kprop('! = no_tele_into')
   e.kprop('! = no_jiyva')
 
-  if you.in_branch("Elf") then
+  if you.in_branch("Tower") then
     -- if we get a diamond obelisk, the winds will kill
     --  everything else except the air elementals
     e.subst('w = w:' .. (nothing_weight + 64) .. ' _:1')
@@ -268,7 +268,7 @@ end
 NAME:    serial_aquarium
 TAGS:    allow_dup extra luniq_serial decor
 TAGS:    layout_rooms layout_corridors
-DEPTH:   D, Depths, Elf
+DEPTH:   D, Depths, Tower
 CHANCE:  1%
 {{
   if crawl.random2(6) < 2 then
@@ -807,7 +807,7 @@ qqqqqq.uuu.ssssss
 ENDMAP
 
 NAME:    aquarium_bridge_island_large
-WEIGHT:  2
+WEIGHT:  1
 TAGS:    serial_aquarium_bridge luniq_aquarium_bridge_island
 SUBVAULT: u : aquarium_subvault_large_water:4   /\
               aquarium_subvault_large_open:3    /\
@@ -1314,7 +1314,7 @@ xxxxxxxxxxxxxxx
 ENDMAP
 
 NAME:    aquarium_balcony_double_3
-WEIGHT:  3
+WEIGHT:  2
 TAGS:    serial_aquarium_balcony luniq_aquarium_balcony_double
 : init_aquarium(_G)
 MAP
@@ -1329,7 +1329,7 @@ xxxxxxxxxc@cxxx
 ENDMAP
 
 NAME:    aquarium_balcony_double_4
-WEIGHT:  5
+WEIGHT:  1
 TAGS:    serial_aquarium_balcony luniq_aquarium_balcony_double
 : init_aquarium(_G)
 MAP
@@ -1443,7 +1443,7 @@ xx!xx!!!xx!xx
 ENDMAP
 
 NAME:    aquarium_pool_S
-WEIGHT:  5
+WEIGHT:  1
 TAGS:    serial_aquarium_pool luniq_aquarium_pool_big
 NSUBST:  ! = 1:+ / *:!
 SUBST:   ! = +xxxx
@@ -1497,7 +1497,7 @@ xxxxxxx@xxxxxxx
 ENDMAP
 
 NAME:    aquarium_pool_five
-WEIGHT:  5
+WEIGHT:  1
 TAGS:    serial_aquarium_pool luniq_aquarium_pool_big
 : init_aquarium(_G)
 MAP

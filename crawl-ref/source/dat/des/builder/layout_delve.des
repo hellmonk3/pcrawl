@@ -16,7 +16,7 @@
 # TODO: Rework and add at weight 5.  Possible ideas on devwiki.
 #
 NAME: layout_twisted_cavern
-DEPTH: D:4-, Depths
+DEPTH: D:2-, Depths
 WEIGHT: 0
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
@@ -79,11 +79,11 @@ TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 #
 
 NAME:   layout_twisted_cross
-DEPTH:  Depths
-WEIGHT: 5
+DEPTH:  D, Sanctum
+WEIGHT: 10
 ORIENT: encompass
-TAGS:   overwritable layout unrand layout_type_narrow_caves
-TAGS:   no_rotate no_vmirror no_hmirror uniq_layout_twisted_delve
+TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
+TAGS:   no_rotate no_vmirror no_hmirror
 {{
     local gxm, gym = dgn.builder_bounds()
     extend_map{width = gxm, height = gym}
@@ -274,24 +274,24 @@ validate {{
 #
 
 NAME:   layout_twisted_circle
-DEPTH:  Zot
+DEPTH:  Sanctum
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout unrand allow_dup layout_type_narrow_caves
 TAGS:   no_rotate no_vmirror no_hmirror
 {{
-    local MAP_RADIUS = 12
+    local MAP_RADIUS = 16
 
     local ROOM_RADIUS_MIN = 3
     local ROOM_RADIUS_MAX = 5
-    local room_count      = crawl.random_range(10, 15)
+    local room_count      = crawl.random_range(6, 10)
 
     local DELVE_SIZE_MIN = 50
     local DELVE_SIZE_MAX = 100
     local delve_count    = crawl.random_range(15, 20)
     local delve_sanity   = 1000
 
-    local gxm, gym = dgn.builder_bounds()
+    local gxm, gym = dgn.large_builder_bounds()
     extend_map{width = gxm, height = gym, fill = "X"}
 
     -- this is the area we will use for the map
@@ -395,7 +395,7 @@ TAGS:   no_rotate no_vmirror no_hmirror
     -- general finishing stuff
     subst('X = x')
     zonify.map_fill_zones(_G, 1, 'x')
-    -- theme.D.caves_classic(_G) -- no special walls in Zot
+    -- theme.D.caves_classic(_G) -- no special walls in Sanctum
 }}
 # Enforce minimum floor size - otherwise could get very tiny floors
 validate {{
@@ -411,23 +411,19 @@ validate {{
 #       and "layout_type_open_caves" tag for more open version.
 #
 NAME:   layout_spider_delve
-DEPTH:  Spider
-WEIGHT: 25
+DEPTH:  Crypt, Lair, Storage, Depths
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
 {{
     if is_validating() then return; end
 
-    local gxm, gym = dgn.builder_bounds()
+    local gxm, gym = dgn.large_builder_bounds()
     extend_map{width = gxm, height = gym}
     fill_area{fill = 'x', border = 'X'}
 
     local ngb_min = 2
-    local ngb_max = crawl.random_range(3, 6)
-    if crawl.one_chance_in(5) then
-      -- sometimes use a higher ngb_max. This may be overridden later
-      ngb_max = crawl.random_range(7, 8)
-    end
+    local ngb_max = crawl.random_range(3, 5)
     if crawl.one_chance_in(10) then
       -- sometimes use a more cramped layout
       ngb_min = 1
@@ -457,129 +453,4 @@ TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
       subst('@ = .')
     end
     subst('X = x')
-}}
-
-################################################################
-# layout_cocytus_delve
-#
-# Previously named "layout_cocytus".
-#
-# An ice cave approximation for Cocytus.  There is one main
-# delved path that is guaranteed to contain at least one up and
-# down stairs.  There are also other delved paths and
-# diamond-shaped rooms, but these might be behind pools of
-# water.  To avoid trapping the player, all random teleports go
-# to the main path.
-#
-# TODO: Serious improvements, less glyph switching
-#
-NAME:   layout_cocytus_delve
-DEPTH:  Coc
-WEIGHT: 10
-ORIENT: encompass
-TAGS:   overwritable layout allow_dup unrand layout_type_narrow_caves
-TAGS:   no_rotate no_vmirror no_hmirror
-{{
-    if is_validating() then return; end
-
-    local gxm, gym = dgn.builder_bounds()
-    extend_map{width = gxm, height = gym}
-
-    local map_border = 5
-    local map_x_min = map_border
-    local map_y_min = map_border
-    local map_x_max = gxm - map_border - 1
-    local map_y_max = gym - map_border - 1
-    fill_area { x1 = map_x_min, y1 = map_y_min,
-                x2 = map_x_max, y2 = map_y_max, fill = 'x', border = 'X' }
-
-    -- Due to the behaviour of the spotty_map, delve, and
-    --  fill_disconnected functions, we need to make some
-    --  strange substitutions to have the right glyphs on the
-    --  map when we call these functions.  We will put the
-    --  glyphs right again later.
-    --    -> spotty_map always expands '.' glyphs with '.'s
-    --    -> delve always places '.' glyphs and seems to have
-    --       trouble with 'w's
-    --    -> fill_disconnected will not fill custom-defined
-    --       glyphs, even if they are kfeat-ed to another glyph
-
-    -- Add some water patches.
-    --    1. Add some circles of floor
-    --    2. Expand the floor circles using spotty_map
-    --    3. Convert the floor to unbreakable wall (later water)
-    for i = 1, crawl.random_range((20 * gym) / dgn.GYM, (30 * gym) / dgn.GYM) do
-        local x = crawl.random_range(map_x_min, map_x_max)
-        local y = crawl.random_range(map_y_min, map_y_max)
-        local radius = crawl.random_range(0, 1)
-        if crawl.one_chance_in(15) then
-            radius = crawl.random_range(2, 4)
-        end
-
-        make_circle ({ x = x, y = y, radius = radius, fill = '.'})
-    end
-    local iterations = (crawl.random_range(100, 300) * gym) / dgn.GYM
-    spotty_map { boxy = false, iterations = iterations }
-    subst('. = R')
-
-    -- Delve the paths
-    local ngb_min = 2
-    local ngb_max = 4
-    -- chance of connecting to an adjacent passage
-    local connchance = 0
-    local total_count = crawl.random_range(100, 300)
-    local top = 10
-
-    -- Delve the main path and add two sets of stairs.  This
-    --  guarantees the map is connected without crossing water.
-    --  Keep the '@' glyph for connectivity checking later.
-    delve(ngb_min, ngb_max, connchance, total_count, top)
-    nsubst('. = 1:@ / *:.')
-    local x, y = farthest_from('@')
-    mapgrd[x][y] = '{'
-    x, y = farthest_from('{')
-    mapgrd[x][y] = '}'
-    subst('. = >')
-
-    -- Delve some smaller paths
-    for i = 1, (gym / 20) do
-        delve(2, 3, 3, 50, 100)
-    end
-    subst('. = <')
-
-    -- Fix up the map after delving.
-    fill_area { x1 = 0,         y1 = 0,
-                x2 = map_x_min, y2 = gym-1,     fill = 'x' }
-    fill_area { x1 = map_x_max, y1 = 0,
-                x2 = gxm-1,     y2 = gym-1,     fill = 'x' }
-    fill_area { x1 = map_x_min, y1 = 0,
-                x2 = map_x_max, y2 = map_y_min, fill = 'x' }
-    fill_area { x1 = map_x_min, y1 = map_y_max,
-                x2 = map_x_max, y2 = gym-1,     fill = 'x' }
-    subst('R = w')
-
-    -- Add some rooms
-    for i = 1, crawl.random_range(1,5) do
-        local x = crawl.random_range(8, gxm-9)
-        local y = crawl.random_range(8, gym-9)
-        local radius = util.random_choose_weighted
-            { {1, 30}, {2, 50}, {3, 15}, {4, 4}, {5, 1} }
-
-         octa_room { x1 = x - radius, y1 = y - radius,
-                   x2 = x + radius, y2 = y + radius,
-                    oblique = radius, replace = 'x', inside = '<'}
-    end
-
-    -- Finishing up stuff.
-    --     1. Fill everything not connected to the '@' set when
-    --        delving the first path.
-    --     2. Set the first delved path to floor.
-    --     3. Set the rooms and the other delved paths to
-    --        no_tele_into floor ('_').  These areas might be
-    --        inescapable if water covers the path out.
-    fill_disconnected{wanted = '@'}
-    subst('@> = .')
-    subst('< = _')
-    kfeat('_ = .')
-    kprop('_ = no_tele_into')
 }}

@@ -60,7 +60,7 @@ void dgn_build_basic_level()
 
     vector<coord_def> upstairs;
 
-    _make_trail(35, 30, 35, 20, corrlength, intersect_chance, no_corr,
+    _make_trail(30, 15, 25, 10, corrlength, intersect_chance, no_corr,
                  begin, end);
 
     if (!begin.origin() && !end.origin())
@@ -84,7 +84,7 @@ void dgn_build_basic_level()
 
     begin.reset(); end.reset();
 
-    _make_trail(50, 20, 10, 15, corrlength, intersect_chance, no_corr,
+    _make_trail(20, 20, 10, 15, corrlength, intersect_chance, no_corr,
                  begin, end);
 
     if (!begin.origin() && !end.origin())
@@ -176,9 +176,10 @@ void dgn_build_chaotic_city_level(dungeon_feature_type force_wall)
                                          5, DNGN_STONE_WALL,
                                          3, DNGN_METAL_WALL);
     }
-
-    dgn_replace_area(10, 10, (GXM / 2 - 10), (GYM / 2 - 10), DNGN_ROCK_WALL,
-                     DNGN_FLOOR, MMT_VAULT);
+    const int gx = GXM * 2 / 3;
+    const int gy = GYM * 2 / 3;
+    dgn_replace_area(10, 10, (gx - 10), (gy - 10),
+                        DNGN_ROCK_WALL, DNGN_FLOOR, MMT_VAULT);
 
     // replace_area can also be used to fill in:
     uint8_t b1x, b1y, b2x, b2y;
@@ -189,8 +190,8 @@ void dgn_build_chaotic_city_level(dungeon_feature_type force_wall)
         int room_height = 3 + random2(7);
         room_height += random2(5); // ditto
 
-        b1x = 11 + random2(GXM / 2 - 21 - room_width);
-        b1y = 11 + random2(GYM / 2 - 21 - room_height);
+        b1x = 11 + random2(gx - 21 - room_width);
+        b1y = 11 + random2(gy - 21 - room_height);
 
         b2x = b1x + room_width;
         b2y = b1y + room_height;
@@ -689,8 +690,8 @@ static void _big_room(int level_number)
 
         do
         {
-            const int left = 8 + random2(30);
-            const int top = 8 + random2(22);
+            const int left = 8 + random2(10);
+            const int top = 8 + random2(6);
             const int width = 21 + random2(10);
             const int height = 21 + random2(8);
             region = dgn_region(left, top, width, height);
@@ -829,8 +830,8 @@ static void _diamond_rooms(int level_number)
         dgn_region room;
         do
         {
-            const int left = 8 + random2(43);
-            const int top = 8 + random2(35);
+            const int left = 8 + random2(25);
+            const int top = 8 + random2(20);
             const int width = 6 + random2(15);
             const int height = 6 + random2(10);
             room = dgn_region(left, top, width, height);

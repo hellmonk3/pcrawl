@@ -468,10 +468,10 @@ PORTAL_ENTRANCE(DNGN_ENTER_PANDEMONIUM, "one-way gate leading to the halls of Pa
 PORTAL_EXIT(DNGN_TRANSIT_PANDEMONIUM, "gate leading to another region of Pandemonium", "transit_pandemonium", LIGHTGREEN),
 PORTAL_EXIT(DNGN_EXIT_PANDEMONIUM, "gate leading out of Pandemonium", "exit_pandemonium", LIGHTBLUE),
 
-PORTAL_ENTRANCE(DNGN_ENTER_VAULTS, "gate to the Vaults", "enter_vaults", LIGHTGREEN),
+PORTAL_ENTRANCE(DNGN_ENTER_VAULTS, "gate to the Fortress", "enter_fortress", LIGHTGREEN),
 PORTAL_EXIT(DNGN_EXIT_VAULTS, "gate leading back out of this place", "exit_vaults", LIGHTGREEN),
 
-PORTAL_ENTRANCE(DNGN_ENTER_ZOT, "gate to the Realm of Zot", "enter_zot", MAGENTA),
+PORTAL_ENTRANCE(DNGN_ENTER_ZOT, "gate to the Sanctum", "enter_sanctum", MAGENTA),
 PORTAL_EXIT(DNGN_EXIT_ZOT, "gate leading back out of this place", "exit_zot", MAGENTA),
 
 #if TAG_MAJOR_VERSION == 34
@@ -537,7 +537,7 @@ PORTAL_EXIT(DNGN_EXIT_ARENA, "gate leading back out of this place", "exit_arena"
 BRANCH_EXIT(DNGN_EXIT_SLIME, "staircase back to the Lair", "exit_slime_pits"),
 
 {
-    DNGN_ENTER_ORC, "staircase to the Orcish Mines", "enter_orcish_mines",
+    DNGN_ENTER_ORC, "staircase to the Armory", "enter_armory",
     DCHAR_STAIRS_DOWN, NUM_DCHAR_TYPES,
     YELLOW, RED, YELLOW, YELLOW, YELLOW,
     (FFT_NOTABLE | FFT_EXAMINE_HINT), MF_STAIR_BRANCH,
@@ -562,22 +562,22 @@ BRANCH_EXIT(DNGN_EXIT_CRYPT, "staircase back to the Vaults", "exit_crypt"),
 BRANCH_ENTRANCE(DNGN_ENTER_TEMPLE, "staircase to the Ecumenical Temple", "enter_temple"),
 BRANCH_EXIT(DNGN_EXIT_TEMPLE, "staircase back to the Dungeon", "exit_temple"),
 
-BRANCH_ENTRANCE(DNGN_ENTER_SNAKE, "staircase to the Snake Pit", "enter_snake_pit"),
+BRANCH_ENTRANCE(DNGN_ENTER_SNAKE, "staircase to the Workshop", "enter_workshop"),
 BRANCH_EXIT(DNGN_EXIT_SNAKE, "staircase back to the Lair", "exit_snake_pit"),
 
-BRANCH_ENTRANCE(DNGN_ENTER_ELF, "staircase to the Elven Halls", "enter_elven_halls"),
+BRANCH_ENTRANCE(DNGN_ENTER_ELF, "staircase to the Mage Tower", "enter_mage_tower"),
 BRANCH_EXIT(DNGN_EXIT_ELF, "staircase back to the Mines", "exit_elven_halls"),
 
 BRANCH_ENTRANCE(DNGN_ENTER_TOMB, "staircase to the Tomb", "enter_tomb"),
 BRANCH_EXIT(DNGN_EXIT_TOMB, "staircase back to the Crypt", "exit_tomb"),
 
-BRANCH_ENTRANCE(DNGN_ENTER_SWAMP, "staircase to the Swamp", "enter_swamp"),
+BRANCH_ENTRANCE(DNGN_ENTER_SWAMP, "staircase to Cold Storage", "enter_storage"),
 BRANCH_EXIT(DNGN_EXIT_SWAMP, "staircase back to the Lair", "exit_swamp"),
 
 BRANCH_ENTRANCE(DNGN_ENTER_SHOALS, "staircase to the Shoals", "enter_shoals"),
 BRANCH_EXIT(DNGN_EXIT_SHOALS, "staircase back to the Lair", "exit_shoals"),
 
-BRANCH_ENTRANCE(DNGN_ENTER_SPIDER, "hole to the Spider Nest", "enter_spider_nest"),
+BRANCH_ENTRANCE(DNGN_ENTER_SPIDER, "staircase to the Forge", "enter_forge"),
 BRANCH_EXIT(DNGN_EXIT_SPIDER, "crawl-hole back to the Lair", "exit_spider_nest"),
 
 BRANCH_ENTRANCE(DNGN_ENTER_DEPTHS, "staircase to the Depths", "enter_depths"),

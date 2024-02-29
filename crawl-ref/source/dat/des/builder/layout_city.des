@@ -43,13 +43,13 @@
 #       weight 10.
 #
 NAME:   layout_stronghold
-DEPTH:  D:9-, Pan
+DEPTH:  D, Armory, Tower, Sanctum, Pan
 WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local grid_opts = {
@@ -232,8 +232,8 @@ TAGS:   overwritable layout allow_dup unrand layout_type_city
 #  many as 5000, although 4000 is more likely.
 #
 NAME:   layout_irregular_city
-DEPTH:  D:9-, Pan
-WEIGHT: 15 (D), 10 (Pan)
+DEPTH:  D:2-, Armory, Tower, Workshop, Slime, Pan
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_city
 TAGS:   no_rotate no_hmirror no_vmirror
@@ -255,7 +255,7 @@ TAGS:   no_rotate no_hmirror no_vmirror
     end
     local base_wall_frequency = crawl.random_range(0, 900)
 
-    local gxm, gym = dgn.builder_bounds()
+    local gxm, gym = dgn.large_builder_bounds()
     extend_map{width = gxm, height = gym, fill = base_wall_type}
 
     make_irregular_box { x1 = 5, y1 = 5, x2 = gxm - 6, y2 = gym - 6,
@@ -336,8 +336,8 @@ ENDMAP
 # A map with many boxes for rooms, mostly inside each other.
 #
 NAME:   layout_onion_city
-DEPTH:  Elf, Pan
-WEIGHT: 10 (Elf), 5 (Pan)
+DEPTH:  Armory, Tower, Pan
+WEIGHT: 5
 ORIENT: encompass
 KFEAT:  ~ = closed_clear_door
 TAGS:   overwritable layout allow_dup unrand layout_type_city
@@ -356,8 +356,8 @@ TAGS:   unrand no_rotate no_hmirror no_vmirror
   local further_subdivide_percent =  crawl.random_range(50, 80)
                                    - math.floor(depth_fraction * 30)
 
-  -- Randomize all parameters in Pan
-  if (you.in_branch("pan")) then
+  -- Randomize all parameters sometimes
+  if (crawl.coinflip()) then
     spacing_min = 1.8 + crawl.random_real() * 0.95
     spacing_range = 0.95 + crawl.random_real() * 1.05
     single_room_chance = math.min(crawl.random_range(1, 10),
@@ -520,7 +520,7 @@ TAGS:   unrand no_rotate no_hmirror no_vmirror
   end
 
 
-  local gxm, gym = dgn.builder_bounds()
+  local gxm, gym = dgn.large_builder_bounds()
   extend_map{width = gxm, height = gym, fill = 'x'}
 
   local BORDER = 8
@@ -566,24 +566,10 @@ TAGS:   unrand no_rotate no_hmirror no_vmirror
   connect_adjacent_rooms { min = 200, max = 500, replace = '+',
                           check_distance = crawl.random_range(5, 8) }
 
-  -- add windows to Elf
-  if (you.in_branch("Elf")) then
+  -- add windows to Tower
+  if (you.in_branch("Tower")) then
     add_windows (1, 1, gxm - 2, gym - 2, 0.2 + crawl.random_real() * 0.3)
   end
 }}
 MAP
 ENDMAP
-
-##############################################################
-# layout_geometric_city
-#
-# I (infiniplex) need to revise and add this one.  This
-# placeholder included here because I budgeted space for it when
-# working out the rations of layout types per branch.
-#
-#NAME:   layout_geometric_city
-#DEPTH:  Pan
-#WEIGHT: 25
-#ORIENT: encompass
-#TAGS:   overwritable layout allow_dup unrand layout_type_city
-#TAGS:   no_rotate no_vmirror no_hmirror

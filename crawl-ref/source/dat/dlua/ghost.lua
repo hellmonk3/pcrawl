@@ -35,7 +35,7 @@ function ghost_setup(e, vaults_setup, set_chance)
     -- if we're actually placing the vault in the Vaults branch.
     if vaults_setup then
         e.tags("vaults_ghost")
-        if you.in_branch("Vaults") then
+        if you.in_branch("Fortress") then
             e.subst("c = x")
         end
     end
@@ -43,7 +43,7 @@ function ghost_setup(e, vaults_setup, set_chance)
     if set_chance then
         e.tags("chance_player_ghost")
         -- Ensure we don't use CHANCE in Vaults.
-        e.depth_chance("Vaults", 0)
+        e.depth_chance("Fortress", 0)
         e.chance(math.floor(_GHOST_CHANCE_PERCENT / 100 * 10000))
     end
 end
@@ -71,7 +71,7 @@ function lone_ghost_extra_loot(e, none_glyph)
     elseif you.in_branch("Lair") then
         e.subst("d = *%")
         e.subst("e = %$" .. none_glyph .. none_glyph)
-    elseif you.in_branch("Orc") then
+    elseif you.in_branch("Armory") then
         e.subst("d = |*")
         e.subst("e = %$")
     else
@@ -160,7 +160,7 @@ function ghost_good_loot(e, kglyphs)
         if crawl.one_chance_in(4) then
             second_item = true
         end
-    elseif you.in_branch("Orc") then
+    elseif you.in_branch("Armory") then
         if crawl.coinflip() then
             aux = dgn.good_aux_armour
             jewellery = good_jewellery
@@ -169,9 +169,9 @@ function ghost_good_loot(e, kglyphs)
             second_item = true
         end
     elseif you.in_branch("Shoals")
-      or you.in_branch("Snake")
-      or you.in_branch("Spider")
-      or you.in_branch("Swamp") then
+      or you.in_branch("Workshop")
+      or you.in_branch("Forge")
+      or you.in_branch("Storage") then
         aux = dgn.good_aux_armour
         jewellery = good_jewellery
         if crawl.one_chance_in(3) then
@@ -179,7 +179,7 @@ function ghost_good_loot(e, kglyphs)
            jewellery = randart_jewellery
         end
         second_item = true
-    elseif you.in_branch("Vaults") or you.in_branch("Elf") then
+    elseif you.in_branch("Fortress") or you.in_branch("Tower") then
         aux = dgn.good_aux_armour
         jewellery = good_jewellery
         if crawl.coinflip() then
@@ -222,11 +222,11 @@ end
 
 -- Determine the number of gold piles placed for ebering_ghost_gozag and
 -- ebering_vaults_ghost_gozag. Mean ranges from 3 to 15 from D:3-D:15 with
--- 12-13 in Orc and 15 elsewhere, and the actual number placed varies by +/- 3.
+-- 12-13 in Armory and 15 elsewhere, and the actual number placed varies by +/- 3.
 function setup_gozag_gold(e)
     if you.in_branch("D") then
         depth = you.depth()
-    elseif you.in_branch("Orc") then
+    elseif you.in_branch("Armory") then
         depth = 11 + you.depth()
     else
         depth = you.absdepth()

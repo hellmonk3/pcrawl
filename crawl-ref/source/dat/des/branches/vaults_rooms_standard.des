@@ -1,5 +1,5 @@
 ################################################################################
-# vaults_rooms_standard.des: Subvaults for the Vaults.
+# vaults_rooms_standard.des: Subvaults for the Fortress.
 #
 # Content: These are the subvaults that place a small number of monsters.
 ################################################################################
@@ -24,7 +24,7 @@
 # should avoid placing near more than four walls, and definitely not
 # in corridor or otherwise chokepoints.
 #
-# These subvaults will be common building material for the Vaults branch,
+# These subvaults will be common building material for the Fortress branch,
 # so keep gimmickry to an absolute minimum or at the very least tiny weight.
 # Stick with walls, doors, 0, and 0 band, for the most part.
 # Also, use allow_dup only on the generic layouts.
@@ -137,25 +137,6 @@ MAP
 .......
 ENDMAP
 
-# With apologies to NetHack.
-# You'd expect the second room to be completely full of monsters,
-# but that would be just a little unfair.
-NAME:     vaults_room_grunt_arrival_ludios
-WEIGHT:   15 (Vaults:1), 3
-TAGS:     vaults_room vaults_orient_e
-SUBST:    0 = 00.
-SHUFFLE:  {([<
-MAP
-xxxxxx..
-.0.0.x..
-0.0.0+..
-.0.0.x..
-0.0.0x..
-..x+xxxx
-..x...(x
-..x..{[x
-ENDMAP
-
 NAME:     vaults_room_door_hall
 TAGS:     allow_dup
 : vaults_room_setup(_G, ".", "small")
@@ -171,22 +152,6 @@ MAP
 ..xxxxxxxx
 .......xxx
 ......(xxx
-ENDMAP
-
-NAME:     vaults_room_grunt_arrival_checkpoint
-TAGS:     vaults_room vaults_orient_e no_monster_gen no_item_gen no_trap_gen
-WEIGHT:   5 (Vaults:1), 3
-MONS:     vault guard
-MAP
-xxxxxxxxxx
-xxxx.T.xxx
-xxxx...xxx
-x..n1.1n..
-x(.+...+..
-x..n1.1n..
-xxxx...xxx
-xxxx.T.xxx
-xxxxxxxxxx
 ENDMAP
 
 NAME:     vaults_room_boxed
@@ -330,27 +295,6 @@ zxzx.x.xyxy
 ...z...y...
 .x.x.x.x.x.
 ...z...y...
-ENDMAP
-
-# Creates stairs in chokepoints, don't spawn on V:$
-NAME:    v_alt_pattern_5
-DEPTH:   Vaults:1-3
-NSUBST:  y = 1:+ / *:x
-NSUBST:  z = 1:+ / *:x
-: vaults_room_setup(_G, ".", "small")
-NSUBST:  . = 1:( / *:.
-MAP
-...........
-.xzxzxzxzx.
-.z...0...z.
-.x.xyxyx.x.
-.z.y...y.z.
-.x.x0.0x.x.
-.z.y...y.z.
-.x.xyxyx.x.
-.z...0...z.
-.xzxzxzxzx.
-...........
 ENDMAP
 
 NAME:    v_alt_pattern_6
@@ -1664,23 +1608,6 @@ bbb..(..a....
 ...bb....a....
 .(..b.(..a.(..
 ....b....a....
-ENDMAP
-
-NAME: nicolae_vaults_sealed_display
-WEIGHT: 5
-TAGS: vaults_room no_windows no_descent
-KMASK: >* = no_monster_gen
-KMONS: 0 = 0 band / 0
-MAP
-xxxxxxx
-x..%x>x
-x+xxx+x
-x..x**x
-x.0x**x
-x..xmmx
-x.....x
-x.....x
-xxxx..x
 ENDMAP
 
 NAME: nicolae_vaults_puzzle_piece

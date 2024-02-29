@@ -426,8 +426,7 @@ tileidx_t tileidx_feature_base(dungeon_feature_type feat)
     case DNGN_EXIT_DEPTHS:
         return TILE_DNGN_RETURN_DEPTHS;
     case DNGN_EXIT_VAULTS:
-        return vaults_is_locked() ? TILE_DNGN_EXIT_VAULTS_CLOSED
-                                  : TILE_DNGN_EXIT_VAULTS_OPEN;
+        return TILE_DNGN_EXIT_VAULTS_CLOSED;
     case DNGN_EXIT_CRYPT:
         return TILE_DNGN_EXIT_CRYPT;
     case DNGN_EXIT_TOMB:

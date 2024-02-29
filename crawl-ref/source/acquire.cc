@@ -130,7 +130,7 @@ static bool _wielding_twohands()
 static equipment_type _acquirement_armour_slot(bool divine)
 {
     vector<pair<equipment_type, int>> weights = {
-        { EQ_BODY_ARMOUR,   you.slot_item(EQ_BODY_ARMOUR) ? 3 : 9 },
+        { EQ_BODY_ARMOUR,   you.slot_item(EQ_BODY_ARMOUR) ? 4 : 12 },
         { EQ_SHIELD,        _wielding_twohands() || you.slot_item(EQ_SHIELD) ? 1 : 3 },
         { EQ_HELMET,        you.slot_item(EQ_HELMET) ? 1 : 3 },
         { EQ_BOOTS,         you.slot_item(EQ_BOOTS) ? 1 : 3 },
@@ -236,7 +236,7 @@ static armour_type _acquirement_body_armour(bool divine)
 
         const int evp = armour_prop(armour, PARM_EVASION);
         int diff = (evp - sk) * (evp - sk) / max(evp - sk, 1);
-        const int weight = max(15 - diff, 0);
+        const int weight = max(15 - diff, 1);
 
         if (weight)
         {
@@ -623,6 +623,25 @@ static void _adjust_brand(item_def &item, bool divine, int agent)
     }
 }
 
+static void _force_cold_brand(item_def &item)
+{
+    if (is_artefact(item))
+        return;
+    
+    if (item.base_type == OBJ_ARMOUR)
+    {
+        if(is_armour_brand_ok(item.sub_type, SPARM_RESISTANCE, true)
+            && one_chance_in(5))
+        {
+            item.brand = SPARM_RESISTANCE;
+        }
+        else if (is_armour_brand_ok(item.sub_type, SPARM_COLD_RESISTANCE, true))
+            item.brand = SPARM_COLD_RESISTANCE;
+    }
+    else if (item.base_type == OBJ_WEAPONS)
+        item.brand = SPWPN_FREEZING;
+}
+
 /**
  * Should the given item be rejected as an acquirement/god gift result &
  * rerolled? If so, why?
@@ -711,7 +730,7 @@ item_def item_based_on_equip()
             item.plus = min(item.plus + 1 + random2(3), MAX_WPN_ENCHANT);
         }
         break;
-        }
+    }
     case OBJ_ARMOUR:
     {
         int max_ench = armour_max_enchant(item);
@@ -1151,10 +1170,63 @@ void make_acquirement_items()
             acq_items.push_back(item);
     }
 
+    // additional item based on branch
+    auto branch_item = branch_specific_item();
+    if (branch_item.defined())
+        acq_items.push_back(branch_item);
+
     // Additional item based on one you already have equipped
     auto upgrade_item = item_based_on_equip();
     if (upgrade_item.defined())
         acq_items.push_back(upgrade_item);
+}
+
+
+item_def branch_specific_item()
+{
+    item_def item;
+
+    const branch_type branch = you.where_are_you;
+    
+    object_class_type type;
+    if (!you.has_mutation(MUT_NO_ARMOUR))
+        type = OBJ_ARMOUR;
+    if (!you.has_mutation(MUT_NO_GRASPING) && (coinflip() || !type))
+        type = OBJ_WEAPONS;
+
+    switch (branch)
+    {
+    case BRANCH_ORC: // weapon or armour
+    {
+        if (type)
+            item = _acquirement_item_def(type);
+        break;
+    }
+    case BRANCH_CRYPT: // necromancy theme items
+        break;
+    case BRANCH_ELF: // books
+        item = _acquirement_item_def(OBJ_BOOKS);
+        break;
+    case BRANCH_SWAMP: // cold theme
+    {
+        if (type)
+        {
+            item = _acquirement_item_def(type);
+            _force_cold_brand(item);
+        }
+        break;
+    }
+    case BRANCH_SPIDER: // upgrades
+        item = item_based_on_equip();
+        break;
+    case BRANCH_SNAKE: // evocables
+        item = _acquirement_item_def(OBJ_MISCELLANY);
+        break;
+    default: // no additional item
+        break;
+    }
+
+    return item;
 }
 
 /*

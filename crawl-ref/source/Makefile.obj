@@ -306,7 +306,6 @@ glwrapper-ogl.o \
 fontwrapper-ft.o
 
 TEST_OBJECTS = \
-catch2-tests/test_branch.o \
 catch2-tests/test_coordit.o \
 catch2-tests/test_describe.o \
 catch2-tests/test_english.o \

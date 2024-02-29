@@ -12,13 +12,13 @@
 : crawl_require("dlua/layout/minimum_map_area.lua")
 
 NAME:   layout_overlapping_boxes
-DEPTH:  Dis:1-6
-WEIGHT: 5
+DEPTH:  D, Workshop, Dis:1-6
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_divisions
 TAGS:   no_rotate no_vmirror no_hmirror
 {{
-    local gxm, gym = dgn.builder_bounds()
+    local gxm, gym = dgn.large_builder_bounds()
     extend_map{width = gxm, height = gym, fill="x"}
 
     -- block sizes 2-4 (top) to 4-6 (bottom)

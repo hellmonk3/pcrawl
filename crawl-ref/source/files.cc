@@ -1826,7 +1826,7 @@ static bool _branch_pregenerates(branch_type b)
 {
     if (!you.deterministic_levelgen)
         return false;
-    if (b == NUM_BRANCHES || !brentry[b].is_valid() && is_random_subbranch(b))
+    if (b == NUM_BRANCHES)
         return false;
     return count(branch_generation_order.begin(),
         branch_generation_order.end(), b) > 0;
@@ -1852,9 +1852,7 @@ bool pregen_dungeon(const level_id &stopping_point)
 {
     // TODO: the is_valid() check here doesn't look quite right to me, but so
     // far I can't get it to break anything...
-    if (stopping_point.is_valid()
-        || stopping_point.branch != NUM_BRANCHES &&
-           is_random_subbranch(stopping_point.branch) && you.wizard)
+    if (stopping_point.is_valid())
     {
         if (you.save->has_chunk(stopping_point.describe()))
             return false;
@@ -1925,21 +1923,8 @@ bool pregen_dungeon(const level_id &stopping_point)
         for (const level_id &new_level : to_generate)
         {
             string status = "\nbuilding ";
+            status += branches[new_level.branch].longname;
 
-            switch (new_level.branch)
-            {
-            case BRANCH_SPIDER:
-            case BRANCH_SNAKE:
-                status += "a lair branch";
-                break;
-            case BRANCH_SHOALS:
-            case BRANCH_SWAMP:
-                status += "another lair branch";
-                break;
-            default:
-                status += branches[new_level.branch].longname;
-                break;
-            }
             progress.set_status_text(status);
             dprf("Pregenerating %s:%d",
                 branches[new_level.branch].abbrevname, new_level.depth);

@@ -620,21 +620,8 @@ void check_map_validity()
 {
 #if defined(ASSERTS) && !defined(DEBUG_VETO_RESUME)
     dungeon_feature_type portal = DNGN_UNSEEN;
-    if (player_in_branch(BRANCH_DEPTHS))
-    {
-        // TODO: centralize these numbers
-        // crosscheck with _add_missing_branches when changing
-        if (you.depth == 1)
-            portal = DNGN_ENTER_HELL;
-        else if (you.depth == 2)
-            portal = DNGN_ENTER_PANDEMONIUM;
-        else if (you.depth == 3)
-            portal = DNGN_ENTER_ABYSS;
-    }
 
     dungeon_feature_type exit = DNGN_UNSEEN;
-    if (you.depth == 1 && !player_in_branch(root_branch))
-        exit = branches[you.where_are_you].exit_stairs;
 
     // these may require you to look farther:
     if (exit == DNGN_EXIT_PANDEMONIUM)

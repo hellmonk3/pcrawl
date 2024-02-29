@@ -261,6 +261,16 @@ int dgn_builder_y()
     return GYM / 2;
 }
 
+int dgn_large_builder_x()
+{
+    return GXM * 2 / 3;
+}
+
+int dgn_large_builder_y()
+{
+    return GYM * 2 / 3;
+}
+
 /**********************************************************************
  * builder() - kickoff for the dungeon generator.
  *********************************************************************/
@@ -1598,11 +1608,6 @@ void dgn_reset_level(bool enable_random_maps)
 
 static int _mon_die_size()
 {
-    // This is a very goofy hack to maintain historical populations.
-    // TODO: remove this!
-    if (you.where_are_you == BRANCH_LAIR && you.depth == 5)
-        return DEFAULT_MON_DIE_SIZE;
-
     const int size = branches[you.where_are_you].mon_die_size;
     if (you.where_are_you != BRANCH_DUNGEON)
         return size;
@@ -3497,15 +3502,6 @@ static void _place_traps()
         env.trap[ts.pos] = ts;
         dprf("placed a %s trap", trap_name(type).c_str());
     }
-
-    if (player_in_branch(BRANCH_SPIDER))
-    {
-        // Max webs ranges from around 35 (Spider:1) to 220 (Spider:5), actual
-        // amount will be much lower.
-        int max_webs = 35 * pow(2, (you.depth - 1) / 1.5) - num_traps;
-        max_webs /= 2;
-        place_webs(max_webs + random2(max_webs));
-    }
 }
 
 // Create randomly-placed stone stairs.
@@ -3668,7 +3664,7 @@ static bool _place_vault_by_tag(const string &tag)
     return _build_secondary_vault(vault);
 }
 
-static bool _in_descent_parent(branch_type branch)
+static bool _in_parent(branch_type branch)
 {
     vector<branch_type> parents = descent_parents(branch);
     for (branch_type parent : parents)
@@ -3718,12 +3714,6 @@ static void _place_branch_entrances(bool use_vaults)
             }
     }
 
-    if (crawl_state.game_is_descent())
-    {
-        ASSERT(you.props.exists(DESCENT_WATER_BRANCH_KEY));
-        ASSERT(you.props.exists(DESCENT_POIS_BRANCH_KEY));
-    }
-
     // Place actual branch entrances.
     for (branch_iterator it; it; ++it)
     {
@@ -3732,22 +3722,9 @@ static void _place_branch_entrances(bool use_vaults)
         if (is_hell_branch(it->id) || branch_entrance_placed[it->id])
             continue;
 
-        bool brentry_allowed = false;
-
-        if (crawl_state.game_is_descent())
-        {
-            brentry_allowed = it->entry_stairs != NUM_FEATURES
-                && _in_descent_parent(it->id)
-                && it->id != you.props[DESCENT_WATER_BRANCH_KEY].get_int()
-                && it->id != you.props[DESCENT_POIS_BRANCH_KEY].get_int()
-                && at_branch_bottom();
-        }
-        else
-        {
-            brentry_allowed = it->entry_stairs != NUM_FEATURES
-                && player_in_branch(parent_branch(it->id))
-                && level_id::current() == brentry[it->id];
-        }
+        bool brentry_allowed = it->entry_stairs != NUM_FEATURES
+                            && _in_parent(it->id)
+                            && at_branch_bottom();
 
         if (brentry_allowed)
         {
@@ -3931,7 +3908,7 @@ static void _place_aquatic_monsters()
         || player_in_branch(BRANCH_ABYSS)
         || player_in_branch(BRANCH_PANDEMONIUM)
         || player_in_branch(BRANCH_ZOT)
-        || player_in_branch(BRANCH_DUNGEON) && you.depth < 6)
+        || player_in_branch(BRANCH_DUNGEON))
     {
         return;
     }
@@ -4346,9 +4323,6 @@ static const vault_placement *_build_vault_impl(const map_def *vault,
         if (player_in_branch(BRANCH_PANDEMONIUM) && dgn_zones > 1)
             throw dgn_veto_exception("Pan map with disconnected zones");
     }
-
-    if (crawl_state.game_is_descent() && vault->get_tags_unsorted().count("no_descent"))
-        throw dgn_veto_exception("Illegal map for descent");
 
     unwind_var<string> placing(env.placing_vault, vault->name);
 

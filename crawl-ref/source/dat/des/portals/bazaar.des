@@ -117,7 +117,7 @@ end
 
 }}
 
-default-depth: D:11-, Depths, Orc:$, Elf, Snake, Shoals, Vaults:1-4
+default-depth: Pan
 
 ###############################################################################
 # Entries.
@@ -180,19 +180,6 @@ xx...xx
 +..O..x
 xx...xx
  xxxxx
-ENDMAP
-
-# Safe 2
-NAME:    bzr_entry_islet
-TAGS:    no_descent
-SHUFFLE: wwlW
-: place_bazaar_portal(_G)
-MAP
- wwwww
-wwwwwww
-ww<O>ww
-wwwwwww
- wwwww
 ENDMAP
 
 # Portal along the road

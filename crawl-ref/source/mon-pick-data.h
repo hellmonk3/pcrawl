@@ -197,7 +197,7 @@ static const vector<pop_entry> population[] =
 { // Temple
 },
 
-{ // Orcish Mines
+{ // Armory
   {  1,  4,  192, FLAT, MONS_ORC_WARRIOR },
   {  1,  4,   25, FLAT, MONS_ORC_PRIEST },
   {  1,  4,   25, FLAT, MONS_ORC_WIZARD },
@@ -218,7 +218,7 @@ static const vector<pop_entry> population[] =
   {  3,  4,    4, FLAT, MONS_STONE_GIANT },
 },
 
-{ // Elven Halls (OOD cap: 7)
+{ // Mage Tower (OOD cap: 7)
   {  1,  5,   50, FLAT, MONS_ORC_HIGH_PRIEST },
   {  1,  6,   50, FLAT, MONS_ORC_SORCERER },
   {  1,  7, 1385, FLAT, MONS_DEEP_ELF_AIR_MAGE },
@@ -297,7 +297,7 @@ static const vector<pop_entry> population[] =
   { 10, 11,   32, FLAT, MONS_WOLF_SPIDER },
 },
 
-{ // Swamp
+{ // Storage
   // Trying to keep total around 10000 on each floor, roughly.
   // Easy enemies:
   {  1,  4,   500, FALL, MONS_VAMPIRE_MOSQUITO },
@@ -373,7 +373,7 @@ static const vector<pop_entry> population[] =
   {  3,  7,   30, PEAK, MONS_FORMLESS_JELLYFISH },
 },
 
-{ // Snake Pit
+{ // Workshop
   { -4,  4,  750, SEMI, MONS_NAGA },
   {  0,  4,  215, SEMI, MONS_SALAMANDER },
   {  0,  6,  315, SEMI, MONS_ANACONDA },
@@ -390,7 +390,7 @@ static const vector<pop_entry> population[] =
   {  2,  8,  100, SEMI, MONS_SALAMANDER_TYRANT },
 },
 
-{ // Spider Nest
+{ // Forge Nest
   // Easy enemies:
   {  1,  4,   200, FLAT, MONS_BOULDER_BEETLE },
   {  1,  4,   100, FALL, MONS_BOULDER_BEETLE },
@@ -461,9 +461,9 @@ static const vector<pop_entry> population[] =
   {  2,  8,   50, SEMI, MONS_FLOATING_EYE },
 },
 
-{ // The Vaults (OOD cap: 12)
-  // Vaults is essentially split in two: Vaults 1-4, the 'normal' part,
-  // and Vaults:5, the final challenge.
+{ // The Fortress (OOD cap: 12)
+  // Fortress is essentially split in two: Fortress 1-4, the 'normal' part,
+  // and Fortress:5, the final challenge.
   // Trying to keep total around 10,000 on each floor 1-4, roughly.
 
   // Easy enemies:
@@ -506,7 +506,7 @@ static const vector<pop_entry> population[] =
   {  1,  4,  350, RISE, MONS_PEACEKEEPER },
   {  1,  4,  300, RISE, MONS_SPHINX },
 
-  // Vaults:5 enemies. These weights are very roughly based on
+  // Fortress:5 enemies. These weights are very roughly based on
   // the monster frequency as of 0.26.
   // V:5 humans:
   {  5, 12, 1000, FALL, MONS_VAULT_WARDEN },
@@ -747,7 +747,7 @@ POP_DEPTHS,
   {  1, 14,  400, RISE, MONS_TZITZIMITL },
 },
 
-{ // Zot
+{ // Sanctum
   {  1,  5,  970, FLAT, MONS_MOTH_OF_WRATH },
   {  1,  5,  192, RISE, MONS_GHOST_MOTH },
   {  1,  5,  113, FLAT, MONS_BLACK_DRACONIAN },
@@ -1193,7 +1193,7 @@ static const vector<pop_entry> pop_generic_late_zombie =
 }
 
 // This list must be in the same order as the branch-type enum values.
-// Shoals, Abyss, Pan, Zot, D:1-5 liquid monsters are blocked in dungeon.cc
+// Shoals, Abyss, Pan, Sanctum, D:1-5 liquid monsters are blocked in dungeon.cc
 static const vector<pop_entry> population_water[] =
 {
     { // Dungeon water monsters
@@ -1204,26 +1204,26 @@ static const vector<pop_entry> population_water[] =
       {  9,  32,  250, SEMI, MONS_NO_MONSTER },
     },
     GENERIC_WATER_POP, // Temple
-    GENERIC_WATER_POP, // Orc
+    GENERIC_WATER_POP, // Armory
     GENERIC_WATER_POP, // Elf
 #if TAG_MAJOR_VERSION == 34
     GENERIC_WATER_POP, // Dwarf
 #endif
     GENERIC_WATER_POP, // Lair
-    { // Swamp water monsters
+    { // Storage water monsters
       {  1,  4,   400, FLAT, MONS_SWAMP_WORM },
       {  1,  4,   100, FLAT, MONS_TYRANT_LEECH },
       {  1,  4,   100, FLAT, MONS_ALLIGATOR },
       {  1,  4,  1050, FLAT, MONS_NO_MONSTER },
     },
     GENERIC_WATER_POP, // Shoals
-    { // Snake water monsters
+    { // Workshop water monsters
       {  1,   4,  100, FALL, MONS_ELECTRIC_EEL },
       {  0,   4,  200, RISE, MONS_SEA_SNAKE },
     },
-    GENERIC_WATER_POP, // Spider
+    GENERIC_WATER_POP, // Forge
     GENERIC_WATER_POP, // Slime
-    GENERIC_WATER_POP, // Vaults
+    GENERIC_WATER_POP, // Fortress
 #if TAG_MAJOR_VERSION == 34
     GENERIC_WATER_POP, // Blade
 #endif
@@ -1237,7 +1237,7 @@ static const vector<pop_entry> population_water[] =
     HELL_WATER_POP, // Geh
     HELL_WATER_POP, // Coc
     HELL_WATER_POP, // Tar
-    GENERIC_WATER_POP, // Zot
+    GENERIC_WATER_POP, // Sanctum
 #if TAG_MAJOR_VERSION == 34
     GENERIC_WATER_POP, // Forest
 #endif
@@ -1308,23 +1308,23 @@ static const vector<pop_entry> population_lava[] =
       {  7,  27,  290, FLAT, MONS_NO_MONSTER },
     },
     GENERIC_LAVA_POP, // Temple
-    GENERIC_LAVA_POP, // Orc
+    GENERIC_LAVA_POP, // Armory
     GENERIC_LAVA_POP, // Elf
 #if TAG_MAJOR_VERSION == 34
     GENERIC_LAVA_POP, // Dwarf
 #endif
     GENERIC_LAVA_POP, // Lair
-    GENERIC_LAVA_POP, // Swamp
+    GENERIC_LAVA_POP, // Storage
     GENERIC_LAVA_POP, // Shoals
-    { // Snake lava monsters
+    { // Workshop lava monsters
       {  1,   4,  200, FLAT, MONS_LAVA_SNAKE },
       {  1,   4,  200, FLAT, MONS_SALAMANDER },
       {  0,   6,  65,  SEMI, MONS_SALAMANDER_MYSTIC },
       {  0,   6,  25,  RISE, MONS_SALAMANDER_TYRANT },
     },
-    GENERIC_LAVA_POP, // Spider
+    GENERIC_LAVA_POP, // Forge
     GENERIC_LAVA_POP, // Slime
-    GENERIC_LAVA_POP, // Vaults
+    GENERIC_LAVA_POP, // Fortress
 #if TAG_MAJOR_VERSION == 34
     GENERIC_LAVA_POP, // Blade
 #endif
@@ -1338,7 +1338,7 @@ static const vector<pop_entry> population_lava[] =
     HELL_LAVA_POP, // Geh
     HELL_LAVA_POP, // Coc
     HELL_LAVA_POP, // Tar
-    GENERIC_LAVA_POP, // Zot
+    GENERIC_LAVA_POP, // Sanctum
 #if TAG_MAJOR_VERSION == 34
     GENERIC_LAVA_POP, // Forest
 #endif

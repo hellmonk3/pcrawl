@@ -648,7 +648,7 @@ ENDMAP
 NAME:   mumra_celtic_spiral_tile
 ORIENT: float
 TAGS:   transparent allow_dup decor
-DEPTH:  D:1-10
+DEPTH:  D
 WEIGHT: 2
 MAP
             xxxxxxxxxxxxx
@@ -683,7 +683,7 @@ ENDMAP
 NAME:   wad_pebble_path
 DEPTH:  D:2-, !D:$, Depths:2-, !Depths:$
 ORIENT: float
-WEIGHT: 4
+WEIGHT: 1
 FTILE: ' = floor_pebble
 MONS:   plant
 MAP
@@ -711,7 +711,8 @@ ENDMAP
 NAME:    hangedman_decor_cross_pass
 TAGS:    transparent extra decor no_pool_fixup
 ORIENT:  float
-DEPTH:   D:8-, Depths, Elf
+DEPTH:   D:2-, Depths, Tower
+WEIGHT:  1
 SHUFFLE: _- / _- / -_, '" / '" / "', !? / !? / !?
 SHUFFLE: HIJK / HIJK / IHKJ, LMNO / LMNO / MLON, PQRS / PQRS / QPSR
 SUBST:   HJLNPR = ., I : z:6 .:1, K : z., M : z:6 .:1, O : z., Q : z:6 .:1, S : z.
@@ -753,8 +754,9 @@ ENDMAP
 NAME:   kennysheep_cross_landing
 ORIENT: centre
 TAGS:   no_pool_fixup extra decor
+WEIGHT:  1
 SUBST:  c:ccxxbvt
-DEPTH:  D:10-, Depths
+DEPTH:  D:2-, Depths
 MAP
           cc+cc
          ccw.wcc
@@ -785,6 +787,7 @@ ENDMAP
 
 NAME:   wander_river
 TAGS:   transparent no_pool_fixup no_monster_gen
+WEIGHT: 1
 DEPTH:  D, Lair, !Lair:$
 ORIENT: float
 FTILE:  - = floor_pebble_lightgray
@@ -807,6 +810,7 @@ ENDMAP
 NAME:    nicolae_BIG_FREAKIN_CUBE
 TAGS:    transparent decor
 DEPTH:   D:4-, Depths
+WEIGHT:  1
 ORIENT:  float
 SHUFFLE: '`-
 : if you.depth() == 1 then
@@ -852,6 +856,7 @@ ENDMAP
 
 NAME:   nicolae_cairo_tiling
 TAGS:   transparent decor luniq_nicocairo
+WEIGHT: 1
 DEPTH:  D:4-, Depths
 ORIENT: float
 MAP
@@ -892,6 +897,7 @@ ENDMAP
 
 NAME:   nicolae_cairo_tiling_large
 TAGS:   transparent decor luniq_nicocairo
+WEIGHT: 1
 DEPTH:  D:4-, Depths
 ORIENT: float
 MAP
@@ -932,6 +938,7 @@ ENDMAP
 
 NAME:    nicolae_cairo_tiling_large_dashed
 TAGS:    transparent decor luniq_nicocairo
+WEIGHT:  1
 DEPTH:   D:4-, Depths
 ORIENT:  float
 SHUFFLE: aq
@@ -976,6 +983,7 @@ ENDMAP
 
 NAME:   nicolae_cairo_tiling_very_big
 TAGS:   transparent decor luniq_nicocairo
+WEIGHT: 1
 DEPTH:  D:4-, Depths
 ORIENT: float
 MAP
@@ -1024,8 +1032,8 @@ ENDMAP
 
 NAME:   hellmonk_ruined_rings
 TAGS:   transparent ruin
-DEPTH:  D:6-, Lair, Depths
-WEIGHT: 5
+DEPTH:  D:3-, Lair, Depths
+WEIGHT: 1
 ORIENT: float
 :if crawl.one_chance_in(4) and you.in_branch("D") then
 TILE:   x = wall_brick_brown_vines
@@ -1070,8 +1078,8 @@ ENDMAP
 
 NAME:   hellmonk_destroyed_diamonds
 TAGS:   transparent ruin
-DEPTH:  D:6-, Lair, Depths
-WEIGHT: 5
+DEPTH:  D:3-, Lair, Depths
+WEIGHT: 1
 ORIENT: float
 SUBST:  x : ccx
 :if crawl.coinflip() then
@@ -1101,8 +1109,8 @@ ENDMAP
 
 NAME:   hellmonk_crumbling_castle
 TAGS:   transparent ruin
-DEPTH:  D:6-, Depths
-WEIGHT: 5
+DEPTH:  D:3-, Depths
+WEIGHT: 1
 ORIENT: float
 TILE:   c = wall_stone_smooth
 TILE:   G = dngn_crumbled_column
@@ -1145,7 +1153,8 @@ ENDMAP
 
 NAME:    nicolae_integral_box
 TAGS:    transparent extra decor
-DEPTH:   D, Depths, Snake
+DEPTH:   D, Depths, Workshop
+WEIGHT:  1
 ORIENT:  float
 SHUFFLE: Pp/Pp/Pp/Qq, Rr/Rr/Rr/Ss
 SUBST:   PR : c, pr : _, QS : G, qs : c, H : cccG, F : TTT., T = TTTTTTVVVU
@@ -1192,6 +1201,7 @@ ENDMAP
 
 NAME:   nicolae_kite_square_tiling_large
 TAGS:   transparent extra decor
+WEIGHT: 1
 DEPTH:  D:4-, Depths
 ORIENT: float
 SUBST:  + : +++.
@@ -1239,7 +1249,8 @@ ENDMAP
 
 NAME:    nicolae_triple_integral
 TAGS:    transparent extra decor
-DEPTH:   D, Depths, Snake
+WEIGHT:  1
+DEPTH:   D, Depths, Workshop
 ORIENT:  float
 SHUFFLE: DE
 : if crawl.one_chance_in(3) and you.depth() > 1 then
@@ -1272,7 +1283,8 @@ ENDMAP
 
 NAME:    nicolae_moon_pools
 TAGS:    transparent no_pool_fixup
-DEPTH:   D:8-, Depths
+WEIGHT:  1
+DEPTH:   D:3-, Depths
 ORIENT:  float
 KFEAT:   az`- = c
 SHUFFLE: `-, a`/z-
@@ -1332,7 +1344,8 @@ ENDMAP
 # https://www.youtube.com/watch?v=JbfhzlMk2eY
 NAME:     nicolae_hitomezashi
 TAGS:     transparent decor
-DEPTH:    D:8-, Depths
+WEIGHT:   1
+DEPTH:    D:3-, Depths
 ORIENT:   float
 SUBVAULT: D : nico_hito
 SUBVAULT: E : nico_hito
@@ -1394,7 +1407,7 @@ ENDMAP
 # don't need separate subvaults for edge rows and interior rows.
 NAME:   nicolae_hito_row
 TAGS:   unrand allow_dup nico_hito
-DEPTH:  D:8-, Depths
+DEPTH:  D:3-, Depths
 NSUBST: @ = @ / .
 MAP
 ccc .@. ccc .@. ccc .@. ccc .@.
@@ -1410,8 +1423,8 @@ ENDMAP
 
 NAME:    nrook_guardian_serpent_snake_passage
 ORIENT:  float
-DEPTH:   D:11-, Snake
-TAGS:    no_monster_gen no_rotate
+DEPTH:   D:3-, Workshop
+TAGS:    no_rotate
 SHUFFLE: yY/zZ
 SUBST:   y=., Y=+, Z=x, z=b
 COLOUR:  . = lightgreen
@@ -1448,7 +1461,7 @@ ENDMAP
 # Could perhaps use colour.
 NAME:   minmay_kobold_bridge
 TAGS:   no_monster_gen
-DEPTH:  D:1-2
+DEPTH:  D
 ORIENT: float
 WEIGHT: 3
 MAP
@@ -1472,7 +1485,7 @@ ENDMAP
 ##############################################################################
 # Rooms
 NAME:    minmay_opposing_rooms
-DEPTH:   D:4-
+DEPTH:   D
 ORIENT:  float
 MAP
 xxxxxxxxxxxxxxcccccxx
@@ -1495,7 +1508,7 @@ ENDMAP
 ##############################################################################
 # Statue pair
 NAME:    minmay_separated_statues
-DEPTH:   D:8-
+DEPTH:   D
 ORIENT:  float
 MAP
      ......
@@ -1514,7 +1527,7 @@ ENDMAP
 ##############################################################################
 # Wavy paths in crystal walls
 NAME:   minmay_wavy_crystal
-DEPTH:  D:10-
+DEPTH:  D:3-
 ORIENT: float
 MAP
 bbbbbbbbbbbb@.@bbbbbb
@@ -1544,10 +1557,10 @@ ENDMAP
 
 ##############################################################################
 # Marble ring (evilmike)
-# outer ring contains 10 to 30 monsters, mean of 16.7
 #
 NAME:   evilmike_marble_ring
 DEPTH:  Depths
+WEIGHT: 1
 ORIENT: float
 COLOUR: b-+89*| = white
 FTILE:  b-+89*| = FLOOR_MARBLE
@@ -1590,7 +1603,7 @@ ENDMAP
 NAME: wad_crossroads
 DEPTH:  D:2-, !D:$
 ORIENT: float
-WEIGHT: 4
+WEIGHT: 1
 FTILE: 'G = floor_pebble
 SUBST:  X : cccvvb
 MAP
@@ -1616,9 +1629,9 @@ ENDMAP
 ###############################################################################
 
 NAME:   wad_arrow_thing
-DEPTH:  D:8-, !D:$, Depths:2-, !Depths:$
+DEPTH:  D:3-, !D:$, Depths:2-, !Depths:$
 ORIENT: float
-WEIGHT: 4
+WEIGHT: 1
 FTILE:  ' = floor_pebble
 SUBST:  X : cccvvb
 MAP
@@ -1647,7 +1660,8 @@ XXXXXXXXXXXXXXXXXXXXXXX
 ENDMAP
 
 NAME:   minmay_imperfect_grid
-DEPTH:  D:8-, !D:$, Depths, !Depths:$
+DEPTH:  D:3-, !D:$, Depths, !Depths:$
+WEIGHT: 1
 ORIENT: float
 SUBST:  x : x:7 c:3, c : c:8 v:1 b:1
 MAP
@@ -1686,7 +1700,8 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@
 ENDMAP
 
 NAME:   minmay_quarter_circles
-DEPTH:  D:8-, !D:$, Depths, !Depths:$
+DEPTH:  D:3-, !D:$, Depths, !Depths:$
+WEIGHT: 1
 ORIENT: float
 SUBST:  x : x:7 c:3, c : c:8 v:1 b:1
 MAP
@@ -1717,7 +1732,8 @@ cccccccccccccccccc@xxxxxxxxxxxxx
 ENDMAP
 
 NAME:   minmay_ornate_pinched
-DEPTH:  D:8-, !D:$, Depths, !Depths:$
+DEPTH:  D:3-, !D:$, Depths, !Depths:$
+WEIGHT: 1
 TAGS:   transparent
 ORIENT: float
 SUBST:  x : x:7 c:1 v:1 b:1
@@ -1755,6 +1771,7 @@ ENDMAP
 
 NAME:   minmay_quantized_circle
 DEPTH:  Depths, !Depths:$
+WEIGHT: 1
 TAGS:   transparent
 ORIENT: float
 SUBST:  0 = 0., 9 = 9., b : ccb, t : ttm, x : xxxxvb
@@ -1793,7 +1810,8 @@ xxxxxxxxxxxxxxc@cxxxxxxxxxxxxxx
 ENDMAP
 
 NAME:   minmay_swirls_squares
-DEPTH:  D:12-, !D:$, Depths, !Depths:$
+DEPTH:  D:3-, !D:$, Depths, !Depths:$
+WEIGHT: 1
 TAGS:   transparent
 ORIENT: float
 SUBST:  x : x:7 c:1 v:1 b:1
@@ -1832,8 +1850,9 @@ MAP
 ENDMAP
 
 NAME:   minmay_concentric_multi
-DEPTH:  D:12-, Depths
+DEPTH:  D:3-, Depths
 TAGS:   transparent
+WEIGHT: 1
 ORIENT: float
 NSUBST: A = 1:+ / *:+xx, B = 1:+ / *:+cc, C = 1:+ / *:+xx
 SUBST:  x : x:7 c:3, c : c:8 v:1 b:1
@@ -1874,7 +1893,8 @@ MAP
 ENDMAP
 
 NAME:   minmay_octo_star
-DEPTH:  D:12-, Depths
+DEPTH:  D:3-, Depths
+WEIGHT: 1
 TAGS:   transparent
 ORIENT: float
 SUBST:  x : x:7 c:3, c : c:8 v:1 b:1
@@ -1913,7 +1933,8 @@ MAP
 ENDMAP
 
 NAME:   minmay_strange_plus
-DEPTH:  D:12-, Depths
+DEPTH:  D:3-, Depths
+WEIGHT: 1
 TAGS:   transparent
 ORIENT: float
 MAP
@@ -1949,7 +1970,7 @@ MAP
 ENDMAP
 
 NAME:   minmay_curly_fans
-DEPTH:  D:8-, Depths
+DEPTH:  D:3-, Depths
 TAGS:   transparent
 ORIENT: float
 SUBST:  x : x:7 c:1 v:1 b:1
@@ -1977,7 +1998,8 @@ ENDMAP
 
 NAME:   minmay_box_of_curves
 ORIENT: float
-DEPTH:  D:11-, Depths
+DEPTH:  D:3-, Depths
+WEIGHT: 1
 SUBST:  x : cvb, ? : .TGtxcvbm
 SUBST:  ' : '", ' : .:50 xcvbm, " : .:50 xcvbm
 MAP
@@ -2013,7 +2035,7 @@ xxxxxxxxxxxxxxx@xxxxxxxxxxxxxxx
 ENDMAP
 
 NAME:   minmay_chopped_fan
-DEPTH:  D:9-, Depths
+DEPTH:  D, Depths
 ORIENT: float
 SUBST:  x : cvb
 MAP
@@ -2042,6 +2064,7 @@ ENDMAP
 
 NAME:   minmay_skewed_foursquare
 TAGS:   transparent
+WEIGHT: 1
 ORIENT: float
 DEPTH:  D:2-
 : if crawl.one_chance_in(10) then
@@ -2089,6 +2112,7 @@ ENDMAP
 
 NAME:   minmay_razor_zed
 TAGS:   transparent
+WEIGHT: 1
 ORIENT: float
 DEPTH:  D:2-
 SUBST:  ' : x. ':2

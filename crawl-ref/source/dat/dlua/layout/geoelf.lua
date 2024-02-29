@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 -- geoelf.lua: The layout engine that generates layouts of
---             geometric rooms for the Elf branch
+--             geometric rooms for the Tower branch
 --
 -- Main include for Geoelf layouts. This file (directly)
 --  contains the functions for specifying rooms and possible
@@ -433,7 +433,7 @@ function geoelf.generate (e, room_data, corridor_data,
                                replace = geoelf.glyphs.FLOOR }
   e.add_windows {wall   = geoelf.glyphs.ALL_WALLLIKE,
                  open   = geoelf.glyphs.ALL_FLOORLIKE,
-                 window = geoelf.glyphs.GLASS }
+                 window = geoelf.glyphs.WALL }
   geoelf.make_glass_doors(e)
   geoelf.glyphs.assign_glyphs(e, only_trees)
   e.subst(geoelf.glyphs.FOUNTAIN .. " = TTUV")
@@ -496,7 +496,7 @@ function geoelf.make_glass_doors (e)
         -- we turn the door into a glass door if it has glass
         --  around it but no solid walls
         if (not any_wall and any_glass) then
-          e.mapgrd[x][y] = geoelf.glyphs.GLASS_DOOR
+          e.mapgrd[x][y] = geoelf.glyphs.DOOR
         end
       end
     end

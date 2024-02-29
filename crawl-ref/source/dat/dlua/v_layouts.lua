@@ -222,12 +222,12 @@ function build_vaults_chaotic_city_layout(e)
 end
 
 function build_vaults_maze_layout(e,veto_callback, name)
-  local gxm, gym = dgn.builder_bounds()
+  local gxm, gym = dgn.large_builder_bounds()
   if name == nil then name = "Maze" end
 
   -- Put a single empty room somewhere roughly central. All rooms will be built off from each other following this
-  local x1 = crawl.random_range(30, gxm-70)
-  local y1 = crawl.random_range(30, gym-70)
+  local x1 = crawl.random_range(15, gxm-35)
+  local y1 = crawl.random_range(15, gym-35)
 
   local paint = {
     { type = "floor", corner1 = { x = x1, y = y1 }, corner2 = { x = x1 + crawl.random_range(4,10), y = y1 + crawl.random_range(4,10) } }

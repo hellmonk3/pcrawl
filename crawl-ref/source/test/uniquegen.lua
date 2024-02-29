@@ -48,7 +48,7 @@ local function run_random_unique_tests()
   end
 
   for depth = 1, 4 do
-    test_random_unique("Swamp", depth, 5)
+    test_random_unique("Storage", depth, 5)
   end
 end
 

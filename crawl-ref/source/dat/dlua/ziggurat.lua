@@ -189,8 +189,8 @@ local function mset_if(condition, ...)
 end
 
 -- Monster sets, in order:
--- Lair, Snake, Swamp, Shoals, Spider, Slime,
--- Orc, Elf, Vaults, Crypt, Tomb,
+-- Lair, Workshop, Storage, Shoals, Forge, Slime,
+-- Armory, Tower, Fortress, Crypt, Tomb,
 -- Abyss, Gehenna, Cocytus, Dis, Tartarus,
 -- Fire, Ice, Air, Earth, Negative Energy, Holy, Chaos
 -- Giants, Dragons, Draconians, Archers, Conjurers
@@ -212,7 +212,7 @@ end), { weight = 5 }))
 mset(spec_fn(function ()
   local d = math.max(6, you.depth() * 2 + you.zigs_completed() - 2)
   local e = math.max(1, you.depth() + you.zigs_completed() - 18)
-  return "place:Snake:$ w:125 / naga sharpshooter w:5 / guardian serpent w:5 / " ..
+  return "place:Workshop:$ w:125 / naga sharpshooter w:5 / guardian serpent w:5 / " ..
          "salamander tyrant w:" .. d .. " / nagaraja w:" .. d .. " / " ..
          "quicksilver dragon w:" .. e
 end))
@@ -222,7 +222,7 @@ mset(spec_fn(function ()
   local e = math.floor(10 + you.zigs_completed() / 3)
   local f = 5 + you.zigs_completed() * 3
   local g = math.max(1, you.depth() + you.zigs_completed() - 9)
-  return "place:Swamp:$ w:" .. d .. " / hydra w:" .. e .. " / " ..
+  return "place:Storage:$ w:" .. d .. " / hydra w:" .. e .. " / " ..
          "swamp dragon w:" .. e .. "  / tentacled monstrosity w:" .. f .. " / " ..
          "shambling mangrove w:" .. f .. " / green death w:" .. g + 3 .. " / " ..
          "death drake w:" .. g .. " / golden dragon w:" .. g
@@ -240,7 +240,7 @@ mset(spec_fn(function ()
   local d = 10 + you.zigs_completed() * 4
   local e = 30 + you.zigs_completed() * 5
   local f = 5 + you.zigs_completed()
-  return "place:Spider:$ w:250 / torpor snail w:" .. d .. " / " ..
+  return "place:Forge:$ w:250 / torpor snail w:" .. d .. " / " ..
          "emperor scorpion w:" .. d .. " / entropy weaver w:" .. d + 10 .. " / " ..
          "orb spider w:" .. d + 10 .. " / ghost moth w:" .. e .. " / " ..
          "moth of wrath w:" .. f
@@ -257,7 +257,7 @@ mset(spec_fn(function ()
   local d = math.max(2, 290 - 10 * you.depth() - you.zigs_completed())
   local e = 10 + you.zigs_completed()
   local f = math.max(0, math.floor(you.depth() + you.zigs_completed() / 2 - 20))
-  return "place:Orc:$ w:" .. d .. " / orc warlord w:" .. e .. " / " ..
+  return "place:Armory:$ w:" .. d .. " / orc warlord w:" .. e .. " / " ..
          "orc high priest w:" .. e .. " / orc sorcerer w:5 / " ..
          "stone giant w:5 / iron troll w:5 / " ..
          "moth of wrath w:" .. f .. " / juggernaut w:" .. e - 10
@@ -266,7 +266,7 @@ end))
 mset(spec_fn(function ()
   local d = math.max(2, 300 - 10 * you.depth() - you.zigs_completed())
   local e = math.max(2, math.floor(10 - you.zigs_completed() / 3))
-  return "place:Elf:$ w:" .. d .. " / deep elf high priest / " ..
+  return "place:Tower:$ w:" .. d .. " / deep elf high priest / " ..
          "deep elf blademaster / deep elf master archer / " ..
          "deep elf annihilator w:" .. e .. " / deep elf demonologist w:" .. e
 end))
@@ -274,7 +274,7 @@ end))
 mset(spec_fn(function ()
   local d = math.max(5, 25 - you.zigs_completed())
   local e = math.max(1, you.zigs_completed() + you.depth() - 11)
-  return "place:Vaults:$ w:" .. d * 2 .. " / place:Vaults:$ w:" .. d .. " / " ..
+  return "place:Fortress:$ w:" .. d * 2 .. " / place:Fortress:$ w:" .. d .. " / " ..
          "glowing shapeshifter / sphinx w:5 / " ..
          "titan w:" .. e .. " / golden dragon w:" .. e .. " / " ..
          "ancient lich w:" .. e / 2 .. " / dread lich w:" .. e / 2
@@ -480,8 +480,8 @@ mset(mons_panlord_gen)
 mset_if(depth_ge(14), with_props(spec_fn(function ()
   local d = math.max(2, math.floor(14 - you.zigs_completed() / 2))
   local e = 10 + you.zigs_completed()
-  return "place:Snake:$ w:" .. d .. " / place:Swamp:$ w:" .. d .. " / " ..
-         "place:Shoals:$ w:" .. d .. " / place:Spider:$ w:" .. d .. " / " ..
+  return "place:Workshop:$ w:" .. d .. " / place:Storage:$ w:" .. d .. " / " ..
+         "place:Shoals:$ w:" .. d .. " / place:Forge:$ w:" .. d .. " / " ..
          "nagaraja w:" .. e + 2 .. " / guardian serpent w:8 / " ..
          "hydra w:5 / swamp dragon w:5 / tentacled monstrosity w:" .. e .. " / " ..
          "merfolk aquamancer w:6 / merfolk javelineer w:" .. e - 2 .. " / " ..

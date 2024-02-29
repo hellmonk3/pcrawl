@@ -10,7 +10,7 @@
 #            * Ecumenical altar vaults for D:1-3.
 #              Use ecumenical.des
 #            * Branch-specific vaults
-#              (Beogh altar minivaults for Orc, for example)
+#              (Beogh altar minivaults for Armory, for example)
 #              These go into the corresponding des-file of the branch.
 #            * Entry vaults with altars
 #              Don't make these, they encourage startscumming.
@@ -42,11 +42,7 @@ NAME:   basic_altar
 TAGS:   allow_dup extra no_monster_gen transparent decor
 DEPTH:  1-
 CHANCE: 20% (D:2)
-CHANCE: 20% (Orc)
-CHANCE: 10% (Snake)
-CHANCE: 8% (Elf)
 CHANCE: 5% (Lair, Slime, Crypt)
-CHANCE: 1% (Zot)
 CHANCE: 0
 MAP
 .....

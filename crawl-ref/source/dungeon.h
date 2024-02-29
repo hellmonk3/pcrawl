@@ -35,8 +35,6 @@ COMPILE_CHECK(sizeof(feature_property_type) <= sizeof(terrain_property_t));
 #define TRANSPORTER_NAME_PROP "_transporter_name"
 #define TRANSPORTER_DEST_NAME_PROP "_transporter_dest_name"
 
-#define DESCENT_STAIRS_KEY "descent_stairs_gone"
-
 const unsigned short INVALID_MAP_INDEX = 10000;
 
 // Should be the larger of GXM/GYM
@@ -206,6 +204,9 @@ bool builder(bool enable_random_maps = true);
 
 int dgn_builder_x();
 int dgn_builder_y();
+
+int dgn_large_builder_x();
+int dgn_large_builder_y();
 
 void dgn_clear_vault_placements();
 void dgn_erase_unused_vault_placements();

@@ -551,6 +551,7 @@ ENDMAP
 ##############################################################################
 NAME:    dpeg_arrival_boxorama
 TAGS:    arrival transparent
+WEIGHT:  1
 ORIENT:  float
 SHUFFLE: {[(<
 SUBST:   [=., (=.
@@ -576,6 +577,7 @@ ENDMAP
 ##############################################################################
 NAME:    dpeg_arrival_boxes_within_box
 TAGS:    arrival transparent
+WEIGHT:  1
 ORIENT:  float
 SHUFFLE: {[(
 SUBST:   [=., (=.
@@ -746,6 +748,7 @@ ENDMAP
 ##############################################################################
 NAME:    erik_arrival_blinker_ship
 TAGS:    arrival transparent
+WEIGHT:  1
 ORIENT:  float
 SHUFFLE: cxxx
 MAP
@@ -773,6 +776,7 @@ ENDMAP
 ##############################################################################
 NAME:   matt_arrival_refuge
 TAGS:   arrival no_monster_gen transparent
+WEIGHT: 1
 ORIENT: float
 MAP
 xxxxx@xxxxxxxx@xxxx
@@ -797,6 +801,7 @@ ENDMAP
 ##############################################################################
 NAME:   matt_arrival_los_fun
 TAGS:   arrival no_monster_gen transparent
+WEIGHT: 1
 ORIENT: float
 MAP
         x+x
@@ -866,6 +871,7 @@ ENDMAP
 ##############################################################
 NAME:    minmay_arrival_radiant_lines
 TAGS:    arrival no_rotate transparent
+WEIGHT:  1
 ORIENT:  float
 SHUFFLE: xX
 SUBST:   X:xxxX, X:.lw, x:xxxvc
@@ -968,6 +974,7 @@ ENDMAP
 ##############################################################################
 NAME:   dpeg_arrival_snail
 TAGS:   arrival no_monster_gen no_rotate transparent
+WEIGHT: 1
 ORIENT: float
 NSUBST: . = 1:d / *:.
 MAP
@@ -995,8 +1002,8 @@ ENDMAP
 ##############################################################################
 NAME:    dpeg_arrival_three_smaller_balls
 TAGS:    arrival no_rotate transparent
+WEIGHT:  1
 ORIENT:  float
-WEIGHT:  5
 MAP
    xxxxx  x@x  xxxxx
  xxx...xxxx+xxxx...xxx
@@ -1020,8 +1027,8 @@ ENDMAP
 
 NAME:    dpeg_arrival_three_bigger_balls
 TAGS:    arrival no_rotate no_monster_gen transparent
+WEIGHT:  1
 ORIENT:  float
-WEIGHT:  5
 SHUFFLE: }>
 MAP
          xxxxx
@@ -1051,6 +1058,7 @@ ENDMAP
 ##############################################################################
 NAME:    matt_arrival_grand_opening
 TAGS:    arrival transparent
+WEIGHT:  1
 ORIENT:  float
 SHUFFLE: TV
 KMASK:   T = no_monster_gen
@@ -1104,6 +1112,7 @@ ENDMAP
 ##############################################################################
 NAME:   co_arrival_square_in_a_square_in_a_square
 TAGS:   arrival transparent
+WEIGHT: 1
 ORIENT: float
 MAP
 x@xxxxxxxxxxxxxxx@x
@@ -1238,6 +1247,7 @@ ENDMAP
 
 NAME:    denvon_arrival_waterhouse
 TAGS:    arrival no_monster_gen no_pool_fixup transparent
+WEIGHT:  1
 ORIENT:  float
 WEIGHT:  3
 SHUFFLE: {[
@@ -1267,6 +1277,7 @@ ENDMAP
 
 NAME:    denvon_arrival_hothouse
 TAGS:    arrival no_monster_gen no_pool_fixup transparent
+WEIGHT:  1
 ORIENT:  float
 WEIGHT:  1
 SHUFFLE: {[
@@ -1996,6 +2007,7 @@ ENDMAP
 
 NAME: nzn_arrival_water_spiral
 ORIENT: float
+WEIGHT: 1
 TAGS: arrival no_monster_gen no_pool_fixup
 MAP
            @
@@ -2020,6 +2032,7 @@ ENDMAP
 
 NAME: nzn_arrival_depleted_hourglass
 ORIENT: north
+WEIGHT: 1
 TAGS: arrival no_monster_gen no_pool_fixup no_rotate no_vmirror
 SUBST: E : x+
 MAP
@@ -2044,6 +2057,7 @@ ENDMAP
 
 NAME:   giann_horns
 TAGS:   arrival no_monster_gen
+WEIGHT: 1
 ORIENT: float
 MAP
 x@xx...................xx@x
@@ -2058,6 +2072,7 @@ ENDMAP
 
 NAME:   giann_bridges
 TAGS:   arrival no_monster_gen
+WEIGHT: 1
 KPROP:  W = no_tele_into
 MONS:   plant
 ORIENT: float
@@ -2088,28 +2103,6 @@ xx..S.............S..xx
  xxxxxx....{....xxxxxx
       xx.......xx
        xxxxxxxxx
-ENDMAP
-
-NAME:   giann_forest_graveyard
-TAGS:   arrival no_monster_gen
-MONS:   plant
-ORIENT: float
-SUBST:  s = hhh..
-: dgn.delayed_decay(_G, 'h', 'human skeleton')
-MAP
-xxxxxxxxxxxxxx.xxxxxxxxxxxxxx
- tt.......................tt
- tt..G..G...........G..G..tt
- tt...ss.............ss...tt
-ttt...ss.............ss...ttt
-tt...G..G...........G..G...tt
-tt............{............tt
-tt...G..G...........G..G...tt
-ttt...ss.............ss...ttt
- tt...ss.............ss...tt
- tt..G..G...........G..G..tt
- tt.......................tt
-xxxxxxxxxxxxxx.xxxxxxxxxxxxxx
 ENDMAP
 
 NAME:   ebering_hopf_link
@@ -2208,6 +2201,7 @@ ENDMAP
 
 NAME:       psy_arrival_dodecagon
 TAGS:       arrival no_monster_gen transparent
+WEIGHT:     1
 ORIENT:     float
 SUBST:      p:Wvb
 SUBST:      q:..xl
@@ -2241,7 +2235,7 @@ ENDMAP
 
 NAME:       psy_arrival_heroes
 TAGS:       arrival no_monster_gen
-WEIGHT:     5
+WEIGHT:     1
 ORIENT:     float
 SUBST:      p : c@
 MAP
@@ -2268,6 +2262,7 @@ ENDMAP
 
 NAME:       psy_arrival_radial01
 TAGS:       arrival no_monster_gen
+WEIGHT:     1
 ORIENT:     float
 SHUFFLE:    pqr
 SUBST:      p:x, q:x, r:@
@@ -2289,35 +2284,6 @@ xxxxx.xxx.xx.x..x
 x...x.x...x..x.xx
 x.x...x.xxx.xx..p
 ppxxxxxrr qqqxxxp
-ENDMAP
-
-NAME:       psy_arrival_radial02
-TAGS:       arrival no_monster_gen no_pool_fixup
-ORIENT:     float
-SHUFFLE:    JKLM
-SUBST:      JKL:x, M:@, p:llWWvbx
-MAP
-pJxKxxxLxxxxMpppppppp
-p.x.x...x....p......J
-p.x.x.xxx.pppp.xxxxxx
-p.x.x.x...p.........K
-p.x.x.x.ppp.xxxxxxxxx
-p.x.x...p...........x
-p...x.ppp.ppppp.xxx.x
-ppp.x.p...p...p...x.L
-M.p.x.p.ppp.p.ppp.xxx
-x.p...p.....p...p...x
-x.ppp.ppp.{.ppp.ppp.x
-x...p...p.....p...p.x
-xxx.ppp.p.ppp.p.x.p.M
-L.x...p...p...p.x.ppp
-x.xxx.ppppp.ppp.x...p
-x...........p...x.x.p
-xxxxxxxxx.ppp.x.x.x.p
-K.........p...x.x.x.p
-xxxxxx.pppp.xxx.x.x.p
-J......p....x...x.x.p
-ppppppppMxxxxLxxxKxJp
 ENDMAP
 
 NAME:       psy_arrival_whirlpool

@@ -409,81 +409,6 @@ static bool _check_fall_down_stairs(const dungeon_feature_type ftype, bool going
     return false;
 }
 
-static void _rune_effect(dungeon_feature_type ftype)
-{
-    vector<int> runes;
-    for (int i = 0; i < NUM_RUNE_TYPES; i++)
-        if (you.runes[i])
-            runes.push_back(i);
-
-    ASSERT(runes.size() >= 1);
-    shuffle_array(runes);
-
-    // Zot is extra flashy.
-    if (ftype == DNGN_ENTER_ZOT)
-    {
-        ASSERT(runes.size() >= 3);
-
-        mprf("You insert the %s rune into the lock.", rune_type_name(runes[2]));
-#ifdef USE_TILE_LOCAL
-        view_add_tile_overlay(you.pos(), tileidx_zap(rune_colour(runes[2])));
-        viewwindow(false);
-        update_screen();
-#else
-        flash_view(UA_BRANCH_ENTRY, rune_colour(runes[2]));
-#endif
-        mpr("The lock glows eerily!");
-        // included in default force_more_message
-
-        mprf("You insert the %s rune into the lock.", rune_type_name(runes[1]));
-        big_cloud(CLOUD_BLUE_SMOKE, &you, you.pos(), 20, 7 + random2(7));
-        viewwindow();
-        update_screen();
-        mpr("Heavy smoke blows from the lock!");
-        // included in default force_more_message
-    }
-
-    mprf("You insert the %s rune into the lock.", rune_type_name(runes[0]));
-
-    if (silenced(you.pos()))
-        mpr("The gate opens wide!");
-    else
-        mpr("With a soft hiss the gate opens wide!");
-    // these are included in default force_more_message
-}
-
-static void _maybe_use_runes(dungeon_feature_type ftype)
-{
-    switch (ftype)
-    {
-    case DNGN_ENTER_ZOT:
-        if (!you.level_visited(level_id(BRANCH_ZOT, 1)) && !crawl_state.game_is_descent())
-            _rune_effect(ftype);
-        break;
-    case DNGN_EXIT_VAULTS:
-        if (vaults_is_locked())
-        {
-            unlock_vaults();
-            _rune_effect(ftype);
-        }
-        break;
-    default:
-        break;
-    }
-}
-
-static void _gauntlet_effect()
-{
-    // already doomed
-    if (you.stasis())
-        return;
-
-    mprf(MSGCH_WARN, "The nature of this place prevents you from teleporting.");
-
-    if (you.get_base_mutation_level(MUT_TELEPORT))
-        mpr("You feel stable on this floor.");
-}
-
 static void _hell_effects()
 {
 
@@ -654,10 +579,6 @@ static level_id _travel_destination(const dungeon_feature_type how,
         mpr("The shaft crumbles and collapses.");
         _maybe_destroy_shaft(you.pos());
     }
-
-    // Maybe perform the entry sequence (we check that they have enough runes
-    // in main.cc: _can_take_stairs())
-    _maybe_use_runes(how);
 
     // Markers might be deleted when removing portals.
     const string dst = env.markers.property_at(you.pos(), MAT_ANY, "dst");
@@ -959,15 +880,6 @@ void floor_transition(dungeon_feature_type how,
                 update_vision_range();
         }
 
-        if (how == DNGN_ENTER_VAULTS && !runes_in_pack())
-        {
-            lock_vaults();
-            mpr("The door slams shut behind you.");
-        }
-
-        if (branch == BRANCH_GAUNTLET)
-            _gauntlet_effect();
-
         const set<branch_type> boring_branch_exits = {
             BRANCH_TEMPLE,
             BRANCH_BAZAAR,
@@ -1016,10 +928,6 @@ void floor_transition(dungeon_feature_type how,
         _new_level_amuses_xom(how, whence, shaft,
                               (shaft ? whither.depth - old_level.depth : 1),
                               !forced);
-
-        // scary hack!
-        if (crawl_state.game_is_descent() && !env.properties.exists(DESCENT_STAIRS_KEY))
-            load_level(how, LOAD_RESTART_GAME, old_level);
     }
 
     // This should maybe go in load_level?

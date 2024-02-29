@@ -14,34 +14,27 @@ The Ecumenical Temple is a place of peace and refuge from the insanity of the
 dungeon. It usually contains altars to most of the known gods. Gods that value
 exploration grant no piety for exploring the Temple.
 %%%%
-Orcish Mines
+Armory
 
-The Orcish Mines are filled with the cave orcs native to the Dungeon, their
-humanoid labourers, and piles of freshly mined gold. Enterprising merchants
-have set up trading posts to help relieve the orcs of the latter.
+The Armory is filled with humanoid creatures ready to fight both in melee and
+at range. Floors in this branch will give you an extra weapon or armour choice.
 %%%%
-Elven Halls
+Mage Tower
 
-The Elven Halls are home to the deep elves, a race that turned their backs on
-the sun long ago. Their halls are filled with riches, but a deadly welcome
-awaits any would-be robbers. In their long seclusion, the deep elves have
-perfected dark sorceries of a power the orcs can only dream of!
+The Mage Tower is run by wizards, sorcerers, druids, and other students of the
+arcane, and staffed by their magically created pets. Floors in this branch will
+give you an extra spell choice.
 %%%%
 Lair
 
 Most adventurers find the Lair of Beasts to be an exciting change of climate.
 And indeed, there is something to be said about getting gored, mauled and eaten
 rather than sliced, burnt or stabbed.
-
-The Lair contains the entrances to one of the Swamp or the Shoals, one of the
-Snake Pit or the Spider Nest, and to the Pits of Slime.
 %%%%
-Swamp
+Cold Storage
 
-A swampy wasteland, the Swamp is filled with ooze, muck, flies and large
-slavering carnivorous monsters.
-
-A dungeon features only one of the Swamp and Shoals branches.
+It's cold and damp here. Floors in this branch will give you an extra item
+choice that is likely to either be cold or resist cold.
 %%%%
 Shoals
 
@@ -51,19 +44,17 @@ dreaded sea creatures.
 
 A dungeon features only one of the Shoals and Swamp branches.
 %%%%
-Snake Pit
+Workshop
 
-The corridors of the Snake Pit are home to all varieties of serpent, and are
-inhabited by a society of powerful nagas and salamanders.
-
-A dungeon features only one of the Snake Pit and Spider Nest branches.
+The Workshop contains cast-off gadgets and gizmos made by the Artificer. Some of
+these creations are quite lifelike, and nearly all of them are dangerous. Floors
+in this branch will give you an extra evocable item choice.
 %%%%
-Spider Nest
+Forge
 
-The crumbling, web-choked caverns of the Spider Nest are packed with poisonous
-arthropods and assorted creepy-crawlies.
-
-A dungeon features only one of the Spider Nest and Snake Pit branches.
+The rough clang of metal echoes constantly through the stifling heat of the
+Forge. Floors in this branch will give you an extra choice of upgrade on one of
+your equipped items.
 %%%%
 Slime Pits
 
@@ -72,17 +63,16 @@ walls drip with painful acid. Any trace of intelligent beings has long been
 dissolved. Still, there are rumours of great treasures deep down, hidden safely
 away in secret chambers without any entrance.
 %%%%
-Vaults
+Fortress
 
-Possibly constructed by some powerful madman, the Vaults are said to be home to
-great treasures. The blood spattered liberally around the entrance suggests
-that there is a certain amount of violence, too.
+A massive floor, filled with powerful guardians. The Artificer's Sanctum lies
+just beyond, if you can breach it.
 %%%%
 Crypt
 
-The Crypt is a huge repository for the ancient dead. The air is chill and
-fetid, the walls cold and damp. Bones are strewn liberally everywhere, and
-every noise echoes worryingly, violating the overbearing silence of the grave.
+Watch out for skeletons. Floors in this branch will give you an extra item
+choice, usually one related to necromancy, evil, or undeath. Additionally,
+altars are more common in this branch.
 %%%%
 Tomb
 
@@ -126,13 +116,9 @@ this place drain the life from any who dare to enter.
 
 The all-pervading rot saps visitors' willpower.
 %%%%
-Zot
+Sanctum
 
-The Realm of Zot is a region of the dungeon that is so terrifying, so full of
-madness, frenzy and lunacy, that it has been locked securely against random
-trespassers. Only the most demented adventurers would dare gather the required
-keys, break the seal and penetrate deeper — all in the vain hope for a fabled
-artefact no one has ever laid eyes on before.
+The Artificer awaits.
 %%%%
 Abyss
 
@@ -266,8 +252,7 @@ capable of constructing such a realm deserved their reputation.
 %%%%
 Depths
 
-The Depths are the deepest part of the dungeon proper, subject to the
-corrupting influence of the Realm of Zot without being considered a part of it.
+The Depths are the deepest part of the dungeon proper.
 %%%%
 Desolation
 

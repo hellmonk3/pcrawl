@@ -8,7 +8,7 @@ TAGS:   allow_dup extra luniq_serial decor nolayout_encompass
 DEPTH:  D, Depths, Lair
 CHANCE: 1%
 {{
-  local c = 4 + crawl.random2(3)
+  local c = 2 + crawl.random2(3)
   hook("post_place", function()
     dgn.place_maps{tag="serial_rivers", count=c}
   end)

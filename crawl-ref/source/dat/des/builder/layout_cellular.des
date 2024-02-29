@@ -110,13 +110,13 @@
 #       to remove that delay?
 #
 NAME:   layout_cellular_growth
-DEPTH:  Lair, Zot, Pan
-WEIGHT: 2 (Lair), 5 (Zot), 10 (Pan)
+DEPTH:  Lair, Sanctum, Pan
+WEIGHT: 5 (Lair), 5 (Sanctum), 10 (Pan)
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local doors = you.in_branch("Dis")
@@ -126,7 +126,7 @@ TAGS:   overwritable layout allow_dup unrand layout_type_passages
     maximum_size = crawl.random_range(5,8),
     -- TODO: Having a minimum size of 1 looks great but is really slow until the
     -- border counting is optimised, it also requires a higher number of seeds/iters than normal
-    minimum_size = doors and crawl.random_range(4,5) or crawl.random_range(3,4),
+    minimum_size = doors and crawl.random_range(4,5) or crawl.random_range(2,4),
     subdivide_initial_chance = 90,
     subdivide_level_multiplier = .9,
   }
@@ -236,8 +236,8 @@ ENDMAP
 #  -> This layout regenerates a lot.  Figure out why and fix it.
 #
 NAME:   layout_gridville
-DEPTH:  D:4-, Depths, Zot, Dis, Pan
-WEIGHT: 10 (D), 10 (Depths), 5 (Zot), 15 (Dis), 10 (Pan)
+DEPTH:  D, Armory, Tower, Workshop, Dis, Pan
+WEIGHT: 10
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_passages
 {{
@@ -349,18 +349,17 @@ ENDMAP
 #       longer appears in D.
 # TODO: Remove all "filled" rooms from Lair.  Lair ruination
 #       does strange and terrible things to them.
-# TODO: Only place lava rooms in Depths, Zot, and Pan
+# TODO: Only place lava rooms in Depths, Sanctum, and Pan
 #
 NAME:   layout_gridlike
-DEPTH:  Elf, Lair, Snake, Crypt, Depths, Zot, Pan
-WEIGHT: 20 (Elf), 10 (Lair), 10 (Snake), 15 (Crypt)
-WEIGHT: 20 (Depths), 20 (Zot), 15 (Pan)
+DEPTH:  D, Armory, Tower, Workshop, Sanctum, Pan
+WEIGHT: 20
 ORIENT: encompass
 TAGS:   overwritable layout allow_dup unrand layout_type_rooms
 TAGS:   no_rotate no_vmirror no_hmirror
 {{
   if is_validating() then return; end
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
   extend_map { width = gxm, height = gym, fill = 'x' }
 
   local open = crawl.coinflip()
@@ -395,14 +394,14 @@ TAGS:   no_rotate no_vmirror no_hmirror
     collapse_rooms = false
     big_corridors = true
     maxcorridor = crawl.random_range(2,3)
-  elseif you.in_branch("Elf") then
+  elseif you.in_branch("Tower") then
     corners = true
     doors = false
     regular_grid = true
     maxcorridor = crawl.random_range(1,2)
     fills = true
     mid_doors = true
-  elseif you.in_branch("Snake") then
+  elseif you.in_branch("Workshop") then
     corners = true
     corridor_doors = crawl.coinflip()
     random_rooms = crawl.coinflip()

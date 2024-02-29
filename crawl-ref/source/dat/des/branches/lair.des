@@ -3,10 +3,6 @@
 #           Content order: branch entries, vault sets, decorative vaults,
 #           other normal vaults, small ending vaults, large ending vaults.
 #
-#           Branches off of Lair can be found in their relevant file:
-#           Swamp - swamp.des                Shoals - shoals.des
-#           Snake Pit - snake.des            Spider Nest - spider.des
-#           Pits of Slime - slime.des
 ################################################################################
 
 {{
@@ -21,29 +17,6 @@ function wad_woods_setup(e, uniq, weight, mist, delaynum, sizenum, spreadnum)
     e.mons("bush")
     e.mons("fungus")
 
-    if you.in_branch("Lair") then
-        e.mons("spriggan")
-        if you.absdepth() >= 13 then
-            e.mons("wyvern / elephant w:4 / dream sheep w:2")
-        else
-            e.mons("wolf / black bear w:4 / yak w:2")
-        end
-    else
-        if you.absdepth() >= 12 then
-            e.mons("centaur warrior / two-headed ogre")
-            e.mons("hell rat")
-        elseif you.absdepth() >= 8 then
-            e.mons("centaur / troll")
-            e.mons("elephant")
-        elseif you.absdepth() >= 5 then
-            e.mons("gnoll / ogre w:1")
-            e.mons("river rat")
-        else
-            e.mons("gnoll")
-            e.mons("quokka")
-        end
-    end
-
     e.ftile(".t+%*|q012345678COGTU = floor_grass")
 
     e.kfeat("O = shallow_water")
@@ -51,21 +24,6 @@ function wad_woods_setup(e, uniq, weight, mist, delaynum, sizenum, spreadnum)
         e.lua_marker("O", fog_machine { pow_min = 3, pow_max = 7, delay = delaynum,
                           size = sizenum, walk_dist = 1, spread_rate = spreadnum } )
     end
-end
-
-function lair_small_ending(e)
-    e.tags('lair_end_small')
-    e.weight(5)
-
-    if e.is_validating() then return end
-
-    e.hook("post_place", function ()
-        if not dgn.persist.lair_second_ending_built then
-            dgn.persist.lair_second_ending_built = true
-            dgn.place_maps { tag = "lair_end_small" }
-            dgn.persist.lair_second_ending_built = nil
-        end
-    end)
 end
 }}
 
@@ -75,7 +33,7 @@ end
 # Dummy Lair entry
 NAME:   lair_entry_dummy
 TAGS:   lair_entry extra transparent
-WEIGHT: 30
+WEIGHT: 100
 ORIENT: float
 KFEAT:  O = enter_lair
 MAP
@@ -88,19 +46,16 @@ ENDMAP
 NAME:    david_lair_generic
 TAGS:    lair_entry transparent
 ORIENT:  float
-MONS:    black bear / basilisk
-MONS:    wyvern, yak / death yak w:2, elephant
 KMONS:   P = plant / fungus
-SHUFFLE: 234, A1
 SUBST:   A = ., P = P.
 KFEAT:   O = enter_lair
 MAP
 xxxx..@..xxxx
 xx.........xx
 x..P.A...P..x
-..PP..1...P..
-@....2O3....@
-..P...1..P...
+..PP......P..
+@.....O.....@
+..P......P...
 x..P...A....x
 xx.........xx
 xxxx..@..xxxx
@@ -110,14 +65,13 @@ ENDMAP
 NAME:   david_lair_shrubbed
 TAGS:   lair_entry transparent
 ORIENT: float
-MONS:   komodo dragon
 KMONS:  P = plant
 KFEAT:  O = enter_lair
 SUBST:  ' = P.
 MAP
 xxxxxxxxxxxxx
 xxPPPPPPPPPxx
-xPP1.'PPPPPPx
+xPP..'PPPPPPx
 xPP.O.'PPP''.
 xPP'..PPP'..@
 xPPPPPP''....
@@ -126,99 +80,29 @@ xx.''..'...xx
 xxxx..@..xxxx
 ENDMAP
 
-# Lair monsters near stair
 NAME:    dpeg_lair_monsters
 TAGS:    ruin lair_entry transparent
 ORIENT:  float
-MONS:    yak, death yak
-MONS:    iguana w:20 / black bear w:20 / komodo dragon / basilisk w:5
-MONS:    river rat / hell rat / quokka / rat
-MONS:    bullfrog w:40 / blink frog / cane toad
-SHUFFLE: 1345
-NSUBST:  1 = 2:11112 / * = 1..
-NSUBST:  3 = 1:2 / * = 2.., 5 = 1:4 / * = 4:5 .:9
 SUBST:   y = xx.
 KFEAT:   O = enter_lair
 MAP
 xxxxx...@...y
-x111.........
-x111.y...2...
-x11.y...y...@
+x............
+x....y.......
+x...y...y...@
 x..yy.O.yy...
 @...y...y....
-...2...y2.yy.
+.......y..yy.
 ..........yy.
 y...@........
-ENDMAP
-
-# Obligatory Oklob Plant Lair Entry Vault
-NAME:   dpeg_oklobed_lair
-TAGS:   lair_entry no_monster_gen no_pool_fixup transparent
-ORIENT: float
-MONS:   fungus, plant, oklob plant
-KFEAT:  O = enter_lair
-: if you.absdepth() < 10 then
-SUBST:  A = 11., B = 2.
-: else
-SUBST:  A = 2
-:    if you.absdepth() < 11 then
-NSUBST: B = 2 = 3... / * = 2.
-:    else
-NSUBST: B = 3 = 33... / * = 2.
-:    end
-: end
-MAP
-...xxxxxxx...
-..x...w...x..
-....x...x....
-...xxBBBxx...
-.x..BAAAB..x.
-.xw.BAOAB.wx.
-.x..BAAAB..x.
-...xxBBBxx...
-....x...x....
-..x...w...x..
-...xxxxxxx...
-ENDMAP
-
-# Grove Lair entry
-NAME:   minmay_lair_entry_grove
-TAGS:   lair_entry no_monster_gen transparent
-ORIENT: float
-MONS:   wyvern / basilisk w:4, yak, black bear / wolf
-MONS:   water moccasin w:14 / iguana w:2 / scorpion w:2
-KMONS:  P = plant / bush w:2 / fungus w:2
-KFEAT:  O = enter_lair
-NSUBST: . = 1:1 / 2:2 / 2:4 / 2 = 12 / 1 = 4. / 12:P / * = .:450 t:20 P:40
-NSUBST: ' = 1:1 / 1:2 / 1:4 / 1 = 12 / 1 = 40 / 8:P / * = .:250 t:20 P:40
-SUBST:  2 : 223
-validate {{ return has_exit_from_glyph('O') }}
-MAP
-     .....
-   .........
-  ...........
- .............
- .....'''.....
-.....'''''.....
-....'''''''....
-....'''O'''....
-....'''''''....
-.....'''''.....
- .....'''.....
- .............
-  ...........
-   .........
-     .....
 ENDMAP
 
 # Lava Lair entry
 NAME:   minmay_lair_entry_lava
 TAGS:   lair_entry no_monster_gen transparent
 ORIENT: float
-WEIGHT: 1
-MONS:   fire crab
 KFEAT:  O = enter_lair
-NSUBST: M = 1 / L
+NSUBST: M = . / L
 SUBST:  L = l.
 MAP
 .........
@@ -236,20 +120,19 @@ ENDMAP
 NAME:   erik_lair_island
 TAGS:   lair_entry transparent
 ORIENT: float
-MONS:   troll, hound w:15 / wolf
 KFEAT:  O = enter_lair
-SUBST:  - = w., 2 = 2:5 .:1
+SUBST:  - = w.
 MAP
 .@........wwwwww-.....
 ..-.-.-..wwwwwww.-..-.
 ..--w..wwwwwwwww-.--..
 ...--w.wwwwwwwwwwww-..
 ...wwww-wwwwwwwwww--..
-..wwwwww--w--w2wwww..@
+..wwwwww--w--w.wwww..@
 ..wwwwww--....wwww---.
-....1....2.2O2.wwww...
-..-wwwww---2.2www.ww-.
-.....wwww2..w.2www....
+............O..wwww...
+..-wwwww---...www.ww-.
+.....wwww...w..www....
 ..wwwwwwwww-.wwww---..
 @..wwwwwwwwwwwwwww....
 ....-ww..ww-www..w....
@@ -257,115 +140,26 @@ MAP
 ...........-...@......
 ENDMAP
 
-# Dragon's Lair, for generous values of Dragon
-NAME:    erik_lair_dragon
-TAGS:    lair_entry no_rotate
-ORIENT:  float
-MONS:    steam dragon / acid dragon / swamp drake
-MONS:    basilisk / wyvern / komodo dragon
-NSUBST:  2 = 3=2 / 3=2. / .
-SHUFFLE: %!*O
-SUBST:   z = .xc, ! = %
-KFEAT:   O = enter_lair
-MAP
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxzxxxzxzxxzx.2xxzxxxzx*zxxxz.2.xxxx
-xxxxxxxxxxxxxxx.2.......zxx.x.zxxxz.zzxxxxzx.zxxx
-xxxxxxxxxxxxxz....xxx...2....zzzzzz..zzzzx..%cccc
-xxzxxzzzxxxxx..xxzzxxzz..........z...zzz..zzc+.zc
-@......xxx.2.xxzxxxxxxzxzxzz.......1...2.x.ccc.zc
-xxxzxxx...xxxxxxxxxxxxzxxxx.zz.2...z......zccc$cc
-xxxxxxzxxxzxxxxxxxxxxxx....xxzz...z....zz..zzcczc
-xxxxxxxxxxxxxxxxxxxxxzz2xxxzxxzzzz..zzz2zz.2Ozccc
-xxxxxxxxxxxxxxxxxxxxxz!zxxxxxxxxxx.xxxzxxxzxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
 # Orcish Takeover!
 NAME:   erik_lair_orcish_takeover
 TAGS:   lair_entry transparent
 ORIENT: float
-MONS:   orc, warg, orc warrior / warg
-MONS:   orc priest / orc wizard / plant
 KFEAT:  O = enter_lair
 MAP
 xxxx..@..xxxx
 xx.........xx
-x...2...44..x
-...4..1......
-@....3O.....@
-......1..4...
-x...4...2...x
+x...........x
+.............
+@.....O.....@
+.............
+x...........x
 xx.........xx
 xxxx..@..xxxx
-ENDMAP
-
-# Plant/fungus spiral (due)
-NAME:   due_lair_maze_entry_diamond
-TAGS:   lair_entry transparent
-ORIENT: float
-MONS:   water moccasin w:30 / scorpion / bullfrog w:30 / \
-        black bear w:25 / yak / komodo dragon w:5
-KMONS:  P = plant / fungus
-KFEAT:  O = enter_lair
-SUBST:  P = P:60 `
-NSUBST: 1 = 3:1 / * = 1:30 P .
-NSUBST: . = 10:P / 10 = P. / 4:1 / 2 = 3. / *:.
-validate {{ return has_exit_from_glyph('O') }}
-MAP
-       ..P.P..
-     ...........
-   ..P.P.PP.PP....
- .....PP..PP1PP..P.
- .P..PPPP.PP.PPP...
-....P.PPPP1PP.PPP....
-.P.PPP1P.PPP.P.PPP...
-...PPPP.P1PP.P.PPP...
-...PPP.PPPO.PP.P.P...
-.P.P1....PPPP1PP.P.P.
-..PPPPPP.PPP.PP.P....
- ....PPPP.P.PP.P..P.
- P....PPPP.PP.P..P..
-   .P..PPPPP.P....
-     ......P....
-       ..P....
-ENDMAP
-
-# A guard hut placed over the entrance of the lair,
-# and a guard to watch over it.
-NAME:   grunt_lair_entry_orc_guard_hut
-TAGS:   lair_entry transparent
-ORIENT: float
-MONS:   bullfrog w:30 / scorpion w:20 / black bear w:20 / yak \
-        / komodo dragon w:5
-MONS:   patrolling orc warrior
-KMONS:  P = plant / fungus
-KFEAT:  O = enter_lair
-NSUBST: D = 2:1 / 2 = 1` / * = P``, 1 = 3:1 / 2 = 1. / * = `
-SUBST:  P = PP`, . = P:1 .:5, ` = .
-validate {{ return has_exit_from_glyph('O') }}
-MAP
-    ...@..
-  ..D.P.P...
- ..D.PDPDP...
- .D.PD11PDP..
-.D.PDPDPDPDP..
-..PDPccccDPDP.
-@PD1DcO2cP1P..
-..P1Pc%`cD1DP@
-.PDPDcc+cPDP..
-..PDPDP`PDP.D.
- ..PDP11DP.D.
- ...PDPDP.D..
-  ...P.P.D..
-    ..@...
 ENDMAP
 
 NAME:   hellmonk_lair_entry_icy
 TAGS:   lair_entry transparent
 ORIENT: float
-MONS:   ice beast, wolf / polar bear w:3, rime drake
-NSUBST: 3 = 3 / 2.., . = 2 / 4 = 2... / .
 SUBST:  x = xxx., - = W:5 ':25 x:20 .:15
 NSUBST: ' = 16 = 1''' / '
 KFEAT:  O = enter_lair
@@ -380,11 +174,11 @@ MAP
   -'''.........'''-
  -'''.x.x...x.x.'''-
  -'''..xxx.xxx..'''-
--'''-.xxx.3.xxx.-'''-
+-'''-.xxx.x.xxx.-'''-
 -'''-..x.....x..-'''-
--'''-...3.O.3...-'''-
+-'''-...x.O.x...-'''-
 -'''-..x.....x..-'''-
--'''-.xxx.3.xxx.-'''-
+-'''-.xxx.x.xxx.-'''-
  -'''. xxx.xxx..'''-
  -'''.x x...x.x.'''-
   -'''.........'''-
@@ -403,83 +197,6 @@ ENDMAP
 # early outdoors portal vault. Can generate in Lair and occasionally D.
 # uniq_ tagged by tier: large, medium, small, rock, and decor.
 #
-NAME:   wad_woods_pond
-DEPTH:  D:2-, Lair
-ORIENT: float
-: wad_woods_setup(_G, "large", 1, true, 21, 2, 36)
-FTILE:  ' = floor_dirt
-MAP
-                 .         tt.
-             tttt. tt  ttttt...ttt    tt   tt
-         tttttttt...ttttttt....tttt....t. ttt
-      tttt11.tt.t...t11t.......tt.ttttt..t..tt
-     ttttttt..tt.t1...t.1t...t...t...tttt..t.tt
-   ttt.tt.ttt1t1t.t.....tt.........t....ttt....
-  ttt....tttt.t.........Wt.t............t..t.t
- ttttt..ttt.t...t.W.OWtWt1t....1........t....tt
- tt11.tttt1.t..t...W1tWWtW1tWt....1....'.''..tt
-ttt1.t.1t.t......WtWWWwWWtWWtWtW.W......''...t
- tt...t........tWtWWww.w0%WWWWWWWt.1......'..t
-  tttt...t...t....ttWWtwwtWWWtWW1W......11t1.tt
-  ttt...11t1t.t...W.W.WWWWtW1tW.tt.......t.tttt
- tt.t.t.tt.t1tttt....W.tWtW1WO.t....1...t1.t...
-ttt..tttttt.tt.t.t.1.........1.........ttt..1t
- tt.t...tttt.t1.11................t.t.t.ttttt
- tt...t..t.tt1t11..1t..........t1t.t.t1t.tt1.
- tt....1t..tt.t1...ttt1...1...t.t.t.t.t.t.t...
-ttt....tt1tt.t......1ttt1...tttt.ttt1t.t.t.tt..
- tt...t11tt..1t........tt.1t.tt.tt.tt1t.t.t.tt.
- .t......t..1t1.....1..1t.t.tt.t.t.t.t.t.t.t
-...t.......t1.........1t1tt..1tt..t.ttt.t.t.
- .t1t....1.....'.....t.1..tt.t..t..11ttt1t.t
-  1.tt.1.....''''...tt..t..tt..t1.1tt..tt1t.t
-     ......'''''.....tt.t.11tt..t..t.1t..t.t.t
-      ..1...'.'''..t..t.11.t.tt...t1.ttt..t..t
-      t.........1...tt.1.tt.tt..t.tttt...t..tt
-      .t1.1..1.......t..t.t.1tt.t11..t.t..1t
-       ..1.11..1.11t.1t.tttt.t.t1.t.ttt..1ttt
-          ..111.1.ttttttt    ttttt tttttt.tt
-            ......ttttt       ttt  tttttt..
-              ..   ttt                    .
-ENDMAP
-
-NAME:   wad_woods_settlement
-DEPTH:  D:2-, Lair
-ORIENT: float
-: wad_woods_setup(_G, "large", 1, true, 21, 2, 36)
-NSUBST: 4 = 2:4 / 1 = 4' / *:', 6 = 4
-FTILE:  '4*+ = floor_dirt
-MAP
-               ..  tttt   ...   ...
-          .tt.t...t11t.......tt.ttt
-       .tt..tt.t1...t.1t...t...t...ttt
-     tt.ttt1t1t.t................t....ttt.
-      .t.tt.t.......xxx...............t..t.
-    ..ttt.t...xxx...+4x'''''''1......x.t..
-  1.tt.t1.....x4+'''xxx'....x+xx1...x.....
-t1.t.1t.t.....xxx..'1'''..1.x''x..........
-t...t..............'''1..T..x*6x..1.x......
-tttt...t...t.........'.%....xx+x1...x.11t1.
- tt...11t1t.t.....x..''''''''''........t.ttt
-..t.t.tt.t1tt.t....x''.xxxx.......1...t1.t.
-t..tt...t.tt.t.t.1''x''+%4x..........ttt..1
-t.t...tt.tOt1.11.'....1xxxx1....t.t.t.ttttt
- ...t..t.tt1t11.'1t..........t1t.t.t1t.tt1.
-  ...1t.%tt.t1..'tt.1....1..t.t.t.t.t.tOt...
-  ...tt1tt.t....'.1ttt1...tttt.ttt1t.t.t.tt
-  ..t11tt..1t...'....tt.1t.tt%tt.tt1t5t.t
- ......t..1t1..G4G1..1t.t.tt.t.t.t.t.t.t.t
-.t.......t1.....'...1t1tt..1tt..t.ttt.t.t
-t1t....1........'..t.1..tt.tO.t..11ttt1t.
-1.tt.1....xxx..'..tt..t..tt5.t1.1tt..tt1tt
-  t.......x4+''....tt.t.11tt..t..t.1t..t.t.
-  tt..1...xxx....t..t.11.t.tt...t1.ttt..t...
-.t1.t.........1...tt.1.tt.tt..t.tttt...t..tt
-1.t1.t1.1..1.......t%.t.t.1tt.t11..t.t.51ttt
-tt.11..1.11..1.1  .1t.ttt      .t.ttt..1tt
-.1t   .1  111. .     tt        tt.t ttt.tt
-ENDMAP
-
 NAME:   wad_woods_tower
 DEPTH:  D:2-, Lair
 ORIENT: float
@@ -847,7 +564,7 @@ ENDMAP
 
 NAME:   wad_woods_minihive
 TAGS:   uniq_beehive
-DEPTH:  D:8-, Lair
+DEPTH:  D:2-, Lair
 ORIENT: float
 MONS:   killer bee, queen bee
 KMONS:  8 = meliai
@@ -881,108 +598,6 @@ tt.t.1.1aaaaaaaWWwW1.t..t.tt
   1..t.tt..tt.tWWt1.1tt...
     t.tttxtttt1ttttttxx.
       .txxxt   ttxxtttt.
-ENDMAP
-
-NAME:   wad_woods_structure_01
-TAGS:   no_monster_gen
-DEPTH:  D:10-, Lair
-ORIENT: float
-: wad_woods_setup(_G, "large", 5, false, 0, 0, 0)
-FTILE:  "2T = floor_grass
-FTILE:  @'0+ = floor_dirt
-MAP
-   ttxcxxxxxxxxxxxxxxxxxxxxxxxcxxxxxct
- ttttxc''''+''0'xxxxxx'''+''0'cx0'0'ctt
- t.ttxc''0'xxxx'x''00x'''x''''cx''''ctt
- tt.txc'0''x''x'x''''x''0x''''cx''''ct1
-tt.t.xc''''x''+'+'''0x'''x''''cc+cc+ct1tt
-t.t.txccc++ccccccxcxcxcxcc++cccx'x2'2tt1tt
-tttt.t.tt''tttttttcttttttt''ttx''x"'"ttt1t
-  ttt..tt''''''tttcttt''''''ttxxxx2'2tt1tt
- ttt.tt..ttttt''ttctt''t...t.ttt.2"'"2.tt
- t.tt.t.t.t..tt''tct''ttt..tttx22""'""22tt
- tt.tt.ttt...t.t''c''t..t.t..tx2""'''""2tt
- ttt.ttt..t.t.t..'''tt.t.ttt..x"2''T''2"tt
-  ttt...ttt.tt...0'0t.tt...tt.x2""'''""2t
-  ttt.t.t..t.t...'''ttt..tt..tx22""'""22tt
-tcccccccccccccccc+c+ccccccccccccccc+ccccct
- tttttt.111ttt.1x'x'xtttttttttttttt1ttttt
- ttt%1.tttt1..tt.'''.ttttttttttttt1.1tt
-  ttt.tt..1txxxc.'''.cxxxttt1tttttt.tttt
- tt.tttt%.ttt1tt.'''.tttttt.t1ttttt.%*tt
-  tt.1ttt.tt1txx.'''.xxtt..ttt%tttttt..t
-  ttt.%.tt.tttcG.'''.Gct1tttttt.tttt..ttt
- ttt.t1t1t.tttxx.'''.xx1ttttttt.ttttt.ttt
- tt.tttt*.tt1ttt.'''.11ttttttt.tt1t.1tttt
- ttt1tttttttt1xx.'''.xxtttttt.t.%t1tt
- ttt..ttttttttcG.'''.Gcttttttt%.t.
-  tttt1.%tt   xx..'..xxtttt
-   ttttttt     1t.@.tttt
-ENDMAP
-
-###############################################################################
-# A set of vaults converted from the ultimately-dispersed Forest.
-
-NAME:   grunt_forest_stairs_basic
-TAGS:   transparent extra luniq_staircase decor
-DEPTH:  Lair
-MONS:   plant
-SUBST:  1 = 1.
-: if you.depth() == dgn.br_depth(you.branch()) then
-SUBST:  ) = (
-: end
-MAP
-.........
-..t...t..
-.t11.11t.
-..1t.t1..
-....)....
-..1t.t1..
-.t11.11t.
-..t...t..
-.........
-ENDMAP
-
-NAME:    grunt_forest_small_clearings
-TAGS:    transparent extra decor
-DEPTH:   Lair
-MONS:    plant / bush
-KPROP:   G = no_tele_into
-SHUFFLE: Ww. / ''` / ''`
-SUBST:   t = t.., '` = 1:49 .:405
-SUBST:   G = w-, W = WW., w = wwW
-KMASK:   w- = no_monster_gen
-KMASK:   w- = opaque
-MAP
- tt@@@tt
-t.......t
-t..WWW..t
-@.WwwwW.@
-@.WwGwW.@
-@.WwwwW.@
-t..WWW..t
-t.......t
- tt@@@tt
-ENDMAP
-
-NAME:   grunt_forest_small_clearing_treed
-TAGS:   transparent patrolling
-DEPTH:  Lair
-MONS:   plant / bush
-NSUBST: t = 2:t / * = t..
-SUBST:  T = t, * = **t
-KPROP:  * = no_tele_into
-KMASK:  * = opaque
-MAP
- tt@@@tt
-t.......t
-t.1...1.t
-@..TTT..@
-@..T*T..@
-@..GTT..@
-t.1...1.t
-t.......t
- tt@@@tt
 ENDMAP
 
 ###############################################################################
@@ -1033,7 +648,7 @@ ENDMAP
 # Two separate small decorative vaults mixed into one:
 NAME:   lemuel_fruit_tree
 TAGS:   extra transparent decor
-DEPTH:  Lair, Snake
+DEPTH:  Lair, Workshop
 ORIENT: float
 MONS:   plant, fungus
 KITEM:  a : stone
@@ -1305,7 +920,7 @@ ENDMAP
 
 NAME:   kennysheep_basilisk_garden
 TAGS:   transparent
-DEPTH:  Lair:3-
+DEPTH:  Lair:2-
 NSUBST: . = 3 = ...G / *:.
 MAP
    .....
@@ -1339,744 +954,4 @@ MAP
 ..xxxxxxxx..
 ....xxxx....
 ............
-ENDMAP
-
-###############################################################################
-# Lair endings - split in two types.
-###############################################################################
-
-###############################################################################
-# Small Lair endings.
-# If it's possible, the placement of one of these Lair ends vaults means
-# the placement of a second small Lair end vault. Currently, there are five.
-###############################################################################
-
-# At some point long ago, this vault used to be about worms and slugs.
-# As standards changed, it is now left with snails and wyrms. Oh well.
-NAME:    wormcave
-TAGS:    no_wall_fixup no_monster_gen no_rotate
-PLACE:   Lair:$
-ORIENT:  southeast
-MONS:    torpor snail, tyrant leech, lindwurm, hornet
-MONS:    fire dragon / ice dragon
-KMONS:   p = plant
-SHUFFLE: ABC
-NSUBST:  1 = 1:1 / *:., 4 = 3:4 / *:.
-NSUBST:  A = 3:4 / 1:23 / * = ....4
-NSUBST:  B = 2:2 / 1:1 / * = ....4
-NSUBST:  C = 1:1 / 1:2 / 1:3 / *:.
-SUBST:   0 = 1, P = pp., X = x., z = x'
-CLEAR:   '
-NSUBST:  " = 1:GU / *:.
-KMASK:   $5 = no_trap_gen
-: lair_small_ending(_G)
-MAP
-            zzzzzxxzzxxzzxxxxzzxxxzzzxxx
- @........@xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
- ..PP.XX..Px..xxxxxxxxxxxxxxxxxXAxxxxxxx
- ..PP.XX..PPxxxxxxxxXXBBXxxxxxA*..xxxxxx
- ...x.....PPP.xxxxxP4B.1BXxxxXAA.%Xxxxxx
- ..XxX..X.....xxxxxXB....Bxxx4AA..xxxxxx
- .Pxxxxx.x...xxxxxxx%...*XxxxxX.p..xxxxx
- xxccccxx..XPPxxxxxPpp.XPxxxxxxxXP.xxxxx
-zxcc$$ccxxXxx..xxxxxXp..xXxxxxXxx.pxxxxx
-zxc$$$$ccxxx...Xxxxxxx...x.xxxx...xxxxxx
-xxc$$$$$cxxx..xxxxxxxXx...xXxx...xxxxxxx
-xxcc$5$$cxx..xxxxxxxxxxx.P..X.0.xXxxxxxx
-xxxcc$$ccxX..XxxxxxxxXx......4xxxxxxxxxx
-xxxxccc=c"..xxxxxxxxXx....P.xXxxCCCxxxxx
-xxxxxxxcp".xxxxxxxxXx....XxxXxx4CCC1xxxx
-xxxxxxx"""xxXxxxXxx.....xxxxxxx*...xxxxx
-xxxxxxxxX.0.xxxxx.....x..xxxxxxxx..xxxxx
-xxxxxxxxxX...xXx....Xxx....pxxxX..%xxxxx
-xxxxxxxxxxx.......Xxxxxx..........xxxxxx
-xxxxxxxxxxXxx.p.xxXxxxxxxxxx....xxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
-# Dogs by themselves get repetitive, so do bears. What if we combine them?...
-# Previously "kennels" and "bearwithus", both by due.
-NAME:    hangedman_lair_caniforms_friends
-PLACE:   Lair:$
-TAGS:    no_monster_gen no_rotate patrolling
-ORIENT:  southwest
-MONS:    wolf, warg, hell hound, raiju
-MONS:    black bear, polar bear
-KMONS:   P = plant
-# The one big reward and the several smaller stacks of items
-# are randomly split between the mostly-dog and mostly-bear sections.
-KITEM:   % = any, any w:1
-KITEM:   *| = gold, gold, gold, any good_item
-NSUBST:  2 = 2:22334 / *:3
-SHUFFLE: %'*" / %'"|
-SUBST:   X = xx., z = xx`, ' = ., " = x, p = PP.
-SUBST:   H = 3:3 4:1, 0 = 2
-CLEAR:   `
-: lair_small_ending(_G)
-MAP
-xxxxxxxxxxxxxxxxxxxxzzz  @  @  @
-xxxxxxxxxxxxxxxxxxxxxxxxxp..p..
-xxxxxxxxxxxxxxxxxxxxxxxxxxp..p.
-xxxxxxXxxxxxxxxxxxxxxxxxxxx....
-xx%'56xxxxXXxxxxxxxxxxxxxxxP..p@
-xx6..56xXx55xPxxxxxxxxxx...xP..
-xxx9..xxx%...xPxx1x.x.x..1..xP.
-xxXx...xxx...Px5x.........0..xp@
-xxxxxx.......Px........x...Xxxx
-xxxxXH.xx5...xP5..x2..x.xxxxxxx
-xxxxxx1Hxx.%XXxx..xxxxxxxxxxxxxz
-xxxxx"x06.Hxxxxx..xx1x.xx2xxxxxz
-xxxxXx....5XxxxX....x.x....xHxxz
-xxxxx%....xxxxxxx.............xz
-xxxxx5....5xXxxxxx............xz
-xxxxXx5....6xxxxxxxx1x...x2x..xx
-xxxxxxP6.%6xXxxxxxxxxxx.xxxxx..x
-xxxxxPxPxPxxxxxxxxxxxxxxxxxxx.Xx
-xxxxxx6x6xxxxx1'xxxxxx2.x2x...xx
-xxxxx...xxxxxx..xHx1x.........xz
-xx*x1.....'xx1.....x.........xxz
-xxx0.9......x................xxx
-xxH...1.xx....xx.....xx.1.2xxxxx
-xxx2.0'xxxX..xxX2...xHxX1x1xxxxx
-xxx.H.xxxxxx.xxxx'.xxxxxxxxxxxxx
-xxx'.%xxxxxxxxxxxx2xxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
-# One of the three dragon's lair end vaults,
-# and the most dragon-focused of them.
-NAME:   guppyfry_lair_end_dragon
-TAGS:   patrolling no_monster_gen no_pool_fixup
-PLACE:  Lair:$
-ORIENT: southeast
-MONS:   rime drake / swamp drake / acid dragon / steam dragon
-MONS:   basilisk / komodo dragon, iguana
-MONS:   fire dragon, swamp dragon
-KMONS:  P = plant
-SUBST:  - = wwWW....%Ptt233, W = WWW., ? = 12**
-: lair_small_ending(_G)
-MAP
-@..@..@..xxxxxxxxxxxxxxxxx
-xPWW-P.xxxxttttttttttxxxxx
-xttWW-ttttttttPWW-..ttxxxx
-xtttW-tt.tttt-WwwWP.1ttxxx
-xtttWWtt...t--WwwwW-.tttxx
-xtt1Wttt1.tt.WWttPWW.-tttx
-xttWw-tP.t..Wttt--WWW.tttx
-xxttWWt-1t..W--ttPWwwWttxx
-xtt1-Wwttt.-wWtt.WwwwWttxx
-xxtt--WttP.wWtttWwwwwWtttx
-xttP.tWWttwWPtt.WWWwwWttxx
-xttt.ttWww-.ttttPWwwwWtttx
-xxttP.P-W-.tt%?$.WwwW.ttxx
-xxtt...PWWttt*%.WwwW.ttxxx
-xxttt.t.-Wtt45*.WwwW.ttxxx
-xttttt..Wwttt*%..WW.tttxxx
-xxxxtt..-WWtt%?$.WwWW.ttxx
-xxxxxtt..-WWtttPWWwW..ttxx
-xxxxxxtt..PWWttWWwW.tttxxx
-xxxxxxxttt1.WWttWW..ttxxxx
-xxxxxxxxttt.WwwwWP-ttxxxxx
-xxxxxxxxxtt.-WwW..ttttxxxx
-xxxxxxxxxttttWW-.tttxxxxxx
-xxxxxxxxxxtttttttttxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
-# All-natural Lair spawns, in a condensed display.
-NAME:    hangedman_lair_in_review
-TAGS:    no_monster_gen no_item_gen patrolling
-ORIENT:  float
-PLACE:   Lair:$
-# Compensate for the oblong floating status in the double vault set-up.
-WEIGHT:  14
-# Non-banded band monsters to highlight the vault, then
-# four trio sets (mythological lizards, fast poison,
-# duos of bovids / elephantae, fantasy hybrids), then bosses.
-MONS:    wolf / blink frog / yak / hell rat w:2
-MONS:    basilisk, rime drake, lindwurm
-MONS:    wyvern, manticore, catoblepas
-KMONS:   8 = water moccasin
-KMONS:   9 : cane toad w:90 / hornet
-KMONS:   0 : black mamba w:90 / wolf spider
-KMONS:   A = elephant
-KMONS:   B = death yak
-KMONS:   C = dream sheep
-KMONS:   D = hydra / torpor snail w:6 / dire elephant w:6
-KMONS:   P = plant w:12 / fungus w:8
-KITEM:   ~ = any good_item
-SHUFFLE: 2d3e4f / 5g6h7i / 8j9k0l / AABBCC, $%*|
-NSUBST:  J = 2:. / 1 = x:9 .:1 / *:x, K = 2:. / 1 = x:9 .:1 / *:x
-NSUBST:  L = 2:. / 1 = x:9 .:1 / *:x
-SUBST:   X = xx..., P = PP., defghijkl = ., E = 44700C
-: lair_small_ending(_G)
-MAP
-     xxx  xx  xxxx   xxxx  xx  xxx
-     xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    xxxxx.P.xxxxxxxxxxxxxxx.P.xxxxx
-  xxxXXP.....PXXxxxxxxxXXP.....PXXxxx
- xxxXX.........XXxxxxxXX.........XXxxx
- xXX....xJxJx....XxxxX....xLxLx....XXx
-xxX.....x...J.....XxX.....L...x.....Xxx
-xxX....Xxdgjx.X..PxxxP..X.xfilxX....Xxx
-xxP.c..Xx258J...xxx~xxx...L470xX..c.Pxx
-xxx...xxxxxxxx...K369K...xxxxxxxx...xxx
-xx..c..1.ExxP..X.xehkx.X..Pxx.|...c..xx
-xx........xx.....K.D.K.....xx*~$....xxx
-@..x.....1xxX....xxxxx....Xxx.%.E..xxx
-  x.......XxxXX.........XXxxX..9D3xxx
-   .xx...PxxxxXXP.....PXXxxxxP..6xxx
-   @xxxxxxxxxxxxxx.P.xxxxxxxxxxxxxxx
-       xxxxxxxxxxxxxxxxxxxxxxxxxxx
-           xxx  xxx xxx  xxx
-ENDMAP
-
-# Some of the most famously dangerous Lair animals are small, fast, and
-# incidentally poisonous. Let's try a different approach to frog_pond...
-# Inspired by minmay_lair_venomous_thicket.
-NAME:    hangedman_lair_tendril_chambers
-PLACE:   Lair:$
-ORIENT:  float
-MONS:    water moccasin / wyvern, hornet, cane toad
-MONS:    black mamba, redback, wolf spider, guardian serpent
-KMONS:   f = fungus
-KMONS:   P = plant
-# Connect the endpoints of two random quarters, open one of them to the center,
-# rarely fray walls not between chambers, fringe the openings with plants.
-SHUFFLE: AB / CD / EF / GH, DFH
-SUBST:   P = P:35 @:25, z = x:49 f:1, BCDEG = x, AH = ., F : xxP
-# A fixed number of chaff scattered throughout each eighth, and an even
-# distribution of the various stronger spawns.
-NSUBST:  1 = 6:1 / 4 = 1. / *:., 0 = 8:1 / 5 = 1. / 2:2 / *:.
-NSUBST:  9 = 1:256 / 2:3 / 2:4 / * = 33445
-NSUBST:  8 = 1:7 / 1:6 / 2 = 34 / * = 34 5:15 "
-NSUBST:  % = 10:% / 2 = %" / *:", x = 6:c / * = x
-KMASK:   %*" = no_monster_gen
-: lair_small_ending(_G)
-MAP
-      PPPcccxxcccPPP
-   PPPP.cc%cccc%cc.PPPP
-  zz....c8$%**%$8c....zz
- Pzc....cc8$**$8cc....czP
-PP.xx....c8""""8c....xx.PP
-P...xx1.0cc""""cc0.1xx...P
-P....xx1.0c8""8c0.1xx....P
-x....1xx1.cc""cc.1xx1....x
-xzx.0.1xx%%c""c%%xx1.0.xzx
-P.xzx0.%BB9c""c9DD%.0xzx.P
- P..xzx%9AAxffxCC9%xzx..P
- P....xxxAA""""CCxxx....P
-  ......xc0"ff"0xx......
-  ......xx""ff""cx......
- P....xxxEE"00"GGxxx....P
- P..xzx%9EExccxGG9%xzx..P
-P.xzx0.%FF%9xx9%HH%.0xzx.P
-xzx.0.1xx.%xxxx%.xx1.0.xzx
-x....1xx1.0x..x0.1xx1....x
-P....xx1.0xx..xx0.1xx....P
-P...xx1...z....z...1xx...P
-PP.xx....xx....xx....xx.PP
- Pzc.....z......z.....czP
-  zz....xx......xx....zz
-   PPPP.z..P  P..z.PPPP
-      PPcPP    PPcPP
-ENDMAP
-
-###############################################################################
-# Normal Lair endings.
-###############################################################################
-
-##############################################################################
-# Vaguely Jungle Book (R. Kipling) inspired.
-#
-# This vault formerly released dire elephants from statues via a lua trigger
-# after the anaconda died, which was spoilery. I've revised it to have a
-# necromancy theme, with necromancers' Bind Soul being a somewhat analogous
-# on-death effect compared to the old vault. -gammafunk
-NAME:    due_jungle_book
-TAGS:    no_pool_fixup no_wall_fixup no_monster_gen
-PLACE:   Lair:$
-ORIENT:  north
-# A necromancy-themed loot item behind the obsidian statue.
-ITEM:    rapier ego:pain w:5 / rapier ego:draining w:5 \
-         / quickblade ego:pain w:5 / quickblade ego:draining w:5 \
-         / demon blade ego:draining / sword of zonguldruk w:1 \
-         / great sword ego:draining / triple sword ego:draining \
-         / demon whip ego:pain w:5 / demon whip ego:draining w:5 \
-         / eveningstar ego:draining / scetpre of torment w:1 \
-         / great mace ego:draining / majin-bo w:1 / lajatang ego:draining \
-         / broad axe ego:draining / battleaxe ego:draining \
-         / executioner's axe ego:draining / shadow dragon scales \
-         / cigotuvi's embrace w:1 / amulet of regeneration randart \
-         / staff of death \
-         / book of necromancy / book of death / book of unlife \
-         / randbook owner:Kikubaaqudgha disc:necromancy \
-         / necronomicon w:1
-KMONS:   pq = withered plant
-MONS:    elephant skeleton / elephant zombie / spectral elephant \
-         / elephant simulacrum / spectral cane toad / cane toad simulacrum
-MONS:    elephant, cane toad / death yak
-MONS:    spectral death yak w:20 / death yak simulacrum w:20 \
-         / dire elephant skeleton / dire elephant zombie \
-         / spectral dire elephant w:5 / dire elephant simulacrum w:5
-MONS:    dire elephant, patrolling necromancer, obsidian statue
-# The anaconda's name is Kaa.
-KMONS:   R = spectral anaconda
-KFEAT:   R = deep_water
-KFEAT:   s = closed_clear_door
-# Thin out elephant/dire elephant bands of central necromancers a bit.
-SUBST:   2 = 22., 5 = 55.
-# DE/FH/JK will always have a monster set, with one a guaranteed necromancer
-# plus band, next a 50% chance to be a # necromancer band, 50% chance to be
-# derived undead band, last guaranteed derived undead band. Necromancer band is
-# 4 live monsters on average, mostly elephants, sometimes other beasts mixed
-# in. Derived undead band is a stonger derived undead with 4 weaker ones on
-# average.
-SHUFFLE: DE / FH / JK
-SUBST:   D = 6, E = 23...
-SHUFFLE: FH / SZ
-SUBST:   F = 6, H = 23..., JS = 4, KZ = 11...
-# LM / NO / PQ each have 50% chance of being a derived undead band, 50% chance
-# of nothing.
-SHUFFLE: LM / NO / PQ
-SHUFFLE: LM / SZ
-SUBST:   L = 4, M = 11..., SZ = .
-SHUFFLE: NO / SZ
-SUBST:   N = 4, O = 11..., SZ = .
-SHUFFLE: PQ / SZ
-SUBST:   P = 4, Q = 11..., SZ = .
-SUBST:   a = tttxxc, p = p-, q = q., r = xxx.., - = .:100 Z, Z = 12345
-COLOUR:  t = brown
-TILE:    t = dngn_tree_dead
-TILE:    G = dngn_statue_elephant
-: set_feature_name("tree", "dead tree")
-MAP
-   xxxcccccccc
-  xxttrrrLrrrcc
- xxttqqqMMM.qrcc
-xxqtq....MM..qrcc                           ccccc
-xx...qrrqr..r..rcccccccccccccccccccccccccccccaaGttq.
-xq.qttcccc++c++ccccccccccccccccccccccccccccaaaKKJttqq.
-xt7ttccccG--c..OOGcc.WWccGqqqGccqqqccQQ.....qqGKKGttt.
-cnsncccccp-pcq.OON+..WwW+.55%|cG.2..+QQQqqc.cq.Kaaatq.
-cndnccccc-c-ccccOGcqWwwR+.56**c|$22.cPqcccc---caaccc..
-cnnnccccc+cp--pccccqwwwwcG5qqGc*%22.cccc---pc+ccccccc.
-ccccGEEqq.cccc---pcWWWWqccnnnccG62qqcp--pcccc.qqHHGcc.
-xxxc*DE..qccccccc-cccWqcccGpGcccqqccc-cccccccq..HF*cc.
-xxxcGEEqqqccttaccp-pcccccGpYpGccnncp-pccattccqqqHHGcc.
- xxcccccccctq..qccc-----------------cccq..qtcccccccc..
- .axacccatq..  .qtcccccccc+++cccccccctq.  .qqtcccatq.
- ..........     ..........@@@....a.....     ........
-ENDMAP
-
-##############################################################################
-# Standard occultist works do make demons out of distorted animals, after all.
-#
-NAME:    evil_forest
-TAGS:    no_pool_fixup no_wall_fixup no_monster_gen no_rotate
-PLACE:   Lair:$
-ORIENT:  southeast
-WEIGHT:  5
-MONS:    rime drake, hydra w:15 / dire elephant, wizard
-MONS:    red devil / ice devil w:15 / orange demon w:15
-MONS:    hellwing / smoke demon, sun demon / sixfirhy / hell beast w:4
-KMONS:   hH = hell hound
-KMONS:   F = fungus
-KITEM:   A = superb_item no_pickup, any good_item no_pickup \
-             / no_pickup gold good_item w:15, % no_pickup \
-             / nothing, % no_pickup / nothing
-KFEAT:   A = enter_hell
-KFEAT:   _ = altar_makhleb
-KFEAT:   L = endless_lava
-NSUBST:  1 = 3 = 11122 / * = 1h, 4 = 5:4 / 1:4H / *:H
-SUBST:   T = ttt.
-KPROP:   ` = bloody
-KMASK:   '"`456H = no_item_gen
-FTILE:   "_A456H = floor_cage
-COLOUR:  "456H = red
-MAP
-  ...TTTT....  .............................
- ..TttttttT.......Tt.TtT....TT..TT......Tt....
-..TtttttttttT..TTtttttttT..TttttttTT..TTtttT...
-..Tttttttttttt0ttttttttttttttttttttttttttttttT..
-.Tttttttttttttt.ttttttttttttttttT.Ttttttttttttttt
-..Ttttttttttttt.tttttttttttttttT.1.Tttttttttttttttxx
-.....ttttttttt..tttttttttttttttT....ttttttttttttttxx
-..Ttt0.tttttt....ttttttttttttttt..Tt..ttttttttttttxx
-..Ttttt.......t.0.tttttttttttt...ttttt.0ttttttttttxx
-..ttttttt..0tttt.t..ttttttttt.0.tttttttt..ttttttttxx
-.Tttttttttttttt..ttt...ttt....ttttttttttT.1Tttttttxx
-...Ttttttttttt..ttttt.......tttttttttttT....Ttttttxx
-...tttttttttt.1ttttttt0ttFtttttttttcccccc++cccccccxx
-..Tttttttttt..tttttttttttt+ccccccccc'''''''''''''clL
-..Ttttttttt.0t..ttttttttttc''''''''c'''G````G''''clL
-.Tttttttttt..tt..tttttttttc''G'G'''+'''''''''''''clL
-..Tttttttt..tttt.tttttttttc'''c'G''ccccccccccccccclL
-.Tttttttt..ttttt..ttttttttc''c'G'''c"""""""4lllllllL
-..Ttttt.0ttttttt...tttttttc'''G'c''c""""""""44lllllL
-....T..tttttttt....tttttttc''G'c'''+""""_""654AllllL
-...T0tttttttttt*Q1ttttttttc'''G'G''c"""""4444llllllL
-..Ttttttttttttttttttttttttc'''''''3c""""4llllllllllL
-ttttttttttttttttttttttttttcccccccccccccllllllllllllL
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxllllllllllllllllllL
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxLLLLLLLLLLLLLLLLLLL
-ENDMAP
-
-##############################################################################
-# Frog pond.
-#
-NAME:    minmay_lair_end_frog_pond
-TAGS:    no_monster_gen
-PLACE:   Lair:$
-ORIENT:  float
-KMONS:   1 = bullfrog
-KMONS:   2 = cane toad
-KMONS:   3 = vampire mosquito
-KMONS:   4 = blink frog
-KMONS:   5 = komodo dragon / hydra
-KMONS:   6 = tyrant leech / skyshark w:5
-KMONS:   7 = electric eel
-KMONS:   8 = goliath frog
-KMONS:   p = plant
-ITEM:    any good_item
-KFEAT:   123678p = W
-# Previously 11.6 bullfrogs, 16.6 cane toads,
-# and 7.1 vampire mosquitoes on average.
-NSUBST:  XW = 3:1 / 5:2 / 5:3 / 8 = 11WWW / 12 = 22WWW / 8 = 44WWW
-NSUBST:  W = 3 = 678 / *:W, 5 = 1:5 / *:4W
-NSUBST:  % = 1:d / 1:* / * = %%*|
-SHUFFLE: AB, CD
-SUBST:   AB = x, CD = w
-SUBST:   X = x:80 W:15 .:10 p:10
-SUBST:   W = W:80 w:25 p:10
-SUBST:   . = .:85 W:20 p:10
-KMASK:   d%*| = no_monster_gen
-MAP
-          ............xxx
-       .................xxx
-   .........WWWWWW........xxxx
-  .......WWWWWAWWWWWWWWW.......
- x.....WWWWWAAAWWWWWWWWWWW.....
- x...WWWWWWWWAAAWWWWWWWWWWW.....
- x..WWWWWWWWWWAAAAWWWWWWWWWW....
-xxxxx..WWWWWWWAWWWWWWWWWWWWW....
-x.XXxxxx..WWWWWWWWWWWWWDWWWWW...
-x.WWXXXxxxxxxxpp4WWWWWWDWWWWW...
-x.WWWWWXXXxxppppp5WWWWWDDWWWW...
-..WWWWWWWW4pp%%%pp4WWWDDDDDWW...
-..WWWWWWWW6pp%%%%pp6WWWWDDWWWW..
-..WWWWCWWW4ppp%%%pp4WWWWWDWWWW..
-.WWWWCCWWWW4ppppppxxXXWWWWWWWW..
-.WWCCCCCWWWW5WppxxxxxxXXXWWWWW.x
-.WWWCCWWWWWWWWWWWWW..xxxxXXXWW.x
-.WWWCWWWWWWWWWBWWWWWWW..xxxxXX.x
-..WWCWWWWWWBBBBWWWWWWWWWWWWxxxxx
-..WWWWWWWWWWWBBBWWWWWWWWWWW...x
-...WWWWWWWWWWWBBBWWWWWWWW.....x
-....WWWWWWWWWWBWWWWWWWW.......x
- .....WWWWWWWWWWWWWW.........
-  xxx......WWWWWW.........
-    xxxxx..............
-        xxxx.......
-ENDMAP
-
-##############################################################################
-# A mock-up of Forest, made well before serious attempts at the branch.
-#
-NAME:   minmay_lair_end_enchanted_forest
-PLACE:  Lair:$
-ORIENT: northwest
-MONS:   black bear / polar bear w:12, wolf, dream sheep / hornet w:20
-MONS:   spriggan, spriggan rider, boggart
-KITEM:  * = gold no_pickup, star_item no_pickup, star_item no_pickup
-KITEM:  | = gold no_pickup, superb_item no_pickup, star_item no_pickup
-KITEM:  $ = gold no_pickup, star_item no_pickup
-SUBST:  T : T:20 .:1 t:1, T = tt..., E = t_
-CLEAR:  _
-NSUBST: . = 5:1 / 3 = 10 / 3:3 / 3 = 3.. / *:.
-NSUBST: 2 = 8:2 / 18 = 2. / *:., 4 = 6:4 / 6 = 4. / *:.
-NSUBST: 5 = 1:5 / *:6, 9 = 2:6 / 2 = 56 / *:4
-NSUBST: * = 1:| / *:*
-MAP
-ttttttttttttttttttttttttttttttttttttttttttttttttttt
-tttttttttttttttttttttttttttttttttttttttttttttttttt
-tttttttttT*G*Ttttttt....ttttttttt.....ttTTtttttTT
-ttttttttt4.*.9TTT....Tt.5..TTT....ttT.2222TTtt..@
-tttttttTT.4.4....TTttttttT..4...TttttttTT222..ttT
-tttttT.....9..4TtttttttttT4...4ttttttttt22ttttttt
-ttttT..ttT4.4.Tttttttt..T....4.tttttttt..tttttttE
-tttt.ttttttttttttttttt......tt..TttT...TT.tttttt
-tttT2tttttttttttttttttT....ttttt.....ttttT.Tttt
-ttT22tttT.9TtttttttT....tTTttttttTTttttttt..ttE
-tt22ttt$.4..tttttT5.TTT..tttttttttttttttttt.tt
-tt22tttT9.4.ttttT.TttttT.22tttttttttttttttT.tt
-tt2tttttt..TtttT2TtttttttT22TttttttttttttT.ttt
-tt2ttttttt.TtTT22tttttttttT222ttttttttttt.Tttt
-tt..tttttTT..222Ttttttttttttt22ttTTTTtt..TtttE
-ttT.tttt.....TTT222TttttttttttT...TT...TttttE
-ttt..tt...TTttttttt..TTttttttttT..4...Tttttt
-tttT....TtttttttttttT@   EEttttt49.49ttttttE
-ttttT..tttttttttttttE      EEttttT.$TttttE
-ttttT..TtttttttttttE          ttttttttt
-ttttt...ttttttttttE            ttttttt
-tttttT..TttttttE                 EEE
-ttttttt.@ttE
-ttttttE
-tttE
-tE
-t
-ENDMAP
-
-##############################################################################
-# Catoblepas ending by evilmike.
-# Contains 3 catoblepas, with one being semi-randomly placed. The last
-# one is likely to breathe on you in an area that is hard to escape from.
-#
-NAME:   evilmike_catoblepas_cave
-TAGS:   no_monster_gen no_rotate no_item_gen
-PLACE:  Lair:$
-ORIENT: northwest
-ITEM:   any good_item
-MONS:   yak, death yak, manticore
-KMONS:  4C = patrolling catoblepas
-# These are still living plants for all intents and purposes...
-KMONS:  P = plant perm_ench:petrified dbname:petrified_plant \
-            col:lightgrey tile:mons_withered_plant / nothing
-NSUBST: 0 = 3:1 / 1:2 / * = 1112
-NSUBST: 9 = 1:C / 2:2 / 2:3 / * = 11222
-COLOUR: d|*$4c- = lightgrey
-FTILE:  d|*$4c- = floor_cobble_blood
-MAP
-xxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxcccxxxxxxxxxxxxxxxxx
-xxxxccc*cccxxxxxxxxxxxxxxxx
-xxxxcd|$$4cxxxxxxxxxxxxxxxx
-xxxxcc$---ccxxxxxxxxxxxxxxxxxx
-xxxxxcc----ccxxx%PxxPxxxxxxxxxxx
-xxxxxxccc---cxxP......Pxxxxxxxxxxx
-xxxxxxxxcc-ccxP.9.0.x...xxxxxxxxxxx
-xxxxxxxxxc-cxx.0.9.xxxP..xxxxPP.%xxxx
-xxxxxxxxxc-cxxP...xxxxx...xxxx0.9xxxx
-xxxxxxxxxx.cxxxx..xxxxxxx...xx.1.0xxx
-xxxxxxxxxx.xxxxxx...xxxxxxx......xxxx
-xxxxxxxxxx.xxxxxxxx..xxxxxx...xxPPxxx
-xxxxxxx.....xxxxxxx..Pxxxx..xxxxxxxxxx
-xxxxxx90.x..xxxxxxP..xxxx..xxxxcccxxxx
-xxxxxx0xxxx..xxxxxx..Pxxx.xxxccc4ccxxx
-xxxxxxxxxx..xxxxxx0.......xxcc----ccxx
-xxxxxxxxxP..Pxxxx01xxxP...Pcc------cxx
-xxxxxxxxx.....xx..xxxxxxP..c------ccx
-xxxxxxxxP.G.G.....xxxxxxx..---cc--cxx
-xxx%xxx..G.P9.G.xxxxxxxxxxx-ccc---cxx
-x%P9Pxx..9..G....xxxxxxxxxxxxc---ccxx
-xx0..1....P..G..PPxxxxxxPPxxx...xxxx
-xxxP1...xxxP..PxxxxxxxxxxP9....xxxxx
-xxxxxPPxxxxxxxxxxxxxxxxxxx......xxx
-xxxxxxxxxxxxxxxxxxxxxxxx......G...
-xxxxxxxxxxxxxxxxxxxxxx....G.......
-xxxxxxxxxxxxxxxx     ........G....
-xxxxxxxxx             ..G........
-xxx                   .........G.
-x                           .....
-ENDMAP
-
-##############################################################################
-# The beastmaster's lair.
-# Inspired by discussions of deep troll professionals and the prospect of a
-# "beastmaster"; here he lives, with packs of beasts and one powerful
-# personal pet.
-#
-# On his own the boss shouldn't be *extremely* threatening - it's his pet
-# and the inner welcoming party that add enough danger that this ending
-# stands on its own.
-#
-NAME:    grunt_lair_end_beastmaster
-TAGS:    no_monster_gen no_item_gen no_trap_gen patrolling
-PLACE:   Lair:$
-ORIENT:  northeast
-MONS:    deep troll shaman, dire elephant / hydra / lindwurm
-MONS:    catoblepas, death yak band
-MONS:    elephant, wolf, black bear / polar bear
-KMONS:   P = plant / fungus w:2 / bush w:1
-SHUFFLE: 567
-SUBST:   C = cx.., P = P .:9 t:1
-NSUBST:  % = 2:| / 3:* / *:%
-NSUBST:  5 = 2:5 / 3 = 5. / *:.
-NSUBST:  6 = 3:6 / 4 = 6. / *:.
-NSUBST:  7 = 1:7 / 2 = 7. / *:.
-{{
-  dgn.delayed_decay(_G, 'd', "human skeleton / orc skeleton / elf skeleton"
-                             .. " / dwarf skeleton / ogre skeleton w:1"
-                             .. " / naga skeleton w:1 / minotaur skeleton w:1"
-                             .. " / merfolk skeleton w:1")
-}}
-MAP
-                xxxxxxxxxxxxxx
-          xxxxxxx5P.Pxxxxxxxxx
-         xxP..5.5..P..xxxxxxxx
-        xxP5d5.5.5P.P..xxP.xxx
-       xx.5.5.5ccccccc....P..x
-       x...5.ccc.d...ccc.P..xx
-      xx.P.ccc..d......d...Px
-     xx..ccc...G..C..3..d..xx
-    xx..ccc.G....CcC..4..c.x
-    x.P.ccc..d..CcCcC...cc.x
-    x..ccc%.G..G.CcC...ccP.x
-   xx..ccc%%.2.dG.C..d.c...x
-   x...cccc%%.1.....G.ccP..x
-   x.P.ccccc%%.Gd.G...c..P.x
-  xx....ccccc%%.....ccc...xx
- xx.d..Pccccccc%cccccP.6..x
-xx.P..7..cccccccc.P.6.6.Pxx
-..7..7.7P..ccP..P6.6d6.Pxx
-.P.7..7..d....P...6.6.xxx
-d.P.7P..P.xxxx.P..P6.xx
-.P.7..7..xx  xxx.P..xx
-..P.P..xxx     xxxxxx
-.P.P..xx
-..P.dxx
-@....x
-ENDMAP
-
-###############################################################################
-# An ancient temple flooded with waters brought forth by a mystic avatar.
-#
-NAME:    gammafunk_lair_ancient_temple
-TAGS:    no_pool_fixup no_monster_gen
-PLACE:   Lair:$
-ORIENT:  float
-KITEM:   % = any
-KITEM:   * = star_item
-KITEM:   | = superb_item
-: kitem("d = " .. dgn.loot_potions)
-KITEM:   e = throwing net q:3 / rapier good_item / captain's cutlass w:2 \
-         / trident randart / trident of the octopus king w:2 \
-         / demon trident w:5 / phial of floods / ring of the octopus king w:2
-KMONS:   p = plant
-KMONS:   1 = hornet / wyvern / blink frog / cane toad / steam dragon
-KMONS:   2 = elephant / komodo dragon / polar bear / rime drake
-KMONS:   3 = snapping turtle / sea snake / manticore / wind drake / harpy \
-         / skyshark
-KMONS:   4 = dire elephant / hydra / torpor snail
-KMONS:   5 = patrolling merfolk avatar
-KFEAT:   p12345de%*| = W
-NSUBST:  % = 2=d / 2=d% / e / %%*|
-# Open up squares on the fixed portions of the temple walls, on the outer
-# columns, and in the inner room.
-SUBST:   c = c:20 .:1 W:1, a = ccc-, q = cccc'
-# Each wall has a 50% chance of being broken open
-SHUFFLE: DEFHJ / uuyzz
-SUBST:   u = -, y = c, z = '
-SHUFFLE: KLMNO / uuyzz
-SUBST:   u = -, y = c, z = '
-SHUFFLE: PQRSZ / uuyzz
-SUBST:   u = -, y = c, z = '
-# For broken wall areas, put four wall squares in the area, spread out in a way
-# that prevents clumping. Also put some dry floor in these areas.
-SHUFFLE: DE, HJ, KL, NO, PQ, SZ
-NSUBST:  DFH = 4=c, DEF = 2=. / 2=.- / -, HJ = 2=. / 2=.' / '
-NSUBST:  KMN = 4=c, KLM = 2=. / 2=.- / -, NO = 2=. / 2=.' / '
-NSUBST:  PRS = 4=c, PQR = 2=. / 2=.- / -, SZ = 2=. / 2=.' / '
-# Monsters of each tier are distributed across outer and inner portions.
-NSUBST:  - = 12=1W / 8=2W / 4=3W / 2=4WWW / W, ' = 4=2W / 8=3W / 5 / W
-# Ruin statues, possibly place inner chamber doors. Also replace some shallow
-# water with floor and some with plants throughout the map.
-SUBST:   G = GGGW., + : +.W, W = W:125 .:10 p:10, " = W.
-COLOUR:  c = white
-MAP
-""""""""""""""""""""""""
-"aa--aa--aa--aa--aa--aa"
-"aa--aa--aa--aa--aa--aa"
-"----------------------"
-"----aa---a--a---aa----"
-"aa--c------------c--aa"
-"aa--c---LKLKLK---c--aa"
-"----cG--KLKLKL--Gc----"
-"----cccccMMMMccccc----"
-"aa--cU''ONONON''Uc--aa"
-"aa--c'''GONONG'''c--aa"
-"--EDcHJ'qqqqqq'SZcPQ--"
-"--DEFJH'q%%%%q'ZSRQP--"
-"a-EDFHJ'q%ww%q'SZRPQ-a"
-"a-DEFJH'q%ww%q'ZSRQP-a"
-"--EDFHJ'q%%%%q'SZRPQ--"
-"--DEcJH'qq++qq'ZScQP--"
-"aa--c'''G''''G'''c--aa"
-"aa--cU''''''''''Uc--aa"
-"----ccccc----ccccc----"
-"----cG----------Gc----"
-"aa--c-a-a-GG-a-a-c--aa"
-"aa--c------------c--aa"
-"----aa-aaa--aaa-aa----"
-"----------------------"
-"aa--aa--aa--aa--aa--aa"
-"aa--aa--aa--aa--aa--aa"
-""""""""""""""""""""""""
-ENDMAP
-
-###############################################################################
-# A mini-volcano! No fire clouds and twice as many enemies, though.
-#
-NAME:    cheibrodos_lair_end_hotspot
-TAGS:    no_item_gen no_monster_gen
-PLACE:   Lair:$
-ORIENT:  float
-MONS:    black mamba, steam dragon
-MONS:    hell hound, molten gargoyle
-MONS:    komodo dragon / wyvern w:7 / basilisk w:7 / hydra w:2
-MONS:    lindwurm / fire crab w:3, fire dragon
-KMONS:   Y = lava snake
-KFEAT:   Y = lava
-# Generate one of two paths leading to central chamber
-SHUFFLE: ABCD= / HIJKL
-SUBST:   A = @, BH = x, CI = ., K = ", J = l, L = c
-# Generate one of two perches for dangerous enemies
-SHUFFLE: MN / OP
-SUBST:   M = 6, N = ., OP = l
-# Monster and loot placement
-SHUFFLE: ';`
-NSUBST:  ' = 3=3 / 2=3. / 5 / 2=15. / 2. / ., ; = 3=5 / 3=15. / 2. / .
-NSUBST:  ` = 3=5 / 3=15. / 2. / ., - = 7 / ", D = |* / 2=*% / 3=$% / 2=$ / "
-NSUBST:  G = 2=4 / 4. / G, l = 5=Y / l
-KMASK:   "$%*|7 = no_trap_gen
-MAP
-                xxxxxxx
-             xxxxxxxxxxxxx
-            xxxxxxxxxxxxxxx
-           xxxxllxllxllxxxxxxx
-         xxxxxxxlllllllllxxxxxxx
-       xxxxxxxlllllxxx.llllxxxxxxxx
-      xxxxlxxllxxxxxx'.'.lllGxxxxxxx
-      xxxlllxllxGxGx'.'.'..llxxxlxxxx
-       xxxxlxlxxx....'.'.xxxlllxllxxx
-       xxxxlllxxG.'.'.'.'.Gxxllllxxxx
-        xxxxlllxx'.'.'.'.'xxxxxlxxxx
-        xxxxxllx'.'.'.'.'..Gxxxlxxxx
-      xxxxxxxxll.x.'.'.'.'.xxxllxxxx
-     xxxxxxxGxx..x'.'.'.'.xxlllllxxx
-     xxxGxG.;x..xxxJJl..xxIllllllxxxx
-   xxxxxx..;.;.lPllJJllxxlIIllxxllxxxx
-  xxxxxx;.;.;.xllPlJJllxllIIllxxllxxxx
- xxxx....;.;.;llPccLLccllllIIxxxxxxxxx
- Ax.....;.;.xllPccDDDDccllxx'xxGxGxxx
- x.....;.;xxlllOcDD--DDcllx'.'...xxxx
-xAxxxx..;.;.;.lln"----"nlx`.`...xGxxx
- xxxxxx..;.;.;xln"----"nlN.`.`.`xxxx
-   xxxxx;.;.;.xlcKK--KKcNl`.`.`.xxxx
-   xxxxG...;.xxlccKKKKccNlx`.`.`xxxxx
-    xxxx..;.BBlllcc==ccMllx.`.`..xxxxx
-    xxxGxG.xxBBllllCCllllx.`.`.....xHx
-     xxxxx;llBBxxllCCll.`.`.`.`.....x
-     xxxxxlllxBx;.lCCl.`.`.`.`...xxxH
-    xxxxxllllxx;.`..`.`.`.`.`.xxxxxxx
-    xxxlllxllll.;.`..`.`.llllxxxxxxx
-   xxxxllxxxxxllll.`..`llllxxxxxxx
-   xxxllxxxxxxxlllll.`lllxxxxxxx
-   xxxxxxxxxxxxxGxllllllllxxxxx
-    xxxxxx  xxxxxxxGxGxxxllxxxx
-              xxxxxxxxxxxllxxx
-                 xxxxxxxxxxxx
-                     xxxxxxx
 ENDMAP

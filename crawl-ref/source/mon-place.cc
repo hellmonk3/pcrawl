@@ -229,7 +229,7 @@ bool monster_can_submerge(const monster* mon, dungeon_feature_type feat)
 
 static int _ood_fuzzspan(level_id &place)
 {
-    if (place.branch != BRANCH_DUNGEON || place.depth >= 5)
+    if (place.branch != BRANCH_DUNGEON)
         return 5;
 
     // Literally any OOD is too nasty for D:1.
@@ -1735,7 +1735,7 @@ struct band_set
     vector<band_info> bands;
 };
 
-// We handle Vaults centaur warriors specially.
+// We handle Fortress centaur warriors specially.
 static const band_conditions centaur_band_condition
     = { 3, 10, []() { return !player_in_branch(BRANCH_SHOALS)
                           && !player_in_branch(BRANCH_VAULTS); }};

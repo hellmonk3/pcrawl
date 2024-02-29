@@ -46,7 +46,7 @@ function ice_cave_portal(e)
           feat_tile = "dngn_portal_ice_cave_gone",
           msg = messager })
     e.tags("uniq_icecv chance_icecave")
-    e.chance(500)
+    e.chance(0)
     e.kfeat("O = enter_ice_cave")
     e.colour("a = white")
     e.kfeat("a = x")
@@ -57,8 +57,8 @@ end
 
 --[[
 Determine if we're placing a hard difficulty ice cave map. Possible depths for
-easy ice caves are D:11-13, Lair, Orc. Hard ice caves are placed in D:14-15,
-Elf and the Lair roulette branches. This function must be updated if the depth
+easy ice caves are D:11-13, Lair, Armory. Hard ice caves are placed in D:14-15,
+Tower and the Lair roulette branches. This function must be updated if the depth
 range of ice cave changes, which is set by the default-depth statement of the
 entry vault section or by the entry maps themselves.
 
@@ -67,7 +67,7 @@ treturn bool True for hard difficulty, false for easy.
 function hard_ice_cave_difficulty()
 
     if you.in_branch("D") and you.depth() < 14 or you.in_branch("Lair") or
-       you.in_branch("Orc") then
+       you.in_branch("Armory") then
         return false
     end
 
@@ -432,7 +432,7 @@ end
 ###############################################################################
 # Entry vaults that place for both ice cave difficulties.
 
-default-depth: D:11-, Lair, Orc, Elf, Swamp, Shoals, Snake, Spider
+default-depth: Pan
 
 NAME:   portal_ice_cave_entry_pillars_1
 TAGS:   transparent
@@ -481,8 +481,8 @@ SUBST: 1 = 2...
 :     else
 SUBST: 1 = 2.
 :     end
-# Orc
-: elseif you.in_branch("Orc") then
+# Armory
+: elseif you.in_branch("Armory") then
 SUBST: 1 = 112
 : else
 SUBST: 1 = 12
@@ -498,7 +498,7 @@ ENDMAP
 ###############################################################################
 # Entry vaults that only place easy ice cave entrances
 
-default-depth: D:11-13, Lair, Orc
+default-depth: D:11-13, Lair, Armory
 
 NAME:   portal_ice_cave_entry_imps
 TAGS:   patrolling no_monster_gen transparent
@@ -510,25 +510,6 @@ MAP
 11O11
 .111.
 ..1..
-ENDMAP
-
-NAME:   portal_ice_cave_entry_animals_and_master
-TAGS:   patrolling no_monster_gen
-DEPTH:  D:11-13, Lair:3-, Orc
-WEIGHT: 5
-: ice_cave_portal(_G)
-MONS:   wolf, yak, polar bear, rime drake, ice dragon
-SUBST:  D = 12 .:1, E = 2 3:5 .:1, F = 3 4:2, H = 4:2 5:8
-MAP
-xx    xxxxxxx
-axxxxxxaaaaaxx
-aaxaaaaa...aax
-@aaaaDa.E.F.ax
-a.a..D...O.Hax
-aa.aaaD.E.F.ax
-xaaaaa.a...aax
-xxxxxaaaaaaaxx
-    xxxxxxxxx
 ENDMAP
 
 NAME:   portal_ice_cave_demonic_guard
@@ -567,7 +548,7 @@ ENDMAP
 ###############################################################################
 # Entry vaults that only place hard ice cave entrances
 
-default-depth: D:14-, Elf, Swamp, Shoals, Snake, Spider
+default-depth: D:14-, Tower, Storage, Shoals, Workshop, Forge
 
 NAME:   portal_ice_cave_entry_pillars_three
 TAGS:   transparent
@@ -597,35 +578,16 @@ MAP
    ...
 ENDMAP
 
-NAME:   portal_ice_cave_entry_horrid_things
-TAGS:   patrolling no_monster_gen transparent
-DEPTH:  D:14-, Elf, Snake, Swamp
-WEIGHT: 5
-: ice_cave_portal(_G)
-MONS:   white ugly thing, freezing wraith, azure jelly / white very ugly thing
-SUBST:  1 = 1., 2 = 2 .:3, 3 = 3:3 2:7
-MAP
-xxxxxxxxxxxxxxxxxxxxxxx
-xxaaaaaxaaaaaaaaaaxxxxx
-xaa...aaa........aaxxxx
-xa.....a....2..1..aaaaa
-xa..O..+..3...1.1.....+
-xa.....a....2..1..aaaaa
-xaa...aaa........aaxxxx
-xxaaaaaxaaaaaaaaaaxxxxx
-xxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
 NAME:   portal_ice_cave_entry_ice_statue_one
 TAGS:   no_monster_gen no_pool_fixup transparent
 : ice_cave_portal(_G)
 MONS:   ice statue
 KFEAT:  ^ = web trap
-: if you.in_branch("Swamp") then
+: if you.in_branch("Storage") then
 SUBST:  + = ., x = t
 : elseif you.in_branch("Shoals") then
 SUBST:  x = w
-: elseif you.in_branch("Spider") then
+: elseif you.in_branch("Forge") then
 SUBST:  + = ^
 : end
 MAP
@@ -661,7 +623,7 @@ NAME:   portal_ice_cave_entry_dragon
 TAGS:   no_monster_gen no_pool_fixup patrolling
 MONS:   ice dragon
 : ice_cave_portal(_G)
-: if you.in_branch("Swamp") then
+: if you.in_branch("Storage") then
 SUBST:  x = t
 : elseif you.in_branch("Shoals") then
 SUBST:  x = w
@@ -738,8 +700,8 @@ ENDMAP
 # Ideally all maps will implement an easy and a hard variant, checking the
 # variable dgn.persist.ice_cave_hard, which is true for hard ice caves. Easy
 # ice caves should be challenging but completable for most characters in the
-# mid Dungeon, Lair, and Orc. Hard ice caves should be challenging for
-# characters in late Dungeon, Lair Branches, and Elf. If a map concept can
+# mid Dungeon, Lair, and Armory. Hard ice caves should be challenging for
+# characters in late Dungeon, Lair Branches, and Tower. If a map concept can
 # somehow only work at one of the two difficulties, it should veto for the
 # other difficulty. For example, an easy-only map would veto for hard ice caves
 # with:

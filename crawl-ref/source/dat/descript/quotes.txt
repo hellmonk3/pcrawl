@@ -264,14 +264,6 @@ A staircase to the Ecumenical Temple
 
 <Temple>
 %%%%
-A staircase to the Elven Halls
-
-<Elven Halls>
-%%%%
-A staircase to the Orcish Mines
-
-<Orcish Mines>
-%%%%
 A staircase to the Shoals
 
 <Shoals>
@@ -573,20 +565,6 @@ Duvessa
     -Aesop & Walter Crane, _The Baby's Own Aesop_, 36: “Brother & Sister”.
 1887.
 %%%%
-Elven Halls
-
-“Elves are wonderful. They provoke wonder.
- Elves are marvelous. They cause marvels.
- Elves are fantastic. They create fantasies.
- Elves are glamorous. They project glamour.
- Elves are enchanting. They weave enchantment.
- Elves are terrific. They beget terror.
- The thing about words is that meanings can twist just like a snake, and if you
- want to find snakes look for them behind words that have changed their meaning.
- No one ever said elves are _nice_.
- Elves are _bad_.”
-    -Terry Pratchett, _Lords and Ladies_. 1992.
-%%%%
 Edmund
 
 “And my invention thrive, Edmund the base
@@ -777,14 +755,6 @@ Norris
 “Death and death alone gives meaning to life and this meaning is entirely
 negative.”
     -Georges Poulet
-%%%%
-Orcish Mines
-
-“You load sixteen tons, what do you get
- Another day older and deeper in debt
- Saint Peter don't you call me 'cause I can't go
- I owe my soul to the company store.”
-    -Merle Travis, “Sixteen Tons”. 1946.
 %%%%
 Polyphemus
 

@@ -1,7 +1,7 @@
 {{
 function nicolae_spider_hilbert_setup(e)
     e.tags('transparent uniq_nico_spacefill')
-    e.depth('Spider')
+    e.depth('Storage')
     e.orient('float')
     e.kmons('0 = 0 / 0 band w:3')
     e.kmons('9 = 9 / 9 band w:3')
@@ -24,7 +24,7 @@ end
 
 
 # Everybody's favorite space-filling curve generates a lot of twisty passages,
-# perfect for the ambience of the Spider's Nest.
+# perfect for the ambience of the Storage.
 NAME:     nicolae_spider_hilbert_zone_1
 SUBVAULT: D : nico_hilbert_41
 SUBVAULT: E : nico_hilbert_41
@@ -265,107 +265,6 @@ MAP
 .---H---H---.---J---J---.
 -...........-...........-
 ENDMAP
-
-
-# Small and with stairs.
-NAME:     nicolae_spider_hilbert_zone_6
-DEPTH:    !Spider:1
-SUBVAULT: D : nico_hilbert_41
-SUBVAULT: E : nico_hilbert_41
-SUBVAULT: F : nico_hilbert_41
-SUBVAULT: H : nico_hilbert_41
-SUBVAULT: J : nico_hilbert_41
-SUBVAULT: K : nico_hilbert_41
-SUBVAULT: L : nico_hilbert_41
-SUBST:    { = {[(
-: nicolae_spider_hilbert_setup( _G )
-MAP
--.......................-
-.---J---------------K---.
-.-xJJJxxxxxxxxxxxxxKKKx-.
-.-JJJJJ-----------KKKKK-.
-.JJJJJJJ....-....KKKKKKK.
-.-JJJJJ-D---.---E-KKKKK-.
-.-xJJJxDDDx-.-xEEExKKKx-.
-.-x-J-DDDDD-.-EEEEE-K-x-.
-.-x-.DDDDDDD.EEEEEEE.-x-.
-.-x-.-DDDDD-.-EEEEE-.-x-.
-.-x-.-xDDDx-.-xEEEx-.-x-.
-.-x-.---D---.---E---.-x-.
-.-x--.......{.......--x-.
-.-x-.---H---.---F---.-x-.
-.-x-.-xHHHx-.-xFFFx-.-x-.
-.-x-.-HHHHH-.-FFFFF-.-x-.
-.-x-.HHHHHHH.FFFFFFF.-x-.
-.-x-L-HHHHH-.-FFFFF-.-x-.
-.-xLLLxHHHx-.-xFFFx-.-x-.
-.-LLLLL-H---.---F-x-.---.
-.LLLLLLL....-....-x-....-
-.-LLLLL-----------x-----.
-.-xLLLxxxxxxxxxxxxxxxxx-.
-.---L-------------------.
--.......................-
-ENDMAP
-
-
-# Large and with stairs.
-NAME:     nicolae_spider_hilbert_zone_7
-DEPTH:    !Spider:1
-SUBVAULT: D : nico_hilbert_41
-SUBVAULT: E : nico_hilbert_41
-SUBVAULT: F : nico_hilbert_41
-SUBVAULT: H : nico_hilbert_41
-SUBVAULT: J : nico_hilbert_31
-SUBVAULT: K : nico_hilbert_31
-SUBVAULT: L : nico_hilbert_31
-SUBVAULT: M : nico_hilbert_31
-SUBVAULT: N : nico_hilbert_41
-SUBVAULT: O : nico_hilbert_41
-SUBVAULT: P : nico_hilbert_41
-SUBVAULT: Q : nico_hilbert_21
-SUBVAULT: R : nico_hilbert_21
-SUBVAULT: S : nico_hilbert_21
-SUBVAULT: Z : nico_hilbert_21
-SUBVAULT: a : nico_hilbert_21
-SUBVAULT: p : nico_hilbert_21
-SUBST:    { = {[(
-: nicolae_spider_hilbert_setup( _G )
-MAP
-....-.......................-....
-.---.-----------------------.---.
-.-x-.-xxxxxxxxxxxxxxxxxxxxx-.-x-.
-.---.-Q---Q-----------R---R-.---.
--....QQQQQQQ.........RRRRRRR....-
-.---Z-Q-N-Q-.---K---.-R-O-R-S---.
-.-xZZZxNNNx-.-xKKKx-.-xOOOxSSSx-.
-.-x-Z-NNNNN-.-KKKKK-.-OOOOO-S-x-.
-.-x-ZNNNNNNN.KKKKKKK.OOOOOOOS-x-.
-.-x-Z-NNNNN-D-K-.-K-E-OOOOO-S-x-.
-.-xZZZxNNNxDDDx-.-xEEExOOOxSSSx-.
-.-x-Z---N-DDDDD-.-EEEEE-O---S-x-.
-.-x-.....DDDDDDD.EEEEEEE.....-x-.
-.-x-.---J-DDDDD-.-EEEEE-L---.-x-.
-.-x-.-xJJJxDDDx-.-xEEExLLLx-.-x-.
-.-x-.-JJJ---D---.---E---LLL-.-x-.
-.-x-.JJJJ.......{.......LLLL.-x-.
-.-x-.-JJJ---H---.---F---LLL-.-x-.
-.-x-.-xJJJxHHHx-.-xFFFxLLLx-.-x-.
-.-x-.---J-HHHHH-.-FFFFF-L---.-x-.
-.-x-.....HHHHHHH.FFFFFFF.....-x-.
-.-x-a---P-HHHHH-.-FFFFF-----.-x-.
-.-xaaaxPPPxHHHx-.-xFFFxxxxx-.-x-.
-.-x-a-PPPPP-H-M-.-M-F-x-----.-x-.
-.-x-aPPPPPPP.MMMMMMM.-x-.....-x-.
-.-x-a-PPPPP-.-MMMMM-.-x-.-----x-.
-.-xaaaxPPPx-.-xMMMx-.-x-.-xxxxx-.
-.---a-p-P-p-.---M---.-x-.-----x-.
--....ppppppp.........-x-.....-x-.
-.---.-p---p-----------x-----.-x-.
-.-x-.-xxxxxxxxxxxxxxxxxxxxx-.-x-.
-.---.-----------------------.---.
-....-.......................-....
-ENDMAP
-
 
 # Hilbert subvaults ############################################################
 

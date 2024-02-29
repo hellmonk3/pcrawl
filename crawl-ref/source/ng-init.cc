@@ -63,9 +63,6 @@ void initialise_branch_depths()
     }
 
     initialise_brentry();
-
-    if (crawl_state.game_is_descent())
-        brdepth[BRANCH_DUNGEON] = 12;
 }
 
 static void _use_overflow_temple(vector<god_type> temple_gods)
@@ -93,57 +90,11 @@ static void _use_overflow_temple(vector<god_type> temple_gods)
 // overflow temples, and on what level the overflow temples are.
 void initialise_temples()
 {
-    //////////////////////////////////////////
-    // First determine main temple map to use.
-    map_def *main_temple = nullptr;
+    map_def *main_temple = const_cast<map_def*>(random_map_for_tag("temple_altars_0", false));
     int altar_count = 0;
 
-    if (crawl_state.game_is_descent())
-    {
-        main_temple
-            = const_cast<map_def*>(random_map_for_tag("temple_altars_0", false));
-
-        if (main_temple == nullptr)
-            end(1, false, "No temple of size 0");
-    }
-    else if (one_chance_in(100))
-    {
-        main_temple = const_cast<map_def*>(random_map_for_tag("temple_rare"));
-
-        if (main_temple == nullptr)
-            end(1, false, "No valid rare temples.");
-
-        for (const auto &tag : main_temple->get_tags())
-        {
-            if (starts_with(tag, "temple_altars_"))
-            {
-                altar_count =
-                    atoi(tag_without_prefix(tag,
-                                            "temple_altars_").c_str());
-            }
-        }
-    }
-    else
-    {
-        // distribution of altar count has a mean at 13.5, with the extremes
-        // occurring approximately 2.5% of the time each (a much thicker tail
-        // than using 6 + random2avg(16,2)).
-        if (coinflip())
-            altar_count = max(6, 5 + random2max(9, 2));
-        else
-            altar_count = min(21, 14 + random2min(9, 2));
-
-        const string vault_tag = make_stringf("temple_altars_%d", altar_count);
-        do
-        {
-            main_temple
-                = const_cast<map_def*>(random_map_for_tag(vault_tag, false));
-
-            if (main_temple == nullptr)
-                end(1, false, "No temple of size %d", altar_count);
-
-        } while (main_temple->has_tag("temple_rare"));
-    }
+    if (main_temple == nullptr)
+        end(1, false, "No temple of size 0");
 
     you.props[TEMPLE_SIZE_KEY] = altar_count;
     you.props[TEMPLE_MAP_KEY] = main_temple->name;

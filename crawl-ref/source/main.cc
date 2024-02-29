@@ -569,7 +569,7 @@ static void _show_commandline_options_help()
     puts("  -mapstat [<levels>] run map stats on the given range of levels");
     puts("      Defaults to entire dungeon; level ranges follow des DEPTH "
          "syntax.");
-    puts("      Examples: '-mapstat D,Depths' and '-mapstat Snake:1-4,Spider:1-4,Orc'");
+    puts("      Examples: '-mapstat D,Depths' and '-mapstat Workshop:1-4,Spider:1-4,Armory'");
     puts("  -dump-disconnect    In mapstat when a disconnected level is "
          "generated, dump");
     puts("      map to map.dump and exit");
@@ -1399,27 +1399,6 @@ static bool _can_take_stairs(dungeon_feature_type ftype, bool down,
         }
     }
 
-    // Rune locks
-    switch (ftype)
-    {
-    case DNGN_EXIT_VAULTS:
-        if (runes_in_pack() < 1)
-        {
-            mpr("You need a rune to leave the Vaults.");
-            return false;
-        }
-        break;
-    case DNGN_ENTER_ZOT:
-        if (runes_in_pack() < 3 && !crawl_state.game_is_descent())
-        {
-            mpr("You need at least three runes to enter the Realm of Zot.");
-            return false;
-        }
-        break;
-    default:
-        break;
-    }
-
     return true;
 }
 
@@ -1558,17 +1537,6 @@ static bool _prompt_stairs(dungeon_feature_type ygrd, bool down, bool shaft)
                 canned_msg(MSG_OK);
                 return false;
             }
-        }
-    }
-
-    if (down && ygrd == DNGN_ENTER_VAULTS && !runes_in_pack())
-    {
-        if (!yes_or_no("You cannot leave the Vaults without holding a Rune of "
-                       "Zot, and the runes within are jealously guarded."
-                       " Continue?"))
-        {
-            canned_msg(MSG_OK);
-            return false;
         }
     }
 
@@ -2487,15 +2455,6 @@ static void _check_sanctuary()
     decrease_sanctuary_radius();
 }
 
-static void _check_trapped()
-{
-    if (you.trapped)
-    {
-        do_trap_effects();
-        you.trapped = false;
-    }
-}
-
 static void _update_golubria_traps(int dur)
 {
     vector<coord_def> traps = find_golubria_on_level();
@@ -2574,7 +2533,6 @@ void world_reacts()
 
     _check_banished();
     _check_sanctuary();
-    _check_trapped();
     check_spectral_weapon(you);
 
     run_environment_effects();

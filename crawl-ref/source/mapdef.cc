@@ -3947,7 +3947,7 @@ mons_list::mons_spec_slot mons_list::parse_mons_spec(string spec)
             }
         }
 
-        // place:Elf:$ to choose monsters appropriate for that level,
+        // place:Tower:$ to choose monsters appropriate for that level,
         // for example.
         const string place = strip_tag_prefix(mon_str, "place:");
         if (!place.empty())
@@ -4163,7 +4163,7 @@ mons_list::mons_spec_slot mons_list::parse_mons_spec(string spec)
             mspec.type = RANDOM_MODERATE_OOD;
         else if (mspec.place.is_valid())
         {
-            // For monster specs such as place:Orc:4 zombie, we may
+            // For monster specs such as place:Armory:4 zombie, we may
             // have a monster modifier, in which case we set the
             // modifier in monbase.
             const mons_spec nspec = mons_by_name("orc " + mon_str);
@@ -5177,7 +5177,7 @@ bool item_list::parse_single_spec(item_spec& result, string s)
     if (special != TAG_UNFOUND)
         result.item_special = special;
 
-    // When placing corpses, use place:Elf:$ to choose monsters
+    // When placing corpses, use place:Tower:$ to choose monsters
     // appropriate for that level, as an example.
     const string place = strip_tag_prefix(s, "place:");
     if (!place.empty())

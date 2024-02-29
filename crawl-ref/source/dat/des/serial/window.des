@@ -9,12 +9,12 @@
 
 NAME:   serial_co_window_serial
 TAGS:   allow_dup extra luniq_serial decor nolayout_encompass
-DEPTH:  D, Depths, Elf, Crypt
+DEPTH:  D, Depths, Tower, Crypt
 CHANCE: 1%
 {{
-  local s = 5 + crawl.random2(3)*crawl.random2(3)
-  local c = 3 + crawl.random2(5)
-  local r = crawl.random2(3)
+  local s = 3 + crawl.random2(3)*crawl.random2(3)
+  local c = 3 + crawl.random2(3)
+  local r = crawl.random2(2)
   local g = crawl.random2(6)
   hook("post_place", function()
     dgn.place_maps{tag="serial_co_window_small", count=s}

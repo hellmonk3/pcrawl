@@ -14,7 +14,7 @@ NAME: primary_dummy
 TAGS: dummy
 DEPTH: 1-100, !Zig, !Gauntlet, !Bazaar, !Trove, !Sewer, !Ossuary, !Bailey, !IceCv, !Volcano, !WizLab, !Desolation, !Arena, !Depths:2-, !Pan
 ORIENT: float
-CHANCE: 8333, 6666 (Zot), 10000 (Vaults)
+CHANCE: 8333, 6666 (Sanctum), 10000 (Fortress)
 MAP
 x
 ENDMAP
@@ -25,7 +25,7 @@ ENDMAP
 NAME: primary_mini_dummy
 TAGS: dummy
 DEPTH: 1-100, Pan, !Depths:1, !Abyss, !Gauntlet
-CHANCE: 10000 (Vaults), 5000
+CHANCE: 10000 (Fortress), 7500
 MAP
 x
 ENDMAP
@@ -47,7 +47,7 @@ DEPTH: D:1-11
 # by depth.
 TAGS: dummy
 ORIENT: float
-WEIGHT: 100
+WEIGHT: 400
 MAP
 x
 ENDMAP
@@ -56,12 +56,12 @@ ENDMAP
 # Regular vaults for non-dungeon branches.
 #
 NAME: dummy_balancer_other
-DEPTH: Orc, Elf, Lair, Snake, Shoals, Swamp, Slime, Vaults, Crypt, Dis, Geh, Tar, Coc, Spider, Abyss
+DEPTH: Armory, Tower, Lair, Workshop, Shoals, Storage, Slime, Fortress, Crypt, Dis, Geh, Tar, Coc, Forge, Abyss
 # Vaults tagged "dummy" are no-ops when the dungeon builder is looking for maps
 # by depth.
 TAGS: dummy
 ORIENT: float
-WEIGHT: 60
+WEIGHT: 100
 MAP
 x
 ENDMAP
@@ -70,10 +70,10 @@ ENDMAP
 # Extra vaults for non-dungeon branches.
 #
 NAME: dummy_balancer_extra
-DEPTH: Orc, Elf, Lair, Snake, Shoals, Swamp, Slime, Vaults, Crypt, Dis, Geh, Tar, Coc,  Spider, Abyss, Zot
+DEPTH: Armory, Tower, Lair, Workshop, Shoals, Storage, Slime, Fortress, Crypt, Dis, Geh, Tar, Coc,  Forge, Abyss, Sanctum
 TAGS: dummy allow_dup extra
 ORIENT: float
-WEIGHT: 100
+WEIGHT: 150
 MAP
 x
 ENDMAP
@@ -84,7 +84,7 @@ ENDMAP
 NAME: mini_dummy
 DEPTH: 1-50, !D, !Depths, !Abyss, !Gauntlet
 TAGS: dummy
-WEIGHT: 90
+WEIGHT: 125
 MAP
 .
 ENDMAP

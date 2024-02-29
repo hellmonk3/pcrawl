@@ -103,7 +103,7 @@ ENDMAP
 
 NAME:    hangedman_hellfire_club
 TAGS:    transparent no_monster_gen
-DEPTH:   Geh, !Geh:$, Zot:1-4
+DEPTH:   Geh, !Geh:$
 MONS:    red draconian scorcher
 MONS:    red draconian stormcaller
 MONS:    hellion

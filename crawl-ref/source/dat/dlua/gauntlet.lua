@@ -114,19 +114,7 @@ end
 -- @param glyph The glyph on which to place the entry. If entry is nil, this
 --              glyph will be replaced with floor.
 function gauntlet_arena_mons_setup(e, entry, glyph)
-    if entry == nil then
-        e.subst(glyph .. " = .")
-        return
-    end
-
-    e.kmons(glyph .. " = " .. entry["mons"])
-
-    local n = entry["min"] + crawl.random2(entry["max"] - entry["min"] + 1)
-    if n < 1 then
-        e.subst(glyph .. " = .")
-    else
-        e.nsubst(glyph .. " = " .. tostring(n) .. "=" .. glyph .. " / .")
-    end
+    return
 end
 
 -- Item setup for arena subvaults.

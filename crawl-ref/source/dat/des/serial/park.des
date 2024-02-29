@@ -8,7 +8,7 @@ NAME:   serial_park
 TAGS:   allow_dup extra luniq_serial decor layout_open layout_open_caves
 CHANCE: 1%
 {{
-  local c = 5 + crawl.random2(3)*crawl.random2(2)
+  local c = 3 + crawl.random2(3)*crawl.random2(2)
   hook("post_place", function()
     dgn.place_maps{tag="serial_park", count=c}
   end)
@@ -16,6 +16,7 @@ CHANCE: 1%
 
 NAME:     serial_park_central
 TAGS:     transparent extra decor serial_park
+WEIGHT:   1
 ORIENT:   centre
 KMONS:    1 = bush
 SUBST:    F : GGTTT
@@ -157,6 +158,7 @@ ENDMAP
 
 NAME:     serial_park_paths
 TAGS:     transparent extra decor serial_park
+WEIGHT:   1
 ORIENT:   float
 KMONS:    1 = bush
 FTILE:    DF = floor_vault
@@ -196,6 +198,7 @@ ENDMAP
 
 NAME:   serial_park_avenue1
 TAGS:   allow_dup transparent extra decor serial_park
+WEIGHT: 2
 ORIENT: float
 KMONS:  1 = bush
 FTILE:  DGF = floor_vault
@@ -216,6 +219,7 @@ ENDMAP
 
 NAME:    serial_park_fountain
 TAGS:    transparent extra decor serial_park
+WEIGHT:  2
 ORIENT:  float
 FTILE:   DFGT = floor_vault
 FTILE:   Et = floor_grass

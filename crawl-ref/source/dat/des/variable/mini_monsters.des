@@ -30,7 +30,7 @@
 {{
 -- Functionality for some Grunt vaults.
 function grunt_ministairs_setup(e, hatches)
-  if you.in_branch("Crypt") or you.in_branch("Zot") then
+  if you.in_branch("Crypt") or you.in_branch("Sanctum") then
     e.shuffle("GT")
     if you.in_branch("Crypt") then
       e.subst("T = T V:20 Y:1")
@@ -68,7 +68,7 @@ function random_stair(e, symbol)
 end
 }}
 
-default-depth: D:9-, Depths, Elf
+default-depth: D:9-, Depths, Tower
 
 ################################################################################
 #
@@ -78,7 +78,8 @@ default-depth: D:9-, Depths, Elf
 
 NAME:    nicolae_neqoxec_dot_bat
 TAGS:    transparent
-DEPTH:   D:9-12
+DEPTH:   D
+WEIGHT:  1
 MAP
            cccccc
          cccccccccc
@@ -111,7 +112,7 @@ ENDMAP
 
 NAME:   minmay_circled_x
 TAGS:   transparent
-DEPTH:  D:1-2
+DEPTH:  D
 WEIGHT: 3
 MAP
      ......
@@ -134,7 +135,7 @@ ENDMAP
 
 NAME:   minmay_three_crescents
 TAGS:   transparent
-DEPTH:  D:1-4
+DEPTH:  D
 WEIGHT: 3
 MAP
  .....
@@ -154,7 +155,7 @@ ENDMAP
 
 NAME:   minmay_divided_ellipse
 TAGS:   transparent
-DEPTH:  D:2-6
+DEPTH:  D
 WEIGHT: 5
 MAP
       .......
@@ -172,7 +173,7 @@ ENDMAP
 
 NAME:  kb_rosetta
 TAGS:  vaults_hard transparent
-DEPTH: D:6-, Depths, Vaults, Elf
+DEPTH: D, Depths, Tower
 SUBST: x : xcvmnt
 SUBST: X : GtTU
 MAP
@@ -195,7 +196,7 @@ ENDMAP
 
 NAME:   minmay_close_crescents
 TAGS:   transparent
-DEPTH:  D:1-4
+DEPTH:  D
 MAP
  .........
 ..xxxx..x..
@@ -209,7 +210,7 @@ ENDMAP
 
 NAME:   minmay_cut_off
 TAGS:   transparent
-DEPTH:  D:1-4
+DEPTH:  D
 MAP
 .
 ..
@@ -230,7 +231,7 @@ ENDMAP
 
 NAME:   minmay_cupped
 TAGS:   transparent
-DEPTH:  D:1-4
+DEPTH:  D
 MAP
 ..........
 .xxx...xx.
@@ -246,7 +247,7 @@ ENDMAP
 
 NAME:   minmay_unequal
 TAGS:   transparent
-DEPTH:  D:1-4
+DEPTH:  D
 MAP
 ........
 .xxx......
@@ -267,7 +268,7 @@ ENDMAP
 
 NAME:   minmay_quantized
 TAGS:   transparent
-DEPTH:  D:1-4
+DEPTH:  D
 MAP
     .....
     .xxx.
@@ -286,7 +287,7 @@ ENDMAP
 
 NAME:   minmay_ruptured
 TAGS:   transparent
-DEPTH:  D:1-4
+DEPTH:  D
 MAP
  ..................
 ...xx.xx.....xx.xx..
@@ -299,7 +300,8 @@ ENDMAP
 
 NAME:    minmay_diamond_spiral
 TAGS:    transparent
-DEPTH:   D:8-
+DEPTH:   D
+WEIGHT:  4
 SUBST:   ? = .G+m
 SHUFFLE: xcvb / mnnn
 MAP
@@ -328,7 +330,8 @@ ENDMAP
 
 NAME:    minmay_radiant
 TAGS:    transparent
-DEPTH:   D:8-
+WEIGHT:  4
+DEPTH:   D
 SUBST:   x : xcvbnm G:1
 MAP
  ..........
@@ -354,7 +357,7 @@ ENDMAP
 # but they're mainly around for the decor (same principle as st's).
 NAME:    grunt_ministairs_1
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
   ...
@@ -368,7 +371,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_2
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
    .....
@@ -382,7 +385,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_3
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
     @
@@ -399,7 +402,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_4
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 NSUBST:  @ = 1:@ / *:.
 MAP
@@ -417,7 +420,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_5
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
         @
@@ -436,7 +439,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_6
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 NSUBST:  @ = 1:@ / *:.
 MAP
@@ -457,7 +460,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_7
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
     @
@@ -474,7 +477,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_8
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
     xxx
@@ -494,7 +497,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_9
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
  xx...
@@ -510,7 +513,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_10
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 NSUBST:  @ = 1:@ / *:.
 MAP
@@ -527,7 +530,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_11
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 NSUBST:  @ = 1:@ / *:.
 MAP
@@ -547,7 +550,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_12
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
 xxxxx     xxxxx
@@ -561,7 +564,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_13
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
    @         @
@@ -583,7 +586,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_14
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, false)
 MAP
       @
@@ -601,7 +604,7 @@ ENDMAP
 
 NAME:    grunt_ministairs_15
 TAGS:    extra transparent allow_dup luniq_grunt_ministairs
-DEPTH:   D:2-, Depths, Zot, Snake, Elf, Crypt
+DEPTH:   D, Depths, Sanctum, Workshop, Tower, Crypt
 : grunt_ministairs_setup(_G, true)
 MAP
      @     @
@@ -619,7 +622,7 @@ ENDMAP
 
 NAME:    minmay_randomly_rotated_circles
 TAGS:    transparent
-DEPTH:   D:2-3
+DEPTH:   D
 SHUFFLE: ABCDEFGH
 SHUFFLE: IJKLMNOP
 SUBST:   AI : ., BCDEFGHJKLMNOP : x
@@ -645,6 +648,7 @@ ENDMAP
 
 NAME:    minmay_swirly_circle
 TAGS:    transparent
+WEIGHT:  1
 DEPTH:   Depths
 SUBST:   x : ccvvb
 MAP
@@ -674,7 +678,7 @@ ENDMAP
 
 NAME:   minmay_indecisive_spiral
 TAGS:   transparent
-DEPTH:  D:1-2
+DEPTH:  D
 MAP
 ...........
 .xxx.xxx.x.
@@ -691,7 +695,8 @@ ENDMAP
 
 NAME:  minmay_starry_boxes
 TAGS:  transparent
-DEPTH: D:3-,Depths
+WEIGHT: 1
+DEPTH: D,Depths
 SUBST: x : xxxxxxcvb
 MAP
  ...............
@@ -715,6 +720,7 @@ ENDMAP
 
 NAME:   minmay_diced_spiral
 TAGS:   transparent
+WEIGHT: 1
 DEPTH:  D:2-
 MAP
 ..................
@@ -739,6 +745,7 @@ ENDMAP
 
 NAME:   minmay_quadrilaterals
 TAGS:   transparent
+WEIGHT: 1
 DEPTH:  D:2-
 SUBST:  x : x:40 cvbm
 MAP
@@ -767,6 +774,7 @@ ENDMAP
 
 NAME:   minmay_puff
 TAGS:   transparent
+WEIGHT: 1
 DEPTH:  D:2-
 MAP
    xxxxx
@@ -794,6 +802,7 @@ ENDMAP
 
 NAME:   minmay_fractal_squares_5
 TAGS:   transparent
+WEIGHT: 5
 DEPTH:  D:2-
 SUBST:  x : x:40 cvbm
 MAP
@@ -820,6 +829,7 @@ ENDMAP
 
 NAME:   minmay_fractal_squares_diagonal_5
 TAGS:   transparent
+WEIGHT: 5
 DEPTH:  D:3-, Depths
 MAP
 ... ... ... ...
@@ -841,7 +851,8 @@ ENDMAP
 
 NAME:    minmay_mirror_moons_of_madness
 TAGS:    transparent
-DEPTH:   D:9-, Depths
+DEPTH:   D, Depths
+WEIGHT: 3
 SHUFFLE: ccvvbb
 MAP
      ........

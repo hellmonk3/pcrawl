@@ -42,7 +42,7 @@ function ossuary_portal(e)
         feat_tile = "dngn_portal_ossuary_gone",
         msg = messager })
   e.tags("uniq_ossuary no_monster_gen chance_ossuary")
-  e.chance(500)
+  e.chance(0)
   e.kfeat("O = enter_ossuary")
   e.colour("' = yellow")
   e.ftile("' = floor_sandstone")
@@ -69,7 +69,7 @@ end
 }}
 
 #### Portal entry vaults.
-default-depth: D:4-8
+default-depth: D
 
 NAME:   enter_ossuary_1
 TAGS:   transparent
@@ -673,7 +673,7 @@ SHUFFLE: ABI/CDJ/EFK/GHL
 SUBST:   A : ., B : A, I : <
 SUBST:   EFKGHL : d
 SUBST:   CDJ = 1112
-MONS:    generate_awake zombie place:D:6 /\
+MONS:    generate_awake zombie place:D:2 /\
          w:5 generate_awake mummy
 MONS:    w:15 withered plant /\
          mummy \

@@ -1,18 +1,19 @@
 ###############################################################################
-# vaults.des: Entries to the Vaults branch, and Vaults:$ set-up.
+# vaults.des: Entries to the Fortress branch, and Fortress:$ set-up.
 #
-# Vaults are scattered according to purpose across the rest of dat/des.
+# Fortress are scattered according to purpose across the rest of dat/des.
 ###############################################################################
 
 {{
--- Vaults:$ common loot substitutions.
+-- Fortress:$ common loot substitutions.
 function vaults_end_loot(e)
-    e.subst("? = | * .:43")
-    e.subst("| = | *:2")
-    e.subst("* = * |:2")
+    e.subst("? = .")
+    e.subst("| = .")
+    e.subst("* = .")
+    e.subst("$ = .")
 end
 
--- Vaults:$ cross-vault rune substitution. Turn 'O' into a rune (if it doesn't
+-- Fortress:$ cross-vault rune substitution. Turn 'O' into a rune (if it doesn't
 -- exist yet) or a good item. Note that this assumes that only one "prize"
 -- subvault is ever picked, and that it is the first subvault of the four.
 function vaults_end_rune(e)
@@ -28,16 +29,24 @@ end
 }}
 
 ###############################################################################
-# Vaults entries
+# Fortress entries
 ###############################################################################
 
 ############################################################
 # Above As Below
 #
+NAME:    dummy_vaults_entry
+TAGS:    vaults_entry
+WEIGHT:  150
+KFEAT:   O = enter_fortress
+MAP
+O
+ENDMAP
+
 NAME:    erik_vaults_2
 TAGS:    vaults_entry transparent
 SUBST:   v : vxx, b : bcc
-KFEAT:   O = enter_vaults
+KFEAT:   O = enter_fortress
 MAP
 vvvvvv.vvvvvv
 vvvvvv.vvvvvv
@@ -51,10 +60,10 @@ vvvvvv.vvvvvv
 ENDMAP
 
 NAME:   hellmonk_vaults_keyhole
-TAGS:   vaults_entry no_monster_gen
+TAGS:   vaults_entry
 ORIENT: north
 SUBST:  v : v:90 b
-KFEAT: O = enter_vaults
+KFEAT: O = enter_fortress
 MAP
   vvv
  vv.vv
@@ -74,7 +83,7 @@ vv+++vv
 ENDMAP
 
 ###############################################################################
-# Vaults:$ last level of the vaults -- dungeon.cc will change all these 'x's
+# Fortress:$ last level of the vaults -- dungeon.cc will change all these 'x's
 ###############################################################################
 #
 # This map traditionally allows controlled teleports. Even with the now
@@ -82,22 +91,18 @@ ENDMAP
 # awkward to reach via teleport, and there is now always a monster on the
 # rune.
 #
-# Vaults:$ extensively uses subvaults. To provide another Vaults:$ quadrant
+# Fortress:$ extensively uses subvaults. To provide another Fortress:$ quadrant
 # variation, create a map tagged vaults_end_quadrant that is 27x23. It should
 # have three blank cells on one corner (see any existing quadrant for an
 # example), which will be used to orient that corner towards the middle of
 # the map. Each quadrant must be capable of generating a rune, which
 # should be done by placing an 'O' glyph and calling vaults_end_rune(_G).
-#
-# There is a lot of variance among the possible quadrants but we do ensure
-# that (exactly) one quadrant with rich loot is generated. Those are tagged
-# vaults_end_quadrant_prize and come in their own section below.
 
 #############################################################
-# The main vault for Vaults:$.
+# The main vault for Fortress:$.
 #
 NAME:     vaults_vault
-PLACE:    Vaults:$
+PLACE:    Fortress:$
 ORIENT:   encompass
 TAGS:     no_rotate no_dump
 SHUFFLE:  ABCD
@@ -180,20 +185,20 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ENDMAP
 
 ############################################################
-# Vaults:$ - the subvault used to place the rune.
+# Fortress:$ - the subvault used to place the rune.
 #
 # Used by the 'vaults_end_rune()' function in the prelude.
 #
 NAME:  vaults_end_rune
 TAGS:  vaults_end_rune
 KMONS: O = 8 / 9
-KITEM: O = silver rune of Zot
+KFEAT: O = enter_sanctum
 MAP
 O
 ENDMAP
 
 ############################################################
-# Vaults:$ - the subvault used for potential rune locations that do not
+# Fortress:$ - the subvault used for potential rune locations that do not
 # contain the real rune.
 #
 # Used by the 'vaults_end_rune()' function in the prelude.
@@ -201,17 +206,12 @@ ENDMAP
 NAME:  vaults_end_norune
 TAGS:  vaults_end_norune allow_dup unrand
 KMONS: o = 8 / 9
-: if crawl.random2(13) == 12 then
-KFEAT:   o = any shop
-: else
-KITEM:   o = any good_item
-: end
 MAP
 o
 ENDMAP
 
 ############################################################
-# Vaults:$ - the subvault used for potential rune locations that do not
+# Fortress:$ - the subvault used for potential rune locations that do not
 # contain the rune, but rather a mimic of it!
 #
 # Used by the 'vaults_end_rune()' function in the prelude.
@@ -225,7 +225,7 @@ o
 ENDMAP
 
 ###############################################################################
-# Vaults:$ quadrants
+# Fortress:$ quadrants
 ###############################################################################
 
 ############################################################
@@ -890,87 +890,6 @@ x......xxx$$$$$$$xxx......x
 ENDMAP
 
 ############################################################
-# One shop, 16 monsters
-NAME:    vaults_end_dpeg_shops1
-TAGS:    vaults_end_quadrant vaults_end_quadrant_mall unrand
-KFEAT:   S = any shop
-: if crawl.one_chance_in(4) then
-SUBST:   A = +, a = ., CD = x
-: else
-SHUFFLE: CD
-SUBST:   C = ., DAa = x
-: end
-SUBST:   9 = 8 9 .:20
-: vaults_end_loot(_G)
-: vaults_end_rune(_G)
-MAP
-  xxxxxxxxxxxxxxxxxxxxxxx
- ..xxxxxxxxxx.....xxxx...
-x...xxxxx.................x
-xx........................x
-xxx......................xx
-xxxx.....................xx
-xxxx.....................xx
-xxx......9xxxxxxx........xx
-xx......9xxxxxxxxx.......xx
-xx......xxx$999$xxx.......x
-xx......xC.9$$$9.xx.......x
-x.......CC.9$S$9Oxx.......x
-x.......xC.9$$$9.xx......xx
-x.......xAa$999$xxx......xx
-xx.......xAxDDDxxx9......xx
-xx........xxxDxxx9......xxx
-xx.....................xxxx
-xx.....................xxxx
-xx......................xxx
-x........................xx
-x.................xxxxx...x
- ....xxxx.....xxxxxxxxxx..
-  xxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
-############################################################
-# Consumable shops (scrolls, potions).
-# Monsters in rooms.
-NAME:    vaults_end_dpeg_shops2
-TAGS:    vaults_end_quadrant vaults_end_quadrant_mall unrand
-NSUBST:  A = 1:+ / *:x+
-NSUBST:  B = 1:+ / *:x+
-NSUBST:  C = 1:+ / *:x+
-NSUBST:  S = 3:S / 1:O / *:S99
-KFEAT:   S = scroll shop / distillery shop / abandoned_shop
-NSUBST:  ' = 20:9 / *:.
-NSUBST:  . = 5:9 / *:.
-SUBST:   9 = 8 9 .:20
-: vaults_end_loot(_G)
-: vaults_end_rune(_G)
-MAP
-  xxxxxxxxxxxxxxxxxxxxxxx
- .........................
-x.........................x
-x...xxxxx..xxxxx..xxxxx...x
-x...x'S'x..x'S'x..x'S'x...x
-x...x'''x..x'''x..x'''x...x
-x...xx+xx..xx+xx..xx+xx...x
-x.........................x
-x.........................x
-x...xxAxx..xxBxx..xxCxx...x
-x...x'''x..x'''x..x'''x...x
-x...x'S'x..x'S'x..x'S'x...x
-x...x'''x..x'''x..x'''x...x
-x...xxAxx..xxBxx..xxCxx...x
-x.........................x
-x.........................x
-x...xx+xx..xx+xx..xx+xx...x
-x...x'''x..x'''x..x'''x...x
-x...x'S'x..x'S'x..x'S'x...x
-x...xxxxx..xxxxx..xxxxx...x
-x.........................x
- .........................
-  xxxxxxxxxxxxxxxxxxxxxxx
-ENDMAP
-
-############################################################
 # 20 *, 20 monsters
 NAME:   vaults_end_minmay_plus_grid
 TAGS:   vaults_end_quadrant unrand
@@ -1610,7 +1529,7 @@ x.xxx.................xxx.x
 ENDMAP
 
 ###############################################################################
-# Vaults:$ prize quadrants
+# Fortress:$ prize quadrants
 ###############################################################################
 
 ############################################################
@@ -1971,49 +1890,6 @@ x.!x...............|xx....x
 ENDMAP
 
 ############################################################
-# Two guaranteed good shops. Perhaps more shops.
-# Almost all monsters are in the rooms.
-NAME:    vaults_end_dpeg_mall
-TAGS:    vaults_end_quadrant_prize vaults_end_quadrant_prize_mall unrand
-SHUFFLE: AB, CD
-SUBST:   A=+, B:xx+, C:xxx+, D:xxxx+
-NSUBST:  S = 2:S / 1:O / *:RRU9
-KFEAT:   S = jewellery shop / antique armour shop / distillery shop
-KFEAT:   R = general shop / book shop / scroll shop / antique weapon shop / distillery shop
-KFEAT:   U = stone_arch
-NSUBST:  ' = 22:9 / *:.
-NSUBST:  . = 2:9 / *:.
-SUBST:   9 = 8 9
-SUBST:   a : x.
-: vaults_end_loot(_G)
-: vaults_end_rune(_G)
-MAP
-  aaxxxxxxxxxxxxxxxxxxxaa
- .........................
-a.........................a
-a..................xxx....a
-x..............x+++xxx....x
-x..........x+++x'''xxx....x
-x..........x'''D'S'xx.....x
-x..........x'S'D'''xx.....x
-x........xxx'''xxxxxx.....x
-x........xxxBBBxxxxxx.....x
-x........xx''''xx.........x
-x......T.xx'ST'xx.T.......x
-x........xx''''xx.........x
-x....xxxxxxAAAxxx.........x
-x....xxxxxx'''xxx.........x
-x....xx'''C'S'x...........x
-x....xx'S'C'''x...........x
-x...xxx'''x+++x...........x
-x...xxx+++x...............x
-a...xxx...................a
-a.........................a
- ........................
-  aaxxxxxxxxxxxxxxxxxxxaa
-ENDMAP
-
-############################################################
 # 26 *, 16 monsters
 NAME:   vaults_end_minmay_bent_boxes
 TAGS:   vaults_end_quadrant_prize unrand
@@ -2358,7 +2234,6 @@ NAME:    vaults_end_nooodl_tilted_maze
 TAGS:    vaults_end_quadrant_prize unrand
 SUBST:   9 = 8 9 .:10
 NSUBST:  O = 1:O / *:|
-SUBST:   * = * $:4
 : vaults_end_loot(_G)
 : vaults_end_rune(_G)
 MAP
@@ -2454,7 +2329,7 @@ x......9............9.....x
 ENDMAP
 
 ############################################################
-# Vaults:$ - Rooms Quadrant
+# Fortress:$ - Rooms Quadrant
 #
 # This quadrant uses a subvault for each room. Any subvault tagged
 # vaults_end_room_rune should be guaranteed to provide a rune. Any subvault
@@ -2500,7 +2375,7 @@ a.xxxxxxxxxEx..xxxxxxxxxx.a
   axxxxxxxxxxxxxxxxxxxxxa
 ENDMAP
 
-# Vaults:$ - Rooms Quadrant - Traps and Loot Subvault
+# Fortress:$ - Rooms Quadrant - Traps and Loot Subvault
 #            Replace each square with traps or loot, but mostly floor.
 NAME: vaults_end_room_traps_and_loot
 TAGS: vaults_end_room
@@ -2510,7 +2385,7 @@ SUBST: . = ?
 MAP
 ENDMAP
 
-# Vaults:$ - Rooms Quadrant - Border Subvault
+# Fortress:$ - Rooms Quadrant - Border Subvault
 #            Fill the room with loot, but leave an empty border.
 NAME: vaults_end_room_border
 TAGS: vaults_end_room
@@ -2533,7 +2408,7 @@ TAGS: vaults_end_room
 MAP
 ENDMAP
 
-# Vaults:$ - Rooms Quadrant - Diamond Subvault
+# Fortress:$ - Rooms Quadrant - Diamond Subvault
 #            Fill the room with money in a diamond pattern.
 NAME: vaults_end_room_diamond
 TAGS: vaults_end_room
@@ -2554,7 +2429,7 @@ TAGS: vaults_end_room
 MAP
 ENDMAP
 
-# Vaults:$ - Rooms Quadrant - Rune Subvault
+# Fortress:$ - Rooms Quadrant - Rune Subvault
 #            Potentially contains the rune.
 NAME: vaults_end_room_rune
 TAGS: vaults_end_room_rune

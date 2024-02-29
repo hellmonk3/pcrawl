@@ -460,7 +460,7 @@ end
 -- Render functions
 function procedural.render_map(e, fval, fresult)
 
-  local gxm,gym = dgn.builder_bounds()
+  local gxm,gym = dgn.large_builder_bounds()
   e.extend_map { width = gxm, height = gym, fill = 'x' }
   for x = 1,gxm-2,1 do
     for y = 1,gym-2,1 do

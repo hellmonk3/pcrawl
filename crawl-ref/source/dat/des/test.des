@@ -21,7 +21,7 @@ function pressure_test_stepped(data, triggerable, triggerer, marker, ev)
 end
 }}
 
-default-depth: Zot:27
+default-depth: Sanctum:27
 
 NAME:   feat_test
 WEIGHT: 0

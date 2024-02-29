@@ -23,13 +23,13 @@ end
 
 function abyss_entry(e, glyph)
   e.tags("extra luniq_enter_abyss chance_enter_abyss")
-  e.depth_chance("Depths:1-2", 3333)
-  e.depth_chance("Depths:3",   10000)
-  e.depth_chance("Depths:4-",  3333)
+  e.depth_chance("Depths:1-2", 0)
+  e.depth_chance("Depths:3",   0)
+  e.depth_chance("Depths:4-",  0)
 -- start TAG_MAJOR_VERSION == 34
-  e.depth_chance("D:21-24", 3333)
-  e.depth_chance("D:25",    10000)
-  e.depth_chance("D:26-",   3333)
+  e.depth_chance("D:21-24", 0)
+  e.depth_chance("D:25",    0)
+  e.depth_chance("D:26-",   0)
 -- end TAG_MAJOR_VERSION
   e.kfeat(glyph .. ' = enter_abyss')
 end
@@ -309,7 +309,7 @@ ENDMAP
 
 NAME:    hangedman_abyss_or_decor_clamps
 TAGS:    transparent no_pool_fixup decor
-DEPTH:   D:8-, Depths, Abyss
+DEPTH:   D:2-, Depths, Abyss
 KFEAT:   @ = +
 SHUFFLE: ABCDEFGH, '"
 : if you.in_branch("Abyss") then

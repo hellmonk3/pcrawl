@@ -377,20 +377,16 @@ static const mon_spellbook mspell_list[] =
     // ('o') Orcs.
     {  MST_ORC_PRIEST,
       {
-       { SPELL_CANTRIP, 13, MON_SPELL_PRIEST },
-       { SPELL_PAIN, 13, MON_SPELL_PRIEST },
-       { SPELL_SMITING, 13, MON_SPELL_PRIEST },
-       { SPELL_HEAL_OTHER, 13, MON_SPELL_PRIEST },
+       { SPELL_SMITING, 20, MON_SPELL_PRIEST },
+       { SPELL_HEAL_OTHER, 20, MON_SPELL_PRIEST },
       }
     },
 
     // Shared with Sigmund.
     {  MST_ORC_WIZARD,
       {
-       { SPELL_MAGIC_DART, 9, MON_SPELL_WIZARD },
-       { SPELL_THROW_FLAME, 9, MON_SPELL_WIZARD },
-       { SPELL_CONFUSE, 18, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 9, MON_SPELL_WIZARD },
+       { SPELL_THROW_FLAME, 20, MON_SPELL_WIZARD },
+       { SPELL_CONFUSE, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -2268,6 +2264,13 @@ static const mon_spellbook mspell_list[] =
        { SPELL_SYMBOL_OF_TORMENT, 20, MON_SPELL_MAGICAL },
        { SPELL_DISPEL_UNDEAD_RANGE, 20, MON_SPELL_MAGICAL },
        { SPELL_SUMMON_EXECUTIONERS, 40, MON_SPELL_MAGICAL },
+      }
+    },
+    
+    // Archers.
+    {  MST_ARCHER,
+      {
+       { SPELL_SHOOT_ARROW, 150, MON_SPELL_NATURAL },
       }
     },
 

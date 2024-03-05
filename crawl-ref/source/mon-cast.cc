@@ -748,7 +748,7 @@ static function<void(bolt&, const monster&, int)> _zap_setup(spell_type spell)
 
 static void _setup_healing_beam(bolt &beam, const monster &caster)
 {
-    beam.damage   = dice_def(2, caster.spell_hd(SPELL_MINOR_HEALING) / 2);
+    beam.damage   = dice_def(1, 4 + caster.spell_hd(SPELL_MINOR_HEALING));
     beam.flavour  = BEAM_HEALING;
 }
 
@@ -811,7 +811,7 @@ static void _cast_smiting(monster &caster, mon_spell_slot slot, bolt&)
     else
         simple_monster_message(*foe->as_monster(), " is smitten.");
 
-    foe->hurt(&caster, 7 + random2avg(11, 2), BEAM_MISSILE, KILLED_BY_BEAM,
+    foe->hurt(&caster, 5 + random2(6), BEAM_MISSILE, KILLED_BY_BEAM,
               "", "by divine providence");
     _whack(caster, *foe);
 }
@@ -1098,47 +1098,7 @@ static int _mons_power_hd_factor(spell_type spell)
     if (logic && logic->power_hd_factor)
         return logic->power_hd_factor;
 
-    switch (spell)
-    {
-        case SPELL_CAUSE_FEAR:
-            return 18 * ENCH_POW_FACTOR;
-
-        case SPELL_DOOM_HOWL:
-        case SPELL_MESMERISE:
-            return 10 * ENCH_POW_FACTOR;
-
-        case SPELL_SIREN_SONG:
-        case SPELL_AVATAR_SONG:
-            return 9 * ENCH_POW_FACTOR;
-
-        case SPELL_MASS_CONFUSION:
-        case SPELL_CONFUSION_GAZE:
-            return 8 * ENCH_POW_FACTOR;
-
-        case SPELL_CALL_DOWN_LIGHTNING:
-            return 16;
-
-        case SPELL_OLGREBS_TOXIC_RADIANCE:
-        case SPELL_IOOD:
-        case SPELL_FREEZE:
-            return 8;
-
-        case SPELL_MONSTROUS_MENAGERIE:
-        case SPELL_BATTLESPHERE:
-        case SPELL_IGNITE_POISON:
-        case SPELL_IRRADIATE:
-            return 6;
-
-        case SPELL_SUMMON_DRAGON:
-        case SPELL_SUMMON_HYDRA:
-            return 5;
-
-        case SPELL_CHAIN_OF_CHAOS:
-            return 4;
-
-        default:
-            return 12;
-    }
+    return 1;
 }
 
 /**
@@ -1385,6 +1345,7 @@ bolt mons_spell_beam(const monster* mons, spell_type spell_cast, int power,
     case SPELL_ELECTRICAL_BOLT:
     case SPELL_DISPEL_UNDEAD_RANGE:
     case SPELL_STUNNING_BURST:
+    case SPELL_SHOOT_ARROW:
         zappy(spell_to_zap(real_spell), power, true, beam);
         break;
 
@@ -4390,7 +4351,7 @@ static bool _mons_cast_freeze(monster* mons)
 
     // We use non-random damage for monster Freeze so that the damage display
     // is simple to display to players without being misleading.
-    const int base_damage = freeze_damage(pow, false).roll();
+    const int base_damage = freeze_damage(pow).roll();
     const int damage = resist_adjust_damage(target, BEAM_COLD, base_damage);
 
     if (you.can_see(*target))
@@ -7540,6 +7501,7 @@ ai_action::goodness monster_spell_goodness(monster* mon, spell_type spell)
 
     case SPELL_THROW_BARBS:
     case SPELL_HARPOON_SHOT:
+    case SPELL_SHOOT_ARROW:
         // Don't fire if we can hit.
         ASSERT(foe);
         return ai_action::good_or_bad(grid_distance(mon->pos(), foe->pos())

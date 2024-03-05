@@ -3216,7 +3216,7 @@ void melee_attack::mons_apply_attack_flavour()
         break;
     }
     case AF_SLEEP:
-        if (!coinflip())
+        if (coinflip())
             break;
         if (attk_type == AT_SPORE)
         {
@@ -3784,7 +3784,7 @@ int melee_attack::apply_damage_modifiers(int damage)
                      || (attk_flavour == AF_SHADOWSTAB
                          &&!defender->can_see(*attacker))))
     {
-        damage = damage * 5 / 2;
+        damage = damage * 2;
         dprf(DIAG_COMBAT, "Stab damage vs %s: %d",
              defender->name(DESC_PLAIN).c_str(),
              damage);

@@ -73,7 +73,7 @@ SUBST:  1 = 2234..........
 MONS:   nothing
 MONS:   rat / river rat w:5
 MONS:   ball python / adder w:2
-MONS:   giant cockroach / worm w:3
+MONS:   giant cockroach
 MAP
 .........
 ...111...
@@ -91,7 +91,7 @@ ORIENT: float
 : sewer_portal(_G)
 SUBST:  ' = W. , W = WW1
 KMONS:  1 = rat w:20 / river rat / ball python / adder w:2 / \
-            giant cockroach / worm w:3
+            giant cockroach
 MAP
 xxxxxx
 xOWWW'
@@ -108,7 +108,7 @@ NSUBST: W = 8 = 111W / *:W
 NSUBST: n = 1:+ / 2:n / *:c
 TILE:   c = wall_stone_mossy
 KMONS:  1 = rat w:20 / river rat / ball python / adder w:2 / \
-            giant cockroach / worm w:3
+            giant cockroach
 MAP
 .........
 .nnnnnnn.
@@ -137,7 +137,7 @@ NSUBST: X = 2:+ / *:x
 SUBST:  w = WW.
 NSUBST: W = 8:111W / *:W
 KMONS:  1 = rat w:20 / river rat / ball python / adder w:2 / \
-            giant cockroach / worm w:3
+            giant cockroach
 MAP
 xxxxxxxxx
 xWWWXWww.
@@ -186,7 +186,7 @@ NAME:   gup_sewer_entry_spiral
 TAGS:   patrolling
 : sewer_portal(_G)
 KMONS:  1 = rat / river rat w:5 / adder w:5 / giant cockroach / \
-            quokka / worm w:5 / nothing
+            quokka / nothing
 NSUBST: - : 8:1 / 8:. / *:W
 MAP
 xxxxxxxxxx
@@ -206,7 +206,7 @@ NAME:   gup_sewer_entry_bubbles
 TAGS:   patrolling
 : sewer_portal(_G)
 KMONS:  1 = rat / river rat w:5 / adder w:5 / giant cockroach / \
-            quokka / worm w:5 / nothing
+            quokka / nothing
 NSUBST: - = 8:1 / *:W
 MAP
  xxx    xxx
@@ -226,7 +226,7 @@ ENDMAP
 NAME:   gup_sewer_entry_bowl
 : sewer_portal(_G)
 KMONS:  1 = rat / river rat w:5 / \
-            giant cockroach / quokka / worm w:3 / nothing
+            giant cockroach / quokka / rat w:3 / nothing
 MAP
 ..........
 .xxx.xxxx..
@@ -254,7 +254,7 @@ ENDMAP
 NAME: lightli_sewer_entry_pipes
 NSUBST: o = 1:O / *:W
 SUBST: W = WWWWW1
-KMONS: 1 = river rat / adder / rat / worm
+KMONS: 1 = river rat / adder / rat / rat
 : sewer_portal(_G)
 MAP
 vvvvvvvvvv
@@ -277,7 +277,7 @@ ENDMAP
 NAME: cheibrodos_sewer_entry_bend
 TAGS: no_monster_gen
 ORIENT: northeast
-KMONS: 1 = worm
+KMONS: 1 = rat
 NSUBST: - = 1:1 / 1=1.. / 1=1...
 KFEAT: A = iron_grate
 : sewer_portal(_G)
@@ -301,7 +301,7 @@ ENDMAP
 NAME: cheibrodos_sewer_entry_drain
 TAGS: no_monster_gen
 ORIENT: float
-KMONS: 1 = rat / ball python / giant cockroach / worm
+KMONS: 1 = rat / ball python / giant cockroach / rat
 NSUBST: 1 = 2:1 / 2=1.. / *:.
 : sewer_portal(_G)
 MAP
@@ -321,7 +321,7 @@ ENDMAP
 NAME: cheibrodos_sewer_entry_sluice
 TAGS: no_monster_gen
 ORIENT: float
-KMONS: 1 = ball python / worm / bat / w:5 river rat
+KMONS: 1 = ball python / rat / bat / w:5 river rat
 SHUFFLE: AB
 SUBST: A = w, B = .
 NSUBST: . = 2:1 / 2=1.
@@ -925,12 +925,12 @@ COLOUR:   " = green
 NSUBST:   W = 48 = ?WWW / *:W
 KFEAT:    ? = W
 KMONS:    ? = bat / frilled lizard / ball python / giant cockroach / \
-              quokka / endoplasm w:4 / worm w:4 / adder w:2
+              quokka / endoplasm w:4 / rat w:4 / adder w:2
 COLOUR:   ? = lightgreen
 #       a little more random shallow water
 SUBST:    - = W..
 : sewer_setup(_G)
-MONS:     worm w:2 / ball python / jackal / adder w:5 / river rat w:5
+MONS:     rat w:2 / ball python / jackal / adder w:5 / river rat w:5
 MONS:     adder, river rat
 NSUBST:   ! = 36 = 1... / *:.
 SHUFFLE:  de
@@ -1040,7 +1040,7 @@ NAME:    sewer_co_15_rooms
 TAGS:    no_item_gen no_monster_gen no_pool_fixup
 ORIENT:  encompass
 MONS:    kobold / w:7 kobold brigand
-MONS:    kobold / adder / ball python / w:7 worm / w:7 endoplasm / \
+MONS:    kobold / adder / ball python / w:7 rat / w:7 endoplasm / \
          rat / river rat w:5
 SUBST:   . = W..
 SUBST:   X = xx.
@@ -1118,7 +1118,7 @@ NAME:   sewer_co_tree
 TAGS:   no_item_gen no_monster_gen no_pool_fixup
 ORIENT: encompass
 MONS:   kobold / kobold brigand
-MONS:   adder / ball python / worm
+MONS:   adder / ball python / rat
 MONS:   endoplasm / rat / river rat w:5
 # less water in the middle, more at the endpoints.
 SUBST:  ~ = WWWW.
@@ -1418,7 +1418,7 @@ TAGS:   no_item_gen no_monster_gen no_pool_fixup
 ORIENT: encompass
 : item(dgn.loot_potions .. " / any scroll w:30 / any armour / any weapon")
 MONS:   endoplasm w:25 / rat / ball python / giant cockroach / adder w:5 /\
-        river rat w:5 / frilled lizard / worm w:2
+        river rat w:5 / frilled lizard / rat w:2
 KMONS:  2 = jelly
 SUBST:  . = W..
 NSUBST: - = 32 = 1W.. / * = W..

@@ -2317,9 +2317,9 @@ foes.
 %%%%
 silent spectre
 
-A terrible spirit which brings an unearthly silence to the area around it,
+A spirit which brings an unearthly silence to the area around it,
 making it impossible to recite the magical incantations involved with casting
-spells or reading scrolls.
+spells.
 %%%%
 simulacrum
 
@@ -2683,13 +2683,13 @@ eternity.
 %%%%
 vampire
 
-A human cursed with vampirism, drifting in a state between life and undeath,
-perpetually hungry for the blood of the living.
+A hemomancer, drifting in a state between life and undeath, perpetually
+hungry for the blood of the living.
 %%%%
 vampire bat
 
 A large black bat with vicious fangs that feeds on blood. It is the preferred
-form for vampires in disguise.
+form for vampires in disguise, but this one is just a bat.
 %%%%
 vampire knight
 
@@ -2698,8 +2698,7 @@ A powerful vampire noble who complements its combat prowess with dark magic.
 vampire mage
 
 A sorcerer who, by accident or design, has been afflicted with the curse of the
-vampire. Regardless, through undeath, it has finally mastered the art of dark
-magic.
+vampire.
 %%%%
 vampire mosquito
 

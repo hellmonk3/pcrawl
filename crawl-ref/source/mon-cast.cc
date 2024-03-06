@@ -225,10 +225,8 @@ static const map<spell_type, mons_spell_logic> spell_to_logic = {
         {
             const actor* foe = caster.get_foe();
             ASSERT(foe);
-            // always cast at < 1/3rd hp, never at > 2/3rd hp
-            const bool low_hp = x_chance_in_y(caster.max_hit_points * 2 / 3
-                                                - caster.hit_points,
-                                              caster.max_hit_points / 3);
+            // only cast below half hp
+            const bool low_hp = caster.max_hit_points - caster.hit_points * 2 > 0;
             if (!adjacent(caster.pos(), foe->pos()))
                 return ai_action::impossible();
 
@@ -4203,11 +4201,10 @@ static monster_type _pick_undead_summon()
 
 static monster_type _pick_vermin()
 {
-    return random_choose_weighted(8, MONS_HELL_RAT,
-                                  5, MONS_REDBACK,
-                                  2, MONS_TARANTELLA,
-                                  2, MONS_JUMPING_SPIDER,
-                                  3, MONS_DEMONIC_CRAWLER);
+    return random_choose_weighted(3, MONS_RAT,
+                                  3, MONS_BAT,
+                                  3, MONS_GIANT_COCKROACH,
+                                  1, MONS_VAMPIRE_BAT);
 }
 
 static monster_type _pick_drake()

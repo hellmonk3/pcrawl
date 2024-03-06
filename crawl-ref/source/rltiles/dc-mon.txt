@@ -1076,6 +1076,8 @@ hobgoblin MONS_HOBGOBLIN
 gnoll MONS_GNOLL
 gnoll_shaman MONS_GNOLL_BOUDA
 gnoll_sergeant MONS_GNOLL_SERGEANT
+gnoll_electrician MONS_GNOLL_ELECTRICIAN
+gnoll_halberdier MONS_GNOLL_HALBERDIER
 %rim 1
 boggart MONS_BOGGART
 

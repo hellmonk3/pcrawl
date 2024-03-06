@@ -2266,7 +2266,7 @@ static const mon_spellbook mspell_list[] =
        { SPELL_SUMMON_EXECUTIONERS, 40, MON_SPELL_MAGICAL },
       }
     },
-    
+
     // Archers.
     {  MST_ARCHER,
       {

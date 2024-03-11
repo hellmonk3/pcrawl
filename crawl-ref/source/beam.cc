@@ -3585,7 +3585,7 @@ void bolt::affect_player_enchantment(bool resistible)
 
     case BEAM_DRAIN_MAGIC:
     {
-        int amount = min(you.magic_points, random2avg(ench_power / 8, 3));
+        int amount = min(you.magic_points, ench_power);
         if (!amount)
             break;
         mprf(MSGCH_WARN, "You feel your power leaking away.");
@@ -3995,10 +3995,7 @@ void bolt::affect_player()
             you.increase_duration(DUR_BARBS, random_range(2, 4), 12);
 
         if (you.attribute[ATTR_BARBS_POW])
-        {
-            you.attribute[ATTR_BARBS_POW] =
-                min(6, you.attribute[ATTR_BARBS_POW]++);
-        }
+            you.attribute[ATTR_BARBS_POW]++;
         else
             you.attribute[ATTR_BARBS_POW] = 4;
     }

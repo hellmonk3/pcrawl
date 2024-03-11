@@ -759,8 +759,7 @@ dragon's fearsome breath was lost in the process.
 gnoll bouda
 
 A gnoll witch possessed by a spirit of spite which flashes out from behind
-their eyes. Its strange chants and ululations send other gnolls into a wild
-frenzy.
+their eyes.
 %%%%
 boulder
 
@@ -1038,9 +1037,9 @@ deep troll earth mage
 A particularly intelligent deep troll. It uses its magic to tunnel through the
 earth and ambush foes.
 %%%%
-deep troll shaman
+troll shaman
 
-A deep troll blessed with divine power to strengthen and hasten its kin.
+A troll blessed with divine power to hasten.
 %%%%
 demigod
 
@@ -1550,13 +1549,8 @@ fragile, elves think of them as clumsy, and monsters think of them as tasty.
 %%%%
 hydra
 
-A great and nightmarish lacertilian beast. It has many heads, and the potential
-to grow many more!
-
-Hitting it with any bladed weapon bigger than a short blade risks lopping a
-head off and causing two more to grow in its place. Very large claws, such as
-trolls', are long enough to do the same. Only a weapon branded with flame will
-cauterize the wound and prevent more heads from growing.
+A great and nightmarish lacertilian beast. It has many heads. Rumours about the
+detachability of those heads are greatly exaggerated, however.
 %%%%
 ice beast
 
@@ -1992,6 +1986,11 @@ A heavily armoured orc, covered in scars from many past battles. It commands
 its brethren in battle, rousing them to greater, more violent efforts with
 bloodcurdling shouts.
 %%%%
+orc lancer
+
+An orc warrior who specializes in the use of a long spear. It can make reaching
+attacks from behind its allies with great force and precision.
+%%%%
 orc priest
 
 A servant of Beogh, the ancient and cruel god of the orcs. Beogh rewards its
@@ -2001,6 +2000,11 @@ orc sorcerer
 
 An exceptionally competent orcish wizard, in league with hellish and chthonic
 forces and motivated by the purest imaginable strain of malevolence.
+%%%%
+orc sniper
+
+A heavily armoured, crossbow wielding orc. It excels at ranged combat, but is
+quite capable in melee range as well.
 %%%%
 orc warlord
 
@@ -2177,6 +2181,12 @@ revenant
 
 An animated skeleton wreathed in cold blue fire, standing astride this life and
 the next. Echoes of the lingering dead flicker within its ghostly flames.
+%%%%
+ribbon worm
+
+
+A giant annelid, glistening with slime, with unusually large teeth. It expels
+fragments of its own innards to ensnare unsuspecting prey. Gross!
 %%%%
 rime drake
 
@@ -2493,9 +2503,9 @@ statue
 A piece of sculpted granite with glowing red eyes. Although it is rooted to its
 base, it can still move parts of itself.
 %%%%
-steam dragon
+steam drake
 
-A relatively small grey dragon, with a resilient-looking scaly hide and steam
+A relatively small drake, with a resilient-looking scaly hide and steam
 pouring from its mouth.
 %%%%
 steelbarb worm

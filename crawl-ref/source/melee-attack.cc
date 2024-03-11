@@ -2051,136 +2051,6 @@ bool melee_attack::player_monattk_hit_effects()
 }
 
 /**
- * Can the given actor lose its heads? (Is it hydra or hydra-like?)
- *
- * @param defender  The actor in question.
- * @return          Whether the given actor is susceptible to head-choppage.
- */
-static bool actor_can_lose_heads(const actor* defender)
-{
-    if (defender->is_monster()
-        && defender->as_monster()->has_hydra_multi_attack()
-        && defender->as_monster()->mons_species() != MONS_SPECTRAL_THING
-        && defender->as_monster()->mons_species() != MONS_SERPENT_OF_HELL)
-    {
-        return true;
-    }
-
-    return false;
-}
-
-/**
- * Does this attack chop off one of the defender's heads? (Generally only
- * relevant for hydra defenders)
- *
- * @param dam           The damage done in the attack in question.
- * @param dam_type      The vorpal_damage_type of the attack.
- * @param wpn_brand     The brand_type of the attack.
- * @return              Whether the attack will chop off a head.
- */
-bool melee_attack::attack_chops_heads(int dam, int dam_type)
-{
-    // hydras and hydra-like things only.
-    if (!actor_can_lose_heads(defender))
-        return false;
-
-    // no decapitate on riposte (Problematic)
-    if (is_riposte)
-        return false;
-
-    // Monster attackers+defenders have only a 25% chance of making the
-    // chop-check to prevent runaway head inflation.
-    // XXX: Tentatively making an exception for spectral weapons
-    const bool player_spec_weap = attacker->is_monster()
-                                    && attacker->type == MONS_SPECTRAL_WEAPON
-                                    && attacker->as_monster()->summoner
-                                        == MID_PLAYER;
-    if (attacker->is_monster() && defender->is_monster()
-        && !player_spec_weap && !one_chance_in(4))
-    {
-        return false;
-    }
-
-    // Only cutting implements.
-    if (dam_type != DVORP_SLICING && dam_type != DVORP_CHOPPING
-        && dam_type != DVORP_CLAWING)
-    {
-        return false;
-    }
-
-    // Small claws are not big enough.
-    if (dam_type == DVORP_CLAWING && attacker->has_claws() < 3)
-        return false;
-
-    // You need to have done at least some damage.
-    if (dam <= 0 || dam < 4 && coinflip())
-        return false;
-
-    // ok, good enough!
-    return true;
-}
-
-/**
- * Decapitate the (hydra or hydra-like) defender!
- *
- * @param dam_type      The vorpal_damage_type of the attack.
- */
-void melee_attack::decapitate(int dam_type)
-{
-    // Player hydras don't gain or lose heads.
-    ASSERT(defender->is_monster());
-
-    const char *verb = nullptr;
-
-    if (dam_type == DVORP_CLAWING)
-    {
-        static const char *claw_verbs[] = { "rip", "tear", "claw" };
-        verb = RANDOM_ELEMENT(claw_verbs);
-    }
-    else
-    {
-        static const char *slice_verbs[] =
-        {
-            "slice", "lop", "chop", "hack"
-        };
-        verb = RANDOM_ELEMENT(slice_verbs);
-    }
-
-    int heads = defender->heads();
-    if (heads == 1) // will be zero afterwards
-    {
-        if (defender_visible)
-        {
-            mprf("%s %s %s last head off!",
-                 atk_name(DESC_THE).c_str(),
-                 attacker->conj_verb(verb).c_str(),
-                 apostrophise(defender_name(true)).c_str());
-        }
-
-        if (!defender->is_summoned())
-        {
-            bleed_onto_floor(defender->pos(), defender->type,
-                             defender->as_monster()->hit_points, true);
-        }
-
-        if (!simu)
-            defender->hurt(attacker, INSTANT_DEATH);
-
-        return;
-    }
-
-    if (defender_visible)
-    {
-        mprf("%s %s one of %s heads off!",
-             atk_name(DESC_THE).c_str(),
-             attacker->conj_verb(verb).c_str(),
-             apostrophise(defender_name(true)).c_str());
-    }
-
-    defender->as_monster()->num_heads--;
-}
-
-/**
  * Apply passive retaliation damage from hitting acid monsters.
  */
 void melee_attack::attacker_sustain_passive_damage()
@@ -2850,10 +2720,7 @@ void melee_attack::mons_apply_attack_flavour()
                 you.increase_duration(DUR_BARBS, random_range(2, 4), 12);
 
             if (you.attribute[ATTR_BARBS_POW])
-            {
-                you.attribute[ATTR_BARBS_POW] =
-                    min(6, you.attribute[ATTR_BARBS_POW]++);
-            }
+                you.attribute[ATTR_BARBS_POW]++;
             else
                 you.attribute[ATTR_BARBS_POW] = 4;
         }
@@ -2875,42 +2742,19 @@ void melee_attack::mons_apply_attack_flavour()
 
     case AF_MINIPARA:
     {
-        // Doesn't affect the poison-immune.
-        if (defender->is_player() && you.duration[DUR_DIVINE_STAMINA] > 0)
-        {
-            mpr("Your divine stamina protects you from poison!");
-            break;
-        }
         if (defender->res_poison() >= 3)
             break;
         if (defender->res_poison() > 0 && !one_chance_in(3))
             break;
         defender->paralyse(attacker, 1);
-        mons_do_poison();
         break;
     }
 
     case AF_POISON_PARALYSE:
     {
-        // Doesn't affect the poison-immune.
-        if (defender->is_player() && you.duration[DUR_DIVINE_STAMINA] > 0)
-        {
-            mpr("Your divine stamina protects you from poison!");
-            break;
-        }
-        else if (defender->res_poison() >= 3)
+        if (defender->res_poison() >= 3)
             break;
 
-        // Same frequency as AF_POISON and AF_POISON_STRONG.
-        if (one_chance_in(3))
-        {
-            int dmg = random_range(attacker->get_hit_dice() * 3 / 2,
-                                   attacker->get_hit_dice() * 5 / 2);
-            defender->poison(attacker, dmg);
-        }
-
-        // Try to apply either paralysis or slowing, with the normal 2/3
-        // chance to resist with rPois.
         if (one_chance_in(6))
         {
             if (defender->res_poison() <= 0 || one_chance_in(3))
@@ -2978,35 +2822,7 @@ void melee_attack::mons_apply_attack_flavour()
         break;
 
     case AF_ANTIMAGIC:
-        antimagic_affects_defender(attacker->get_hit_dice() * 12);
-
-        if (mons_genus(attacker->type) == MONS_VINE_STALKER
-            && attacker->is_monster())
-        {
-            const bool spell_user = defender->antimagic_susceptible();
-
-            if (you.can_see(*attacker) || you.can_see(*defender))
-            {
-                mprf("%s drains %s %s.",
-                     attacker->name(DESC_THE).c_str(),
-                     defender->pronoun(PRONOUN_POSSESSIVE).c_str(),
-                     spell_user ? "magic" : "power");
-            }
-
-            monster* vine = attacker->as_monster();
-            if (vine->has_ench(ENCH_ANTIMAGIC)
-                && (defender->is_player()
-                    || (!defender->as_monster()->is_summoned()
-                        && !mons_is_firewood(*defender->as_monster()))))
-            {
-                mon_enchant me = vine->get_ench(ENCH_ANTIMAGIC);
-                vine->lose_ench_duration(me, random2(damage_done) + 1);
-                simple_monster_message(*attacker->as_monster(),
-                                       spell_user
-                                       ? " looks very invigorated."
-                                       : " looks invigorated.");
-            }
-        }
+        antimagic_affects_defender(attacker->get_hit_dice());
         break;
 
     case AF_PAIN:

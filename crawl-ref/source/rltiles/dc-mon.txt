@@ -209,6 +209,7 @@ swamp_worm_water
 %rim 1
 %sdir mon/animals
 worm MONS_WORM
+ribbon_worm MONS_RIBBON_WORM
 tyrant_leech MONS_TYRANT_LEECH
 dart_slug MONS_DART_SLUG
 steelbarb_worm MONS_STEELBARB_WORM
@@ -1145,6 +1146,8 @@ orc_knight MONS_ORC_KNIGHT
 orc_warlord MONS_ORC_WARLORD
 orc_sorcerer MONS_ORC_SORCERER
 orc_high_priest MONS_ORC_HIGH_PRIEST
+orc_lancer MONS_ORC_LANCER
+orc_sniper MONS_ORC_SNIPER
 %rim 1
 %sdir mon/vault
 deformed_orc MONS_DEFORMED_ORC

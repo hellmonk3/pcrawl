@@ -635,8 +635,6 @@ static int _mons_class_halo_radius(monster_type type)
 
 int monster::halo_radius() const
 {
-    int size = -1;
-
     return _mons_class_halo_radius(type);
 }
 

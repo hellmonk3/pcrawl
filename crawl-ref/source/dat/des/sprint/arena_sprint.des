@@ -261,7 +261,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "w:20 mummy / w:5 guardian mummy / w:5 menkaure",
                 -- Fire, Air, Earth, Water, Death
                 "w:20 fire bat / fire elemental",
-                "steam dragon / w:5 air elemental / w:1 wind drake / w:5 lightning spire /\
+                "steam drake / w:5 air elemental / w:1 wind drake / w:5 lightning spire /\
                     w:30 sky beast",
                 "w:15 earth elemental / w:5 gargoyle / w:5 boulder beetle /\
                     w:15 rust devil / w:15 iron imp",
@@ -303,7 +303,7 @@ function arena_sprint_get_monster_set(round, boss)
                 -- Fire, Air, Earth, Water, Death
                 "fire bat / fire elemental /\
                     w:5 sun demon / w:2 efreet / hell hound",
-                "steam dragon / air elemental / w:3 wind drake / lightning spire /\
+                "steam drake / air elemental / w:3 wind drake / lightning spire /\
                     w:20 sky beast",
                 "earth elemental w:15 / gargoyle w:5 / boulder beetle /\
                     rust devil / iron imp / w:5 iron troll",
@@ -315,7 +315,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "tyrant leech / rat",
                 "ogre w:15 / two-headed ogre / ogre mage w:5 / w:1 erolcha",
                 "troll / deep troll w:12 / iron troll w:2",
-                "rime drake / swamp drake / steam dragon / swamp dragon /\
+                "rime drake / swamp drake / steam drake / swamp dragon /\
                  acid dragon / komodo dragon",
                 "necrophage / w:2 ghoul / bog body",
                 "shapeshifter hd:7",

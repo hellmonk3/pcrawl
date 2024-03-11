@@ -963,6 +963,7 @@ static bool _monster_will_buff(const monster &caster, const monster &targ)
         return false;
 
     if (caster.type == MONS_IRONBOUND_CONVOKER
+        || caster.type == MONS_DEEP_TROLL_SHAMAN
         || caster.type == MONS_AMAEMON
         || mons_bound_soul(caster))
     {
@@ -5535,8 +5536,7 @@ void mons_cast(monster* mons, bolt pbolt, spell_type spell_cast,
             if (!monster_at(*ai) && !cell_is_solid(*ai))
                 empty_space++;
 
-        int damage_taken = empty_space * 2
-                         + random2avg(2 + div_rand_round(splpow, 7), 2);
+        int damage_taken = empty_space + random2(1 + splpow);
         damage_taken = foe->beam_resists(pbolt, damage_taken, false);
 
         damage_taken = foe->apply_ac(damage_taken);

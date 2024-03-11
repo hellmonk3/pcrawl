@@ -226,10 +226,7 @@ static const mon_spellbook mspell_list[] =
     // ('g') Small humanoids.
     {  MST_BOUDA,
       {
-       { SPELL_HEAL_OTHER, 20, MON_SPELL_PRIEST },
-       { SPELL_MINOR_HEALING, 20, MON_SPELL_PRIEST | MON_SPELL_EMERGENCY },
-       { SPELL_WEAKENING_GAZE, 20, MON_SPELL_PRIEST | MON_SPELL_INSTANT },
-       { SPELL_HUNTING_CALL, 50, MON_SPELL_VOCAL },
+       { SPELL_WEAKENING_GAZE, 20, MON_SPELL_PRIEST },
       }
     },
 
@@ -314,8 +311,8 @@ static const mon_spellbook mspell_list[] =
     {  MST_WIND_DRAKE,
       {
        { SPELL_WIND_BLAST, 50, MON_SPELL_NATURAL | MON_SPELL_BREATH },
-       { SPELL_AIRSTRIKE, 29, MON_SPELL_NATURAL },
-       { SPELL_REPEL_MISSILES, 29, MON_SPELL_NATURAL },
+       { SPELL_AIRSTRIKE, 20, MON_SPELL_NATURAL },
+       { SPELL_REPEL_MISSILES, 20, MON_SPELL_NATURAL },
       }
     },
 
@@ -398,19 +395,16 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_ORC_HIGH_PRIEST,
       {
-       { SPELL_PAIN, 10, MON_SPELL_PRIEST },
-       { SPELL_SMITING, 10, MON_SPELL_PRIEST },
-       { SPELL_SUMMON_DEMON, 20, MON_SPELL_PRIEST },
-       { SPELL_HEAL_OTHER, 10, MON_SPELL_PRIEST },
+       { SPELL_AURA_OF_BRILLIANCE, 20, MON_SPELL_PRIEST },
+       { SPELL_SMITING, 20, MON_SPELL_PRIEST },
+       { SPELL_HEAL_OTHER, 20, MON_SPELL_PRIEST },
       }
     },
 
     {  MST_ORC_SORCERER,
       {
-       { SPELL_BOLT_OF_FIRE, 12, MON_SPELL_WIZARD },
-       { SPELL_BOLT_OF_DRAINING, 12, MON_SPELL_WIZARD },
-       { SPELL_SUMMON_DEMON, 12, MON_SPELL_WIZARD },
-       { SPELL_PARALYSE, 12, MON_SPELL_WIZARD },
+       { SPELL_SUMMON_DEMON, 20, MON_SPELL_WIZARD },
+       { SPELL_PARALYSE, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -435,7 +429,6 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_DEATH_KNIGHT,
       {
-       { SPELL_AGONY_RANGE, 15, MON_SPELL_PRIEST },
        { SPELL_INJURY_MIRROR, 20, MON_SPELL_PRIEST },
       }
     },
@@ -1224,8 +1217,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_DEEP_TROLL_SHAMAN,
       {
-       { SPELL_HASTE_OTHER, 21, MON_SPELL_PRIEST },
-       { SPELL_MIGHT_OTHER, 21, MON_SPELL_PRIEST },
+       { SPELL_HASTE_OTHER, 20, MON_SPELL_PRIEST },
       }
     },
 
@@ -1733,6 +1725,12 @@ static const mon_spellbook mspell_list[] =
        { SPELL_SUMMON_SMALL_MAMMAL, 12, MON_SPELL_WIZARD },
        { SPELL_SLOW, 12, MON_SPELL_WIZARD },
        { SPELL_SPRINT, 12, MON_SPELL_WIZARD },
+      }
+    },
+    
+    {  MST_RIBBON_WORM,
+      {
+       { SPELL_ENSNARE, 60, MON_SPELL_NATURAL },
       }
     },
 

@@ -306,7 +306,7 @@ tier1_gauntlet_arenas = {
   },
   {
     second = {mons = "raiju", min = 1, max = 1},
-    third  = {mons = "steam dragon", min = 1, max = 2},
+    third  = {mons = "steam drake", min = 1, max = 2},
     liquid = "water",
   },
   {

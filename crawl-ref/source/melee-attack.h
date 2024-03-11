@@ -78,9 +78,6 @@ private:
 
     void rot_defender(int amount);
 
-    bool attack_chops_heads(int damage_done, int damage_type);
-    void decapitate(int dam_type);
-
     /* Axe cleaving */
     void cleave_setup();
     int cleave_damage_mod(int dam);

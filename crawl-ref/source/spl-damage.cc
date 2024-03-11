@@ -983,7 +983,7 @@ spret cast_airstrike(int pow, coord_def target, bool fail)
 
     const int empty_space = airstrike_space_around(target, true);
 
-    dice_def to_roll = base_airstrike_damage(pow, true);
+    dice_def to_roll = base_airstrike_damage(pow);
     to_roll.size += empty_space * AIRSTRIKE_PER_SPACE_BONUS;
     int hurted = to_roll.roll();
 #ifdef DEBUG_DIAGNOSTICS
@@ -1006,11 +1006,9 @@ spret cast_airstrike(int pow, coord_def target, bool fail)
 
 // maximum damage before accounting for empty space
 // used for damage display
-dice_def base_airstrike_damage(int pow, bool random)
+dice_def base_airstrike_damage(int pow)
 {
-    if (random)
-        return dice_def(2, div_rand_round(pow, 14));
-    return dice_def(2, (pow + 13) / 14);
+    return dice_def(1, 1 + pow);
 }
 
 string describe_airstrike_dam(dice_def dice)

@@ -991,6 +991,8 @@ int main(int argc, char* argv[])
 
                 if (flavour_has_reach(flavour))
                     monsterattacks += "(reach)";
+                if (flavour == AF_BIG_FIRE)
+                    monsterattacks += "(cleave)";
                 switch (flavour)
                 {
                 case AF_SWOOP:
@@ -1033,6 +1035,7 @@ int main(int argc, char* argv[])
                                               hd + max(hd / 2 - 1, 0)));
                     break;
                 case AF_FIRE:
+                case AF_BIG_FIRE:
                     monsterattacks += colour(
                         LIGHTRED, damage_flavour("fire", hd, hd * 2 - 1));
                     break;
@@ -1136,6 +1139,12 @@ int main(int argc, char* argv[])
                     break;
                 case AF_SLEEP:
                     monsterattacks += colour(BLUE, "(sleep)");
+                    break;
+                case AF_DRAG:
+                    monsterattacks += colour(BROWN, "(drag)");
+                    break;
+                case AF_FLANK:
+                    monsterattacks += "(flank)";
                     break;
                 case AF_CRUSH:
                 case AF_PLAIN:

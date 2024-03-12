@@ -127,10 +127,9 @@ static const mon_spellbook mspell_list[] =
     // ('e') Elves.
     {  MST_DEEP_ELF_FIRE_MAGE,
       {
-       { SPELL_STICKY_FLAME_RANGE, 15, MON_SPELL_WIZARD },
-       { SPELL_BOLT_OF_FIRE, 15, MON_SPELL_WIZARD },
-       { SPELL_FIRE_ELEMENTALS, 15, MON_SPELL_WIZARD },
-       { SPELL_BLINK, 15, MON_SPELL_WIZARD },
+       { SPELL_BOLT_OF_FIRE, 20, MON_SPELL_WIZARD },
+       { SPELL_FIRE_ELEMENTALS, 20, MON_SPELL_WIZARD },
+       { SPELL_BLINK, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -625,6 +624,12 @@ static const mon_spellbook mspell_list[] =
       }
     },
 
+    { MST_BRAIN_WORM,
+      {
+        { SPELL_BRAIN_BITE, 40, MON_SPELL_NATURAL },
+      }
+    },
+
     // ('x') Lesser abominations and tentacled things.
     {  MST_WORLDBINDER,
       {
@@ -906,7 +911,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_GLOWING_ORANGE_BRAIN,
       {
-       { SPELL_BRAIN_FEED, 10, MON_SPELL_MAGICAL },
+       { SPELL_BRAIN_BITE, 10, MON_SPELL_MAGICAL },
        { SPELL_CAUSE_FEAR, 10, MON_SPELL_MAGICAL },
        { SPELL_SHADOW_CREATURES, 10, MON_SPELL_MAGICAL },
        { SPELL_MASS_CONFUSION, 10, MON_SPELL_MAGICAL },
@@ -1131,20 +1136,18 @@ static const mon_spellbook mspell_list[] =
     // ('Q') Tengu.
     {  MST_TENGU_CONJURER,
       {
-       { SPELL_LIGHTNING_BOLT, 19, MON_SPELL_WIZARD },
-       { SPELL_BATTLESPHERE, 19, MON_SPELL_WIZARD },
-       { SPELL_BLINK, 10, MON_SPELL_WIZARD | MON_SPELL_EMERGENCY },
+       { SPELL_BATTLESPHERE, 30, MON_SPELL_WIZARD },
+       { SPELL_LIGHTNING_BOLT, 20, MON_SPELL_WIZARD },
+       { SPELL_FORCE_LANCE, 10, MON_SPELL_WIZARD | MON_SPELL_EMERGENCY },
       }
     },
 
     {  MST_TENGU_REAVER,
       {
-        { SPELL_VENOM_BOLT, 11, MON_SPELL_WIZARD },
-        { SPELL_BOLT_OF_FIRE, 11, MON_SPELL_WIZARD },
-        { SPELL_BOLT_OF_COLD, 11, MON_SPELL_WIZARD },
-        { SPELL_CORROSIVE_BOLT, 11, MON_SPELL_WIZARD },
-        { SPELL_LIGHTNING_BOLT, 11, MON_SPELL_WIZARD },
-        { SPELL_BOLT_OF_DRAINING, 11, MON_SPELL_WIZARD },
+        { SPELL_BOLT_OF_FIRE, 20, MON_SPELL_WIZARD },
+        { SPELL_BOLT_OF_COLD, 20, MON_SPELL_WIZARD },
+        { SPELL_LIGHTNING_BOLT, 20, MON_SPELL_WIZARD },
+        { SPELL_REPEL_MISSILES, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -1365,7 +1368,7 @@ static const mon_spellbook mspell_list[] =
     {  MST_NEQOXEC,
       {
        { SPELL_MALMUTATE, 19, MON_SPELL_MAGICAL },
-       { SPELL_BRAIN_FEED, 19, MON_SPELL_MAGICAL },
+       { SPELL_BRAIN_BITE, 19, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1539,7 +1542,7 @@ static const mon_spellbook mspell_list[] =
     {  MST_ORANGE_CRYSTAL_STATUE,
       {
        { SPELL_SHADOW_CREATURES, 40, MON_SPELL_MAGICAL },
-       { SPELL_BRAIN_FEED, 20, MON_SPELL_MAGICAL },
+       { SPELL_BRAIN_BITE, 20, MON_SPELL_MAGICAL },
        { SPELL_DRAINING_GAZE, 20, MON_SPELL_MAGICAL },
        { SPELL_MASS_CONFUSION, 20, MON_SPELL_MAGICAL },
       }
@@ -1727,7 +1730,7 @@ static const mon_spellbook mspell_list[] =
        { SPELL_SPRINT, 12, MON_SPELL_WIZARD },
       }
     },
-    
+
     {  MST_RIBBON_WORM,
       {
        { SPELL_ENSNARE, 60, MON_SPELL_NATURAL },
@@ -2158,7 +2161,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_NORRIS,
       {
-       { SPELL_BRAIN_FEED, 16, MON_SPELL_PRIEST },
+       { SPELL_BRAIN_BITE, 16, MON_SPELL_PRIEST },
        { SPELL_PRIMAL_WAVE, 16, MON_SPELL_PRIEST },
        { SPELL_DRAIN_MAGIC, 16, MON_SPELL_PRIEST },
       }

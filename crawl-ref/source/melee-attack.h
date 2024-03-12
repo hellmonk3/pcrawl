@@ -109,6 +109,7 @@ private:
 
     /* Brand / Attack Effects */
     bool do_knockback(bool slippery);
+    bool do_drag();
 
     /* Brand / Defense Effects */
     void apply_weakness_ego();

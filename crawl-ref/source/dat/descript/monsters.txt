@@ -777,6 +777,11 @@ The soul of a living, holy, or demonic creature, captured by a dark sacrifice
 to Yredelemnul. The bound soul will follow its captor through stairs and come
 when recalled from a different level.
 %%%%
+brain worm
+
+A slimy fluorescent worm with a greatly distended head. This creature feeds on
+others' intellect as it squirms through unworldly grime.
+%%%%
 briar patch
 
 A tangled cluster of thorny briars, sharp enough to pierce thick hide and
@@ -886,6 +891,10 @@ crimson imp
 
 A small, ugly minor demon. Its fanged maw seems locked in a permanent malign
 grin, and its horns protrude obscenely from its scaly pate.
+%%%%
+crocodile
+
+Everyone knows what a crocodile is.
 %%%%
 crystal echidna
 
@@ -1277,7 +1286,8 @@ from its toothy maw.
 fire elemental
 
 A spirit drawn from the elemental plane of fire, which exists in this world as
-a brilliant column of raging flames.
+a brilliant column of raging flames. It attacks a wide area around itself with
+intense heat.
 %%%%
 fire giant
 

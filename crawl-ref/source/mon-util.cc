@@ -1775,6 +1775,7 @@ static const set<attack_flavour> allowed_zombie_af = {
     AF_REACH,
     AF_CRUSH,
     AF_TRAMPLE,
+    AF_DRAG,
 };
 
 static mon_attack_def _downscale_zombie_attack(const monster& mons,
@@ -2129,6 +2130,7 @@ int flavour_damage(attack_flavour flavour, int HD, bool random)
     switch (flavour)
     {
         case AF_FIRE:
+        case AF_BIG_FIRE:
             if (random)
                 return HD + random2(HD);
             return HD * 2;

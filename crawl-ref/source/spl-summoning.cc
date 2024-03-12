@@ -1548,7 +1548,7 @@ static int _battlesphere_hd(int pow, bool random = true)
 
 static dice_def _battlesphere_damage(int hd)
 {
-    return dice_def(2, 5 + hd);
+    return dice_def(1, 5 + hd);
 }
 
 dice_def battlesphere_damage(int pow)

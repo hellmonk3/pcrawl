@@ -4760,8 +4760,7 @@ void handle_player_drowning(int delay)
     {
         you.duration[DUR_WATER_HOLD] += delay;
         int dam =
-            div_rand_round((28 + stepdown((float)you.duration[DUR_WATER_HOLD], 28.0))
-                            * delay,
+            div_rand_round((10 + you.duration[DUR_WATER_HOLD]) * delay,
                             BASELINE_DELAY * 10);
         ouch(dam, KILLED_BY_WATER, you.props[WATER_HOLDER_KEY].get_int());
         mprf(MSGCH_WARN, "Your lungs strain for air!");
@@ -7192,8 +7191,8 @@ void player::put_to_sleep(actor*, int power, bool hibernate)
     flash_view(UA_MONSTER, DARKGREY);
 
     // As above, do this after redraw.
-    const int dur = hibernate ? 3 + random2avg(5, 2) :
-                                5 + random2avg(power/10, 5);
+    const int dur = hibernate ? 3 + random2(5) :
+                                5 + random2(power);
     set_duration(DUR_SLEEP, dur);
     redraw_armour_class = true;
     redraw_evasion = true;

@@ -4686,7 +4686,7 @@ static int _knockback_dist(spell_type origin, int pow)
     {
     case SPELL_FORCE_LANCE:
     case SPELL_ISKENDERUNS_MYSTIC_BLAST:
-        return 2 + div_rand_round(pow, 50);
+        return 2 + div_rand_round(pow, 3);
     case SPELL_CHILLING_BREATH:
         return 2;
     default:
@@ -4703,7 +4703,7 @@ void bolt::knockback_actor(actor *act, int dam)
                                                   : you.mons_species();
     const int weight = max_corpse_chunks(montyp);
     const int roll = origin_spell == SPELL_FORCE_LANCE
-                     ? 7 + 0.27 * ench_power
+                     ? 7 + ench_power
                      : 17;
     const int dist = binomial(max_dist, roll - weight, roll); // This is silly! -- PF
 

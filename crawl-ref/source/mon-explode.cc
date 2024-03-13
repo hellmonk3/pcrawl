@@ -147,7 +147,7 @@ static void _setup_bloated_husk_explosion(bolt & beam, const monster& origin)
 {
     _setup_base_explosion(beam, origin);
     beam.flavour = BEAM_MMISSILE;
-    beam.damage  = dice_def(8, origin.get_hit_dice());
+    beam.damage  = dice_def(3, origin.get_hit_dice());
     beam.name    = "blast of putrescent gases";
     beam.explode_noise_msg = "You hear an high-pitched explosion!";
     beam.colour  = GREEN;

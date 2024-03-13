@@ -1531,28 +1531,6 @@ bool mons_class_fast_regen(monster_type mc)
     return mons_class_flag(mc, M_FAST_REGEN);
 }
 
-/**
- * Do monsters of the given type ever leave a hide?
- *
- * @param mc      The class of monster in question.
- * @return        Whether the monster has a chance of dropping a hide when
- *                butchered.
- */
-bool mons_class_leaves_hide(monster_type mc)
-{
-    return hide_for_monster(mc) != NUM_ARMOURS;
-}
-
-bool mons_class_leaves_wand(monster_type mc)
-{
-    return mc == MONS_ELEIONOMA || mc == MONS_FENSTRIDER_WITCH;
-}
-
-bool mons_class_leaves_organ(monster_type mc)
-{
-    return mons_class_leaves_hide(mc) || mons_class_leaves_wand(mc);
-}
-
 int mons_zombie_size(monster_type mc)
 {
     mc = mons_species(mc);

@@ -5672,13 +5672,6 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
     }
     else if (mi.is(MB_NO_REWARD))
         inf.body << "\nKilling this monster yields no experience or items.";
-    else if (mons_class_leaves_hide(mi.type))
-    {
-        inf.body << "\nIf " << it << " " << is <<
-                    " slain, it may be possible to recover "
-                 << mi.pronoun(PRONOUN_POSSESSIVE)
-                 << " hide, which can be used as armour.\n";
-    }
 
     if (mi.is(MB_SUMMONED_CAPPED))
     {

@@ -174,15 +174,6 @@ static bool _explode_corpse(item_def& corpse, const coord_def& where)
     // Don't want results to show up behind the player.
     los_def ld(where, opc_no_actor);
 
-    if (mons_class_leaves_organ(corpse.mon_type))
-    {
-        // Uh... magical organs are tough stuff and it keeps the monster in
-        // one piece?  More importantly, it prevents a flavour feature
-        // from becoming a trap for the unwary.
-
-        return false;
-    }
-
     ld.update();
 
     const int max_chunks = max_corpse_chunks(corpse.mon_type);

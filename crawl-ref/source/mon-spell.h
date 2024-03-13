@@ -57,7 +57,7 @@ static const mon_spellbook mspell_list[] =
     // Electric eels and lightning spires.
     {  MST_ZAPPER,
       {
-       { SPELL_ELECTRICAL_BOLT, 100, MON_SPELL_NATURAL },
+       { SPELL_LIGHTNING_BOLT, 100, MON_SPELL_NATURAL },
       }
     },
 
@@ -442,8 +442,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_VAULT_SENTINEL,
       {
-       { SPELL_WARNING_CRY, 50, MON_SPELL_VOCAL | MON_SPELL_BREATH },
-       { SPELL_SENTINEL_MARK, 58, MON_SPELL_WIZARD },
+       { SPELL_WARNING_CRY, 40, MON_SPELL_VOCAL | MON_SPELL_BREATH },
+       { SPELL_SENTINEL_MARK, 40, MON_SPELL_WIZARD },
       }
     },
 
@@ -469,7 +469,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_IRONBOUND_FROSTHEART,
       {
-       { SPELL_CREEPING_FROST, 50, MON_SPELL_WIZARD },
+       { SPELL_CREEPING_FROST, 40, MON_SPELL_WIZARD },
       }
     },
 
@@ -1077,34 +1077,31 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_SALAMANDER_MYSTIC,
       {
-       { SPELL_FORCE_LANCE, 12, MON_SPELL_WIZARD },
-       { SPELL_BOLT_OF_MAGMA, 12, MON_SPELL_WIZARD },
-       { SPELL_HASTE_OTHER, 24, MON_SPELL_WIZARD },
+       { SPELL_FORCE_LANCE, 10, MON_SPELL_WIZARD },
+       { SPELL_WEAKENING_GAZE, 10, MON_SPELL_WIZARD },
+       { SPELL_HASTE_OTHER, 10, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_SALAMANDER_TYRANT,
       {
        { SPELL_ERUPTION, 20, MON_SPELL_WIZARD },
-       { SPELL_PYROCLASTIC_SURGE, 50, MON_SPELL_WIZARD },
-       { SPELL_WEAKENING_GAZE, 50, MON_SPELL_WIZARD | MON_SPELL_INSTANT },
+       { SPELL_PYROCLASTIC_SURGE, 40, MON_SPELL_WIZARD },
       }
     },
 
     // ('O') Ogres.
     {  MST_OGRE_MAGE,
       {
-       { SPELL_BOLT_OF_MAGMA, 15, MON_SPELL_WIZARD },
-       { SPELL_HASTE_OTHER, 15, MON_SPELL_WIZARD },
-       { SPELL_PARALYSE, 10, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 10, MON_SPELL_WIZARD },
+       { SPELL_BOLT_OF_FIRE, 20, MON_SPELL_WIZARD },
+       { SPELL_HASTE_OTHER, 20, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_IRONBOUND_THUNDERHULK,
       {
-       { SPELL_CALL_DOWN_LIGHTNING, 50, MON_SPELL_MAGICAL },
-       { SPELL_BLINK_RANGE, 25, MON_SPELL_MAGICAL },
+       { SPELL_CALL_DOWN_LIGHTNING, 40, MON_SPELL_MAGICAL },
+       { SPELL_BLINK_RANGE, 20, MON_SPELL_MAGICAL | MON_SPELL_EMERGENCY },
       }
     },
 
@@ -1353,9 +1350,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_SMOKE_DEMON,
       {
-       { SPELL_STICKY_FLAME_RANGE, 19, MON_SPELL_MAGICAL },
-       { SPELL_STEAM_BALL, 19, MON_SPELL_MAGICAL },
-       { SPELL_SMITING, 19, MON_SPELL_MAGICAL },
+       { SPELL_STEAM_BALL, 20, MON_SPELL_MAGICAL },
+       { SPELL_SMITING, 20, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1558,13 +1554,13 @@ static const mon_spellbook mspell_list[] =
     // ('9') Gargoyles.
     {  MST_GARGOYLE,
       {
-       { SPELL_STONE_ARROW, 56, MON_SPELL_NATURAL },
+       { SPELL_STONE_ARROW, 40, MON_SPELL_NATURAL },
       }
     },
 
     {  MST_MOLTEN_GARGOYLE,
       {
-       { SPELL_BOLT_OF_MAGMA, 57, MON_SPELL_NATURAL },
+       { SPELL_BOLT_OF_FIRE, 40, MON_SPELL_NATURAL },
       }
     },
 

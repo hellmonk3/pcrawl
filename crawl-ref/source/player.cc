@@ -6533,7 +6533,7 @@ bool player::corrode_equipment(const char* corrosion_source, int degree)
 }
 
 /**
- * Attempts to apply corrosion to the player and deals acid damage.
+ * Attempts to apply corrosion to the player.
  *
  * @param evildoer the cause of this acid splash.
  */
@@ -6541,20 +6541,7 @@ void player::splash_with_acid(actor* evildoer)
 {
     acid_corrode(3);
 
-    const int dam = roll_dice(4, 3);
-    const int post_res_dam = resist_adjust_damage(&you, BEAM_ACID, dam);
-
-    mprf("You are splashed with acid%s%s",
-         post_res_dam > 0 ? "" : " but take no damage",
-         attack_strength_punctuation(post_res_dam).c_str());
-    if (post_res_dam > 0)
-    {
-        if (post_res_dam < dam)
-            canned_msg(MSG_YOU_RESIST);
-
-        ouch(post_res_dam, KILLED_BY_ACID,
-             evildoer ? evildoer->mid : MID_NOBODY);
-    }
+    mpr("You are splashed with acid");
 }
 
 void player::acid_corrode(int acid_strength)

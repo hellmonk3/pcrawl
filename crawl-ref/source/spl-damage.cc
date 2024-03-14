@@ -1891,7 +1891,7 @@ vector<coord_def> find_near_hostiles(int range, bool affect_invis)
 dice_def irradiate_damage(int pow, bool random)
 {
     const int dice = 3;
-    const int max_dam = 35 + (random ? div_rand_round(pow, 2) : pow / 2);
+    const int max_dam = 30 + (random ? div_rand_round(pow, 2) : pow / 2);
     return calc_dice(dice, max_dam, random);
 }
 
@@ -1931,13 +1931,7 @@ static int _irradiate_cell(coord_def where, int pow, const actor &agent)
         act->hurt(&agent, dam, BEAM_MMISSILE);
 
     if (act->alive())
-    {
-        // be nice and "only" contaminate the player a lot
-        if (hitting_player)
-            contaminate_player(2000 + random2(1000));
-        else if (coinflip())
-            act->malmutate("");
-    }
+        act->malmutate("");
 
     return dam;
 }

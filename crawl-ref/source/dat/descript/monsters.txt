@@ -1210,8 +1210,8 @@ emerging from trees near their foes to strike.
 %%%%
 elemental wellspring
 
-A swirling conflux of elemental water streaming from the elemental plane into
-this one, with powerful spirits and mighty floods flowing from it.
+A swirling conflux of elements streaming from the elemental plane into
+this one, with powerful spirits flowing from it.
 %%%%
 elephant
 

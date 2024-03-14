@@ -1512,7 +1512,7 @@ bolt mons_spell_beam(const monster* mons, spell_type spell_cast, int power,
 
     case SPELL_MALIGN_OFFERING:
         beam.flavour    = BEAM_MALIGN_OFFERING;
-        beam.damage     = dice_def(2, 7 + (power / 13));
+        beam.damage     = dice_def(1, 4 + power);
         break;
 
     case SPELL_SHADOW_BOLT:

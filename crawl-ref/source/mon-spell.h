@@ -286,9 +286,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_SPRIGGAN_AIR_MAGE,
       {
-       { SPELL_LIGHTNING_BOLT, 16, MON_SPELL_WIZARD },
-       { SPELL_AIRSTRIKE, 32, MON_SPELL_WIZARD },
-       { SPELL_REPEL_MISSILES, 16, MON_SPELL_WIZARD },
+       { SPELL_AIRSTRIKE, 30, MON_SPELL_WIZARD },
+       { SPELL_MASS_REPULSION, 30, MON_SPELL_WIZARD },
       }
     },
 
@@ -417,10 +416,7 @@ static const mon_spellbook mspell_list[] =
     // Wizard set is also used by Erolcha.
     {  MST_WIZARD,
       {
-       { SPELL_FIREBALL, 12, MON_SPELL_WIZARD },
-       { SPELL_BANISHMENT, 10, MON_SPELL_WIZARD },
-       { SPELL_BLINK, 12, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 14, MON_SPELL_WIZARD },
+       { SPELL_FIREBALL, 60, MON_SPELL_WIZARD },
       }
     },
 
@@ -779,14 +775,14 @@ static const mon_spellbook mspell_list[] =
     // ('D') Dragons.
     {  MST_STEAM_DRAGON,
       {
-       { SPELL_STEAM_BALL, 54, MON_SPELL_NATURAL | MON_SPELL_BREATH
+       { SPELL_STEAM_BALL, 40, MON_SPELL_NATURAL | MON_SPELL_BREATH
                                 | MON_SPELL_NOISY },
       }
     },
 
     {  MST_ACID_DRAGON,
       {
-       { SPELL_SPIT_ACID, 55, MON_SPELL_NATURAL | MON_SPELL_BREATH
+       { SPELL_SPIT_ACID, 40, MON_SPELL_NATURAL | MON_SPELL_BREATH
                                         | MON_SPELL_NOISY },
       }
     },
@@ -827,7 +823,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_QUICKSILVER_DRAGON,
       {
-       { SPELL_QUICKSILVER_BOLT, 66, MON_SPELL_NATURAL | MON_SPELL_BREATH
+       { SPELL_QUICKSILVER_BOLT, 60, MON_SPELL_NATURAL | MON_SPELL_BREATH
                                       | MON_SPELL_NOISY },
       }
     },
@@ -1061,8 +1057,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_NAGA_SHARPSHOOTER,
       {
-       { SPELL_SPIT_POISON, 55, MON_SPELL_NATURAL | MON_SPELL_BREATH },
-       { SPELL_PORTAL_PROJECTILE, 59, MON_SPELL_WIZARD },
+       { SPELL_PORTAL_PROJECTILE, 60, MON_SPELL_WIZARD },
       }
     },
 
@@ -1424,7 +1419,7 @@ static const mon_spellbook mspell_list[] =
     // ('1') Fiends and friends.
     {  MST_EXECUTIONER,
       {
-       { SPELL_HASTE, 41, MON_SPELL_MAGICAL },
+       { SPELL_HASTE, 40, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1505,7 +1500,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_CRYSTAL_GUARDIAN,
       {
-       { SPELL_CRYSTAL_BOLT, 66, MON_SPELL_MAGICAL },
+       { SPELL_CRYSTAL_BOLT, 60, MON_SPELL_MAGICAL },
       }
     },
 

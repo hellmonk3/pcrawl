@@ -574,9 +574,9 @@ acid blob
 
 A lump of sickly pustulent flesh, dripping with lethal acid.
 %%%%
-acid dragon
+acid drake
 
-A small dragon with brilliant yellow scales, its mouth dripping with
+A small drake with brilliant yellow scales, its mouth dripping with
 corrosive slime.
 %%%%
 adder
@@ -2003,13 +2003,13 @@ attacks from behind its allies with great force and precision.
 %%%%
 orc priest
 
-A servant of Beogh, the ancient and cruel god of the orcs. Beogh rewards its
-devoted prayers by striking down its enemies.
+A servant of Beogh, the god of the orcs. Beogh rewards its devoted prayers 
+by striking down its enemies.
 %%%%
 orc sorcerer
 
 An exceptionally competent orcish wizard, in league with hellish and chthonic
-forces and motivated by the purest imaginable strain of malevolence.
+forces.
 %%%%
 orc sniper
 
@@ -2027,8 +2027,7 @@ mob of its fellows.
 %%%%
 orc wizard
 
-An orc who has gained proficiency in the occult arts, using them for martial
-purposes.
+An orc who has learned magic, as orcs often do.
 %%%%
 pale draconian
 
@@ -2854,7 +2853,7 @@ the currents of air that surround it. It can exhale powerful blasts of wind.
 %%%%
 wizard
 
-A rather eccentric person, dabbling in all sorts of arcane oddities.
+Someone who has memorized the only spell that matters.
 %%%%
 wolf
 

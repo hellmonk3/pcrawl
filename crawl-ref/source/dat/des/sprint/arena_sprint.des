@@ -316,7 +316,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "ogre w:15 / two-headed ogre / ogre mage w:5 / w:1 erolcha",
                 "troll / deep troll w:12 / iron troll w:2",
                 "rime drake / swamp drake / steam drake / swamp dragon /\
-                 acid dragon / komodo dragon",
+                 acid drake / komodo dragon",
                 "necrophage / w:2 ghoul / bog body",
                 "shapeshifter hd:7",
                 "polar bear",
@@ -361,7 +361,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "ogre mage / w:2 deep elf pyromancer / w:2 deep elf zephyrmancer / vampire mage / naga mage",
                 "troll / deep troll / iron troll",
                 "rime drake w:5 / swamp drake / swamp dragon /\
-                    acid dragon w:5 / komodo dragon w:5 / lindwurm w:5 /\
+                    acid drake w:5 / komodo dragon w:5 / lindwurm w:5 /\
                     fire dragon w:5 / ice dragon w:5 / storm dragon w:1",
                 "necrophage / ghoul / bog body",
                 "shapeshifter",

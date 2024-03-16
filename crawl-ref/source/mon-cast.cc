@@ -1739,6 +1739,7 @@ bool setup_mons_cast(const monster* mons, bolt &pbolt, spell_type spell_cast,
     case SPELL_SUMMON_HELL_SENTINEL:
     case SPELL_STOKE_FLAMES:
     case SPELL_IRRADIATE:
+    case SPELL_MASS_REPULSION:
         pbolt.range = 0;
         pbolt.glyph = 0;
         return true;
@@ -2027,6 +2028,45 @@ static bool _battle_cry(const monster& chief, spell_type spell_cast,
     if (!seen_affected.empty())
         _print_battlecry_announcement(chief, seen_affected, spell_cast);
 
+    return true;
+}
+
+static bool _mass_repulsion(const monster& mage, bool check_only = false)
+{
+    const actor *foe = mage.get_foe();
+
+    // Check for valid hostile target
+    if (!foe
+        || foe->is_player() && mage.friendly()
+        || !mage.see_cell_no_trans(foe->pos()))
+    {
+        return false;
+    }
+    
+    int affected = 0;
+    
+    for (monster_near_iterator mi(mage.pos(), LOS_NO_TRANS); mi; ++mi)
+    {
+        const monster *mons = *mi;
+        
+        // only buff allies
+        if (!mons_aligned(&mage, mons))
+            continue;
+    
+        // already buffed
+        if (mons->has_ench(ENCH_REPEL_MISSILES))
+            continue;
+        
+        if (check_only)
+            return true; // just need to check
+        
+        affected++;
+        mi->add_ench(mon_enchant(ENCH_REPEL_MISSILES));
+    }
+    
+    if (affected == 0)
+        return false;
+    
     return true;
 }
 
@@ -6399,6 +6439,11 @@ void mons_cast(monster* mons, bolt pbolt, spell_type spell_cast,
         mons->add_ench(ENCH_BRILLIANCE_AURA);
         aura_of_brilliance(mons);
         return;
+        
+    case SPELL_MASS_REPULSION:
+        simple_monster_message(*mons, " repels missiles from its allies!");
+        _mass_repulsion(*mons);
+        return;
 
     case SPELL_BIND_SOULS:
         simple_monster_message(*mons, " binds the souls of nearby monsters.");
@@ -7629,6 +7674,9 @@ ai_action::goodness monster_spell_goodness(monster* mon, spell_type spell)
 
     case SPELL_REPEL_MISSILES:
         return ai_action::good_or_impossible(!mon->has_ench(ENCH_REPEL_MISSILES));
+
+    case SPELL_MASS_REPULSION:
+        return ai_action::good_or_bad(_mass_repulsion(*mon, true));
 
     case SPELL_CONFUSION_GAZE:
         // why is this handled here unlike other gazes?

@@ -905,6 +905,10 @@ Mass Confusion spell
 
 Causes confusion in all who gaze upon the caster.
 %%%%
+Mass Repulsion spell
+
+Causes all of the caster's nearby allies to begin repelling missiles.
+%%%%
 Maxwell's Capacitive Coupling spell
 
 Gradually builds up electric charge in the caster, so long as they maintain
@@ -1122,8 +1126,8 @@ Quicksilver Bolt spell
 Repel Missiles spell
 
 Reduces the chance of projectile attacks striking the caster, making them
-easier to dodge. Single-target attacks are much easier to repel than
-penetrating attacks.
+easier to dodge. Explosive attacks and otherwise undodgeable ranged attacks are
+unaffected.
 %%%%
 Resonance Strike spell
 

@@ -1181,8 +1181,8 @@ bool can_reach_attack_between(coord_def source, coord_def target,
 dice_def spines_damage(monster_type mon)
 {
     if (mon == MONS_CACTUS_GIANT)
-        return dice_def(5, 8);
-    return dice_def(5, 4);
+        return dice_def(2, 8);
+    return dice_def(2, 4);
 }
 
 int archer_bonus_damage(int hd)

@@ -726,6 +726,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_MASS_REPULSION, "Mass Repulsion",
+    spschool::air,
+    spflag::monster,
+    6,
+    200,
+    -1, -1,
+    0,
+    TILEG_MASS_REPULSION,
+},
+
+{
     SPELL_BERSERKER_RAGE, "Berserker Rage",
     spschool::earth,
     spflag::hasty | spflag::monster,

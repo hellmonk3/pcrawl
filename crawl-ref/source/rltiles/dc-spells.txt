@@ -10,6 +10,7 @@ shock SHOCK
 silence SILENCE
 static_discharge STATIC_DISCHARGE
 swiftness SWIFTNESS
+mass_repulsion MASS_REPULSION
 
 %sdir gui/spells/conjuration
 iskenderuns_mystic_blast ISKENDERUNS_MYSTIC_BLAST

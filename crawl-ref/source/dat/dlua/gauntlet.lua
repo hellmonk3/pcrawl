@@ -428,7 +428,7 @@ tier1_gauntlet_arenas = {
   },
   {
     first  = {mons = "oklob plant", min = 1, max = 1},
-    second = {mons = "acid dragon", min = 1, max = 2},
+    second = {mons = "acid drake", min = 1, max = 2},
   },
   {
     first  = {mons = "necromancer", min = 1, max = 1},

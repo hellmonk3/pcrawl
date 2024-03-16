@@ -2883,7 +2883,7 @@ static const colour_t ugly_colour_values[] =
 
 colour_t ugly_thing_random_colour()
 {
-    return RANDOM_ELEMENT(ugly_colour_values);
+    return random_choose(RED, BROWN, CYAN, MAGENTA, LIGHTGREY);
 }
 
 int str_to_ugly_thing_colour(const string &s)

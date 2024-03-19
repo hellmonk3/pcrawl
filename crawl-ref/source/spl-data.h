@@ -3631,6 +3631,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_THROW_BOULDER, "Throw Boulder",
+    spschool::earth,
+    spflag::dir_or_target | spflag::needs_tracer | spflag::monster,
+    4,
+    200,
+    LOS_RADIUS, LOS_RADIUS,
+    0,
+    TILEG_ERROR,
+},
+
+{
     SPELL_NO_SPELL, "nonexistent spell",
     spschool::none,
     spflag::testing,

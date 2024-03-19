@@ -559,5 +559,6 @@ enum spell_type : int
     SPELL_BOULDER,
     SPELL_SHOOT_ARROW,
     SPELL_MASS_REPULSION,
+    SPELL_THROW_BOULDER,
     NUM_SPELLS
 };

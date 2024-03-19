@@ -121,6 +121,7 @@ static pair<spell_type, zap_type> _spl_zaps[] =
     { SPELL_SERACFALL, ZAP_ICEBLAST },
     { SPELL_CORONA, ZAP_CORONA },
     { SPELL_SHOOT_ARROW, ZAP_SHOOT_ARROW },
+    { SPELL_THROW_BOULDER, ZAP_THROW_BOULDER },
 
     // These are all for zap -> spell lookup.
     { SPELL_QUICKSILVER_BOLT, ZAP_QUICKSILVER_BOLT },

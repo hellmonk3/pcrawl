@@ -742,6 +742,17 @@ static bool _monster_has_reachcleave(const actor &attacker)
     return false;
 }
 
+static bool _monster_has_cleave(const actor &attacker)
+{
+    if (attacker.is_monster()
+        && attacker.as_monster()->has_attack_flavour(AF_CLEAVE))
+    {
+        return true;
+    }
+
+    return _monster_has_reachcleave(attacker);
+}
+
 /**
  * Force cleave attacks. Used for melee actions that don't have targets, e.g.
  * attacking empty space (otherwise, cleaving is handled in melee_attack).
@@ -778,7 +789,7 @@ bool attack_cleaves(const actor &attacker, int which_attack)
         return true;
     }
 
-    if (_monster_has_reachcleave(attacker))
+    if (_monster_has_cleave(attacker))
         return true;
 
     const item_def* weap = attacker.weapon(which_attack);

@@ -130,5 +130,6 @@ enum zap_type
     ZAP_UNMAKING,
     ZAP_PLASMA_LIGHTNING,
     ZAP_SHOOT_ARROW,
+    ZAP_THROW_BOULDER,
     NUM_ZAPS
 };

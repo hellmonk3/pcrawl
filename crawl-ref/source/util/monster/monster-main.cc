@@ -991,7 +991,7 @@ int main(int argc, char* argv[])
 
                 if (flavour_has_reach(flavour))
                     monsterattacks += "(reach)";
-                if (flavour == AF_BIG_FIRE)
+                if (flavour == AF_BIG_FIRE || flavour == AF_CLEAVE)
                     monsterattacks += "(cleave)";
                 switch (flavour)
                 {
@@ -1149,6 +1149,7 @@ int main(int argc, char* argv[])
                 case AF_CRUSH:
                 case AF_PLAIN:
                 case AF_REACH:
+                case AF_CLEAVE:
                 case AF_REACH_STING:
                     break;
 #if TAG_MAJOR_VERSION == 34

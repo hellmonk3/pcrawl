@@ -853,8 +853,7 @@ static void _cast_grasping_roots(monster &caster, mon_spell_slot, bolt&)
     actor* foe = caster.get_foe();
     ASSERT(foe);
 
-    const int turns = 4 + random2avg(div_rand_round(
-                mons_spellpower(caster, SPELL_GRASPING_ROOTS), 10), 2);
+    const int turns = 4 + random2(mons_spellpower(caster, SPELL_GRASPING_ROOTS));
     dprf("Grasping roots turns: %d", turns);
     mpr("Roots burst forth from the earth!");
     grasp_with_roots(caster, *foe, turns);
@@ -1379,6 +1378,7 @@ bolt mons_spell_beam(const monster* mons, spell_type spell_cast, int power,
     case SPELL_DISPEL_UNDEAD_RANGE:
     case SPELL_STUNNING_BURST:
     case SPELL_SHOOT_ARROW:
+    case SPELL_THROW_BOULDER:
         zappy(spell_to_zap(real_spell), power, true, beam);
         break;
 
@@ -2042,31 +2042,31 @@ static bool _mass_repulsion(const monster& mage, bool check_only = false)
     {
         return false;
     }
-    
+
     int affected = 0;
-    
+
     for (monster_near_iterator mi(mage.pos(), LOS_NO_TRANS); mi; ++mi)
     {
         const monster *mons = *mi;
-        
+
         // only buff allies
         if (!mons_aligned(&mage, mons))
             continue;
-    
+
         // already buffed
         if (mons->has_ench(ENCH_REPEL_MISSILES))
             continue;
-        
+
         if (check_only)
             return true; // just need to check
-        
+
         affected++;
         mi->add_ench(mon_enchant(ENCH_REPEL_MISSILES));
     }
-    
+
     if (affected == 0)
         return false;
-    
+
     return true;
 }
 
@@ -5151,10 +5151,10 @@ static void _cast_resonance_strike(monster &caster, mon_spell_slot, bolt&)
     // base damage 3d(spell hd)
     const int pow = caster.spell_hd(SPELL_RESONANCE_STRIKE);
     dice_def dice = resonance_strike_base_damage(pow);
-    // + 1 die for every 2 adjacent constructs, up to a total of 7 dice when
+    // + 1 die for every adjacent construct, up to a total of 9 dice when
     // fully surrounded by 8 constructs
     const int constructs = _count_nearby_constructs(caster, target->pos());
-    dice.num += div_rand_round(constructs, 2);
+    dice.num += constructs;
     const int dam = target->apply_ac(dice.roll());
     const string constructs_desc
         = _describe_nearby_constructs(caster, target->pos());
@@ -5216,7 +5216,7 @@ dice_def waterstrike_damage(int spell_hd)
  */
 dice_def resonance_strike_base_damage(int spell_hd)
 {
-    return dice_def(3, spell_hd);
+    return dice_def(1, spell_hd);
 }
 
 static void _sheep_message(int num_sheep, int sleep_pow, bool seen, actor& foe)
@@ -6439,7 +6439,7 @@ void mons_cast(monster* mons, bolt pbolt, spell_type spell_cast,
         mons->add_ench(ENCH_BRILLIANCE_AURA);
         aura_of_brilliance(mons);
         return;
-        
+
     case SPELL_MASS_REPULSION:
         simple_monster_message(*mons, " repels missiles from its allies!");
         _mass_repulsion(*mons);
@@ -7557,6 +7557,7 @@ ai_action::goodness monster_spell_goodness(monster* mon, spell_type spell)
     case SPELL_THROW_BARBS:
     case SPELL_HARPOON_SHOT:
     case SPELL_SHOOT_ARROW:
+    case SPELL_THROW_BOULDER:
         // Don't fire if we can hit.
         ASSERT(foe);
         return ai_action::good_or_bad(grid_distance(mon->pos(), foe->pos())

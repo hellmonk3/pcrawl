@@ -4447,6 +4447,8 @@ static const char* _flavour_range_desc(attack_flavour flavour)
         return " from a great distance";
     else if (flavour == AF_BIG_FIRE)
         return " in an area";
+    else if (flavour == AF_CLEAVE)
+        return " to all surrounding foes";
     else if (flavour_has_reach(flavour))
         return " from a distance";
     return "";
@@ -4506,6 +4508,7 @@ static string _flavour_base_desc(attack_flavour flavour)
         { AF_DRAG,              "drag the defender backwards"},
         { AF_SWOOP,             "" },
         { AF_FLANK,             "" },
+        { AF_CLEAVE,            "" },
         { AF_PLAIN,             "" },
     };
 

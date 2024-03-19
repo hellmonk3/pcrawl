@@ -1101,7 +1101,7 @@ POP_DEPTHS,
 #endif
 
 { // Desolation
-  {  1,  1, 1200, FLAT, MONS_SALTLING },
+  {  1,  1, 1200, FLAT, MONS_ORELING },
   {  1,  1,   50, FLAT, MONS_DANCING_WEAPON },
   {  1,  1,   50, FLAT, MONS_MOLTEN_GARGOYLE },
   {  1,  1,   50, FLAT, MONS_CRYSTAL_GUARDIAN },

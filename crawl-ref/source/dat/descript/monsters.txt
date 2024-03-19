@@ -2003,7 +2003,7 @@ attacks from behind its allies with great force and precision.
 %%%%
 orc priest
 
-A servant of Beogh, the god of the orcs. Beogh rewards its devoted prayers 
+A servant of Beogh, the god of the orcs. Beogh rewards its devoted prayers
 by striking down its enemies.
 %%%%
 orc sorcerer
@@ -2243,11 +2243,9 @@ An intimidating volcano lord. It commands the magma of its realm as an
 extension of its body, and the majesty of its gaze can weaken even the proudest
 challenger.
 %%%%
-saltling
+oreling
 
-A small, human-shaped agglomeration of salt. It was created by the last
-fugitive loyalists of the fallen eastern empire, forced in desperation to
-construct golems from local resources to defend themselves.
+A small, human-shaped agglomeration of ore.
 %%%%
 satyr
 

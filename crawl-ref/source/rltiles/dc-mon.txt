@@ -503,7 +503,7 @@ guardian_golem MONS_GUARDIAN_GOLEM
 iron_golem MONS_IRON_GOLEM
 ushabti MONS_USHABTI
 peacekeeper MONS_PEACEKEEPER
-saltling MONS_SALTLING
+oreling MONS_ORELING
 animated_armour MONS_ANIMATED_ARMOUR
 %rim 1
 toenail_golem MONS_TOENAIL_GOLEM

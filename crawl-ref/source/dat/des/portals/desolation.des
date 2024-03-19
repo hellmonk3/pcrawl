@@ -59,7 +59,7 @@ function desolation_portal(e)
 end
 
 function desolation_ruins_setup(e)
-  e.mons("saltling band")
+  e.mons("oreling band")
   e.mons("imperial myrmidon / halazid warlock / crystal guardian")
   e.nsubst("% = 4:% / 3:| / *:.")
   e.kitem("% = any weapon good_item / any armour good_item /\
@@ -151,7 +151,7 @@ ENDMAP
 NAME:       portal_desolation_entry_salt
 TAGS:       transparent no_monster_gen
 : desolation_portal(_G)
-KMONS:      O = saltling band
+KMONS:      O = oreling band
 SUBST:      . = ;.
 FTILE:      ;OP = FLOOR_SALT
 MARKER:     P = lua:fog_machine { cloud_type = "salt",  walk_dist=3, \
@@ -193,7 +193,7 @@ NAME:   portal_desolation_entry_nicolae_nacl
 TAGS:   transparent no_monster_gen
 : desolation_portal(_G)
 SUBST:  C = c;, - = ; .:50
-KMONS:  O = saltling band
+KMONS:  O = oreling band
 FTILE:  ;Os = FLOOR_SALT
 MARKER: O = lua:fog_machine { cloud_type = "salt",  walk_dist=3, \
                                   pow_min=6, pow_max=20, \
@@ -844,7 +844,7 @@ TAGS: desolation_ruin transparent uniq_salt_special
 WEIGHT: 1
 NSUBST: i = 8:i / *:s
 KITEM: i = any weapon good_item randart / any armour good_item randart
-KMONS: s = saltling
+KMONS: s = oreling
  : desolation_ruins_setup(_G)
 MAP
 ....G.2G....
@@ -889,9 +889,9 @@ WEIGHT: 1
 NSUBST: % = 5:% / 5:| / *:s
 KMONS: Q = patrolling halazid warlock / patrolling servant of whispers
 KMONS: M = patrolling imperial myrmidon
-KMONS: 1 = saltling band
+KMONS: 1 = oreling band
 KMONS: 2 = imperial myrmidon / halazid warlock / crystal guardian
-KMONS: s = patrolling saltling
+KMONS: s = patrolling oreling
 KITEM: % = any weapon good_item / any armour good_item / \
            any jewellery randart / randbook
 MAP
@@ -977,7 +977,7 @@ NAME: desolation_ruin_nicolae_vault_intact
 TAGS: desolation_ruin transparent uniq_salt_special
 WEIGHT: 1
 NSUBST: % = 4:% / 4:| / 1:%| / 4:$ / 2:b / 2:g / *:s
-KMONS: 1b = saltling band
+KMONS: 1b = oreling band
 KMONS: 2 = imperial myrmidon / halazid warlock / crystal guardian
 KMONS: g = crystal guardian
 KMONS: C = ironbound convoker
@@ -1084,9 +1084,9 @@ WEIGHT: 1
 KITEM:  Q = any scroll
 KITEM:  R = randbook
 : kitem("S = " .. dgn.good_scrolls)
-KMONS:  1 = saltling band
+KMONS:  1 = oreling band
 KMONS:  2 = crystal guardian
-KMONS:  QRS- = saltling / nothing
+KMONS:  QRS- = oreling / nothing
 SUBST:  ` = QQRS-
 MAP
 cccccccccccc
@@ -1514,7 +1514,7 @@ KFEAT:    H = stone_arch
 KFEAT:    O = permarock_wall
 KFEAT:    P = endless_salt
 COLOUR:   P = white
-MONS:     saltling band
+MONS:     oreling band
 :         set_border_fill_type('endless_salt')
 :         set_feature_name("granite_statue", "ruined idol")
 MARKER:   S = lua:fog_machine { cloud_type = "salt",  walk_dist=3, \
@@ -1585,7 +1585,7 @@ ENDMAP
 NAME:     nicolae_desolation_pilgrimage
 TAGS:     no_dump no_monster_gen
 ORIENT:   encompass
-MONS:     saltling band
+MONS:     oreling band
 KFEAT:    t = petrified_tree
 KFEAT:    < = exit_desolation
 KFEAT:    H = stone_arch
@@ -1643,7 +1643,7 @@ WEIGHT:  5
 ORIENT:  encompass
 KITEM:   %O = any weapon good_item / any armour good_item / randbook w:5 / \
               any jewellery randart w:5 / gold good_item w:1
-KMONS:   1 = saltling band
+KMONS:   1 = oreling band
 KMONS:   O2 = imperial myrmidon / halazid warlock / crystal guardian
 KMONS:   p = withered plant perm_ench:petrified
 KFEAT:   ! = iron_grate

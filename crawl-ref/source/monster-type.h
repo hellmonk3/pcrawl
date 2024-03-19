@@ -299,7 +299,7 @@ enum monster_type                      // env.mons[].type
     MONS_WOOD_GOLEM,
     MONS_STONE_GOLEM,
 #else
-    MONS_SALTLING,
+    MONS_ORELING,
     MONS_PEACEKEEPER,
 #endif
     MONS_IRON_GOLEM,
@@ -1117,7 +1117,7 @@ enum monster_type                      // env.mons[].type
     MONS_MELIAI,
     MONS_BAI_SUZHEN,
     MONS_BAI_SUZHEN_DRAGON,
-    MONS_SALTLING,
+    MONS_ORELING,
     MONS_IMPERIAL_MYRMIDON,
     MONS_SERVANT_OF_WHISPERS,
     MONS_PEACEKEEPER,

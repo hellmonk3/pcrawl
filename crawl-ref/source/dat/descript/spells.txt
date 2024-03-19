@@ -695,9 +695,9 @@ Hurl Damnation spell
 %%%%
 Hurl Sludge spell
 
-Conjures a focused blast of highly toxic sludge, poisoning the victim and
-drenching their surroundings. The sludge damages and poisons all monsters,
-even those resistant to poison.
+Conjures a focused blast of highly toxic sludge, damaging the victim and
+drenching their surroundings. The sludge damages anything standing in it, but
+does not affect flying creatures or the spell's caster.
 %%%%
 Holy Breath spell
 
@@ -936,8 +936,8 @@ shorter time.
 %%%%
 Metal Splinters spell
 
-Fires a directed stream of sharp metal splinters. Its damage is strongly
-reduced by armour.
+Fires a directed stream of sharp metal splinters. Its damage is reduced thrice
+by armour.
 %%%%
 Miasma Breath spell
 
@@ -1718,3 +1718,8 @@ Shoot Arrow spell
 
 Fires an arrow. The damage dealt by the arrow depends significantly on the
 strength of the monster firing it. Monsters won't shoot arrows in melee range.
+%%%%
+Throw Boulder spell
+
+Throws a massive boulder that can penetrate through multiple enemies. Monsters
+won't throw boulders at targets in melee range.

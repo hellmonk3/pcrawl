@@ -1124,10 +1124,6 @@ struct monster_frag
 
 static const map<monster_type, monster_frag> fraggable_monsters = {
     { MONS_TOENAIL_GOLEM,     { "toenail", RED } },
-    // I made saltlings not have a big crystal explosion for balance reasons -
-    // there are so many of them, it seems wrong to have them be so harmful to
-    // their own allies. This could be wrong!
-    { MONS_SALTLING,          { "salt crystal", WHITE } },
     { MONS_EARTH_ELEMENTAL,   { "rock", BROWN } },
     { MONS_ROCKSLIME,         { "rock", BROWN } },
     { MONS_BOULDER,           { "rock", BROWN } },
@@ -4249,7 +4245,7 @@ spret cast_imb(int pow, bool fail)
 
 dice_def toxic_bog_damage()
 {
-    return dice_def(4, 6);
+    return dice_def(2, 6);
 }
 
 void actor_apply_toxic_bog(actor * act)
@@ -4301,16 +4297,6 @@ void actor_apply_toxic_bog(actor * act)
                 mons->name(DESC_THE).c_str(),
                 attack_strength_punctuation(final_damage).c_str());
     }
-
-    if (final_damage > 0 && resist > 0)
-    {
-        if (player)
-            canned_msg(MSG_YOU_PARTIALLY_RESIST);
-
-        act->poison(oppressor, 7, true);
-    }
-    else if (final_damage > 0)
-        act->poison(oppressor, 21, true);
 
     if (final_damage)
     {

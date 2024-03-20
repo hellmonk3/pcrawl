@@ -626,10 +626,10 @@ ancient zyme
 A nexus of sentient cancer and disease, borne aloft perhaps by malice alone.
 Its nature inflicts withering illness on all living beings in its presence.
 %%%%
-angel
+clockwork angel
 
-A divine warrior of the Shining One. It is a towering winged figure of
-unnatural beauty surrounded by an aura of brilliant white light.
+A mechanical facsimile of a divine warrior of the Shining One. It lacks the
+sublime beauty of the original, but shares its halo.
 %%%%
 animated armour
 
@@ -1180,7 +1180,7 @@ An imposing, muscular figure engulfed in a cloud of searing flame.
 %%%%
 eidolon
 
-An ancient skeletal apparition, sheathed in a cloud of mist. Its form glows
+An ancient apparition, sheathed in a cloud of mist. Its form glows
 white-hot with debilitating energy.
 %%%%
 eldritch tentacle
@@ -1337,8 +1337,7 @@ close, friend or foe.
 freezing wraith
 
 An incorporeal skeletal form surrounded by a cloud of freezing air, likely the
-remains of some unfortunate adventurer. It now floats slowly through the
-dungeon, seeking to share its fate with others.
+remains of some unfortunate adventurer.
 %%%%
 frost giant
 
@@ -2283,8 +2282,7 @@ in great need, to break the stillness with divine thunder.
 shadow
 
 A wisp of unliving shadow, slipping in and out of the darkness of the dungeon.
-It moves swiftly and silently from one pool of shade to another, striking
-unerringly from the blind spots of those who cannot see it.
+Its nigh-unreality makes it nearly impossible to harm from a distance.
 %%%%
 shadow demon
 

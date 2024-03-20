@@ -3122,12 +3122,12 @@ int monster::hurt(const actor *agent, int amount, beam_type flavour,
 
     if (alive())
     {
-        if (amount != INSTANT_DEATH)
+        if (amount != INSTANT_DEATH && shadowy())
         {
-            if (petrified())
-                amount /= 2;
-            else if (petrifying())
-                amount = amount * 2 / 3;
+            if (!agent)
+                return 0;
+            if (grid_distance(agent->pos(), pos()) > 1)
+                return 0;
         }
 
         if (amount != INSTANT_DEATH && has_ench(ENCH_INJURY_BOND))
@@ -3967,6 +3967,11 @@ bool monster::is_stationary() const
 bool monster::can_burrow() const
 {
     return mons_class_flag(type, M_BURROWS);
+}
+
+bool monster::shadowy() const
+{
+    return mons_class_flag(type, M_SHADOWY);
 }
 
 /**

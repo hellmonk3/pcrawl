@@ -238,7 +238,7 @@ static const cloud_data clouds[] = {
       ETC_ELECTRICITY,                          // colour
       { TILE_CLOUD_SPECTRAL, CTVARY_DUR },      // tile
       BEAM_NONE,                                // beam_effect
-      { 4, 15 },                                // base, random damage
+      NORMAL_CLOUD_DAM,                         // base, random damage
     },
     // CLOUD_ACID,
     { "acidic fog", nullptr,                    // terse, verbose name
@@ -570,12 +570,7 @@ static void _handle_spectral_cloud(const cloud_struct& cloud)
     if (!x_chance_in_y(chance, you.time_taken * 600))
         return;
 
-    monster_type basetype =
-        random_choose_weighted(4,   MONS_ANACONDA,
-                               6,   MONS_HYDRA,
-                               3,   MONS_SNAPPING_TURTLE,
-                               2,   MONS_ALLIGATOR_SNAPPING_TURTLE,
-                               100, RANDOM_MONSTER);
+    monster_type basetype = MONS_HYDRA;
 
     monster* agent = monster_by_mid(cloud.source);
     create_monster(mgen_data(MONS_SPECTRAL_THING,

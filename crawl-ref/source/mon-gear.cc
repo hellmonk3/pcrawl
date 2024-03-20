@@ -141,60 +141,6 @@ static void _give_talisman(monster* mon, int level)
         give_specific_item(mon, items(false, OBJ_TALISMANS, talisman, level));
 }
 
-static void _give_wand(monster* mon, int level)
-{
-    const bool always_wand = mons_class_flag(mon->type, M_ALWAYS_WAND);
-    if (!always_wand)
-    {
-        if (!mons_is_unique(mon->type)
-            || mons_class_flag(mon->type, M_NO_WAND)
-            || !_should_give_unique_item(mon)
-            || !one_chance_in(5))
-        {
-            return;
-        }
-    }
-
-    // Don't give top-tier wands before 5 HD, except to Ijyb and not in sprint.
-    const bool no_high_tier =
-            (mon->get_experience_level() < 5
-                || mons_class_flag(mon->type, M_NO_HT_WAND))
-            && (mon->type != MONS_IJYB || crawl_state.game_is_sprint());
-
-    const int idx = items(false, OBJ_WANDS, OBJ_RANDOM, level);
-
-    if (idx == NON_ITEM)
-        return;
-
-    item_def& wand = env.item[idx];
-    // Ugly hack: monsters can't use digging wands, so swap em out.
-    while (wand.sub_type == WAND_DIGGING)
-    {
-        dprf("rerolling");
-        generate_wand_item(wand, OBJ_RANDOM, level);
-        item_colour(wand);
-    }
-
-    const char* rejection_reason =
-        (no_high_tier && is_high_tier_wand(wand.sub_type)) ? "high tier" :
-                                    !mon->likes_wand(wand) ?      "weak" :
-                                                                  nullptr;
-
-    if (rejection_reason && !always_wand)
-    {
-        dprf(DIAG_MONPLACE,
-             "Destroying %s because %s doesn't want a %s wand.",
-             wand.name(DESC_A).c_str(),
-             mon->name(DESC_THE).c_str(),
-             rejection_reason);
-        destroy_item(idx, true);
-        return;
-    }
-
-    wand.flags = 0;
-    give_specific_item(mon, idx);
-}
-
 static item_def* make_item_for_monster(
     monster* mons,
     object_class_type base,
@@ -2185,7 +2131,6 @@ void give_item(monster *mons, int level_number, bool mons_summoned)
 
     _give_gold(mons, level_number);
     _give_talisman(mons, level_number);
-    _give_wand(mons, level_number);
     _give_weapon(mons, level_number);
     _give_ammo(mons, level_number, mons_summoned);
     _give_armour(mons, 1 + level_number / 2);

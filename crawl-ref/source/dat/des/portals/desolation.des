@@ -102,7 +102,7 @@ KFEAT:      B = altar_zin
 KFEAT:      C = altar_the_shining_one
 KFEAT:      D = altar_elyvilon
 SHUFFLE:    BCD
-MONS:       patrolling angel
+MONS:       patrolling cherub
 FTILE:      ;OBCD1 = FLOOR_LIMESTONE
 MAP
 .................

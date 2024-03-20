@@ -4692,10 +4692,9 @@ static string _monster_attacks_description(const monster_info& mi)
         result << ".\n";
     }
 
-    if (mons_class_flag(mi.type, M_ARCHER))
+    if (mons_class_flag(mi.type, M_SHADOWY))
     {
-        result << make_stringf("It can deal up to %d extra damage when attacking with ranged weaponry.\n",
-                                archer_bonus_damage(mi.hd));
+        result << "It cannot be damaged outside of melee range.";
     }
 
     if (mi.type == MONS_ROYAL_JELLY)

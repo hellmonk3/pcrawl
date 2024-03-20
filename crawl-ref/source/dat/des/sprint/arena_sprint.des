@@ -477,7 +477,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "tzitzimitl / reaper / shadow dragon / death drake /\
                     deep elf death mage / lich w:15 / ancient lich w:5 /\
                     death knight w:5 / place:Tar:$ w:40",
-                "daeva / angel / cherub / pearl dragon / ophan / apis",
+                "daeva / cherub / cherub / pearl dragon / ophan / apis",
                 -- Misc
                 "centaur warrior",
                 "yaktaur / yaktaur captain",
@@ -496,7 +496,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "vampire knight / vampire mage / w:1 jory",
                 "hellion / hell sentinel / hell beast / hell hog / hell knight /\
                     hell hound / hellephant / hellwing / w:2 nellie",
-                "profane servitor w:20 / angel / daeva / cherub / seraph w:5",
+                "profane servitor w:20 / cherub / daeva / cherub / seraph w:5",
                 -- Gimmicks
                 "neqoxec", "smoke demon", "catoblepas",
                 "moth of wrath / w:20 ettin", "orb spider", "fire crab",
@@ -550,7 +550,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "tzitzimitl / reaper / shadow dragon / death drake /\
                     deep elf death mage / ancient lich /\
                     death knight w:5 / place:Tar:$ w:40",
-                "daeva / angel / cherub / pearl dragon w:20 / ophan / apis",
+                "daeva / cherub / cherub / pearl dragon w:20 / ophan / apis",
                 -- Misc
                 "yaktaur captain",
                 "lich / ancient lich",
@@ -563,7 +563,7 @@ function arena_sprint_get_monster_set(round, boss)
                     great orb of eyes / w:5 ophan",
                 "w:20 hellion / hell sentinel / hell beast / hell hog / hell knight /\
                     hell hound / hellephant / hellwing / w:2 nellie",
-                "profane servitor w:25 / angel / daeva / cherub / seraph",
+                "profane servitor w:25 / cherub / daeva / cherub / seraph",
                 -- Gimmicks
                 "neqoxec", "smoke demon", "catoblepas",
                 "moth of wrath / w:20 ettin", "orb spider", "fire crab",
@@ -576,7 +576,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "executioner / w:1 ignacio / w:5 death drake",
                 "ghost moth / moth of wrath / vampire mosquito",
                 -- Aaaarggghhhhh!
-                "daeva / w:15 angel",
+                "daeva / w:15 cherub",
                 "royal mummy / mummy priest / guardian mummy",
                 "air elemental name:greater n_adj perm_ench:polar_vortex col:lightcyan / air elemental w:20",
                 "iron golem hd:20 col:magenta name:orb_golem n_rpl n_des n_spe spells:orb_of_destruction.70.natural",
@@ -621,7 +621,7 @@ function arena_sprint_get_monster_set(round, boss)
                 "tzitzimitl / reaper / shadow dragon / death drake /\
                     deep elf death mage / ancient lich /\
                     death knight w:5",
-                "daeva w:20 / angel / cherub / pearl dragon w:20 / ophan / apis",
+                "daeva w:20 / cherub / cherub / pearl dragon w:20 / ophan / apis",
                 -- Misc
                 "deep elf master archer",
                 "ancient lich",
@@ -634,7 +634,7 @@ function arena_sprint_get_monster_set(round, boss)
                     great orb of eyes / w:5 ophan",
                 "w:30 hellion / hell sentinel / hell beast / hell hog / hell knight /\
                     hell hound / hellephant / w:2 nellie",
-                "profane servitor w:25 / angel w:5 / daeva / cherub w:5 / seraph w:15",
+                "profane servitor w:25 / cherub w:5 / daeva / cherub w:5 / seraph w:15",
                 -- Gimmicks
                 "neqoxec", "smoke demon", "catoblepas",
                 "moth of wrath / w:20 ettin", "orb spider", "fire crab",

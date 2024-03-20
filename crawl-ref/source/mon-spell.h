@@ -159,7 +159,7 @@ static const mon_spellbook mspell_list[] =
       {
        { SPELL_FREEZING_CLOUD, 20, MON_SPELL_WIZARD },
        { SPELL_FIREBALL, 20, MON_SPELL_WIZARD },
-       { SPELL_LRD, 20, MON_SPELL_WIZARD },
+       { SPELL_STONE_ARROW, 20, MON_SPELL_WIZARD },
        { SPELL_REPEL_MISSILES, 20, MON_SPELL_WIZARD },
        { SPELL_HASTE, 20, MON_SPELL_WIZARD },
       }
@@ -581,7 +581,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_GHOST_CRAB,
       {
-       { SPELL_SPECTRAL_CLOUD, 62, MON_SPELL_NATURAL },
+       { SPELL_SPECTRAL_CLOUD, 60, MON_SPELL_NATURAL },
       }
     },
 
@@ -697,7 +697,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_ANGEL,
       {
-       { SPELL_MINOR_HEALING, 62, MON_SPELL_MAGICAL },
+       { SPELL_MINOR_HEALING, 60, MON_SPELL_MAGICAL },
       }
     },
 
@@ -754,9 +754,9 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_IRON_GIANT,
       {
-       { SPELL_IRON_SHOT, 24, MON_SPELL_WIZARD },
-       { SPELL_HARPOON_SHOT, 36, MON_SPELL_WIZARD },
-       { SPELL_THROW_ALLY, 36, MON_SPELL_NATURAL },
+       { SPELL_IRON_SHOT, 20, MON_SPELL_WIZARD },
+       { SPELL_HARPOON_SHOT, 20, MON_SPELL_WIZARD },
+       { SPELL_THROW_ALLY, 20, MON_SPELL_NATURAL },
       }
     },
 
@@ -874,7 +874,7 @@ static const mon_spellbook mspell_list[] =
     {  MST_GOLDEN_EYE,
       {
        { SPELL_CONFUSION_GAZE, 100, MON_SPELL_MAGICAL | MON_SPELL_INSTANT },
-       { SPELL_BLINK, 29, MON_SPELL_MAGICAL },
+       { SPELL_BLINK, 20, MON_SPELL_MAGICAL },
       }
     },
 
@@ -886,7 +886,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_SHINING_EYE,
       {
-       { SPELL_MALMUTATE, 57, MON_SPELL_MAGICAL },
+       { SPELL_MALMUTATE, 50, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1238,8 +1238,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_EIDOLON,
       {
-       { SPELL_BOLT_OF_DRAINING, 21, MON_SPELL_MAGICAL },
-       { SPELL_CAUSE_FEAR, 21, MON_SPELL_MAGICAL },
+       { SPELL_BOLT_OF_DRAINING, 20, MON_SPELL_MAGICAL },
+       { SPELL_CAUSE_FEAR, 20, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1512,9 +1512,9 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_OBSIDIAN_STATUE,
       {
-       { SPELL_SUMMON_MINOR_DEMON, 33, MON_SPELL_MAGICAL },
-       { SPELL_SUMMON_DEMON, 33, MON_SPELL_MAGICAL },
-       { SPELL_MESMERISE, 33, MON_SPELL_MAGICAL },
+       { SPELL_SUMMON_MINOR_DEMON, 30, MON_SPELL_MAGICAL },
+       { SPELL_SUMMON_DEMON, 30, MON_SPELL_MAGICAL },
+       { SPELL_MESMERISE, 30, MON_SPELL_MAGICAL },
       }
     },
 

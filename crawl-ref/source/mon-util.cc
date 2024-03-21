@@ -1531,6 +1531,16 @@ bool mons_class_fast_regen(monster_type mc)
     return mons_class_flag(mc, M_FAST_REGEN);
 }
 
+int mons_class_regen_amount(monster_type mc)
+{
+    switch (mc)
+    {
+    case MONS_PARGHIT:         return 27;
+    case MONS_DEMONIC_CRAWLER: return 6;
+    default:                   return 1;
+    }
+}
+
 int mons_zombie_size(monster_type mc)
 {
     mc = mons_species(mc);
@@ -1988,6 +1998,22 @@ static int _mons_damage(monster_type mc, int rt)
     return smc->attack[rt].damage;
 }
 
+string mon_attack_name_short(attack_type attack)
+{
+    switch (attack)
+    {
+    case AT_SPORE:         return "spore";
+    case AT_TENTACLE_SLAP: return "tentacle";
+    case AT_TAIL_SLAP:     return "tail";
+    case AT_TRUNK_SLAP:    return "trunk";
+    case AT_POUNCE:        return "pounce";
+    case AT_CHERUB:
+    case AT_RANDOM:        return "hit"; // eh
+    default:
+        return mon_attack_name(attack, false);
+    }
+}
+
 /**
  * A short description of the given monster attack type.
  *
@@ -2142,11 +2168,17 @@ bool flavour_has_reach(attack_flavour flavour)
         case AF_REACH:
         case AF_REACH_STING:
         case AF_REACH_TONGUE:
+        case AF_BIG_FIRE:
         case AF_RIFT:
             return true;
         default:
             return false;
     }
+}
+
+bool flavour_has_mobility(attack_flavour flavour)
+{
+    return flavour == AF_SWOOP || flavour == AF_FLANK;
 }
 
 bool mons_invuln_will(const monster& mon)

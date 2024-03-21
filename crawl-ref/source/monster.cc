@@ -2038,12 +2038,8 @@ int monster::off_level_regen_rate() const
     if (!mons_can_regenerate(*this))
         return 0;
 
-    if (type == MONS_PARGHIT)
-        return 2700; // whoosh
-    if (type == MONS_DEMONIC_CRAWLER)
-        return 600; // zoom
     if (mons_class_fast_regen(type) || type == MONS_PLAYER_GHOST)
-        return 100;
+        return mons_class_regen_amount(type) * 100;
     // Capped at 0.1 hp/turn.
     return max(natural_regen_rate() * 4, 10);
 }

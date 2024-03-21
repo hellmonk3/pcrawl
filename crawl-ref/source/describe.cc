@@ -100,7 +100,7 @@ using namespace ui;
 static command_type _get_action(int key, vector<command_type> actions);
 static void _print_bar(int value, int scale, const string &name,
                        ostringstream &result, int base_value = INT_MAX);
-
+static string _padded(string str, int pad_to);
 static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result);
 static string _describe_weapon_brand(const item_def &item);
 
@@ -1262,28 +1262,6 @@ static string _your_skill_desc(skill_type skill, bool show_target_button,
                             (you_skill_temp != you_skill ? "(base) " : ""),
                             padding.c_str(), you_skill / 10, you_skill % 10,
                             target_button_desc.c_str());
-}
-
-static string _describe_brand(brand_type brand)
-{
-    switch (brand) {
-    case SPWPN_PAIN:
-        if (you_worship(GOD_TROG))
-            return "";
-        // fallthrough to description
-    case SPWPN_ACID:
-    case SPWPN_CHAOS:
-    case SPWPN_BLINKING:
-    case SPWPN_ELECTROCUTION:
-    case SPWPN_FREEZING:
-    case SPWPN_SPELLVAMP:
-    {
-        const string brand_name = uppercase_first(brand_type_name(brand, true));
-        return make_stringf(" + %s", brand_name.c_str());
-    }
-    default:
-        return "";
-    }
 }
 
 static string _describe_missile_brand(const item_def &item)
@@ -4408,140 +4386,87 @@ static const char* _get_threat_desc(mon_threat_level_type threat)
 {
     switch (threat)
     {
-    case MTHRT_TRIVIAL: return "harmless";
-    case MTHRT_EASY:    return "easy";
-    case MTHRT_TOUGH:   return "dangerous";
-    case MTHRT_NASTY:   return "extremely dangerous";
-    case MTHRT_UNDEF:
-    default:            return "buggily threatening";
+    case MTHRT_UNDEF: // ?
+    case MTHRT_TRIVIAL: return "Minor";
+    case MTHRT_EASY:    return "Low";
+    case MTHRT_TOUGH:   return "High";
+    case MTHRT_NASTY:   return "Lethal";
+    default:            return "Eggstreme";
     }
 }
 
-/**
- * Describe monster attack 'flavours' that trigger before the attack.
- *
- * @param flavour   The flavour in question; e.g. AF_SWOOP.
- * @return          A description of anything that happens 'before' an attack
- *                  with the given flavour;
- *                  e.g. "swoop behind its target and ".
- */
-static const char* _special_flavour_prefix(attack_flavour flavour)
+static const char* _get_int_desc(mon_intel_type intel)
 {
-    if (flavour == AF_SWOOP)
-        return "swoop behind its foe and ";
-    else if (flavour == AF_FLANK)
-        return "slip behind its foe and ";
-    return "";
-}
-
-/**
- * Describe monster attack 'flavours' that have extra range.
- *
- * @param flavour   The flavour in question; e.g. AF_REACH_STING.
- * @return          If the flavour has extra-long range, say so. E.g.,
- *                  " from a distance". (Else "").
- */
-static const char* _flavour_range_desc(attack_flavour flavour)
-{
-    if (flavour == AF_RIFT)
-        return " from a great distance";
-    else if (flavour == AF_BIG_FIRE)
-        return " in an area";
-    else if (flavour == AF_CLEAVE)
-        return " to all surrounding foes";
-    else if (flavour_has_reach(flavour))
-        return " from a distance";
-    return "";
+    switch (intel)
+    {
+    case I_BRAINLESS:   return "Mindless";
+    case I_ANIMAL:      return "Animal";
+    case I_HUMAN:       return "Human";
+    default:            return "Eggplantelligent";
+    }
 }
 
 static string _flavour_base_desc(attack_flavour flavour)
 {
     static const map<attack_flavour, string> base_descs = {
-        { AF_ACID,              "deal extra acid damage"},
+        { AF_ACID,              "acid damage"},
         { AF_BLINK,             "blink self" },
         { AF_BLINK_WITH,        "blink together with the defender" },
-        { AF_COLD,              "deal up to %d extra cold damage" },
+        { AF_COLD,              "cold damage" },
         { AF_CONFUSE,           "cause confusion" },
         { AF_DRAIN_STR,         "drain strength" },
         { AF_DRAIN_INT,         "drain intelligence" },
         { AF_DRAIN_DEX,         "drain dexterity" },
         { AF_DRAIN_STAT,        "drain strength, intelligence or dexterity" },
         { AF_DRAIN,             "drain life" },
-        { AF_ELEC,              "deal up to %d extra electric damage" },
-        { AF_FIRE,              "deal up to %d extra fire damage" },
+        { AF_ELEC,              "electric damage" },
+        { AF_FIRE,              "fire damage" },
         { AF_SEAR,              "remove fire resistance" },
         { AF_MUTATE,            "cause mutations" },
-        { AF_MINIPARA,          "momentarily paralyse" },
-        { AF_POISON_PARALYSE,   "cause paralysis or slowing" },
-        { AF_POISON,            "cause poisoning" },
-        { AF_POISON_STRONG,     "cause strong poisoning" },
+        { AF_MINIPARA,          "momentary paralysis" },
+        { AF_POISON_PARALYSE,   "paralysis or slowing" },
+        { AF_POISON,            "poison" },
+        { AF_POISON_STRONG,     "strong poison" },
         { AF_VAMPIRIC,          "drain health from the living" },
-        { AF_DISTORT,           "blink the defender" },
+        { AF_DISTORT,           "blink defender" },
         { AF_RAGE,              "cause berserking" },
-        { AF_STICKY_FLAME,      "apply sticky flame" },
-        { AF_CHAOTIC,           "cause unpredictable effects" },
+        { AF_STICKY_FLAME,      "sticky flame" },
+        { AF_CHAOTIC,           "chaos" },
         { AF_STEAL,             "steal items" },
         { AF_CRUSH,             "begin ongoing constriction" },
         { AF_REACH,             "" },
-        { AF_HOLY,              "deal extra damage to undead and demons" },
+        { AF_HOLY,              "extra damage to undead and demons" },
         { AF_ANTIMAGIC,         "drain magic" },
-        { AF_PAIN,              "cause pain to the living" },
+        { AF_PAIN,              "extra pain damage to the living" },
         { AF_ENSNARE,           "ensnare with webbing" },
         { AF_ENGULF,            "engulf" },
-        { AF_PURE_FIRE,         "" },
+        { AF_PURE_FIRE,         "fire damage" },
         { AF_DRAIN_SPEED,       "drain speed" },
         { AF_VULN,              "reduce willpower" },
         { AF_SHADOWSTAB,        "deal increased damage when unseen" },
         { AF_DROWN,             "deal drowning damage" },
         { AF_CORRODE,           "cause corrosion" },
-        { AF_SCARAB,            "drain speed and drain health" },
+        { AF_SCARAB,            "drain speed and health" },
         { AF_TRAMPLE,           "knock back the defender" },
         { AF_REACH_STING,       "cause poisoning" },
-        { AF_REACH_TONGUE,      "deal extra acid damage" },
-        { AF_RIFT,              "cause wild translocation effects" },
+        { AF_REACH_TONGUE,      "acid damage" },
+        { AF_RIFT,              "blink the defender" },
         { AF_WEAKNESS,          "cause weakness" },
         { AF_BARBS,             "embed barbs" },
         { AF_SPIDER,            "summon a spider" },
         { AF_BLOODZERK,         "become enraged" },
         { AF_SLEEP,             "induce sleep" },
-        { AF_BIG_FIRE,          "deal up to %d extra fire damage" },
+        { AF_BIG_FIRE,          "fire damage" },
         { AF_DRAG,              "drag the defender backwards"},
-        { AF_SWOOP,             "" },
-        { AF_FLANK,             "" },
-        { AF_CLEAVE,            "" },
+        { AF_SWOOP,             "swoop behind the defender beforehand" },
+        { AF_FLANK,             "slip behind the defender beforehand" },
+        { AF_CLEAVE,            "cleave" },
         { AF_PLAIN,             "" },
     };
 
     const string* desc = map_find(base_descs, flavour);
     ASSERT(desc);
     return *desc;
-}
-
-/**
- * Provide a short, and-prefixed flavour description of the given attack
- * flavour, if any.
- *
- * @param flavour  E.g. AF_COLD, AF_PLAIN.
- * @param HD       The hit dice of the monster using the flavour.
- * @return         "" if AF_PLAIN; else " <desc>", e.g.
- *                 " to deal up to 27 extra cold damage if any damage is dealt".
- */
-static string _flavour_effect(attack_flavour flavour, int HD)
-{
-    const string base_desc = _flavour_base_desc(flavour);
-    if (base_desc.empty())
-        return base_desc;
-
-    const int flavour_dam = flavour_damage(flavour, HD, false);
-    const string flavour_desc = make_stringf(base_desc.c_str(), flavour_dam);
-
-    if (flavour == AF_BLOODZERK)
-        return " to " + flavour_desc + " if blood is drawn"; // 🩸
-
-    if (!flavour_triggers_damageless(flavour) && flavour != AF_SWOOP)
-        return " to " + flavour_desc + " if any damage is dealt";
-
-    return " to " + flavour_desc;
 }
 
 struct mon_attack_info
@@ -4567,14 +4492,29 @@ struct mon_attack_info
  */
 static const item_def* _weapon_for_attack(const monster_info& mi, int atk)
 {
-    const item_def* weapon
-       = atk == 0 ? mi.inv[MSLOT_WEAPON].get() :
-         atk == 1 && mi.wields_two_weapons() ? mi.inv[MSLOT_ALT_WEAPON].get() :
-         nullptr;
+     // XXX: duplicates monster::weapon()
+    if ((atk % 2) && mi.wields_two_weapons())
+    {
+        item_def *alt_weap = mi.inv[MSLOT_ALT_WEAPON].get();
+        if (alt_weap && is_weapon(*alt_weap))
+            return alt_weap;
+    }
+    item_def* weapon = mi.inv[MSLOT_WEAPON].get();
 
     if (weapon && is_weapon(*weapon))
         return weapon;
     return nullptr;
+}
+
+static mon_attack_info _atk_info(const monster_info& mi, int i)
+{
+    const mon_attack_def &attack = mi.attack[i];
+    const item_def* weapon = nullptr;
+    // XXX: duplicates monster::weapon()
+    if (attack.type == AT_HIT || attack.type == AT_WEAP_ONLY)
+        weapon = _weapon_for_attack(mi, i);
+    mon_attack_info attack_info = { attack, weapon };
+    return attack_info;
 }
 
 static string _monster_attacks_description(const monster_info& mi)
@@ -4595,14 +4535,16 @@ static string _monster_attacks_description(const monster_info& mi)
         special_flavour = (brand_type) mi.props[SPECIAL_WEAPON_KEY].get_int();
     }
 
+    bool has_any_flavour = special_flavour != SPWPN_NORMAL;
+    bool flavour_without_dam = special_flavour != SPWPN_NORMAL;
+    bool plural = false;
+
     for (int i = 0; i < MAX_NUM_ATTACKS; ++i)
     {
-        const mon_attack_def &attack = mi.attack[i];
+        mon_attack_info attack_info = _atk_info(mi, i);
+        const mon_attack_def &attack = attack_info.definition;
         if (attack.type == AT_NONE)
             break; // assumes there are no gaps in attack arrays
-
-        const item_def* weapon = _weapon_for_attack(mi, i);
-        mon_attack_info attack_info = { attack, weapon };
 
         // Multi-headed monsters must always have their multi-attack in the
         // first slot.
@@ -4615,39 +4557,57 @@ static string _monster_attacks_description(const monster_info& mi)
         else
             ++attack_counts[attack_info];
 
+         if (i > 0)
+            plural = true;
+
+        if (attack.flavour == AF_PLAIN)
+            continue;
+
+        has_any_flavour = true;
+        const bool needs_dam = !flavour_triggers_damageless(attack.flavour)
+                            && !flavour_has_mobility(attack.flavour)
+                            && !flavour_has_reach(attack.flavour);
+        if (!needs_dam)
+            flavour_without_dam = true;
     }
 
-    vector<string> attack_descs;
-    for (const auto &attack_count : attack_counts)
+     if (attack_counts.empty())
+        return "";
+
+    _describe_mons_to_hit(mi, result);
+
+    // Table header.
+    result << padded_str(plural ? "Attacks" : "Attack", 12)
+           << _padded("Max Damage", 20);
+    if (has_any_flavour)
+        result << (flavour_without_dam ? "Bonus" : "After Damaging Hits");
+    result << "\n";
+
+    for (int i = 0; i < MAX_NUM_ATTACKS; ++i)
     {
-        const mon_attack_info &info = attack_count.first;
+        const mon_attack_info &info = _atk_info(mi, i);;
         const mon_attack_def &attack = info.definition;
 
-        const string weapon_note = info.weapon ?
-            make_stringf(" with %s weapon", mi.pronoun(PRONOUN_POSSESSIVE))
-            : "";
+        int attk_mult = attack_counts[info];
+        if (!attk_mult) // already printed
+            continue;
+        attack_counts[info] = 0;
 
-        int attk_mult = attack_count.second;
         if (weapon_multihits(info.weapon))
             attk_mult *= weapon_hits_per_swing(*info.weapon);
 
-        const string count_desc =
-              attk_mult == 1 ? "" :
-              attk_mult == 2 ? " twice" :
-              " " + number_in_words(attk_mult) + " times";
+        const string attk_name = uppercase_first(mon_attack_name_short(attack.type));
+        string attk_desc = attk_name;
+        if (attk_mult > 1)
+            attk_desc = make_stringf("%dx %s", attk_mult, attk_desc.c_str());
+        result << _padded(attk_desc, 12);
 
-        // XXX: hack alert
-        if (attack.flavour == AF_PURE_FIRE)
-        {
-            attack_descs.push_back(
-                make_stringf("%s for up to %d fire damage",
-                             mon_attack_name(attack.type, false).c_str(),
-                             flavour_damage(attack.flavour, mi.hd, false)));
-            continue;
-        }
+        const int flav_dam = flavour_damage(attack.flavour, mi.hd, false);
 
         int dam = attack.damage;
-        if (info.weapon)
+        if (attack.flavour == AF_PURE_FIRE)
+            dam = flav_dam;
+        else if (info.weapon)
         {
             const int base_dam = property(*info.weapon, PWPN_DAMAGE);
             dam += brand_adjust_weapon_damage(base_dam, get_weapon_brand(*info.weapon), false);
@@ -4656,40 +4616,37 @@ static string _monster_attacks_description(const monster_info& mi)
                 dam += info.weapon->plus;
         }
 
-        const brand_type brand = info.weapon ? get_weapon_brand(*info.weapon)
-                                             : special_flavour;
-        const string brand_desc = _describe_brand(brand);
 
-        // Damage is listed in parentheses for attacks with a flavour
-        // description, but not for plain attacks.
-        bool has_flavour = !_flavour_base_desc(attack.flavour).empty();
-        const string damage_desc =
-            make_stringf("%sfor up to %d damage%s%s%s%s",
-                         has_flavour ? "(" : "",
-                         dam,
-                         brand_desc.c_str(),
-                         attack_count.second > 1 ? " each" : "",
-                         weapon_note.c_str(),
-                         has_flavour ? ")" : "");
+        result << _padded(make_stringf("%d%s%s", dam,
+                                       attk_mult > 1 ? " each" : "",
+                                       info.weapon ? " (w/weapon)" : ""),
+                          20);
 
-        attack_descs.push_back(
-            make_stringf("%s%s%s%s %s%s",
-                         _special_flavour_prefix(attack.flavour),
-                         mon_attack_name(attack.type, false).c_str(),
-                         _flavour_range_desc(attack.flavour),
-                         count_desc.c_str(),
-                         damage_desc.c_str(),
-                         _flavour_effect(attack.flavour, mi.hd).c_str()));
-    }
+        const string base_desc = uppercase_first(_flavour_base_desc(attack.flavour));
+        result << base_desc;
+        if (flav_dam && attack.flavour != AF_PURE_FIRE)
+        {
+            result << " (max " << flav_dam;
+            if (attk_mult > 1)
+                result << " each";
+            result << ")";
+        }
 
-    if (!attack_descs.empty())
-    {
-        result << uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE));
-        result << " can " << comma_separated_line(attack_descs.begin(),
-                                                  attack_descs.end(),
-                                                  "; and ", "; ");
-        _describe_mons_to_hit(mi, result);
-        result << ".\n";
+        if (flavour_without_dam
+            && !base_desc.empty()
+            && !flavour_triggers_damageless(attack.flavour)
+            && !flavour_has_mobility(attack.flavour))
+        {
+            result << " (if damage dealt)";
+        }
+
+        if (flavour_has_reach(attack.flavour))
+        {
+            result << (base_desc.empty() ? "Reaches" : "; reaches");
+            result << (attack.flavour == AF_RIFT ? " very far" : " from afar");
+        }
+
+        result << "\n";
     }
 
     if (mons_class_flag(mi.type, M_SHADOWY))
@@ -4704,6 +4661,7 @@ static string _monster_attacks_description(const monster_info& mi)
         result << "It will release all of its jellies when polymorphed.\n";
     }
 
+    result << "\n";
     return result.str();
 }
 
@@ -4753,36 +4711,59 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
     return description.to_colour_string();
 }
 
-static const char *_speed_description(int speed)
-{
-    // These thresholds correspond to the player mutations for fast and slow.
-    if (speed < 7)
-        return "extremely slowly";
-    else if (speed < 8)
-        return "very slowly";
-    else if (speed < 10)
-        return "slowly";
-    else if (speed > 15)
-        return "extremely quickly";
-    else if (speed > 13)
-        return "very quickly";
-    else if (speed > 10)
-        return "quickly";
 
-    return "normally";
-}
-
-static void _add_energy_to_string(int speed, int energy, string what,
-                                  vector<string> &fast, vector<string> &slow)
+static bool _add_energy_desc(int energy, string name, int speed, vector<string> &out)
 {
     if (energy == 10)
+        return false;
+
+    ASSERT(energy);
+    const int perc = speed * 100 / energy;
+    out.push_back(make_stringf("%s: %d%%", name.c_str(), perc));
+    return true;
+}
+
+static void _add_speed_desc(const monster_info &mi, ostringstream &result)
+{
+    const int speed = mi.base_speed();
+    if (!speed) // something weird - let's not touch it
         return;
 
-    const int act_speed = (speed * 10) / energy;
-    if (act_speed > 10 || (act_speed == 10 && speed < 10))
-        fast.push_back(what + " " + _speed_description(act_speed));
-    if (act_speed < 10 || (act_speed == 10 && speed > 10))
-        slow.push_back(what + " " + _speed_description(act_speed));
+    const bool unusual_speed = speed != 10;
+    const mon_energy_usage me = mi.menergy;
+    const mon_energy_usage DEFAULT = DEFAULT_ENERGY;
+    const bool unusual_energy = !(me == DEFAULT);
+    const int travel_delay = me.move * 10 / speed;
+    const int player_travel_delay = player_movement_speed(false, false);
+    const int travel_delay_diff = travel_delay - player_travel_delay;
+    if (!unusual_speed && !unusual_energy && !travel_delay_diff)
+        return;
+
+    result << "\nSpeed: " << speed * 10 << "%";
+
+    vector<string> unusuals;
+
+    _add_energy_desc(me.attack, "attack", speed, unusuals);
+    _add_energy_desc(me.missile, "shoot", speed, unusuals);
+    _add_energy_desc(me.move, "travel", speed, unusuals);
+    if (me.swim != me.move)
+        _add_energy_desc(me.swim, "swim", speed, unusuals);
+    // If we ever add a non-magical monster with fast/slow abilities,
+    // we'll need to update this.
+    _add_energy_desc(me.spell, mi.is_priest() ? "pray" : "magic",
+                     speed, unusuals);
+
+    if (!unusuals.empty())
+        result << " (" << join_strings(unusuals.begin(), unusuals.end(), ", ") << ")";
+
+    if (travel_delay_diff)
+    {
+        const bool slow = travel_delay_diff > 0;
+        const string diff_desc = slow ? "slower" : "faster";
+        result << " (normally travels " << diff_desc << " than you)";
+        // It would be interesting to qualify this with 'on land',
+        // if appropriate, but sort of annoying to get player swim speed.
+    }
 }
 
 /**
@@ -4792,7 +4773,7 @@ static void _add_energy_to_string(int speed, int energy, string what,
  * @param result[in,out]    The stringstream to append to.
  */
 void describe_to_hit(const monster_info& mi, ostringstream &result,
-                     bool parenthesize, const item_def* weapon)
+                     const item_def* weapon)
 {
     if (weapon != nullptr && !is_weapon(*weapon))
         return; // breadwielding
@@ -4813,15 +4794,11 @@ void describe_to_hit(const monster_info& mi, ostringstream &result,
         acc_pct = to_hit_pct(mi, attk, false);
     }
 
-    if (parenthesize)
-        result << " (";
     result << "about " << (100 - acc_pct) << "% to evade ";
     if (weapon == nullptr)
         result << "your " << you.hand_name(true);
     else
         result << weapon->name(DESC_YOUR, false, false, false);
-    if (parenthesize)
-        result << ")";
 }
 
 static bool _visible_to(const monster_info& mi)
@@ -4879,7 +4856,9 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
     const int beat_sh_chance = mon_beat_sh_pct(shield_class);
 
     const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
-    result << " (about " << hit_chance << "% to hit you)";
+    result << uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) << " "
+           << conjugate_verb("have", mi.pronoun_plurality())
+           << " about " << hit_chance << "% to hit you.\n";
 }
 
 /**
@@ -4936,42 +4915,64 @@ static void _print_bar(int value, int scale, const string &name,
 #endif
 }
 
-/**
- * Append information about a given monster's HP to the provided stream.
- *
- * @param mi[in]            Player-visible info about the monster in question.
- * @param result[in,out]    The stringstream to append to.
- */
-static void _describe_monster_hp(const monster_info& mi, ostringstream &result)
+static int _codepoints(string str)
 {
-    result << "Max HP: " << mi.get_max_hp_desc() << "\n";
+    int len = 0;
+    for (char c : str)
+        if ((c & 0xc0) != 0x80)
+            ++len;
+    return len;
+}
+
+static string _padded(string str, int pad_to)
+{
+    const int padding = pad_to - _codepoints(str);
+    if (padding > 0)
+        str.append(padding, ' ');
+    return str;
+}
+
+static string _build_bar(int value, int scale)
+{
+    const int pips = value / scale;
+    if (pips <= 0)
+        return "none";
+    if (pips > 8) // too many..
+        return make_stringf("~%d", pips * scale);
+
+    string bar = "";
+    bar.append(min(pips, 4), '+');
+    // Add a space in the middle of long bars,
+    // for readability.
+    if (pips > 4) {
+        bar += " ";
+        bar.append(min(pips - 4, 4), '+');
+    }
+    return bar;
 }
 
 /**
- * Append information about a given monster's AC to the provided stream.
- *
- * @param mi[in]            Player-visible info about the monster in question.
- * @param result[in,out]    The stringstream to append to.
+ * Returns a description of a given monster's max HP
  */
-static void _describe_monster_ac(const monster_info& mi, ostringstream &result)
+static string _describe_monster_hp(const monster_info& mi)
 {
-    // MAX_GHOST_EVASION + two pips (so with EV in parens it's the same)
-    _print_bar(mi.ac, 5, "    AC:", result);
-    result << "\n";
+    return "Max HP: " + mi.get_max_hp_desc();
 }
 
 /**
- * Append information about a given monster's EV to the provided stream.
- *
- * @param mi[in]            Player-visible info about the monster in question.
- * @param result[in,out]    The stringstream to append to.
+ * Returns a description of a given monster's AC.
  */
-static void _describe_monster_ev(const monster_info& mi, ostringstream &result)
+static string _describe_monster_ac(const monster_info& mi)
 {
-    _print_bar(mi.ev, 5, "    EV:", result, mi.base_ev);
-    if (crawl_state.game_started)
-        describe_to_hit(mi, result, true, you.weapon());
-    result << "\n";
+    return "AC: " + _build_bar(mi.ac, 5);
+}
+
+/**
+ * Returns a description of a given monster's EV.
+ */
+static string _describe_monster_ev(const monster_info& mi)
+{
+    return "EV: " + _build_bar(mi.base_ev, 5);
 }
 
 /**
@@ -4980,19 +4981,17 @@ static void _describe_monster_ev(const monster_info& mi, ostringstream &result)
  * @param mi[in]            Player-visible info about the monster in question.
  * @param result[in,out]    The stringstream to append to.
  */
-static void _describe_monster_wl(const monster_info& mi, ostringstream &result)
+static string _describe_monster_wl(const monster_info& mi)
 {
-    if (mi.willpower() == WILL_INVULN)
+    const int will = mi.willpower();
+    if (will == WILL_INVULN)
     {
-        result << (Options.char_set == CSET_ASCII
-                        ? "  Will: \u221e\n" // ∞
-                        : "  Will: inf\n");
-        return;
+        if (Options.char_set == CSET_ASCII)
+            return "Will: inf";
+        return "Will: ∞";
     }
 
-    result << "  Will: ";
-    result << mi.willpower();
-    result << "\n";
+    return "Will: " + _build_bar(will, WL_PIP);
 }
 
 /**
@@ -5086,6 +5085,84 @@ static string _monster_current_target_description(const monster_info &mi)
     return result.str();
 }
 
+// Converts a numeric resistance to its symbolic counterpart.
+// Can handle any maximum level. The default is for single level resistances
+// (the most common case). Negative resistances are allowed.
+// Resistances with a maximum of up to 4 are spaced (arbitrary choice), and
+// starting at 5 levels, they are continuous.
+// params:
+//  level : actual resistance level
+//  max : maximum number of levels of the resistance
+//  immune : overwrites normal pip display for full immunity
+string desc_resist(int level, int max, bool immune, bool allow_spacing)
+{
+    if (max < 1)
+        return "";
+
+    if (immune)
+        return Options.char_set == CSET_ASCII ? "inf" : "\u221e"; //"∞"
+
+    string sym;
+    const bool spacing = allow_spacing && max < 5;
+
+    while (max > 0)
+    {
+        if (level == 0)
+            sym += ".";
+        else if (level > 0)
+        {
+            sym += "+";
+            --level;
+        }
+        else // negative resistance
+        {
+            sym += "x";
+            ++level;
+        }
+        sym += (spacing) ? " " : "";
+        --max;
+    }
+    return sym;
+}
+
+static string _res_name(mon_resist_flags res)
+{
+    switch (res)
+    {
+    case MR_RES_FIRE:   return "rF";
+    case MR_RES_COLD:   return "rC";
+    case MR_RES_POISON: return "rPois";
+    case MR_RES_ELEC:   return "rElec";
+    case MR_RES_NEG:    return "rNeg";
+    default:            return "rEggplant";
+    }
+}
+
+static string _desc_mon_resist(resists_t resist_set, mon_resist_flags res)
+{
+    const int level = get_resist(resist_set, res);
+    const int max = (res == MR_RES_POISON || res == MR_RES_ELEC) ? 1 : 3; // lies
+    const string desc = desc_resist(level, max, level == 3, false);
+    return make_stringf("%s: %s", _res_name(res).c_str(), desc.c_str());
+}
+
+static void _add_resist_desc(resists_t resist_set, ostringstream &result)
+{
+    const mon_resist_flags common_resists[] =
+        { MR_RES_FIRE, MR_RES_COLD, MR_RES_POISON, MR_RES_NEG, MR_RES_ELEC };
+
+    bool found = false;
+    for (mon_resist_flags rflags : common_resists)
+        if (get_resist(resist_set, rflags))
+            found = true;
+    if (!found)
+        return;
+
+    result << "\n";
+    for (mon_resist_flags rflags : common_resists)
+        result << _padded(_desc_mon_resist(resist_set, rflags), 16);
+}
+
 // Describe a monster's (intrinsic) resistances, speed and a few other
 // attributes.
 static string _monster_stat_description(const monster_info& mi, bool mark_spells)
@@ -5095,21 +5172,50 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
 
     ostringstream result;
 
-    _describe_monster_hp(mi, result);
-    _describe_monster_ac(mi, result);
-    _describe_monster_ev(mi, result);
-    _describe_monster_wl(mi, result);
+    result << _padded(_describe_monster_hp(mi), 16);  // worst case is "Max HP: ~9999"
+                                                      // len 13, then 3 spaces after
+    result << _padded(_describe_monster_ac(mi), 16);  // "AC: ++++ ++++" 13 again
+    result << _padded(_describe_monster_ev(mi), 16);  // "EV*: ++++ ++++" 14
+    result << _padded(_describe_monster_wl(mi), 16);  // "Will: +++++" 11
+                                                      // total 80 (?)
 
+    const resists_t resist = mi.resists();
+    _add_resist_desc(resist, result);
+
+    // Less important common properties. Arguably should be lower down.
+    const size_type sz = mi.body_size();
+    const string size_desc = sz == SIZE_LITTLE ? "V. Small" : uppercase_first(get_size_adj(sz));
+    const int regen_rate = mi.regen_rate(100);
     result << "\n";
+    result << _padded(make_stringf("Threat: %s", _get_threat_desc(mi.threat)), 16);
+    result << _padded(make_stringf("Regen: %.2f", regen_rate/100.0f), 16);
+    result << _padded(make_stringf("Size: %s", size_desc.c_str()), 16);
+    result << _padded(make_stringf("Int: %s", _get_int_desc(mi.intel())), 16);
 
-    resists_t resist = mi.resists();
+    _add_speed_desc(mi, result);
 
-    const mon_resist_flags resists[] =
+    result << "\n\n";
+
+    if (crawl_state.game_started)
     {
-        MR_RES_ELEC,    MR_RES_POISON, MR_RES_FIRE,
-        MR_RES_STEAM,   MR_RES_COLD,   MR_RES_ACID,
-        MR_RES_MIASMA,  MR_RES_NEG,    MR_RES_DAMNATION,
-        MR_RES_VORTEX,  MR_RES_TORMENT,
+        result << uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) << " "
+               << conjugate_verb("have", mi.pronoun_plurality()) << " ";
+        describe_to_hit(mi, result, you.weapon());
+        if (mi.base_ev != mi.ev)
+        {
+            if (!mi.ev)
+                result << " (while incapacitated)";
+            else
+                result << " (at present)";
+        }
+        result << ".\n";
+    }
+    result << _monster_attacks_description(mi);
+
+    const mon_resist_flags special_resists[] =
+    {
+        MR_RES_STEAM, MR_RES_ACID, MR_RES_MIASMA, MR_RES_DAMNATION,
+        MR_RES_TORMENT,
     };
 
     vector<string> extreme_resists;
@@ -5117,7 +5223,7 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
     vector<string> base_resists;
     vector<string> suscept;
 
-    for (mon_resist_flags rflags : resists)
+    for (mon_resist_flags rflags : special_resists)
     {
         int level = get_resist(resist, rflags);
 
@@ -5183,28 +5289,6 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
     const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
     const bool plural = mi.pronoun_plurality();
 
-    if (mi.threat != MTHRT_UNDEF)
-    {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("look", plural) << " "
-               << _get_threat_desc(mi.threat) << ".\n";
-    }
-
-    if (mi.has_unusual_items())
-    {
-        const vector<string> unusual_items = mi.get_unusual_items();
-
-        result << uppercase_first(pronoun) << " ";
-        (!mons_class_is_animated_weapon(mi.type) ?
-            result << conjugate_verb("have", plural)
-                   << " an unusual item: "
-                   << comma_separated_line(unusual_items.begin(),
-                                           unusual_items.end()) :
-            result << conjugate_verb("are", plural)
-                   << " an unusual item")
-               << ".\n";
-    }
-
     if (!resist_descriptions.empty())
     {
         result << uppercase_first(pronoun) << " "
@@ -5245,10 +5329,6 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
                << " cold-blooded and may be slowed by cold attacks.\n";
     }
 
-    // Seeing invisible.
-    if (mi.can_see_invisible())
-        result << uppercase_first(pronoun) << " can see invisible.\n";
-
     if (mons_class_flag(mi.type, M_INSUBSTANTIAL))
     {
         result << uppercase_first(pronoun) << " "
@@ -5261,139 +5341,8 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
     // Might be better to have some place where players can see holiness &
     // information about holiness.......?
 
-    if (mi.intel() <= I_BRAINLESS)
-    {
-        // Matters for Ely.
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural) << " mindless.\n";
-    }
-    else if (mi.intel() >= I_HUMAN)
-    {
-        // Matters for Yred, Gozag, Zin, TSO, Alistair....
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural) << " intelligent.\n";
-    }
-
-    // Unusual monster speed.
-    const int speed = mi.base_speed();
-    bool did_speed = false;
-    if (speed != 10 && speed != 0)
-    {
-        did_speed = true;
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural) << " "
-               << mi.speed_description();
-    }
-    const mon_energy_usage def = DEFAULT_ENERGY;
-    if (!(mi.menergy == def))
-    {
-        const mon_energy_usage me = mi.menergy;
-        vector<string> fast, slow;
-        if (!did_speed)
-            result << uppercase_first(pronoun) << " ";
-        _add_energy_to_string(speed, me.move,
-                              conjugate_verb("cover", plural) + " ground",
-                              fast, slow);
-        // since MOVE_ENERGY also sets me.swim
-        if (me.swim != me.move)
-        {
-            _add_energy_to_string(speed, me.swim,
-                                  conjugate_verb("swim", plural), fast, slow);
-        }
-        _add_energy_to_string(speed, me.attack,
-                              conjugate_verb("attack", plural), fast, slow);
-        if (mons_class_itemuse(mi.type) >= MONUSE_STARTING_EQUIPMENT)
-        {
-            _add_energy_to_string(speed, me.missile,
-                                  conjugate_verb("shoot", plural), fast, slow);
-        }
-        _add_energy_to_string(
-            speed, me.spell,
-            mi.is_actual_spellcaster() ? conjugate_verb("cast", plural)
-                                         + " spells" :
-            mi.is_priest()             ? conjugate_verb("use", plural)
-                                         + " invocations"
-                                       : conjugate_verb("use", plural)
-                                         + " natural abilities", fast, slow);
-        _add_energy_to_string(speed, me.special,
-                              conjugate_verb("use", plural)
-                              + " special abilities",
-                              fast, slow);
-        if (mons_class_itemuse(mi.type) >= MONUSE_STARTING_EQUIPMENT)
-        {
-            _add_energy_to_string(speed, me.item,
-                                  conjugate_verb("use", plural) + " items",
-                                  fast, slow);
-        }
-
-        if (speed >= 10)
-        {
-            if (did_speed && fast.size() == 1)
-                result << " and " << fast[0];
-            else if (!fast.empty())
-            {
-                if (did_speed)
-                    result << ", ";
-                result << comma_separated_line(fast.begin(), fast.end());
-            }
-            if (!slow.empty())
-            {
-                if (did_speed || !fast.empty())
-                    result << ", but ";
-                result << comma_separated_line(slow.begin(), slow.end());
-            }
-        }
-        else if (speed < 10)
-        {
-            if (did_speed && slow.size() == 1)
-                result << " and " << slow[0];
-            else if (!slow.empty())
-            {
-                if (did_speed)
-                    result << ", ";
-                result << comma_separated_line(slow.begin(), slow.end());
-            }
-            if (!fast.empty())
-            {
-                if (did_speed || !slow.empty())
-                    result << ", but ";
-                result << comma_separated_line(fast.begin(), fast.end());
-            }
-        }
-        result << ".\n";
-    }
-    else if (did_speed)
-        result << ".\n";
-
-    if (mi.type == MONS_SHADOW)
-    {
-        // Cf. monster::action_energy() in monster.cc.
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("cover", plural)
-               << " ground more quickly when invisible.\n";
-    }
-
     if (mi.airborne())
         result << uppercase_first(pronoun) << " can fly.\n";
-
-    // Unusual regeneration rates.
-    if (!mi.can_regenerate())
-        result << uppercase_first(pronoun) << " cannot regenerate.\n";
-    else if (mons_class_fast_regen(mi.type))
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("regenerate", plural) << " "
-               << (mi.type == MONS_PARGHIT         ? "astonishingly "
-                 : mi.type == MONS_DEMONIC_CRAWLER ? "very "
-                                                   : "")
-               << "quickly.\n";
-
-    const char* mon_size = get_size_adj(mi.body_size(), true);
-    if (mon_size)
-    {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural) << " "
-               << mon_size << ".\n";
-    }
 
     if (in_good_standing(GOD_ZIN, 0) && !mi.pos.origin() && monster_at(mi.pos))
     {

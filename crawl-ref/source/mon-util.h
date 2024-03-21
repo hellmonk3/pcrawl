@@ -251,10 +251,12 @@ bool mons_invuln_will(const monster& mon);
 
 mon_attack_def mons_attack_spec(const monster& mon, int attk_number, bool base_flavour = true);
 string mon_attack_name(attack_type attack, bool with_object = true);
+string mon_attack_name_short(attack_type attack);
 bool is_plain_attack_type(attack_type attack);
 bool flavour_triggers_damageless(attack_flavour flavour);
 int flavour_damage(attack_flavour flavour, int HD, bool random = true);
 bool flavour_has_reach(attack_flavour flavour);
+bool flavour_has_mobility(attack_flavour flavour);
 
 bool mons_class_flag(monster_type mc, monclass_flags_t bits);
 
@@ -310,6 +312,7 @@ bool monster_inherently_flies(const monster &mons);
 bool mons_class_can_regenerate(monster_type mc);
 bool mons_can_regenerate(const monster& mon);
 bool mons_class_fast_regen(monster_type mc);
+int mons_class_regen_amount(monster_type mc);
 int mons_zombie_size(monster_type mc);
 monster_type mons_zombie_base(const monster& mon);
 bool mons_class_is_zombified(monster_type mc);

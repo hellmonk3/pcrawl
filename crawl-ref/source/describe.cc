@@ -4461,6 +4461,7 @@ static string _flavour_base_desc(attack_flavour flavour)
         { AF_SWOOP,             "swoop behind the defender beforehand" },
         { AF_FLANK,             "slip behind the defender beforehand" },
         { AF_CLEAVE,            "cleave" },
+        { AF_HELL_HUNT,         "summon a hell hound" },
         { AF_PLAIN,             "" },
     };
 
@@ -4577,7 +4578,7 @@ static string _monster_attacks_description(const monster_info& mi)
     _describe_mons_to_hit(mi, result);
 
     // Table header.
-    result << padded_str(plural ? "Attacks" : "Attack", 12)
+    result << _padded(plural ? "Attacks" : "Attack", 12)
            << _padded("Max Damage", 20);
     if (has_any_flavour)
         result << (flavour_without_dam ? "Bonus" : "After Damaging Hits");

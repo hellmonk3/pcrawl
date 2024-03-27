@@ -2257,6 +2257,12 @@ static const mon_spellbook mspell_list[] =
       }
     },
 
+    {  MST_ASSASSIN,
+      {
+       { SPELL_TOXIC_DART, 80, MON_SPELL_NATURAL },
+      }
+    },
+
     // A monster that doesn't show up anywhere, for Arena testing.
     {  MST_TEST_SPAWNER,
       {

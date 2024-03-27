@@ -182,6 +182,10 @@ Sticky Flame cast
 
 @The_monster@ sprays @target@ with burning goo.
 %%%%
+Toxic Dart cast
+
+@The_monster@ throws a toxic dart at @target@.
+%%%%
 Holy Flames cast
 
 @The_monster@ calls forth blessed flames!

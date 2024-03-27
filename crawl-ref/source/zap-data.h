@@ -863,6 +863,22 @@ _mon_hex_zap(ZAP_BANISHMENT, BEAM_BANISH, 150),
 },
 
 {
+    ZAP_TOXIC_DART,
+    "sting",
+    25,
+    new dicedef_calculator<1, 3, 1, 5>,
+    new tohit_calculator<8, 1, 5>,
+    new dicedef_calculator<1, 3, 0, 1>,
+    new tohit_calculator<60, 0, 1>,
+    GREEN,
+    false,
+    BEAM_TOXIC,
+    DCHAR_FIRED_ZAP,
+    false,
+    false,
+},
+
+{
     ZAP_HURL_DAMNATION,
     "damnation",
     200,

@@ -1599,6 +1599,11 @@ Entombs the caster within walls of rock. These walls will push away objects in
 their way, but their growth is obstructed by the presence of any creature. They
 are not permanent, and will expire after a period of time.
 %%%%
+Toxic Dart spell
+
+Fires a projectile tipped with toxins, which will slow, confuse, or paralyse any
+living or demonic being it hits.
+%%%%
 Trog's Hand spell
 
 <Trog's Hand ability>

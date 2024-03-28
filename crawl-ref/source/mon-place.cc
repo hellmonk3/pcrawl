@@ -1049,7 +1049,7 @@ static monster* _place_monster_aux(const mgen_data &mg, const monster *leader,
         // Classed demonspawn.
         else if (mg.cls == MONS_DEMONSPAWN_BLOOD_SAINT)
             mon->god = GOD_MAKHLEB;
-        else if (mg.cls == MONS_DEMONSPAWN_BLACK_SUN)
+        else if (mg.cls == MONS_DEMONSPAWN_BLACK_SUN || mg.cls == MONS_BURIAL_ACOLYTE)
             mon->god = GOD_KIKUBAAQUDGHA;
         else if (mg.cls == MONS_DEMONSPAWN_CORRUPTER
                  || mg.cls == MONS_MLIOGLOTL)

@@ -843,6 +843,10 @@ culicivora cast targeted
 
 @The_monster@ chitters @at@ @target@.
 %%%%
+burial acolyte cast
+
+@The_monster@ [drones|recites] a funeral chant.
+%%%%
 ########################################################################
 # Monster species and genus messages.
 ########################################################################

@@ -4795,7 +4795,7 @@ void describe_to_hit(const monster_info& mi, ostringstream &result,
         acc_pct = to_hit_pct(mi, attk, false);
     }
 
-    result << "about " << (100 - acc_pct) << "% to evade ";
+    result << (100 - acc_pct) << "% to evade ";
     if (weapon == nullptr)
         result << "your " << you.hand_name(true);
     else
@@ -4859,7 +4859,7 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
     const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
     result << uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) << " "
            << conjugate_verb("have", mi.pronoun_plurality())
-           << " about " << hit_chance << "% to hit you.\n";
+           << hit_chance << "% to hit you.\n";
 }
 
 /**
@@ -4933,25 +4933,6 @@ static string _padded(string str, int pad_to)
     return str;
 }
 
-static string _build_bar(int value, int scale)
-{
-    const int pips = value / scale;
-    if (pips <= 0)
-        return "none";
-    if (pips > 8) // too many..
-        return make_stringf("~%d", pips * scale);
-
-    string bar = "";
-    bar.append(min(pips, 4), '+');
-    // Add a space in the middle of long bars,
-    // for readability.
-    if (pips > 4) {
-        bar += " ";
-        bar.append(min(pips - 4, 4), '+');
-    }
-    return bar;
-}
-
 /**
  * Returns a description of a given monster's max HP
  */
@@ -4965,7 +4946,7 @@ static string _describe_monster_hp(const monster_info& mi)
  */
 static string _describe_monster_ac(const monster_info& mi)
 {
-    return "AC: " + _build_bar(mi.ac, 5);
+    return make_stringf("AC: %d", mi.ac);
 }
 
 /**
@@ -4973,7 +4954,7 @@ static string _describe_monster_ac(const monster_info& mi)
  */
 static string _describe_monster_ev(const monster_info& mi)
 {
-    return "EV: " + _build_bar(mi.base_ev, 5);
+    return make_stringf("EV: %d", mi.base_ev);
 }
 
 /**
@@ -4992,7 +4973,7 @@ static string _describe_monster_wl(const monster_info& mi)
         return "Will: ∞";
     }
 
-    return "Will: " + _build_bar(will, WL_PIP);
+    return make_stringf("Will: %d", will);
 }
 
 /**
@@ -5186,12 +5167,16 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
     // Less important common properties. Arguably should be lower down.
     const size_type sz = mi.body_size();
     const string size_desc = sz == SIZE_LITTLE ? "V. Small" : uppercase_first(get_size_adj(sz));
-    const int regen_rate = mi.regen_rate(100);
+    const auto holiness = mons_class_holiness(mi.type);
+    const string holi = holiness == MH_NONLIVING ? "Nonliv."
+                                                 : single_holiness_description(holiness);
     result << "\n";
     result << _padded(make_stringf("Threat: %s", _get_threat_desc(mi.threat)), 16);
-    result << _padded(make_stringf("Regen: %.2f", regen_rate/100.0f), 16);
+    result << _padded(make_stringf("Class: %s", uppercase_first(holi).c_str()), 16);
     result << _padded(make_stringf("Size: %s", size_desc.c_str()), 16);
     result << _padded(make_stringf("Int: %s", _get_int_desc(mi.intel())), 16);
+    if (mons_class_fast_regen(mi.type))
+        result << "Regen: " << mi.regen_rate(1) << "/turn"; // (Wait, what's a 'turn'?)
 
     _add_speed_desc(mi, result);
 
@@ -5375,7 +5360,6 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
         result << "\n";
     }
 
-    result << _monster_attacks_description(mi);
     result << _monster_missiles_description(mi);
     result << _monster_habitat_description(mi);
     result << _monster_spells_description(mi, mark_spells);

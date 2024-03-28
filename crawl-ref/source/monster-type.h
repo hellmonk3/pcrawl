@@ -513,6 +513,9 @@ enum monster_type                      // env.mons[].type
 #if TAG_MAJOR_VERSION == 34
     MONS_SLAVE,
 #endif
+#if TAG_MAJOR_VERSION > 34
+    MONS_BURIAL_ACOLYTE,
+#endif
     MONS_HELL_KNIGHT,
 #if TAG_MAJOR_VERSION > 34
     MONS_DEATH_KNIGHT,
@@ -1200,6 +1203,7 @@ enum monster_type                      // env.mons[].type
     MONS_ORC_LANCER,
     MONS_ORC_SNIPER,
     MONS_OBSIDIAN_BAT,
+    MONS_BURIAL_ACOLYTE,
 #endif
 
     NUM_MONSTERS,               // used for polymorph

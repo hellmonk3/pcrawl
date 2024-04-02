@@ -540,7 +540,7 @@ int player::demon_silence_radius() const
 int monster::silence_radius() const
 {
     if (type == MONS_SILENT_SPECTRE)
-        return 10;
+        return 3;
 
     if (!has_ench(ENCH_SILENCE))
         return -1;
@@ -624,6 +624,7 @@ static int _mons_class_halo_radius(monster_type type)
         return 7; // highest rank among sentient ones
     case MONS_HOLY_SWINE:
     case MONS_SUN_MOTH:
+    case MONS_WORM:
         return 1;  // only notionally holy
     case MONS_MENNAS:
         return 2;  // ???  Low on grace or what?
@@ -634,11 +635,6 @@ static int _mons_class_halo_radius(monster_type type)
 
 int monster::halo_radius() const
 {
-    int size = -1;
-
-    if (!(holiness() & MH_HOLY))
-        return size;
-
     return _mons_class_halo_radius(type);
 }
 

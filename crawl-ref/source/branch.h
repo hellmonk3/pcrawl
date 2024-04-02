@@ -39,7 +39,7 @@ enum class branch_noise
     loud,
 };
 
-static const int DEFAULT_MON_DIE_SIZE = 12;
+static const int DEFAULT_MON_DIE_SIZE = 5;
 static const int HELL_MON_DIE_SIZE = 6;
 
 struct Branch

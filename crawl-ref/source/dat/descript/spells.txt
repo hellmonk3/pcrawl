@@ -192,11 +192,10 @@ Calls forth hands from corpses interred beneath the dungeon floor long ago.
 Enemies caught in the area will be held in place and constricted until they
 break free.
 %%%%
-Brain Feed spell
+Brain Bite spell
 
-Drains a portion of a visible enemy's intelligence, with no direct line of fire
-required. Such a loss is only temporary, and can be recovered by gaining
-experience.
+Drains a small amount of a visible enemy's mind and a proportion of their magic,
+with no direct line of fire required.
 %%%%
 Brom's Barrelling Boulder spell
 
@@ -512,7 +511,7 @@ that fails to resist the full force of the curse.
 %%%%
 Ensnare spell
 
-Shoots a stream of webbing at a creature, ensnaring the target in a spider web.
+Shoots a stream of webbing at a creature, ensnaring the target in a sticky web.
 %%%%
 Ensorcelled Hibernation spell
 
@@ -616,6 +615,11 @@ Conjures a prism which unleashes a violent explosion of arcane force after a
 short duration. The prism is extremely fragile and any damage caused to it may
 result in premature detonation.
 %%%%
+Funeral Dirge spell
+
+A ritual chant that briefly rouses several nearby undead allies to move more
+swiftly and strike with greater might.
+%%%%
 Gell's Gravitas spell
 
 Briefly redirects gravity around a target point, causing 'down' to be towards
@@ -696,9 +700,9 @@ Hurl Damnation spell
 %%%%
 Hurl Sludge spell
 
-Conjures a focused blast of highly toxic sludge, poisoning the victim and
-drenching their surroundings. The sludge damages and poisons all monsters,
-even those resistant to poison.
+Conjures a focused blast of highly toxic sludge, damaging the victim and
+drenching their surroundings. The sludge damages anything standing in it, but
+does not affect flying creatures or the spell's caster.
 %%%%
 Holy Breath spell
 
@@ -906,6 +910,10 @@ Mass Confusion spell
 
 Causes confusion in all who gaze upon the caster.
 %%%%
+Mass Repulsion spell
+
+Causes all of the caster's nearby allies to begin repelling missiles.
+%%%%
 Maxwell's Capacitive Coupling spell
 
 Gradually builds up electric charge in the caster, so long as they maintain
@@ -933,8 +941,8 @@ shorter time.
 %%%%
 Metal Splinters spell
 
-Fires a directed stream of sharp metal splinters. Its damage is strongly
-reduced by armour.
+Fires a directed stream of sharp metal splinters. Its damage is reduced thrice
+by armour.
 %%%%
 Miasma Breath spell
 
@@ -1123,8 +1131,8 @@ Quicksilver Bolt spell
 Repel Missiles spell
 
 Reduces the chance of projectile attacks striking the caster, making them
-easier to dodge. Single-target attacks are much easier to repel than
-penetrating attacks.
+easier to dodge. Explosive attacks and otherwise undodgeable ranged attacks are
+unaffected.
 %%%%
 Resonance Strike spell
 
@@ -1596,6 +1604,11 @@ Entombs the caster within walls of rock. These walls will push away objects in
 their way, but their growth is obstructed by the presence of any creature. They
 are not permanent, and will expire after a period of time.
 %%%%
+Toxic Dart spell
+
+Fires a projectile tipped with toxins, which will slow, confuse, or paralyse any
+living or demonic being it hits.
+%%%%
 Trog's Hand spell
 
 <Trog's Hand ability>
@@ -1710,3 +1723,13 @@ destructive mutagenic radiation. The victim and anyone adjacent will be
 blasted and heavily deformed, weakening them and reducing their armour.
 Summoned creatures are particularly vulnerable, as the enchantments binding
 them to this plane will unravel and cause them to be dismissed immediately.
+%%%%
+Shoot Arrow spell
+
+Fires an arrow. The damage dealt by the arrow depends significantly on the
+strength of the monster firing it. Monsters won't shoot arrows in melee range.
+%%%%
+Throw Boulder spell
+
+Throws a massive boulder that can penetrate through multiple enemies. Monsters
+won't throw boulders at targets in melee range.

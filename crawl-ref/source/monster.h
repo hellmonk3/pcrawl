@@ -262,6 +262,7 @@ public:
     bool     extra_balanced() const override;
     bool     can_pass_through_feat(dungeon_feature_type grid) const override;
     bool     can_burrow() const override;
+    bool     shadowy() const;
     bool     is_habitable_feat(dungeon_feature_type actual_grid) const override;
     bool     shove(const char* name = "") override;
 

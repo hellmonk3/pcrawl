@@ -2038,12 +2038,8 @@ int monster::off_level_regen_rate() const
     if (!mons_can_regenerate(*this))
         return 0;
 
-    if (type == MONS_PARGHIT)
-        return 2700; // whoosh
-    if (type == MONS_DEMONIC_CRAWLER)
-        return 600; // zoom
     if (mons_class_fast_regen(type) || type == MONS_PLAYER_GHOST)
-        return 100;
+        return mons_class_regen_amount(type) * 100;
     // Capped at 0.1 hp/turn.
     return max(natural_regen_rate() * 4, 10);
 }
@@ -3122,12 +3118,12 @@ int monster::hurt(const actor *agent, int amount, beam_type flavour,
 
     if (alive())
     {
-        if (amount != INSTANT_DEATH)
+        if (amount != INSTANT_DEATH && shadowy())
         {
-            if (petrified())
-                amount /= 2;
-            else if (petrifying())
-                amount = amount * 2 / 3;
+            if (!agent)
+                return 0;
+            if (grid_distance(agent->pos(), pos()) > 1)
+                return 0;
         }
 
         if (amount != INSTANT_DEATH && has_ench(ENCH_INJURY_BOND))
@@ -3967,6 +3963,11 @@ bool monster::is_stationary() const
 bool monster::can_burrow() const
 {
     return mons_class_flag(type, M_BURROWS);
+}
+
+bool monster::shadowy() const
+{
+    return mons_class_flag(type, M_SHADOWY);
 }
 
 /**

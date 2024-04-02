@@ -310,7 +310,7 @@ static string mi_calc_major_healing(monster* mons)
 static string mi_calc_freeze_damage(monster* mons)
 {
     const int pow = mons_power_for_hd(SPELL_FREEZE, mons->get_hit_dice());
-    return dice_def_string(freeze_damage(pow, false));
+    return dice_def_string(freeze_damage(pow));
 }
 
 static string mi_calc_irradiate_damage(const monster &mon)
@@ -991,6 +991,8 @@ int main(int argc, char* argv[])
 
                 if (flavour_has_reach(flavour))
                     monsterattacks += "(reach)";
+                if (flavour == AF_BIG_FIRE || flavour == AF_CLEAVE)
+                    monsterattacks += "(cleave)";
                 switch (flavour)
                 {
                 case AF_SWOOP:
@@ -1033,6 +1035,7 @@ int main(int argc, char* argv[])
                                               hd + max(hd / 2 - 1, 0)));
                     break;
                 case AF_FIRE:
+                case AF_BIG_FIRE:
                     monsterattacks += colour(
                         LIGHTRED, damage_flavour("fire", hd, hd * 2 - 1));
                     break;
@@ -1099,7 +1102,7 @@ int main(int argc, char* argv[])
                     monsterattacks += colour(WHITE, "(ensnare)");
                     break;
                 case AF_DROWN:
-                    monsterattacks += colour(LIGHTBLUE, "(drown)");
+                    monsterattacks += colour(LIGHTBLUE, damage_flavour("(drown)", hd, hd*2));
                     break;
                 case AF_ENGULF:
                     monsterattacks += colour(LIGHTBLUE, "(engulf)");
@@ -1128,6 +1131,9 @@ int main(int argc, char* argv[])
                 case AF_BARBS:
                     monsterattacks += colour(RED, "(barbs)");
                     break;
+                case AF_HELL_HUNT:
+                    monsterattacks += colour(YELLOW, "(summon hell hound)");
+                    break;
                 case AF_SPIDER:
                     monsterattacks += colour(YELLOW, "(summon spider)");
                     break;
@@ -1137,9 +1143,16 @@ int main(int argc, char* argv[])
                 case AF_SLEEP:
                     monsterattacks += colour(BLUE, "(sleep)");
                     break;
+                case AF_DRAG:
+                    monsterattacks += colour(BROWN, "(drag)");
+                    break;
+                case AF_FLANK:
+                    monsterattacks += "(flank)";
+                    break;
                 case AF_CRUSH:
                 case AF_PLAIN:
                 case AF_REACH:
+                case AF_CLEAVE:
                 case AF_REACH_STING:
                     break;
 #if TAG_MAJOR_VERSION == 34

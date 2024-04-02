@@ -1662,7 +1662,7 @@ int player_prot_life(bool allow_random, bool temp, bool items)
 
 // Even a slight speed advantage is very good... and we certainly don't
 // want to go past 6 (see below). -- bwr
-int player_movement_speed(bool check_terrain)
+int player_movement_speed(bool check_terrain, bool temp)
 {
     int mv = you.form == transformation::none
         ? 10
@@ -1694,7 +1694,7 @@ int player_movement_speed(bool check_terrain)
     else if (player_under_penance(GOD_CHEIBRIADOS))
         mv += 2 + min(div_rand_round(you.piety_max[GOD_CHEIBRIADOS], 20), 8);
 
-    if (you.duration[DUR_FROZEN])
+    if (temp && you.duration[DUR_FROZEN])
         mv += 3;
 
     // Mutations: -2, -3, -4, unless innate and shapechanged.
@@ -1707,7 +1707,7 @@ int player_movement_speed(bool check_terrain)
         mv /= 10;
     }
 
-    if (you.duration[DUR_SWIFTNESS] > 0)
+    if (temp && you.duration[DUR_SWIFTNESS] > 0)
     {
         if (you.attribute[ATTR_SWIFTNESS] > 0)
           mv = div_rand_round(3*mv, 4);
@@ -4760,8 +4760,7 @@ void handle_player_drowning(int delay)
     {
         you.duration[DUR_WATER_HOLD] += delay;
         int dam =
-            div_rand_round((28 + stepdown((float)you.duration[DUR_WATER_HOLD], 28.0))
-                            * delay,
+            div_rand_round((10 + you.duration[DUR_WATER_HOLD]) * delay,
                             BASELINE_DELAY * 10);
         ouch(dam, KILLED_BY_WATER, you.props[WATER_HOLDER_KEY].get_int());
         mprf(MSGCH_WARN, "Your lungs strain for air!");
@@ -6534,7 +6533,7 @@ bool player::corrode_equipment(const char* corrosion_source, int degree)
 }
 
 /**
- * Attempts to apply corrosion to the player and deals acid damage.
+ * Attempts to apply corrosion to the player.
  *
  * @param evildoer the cause of this acid splash.
  */
@@ -6542,20 +6541,7 @@ void player::splash_with_acid(actor* evildoer)
 {
     acid_corrode(3);
 
-    const int dam = roll_dice(4, 3);
-    const int post_res_dam = resist_adjust_damage(&you, BEAM_ACID, dam);
-
-    mprf("You are splashed with acid%s%s",
-         post_res_dam > 0 ? "" : " but take no damage",
-         attack_strength_punctuation(post_res_dam).c_str());
-    if (post_res_dam > 0)
-    {
-        if (post_res_dam < dam)
-            canned_msg(MSG_YOU_RESIST);
-
-        ouch(post_res_dam, KILLED_BY_ACID,
-             evildoer ? evildoer->mid : MID_NOBODY);
-    }
+    mpr("You are splashed with acid");
 }
 
 void player::acid_corrode(int acid_strength)
@@ -7192,8 +7178,8 @@ void player::put_to_sleep(actor*, int power, bool hibernate)
     flash_view(UA_MONSTER, DARKGREY);
 
     // As above, do this after redraw.
-    const int dur = hibernate ? 3 + random2avg(5, 2) :
-                                5 + random2avg(power/10, 5);
+    const int dur = hibernate ? 3 + random2(5) :
+                                5 + random2(power);
     set_duration(DUR_SLEEP, dur);
     redraw_armour_class = true;
     redraw_evasion = true;

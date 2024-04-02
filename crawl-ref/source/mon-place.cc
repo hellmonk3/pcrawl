@@ -1049,7 +1049,7 @@ static monster* _place_monster_aux(const mgen_data &mg, const monster *leader,
         // Classed demonspawn.
         else if (mg.cls == MONS_DEMONSPAWN_BLOOD_SAINT)
             mon->god = GOD_MAKHLEB;
-        else if (mg.cls == MONS_DEMONSPAWN_BLACK_SUN)
+        else if (mg.cls == MONS_DEMONSPAWN_BLACK_SUN || mg.cls == MONS_BURIAL_ACOLYTE)
             mon->god = GOD_KIKUBAAQUDGHA;
         else if (mg.cls == MONS_DEMONSPAWN_CORRUPTER
                  || mg.cls == MONS_MLIOGLOTL)
@@ -1226,8 +1226,11 @@ static monster* _place_monster_aux(const mgen_data &mg, const monster *leader,
     }
 
 
-    if (mon->has_spell(SPELL_REPEL_MISSILES))
+    if (mon->has_spell(SPELL_REPEL_MISSILES)
+        || mon->has_spell(SPELL_MASS_REPULSION))
+    {
         mon->add_ench(ENCH_REPEL_MISSILES);
+    }
 
     if (mons_class_flag(mon->type, M_FIRE_RING))
         mon->add_ench(ENCH_RING_OF_FLAMES);
@@ -1853,7 +1856,7 @@ static const map<monster_type, band_set> bands_by_leader = {
                                   {{ BAND_JELLYFISH, {1, 3} }}}},
     { MONS_POLYPHEMUS,      { {}, {{ BAND_POLYPHEMUS, {3, 6}, true }}}},
     { MONS_HARPY,           { {}, {{ BAND_HARPIES, {2, 5} }}}},
-    { MONS_SALTLING,        { {}, {{ BAND_SALTLINGS, {2, 4} }}}},
+    { MONS_ORELING,        { {}, {{ BAND_SALTLINGS, {2, 4} }}}},
     { MONS_PEACEKEEPER,     { { 0, 0, []() {
         return player_in_branch(BRANCH_VAULTS); }},
                                   {{ BAND_GOLEMS, {1, 3}, true }}}},
@@ -2379,7 +2382,7 @@ static const map<band_type, vector<member_possibilities>> band_membership = {
                                   {MONS_SERVANT_OF_WHISPERS, 2},
                                   {MONS_PEACEKEEPER, 2}},
 
-                                 {{MONS_SALTLING, 150},
+                                 {{MONS_ORELING, 150},
                                   {MONS_RAGGED_HIEROPHANT, 5},
                                   {MONS_SERVANT_OF_WHISPERS, 5},
                                   {MONS_PEACEKEEPER, 5},

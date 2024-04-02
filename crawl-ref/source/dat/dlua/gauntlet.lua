@@ -306,7 +306,7 @@ tier1_gauntlet_arenas = {
   },
   {
     second = {mons = "raiju", min = 1, max = 1},
-    third  = {mons = "steam dragon", min = 1, max = 2},
+    third  = {mons = "steam drake", min = 1, max = 2},
     liquid = "water",
   },
   {
@@ -428,7 +428,7 @@ tier1_gauntlet_arenas = {
   },
   {
     first  = {mons = "oklob plant", min = 1, max = 1},
-    second = {mons = "acid dragon", min = 1, max = 2},
+    second = {mons = "acid drake", min = 1, max = 2},
   },
   {
     first  = {mons = "necromancer", min = 1, max = 1},

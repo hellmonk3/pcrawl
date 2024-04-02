@@ -52,12 +52,10 @@ struct cloud_damage
     int base; ///< Flat damage on every hit, pre-defenses.
     int random; ///< Damage rolled on hit.
     bool extra_player_dam; //< HACK: does 4+random2(8) extra damage to players.
-    // Yes, we really hate players, damn their guts.
 };
 
 /// Damage for most damaging clouds.
-static const cloud_damage NORMAL_CLOUD_DAM = { 6, 16, true };
-// 6+r2a(16,2) for monsters, 10+r2a(23,2) for players
+static const cloud_damage NORMAL_CLOUD_DAM = { 3, 7, false };
 
 /// A portrait of a cloud_type.
 struct cloud_data
@@ -157,7 +155,7 @@ static const cloud_data clouds[] = {
       LIGHTGREY,                                // colour
       { TILE_CLOUD_GREY_SMOKE, CTVARY_NONE },   // tile
       BEAM_STEAM,                               // beam_effect
-      {0, 16},                                  // base, random damage
+      {0, 5},                                  // base, random damage
       true,                                     // opacity
     },
 #if TAG_MAJOR_VERSION == 34
@@ -240,21 +238,21 @@ static const cloud_data clouds[] = {
       ETC_ELECTRICITY,                          // colour
       { TILE_CLOUD_SPECTRAL, CTVARY_DUR },      // tile
       BEAM_NONE,                                // beam_effect
-      { 4, 15 },                                // base, random damage
+      NORMAL_CLOUD_DAM,                         // base, random damage
     },
     // CLOUD_ACID,
     { "acidic fog", nullptr,                    // terse, verbose name
       YELLOW,                                   // colour
       { TILE_CLOUD_ACID, CTVARY_DUR },          // dur
       BEAM_ACID,                                // beam_effect
-      { 8, 22, true },                          // base, random damage
+      { 3, 7, false },                          // base, random damage
     },
     // CLOUD_STORM,
     { "thunder", "a thunderstorm",              // terse, verbose name
       ETC_DARK,                                 // colour
       { TILE_CLOUD_STORM, CTVARY_RANDOM },      // tile
       BEAM_ELECTRICITY,                         // beam_effect
-      { 23, 27 },
+      { 10, 20 },
     },
     // CLOUD_NEGATIVE_ENERGY,
     { "negative energy", nullptr,               // terse, verbose name
@@ -572,12 +570,7 @@ static void _handle_spectral_cloud(const cloud_struct& cloud)
     if (!x_chance_in_y(chance, you.time_taken * 600))
         return;
 
-    monster_type basetype =
-        random_choose_weighted(4,   MONS_ANACONDA,
-                               6,   MONS_HYDRA,
-                               3,   MONS_SNAPPING_TURTLE,
-                               2,   MONS_ALLIGATOR_SNAPPING_TURTLE,
-                               100, RANDOM_MONSTER);
+    monster_type basetype = MONS_HYDRA;
 
     monster* agent = monster_by_mid(cloud.source);
     create_monster(mgen_data(MONS_SPECTRAL_THING,
@@ -874,14 +867,14 @@ static int _cloud_damage_calc(int size, int n_average, int extra,
 static int _base_dam(const cloud_damage &dam, bool vs_player)
 {
     if (vs_player && dam.extra_player_dam)
-        return dam.base + 4;
+        return dam.base;
     return dam.base;
 }
 
 static int _rand_dam(const cloud_damage &dam, bool vs_player)
 {
     if (vs_player && dam.extra_player_dam)
-        return dam.random + 7;
+        return dam.random;
     return dam.random;
 }
 
@@ -893,11 +886,9 @@ static int _cloud_base_damage(const actor *act,
 {
     const cloud_damage &dam = clouds[flavour].damage;
     const bool vs_player = act->is_player();
-    const int random_dam = _rand_dam(dam, vs_player)
-    // Replicate the old acid_splash damage. Boy we hate players, huh?
-                         + (flavour == CLOUD_ACID && vs_player ? 12 : 0);
+    const int random_dam = _rand_dam(dam, vs_player);
     const int base_dam = _base_dam(dam, vs_player);
-    const int trials = dam.random/15 + 1;
+    const int trials = 1;
 
     return _cloud_damage_calc(random_dam, trials, base_dam, maximum_damage);
 

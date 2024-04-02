@@ -21,6 +21,7 @@ enum monster_type                      // env.mons[].type
     MONS_BAT,
     MONS_FIRE_BAT,
 #if TAG_MAJOR_VERSION > 34
+    MONS_OBSIDIAN_BAT,
     MONS_SNAKE,                // genus
 #endif
     MONS_BALL_PYTHON,
@@ -80,9 +81,7 @@ enum monster_type                      // env.mons[].type
     MONS_BABY_ALLIGATOR,
 #endif
     MONS_ALLIGATOR,
-#if TAG_MAJOR_VERSION == 34
     MONS_CROCODILE,
-#endif
     MONS_HYDRA,
 #if TAG_MAJOR_VERSION == 34
     MONS_SHEEP,
@@ -119,8 +118,8 @@ enum monster_type                      // env.mons[].type
     MONS_POLAR_BEAR,
     MONS_BLACK_BEAR,
     MONS_WORM,
-#if TAG_MAJOR_VERSION == 34
     MONS_BRAIN_WORM,
+#if TAG_MAJOR_VERSION == 34
     MONS_ROCK_WORM,
     MONS_SPINY_WORM,
 #endif
@@ -301,7 +300,7 @@ enum monster_type                      // env.mons[].type
     MONS_WOOD_GOLEM,
     MONS_STONE_GOLEM,
 #else
-    MONS_SALTLING,
+    MONS_ORELING,
     MONS_PEACEKEEPER,
 #endif
     MONS_IRON_GOLEM,
@@ -431,9 +430,7 @@ enum monster_type                      // env.mons[].type
     MONS_DEEP_ELF_MASTER_ARCHER,
     MONS_SPRIGGAN,
     MONS_SPRIGGAN_DRUID,
-#if TAG_MAJOR_VERSION == 34
     MONS_SPRIGGAN_ASSASSIN,
-#endif
     MONS_SPRIGGAN_RIDER,
     MONS_SPRIGGAN_BERSERKER,
     MONS_SPRIGGAN_DEFENDER,
@@ -513,6 +510,9 @@ enum monster_type                      // env.mons[].type
     MONS_HUMAN,
 #if TAG_MAJOR_VERSION == 34
     MONS_SLAVE,
+#endif
+#if TAG_MAJOR_VERSION > 34
+    MONS_BURIAL_ACOLYTE,
 #endif
     MONS_HELL_KNIGHT,
 #if TAG_MAJOR_VERSION > 34
@@ -1119,7 +1119,7 @@ enum monster_type                      // env.mons[].type
     MONS_MELIAI,
     MONS_BAI_SUZHEN,
     MONS_BAI_SUZHEN_DRAGON,
-    MONS_SALTLING,
+    MONS_ORELING,
     MONS_IMPERIAL_MYRMIDON,
     MONS_SERVANT_OF_WHISPERS,
     MONS_PEACEKEEPER,
@@ -1195,6 +1195,13 @@ enum monster_type                      // env.mons[].type
     MONS_FORMLESS_JELLYFISH,
     MONS_JEREMIAH,
     MONS_BOULDER,
+    MONS_GNOLL_ELECTRICIAN,
+    MONS_GNOLL_HALBERDIER,
+    MONS_RIBBON_WORM,
+    MONS_ORC_LANCER,
+    MONS_ORC_SNIPER,
+    MONS_OBSIDIAN_BAT,
+    MONS_BURIAL_ACOLYTE,
 #endif
 
     NUM_MONSTERS,               // used for polymorph

@@ -599,14 +599,8 @@ attack_flavour attack::random_chaos_attack_flavour()
 
 void attack::drain_defender()
 {
-    if (defender->is_monster() && coinflip())
-        return;
-
     if (!(defender->holiness() & (MH_NATURAL | MH_PLANT)))
         return;
-
-    special_damage = resist_adjust_damage(defender, BEAM_NEG,
-                                          (1 + random2(damage_done)) / 2);
 
     if (defender->drain(attacker, true, 1 + damage_done))
     {
@@ -616,11 +610,10 @@ void attack::drain_defender()
         {
             special_damage_message =
                 make_stringf(
-                    "%s %s %s%s",
+                    "%s %s %s.",
                     atk_name(DESC_THE).c_str(),
                     attacker->conj_verb("drain").c_str(),
-                    defender_name(true).c_str(),
-                    attack_strength_punctuation(special_damage).c_str());
+                    defender_name(true).c_str());
         }
     }
 }

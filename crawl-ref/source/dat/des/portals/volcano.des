@@ -237,7 +237,7 @@ function fiery_guardians (e, intelligent, village)
         local set_weight = crawl.random2(11)
         if set_weight < 4 then
             -- "Beastial" monster pack.
-            e.mons("hell hound / steam dragon w:8 / fire bat band w:8")
+            e.mons("hell hound / steam drake w:8 / fire bat band w:8")
             e.mons("hell hog / lindwurm w:12")
             e.mons("fire crab w:12 / fire dragon")
         elseif set_weight < 8 then
@@ -1130,7 +1130,7 @@ TAGS:   no_item_gen no_monster_gen
 ORIENT: encompass
 WEIGHT: 20
 KITEM:  4 = scroll of fog q:2 ident:all w:20 / condensation vane / cloak of the thief w:1
-MONS:   steam dragon / steam dragon / smoke demon / hell hound
+MONS:   steam drake / steam drake / smoke demon / hell hound
 MONS:   sun demon, lindwurm
 KMONS:  4 = fire dragon
 SUBST:  a = ..xxl, p = ..'xl, q = .x, ' = '.
@@ -1318,7 +1318,7 @@ WEIGHT:  10
 # groups of lesser enemies led by a few nastier ones
 MONS:    patrolling fire dragon
 MONS:    salamander
-MONS:    ogre w:5 / two-headed ogre w:5 / steam dragon w:5 / wyvern / \
+MONS:    ogre w:5 / two-headed ogre w:5 / steam drake w:5 / wyvern / \
          komodo dragon / fire bat
 MONS:    patrolling fire bat band
 KMONS:   p = plant

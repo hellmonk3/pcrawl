@@ -627,10 +627,10 @@ static void _force_cold_brand(item_def &item)
 {
     if (is_artefact(item))
         return;
-    
+
     if (item.base_type == OBJ_ARMOUR)
     {
-        if(is_armour_brand_ok(item.sub_type, SPARM_RESISTANCE, true)
+        if (is_armour_brand_ok(item.sub_type, SPARM_RESISTANCE, true)
             && one_chance_in(5))
         {
             item.brand = SPARM_RESISTANCE;
@@ -1187,7 +1187,7 @@ item_def branch_specific_item()
     item_def item;
 
     const branch_type branch = you.where_are_you;
-    
+
     object_class_type type;
     if (!you.has_mutation(MUT_NO_ARMOUR))
         type = OBJ_ARMOUR;

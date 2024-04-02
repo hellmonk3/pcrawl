@@ -174,9 +174,17 @@ unseen Orb of Destruction cast
 
 @The_something@ conjures a glowing orb.
 %%%%
+Shoot Arrow cast
+
+@The_monster@ shoots an arrow at @target@.
+%%%%
 Sticky Flame cast
 
 @The_monster@ sprays @target@ with burning goo.
+%%%%
+Toxic Dart cast
+
+@The_monster@ throws a toxic dart at @target@.
 %%%%
 Holy Flames cast
 
@@ -290,6 +298,14 @@ Acid Splash cast
 unseen Acid Splash cast
 
 You hear a spitting sound.
+%%%%
+Ensnare natural cast
+
+@The_monster@ expels a string of sticky webbing.
+%%%%
+unseen Ensnare natural cast
+
+A string of sticky webbing shoots out from thin air.
 %%%%
 unseen Cold Breath cast
 
@@ -560,6 +576,12 @@ VISUAL:@The_monster@ throws @possessive@ arms up pleadingly.
 ########################################################################
 # Individual monsters
 ########################################################################
+brain worm cast
+
+@The_monster@'s bulging head throbs.
+
+@The_monster@'s throbbing head pulsates.
+%%%%
 glowing orange brain cast
 
 @The_monster@ pulsates.
@@ -820,6 +842,10 @@ crystal echidna cast targeted
 culicivora cast targeted
 
 @The_monster@ chitters @at@ @target@.
+%%%%
+burial acolyte cast
+
+@The_monster@ [drones|recites] a funeral chant.
 %%%%
 ########################################################################
 # Monster species and genus messages.

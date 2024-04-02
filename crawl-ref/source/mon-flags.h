@@ -23,8 +23,8 @@ enum monclass_flag_type : uint64_t
     /// monster is skilled fighter
     M_FIGHTER           = BIT(3),
 
-    /// do not give (unique) a wand
-    M_NO_WAND           = BIT(4),
+    /// can only be damaged in melee range
+    M_SHADOWY           = BIT(4),
 
     /// do not give a high tier wand
     M_NO_HT_WAND        = BIT(5),

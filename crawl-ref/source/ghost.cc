@@ -567,7 +567,7 @@ static attack_flavour _ugly_thing_colour_to_flavour(colour_t u_colour)
         break;
 
     case BROWN:
-        u_att_flav = AF_ACID;
+        u_att_flav = AF_CORRODE;
         break;
 
     case GREEN:
@@ -639,7 +639,7 @@ void ghost_demon::init_ugly_thing(bool very_ugly, bool only_mutate,
     // Pick a compatible attack flavour for this colour.
     att_flav = _ugly_thing_colour_to_flavour(colour);
     if (colour == MAGENTA)
-        damage = damage * 4 / 3; // +5 for uglies, +9 for v uglies
+        damage = damage + 4;
 
     // Pick a compatible resistance for this attack flavour.
     ugly_thing_add_resistance(false, att_flav);
@@ -667,20 +667,13 @@ static resists_t _ugly_thing_resists(bool very_ugly, attack_flavour u_att_flav)
     {
     case AF_FIRE:
     case AF_STICKY_FLAME:
-        return MR_RES_FIRE * (very_ugly ? 2 : 1) | MR_RES_STICKY_FLAME;
-
-    case AF_ACID:
-        return MR_RES_ACID;
-
-    case AF_POISON:
-    case AF_POISON_STRONG:
-        return MR_RES_POISON * (very_ugly ? 2 : 1);
+        return MR_RES_FIRE * (very_ugly ? 1 : 1) | MR_RES_STICKY_FLAME;
 
     case AF_ELEC:
-        return MR_RES_ELEC * (very_ugly ? 2 : 1);
+        return MR_RES_ELEC * (very_ugly ? 1 : 1);
 
     case AF_COLD:
-        return MR_RES_COLD * (very_ugly ? 2 : 1);
+        return MR_RES_COLD * (very_ugly ? 1 : 1);
 
     default:
         return 0;

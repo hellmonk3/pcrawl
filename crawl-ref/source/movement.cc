@@ -138,21 +138,14 @@ static bool _cancel_barbed_move(bool rampaging)
     return false;
 }
 
-void apply_barbs_damage(bool rampaging)
+void apply_barbs_damage()
 {
     if (you.duration[DUR_BARBS])
     {
         mprf(MSGCH_WARN, "The barbed spikes dig painfully into your body "
                          "as you move.");
-        ouch(roll_dice(2, you.attribute[ATTR_BARBS_POW]), KILLED_BY_BARBS);
+        ouch(roll_dice(1, you.attribute[ATTR_BARBS_POW]), KILLED_BY_BARBS);
         bleed_onto_floor(you.pos(), MONS_PLAYER, 2, false);
-
-        // Sometimes decrease duration even when we move.
-        if (one_chance_in(3))
-            extract_manticore_spikes("The barbed spikes snap loose.");
-        // But if that failed to end the effect, duration stays the same.
-        if (you.duration[DUR_BARBS])
-            you.duration[DUR_BARBS] += (rampaging ? 0 : you.time_taken);
     }
 }
 
@@ -729,7 +722,7 @@ static spret _rampage_forward(coord_def move)
         behaviour_event(mon_target, ME_ALERT, &you, you.pos());
 
     // Lastly, apply post-move effects unhandled by move_player_to_grid().
-    apply_barbs_damage(true);
+    apply_barbs_damage();
     remove_ice_movement();
     you.clear_far_engulf(false, true);
     apply_cloud_trail(old_pos);

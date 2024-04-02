@@ -604,7 +604,7 @@ static void _starcursed_scream(monster* mon, actor* target)
     else
         message = "The starcursed mass shrieks in your mind.";
 
-    dam = 4 + random2(5) + random2(n * 3 / 2);
+    dam = 4 + random2(5) + random2(n);
 
     if (!target->is_player())
     {

@@ -3866,9 +3866,9 @@ ITEM:   potion of cancellation
 ITEM:   potion of might / potion of brilliance
 ITEM:   any
 NSUBST: i = 2=ghh / 3=ghhiii / *:i
-MONS:   angel
 MONS:   cherub
-MONS:   angel
+MONS:   cherub
+MONS:   cherub
 MONS:   ophan
 MONS:   ophan
 MONS:   daeva
@@ -3896,7 +3896,7 @@ KPROP:  ;E80$ = no_tele_into
 SUBST:  D& = +, '"-; = ., H = G, C = c
 : set_feature_name("granite_statue", "golden statue")
 : set_feature_name("metal_wall", "silver wall")
-: set_random_mon_list("angel w:20 / cherub / ophan / daeva / apis w:20")
+: set_random_mon_list("cherub w:20 / cherub / ophan / daeva / apis w:20")
 epilogue{{
 if not you.have_rune("demonic") then
   pan_declare_demonic_rune(true)

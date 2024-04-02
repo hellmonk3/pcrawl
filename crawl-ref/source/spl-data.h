@@ -726,6 +726,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_MASS_REPULSION, "Mass Repulsion",
+    spschool::air,
+    spflag::monster,
+    6,
+    200,
+    -1, -1,
+    0,
+    TILEG_MASS_REPULSION,
+},
+
+{
     SPELL_BERSERKER_RAGE, "Berserker Rage",
     spschool::earth,
     spflag::hasty | spflag::monster,
@@ -1305,14 +1316,14 @@ static const struct spell_desc spelldata[] =
 },
 
 {
-    SPELL_BRAIN_FEED, "Brain Feed",
-    spschool::necromancy,
+    SPELL_BRAIN_BITE, "Brain Bite",
+    spschool::necromancy  | spschool::hexes,
     spflag::target | spflag::monster,
     3,
     0,
     LOS_RADIUS, LOS_RADIUS,
     0,
-    TILEG_BRAIN_FEED,
+    TILEG_BRAIN_BITE,
 },
 
 {
@@ -3606,6 +3617,50 @@ static const struct spell_desc spelldata[] =
     5, 5,
     0,
     TILEG_ERROR,
+},
+
+{
+    SPELL_SHOOT_ARROW, "Shoot Arrow",
+    spschool::earth,
+    spflag::dir_or_target | spflag::needs_tracer | spflag::monster,
+    4,
+    200,
+    LOS_RADIUS, LOS_RADIUS,
+    0,
+    TILEG_ERROR,
+},
+
+{
+    SPELL_THROW_BOULDER, "Throw Boulder",
+    spschool::earth,
+    spflag::dir_or_target | spflag::needs_tracer | spflag::monster,
+    4,
+    200,
+    LOS_RADIUS, LOS_RADIUS,
+    0,
+    TILEG_ERROR,
+},
+
+{
+    SPELL_TOXIC_DART, "Toxic Dart",
+    spschool::earth,
+    spflag::dir_or_target | spflag::needs_tracer | spflag::monster,
+    3,
+    200,
+    LOS_RADIUS, LOS_RADIUS,
+    0,
+    TILEG_ERROR,
+},
+
+{
+    SPELL_FUNERAL_DIRGE, "Funeral Dirge",
+    spschool::necromancy,
+    spflag::area | spflag::monster,
+    4,
+    200,
+    -1, -1,
+    0,
+    TILEG_GENERIC_MONSTER_SPELL,
 },
 
 {

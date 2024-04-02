@@ -30,13 +30,13 @@ static const mon_spellbook mspell_list[] =
     /* Crimson imp, blink frog, and killer klown. */
     {  MST_BLINKER,
       {
-       { SPELL_BLINK, 29, MON_SPELL_MAGICAL },
+       { SPELL_BLINK, 30, MON_SPELL_MAGICAL },
       }
     },
 
     {  MST_BLINK_CLOSE,
       {
-       { SPELL_BLINK_CLOSE, 67, MON_SPELL_MAGICAL },
+       { SPELL_BLINK_CLOSE, 60, MON_SPELL_MAGICAL },
       }
     },
 
@@ -57,21 +57,21 @@ static const mon_spellbook mspell_list[] =
     // Electric eels and lightning spires.
     {  MST_ZAPPER,
       {
-       { SPELL_ELECTRICAL_BOLT, 100, MON_SPELL_NATURAL },
+       { SPELL_LIGHTNING_BOLT, 100, MON_SPELL_NATURAL },
       }
     },
 
     // Oklob plants and acid blobs.
     {  MST_ACID_SPIT,
       {
-       { SPELL_SPIT_ACID, 67, MON_SPELL_NATURAL },
+       { SPELL_SPIT_ACID, 60, MON_SPELL_NATURAL },
       }
     },
 
     // War gargoyles and iron dragons.
     {  MST_SPLINTER_BREATH,
       {
-       { SPELL_METAL_SPLINTERS, 68, MON_SPELL_NATURAL | MON_SPELL_BREATH
+       { SPELL_METAL_SPLINTERS, 60, MON_SPELL_NATURAL | MON_SPELL_BREATH
                                      | MON_SPELL_NOISY },
       }
     },
@@ -86,18 +86,15 @@ static const mon_spellbook mspell_list[] =
     // Deep elf annihilators and draconian annihilators.
     {  MST_ANNIHILATOR,
       {
-       { SPELL_LIGHTNING_BOLT, 11, MON_SPELL_WIZARD },
-       { SPELL_POISON_ARROW, 11, MON_SPELL_WIZARD },
-       { SPELL_UNMAKING, 11, MON_SPELL_WIZARD },
-       { SPELL_LEHUDIBS_CRYSTAL_SPEAR, 11, MON_SPELL_WIZARD },
-       { SPELL_BLINK, 22, MON_SPELL_WIZARD },
+       { SPELL_LEHUDIBS_CRYSTAL_SPEAR, 40, MON_SPELL_WIZARD },
+       { SPELL_BLINK, 20, MON_SPELL_WIZARD },
       }
     },
 
     // ('a') Ants and formicids.
     {  MST_ENTROPY_WEAVER,
       {
-       { SPELL_ENTROPIC_WEAVE, 25, MON_SPELL_WIZARD },
+       { SPELL_ENTROPIC_WEAVE, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -111,26 +108,26 @@ static const mon_spellbook mspell_list[] =
     // ('c') Centaurs and such.
     {  MST_FAUN,
       {
-       { SPELL_CORONA, 15, MON_SPELL_WIZARD },
-       { SPELL_STRIP_WILLPOWER, 30, MON_SPELL_WIZARD },
+       { SPELL_CORONA, 20, MON_SPELL_WIZARD },
+       { SPELL_STRIP_WILLPOWER, 20, MON_SPELL_WIZARD },
+       { SPELL_SHOOT_ARROW, 80, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_SATYR,
       {
-       { SPELL_BATTLECRY, 25, MON_SPELL_VOCAL },
-       { SPELL_CAUSE_FEAR, 32, MON_SPELL_WIZARD },
-       { SPELL_SLEEP, 16, MON_SPELL_WIZARD },
+       { SPELL_BATTLECRY, 20, MON_SPELL_VOCAL },
+       { SPELL_SLEEP, 20, MON_SPELL_WIZARD },
+       { SPELL_SHOOT_ARROW, 80, MON_SPELL_WIZARD },
       }
     },
 
     // ('e') Elves.
     {  MST_DEEP_ELF_FIRE_MAGE,
       {
-       { SPELL_STICKY_FLAME_RANGE, 15, MON_SPELL_WIZARD },
-       { SPELL_BOLT_OF_FIRE, 15, MON_SPELL_WIZARD },
-       { SPELL_FIRE_ELEMENTALS, 15, MON_SPELL_WIZARD },
-       { SPELL_BLINK, 15, MON_SPELL_WIZARD },
+       { SPELL_BOLT_OF_FIRE, 20, MON_SPELL_WIZARD },
+       { SPELL_FIRE_ELEMENTALS, 20, MON_SPELL_WIZARD },
+       { SPELL_BLINK, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -143,63 +140,59 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_DEEP_ELF_KNIGHT,
       {
-       { SPELL_THROW_ICICLE, 24, MON_SPELL_WIZARD },
-       { SPELL_FORCE_LANCE, 12, MON_SPELL_WIZARD },
-       { SPELL_HASTE, 12, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 12, MON_SPELL_WIZARD },
+       { SPELL_THROW_ICICLE, 20, MON_SPELL_WIZARD },
+       { SPELL_FORCE_LANCE, 20, MON_SPELL_WIZARD },
+       { SPELL_HASTE, 20, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_DEEP_ELF_ARCHER,
       {
-       { SPELL_SLOW, 12, MON_SPELL_WIZARD },
-       { SPELL_CONFUSE, 12, MON_SPELL_WIZARD },
-       { SPELL_REPEL_MISSILES, 12, MON_SPELL_WIZARD },
-       { SPELL_BLINK_AWAY, 36, MON_SPELL_WIZARD | MON_SPELL_SHORT_RANGE },
+       { SPELL_SLOW, 20, MON_SPELL_WIZARD },
+       { SPELL_REPEL_MISSILES, 20, MON_SPELL_WIZARD },
+       { SPELL_SHOOT_ARROW, 100, MON_SPELL_WIZARD },
+       { SPELL_BLINK_AWAY, 20, MON_SPELL_WIZARD | MON_SPELL_SHORT_RANGE },
       }
     },
 
     {  MST_DEEP_ELF_ELEMENTALIST,
       {
-       { SPELL_FREEZING_CLOUD, 22, MON_SPELL_WIZARD },
-       { SPELL_FIREBALL, 11, MON_SPELL_WIZARD },
-       { SPELL_LRD, 33, MON_SPELL_WIZARD },
-       { SPELL_REPEL_MISSILES, 11, MON_SPELL_WIZARD },
-       { SPELL_HASTE, 11, MON_SPELL_WIZARD },
+       { SPELL_FREEZING_CLOUD, 20, MON_SPELL_WIZARD },
+       { SPELL_FIREBALL, 20, MON_SPELL_WIZARD },
+       { SPELL_STONE_ARROW, 20, MON_SPELL_WIZARD },
+       { SPELL_REPEL_MISSILES, 20, MON_SPELL_WIZARD },
+       { SPELL_HASTE, 20, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_DEEP_ELF_SORCERER,
       {
-       { SPELL_CORROSIVE_BOLT, 18, MON_SPELL_WIZARD },
-       { SPELL_BANISHMENT, 11, MON_SPELL_WIZARD },
-       { SPELL_HASTE, 22, MON_SPELL_WIZARD },
-       { SPELL_HURL_DAMNATION, 11, MON_SPELL_WIZARD },
+       { SPELL_CORROSIVE_BOLT, 20, MON_SPELL_WIZARD },
+       { SPELL_HASTE, 20, MON_SPELL_WIZARD },
+       { SPELL_HURL_DAMNATION, 20, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_DEEP_ELF_HIGH_PRIEST,
       {
-       { SPELL_AURA_OF_BRILLIANCE, 25, MON_SPELL_PRIEST },
-       { SPELL_CALL_DOWN_DAMNATION, 12, MON_SPELL_PRIEST },
-       { SPELL_MALIGN_OFFERING, 18, MON_SPELL_PRIEST },
-       { SPELL_SMITING, 18, MON_SPELL_PRIEST },
+       { SPELL_AURA_OF_BRILLIANCE, 20, MON_SPELL_PRIEST },
+       { SPELL_MALIGN_OFFERING, 20, MON_SPELL_PRIEST },
+       { SPELL_SMITING, 20, MON_SPELL_PRIEST },
       }
     },
 
     {  MST_DEEP_ELF_DEMONOLOGIST,
       {
-       { SPELL_SUMMON_DEMON, 24, MON_SPELL_WIZARD },
-       { SPELL_SUMMON_GREATER_DEMON, 24, MON_SPELL_WIZARD },
-       { SPELL_BANISHMENT, 12, MON_SPELL_WIZARD },
+       { SPELL_SUMMON_DEMON, 20, MON_SPELL_WIZARD },
+       { SPELL_SUMMON_GREATER_DEMON, 20, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_DEEP_ELF_DEATH_MAGE,
       {
-       { SPELL_BOLT_OF_DRAINING, 22, MON_SPELL_WIZARD },
-       { SPELL_VAMPIRIC_DRAINING, 22, MON_SPELL_WIZARD },
-       { SPELL_CALL_LOST_SOUL, 11, MON_SPELL_WIZARD },
+       { SPELL_BOLT_OF_DRAINING, 20, MON_SPELL_WIZARD },
+       { SPELL_VAMPIRIC_DRAINING, 20, MON_SPELL_WIZARD },
+       { SPELL_CALL_LOST_SOUL, 10, MON_SPELL_WIZARD },
       }
     },
 
@@ -226,18 +219,14 @@ static const mon_spellbook mspell_list[] =
     // ('g') Small humanoids.
     {  MST_BOUDA,
       {
-       { SPELL_HEAL_OTHER, 20, MON_SPELL_PRIEST },
-       { SPELL_MINOR_HEALING, 20, MON_SPELL_PRIEST | MON_SPELL_EMERGENCY },
-       { SPELL_WEAKENING_GAZE, 20, MON_SPELL_PRIEST | MON_SPELL_INSTANT },
-       { SPELL_HUNTING_CALL, 50, MON_SPELL_VOCAL },
+       { SPELL_WEAKENING_GAZE, 20, MON_SPELL_PRIEST },
       }
     },
 
     {  MST_BOGGART,
       {
-       { SPELL_SHADOW_CREATURES, 33, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 11, MON_SPELL_WIZARD },
-       { SPELL_BLINK, 11, MON_SPELL_WIZARD },
+       { SPELL_SHADOW_CREATURES, 40, MON_SPELL_WIZARD },
+       { SPELL_BLINK, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -275,9 +264,9 @@ static const mon_spellbook mspell_list[] =
     // ('i') Spriggans.
     {  MST_SPRIGGAN_BERSERKER,
       {
-       { SPELL_BROTHERS_IN_ARMS, 21, MON_SPELL_PRIEST },
-       { SPELL_BERSERKER_RAGE, 21, MON_SPELL_PRIEST },
-       { SPELL_TROGS_HAND, 21, MON_SPELL_PRIEST },
+       { SPELL_BROTHERS_IN_ARMS, 20, MON_SPELL_PRIEST },
+       { SPELL_BERSERKER_RAGE, 20, MON_SPELL_PRIEST },
+       { SPELL_TROGS_HAND, 20, MON_SPELL_PRIEST },
       }
     },
 
@@ -292,9 +281,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_SPRIGGAN_AIR_MAGE,
       {
-       { SPELL_LIGHTNING_BOLT, 16, MON_SPELL_WIZARD },
-       { SPELL_AIRSTRIKE, 32, MON_SPELL_WIZARD },
-       { SPELL_REPEL_MISSILES, 16, MON_SPELL_WIZARD },
+       { SPELL_AIRSTRIKE, 30, MON_SPELL_WIZARD },
+       { SPELL_MASS_REPULSION, 30, MON_SPELL_WIZARD },
       }
     },
 
@@ -314,8 +302,8 @@ static const mon_spellbook mspell_list[] =
     {  MST_WIND_DRAKE,
       {
        { SPELL_WIND_BLAST, 50, MON_SPELL_NATURAL | MON_SPELL_BREATH },
-       { SPELL_AIRSTRIKE, 29, MON_SPELL_NATURAL },
-       { SPELL_REPEL_MISSILES, 29, MON_SPELL_NATURAL },
+       { SPELL_AIRSTRIKE, 20, MON_SPELL_NATURAL },
+       { SPELL_REPEL_MISSILES, 20, MON_SPELL_NATURAL },
       }
     },
 
@@ -334,7 +322,7 @@ static const mon_spellbook mspell_list[] =
     // ('l') Lizards.
     {  MST_BASILISK,
       {
-       { SPELL_PETRIFY, 56, MON_SPELL_MAGICAL },
+       { SPELL_PETRIFY, 40, MON_SPELL_MAGICAL },
       }
     },
 
@@ -359,38 +347,33 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_MERFOLK_AQUAMANCER,
       {
-        { SPELL_PRIMAL_WAVE, 16, MON_SPELL_WIZARD },
-        { SPELL_STEAM_BALL, 16, MON_SPELL_WIZARD },
-        { SPELL_THROW_ICICLE, 16, MON_SPELL_WIZARD },
-        { SPELL_BLINK, 16, MON_SPELL_WIZARD | MON_SPELL_EMERGENCY },
+        { SPELL_PRIMAL_WAVE, 20, MON_SPELL_WIZARD },
+        { SPELL_STEAM_BALL, 20, MON_SPELL_WIZARD },
+        { SPELL_BLINK, 20, MON_SPELL_WIZARD | MON_SPELL_EMERGENCY },
       }
     },
 
     // ('n') Undead corpses.
     {  MST_BOG_BODY,
       {
-       { SPELL_BOLT_OF_COLD, 28, MON_SPELL_WIZARD },
-       { SPELL_SLOW, 28, MON_SPELL_WIZARD },
+       { SPELL_BOLT_OF_COLD, 20, MON_SPELL_WIZARD },
+       { SPELL_SLOW, 20, MON_SPELL_WIZARD },
       }
     },
 
     // ('o') Orcs.
     {  MST_ORC_PRIEST,
       {
-       { SPELL_CANTRIP, 13, MON_SPELL_PRIEST },
-       { SPELL_PAIN, 13, MON_SPELL_PRIEST },
-       { SPELL_SMITING, 13, MON_SPELL_PRIEST },
-       { SPELL_HEAL_OTHER, 13, MON_SPELL_PRIEST },
+       { SPELL_SMITING, 20, MON_SPELL_PRIEST },
+       { SPELL_HEAL_OTHER, 20, MON_SPELL_PRIEST },
       }
     },
 
     // Shared with Sigmund.
     {  MST_ORC_WIZARD,
       {
-       { SPELL_MAGIC_DART, 9, MON_SPELL_WIZARD },
-       { SPELL_THROW_FLAME, 9, MON_SPELL_WIZARD },
-       { SPELL_CONFUSE, 18, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 9, MON_SPELL_WIZARD },
+       { SPELL_THROW_FLAME, 20, MON_SPELL_WIZARD },
+       { SPELL_CONFUSE, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -402,23 +385,28 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_ORC_HIGH_PRIEST,
       {
-       { SPELL_PAIN, 10, MON_SPELL_PRIEST },
-       { SPELL_SMITING, 10, MON_SPELL_PRIEST },
-       { SPELL_SUMMON_DEMON, 20, MON_SPELL_PRIEST },
-       { SPELL_HEAL_OTHER, 10, MON_SPELL_PRIEST },
+       { SPELL_AURA_OF_BRILLIANCE, 20, MON_SPELL_PRIEST },
+       { SPELL_SMITING, 20, MON_SPELL_PRIEST },
+       { SPELL_HEAL_OTHER, 20, MON_SPELL_PRIEST },
       }
     },
 
     {  MST_ORC_SORCERER,
       {
-       { SPELL_BOLT_OF_FIRE, 12, MON_SPELL_WIZARD },
-       { SPELL_BOLT_OF_DRAINING, 12, MON_SPELL_WIZARD },
-       { SPELL_SUMMON_DEMON, 12, MON_SPELL_WIZARD },
-       { SPELL_PARALYSE, 12, MON_SPELL_WIZARD },
+       { SPELL_SUMMON_DEMON, 20, MON_SPELL_WIZARD },
+       { SPELL_PARALYSE, 20, MON_SPELL_WIZARD },
       }
     },
 
     // ('p') Humans.
+    {  MST_BURIAL_ACOLYTE,
+      {
+       { SPELL_MALIGN_OFFERING, 10, MON_SPELL_PRIEST },
+       { SPELL_DISPEL_UNDEAD, 10, MON_SPELL_PRIEST },
+       { SPELL_FUNERAL_DIRGE, 20, MON_SPELL_PRIEST },
+      }
+    },
+
     {  MST_NECROMANCER,
       {
        { SPELL_BOLT_OF_DRAINING, 15, MON_SPELL_WIZARD },
@@ -430,16 +418,12 @@ static const mon_spellbook mspell_list[] =
     // Wizard set is also used by Erolcha.
     {  MST_WIZARD,
       {
-       { SPELL_FIREBALL, 12, MON_SPELL_WIZARD },
-       { SPELL_BANISHMENT, 10, MON_SPELL_WIZARD },
-       { SPELL_BLINK, 12, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 14, MON_SPELL_WIZARD },
+       { SPELL_FIREBALL, 60, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_DEATH_KNIGHT,
       {
-       { SPELL_AGONY_RANGE, 15, MON_SPELL_PRIEST },
        { SPELL_INJURY_MIRROR, 20, MON_SPELL_PRIEST },
       }
     },
@@ -454,8 +438,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_VAULT_SENTINEL,
       {
-       { SPELL_WARNING_CRY, 50, MON_SPELL_VOCAL | MON_SPELL_BREATH },
-       { SPELL_SENTINEL_MARK, 58, MON_SPELL_WIZARD },
+       { SPELL_WARNING_CRY, 40, MON_SPELL_VOCAL | MON_SPELL_BREATH },
+       { SPELL_SENTINEL_MARK, 40, MON_SPELL_WIZARD },
       }
     },
 
@@ -481,7 +465,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_IRONBOUND_FROSTHEART,
       {
-       { SPELL_CREEPING_FROST, 50, MON_SPELL_WIZARD },
+       { SPELL_CREEPING_FROST, 40, MON_SPELL_WIZARD },
       }
     },
 
@@ -599,13 +583,13 @@ static const mon_spellbook mspell_list[] =
     // ('t') Testudines.
     {  MST_FIRE_CRAB,
       {
-       { SPELL_FLAMING_CLOUD, 62, MON_SPELL_NATURAL },
+       { SPELL_FLAMING_CLOUD, 60, MON_SPELL_NATURAL },
       }
     },
 
     {  MST_GHOST_CRAB,
       {
-       { SPELL_SPECTRAL_CLOUD, 62, MON_SPELL_NATURAL },
+       { SPELL_SPECTRAL_CLOUD, 60, MON_SPELL_NATURAL },
       }
     },
 
@@ -633,6 +617,12 @@ static const mon_spellbook mspell_list[] =
     { MST_SWAMP_WORM,
       {
         { SPELL_HARPOON_SHOT, 80, MON_SPELL_NATURAL },
+      }
+    },
+
+    { MST_BRAIN_WORM,
+      {
+        { SPELL_BRAIN_BITE, 40, MON_SPELL_NATURAL },
       }
     },
 
@@ -672,7 +662,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_MOTH_OF_WRATH,
       {
-       { SPELL_BERSERK_OTHER, 66, MON_SPELL_NATURAL },
+       { SPELL_BERSERK_OTHER, 60, MON_SPELL_NATURAL },
       }
     },
 
@@ -715,7 +705,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_ANGEL,
       {
-       { SPELL_MINOR_HEALING, 62, MON_SPELL_MAGICAL },
+       { SPELL_MINOR_HEALING, 60, MON_SPELL_MAGICAL },
       }
     },
 
@@ -772,9 +762,9 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_IRON_GIANT,
       {
-       { SPELL_IRON_SHOT, 24, MON_SPELL_WIZARD },
-       { SPELL_HARPOON_SHOT, 36, MON_SPELL_WIZARD },
-       { SPELL_THROW_ALLY, 36, MON_SPELL_NATURAL },
+       { SPELL_IRON_SHOT, 20, MON_SPELL_WIZARD },
+       { SPELL_HARPOON_SHOT, 20, MON_SPELL_WIZARD },
+       { SPELL_THROW_ALLY, 20, MON_SPELL_NATURAL },
       }
     },
 
@@ -787,14 +777,14 @@ static const mon_spellbook mspell_list[] =
     // ('D') Dragons.
     {  MST_STEAM_DRAGON,
       {
-       { SPELL_STEAM_BALL, 54, MON_SPELL_NATURAL | MON_SPELL_BREATH
+       { SPELL_STEAM_BALL, 40, MON_SPELL_NATURAL | MON_SPELL_BREATH
                                 | MON_SPELL_NOISY },
       }
     },
 
     {  MST_ACID_DRAGON,
       {
-       { SPELL_SPIT_ACID, 55, MON_SPELL_NATURAL | MON_SPELL_BREATH
+       { SPELL_SPIT_ACID, 40, MON_SPELL_NATURAL | MON_SPELL_BREATH
                                         | MON_SPELL_NOISY },
       }
     },
@@ -808,7 +798,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_FIRE_DRAGON_BREATH,
       {
-       { SPELL_FIRE_BREATH, 62, MON_SPELL_NATURAL | MON_SPELL_BREATH
+       { SPELL_FIRE_BREATH, 60, MON_SPELL_NATURAL | MON_SPELL_BREATH
                                  | MON_SPELL_NOISY },
       }
     },
@@ -835,7 +825,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_QUICKSILVER_DRAGON,
       {
-       { SPELL_QUICKSILVER_BOLT, 66, MON_SPELL_NATURAL | MON_SPELL_BREATH
+       { SPELL_QUICKSILVER_BOLT, 60, MON_SPELL_NATURAL | MON_SPELL_BREATH
                                       | MON_SPELL_NOISY },
       }
     },
@@ -867,8 +857,10 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_ELEMENTAL_WELLSPRING,
       {
-       { SPELL_PRIMAL_WAVE, 65, MON_SPELL_MAGICAL },
-       { SPELL_WATER_ELEMENTALS, 65, MON_SPELL_MAGICAL },
+       { SPELL_WATER_ELEMENTALS, 20, MON_SPELL_MAGICAL },
+       { SPELL_FIRE_ELEMENTALS, 20, MON_SPELL_MAGICAL },
+       { SPELL_EARTH_ELEMENTALS, 20, MON_SPELL_MAGICAL },
+       { SPELL_AIR_ELEMENTALS, 20, MON_SPELL_MAGICAL },
       }
     },
 
@@ -890,7 +882,7 @@ static const mon_spellbook mspell_list[] =
     {  MST_GOLDEN_EYE,
       {
        { SPELL_CONFUSION_GAZE, 100, MON_SPELL_MAGICAL | MON_SPELL_INSTANT },
-       { SPELL_BLINK, 29, MON_SPELL_MAGICAL },
+       { SPELL_BLINK, 20, MON_SPELL_MAGICAL },
       }
     },
 
@@ -902,22 +894,21 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_SHINING_EYE,
       {
-       { SPELL_MALMUTATE, 57, MON_SPELL_MAGICAL },
+       { SPELL_MALMUTATE, 50, MON_SPELL_MAGICAL },
       }
     },
 
     {  MST_GREAT_ORB_OF_EYES,
       {
-       { SPELL_PARALYSE, 12, MON_SPELL_MAGICAL },
-       { SPELL_MINDBURST, 12, MON_SPELL_MAGICAL },
-       { SPELL_DRAIN_MAGIC, 12, MON_SPELL_MAGICAL },
-       { SPELL_CONFUSE, 12, MON_SPELL_MAGICAL },
+       { SPELL_PARALYSE, 10, MON_SPELL_MAGICAL },
+       { SPELL_BRAIN_BITE, 10, MON_SPELL_MAGICAL },
+       { SPELL_CONFUSE, 10, MON_SPELL_MAGICAL },
       }
     },
 
     {  MST_GLOWING_ORANGE_BRAIN,
       {
-       { SPELL_BRAIN_FEED, 10, MON_SPELL_MAGICAL },
+       { SPELL_BRAIN_BITE, 10, MON_SPELL_MAGICAL },
        { SPELL_CAUSE_FEAR, 10, MON_SPELL_MAGICAL },
        { SPELL_SHADOW_CREATURES, 10, MON_SPELL_MAGICAL },
        { SPELL_MASS_CONFUSION, 10, MON_SPELL_MAGICAL },
@@ -934,9 +925,8 @@ static const mon_spellbook mspell_list[] =
 
     { MST_FENSTRIDER_WITCH,
       {
-       { SPELL_PARALYSE, 15, MON_SPELL_WIZARD },
-       { SPELL_AGONY, 30, MON_SPELL_WIZARD },
-       { SPELL_HURL_SLUDGE, 15, MON_SPELL_WIZARD },
+       { SPELL_PARALYSE, 20, MON_SPELL_WIZARD },
+       { SPELL_HURL_SLUDGE, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -960,9 +950,7 @@ static const mon_spellbook mspell_list[] =
     // ('K') Kobolds.
     {  MST_KOBOLD_DEMONOLOGIST,
       {
-       { SPELL_CANTRIP, 19, MON_SPELL_WIZARD },
-       { SPELL_SUMMON_MINOR_DEMON, 19, MON_SPELL_WIZARD },
-       { SPELL_SUMMON_DEMON, 19, MON_SPELL_WIZARD },
+       { SPELL_SUMMON_MINOR_DEMON, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -1068,8 +1056,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_NAGA_SHARPSHOOTER,
       {
-       { SPELL_SPIT_POISON, 55, MON_SPELL_NATURAL | MON_SPELL_BREATH },
-       { SPELL_PORTAL_PROJECTILE, 59, MON_SPELL_WIZARD },
+       { SPELL_PORTAL_PROJECTILE, 60, MON_SPELL_WIZARD },
       }
     },
 
@@ -1083,34 +1070,31 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_SALAMANDER_MYSTIC,
       {
-       { SPELL_FORCE_LANCE, 12, MON_SPELL_WIZARD },
-       { SPELL_BOLT_OF_MAGMA, 12, MON_SPELL_WIZARD },
-       { SPELL_HASTE_OTHER, 24, MON_SPELL_WIZARD },
+       { SPELL_FORCE_LANCE, 10, MON_SPELL_WIZARD },
+       { SPELL_WEAKENING_GAZE, 10, MON_SPELL_WIZARD },
+       { SPELL_HASTE_OTHER, 10, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_SALAMANDER_TYRANT,
       {
        { SPELL_ERUPTION, 20, MON_SPELL_WIZARD },
-       { SPELL_PYROCLASTIC_SURGE, 50, MON_SPELL_WIZARD },
-       { SPELL_WEAKENING_GAZE, 50, MON_SPELL_WIZARD | MON_SPELL_INSTANT },
+       { SPELL_PYROCLASTIC_SURGE, 40, MON_SPELL_WIZARD },
       }
     },
 
     // ('O') Ogres.
     {  MST_OGRE_MAGE,
       {
-       { SPELL_BOLT_OF_MAGMA, 15, MON_SPELL_WIZARD },
-       { SPELL_HASTE_OTHER, 15, MON_SPELL_WIZARD },
-       { SPELL_PARALYSE, 10, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 10, MON_SPELL_WIZARD },
+       { SPELL_BOLT_OF_FIRE, 20, MON_SPELL_WIZARD },
+       { SPELL_HASTE_OTHER, 20, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_IRONBOUND_THUNDERHULK,
       {
-       { SPELL_CALL_DOWN_LIGHTNING, 50, MON_SPELL_MAGICAL },
-       { SPELL_BLINK_RANGE, 25, MON_SPELL_MAGICAL },
+       { SPELL_CALL_DOWN_LIGHTNING, 40, MON_SPELL_MAGICAL },
+       { SPELL_BLINK_RANGE, 20, MON_SPELL_MAGICAL | MON_SPELL_EMERGENCY },
       }
     },
 
@@ -1142,20 +1126,18 @@ static const mon_spellbook mspell_list[] =
     // ('Q') Tengu.
     {  MST_TENGU_CONJURER,
       {
-       { SPELL_LIGHTNING_BOLT, 19, MON_SPELL_WIZARD },
-       { SPELL_BATTLESPHERE, 19, MON_SPELL_WIZARD },
-       { SPELL_BLINK, 10, MON_SPELL_WIZARD | MON_SPELL_EMERGENCY },
+       { SPELL_BATTLESPHERE, 30, MON_SPELL_WIZARD },
+       { SPELL_LIGHTNING_BOLT, 20, MON_SPELL_WIZARD },
+       { SPELL_FORCE_LANCE, 10, MON_SPELL_WIZARD | MON_SPELL_EMERGENCY },
       }
     },
 
     {  MST_TENGU_REAVER,
       {
-        { SPELL_VENOM_BOLT, 11, MON_SPELL_WIZARD },
-        { SPELL_BOLT_OF_FIRE, 11, MON_SPELL_WIZARD },
-        { SPELL_BOLT_OF_COLD, 11, MON_SPELL_WIZARD },
-        { SPELL_CORROSIVE_BOLT, 11, MON_SPELL_WIZARD },
-        { SPELL_LIGHTNING_BOLT, 11, MON_SPELL_WIZARD },
-        { SPELL_BOLT_OF_DRAINING, 11, MON_SPELL_WIZARD },
+        { SPELL_BOLT_OF_FIRE, 20, MON_SPELL_WIZARD },
+        { SPELL_BOLT_OF_COLD, 20, MON_SPELL_WIZARD },
+        { SPELL_LIGHTNING_BOLT, 20, MON_SPELL_WIZARD },
+        { SPELL_REPEL_MISSILES, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -1206,9 +1188,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_GUARDIAN_SERPENT,
       {
-       { SPELL_VENOM_BOLT, 19, MON_SPELL_WIZARD },
-       { SPELL_SLOW, 19, MON_SPELL_WIZARD },
-       { SPELL_BLINK_ALLIES_ENCIRCLE, 19, MON_SPELL_WIZARD },
+       { SPELL_SLOW, 20, MON_SPELL_WIZARD },
+       { SPELL_BLINK_ALLIES_ENCIRCLE, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -1228,36 +1209,31 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_DEEP_TROLL_SHAMAN,
       {
-       { SPELL_HASTE_OTHER, 21, MON_SPELL_PRIEST },
-       { SPELL_MIGHT_OTHER, 21, MON_SPELL_PRIEST },
+       { SPELL_HASTE_OTHER, 20, MON_SPELL_PRIEST },
       }
     },
 
     // ('V') Vampires.
     {  MST_VAMPIRE,
       {
-       { SPELL_VAMPIRIC_DRAINING, 50, MON_SPELL_WIZARD },
-       { SPELL_CONFUSE, 14, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 14, MON_SPELL_WIZARD },
+       { SPELL_VAMPIRIC_DRAINING, 20, MON_SPELL_WIZARD },
+       { SPELL_MESMERISE, 20, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_VAMPIRE_MAGE,
       {
-       { SPELL_BOLT_OF_DRAINING, 10, MON_SPELL_WIZARD },
-       { SPELL_SUMMON_UNDEAD, 10, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 20, MON_SPELL_WIZARD },
-       { SPELL_VAMPIRIC_DRAINING, 50, MON_SPELL_WIZARD },
+       { SPELL_SUMMON_VERMIN, 20, MON_SPELL_WIZARD },
+       { SPELL_VAMPIRIC_DRAINING, 20, MON_SPELL_WIZARD },
       }
     },
 
     {  MST_VAMPIRE_KNIGHT,
       {
-       { SPELL_BLINK_CLOSE, 12, MON_SPELL_WIZARD },
-       { SPELL_PARALYSE, 12, MON_SPELL_WIZARD },
-       { SPELL_HASTE, 12, MON_SPELL_WIZARD },
-       { SPELL_INVISIBILITY, 12, MON_SPELL_WIZARD },
-       { SPELL_VAMPIRIC_DRAINING, 50, MON_SPELL_WIZARD },
+       { SPELL_BLINK_CLOSE, 10, MON_SPELL_WIZARD },
+       { SPELL_PARALYSE, 10, MON_SPELL_WIZARD },
+       { SPELL_HASTE, 10, MON_SPELL_WIZARD },
+       { SPELL_VAMPIRIC_DRAINING, 20, MON_SPELL_WIZARD },
       }
     },
 
@@ -1270,8 +1246,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_EIDOLON,
       {
-       { SPELL_BOLT_OF_DRAINING, 21, MON_SPELL_MAGICAL },
-       { SPELL_CAUSE_FEAR, 21, MON_SPELL_MAGICAL },
+       { SPELL_BOLT_OF_DRAINING, 20, MON_SPELL_MAGICAL },
+       { SPELL_CAUSE_FEAR, 20, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1325,7 +1301,7 @@ static const mon_spellbook mspell_list[] =
     // ('Y') Bovids and elephants.
     {  MST_CATOBLEPAS,
       {
-       { SPELL_PETRIFYING_CLOUD, 41, MON_SPELL_NATURAL },
+       { SPELL_PETRIFYING_CLOUD, 40, MON_SPELL_NATURAL },
       }
     },
 
@@ -1365,9 +1341,8 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_SMOKE_DEMON,
       {
-       { SPELL_STICKY_FLAME_RANGE, 19, MON_SPELL_MAGICAL },
-       { SPELL_STEAM_BALL, 19, MON_SPELL_MAGICAL },
-       { SPELL_SMITING, 19, MON_SPELL_MAGICAL },
+       { SPELL_STEAM_BALL, 20, MON_SPELL_MAGICAL },
+       { SPELL_SMITING, 20, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1380,7 +1355,7 @@ static const mon_spellbook mspell_list[] =
     {  MST_NEQOXEC,
       {
        { SPELL_MALMUTATE, 19, MON_SPELL_MAGICAL },
-       { SPELL_BRAIN_FEED, 19, MON_SPELL_MAGICAL },
+       { SPELL_BRAIN_BITE, 19, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1442,7 +1417,7 @@ static const mon_spellbook mspell_list[] =
     // ('1') Fiends and friends.
     {  MST_EXECUTIONER,
       {
-       { SPELL_HASTE, 41, MON_SPELL_MAGICAL },
+       { SPELL_HASTE, 40, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1523,7 +1498,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_CRYSTAL_GUARDIAN,
       {
-       { SPELL_CRYSTAL_BOLT, 66, MON_SPELL_MAGICAL },
+       { SPELL_CRYSTAL_BOLT, 60, MON_SPELL_MAGICAL },
       }
     },
 
@@ -1545,16 +1520,16 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_OBSIDIAN_STATUE,
       {
-       { SPELL_SUMMON_MINOR_DEMON, 33, MON_SPELL_MAGICAL },
-       { SPELL_SUMMON_DEMON, 33, MON_SPELL_MAGICAL },
-       { SPELL_MESMERISE, 33, MON_SPELL_MAGICAL },
+       { SPELL_SUMMON_MINOR_DEMON, 30, MON_SPELL_MAGICAL },
+       { SPELL_SUMMON_DEMON, 30, MON_SPELL_MAGICAL },
+       { SPELL_MESMERISE, 30, MON_SPELL_MAGICAL },
       }
     },
 
     {  MST_ORANGE_CRYSTAL_STATUE,
       {
        { SPELL_SHADOW_CREATURES, 40, MON_SPELL_MAGICAL },
-       { SPELL_BRAIN_FEED, 20, MON_SPELL_MAGICAL },
+       { SPELL_BRAIN_BITE, 20, MON_SPELL_MAGICAL },
        { SPELL_DRAINING_GAZE, 20, MON_SPELL_MAGICAL },
        { SPELL_MASS_CONFUSION, 20, MON_SPELL_MAGICAL },
       }
@@ -1570,13 +1545,13 @@ static const mon_spellbook mspell_list[] =
     // ('9') Gargoyles.
     {  MST_GARGOYLE,
       {
-       { SPELL_STONE_ARROW, 56, MON_SPELL_NATURAL },
+       { SPELL_STONE_ARROW, 40, MON_SPELL_NATURAL },
       }
     },
 
     {  MST_MOLTEN_GARGOYLE,
       {
-       { SPELL_BOLT_OF_MAGMA, 57, MON_SPELL_NATURAL },
+       { SPELL_BOLT_OF_FIRE, 40, MON_SPELL_NATURAL },
       }
     },
 
@@ -1740,6 +1715,12 @@ static const mon_spellbook mspell_list[] =
        { SPELL_SUMMON_SMALL_MAMMAL, 12, MON_SPELL_WIZARD },
        { SPELL_SLOW, 12, MON_SPELL_WIZARD },
        { SPELL_SPRINT, 12, MON_SPELL_WIZARD },
+      }
+    },
+
+    {  MST_RIBBON_WORM,
+      {
+       { SPELL_ENSNARE, 60, MON_SPELL_NATURAL },
       }
     },
 
@@ -2167,7 +2148,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_NORRIS,
       {
-       { SPELL_BRAIN_FEED, 16, MON_SPELL_PRIEST },
+       { SPELL_BRAIN_BITE, 16, MON_SPELL_PRIEST },
        { SPELL_PRIMAL_WAVE, 16, MON_SPELL_PRIEST },
        { SPELL_DRAIN_MAGIC, 16, MON_SPELL_PRIEST },
       }
@@ -2268,6 +2249,25 @@ static const mon_spellbook mspell_list[] =
        { SPELL_SYMBOL_OF_TORMENT, 20, MON_SPELL_MAGICAL },
        { SPELL_DISPEL_UNDEAD_RANGE, 20, MON_SPELL_MAGICAL },
        { SPELL_SUMMON_EXECUTIONERS, 40, MON_SPELL_MAGICAL },
+      }
+    },
+
+    // Archers.
+    {  MST_ARCHER,
+      {
+       { SPELL_SHOOT_ARROW, 150, MON_SPELL_NATURAL },
+      }
+    },
+
+    {  MST_BOULDER,
+      {
+       { SPELL_THROW_BOULDER, 150, MON_SPELL_NATURAL },
+      }
+    },
+
+    {  MST_ASSASSIN,
+      {
+       { SPELL_TOXIC_DART, 80, MON_SPELL_NATURAL },
       }
     },
 

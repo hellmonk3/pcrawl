@@ -381,7 +381,7 @@ static dice_def _spell_damage(spell_type spell, int hd)
     switch (spell)
     {
         case SPELL_FREEZE:
-            return freeze_damage(pow, false);
+            return freeze_damage(pow);
         case SPELL_WATERSTRIKE:
             return waterstrike_damage(hd);
         case SPELL_IOOD:
@@ -507,7 +507,7 @@ static string _effect_string(spell_type spell, const monster_info *mon_owner)
     }
 
     if (spell == SPELL_SMITING)
-        return "7-17"; // sigh
+        return "5-10"; // sigh
 
     const dice_def dam = _spell_damage(spell, hd);
     if (dam.num == 0 || dam.size == 0)

@@ -1547,6 +1547,21 @@ int mons_adjust_flavoured(monster* mons, bolt &pbolt, int hurted,
         break;
     }
 
+    case BEAM_TOXIC:
+    {
+        hurted = resist_adjust_damage(mons, pbolt.flavour, hurted);
+
+        if (!hurted && doFlavouredEffects)
+        {
+            simple_monster_message(*mons,
+                                   (original > 0) ? " completely resists."
+                                                  : " appears unharmed.");
+        }
+        else if (doFlavouredEffects)
+            toxic_dart_actor(mons, pbolt.get_source_name());
+        break;
+    }
+
     case BEAM_POISON_ARROW:
     {
         hurted = resist_adjust_damage(mons, pbolt.flavour, hurted);
@@ -1933,6 +1948,17 @@ static bool _curare_hits_monster(actor *agent, monster* mons, int levels)
     return hurted > 0;
 }
 
+static bool _toxic_dart_monster(monster* mons)
+{
+    if (!mons->alive())
+        return false;
+
+    enchant_type ench = random_choose(ENCH_SLOW, ENCH_CONFUSION, ENCH_PARALYSIS);
+    mons->add_ench(ench);
+
+    return true;
+}
+
 // Actually poisons a monster (with message).
 bool poison_monster(monster* mons, const actor *who, int levels,
                     bool force, bool verbose)
@@ -2046,6 +2072,20 @@ static bool _curare_hits_player(actor* agent, int levels, string name,
     return hurted > 0;
 }
 
+static bool _toxic_dart_player(string source_name)
+{
+    ASSERT(!crawl_state.game_is_arena());
+
+    if (one_chance_in(3))
+        slow_player(10 + random2(6));
+    else if (coinflip())
+        confuse_player(6 + random2(6));
+    else
+        paralyse_player(source_name);
+
+    return true;
+}
+
 
 bool curare_actor(actor* source, actor* target, int levels, string name,
                   string source_name)
@@ -2054,6 +2094,14 @@ bool curare_actor(actor* source, actor* target, int levels, string name,
         return _curare_hits_player(source, levels, name, source_name);
     else
         return _curare_hits_monster(source, target->as_monster(), levels);
+}
+
+bool toxic_dart_actor(actor* target, string source_name)
+{
+    if (target->is_player())
+        return _toxic_dart_player(source_name);
+    else
+        return _toxic_dart_monster(target->as_monster());
 }
 
 // XXX: This is a terrible place for this, but it at least does go with
@@ -2955,6 +3003,9 @@ bool bolt::is_harmless(const monster* mon) const
     case BEAM_POISON:
         return mon->res_poison() >= 3;
 
+    case BEAM_TOXIC:
+        return mon->holiness() & MH_UNDEAD || mon->holiness() & MH_NONLIVING;
+
     case BEAM_ACID:
         return mon->res_acid() >= 3;
 
@@ -3003,6 +3054,9 @@ bool bolt::harmless_to_player() const
     case BEAM_POISON:
         return player_res_poison(false) >= 3
                || is_big_cloud() && player_res_poison(false) > 0;
+
+    case BEAM_TOXIC:
+        return you.holiness() & MH_UNDEAD || you.holiness() & MH_NONLIVING;
 
     case BEAM_MEPHITIC:
         return player_res_poison(false) > 0 || you.clarity();
@@ -3585,7 +3639,7 @@ void bolt::affect_player_enchantment(bool resistible)
 
     case BEAM_DRAIN_MAGIC:
     {
-        int amount = min(you.magic_points, random2avg(ench_power / 8, 3));
+        int amount = min(you.magic_points, ench_power);
         if (!amount)
             break;
         mprf(MSGCH_WARN, "You feel your power leaking away.");
@@ -3950,6 +4004,9 @@ void bolt::affect_player()
     if (flavour == BEAM_MIASMA && final_dam > 0)
         was_affected = miasma_player(agent(), name);
 
+    if (flavour == BEAM_TOXIC)
+        was_affected = toxic_dart_actor((actor*) &you, source_name);
+
     if (flavour == BEAM_DEVASTATION) // MINDBURST already handled
         blood_spray(you.pos(), MONS_PLAYER, final_dam / 5);
 
@@ -3995,10 +4052,7 @@ void bolt::affect_player()
             you.increase_duration(DUR_BARBS, random_range(2, 4), 12);
 
         if (you.attribute[ATTR_BARBS_POW])
-        {
-            you.attribute[ATTR_BARBS_POW] =
-                min(6, you.attribute[ATTR_BARBS_POW]++);
-        }
+            you.attribute[ATTR_BARBS_POW]++;
         else
             you.attribute[ATTR_BARBS_POW] = 4;
     }
@@ -4689,7 +4743,7 @@ static int _knockback_dist(spell_type origin, int pow)
     {
     case SPELL_FORCE_LANCE:
     case SPELL_ISKENDERUNS_MYSTIC_BLAST:
-        return 2 + div_rand_round(pow, 50);
+        return 2 + div_rand_round(pow, 3);
     case SPELL_CHILLING_BREATH:
         return 2;
     default:
@@ -4706,7 +4760,7 @@ void bolt::knockback_actor(actor *act, int dam)
                                                   : you.mons_species();
     const int weight = max_corpse_chunks(montyp);
     const int roll = origin_spell == SPELL_FORCE_LANCE
-                     ? 7 + 0.27 * ench_power
+                     ? 7 + ench_power
                      : 17;
     const int dist = binomial(max_dist, roll - weight, roll); // This is silly! -- PF
 
@@ -6732,6 +6786,7 @@ static string _beam_type_name(beam_type type)
     case BEAM_ENFEEBLE:              return "enfeeble";
     case BEAM_NECROTISE:             return "necrotise";
     case BEAM_ROOTS:                 return "roots";
+    case BEAM_TOXIC:                 return "toxic dart";
 
     case NUM_BEAMS:                  die("invalid beam type");
     }

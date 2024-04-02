@@ -868,10 +868,9 @@ spret fire_los_attack_spell(spell_type spell, int pow, const actor* agent,
     return _cast_los_attack_spell(spell, pow, agent, true, fail, damage_done);
 }
 
-dice_def freeze_damage(int pow, bool random)
+dice_def freeze_damage(int pow)
 {
-    return dice_def(1, random ? 3 + div_rand_round(pow * 3, 10)
-                              : 3 + pow * 3 / 10);
+    return dice_def(1, 4 + pow);
 }
 
 spret cast_freeze(int pow, monster* mons, bool fail)
@@ -904,7 +903,7 @@ spret cast_freeze(int pow, monster* mons, bool fail)
     beam.flavour = BEAM_COLD;
     beam.thrower = KILL_YOU;
 
-    const int orig_hurted = freeze_damage(pow, true).roll();
+    const int orig_hurted = freeze_damage(pow).roll();
     // calculate the resist adjustment to punctuate
     int hurted = mons_adjust_flavoured(mons, beam, orig_hurted, false);
     mprf("You freeze %s%s%s",
@@ -984,7 +983,7 @@ spret cast_airstrike(int pow, coord_def target, bool fail)
 
     const int empty_space = airstrike_space_around(target, true);
 
-    dice_def to_roll = base_airstrike_damage(pow, true);
+    dice_def to_roll = base_airstrike_damage(pow);
     to_roll.size += empty_space * AIRSTRIKE_PER_SPACE_BONUS;
     int hurted = to_roll.roll();
 #ifdef DEBUG_DIAGNOSTICS
@@ -1007,11 +1006,9 @@ spret cast_airstrike(int pow, coord_def target, bool fail)
 
 // maximum damage before accounting for empty space
 // used for damage display
-dice_def base_airstrike_damage(int pow, bool random)
+dice_def base_airstrike_damage(int pow)
 {
-    if (random)
-        return dice_def(2, div_rand_round(pow, 14));
-    return dice_def(2, (pow + 13) / 14);
+    return dice_def(1, 1 + pow);
 }
 
 string describe_airstrike_dam(dice_def dice)
@@ -1127,10 +1124,6 @@ struct monster_frag
 
 static const map<monster_type, monster_frag> fraggable_monsters = {
     { MONS_TOENAIL_GOLEM,     { "toenail", RED } },
-    // I made saltlings not have a big crystal explosion for balance reasons -
-    // there are so many of them, it seems wrong to have them be so harmful to
-    // their own allies. This could be wrong!
-    { MONS_SALTLING,          { "salt crystal", WHITE } },
     { MONS_EARTH_ELEMENTAL,   { "rock", BROWN } },
     { MONS_ROCKSLIME,         { "rock", BROWN } },
     { MONS_BOULDER,           { "rock", BROWN } },
@@ -1894,7 +1887,7 @@ vector<coord_def> find_near_hostiles(int range, bool affect_invis)
 dice_def irradiate_damage(int pow, bool random)
 {
     const int dice = 3;
-    const int max_dam = 35 + (random ? div_rand_round(pow, 2) : pow / 2);
+    const int max_dam = 30 + (random ? div_rand_round(pow, 2) : pow / 2);
     return calc_dice(dice, max_dam, random);
 }
 
@@ -1934,13 +1927,7 @@ static int _irradiate_cell(coord_def where, int pow, const actor &agent)
         act->hurt(&agent, dam, BEAM_MMISSILE);
 
     if (act->alive())
-    {
-        // be nice and "only" contaminate the player a lot
-        if (hitting_player)
-            contaminate_player(2000 + random2(1000));
-        else if (coinflip())
-            act->malmutate("");
-    }
+        act->malmutate("");
 
     return dam;
 }
@@ -4258,7 +4245,7 @@ spret cast_imb(int pow, bool fail)
 
 dice_def toxic_bog_damage()
 {
-    return dice_def(4, 6);
+    return dice_def(2, 6);
 }
 
 void actor_apply_toxic_bog(actor * act)
@@ -4310,16 +4297,6 @@ void actor_apply_toxic_bog(actor * act)
                 mons->name(DESC_THE).c_str(),
                 attack_strength_punctuation(final_damage).c_str());
     }
-
-    if (final_damage > 0 && resist > 0)
-    {
-        if (player)
-            canned_msg(MSG_YOU_PARTIALLY_RESIST);
-
-        act->poison(oppressor, 7, true);
-    }
-    else if (final_damage > 0)
-        act->poison(oppressor, 21, true);
 
     if (final_damage)
     {

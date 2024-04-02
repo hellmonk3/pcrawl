@@ -574,9 +574,9 @@ acid blob
 
 A lump of sickly pustulent flesh, dripping with lethal acid.
 %%%%
-acid dragon
+acid drake
 
-A small dragon with brilliant yellow scales, its mouth dripping with
+A small drake with brilliant yellow scales, its mouth dripping with
 corrosive slime.
 %%%%
 adder
@@ -626,10 +626,10 @@ ancient zyme
 A nexus of sentient cancer and disease, borne aloft perhaps by malice alone.
 Its nature inflicts withering illness on all living beings in its presence.
 %%%%
-angel
+clockwork angel
 
-A divine warrior of the Shining One. It is a towering winged figure of
-unnatural beauty surrounded by an aura of brilliant white light.
+A mechanical facsimile of a divine warrior of the Shining One. It lacks the
+sublime beauty of the original, but shares its halo.
 %%%%
 animated armour
 
@@ -759,8 +759,7 @@ dragon's fearsome breath was lost in the process.
 gnoll bouda
 
 A gnoll witch possessed by a spirit of spite which flashes out from behind
-their eyes. Its strange chants and ululations send other gnolls into a wild
-frenzy.
+their eyes.
 %%%%
 boulder
 
@@ -778,6 +777,11 @@ The soul of a living, holy, or demonic creature, captured by a dark sacrifice
 to Yredelemnul. The bound soul will follow its captor through stairs and come
 when recalled from a different level.
 %%%%
+brain worm
+
+A slimy fluorescent worm with a greatly distended head. This creature feeds on
+others' intellect as it squirms through unworldly grime.
+%%%%
 briar patch
 
 A tangled cluster of thorny briars, sharp enough to pierce thick hide and
@@ -794,6 +798,11 @@ broodmother
 
 A giant spider swollen with eggs. Its innumerable offspring are always at its
 call.
+%%%%
+burial acolyte
+
+A masked priest in the service of Kikubaaqudgha, well-versed in choral rituals
+to both rouse the dead and send them to eternal rest.
 %%%%
 burning bush
 
@@ -887,6 +896,10 @@ crimson imp
 
 A small, ugly minor demon. Its fanged maw seems locked in a permanent malign
 grin, and its horns protrude obscenely from its scaly pate.
+%%%%
+crocodile
+
+Everyone knows what a crocodile is.
 %%%%
 crystal echidna
 
@@ -1038,9 +1051,9 @@ deep troll earth mage
 A particularly intelligent deep troll. It uses its magic to tunnel through the
 earth and ambush foes.
 %%%%
-deep troll shaman
+troll shaman
 
-A deep troll blessed with divine power to strengthen and hasten its kin.
+A troll blessed with divine power to hasten.
 %%%%
 demigod
 
@@ -1172,7 +1185,7 @@ An imposing, muscular figure engulfed in a cloud of searing flame.
 %%%%
 eidolon
 
-An ancient skeletal apparition, sheathed in a cloud of mist. Its form glows
+An ancient apparition, sheathed in a cloud of mist. Its form glows
 white-hot with debilitating energy.
 %%%%
 eldritch tentacle
@@ -1202,8 +1215,8 @@ emerging from trees near their foes to strike.
 %%%%
 elemental wellspring
 
-A swirling conflux of elemental water streaming from the elemental plane into
-this one, with powerful spirits and mighty floods flowing from it.
+A swirling conflux of elements streaming from the elemental plane into
+this one, with powerful spirits flowing from it.
 %%%%
 elephant
 
@@ -1278,7 +1291,8 @@ from its toothy maw.
 fire elemental
 
 A spirit drawn from the elemental plane of fire, which exists in this world as
-a brilliant column of raging flames.
+a brilliant column of raging flames. It attacks a wide area around itself with
+intense heat.
 %%%%
 fire giant
 
@@ -1328,8 +1342,7 @@ close, friend or foe.
 freezing wraith
 
 An incorporeal skeletal form surrounded by a cloud of freezing air, likely the
-remains of some unfortunate adventurer. It now floats slowly through the
-dungeon, seeking to share its fate with others.
+remains of some unfortunate adventurer.
 %%%%
 frost giant
 
@@ -1386,6 +1399,15 @@ gnoll
 
 A taller and better-equipped relative of goblins and orcs, somewhat doglike in
 appearance.
+%%%%
+gnoll electrician
+
+Somebody's got to keep the lights on.
+%%%%
+gnoll halberdier
+
+A gnoll well-armed and lightly skilled (as gnolls often are) in the use of a
+halberd. It tends to attack from behind the cover of its allies.
 %%%%
 gnoll sergeant
 
@@ -1541,13 +1563,8 @@ fragile, elves think of them as clumsy, and monsters think of them as tasty.
 %%%%
 hydra
 
-A great and nightmarish lacertilian beast. It has many heads, and the potential
-to grow many more!
-
-Hitting it with any bladed weapon bigger than a short blade risks lopping a
-head off and causing two more to grow in its place. Very large claws, such as
-trolls', are long enough to do the same. Only a weapon branded with flame will
-cauterize the wound and prevent more heads from growing.
+A great and nightmarish lacertilian beast. It has many heads. Rumours about the
+detachability of those heads are greatly exaggerated, however.
 %%%%
 ice beast
 
@@ -1896,6 +1913,12 @@ neqoxec
 A weirdly shaped demon, pulsing and shifting with mutagenic energies, its belly
 distended with the devoured brains of its victims.
 %%%%
+obsidian bat
+
+A faceless stone bat unearthed from infernal chasms. Devilish beasts hunt in its
+wake.
+%%%%
+%%%%
 obsidian statue
 
 A beautiful statue of an unknown creature, jet-black like a tear in reality.
@@ -1983,15 +2006,25 @@ A heavily armoured orc, covered in scars from many past battles. It commands
 its brethren in battle, rousing them to greater, more violent efforts with
 bloodcurdling shouts.
 %%%%
+orc lancer
+
+An orc warrior who specializes in the use of a long spear. It can make reaching
+attacks from behind its allies with great force and precision.
+%%%%
 orc priest
 
-A servant of Beogh, the ancient and cruel god of the orcs. Beogh rewards its
-devoted prayers by striking down its enemies.
+A servant of Beogh, the god of the orcs. Beogh rewards its devoted prayers
+by striking down its enemies.
 %%%%
 orc sorcerer
 
 An exceptionally competent orcish wizard, in league with hellish and chthonic
-forces and motivated by the purest imaginable strain of malevolence.
+forces.
+%%%%
+orc sniper
+
+A heavily armoured, crossbow wielding orc. It excels at ranged combat, but is
+quite capable in melee range as well.
 %%%%
 orc warlord
 
@@ -2004,8 +2037,7 @@ mob of its fellows.
 %%%%
 orc wizard
 
-An orc who has gained proficiency in the occult arts, using them for martial
-purposes.
+An orc who has learned magic, as orcs often do.
 %%%%
 pale draconian
 
@@ -2169,6 +2201,12 @@ revenant
 An animated skeleton wreathed in cold blue fire, standing astride this life and
 the next. Echoes of the lingering dead flicker within its ghostly flames.
 %%%%
+ribbon worm
+
+
+A giant annelid, glistening with slime, with unusually large teeth. It expels
+fragments of its own innards to ensnare unsuspecting prey. Gross!
+%%%%
 rime drake
 
 A small but dangerous dragon. Its breath is visible even on the warmest days.
@@ -2215,11 +2253,9 @@ An intimidating volcano lord. It commands the magma of its realm as an
 extension of its body, and the majesty of its gaze can weaken even the proudest
 challenger.
 %%%%
-saltling
+oreling
 
-A small, human-shaped agglomeration of salt. It was created by the last
-fugitive loyalists of the fallen eastern empire, forced in desperation to
-construct golems from local resources to defend themselves.
+A small, human-shaped agglomeration of ore.
 %%%%
 satyr
 
@@ -2257,8 +2293,7 @@ in great need, to break the stillness with divine thunder.
 shadow
 
 A wisp of unliving shadow, slipping in and out of the darkness of the dungeon.
-It moves swiftly and silently from one pool of shade to another, striking
-unerringly from the blind spots of those who cannot see it.
+Its nigh-unreality makes it nearly impossible to harm from a distance.
 %%%%
 shadow demon
 
@@ -2308,9 +2343,9 @@ foes.
 %%%%
 silent spectre
 
-A terrible spirit which brings an unearthly silence to the area around it,
+A spirit which brings an unearthly silence to the area around it,
 making it impossible to recite the magical incantations involved with casting
-spells or reading scrolls.
+spells.
 %%%%
 simulacrum
 
@@ -2430,6 +2465,10 @@ spriggan air mage
 
 A magically adept spriggan blessed with the secrets of the winds.
 %%%%
+spriggan assassin
+
+An evasive spriggan with a deadly supply of darts.
+%%%%
 spriggan berserker
 
 A relatively mighty spriggan that plunges recklessly into combat.
@@ -2484,9 +2523,9 @@ statue
 A piece of sculpted granite with glowing red eyes. Although it is rooted to its
 base, it can still move parts of itself.
 %%%%
-steam dragon
+steam drake
 
-A relatively small grey dragon, with a resilient-looking scaly hide and steam
+A relatively small drake, with a resilient-looking scaly hide and steam
 pouring from its mouth.
 %%%%
 steelbarb worm
@@ -2674,13 +2713,13 @@ eternity.
 %%%%
 vampire
 
-A human cursed with vampirism, drifting in a state between life and undeath,
-perpetually hungry for the blood of the living.
+A hemomancer, drifting in a state between life and undeath, perpetually
+hungry for the blood of the living.
 %%%%
 vampire bat
 
 A large black bat with vicious fangs that feeds on blood. It is the preferred
-form for vampires in disguise.
+form for vampires in disguise, but this one is just a bat.
 %%%%
 vampire knight
 
@@ -2689,8 +2728,7 @@ A powerful vampire noble who complements its combat prowess with dark magic.
 vampire mage
 
 A sorcerer who, by accident or design, has been afflicted with the curse of the
-vampire. Regardless, through undeath, it has finally mastered the art of dark
-magic.
+vampire.
 %%%%
 vampire mosquito
 
@@ -2826,7 +2864,7 @@ the currents of air that surround it. It can exhale powerful blasts of wind.
 %%%%
 wizard
 
-A rather eccentric person, dabbling in all sorts of arcane oddities.
+Someone who has memorized the only spell that matters.
 %%%%
 wolf
 
@@ -2843,9 +2881,10 @@ A cloud of thick fog, with faint, feeble claws constantly reaching out and then
 fading back into the fog. When threatened, it calls forth creatures banished to
 the void between realities, using them to defend itself.
 %%%%
-worm
+glow worm
 
-A giant annelid, glistening with slime, with unusually large teeth.
+A worm well-fed on the remains of priests. This has made the worm enlightened,
+and its food holey.
 %%%%
 wraith
 

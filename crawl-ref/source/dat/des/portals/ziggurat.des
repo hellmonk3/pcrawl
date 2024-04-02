@@ -68,7 +68,7 @@ NAME:    enter_ziggurat_c
 TAGS:    zig_entry no_trap_gen transparent no_descent
 KFEAT:   O = enter_ziggurat no_mimic
 MONS:    lich / ancient lich / dread lich
-MONS:    angel / daeva
+MONS:    cherub / daeva
 MONS:    eye of devastation / floating eye / \
          great orb of eyes / shining eye
 KPROP:   1Om = no_tele_into
@@ -93,7 +93,7 @@ NAME:    enter_ziggurat_d
 TAGS:    zig_entry no_trap_gen transparent no_descent
 KFEAT:   O = enter_ziggurat no_mimic
 MONS:    lich / ancient lich / dread lich
-MONS:    angel / daeva
+MONS:    cherub / daeva
 MONS:    eye of devastation / floating eye / \
          great orb of eyes / shining eye
 KPROP:   1On; = no_tele_into
@@ -136,7 +136,7 @@ ENDMAP
 NAME:   enter_ziggurat_f
 TAGS:   zig_entry no_trap_gen transparent no_descent
 KFEAT:  O = enter_ziggurat no_mimic
-MONS:   angel / nothing w:20
+MONS:   cherub / nothing w:20
 KPROP:  1Om; = no_tele_into
 KFEAT:  ; = floor
 KMASK:  1O; = opaque

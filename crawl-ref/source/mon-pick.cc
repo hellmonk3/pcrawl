@@ -21,30 +21,7 @@ int branch_ood_cap(branch_type branch)
 {
     ASSERT(branch < NUM_BRANCHES);
 
-    switch (branch)
-    {
-    case BRANCH_DUNGEON:
-        return 27;
-    case BRANCH_COCYTUS:
-    case BRANCH_GEHENNA:
-    case BRANCH_TARTARUS:
-    case BRANCH_DIS:
-        return 14;
-    case BRANCH_DEPTHS:
-        return 13;
-    case BRANCH_VAULTS:
-    case BRANCH_LAIR:
-        return 12;
-    case BRANCH_ELF:
-    case BRANCH_SWAMP:
-    case BRANCH_SPIDER:
-        return 7;
-    case BRANCH_CRYPT:
-    case BRANCH_TOMB:
-        return 5;
-    default:
-        return branches[branch].numlevels;
-    }
+    return branches[branch].numlevels;
 }
 
 // only Pan currently

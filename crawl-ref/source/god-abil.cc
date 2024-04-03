@@ -3759,7 +3759,7 @@ static int _piety_for_skill(skill_type skill)
     if (is_useless_skill(skill))
         return 0;
 
-    return skill_exp_needed(you.skills[skill], skill, you.species) / 500;
+    return skill_exp_needed(you.skills[skill]) / 500;
 }
 
 static int _piety_for_skill_by_sacrifice(ability_type sacrifice)

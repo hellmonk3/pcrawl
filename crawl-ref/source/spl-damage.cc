@@ -4281,7 +4281,6 @@ void actor_apply_toxic_bog(actor * act)
 
     const int base_damage = toxic_bog_damage().roll();
     const int damage = resist_adjust_damage(act, BEAM_POISON_ARROW, base_damage);
-    const int resist = base_damage - damage;
 
     const int final_damage = timescale_damage(act, damage);
 

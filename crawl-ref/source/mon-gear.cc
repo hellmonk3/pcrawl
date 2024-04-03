@@ -98,12 +98,6 @@ void give_specific_item(monster* mon, const item_def& tpl)
     give_specific_item(mon, thing);
 }
 
-static bool _should_give_unique_item(monster* mon)
-{
-    // Don't give Natasha an item for dying.
-    return mon->type != MONS_NATASHA || !mon->props.exists(FELID_REVIVES_KEY);
-}
-
 static talisman_type _talisman_for(monster_type mtyp)
 {
     switch (mtyp)

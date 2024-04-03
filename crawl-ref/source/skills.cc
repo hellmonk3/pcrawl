@@ -169,8 +169,7 @@ static const int MAX_SKILL_COST_LEVEL = 27;
  */
 int skill_cost_baseline()
 {
-    return skill_exp_needed(1, SK_FIGHTING, SP_HUMAN)
-           - skill_exp_needed(0, SK_FIGHTING, SP_HUMAN);
+    return skill_exp_needed(1) - skill_exp_needed(0);
 }
 
 /**
@@ -183,8 +182,8 @@ int one_level_cost(skill_type sk)
 {
     if (you.skills[sk] >= MAX_SKILL_LEVEL)
         return 0;
-    return skill_exp_needed(you.skills[sk] + 1, sk)
-           - skill_exp_needed(you.skills[sk], sk);
+    return skill_exp_needed(you.skills[sk] + 1)
+           - skill_exp_needed(you.skills[sk]);
 }
 
 /**
@@ -222,7 +221,7 @@ void cleanup_innate_magic_skills()
     const unsigned int xp_per = magic_xp / n_skills;
 
     int lvl = 0;
-    while (xp_per > skill_exp_needed(lvl + 1, SK_SPELLCASTING))
+    while (xp_per > skill_exp_needed(lvl + 1))
         ++lvl;
 
     for (skill_type sk = SK_SPELLCASTING; sk <= SK_LAST_MAGIC; sk++)
@@ -248,7 +247,7 @@ void reassess_starting_skills()
 
         // Grant the amount of skill points required for a human.
         you.skill_points[sk] = you.skills[sk] ?
-            skill_exp_needed(you.skills[sk], sk, SP_HUMAN) + 1 : 0;
+            skill_exp_needed(you.skills[sk]) + 1 : 0;
 
         if (sk == SK_DODGING && you.skills[SK_ARMOUR]
             && (is_useless_skill(SK_ARMOUR)
@@ -256,8 +255,7 @@ void reassess_starting_skills()
         {
             // No one who can't wear mundane heavy armour should start with
             // the Armour skill -- D:1 dragon armour is too unlikely.
-            you.skill_points[sk] += skill_exp_needed(you.skills[SK_ARMOUR],
-                SK_ARMOUR, SP_HUMAN) + 1;
+            you.skill_points[sk] += skill_exp_needed(you.skills[SK_ARMOUR]) + 1;
             you.skills[SK_ARMOUR] = 0;
         }
 
@@ -269,7 +267,7 @@ void reassess_starting_skills()
 
         for (int lvl = 1; lvl <= 8; ++lvl)
         {
-            if (you.skill_points[sk] > skill_exp_needed(lvl, sk))
+            if (you.skill_points[sk] > skill_exp_needed(lvl))
                 you.skills[sk] = lvl;
             else
                 break;
@@ -278,14 +276,14 @@ void reassess_starting_skills()
         // Wanderers get at least 1 level in their skills.
         if (you.char_class == JOB_WANDERER && you.skills[sk] < 1)
         {
-            you.skill_points[sk] = skill_exp_needed(1, sk);
+            you.skill_points[sk] = skill_exp_needed(1);
             you.skills[sk] = 1;
         }
 
         // Spellcasters should always have Spellcasting skill.
         if (sk == SK_SPELLCASTING && you.skills[sk] < 1)
         {
-            you.skill_points[sk] = skill_exp_needed(1, sk);
+            you.skill_points[sk] = skill_exp_needed(1);
             you.skills[sk] = 1;
         }
     }
@@ -396,11 +394,11 @@ int calc_skill_level_change(skill_type sk, int starting_level, int sk_points)
     while (1)
     {
         if (new_level < MAX_SKILL_LEVEL
-            && sk_points >= (int) skill_exp_needed(new_level + 1, sk))
+            && sk_points >= (int) skill_exp_needed(new_level + 1))
         {
             ++new_level;
         }
-        else if (sk_points < (int) skill_exp_needed(new_level, sk))
+        else if (sk_points < (int) skill_exp_needed(new_level))
         {
             new_level--;
             ASSERT(new_level >= 0);
@@ -946,7 +944,7 @@ void exercise(skill_type exsk, int deg)
 static bool _level_up_check(skill_type sk, bool simu)
 {
     // Don't train past level 27.
-    if (you.skill_points[sk] >= skill_exp_needed(MAX_SKILL_LEVEL, sk))
+    if (you.skill_points[sk] >= skill_exp_needed(MAX_SKILL_LEVEL))
     {
         you.training[sk] = 0;
         if (!simu)
@@ -1320,11 +1318,11 @@ static int _training_target_skill_point_diff(skill_type exsk, int training_targe
     int target_skill_points;
 
     if (target_level == MAX_SKILL_LEVEL)
-        target_skill_points = skill_exp_needed(target_level, exsk);
+        target_skill_points = skill_exp_needed(target_level);
     else
     {
-        int target_level_points = skill_exp_needed(target_level, exsk);
-        int target_next_level_points = skill_exp_needed(target_level + 1, exsk);
+        int target_level_points = skill_exp_needed(target_level);
+        int target_next_level_points = skill_exp_needed(target_level + 1);
         // Round up for any remainder to ensure target is hit
         target_skill_points = target_level_points
             + div_round_up((target_next_level_points - target_level_points)
@@ -1451,11 +1449,11 @@ skill_diff skill_level_to_diffs(skill_type skill, double amount,
         fractional = 0;
     }
 
-    unsigned int target = skill_exp_needed(level, skill);
+    unsigned int target = skill_exp_needed(level);
     if (fractional)
     {
-        target += (skill_exp_needed(level + 1, skill)
-                  - skill_exp_needed(level, skill)) * fractional + 1;
+        target += (skill_exp_needed(level + 1)
+                  - skill_exp_needed(level)) * fractional + 1;
     }
 
     // We're calculating you.skill_points[skill] and calculating the new
@@ -1568,8 +1566,8 @@ int get_skill_progress(skill_type sk, int level, int points, int scale)
     if (level >= MAX_SKILL_LEVEL)
         return 0;
 
-    const int needed = skill_exp_needed(level + 1, sk);
-    const int prev_needed = skill_exp_needed(level, sk);
+    const int needed = skill_exp_needed(level + 1);
+    const int prev_needed = skill_exp_needed(level);
     if (needed == 0) // invalid race, legitimate at startup
         return 0;
     // A scale as small as 92 would overflow with 31 bits if skill_rdiv()
@@ -2116,7 +2114,7 @@ static int _get_skill_cost_for(int level)
     return level;
 }
 
-unsigned int skill_exp_needed(int lev, skill_type sk, species_type sp)
+unsigned int skill_exp_needed(int lev)
 {
     ASSERT_RANGE(lev, 0, MAX_SKILL_LEVEL + 1);
     return _get_skill_cost_for(lev);
@@ -2293,7 +2291,7 @@ void fixup_skills()
         else if (you.has_mutation(MUT_DISTRIBUTED_TRAINING))
             you.train[sk] = TRAINING_ENABLED;
         you.skill_points[sk] = min(you.skill_points[sk],
-                                   skill_exp_needed(MAX_SKILL_LEVEL, sk));
+                                   skill_exp_needed(MAX_SKILL_LEVEL));
         check_skill_level_change(sk);
     }
     init_can_currently_train();

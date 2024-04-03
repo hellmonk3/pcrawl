@@ -97,7 +97,7 @@ static const char *skill_titles[NUM_SKILLS][7] =
     {"Unarmed Combat", "Ruffian",       "Grappler",        "Brawler",         "Wrestler",       "@Weight@weight Champion", "UC"},
 
     {"Spellcasting",   "Magician",      "Thaumaturge",     "Eclecticist",     "Sorcerer",       "Archmage",     "Spc"},
-    {"Conjurations",   "Conjurer",      "Destroyer",       "Devastator",      "Ruinous",        "Annihilator",  "Conj"},
+    {"Enchantments",   "Conjurer",      "Destroyer",       "Devastator",      "Ruinous",        "Annihilator",  "Conj"},
     {"Hexes",          "Vexing",        "Jinx",            "Bewitcher",       "Maledictor",     "Spellbinder",  "Hex"},
 #if TAG_MAJOR_VERSION == 34
     {"Charms",         "Charmwright",   "Infuser",         "Anointer",        "Gracecrafter",   "Miracle Worker", "Chrm"},
@@ -1822,7 +1822,7 @@ string skill_title_by_rank(skill_type best_skill, uint8_t skill_rank,
                 result = "Ogre Mage";
             break;
 
-        case SK_CONJURATIONS:
+        case SK_ENCHANTMENTS:
             // Stay safe, Winslem :(
             if (species == SP_TROLL && skill_rank > 3)
                 result = "Wallbreaker";
@@ -2030,7 +2030,7 @@ static map<skill_type, mutation_type> skill_sac_muts = {
     { SK_HEXES,          MUT_NO_HEXES_MAGIC },
     { SK_TRANSLOCATIONS, MUT_NO_TRANSLOCATION_MAGIC },
     { SK_TRANSMUTATIONS, MUT_NO_TRANSMUTATION_MAGIC },
-    { SK_CONJURATIONS,   MUT_NO_CONJURATION_MAGIC },
+    { SK_ENCHANTMENTS,   MUT_NO_CONJURATION_MAGIC },
     { SK_NECROMANCY,     MUT_NO_NECROMANCY_MAGIC },
     { SK_SUMMONINGS,     MUT_NO_SUMMONING_MAGIC },
 

@@ -138,7 +138,7 @@ static void _ouch(actor& target, actor * source, miscast_source_info mc_info, in
 
 static const map<spschool, miscast_datum> miscast_effects = {
     {
-        spschool::conjuration,
+        spschool::enchantments,
         {
             BEAM_MMISSILE,
             {

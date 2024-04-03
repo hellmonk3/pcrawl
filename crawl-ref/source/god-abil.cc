@@ -1398,8 +1398,7 @@ bool vehumet_supports_spell(spell_type spell)
     // propelling it towards the victim. This is the most popular way, but
     // by no means it has a monopoly for being destructive.
     // Vehumet loves all direct physical destruction.
-    return spell_typematch(spell, spschool::conjuration)
-           || (get_spell_flags(spell) & spflag::destructive);
+    return false || (get_spell_flags(spell) & spflag::destructive);
 }
 
 void trog_do_trogs_hand(int pow)
@@ -2010,7 +2009,7 @@ static map<curse_type, curse_data> _ashenzari_curses =
     } },
     { CURSE_BEGUILING, {
         "Beguiling", "Bglg",
-        { SK_CONJURATIONS, SK_HEXES, SK_TRANSLOCATIONS },
+        { SK_ENCHANTMENTS, SK_HEXES, SK_TRANSLOCATIONS },
     } },
     { CURSE_SELF, {
         "Introspection", "Self",

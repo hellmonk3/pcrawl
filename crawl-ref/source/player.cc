@@ -2872,8 +2872,8 @@ static artefact_prop_type _enhancer_for_skill(skill_type sk)
         return ARTP_ENHANCE_TLOC;
     case SK_NECROMANCY:
         return ARTP_ENHANCE_NECRO;
-    case SK_CONJURATIONS:
-        return ARTP_ENHANCE_CONJ;
+    case SK_ENCHANTMENTS:
+        return ARTP_ENHANCE_ENCH;
     case SK_HEXES:
         return ARTP_ENHANCE_HEXES;
     case SK_TRANSMUTATIONS:
@@ -5547,8 +5547,8 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
 
     switch (sk)
     {
-    case SK_CONJURATIONS:
-        level = min(level + scan_artefacts(ARTP_ENHANCE_CONJ) * scale, 27 * scale);
+    case SK_ENCHANTMENTS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_ENCH) * scale, 27 * scale);
         break;
     case SK_NECROMANCY:
         level = min(level + scan_artefacts(ARTP_ENHANCE_NECRO) * scale, 27 * scale);

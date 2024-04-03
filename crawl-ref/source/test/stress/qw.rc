@@ -7640,7 +7640,7 @@ local skill_list = {"Fighting","Short Blades","Long Blades","Axes","Maces & Flai
                 "Polearms","Staves","Unarmed Combat","Bows","Crossbows",
                 "Throwing","Slings","Armour","Dodging","Shields",
                 "Invocations","Evocations","Stealth","Spellcasting",
-                "Conjurations","Hexes","Charms","Summonings","Necromancy",
+                "Enchantments","Hexes","Charms","Summonings","Necromancy",
                 "Translocations","Transmutations","Fire Magic","Ice Magic",
                 "Air Magic","Earth Magic","Poison Magic"}
 

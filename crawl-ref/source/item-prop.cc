@@ -2010,7 +2010,7 @@ skill_type staff_skill(stave_type s)
     case STAFF_DEATH:
         return SK_NECROMANCY;
     case STAFF_CONJURATION:
-        return SK_CONJURATIONS;
+        return SK_ENCHANTMENTS;
     default:
         return SK_NONE;
     }

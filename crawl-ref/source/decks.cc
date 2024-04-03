@@ -1556,7 +1556,7 @@ static void _wild_magic_card(int power)
                            mons->get_hit_dice()))
         {
             // skip summoning and tlocs, only destructive forces
-            spschool type = random_choose(spschool::conjuration,
+            spschool type = random_choose(spschool::enchantments,
                                           spschool::fire,
                                           spschool::ice,
                                           spschool::earth,

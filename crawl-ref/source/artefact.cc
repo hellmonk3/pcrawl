@@ -347,7 +347,7 @@ static map<stave_type, artefact_prop_type> staff_enhancer_artps = {
     { STAFF_COLD,           ARTP_ENHANCE_ICE },
     { STAFF_DEATH,          ARTP_ENHANCE_NECRO },
     { STAFF_AIR,            ARTP_ENHANCE_AIR },
-    { STAFF_CONJURATION,    ARTP_ENHANCE_CONJ },
+    { STAFF_CONJURATION,    ARTP_ENHANCE_ENCH },
     { STAFF_EARTH,          ARTP_ENHANCE_EARTH },
 };
 
@@ -585,7 +585,7 @@ static bool _artp_can_go_on_item(artefact_prop_type prop, const item_def &item,
             return non_swappable;
         case ARTP_ARCHMAGI:
             return item.is_type(OBJ_ARMOUR, ARM_ROBE);
-        case ARTP_ENHANCE_CONJ:
+        case ARTP_ENHANCE_ENCH:
         case ARTP_ENHANCE_HEXES:
         case ARTP_ENHANCE_SUMM:
         case ARTP_ENHANCE_NECRO:
@@ -754,7 +754,7 @@ static const artefact_prop_data artp_data[] =
         []() {return 1;}, nullptr, 0, 0},
     { "Archmagi", ARTP_VAL_BOOL, 40, // ARTP_ARCHMAGI,
         []() {return 1;}, nullptr, 0, 0},
-    { "Conj", ARTP_VAL_ANY, 25, // ARTP_ENHANCE_CONJ,
+    { "Ench", ARTP_VAL_ANY, 25, // ARTP_ENHANCE_ENCH,
         []() {return 1;}, nullptr, 0, 0},
     { "Hexes", ARTP_VAL_ANY, 25, // ARTP_ENHANCE_HEXES,
         []() {return 1;}, nullptr, 0, 0},
@@ -1650,7 +1650,7 @@ static int _improvable_property(int artp, int val)
     case ARTP_AC:
     case ARTP_SLAYING:
         return val < 6 ? 1 : 0;
-    case ARTP_ENHANCE_CONJ:
+    case ARTP_ENHANCE_ENCH:
     case ARTP_ENHANCE_HEXES:
     case ARTP_ENHANCE_SUMM:
     case ARTP_ENHANCE_NECRO:

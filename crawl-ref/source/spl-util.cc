@@ -842,8 +842,8 @@ const char* spelltype_short_name(spschool which_spelltype)
 {
     switch (which_spelltype)
     {
-    case spschool::conjuration:
-        return "Conj";
+    case spschool::enchantments:
+        return "Ench";
     case spschool::hexes:
         return "Hex";
     case spschool::fire:
@@ -875,8 +875,8 @@ const char* spelltype_long_name(spschool which_spelltype)
 {
     switch (which_spelltype)
     {
-    case spschool::conjuration:
-        return "Conjuration";
+    case spschool::enchantments:
+        return "Enchantment";
     case spschool::hexes:
         return "Hexes";
     case spschool::fire:
@@ -908,7 +908,7 @@ skill_type spell_type2skill(spschool spelltype)
 {
     switch (spelltype)
     {
-    case spschool::conjuration:    return SK_CONJURATIONS;
+    case spschool::enchantments:    return SK_ENCHANTMENTS;
     case spschool::hexes:          return SK_HEXES;
     case spschool::fire:           return SK_FIRE_MAGIC;
     case spschool::ice:            return SK_ICE_MAGIC;
@@ -931,7 +931,7 @@ spschool skill2spell_type(skill_type spell_skill)
 {
     switch (spell_skill)
     {
-    case SK_CONJURATIONS:    return spschool::conjuration;
+    case SK_ENCHANTMENTS:    return spschool::enchantments;
     case SK_HEXES:           return spschool::hexes;
     case SK_FIRE_MAGIC:      return spschool::fire;
     case SK_ICE_MAGIC:       return spschool::ice;

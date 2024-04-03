@@ -45,7 +45,7 @@ void practise_casting(spell_type spell, bool success)
             continue;
 
         skill_type skill = spell_type2skill(bit);
-        if (skill == SK_CONJURATIONS)
+        if (skill == SK_ENCHANTMENTS)
             conj = true;
 
         disc.push_back(skill);

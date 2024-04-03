@@ -58,13 +58,11 @@ Spellcasting
 Being skilled in Spellcasting increases the spell power of all spells, along
 with increasing your maximum magic points.
 %%%%
-Conjurations
+Enchantments
 
-Conjurations are battle oriented spells, which often work by conjuring up a
-chunk of short-lived matter and propelling it towards the victim to deal direct
-damage. Being skilled in Conjurations usually increases the damage
-of such spells, and sometimes affects their range or the size of the area
-affected.
+Enchantments are charming spells that buff or enhance the abilities of their
+caster (and sometimes their caster's allies) in some way, usually for a short
+duration.
 
 Spells require a skill equal to their spell level in each of their schools
 before they can be cast. Spell power also increases with the average skill level
@@ -72,7 +70,7 @@ of the spell's schools.
 %%%%
 Hexes
 
-Hexes try to bestow various enchantments on nearby things. While none do direct
+Hexes try to bestow various negative statuses on nearby things. While none do direct
 damage, being ensorcelled can effectively take an opponent out of combat,
 although they often require overcoming an opponent's willpower to have an effect.
 Skill in Hexes can help overcome this.

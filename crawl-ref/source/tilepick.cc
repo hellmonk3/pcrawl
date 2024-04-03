@@ -3392,7 +3392,7 @@ tileidx_t tileidx_skill(skill_type skill, int train)
         }
         break;
     case SK_SPELLCASTING:   ch = TILEG_SPELLCASTING_ON; break;
-    case SK_CONJURATIONS:   ch = TILEG_CONJURATIONS_ON; break;
+    case SK_ENCHANTMENTS:   ch = TILEG_CONJURATIONS_ON; break;
     case SK_HEXES:          ch = TILEG_HEXES_ON; break;
     case SK_SUMMONINGS:     ch = TILEG_SUMMONINGS_ON; break;
     case SK_NECROMANCY:

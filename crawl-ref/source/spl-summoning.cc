@@ -1676,7 +1676,7 @@ void end_battlesphere(monster* mons, bool killed)
 
 bool battlesphere_can_mirror(spell_type spell)
 {
-    return (spell_typematch(spell, spschool::conjuration)
+    return (spell_typematch(spell, spschool::enchantments)
             || (get_spell_flags(spell) & spflag::destructive))
            && spell != SPELL_BATTLESPHERE
            && spell != SPELL_SPELLFORGED_SERVITOR;

@@ -40,8 +40,7 @@ enum class spflag
     escape             = 0x00002000,      // useful for running away
     recovery           = 0x00004000,      // healing or recovery spell
     area               = 0x00008000,      // area affect
-    destructive        = 0x00010000,      // not a conjuration, but still
-                                          // supported by Vehumet/Battlesphere
+    destructive        = 0x00010000,      // supported by Vehumet/Battlesphere
     selfench           = 0x00020000,      // monsters use as selfench
     monster            = 0x00040000,      // monster-only spell
     needs_tracer       = 0x00080000,      // monster casting needs tracer

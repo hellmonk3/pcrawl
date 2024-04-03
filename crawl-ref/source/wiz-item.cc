@@ -1210,7 +1210,7 @@ static void _debug_acquirement_stats(FILE *ostat)
             const char* names[] =
             {
                 "none",
-                "conjuration",
+                "enchantments",
                 "hexes",
                 "fire magic",
                 "ice magic",
@@ -1551,7 +1551,7 @@ static void _debug_rap_stats(FILE *ostat)
         "ARTP_HARM",
         "ARTP_RAMPAGING",
         "ARTP_ARCHMAGI",
-        "ARTP_ENHANCE_CONJ",
+        "ARTP_ENHANCE_ENCH",
         "ARTP_ENHANCE_HEXES",
         "ARTP_ENHANCE_SUMM",
         "ARTP_ENHANCE_NECRO",

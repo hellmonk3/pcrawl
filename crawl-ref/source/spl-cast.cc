@@ -385,7 +385,7 @@ static int _spell_enhancement(spell_type spell)
     const spschools_type typeflags = get_spell_disciplines(spell);
     int enhanced = 0;
 
-    if (typeflags & spschool::conjuration)
+    if (typeflags & spschool::enchantments)
         enhanced += player_spec_conj();
 
     if (typeflags & spschool::hexes)

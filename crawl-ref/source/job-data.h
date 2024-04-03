@@ -48,7 +48,7 @@ static const map<job_type, job_def> job_data =
     },
     { "robe", "potion of magic" },
     WCHOICE_NONE,
-    { { SK_CONJURATIONS, 1 }, { SK_AIR_MAGIC, 3 }, { SK_SPELLCASTING, 2 },
+    { { SK_ENCHANTMENTS, 1 }, { SK_AIR_MAGIC, 3 }, { SK_SPELLCASTING, 2 },
       { SK_DODGING, 2 }, { SK_STEALTH, 2 }, },
 } },
 
@@ -123,7 +123,7 @@ static const map<job_type, job_def> job_data =
     },
     { "robe", "potion of magic" },
     WCHOICE_NONE,
-    { { SK_CONJURATIONS, 4 }, { SK_SPELLCASTING, 2 }, { SK_DODGING, 2 },
+    { { SK_ENCHANTMENTS, 4 }, { SK_SPELLCASTING, 2 }, { SK_DODGING, 2 },
       { SK_STEALTH, 2 }, },
 } },
 
@@ -187,7 +187,7 @@ static const map<job_type, job_def> job_data =
     },
     { "robe", "potion of magic" },
     WCHOICE_NONE,
-    { { SK_CONJURATIONS, 1 }, { SK_FIRE_MAGIC, 3 }, { SK_SPELLCASTING, 2 },
+    { { SK_ENCHANTMENTS, 1 }, { SK_FIRE_MAGIC, 3 }, { SK_SPELLCASTING, 2 },
       { SK_DODGING, 2 }, { SK_STEALTH, 2 }, },
 } },
 
@@ -299,7 +299,7 @@ static const map<job_type, job_def> job_data =
     { "leather armour" },
     WCHOICE_PLAIN,
     { { SK_FIGHTING, 2 }, { SK_WEAPON, 3 }, { SK_DODGING, 2 },
-      { SK_SPELLCASTING, 2 }, { SK_CONJURATIONS, 3 }, },
+      { SK_SPELLCASTING, 2 }, { SK_ENCHANTMENTS, 3 }, },
 } },
 
 { JOB_SUMMONER, {
@@ -394,7 +394,7 @@ static const map<job_type, job_def> job_data =
     { "dagger", "robe", "hat", "potion of magic" },
     WCHOICE_NONE,
     { { SK_DODGING, 2 }, { SK_STEALTH, 2 }, { SK_SPELLCASTING, 3 },
-      { SK_TRANSLOCATIONS, 1 }, { SK_CONJURATIONS, 1 }, { SK_SUMMONINGS, 1 }, },
+      { SK_TRANSLOCATIONS, 1 }, { SK_ENCHANTMENTS, 1 }, { SK_SUMMONINGS, 1 }, },
 } },
 #if TAG_MAJOR_VERSION == 34
 { JOB_ABYSSAL_KNIGHT, {

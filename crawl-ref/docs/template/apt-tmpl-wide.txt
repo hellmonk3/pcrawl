@@ -36,7 +36,7 @@ The abbreviations used for the skills are:
 General skills, Experience   Melee and Ranged Combat     Spellcasting and Magic
 --------------------------   -----------------------     ----------------------
 Arm - Armour                 Fgt - Fighting              Spc - Spellcasting
-Ddg - Dodging                                            Coj - Conjurations
+Ddg - Dodging                                            Enc - Enchantments
 Sth - Stealth                                            Hex - Hexes
 Shd - Shields                                            Sum - Summonings
 Shp - Shapeshifting                                      Nec - Necromancy
@@ -51,5 +51,5 @@ Exp - experience
 WL  - willpower
 
 
-                 Arm Ddg Sth Shd Shp   Inv Evo Thr   HP  MP Exp  WL   Fgt                 UC Mel     Rng   Spc Coj Hex Sum Nec Trl Trm   Fir Ice Air Ear 
+                 Arm Ddg Sth Shd Shp   Inv Evo Thr   HP  MP Exp  WL   Fgt                 UC Mel     Rng   Spc Enc Hex Sum Nec Trl Trm   Fir Ice Air Ear 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------

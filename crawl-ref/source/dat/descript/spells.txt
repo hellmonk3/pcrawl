@@ -557,13 +557,14 @@ Summons demons of flame and damnation.
 %%%%
 Fireball spell
 
-Hurls an explosive ball of fire.
+It's every wizard's favorite spell. Like all explosions, it is quite loud but
+impossible to dodge.
 %%%%
 Flame Wave spell
 
 Blasts the caster's surroundings with a wave of fire. If the caster maintains
 focus and supplies the spell with magical power (by waiting in place and not
-taking any other actions), more and larger flame waves will radiate outward.
+taking any other actions), larger flame waves will radiate outward.
 %%%%
 Flaming Cloud spell
 
@@ -588,9 +589,10 @@ varies with the caster.
 %%%%
 Foxfire spell
 
-Conjures two balls of burning swamp gas adjacent to the caster. The balls will
+Conjures balls of burning swamp gas adjacent to the caster. The balls will
 rapidly seek the nearest monster and burn them. They will dissipate harmlessly
-if unable to reach a target or if the caster swaps places with them.
+if unable to reach a target or if the caster swaps places with them. The number
+of balls created increases with spellpower.
 %%%%
 Freeze spell
 
@@ -1165,7 +1167,8 @@ damage is strongly reduced by armour.
 %%%%
 Scorch spell
 
-Scorches a random foe. Those injured by this have their resistance to fire
+Scorches a random foe, plus up to one additional random foe for each 3
+spellpower. Those injured by this have their resistance to fire
 burned away for a short time.
 %%%%
 Seal Doors spell
@@ -1450,11 +1453,11 @@ Summon Greater Demon spell
 
 Calls forth one of the greater demons of Pandemonium to serve the caster.
 %%%%
-Summon Guardian Golem spell
+Ambulatory Bomb spell
 
-Summons a protective golem. It redirects the injuries of its allies (but not
-the caster) to itself. When sufficiently damaged, it may fill with an inner
-flame, causing it to explode if destroyed. It gains more health at high power.
+Summons a construct imbued with inner flame, which will attempt to move toward
+a nearby enemy and violently explode. The construct is incredibly fragile and
+will detonate prematurely if attacked.
 %%%%
 Summon Hell Beast spell
 

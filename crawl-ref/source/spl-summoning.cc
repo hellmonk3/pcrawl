@@ -806,19 +806,17 @@ spret cast_summon_guardian_golem(int pow, god_type god, bool fail)
 
     fail_check();
 
-    mgen_data golem = _pal_data(MONS_GUARDIAN_GOLEM, 3, god,
-                                SPELL_SUMMON_GUARDIAN_GOLEM);
+    mgen_data golem = _pal_data(MONS_GUARDIAN_GOLEM, 2, god,
+                                SPELL_AMBULATORY_BOMB);
     golem.flags &= ~MG_AUTOFOE; // !!!
-    golem.hd = 4 + div_rand_round(pow, 16);
+    golem.hd = 1;
 
     monster* mons = (create_monster(golem));
 
     if (mons)
     {
-        // Immediately apply injury bond
-        guardian_golem_bond(*mons);
-
-        mpr("A guardian golem appears, shielding your allies.");
+        mons->add_ench(mon_enchant(ENCH_INNER_FLAME, 0, &you, INFINITE_DURATION));
+        mpr("An ambulatory bomb appears, filled with inner flames.");
     }
     else
         canned_msg(MSG_NOTHING_HAPPENS);
@@ -2097,7 +2095,7 @@ static const map<spell_type, summon_cap> summonsdata =
     { SPELL_MONSTROUS_MENAGERIE,      { 2, 3 } },
     { SPELL_SUMMON_HORRIBLE_THINGS,   { 8, 8 } },
     { SPELL_SUMMON_LIGHTNING_SPIRE,   { 1, 1 } },
-    { SPELL_SUMMON_GUARDIAN_GOLEM,    { 1, 1 } },
+    { SPELL_AMBULATORY_BOMB,          { 1, 1 } },
     { SPELL_SPELLFORGED_SERVITOR,     { 1, 1 } },
     { SPELL_ANIMATE_ARMOUR,           { 1, 1 } },
     { SPELL_HAUNT,                    { 8, 8 } },
@@ -2562,6 +2560,7 @@ static bool _create_foxfire(const actor &agent, coord_def pos,
 spret cast_foxfire(actor &agent, int pow, god_type god, bool fail, bool marshlight)
 {
     bool see_space = false;
+    int num_to_create = 2 + pow / 4;
     for (adjacent_iterator ai(agent.pos()); ai; ++ai)
     {
         if (cell_is_solid(*ai))
@@ -2587,7 +2586,7 @@ spret cast_foxfire(actor &agent, int pow, god_type god, bool fail, bool marshlig
         if (!_create_foxfire(agent, *ai, god, pow, marshlight))
             continue;
         ++created;
-        if (created == 2)
+        if (created >= num_to_create)
             break;
     }
 

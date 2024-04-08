@@ -1151,7 +1151,7 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
     case SPELL_SUMMON_MANA_VIPER:
     case SPELL_CONJURE_BALL_LIGHTNING:
     case SPELL_SHADOW_CREATURES: // used for ?summoning
-    case SPELL_SUMMON_GUARDIAN_GOLEM:
+    case SPELL_AMBULATORY_BOMB:
     case SPELL_CALL_IMP:
     case SPELL_SUMMON_HORRIBLE_THINGS:
     case SPELL_SPELLFORGED_SERVITOR:
@@ -2047,7 +2047,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_SUMMON_LIGHTNING_SPIRE:
         return cast_summon_lightning_spire(powc, god, fail);
 
-    case SPELL_SUMMON_GUARDIAN_GOLEM:
+    case SPELL_AMBULATORY_BOMB:
         return cast_summon_guardian_golem(powc, god, fail);
 
     case SPELL_CALL_IMP:
@@ -2318,7 +2318,7 @@ static dice_def _spell_damage(spell_type spell, int power)
         case SPELL_SHATTER:
             return shatter_damage(power);
         case SPELL_SCORCH:
-            return scorch_damage(power, false);
+            return scorch_damage(power);
         case SPELL_BATTLESPHERE:
             return battlesphere_damage(power);
         case SPELL_FROZEN_RAMPARTS:

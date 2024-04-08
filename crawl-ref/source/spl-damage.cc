@@ -1782,14 +1782,9 @@ void explosive_brand(actor *wielder, coord_def where, int pow)
     scaled_delay(50);
 }
 
-dice_def scorch_damage(int pow, bool random)
+dice_def scorch_damage(int pow)
 {
-    if (random)
-    {
-        const int max_dam = 10 + div_rand_round(pow, 6);
-        return calc_dice(2, max_dam);
-    }
-    return dice_def(2, (10 + pow / 6) / 2);
+    return dice_def(1, 10 + pow);
 }
 
 static void _animate_scorch(coord_def p)
@@ -1812,57 +1807,65 @@ spret cast_scorch(int pow, bool fail)
 
     const int range = spell_range(SPELL_SCORCH, pow);
     auto targeter = make_unique<targeter_scorch>(you, range, true);
+    const int num_targets = 1 + pow / 3;
     monster *targ = nullptr;
-    int seen = 0;
+    int hit = 0;
     for (auto ti = targeter->affected_iterator(AFF_MAYBE); ti; ++ti)
-        if (one_chance_in(++seen))
-            targ = monster_at(*ti);
+    {
+        if (hit >= num_targets)
+            return spret::success;
 
-    if (!targ)
+        targ = monster_at(*ti);
+
+        if (!targ)
+            continue;
+
+        hit++;
+        const int base_dam = scorch_damage(pow).roll();
+        const int post_ac_dam = max(0, targ->apply_ac(base_dam));
+
+        mprf("Flames lash %s%s.", targ->name(DESC_THE).c_str(),
+            post_ac_dam ? "" : " but do no damage");
+        const coord_def p = targ->pos();
+
+        bolt beam;
+        beam.flavour = BEAM_FIRE;
+        const int damage = mons_adjust_flavoured(targ, beam, post_ac_dam);
+        _player_hurt_monster(*targ, damage, beam.flavour);
+
+        // XXX: interact with clouds of cold?
+        // XXX: dedup with beam::affect_place_clouds()?
+        if (feat_is_watery(env.grid(p)) && !cloud_at(p))
+            place_cloud(CLOUD_STEAM, p, 2 + random2(5), &you, 11);
+
+        if (!targ->alive())
+        {
+            _animate_scorch(p);
+            continue;
+        }
+
+        you.pet_target = targ->mindex();
+
+        if (damage > 0)
+        {
+            if (you.can_see(*targ) && !targ->has_ench(ENCH_FIRE_VULN))
+            {
+                mprf("%s fire resistance burns away.",
+                    targ->name(DESC_ITS).c_str());
+            }
+            const int dur = 3 + div_rand_round(damage, 3);
+            targ->add_ench(mon_enchant(ENCH_FIRE_VULN, 1, &you,
+                                    dur * BASELINE_DELAY));
+
+        }
+        _animate_scorch(targ->pos());
+    }
+    if (!hit)
     {
         canned_msg(MSG_NOTHING_HAPPENS);
         return spret::success;
     }
 
-    const int base_dam = scorch_damage(pow, true).roll();
-    const int post_ac_dam = max(0, targ->apply_ac(base_dam));
-
-    mprf("Flames lash %s%s.", targ->name(DESC_THE).c_str(),
-         post_ac_dam ? "" : " but do no damage");
-    const coord_def p = targ->pos();
-    noisy(spell_effect_noise(SPELL_SCORCH), p);
-
-    bolt beam;
-    beam.flavour = BEAM_FIRE;
-    const int damage = mons_adjust_flavoured(targ, beam, post_ac_dam);
-    _player_hurt_monster(*targ, damage, beam.flavour);
-
-    // XXX: interact with clouds of cold?
-    // XXX: dedup with beam::affect_place_clouds()?
-    if (feat_is_watery(env.grid(p)) && !cloud_at(p))
-        place_cloud(CLOUD_STEAM, p, 2 + random2(5), &you, 11);
-
-    if (!targ->alive())
-    {
-        _animate_scorch(p);
-        return spret::success;
-    }
-
-    you.pet_target = targ->mindex();
-
-    if (damage > 0)
-    {
-        if (you.can_see(*targ) && !targ->has_ench(ENCH_FIRE_VULN))
-        {
-            mprf("%s fire resistance burns away.",
-                 targ->name(DESC_ITS).c_str());
-        }
-        const int dur = 3 + div_rand_round(damage, 3);
-        targ->add_ench(mon_enchant(ENCH_FIRE_VULN, 1, &you,
-                                   dur * BASELINE_DELAY));
-
-    }
-    _animate_scorch(targ->pos());
     return spret::success;
 }
 
@@ -1875,12 +1878,12 @@ vector<coord_def> find_near_hostiles(int range, bool affect_invis)
         monster *mons = monster_at(*ri);
         if (mons
             && !mons->wont_attack()
-            && _act_worth_targeting(you, *mons)
-            && (affect_invis || you.can_see(*mons)))
+            && _act_worth_targeting(you, *mons))
         {
             hostiles.push_back(*ri);
         }
     }
+    shuffle_array(hostiles);
     return hostiles;
 }
 

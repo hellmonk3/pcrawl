@@ -50,9 +50,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_FIREBALL, "Fireball",
-    spschool::enchantments | spschool::fire,
-    spflag::dir_or_target | spflag::needs_tracer,
-    5,
+    spschool::fire,
+    spflag::dir_or_target | spflag::needs_tracer | spflag::destructive,
+    1,
     200,
     5, 5,
     0,
@@ -141,7 +141,7 @@ static const struct spell_desc spelldata[] =
     SPELL_PLASMA_BEAM, "Plasma Beam",
     spschool::fire | spschool::air,
     spflag::noisy | spflag::destructive,
-    6,
+    3,
     200,
     LOS_RADIUS, LOS_RADIUS,
     20,
@@ -2461,8 +2461,8 @@ static const struct spell_desc spelldata[] =
 },
 
 {
-    SPELL_SUMMON_GUARDIAN_GOLEM, "Summon Guardian Golem",
-    spschool::summoning | spschool::hexes,
+    SPELL_AMBULATORY_BOMB, "Ambulatory Bomb",
+    spschool::summoning | spschool::fire,
     spflag::none,
     3,
     100,
@@ -3199,10 +3199,10 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_FOXFIRE, "Foxfire",
-    spschool::enchantments | spschool::fire,
+    spschool::summoning | spschool::fire,
     spflag::selfench,
     1,
-    25,
+    50,
     -1, -1,
     0,
     TILEG_FOXFIRE,
@@ -3470,18 +3470,18 @@ static const struct spell_desc spelldata[] =
     2,
     50,
     3, 3,
-    8,
+    0,
     TILEG_SCORCH,
 },
 
 {
     SPELL_FLAME_WAVE, "Flame Wave",
-    spschool::enchantments | spschool::fire,
-    spflag::area,
+    spschool::fire,
+    spflag::area | spflag::destructive,
     4,
     100,
-    3, 3, // sort of...
-    12, // increases as it's channeled
+    5, 5, // sort of...
+    6, // increases as it's channeled
     TILEG_FLAME_WAVE,
 },
 

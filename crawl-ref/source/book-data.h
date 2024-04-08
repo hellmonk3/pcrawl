@@ -69,7 +69,6 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of Fire
     SPELL_FOXFIRE,
-    SPELL_PLASMA_BEAM,
     SPELL_STARBURST,
 },
 
@@ -100,7 +99,6 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Lightning
     SPELL_ELECTRIC_CHARGE,
     SPELL_ARCJOLT,
-    SPELL_PLASMA_BEAM,
 },
 
 {   // Book of Death
@@ -146,8 +144,8 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of Callings
     SPELL_SUMMON_SMALL_MAMMAL,
+    SPELL_AMBULATORY_BOMB,
     SPELL_CALL_CANINE_FAMILIAR,
-    SPELL_SUMMON_GUARDIAN_GOLEM,
 },
 
 #if TAG_MAJOR_VERSION == 34
@@ -252,7 +250,6 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of the Dragon
     SPELL_CAUSE_FEAR,
-    SPELL_FIREBALL,
     SPELL_DRAGON_CALL,
 },
 
@@ -320,7 +317,6 @@ static const vector<spell_type> spellbook_templates[] =
 { // Book of Spheres
     SPELL_BOULDER,
     SPELL_BATTLESPHERE,
-    SPELL_FIREBALL,
     SPELL_CONJURE_BALL_LIGHTNING,
     SPELL_IOOD,
 },
@@ -440,7 +436,7 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 { // Book of Dangerous Friends
-    SPELL_SUMMON_GUARDIAN_GOLEM,
+    SPELL_AMBULATORY_BOMB,
     SPELL_IOOD,
     SPELL_SPELLFORGED_SERVITOR,
 },

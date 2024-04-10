@@ -621,6 +621,8 @@ static const duration_def duration_data[] =
       LIGHTBLUE, "Shadows",
       "shadows", "lantern of shadows",
       "Your vision is reduced by the lantern.", D_NO_FLAGS},
+     { DUR_FLAME_LANCE, LIGHTBLUE, "Flame", "flame", "flame lance",
+      "You are imbued with flames that will fire when moving.", D_NO_FLAGS},
 
     // The following are visible in wizmode only, or are handled
     // specially in the status lights and/or the % or @ screens.

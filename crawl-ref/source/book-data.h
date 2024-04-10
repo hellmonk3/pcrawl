@@ -39,8 +39,11 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of Minor Magic
     SPELL_MAGIC_DART,
+    SPELL_FIREBALL,
     SPELL_CALL_IMP,
     SPELL_MEPHITIC_CLOUD,
+    SPELL_FLAME_LANCE,
+    SPELL_PLASMA_BEAM,
 },
 
 {   // Book of Conjurations

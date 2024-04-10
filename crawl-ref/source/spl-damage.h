@@ -152,3 +152,6 @@ bool siphon_essence_affects(const monster &m);
 void attempt_jinxbite_hit(actor& victim);
 dice_def boulder_damage(int pow, bool random);
 void do_boulder_impact(monster& boulder, actor& victim);
+
+spret cast_flame_lance(int powc, bool fail);
+void handle_flame_lance_movement(coord_def move);

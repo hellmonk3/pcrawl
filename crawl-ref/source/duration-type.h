@@ -246,5 +246,6 @@ enum duration_type
     DUR_STUN,
     DUR_HARP,
     DUR_LANTERN,
+    DUR_FLAME_LANCE,
     NUM_DURATIONS
 };

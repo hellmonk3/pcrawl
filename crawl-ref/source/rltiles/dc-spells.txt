@@ -71,6 +71,7 @@ foxfire FOXFIRE
 scorch SCORCH
 flame_wave FLAME_WAVE
 plasma_beam PLASMA_BEAM
+flame_lance FLAME_LANCE
 
 %sdir gui/spells/ice
 bolt_of_cold BOLT_OF_COLD

@@ -562,5 +562,6 @@ enum spell_type : int
     SPELL_THROW_BOULDER,
     SPELL_TOXIC_DART,
     SPELL_FUNERAL_DIRGE,
+    SPELL_FLAME_LANCE,
     NUM_SPELLS
 };

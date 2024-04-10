@@ -4660,3 +4660,44 @@ void do_boulder_impact(monster& boulder, actor& victim)
     // Dealing damage causes the boulder to also take damage.
     boulder.hurt(&boulder, roll_dice(2, 5), BEAM_NONE, KILLED_BY_COLLISION);
 }
+
+spret cast_flame_lance(int powc, bool fail)
+{
+    if (you.duration[DUR_FLAME_LANCE])
+    {
+        mpr("You're already burning up, let your flame lance expire first.");
+        return spret::abort;
+    }
+
+    fail_check();
+
+    noisy(spell_effect_noise(SPELL_FLAME_LANCE), you.pos());
+
+    int dur = 4 + div_rand_round(powc, 3) + random2(powc + 1);
+
+    you.set_duration(DUR_FLAME_LANCE, dur);
+
+    return spret::success;
+}
+
+void handle_flame_lance_movement(coord_def move)
+{
+    const int pow = calc_spell_power(SPELL_FLAME_LANCE);
+    const coord_def source = you.pos();
+
+    bolt beam;
+    beam.range        = 6;
+    beam.source       = source;
+    beam.source_id    = MID_PLAYER;
+    beam.is_tracer    = false;
+    beam.dont_stop_player = true;
+    beam.friend_info.dont_stop = true;
+    beam.foe_info.dont_stop = true;
+    beam.attitude = ATT_FRIENDLY;
+    beam.thrower      = KILL_YOU;
+    beam.origin_spell = SPELL_FLAME_LANCE;
+    beam.draw_delay   = 5;
+    beam.target = you.pos() + move;
+    zappy(ZAP_BOLT_OF_FIRE, pow, false, beam);
+    beam.fire();
+}

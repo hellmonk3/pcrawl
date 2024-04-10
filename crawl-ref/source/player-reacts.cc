@@ -767,6 +767,8 @@ static void _decrement_durations()
         you.props.erase(XOM_CLOUD_TRAIL_TYPE_KEY);
     }
 
+    _decrement_a_duration(DUR_FLAME_LANCE, delay,"Your flame lance burns out.");
+
     if (_decrement_a_duration(DUR_LANTERN, delay, "The shadows dissipate."))
         update_vision_range();
 

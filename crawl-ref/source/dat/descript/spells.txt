@@ -560,6 +560,11 @@ Fireball spell
 It's every wizard's favorite spell. Like all explosions, it is quite loud but
 impossible to dodge.
 %%%%
+Flame Lance spell
+
+Imbues the caster's body with intense flames. When moving, the caster will
+launch a penetrating bolt of fire in the direction of the movement.
+%%%%
 Flame Wave spell
 
 Blasts the caster's surroundings with a wave of fire. If the caster maintains

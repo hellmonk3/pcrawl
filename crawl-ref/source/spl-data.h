@@ -3653,6 +3653,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_FLAME_LANCE, "Flame Lance",
+    spschool::enchantments | spschool::fire,
+    spflag::destructive,
+    3,
+    200,
+    -1, -1,
+    4,
+    TILEG_FLAME_LANCE,
+},
+
+{
     SPELL_FUNERAL_DIRGE, "Funeral Dirge",
     spschool::necromancy,
     spflag::area | spflag::monster,

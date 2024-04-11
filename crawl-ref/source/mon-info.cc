@@ -1783,16 +1783,8 @@ bool monster_info::has_trivial_ench(enchant_type ench) const
 // the player's knowledge?
 bool monster_info::unravellable() const
 {
-    if (is(MB_SUMMONED))
-        return true;
-
     // NOTE: assumes that all debuffable enchantments are trivially mapped
     // to MBs.
-
-    // can't debuff innately invisible monsters
-    if (is(MB_INVISIBLE) && !mons_class_flag(type, M_INVIS))
-        return true;
-
     return any_of(begin(dispellable_enchantments),
                   end(dispellable_enchantments),
                   [this](enchant_type ench) -> bool

@@ -3377,10 +3377,14 @@ void bolt::affect_player_enchantment(bool resistible)
         break;
 
     case BEAM_MALMUTATE:
-    case BEAM_UNRAVELLED_MAGIC:
         mpr("Strange energies course through your body.");
         you.malmutate(aux_source.empty() ? get_source_name() :
                       (get_source_name() + "/" + aux_source));
+        obvious_effect = true;
+        break;
+
+    case BEAM_UNRAVELLED_MAGIC:
+        you.corrode_equipment("unravelling");
         obvious_effect = true;
         break;
 
@@ -5243,7 +5247,6 @@ bool ench_flavour_affects_monster(actor *agent, beam_type flavour,
     switch (flavour)
     {
     case BEAM_MALMUTATE:
-    case BEAM_UNRAVELLED_MAGIC:
         rc = mon->can_mutate();
         break;
 
@@ -5479,14 +5482,13 @@ mon_resist_type bolt::apply_enchantment_to_monster(monster* mon)
         return MON_AFFECTED;
 
     case BEAM_MALMUTATE:
-    case BEAM_UNRAVELLED_MAGIC:
         if (mon->malmutate("")) // exact source doesn't matter
             obvious_effect = true;
-        if (YOU_KILL(thrower))
-        {
-            const int level = 2 + random2(3);
-            did_god_conduct(DID_DELIBERATE_MUTATING, level, god_cares());
-        }
+        return MON_AFFECTED;
+
+    case BEAM_UNRAVELLED_MAGIC:
+        if (mon->corrode_equipment("")) // exact source doesn't matter
+            obvious_effect = true;
         return MON_AFFECTED;
 
     case BEAM_BANISH:
@@ -5922,14 +5924,7 @@ mon_resist_type bolt::apply_enchantment_to_monster(monster* mon)
         if (!monster_can_be_unravelled(*mon))
             return MON_UNAFFECTED;
 
-        if (mon->is_summoned())
-        {
-            mprf("The magic binding %s to this plane unravels!",
-                 mon->name(DESC_THE).c_str());
-            monster_die(*mon, KILL_DISMISSED, actor_to_death_source(agent()));
-        }
-        else
-            debuff_monster(*mon);
+        debuff_monster(*mon);
         _unravelling_explode(*this);
         return MON_AFFECTED;
 

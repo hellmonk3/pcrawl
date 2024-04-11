@@ -600,7 +600,7 @@ bool monster_is_debuffable(const monster &mon)
 
 bool monster_can_be_unravelled(const monster& mon)
 {
-    return monster_is_debuffable(mon) || mon.is_summoned();
+    return monster_is_debuffable(mon);
 }
 
 /**

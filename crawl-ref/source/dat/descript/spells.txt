@@ -763,7 +763,7 @@ Releases a thick cloud of ink to obscure vision.
 %%%%
 Inner Flame spell
 
-Fills an enemy with an intense fire. This fire is explosively released upon 
+Fills an enemy with an intense fire. This fire is explosively released upon
 death, dealing high damage to anything adjacent.
 %%%%
 Invisibility spell
@@ -1726,10 +1726,8 @@ Yara's Violent Unravelling spell
 
 If cast upon a creature already blessed (or cursed) with magical enchantments,
 those enchantments will be torn apart, transforming into a spray of
-destructive mutagenic radiation. The victim and anyone adjacent will be
-blasted and heavily deformed, weakening them and reducing their armour.
-Summoned creatures are particularly vulnerable, as the enchantments binding
-them to this plane will unravel and cause them to be dismissed immediately.
+destructive radiation. The victim and anyone adjacent will be
+blasted and corroded, reducing their armour.
 %%%%
 Shoot Arrow spell
 

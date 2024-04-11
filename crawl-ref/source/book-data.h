@@ -469,9 +469,9 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 { // Great Wizards, Vol. VII
+    SPELL_VIOLENT_UNRAVELLING,
     SPELL_TUKIMAS_DANCE,
     SPELL_GOLUBRIAS_PASSAGE,
-    SPELL_VIOLENT_UNRAVELLING,
 },
 
 { // Trismegistus Codex

@@ -2912,9 +2912,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_VIOLENT_UNRAVELLING, "Yara's Violent Unravelling",
-    spschool::hexes | spschool::transmutation,
+    spschool::hexes | spschool::fire,
     spflag::target | spflag::no_ghost | spflag::chaotic | spflag::destructive,
-    5,
+    2,
     200,
     LOS_RADIUS, LOS_RADIUS,
     0,

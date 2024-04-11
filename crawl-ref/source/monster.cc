@@ -4534,17 +4534,6 @@ void monster::react_to_damage(const actor *oppressor, int damage,
     if (!alive())
         return;
 
-    const int corrode = corrosion_chance(scan_artefacts(ARTP_CORRODE));
-    if (res_acid() < 3 && x_chance_in_y(corrode, 100))
-    {
-        corrode_equipment(make_stringf("%s corrosive artefact",
-                                       name(DESC_ITS).c_str()).c_str());
-    }
-
-    const int slow = scan_artefacts(ARTP_SLOW);
-    if (x_chance_in_y(slow, 100))
-        do_slow_monster(*this, oppressor, (10 + random2(5)) * BASELINE_DELAY);
-
     if (mons_species() == MONS_BUSH
         && res_fire() < 0 && flavour == BEAM_FIRE
         && damage > 8 && x_chance_in_y(damage, 20))

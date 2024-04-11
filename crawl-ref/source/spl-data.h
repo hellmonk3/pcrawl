@@ -1981,7 +1981,7 @@ static const struct spell_desc spelldata[] =
     SPELL_INNER_FLAME, "Inner Flame",
     spschool::hexes | spschool::fire,
     spflag::target | spflag::not_self | spflag::WL_check | spflag::destructive,
-    3,
+    1,
     100,
     LOS_RADIUS, LOS_RADIUS,
     0,

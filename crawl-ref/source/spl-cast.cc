@@ -1018,6 +1018,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
     case SPELL_POISONOUS_CLOUD:
     case SPELL_HOLY_BREATH:
         return make_unique<targeter_cloud>(&you, range);
+    case SPELL_STEAM_BURST:
+        return make_unique<targeter_cloud>(&you, 1);
     case SPELL_THUNDERBOLT:
         return make_unique<targeter_thunderbolt>(&you, range,
                    get_thunderbolt_last_aim(&you));
@@ -2354,6 +2356,7 @@ string spell_max_damage_string(spell_type spell)
     {
     case SPELL_MAXWELLS_COUPLING:
     case SPELL_FREEZING_CLOUD:
+    case SPELL_STEAM_BURST:
         // These have damage strings, but don't scale with power.
         return "";
     default:
@@ -2378,6 +2381,8 @@ string spell_damage_string(spell_type spell, bool evoked, int pow)
             return Options.char_set == CSET_ASCII ? "death" : "\u221e"; //"∞"
         case SPELL_FREEZING_CLOUD:
             return desc_cloud_damage(CLOUD_COLD, false);
+        case SPELL_STEAM_BURST:
+            return desc_cloud_damage(CLOUD_STEAM, false);
         case SPELL_DISCHARGE:
         {
             const int max = discharge_max_damage(pow);

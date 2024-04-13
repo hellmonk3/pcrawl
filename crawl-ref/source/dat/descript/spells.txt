@@ -1346,6 +1346,12 @@ Steam Ball spell
 
 Throws a ball of hot steam towards a targeted creature.
 %%%%
+Steam Burst spell
+
+Condenses, then superheats water from the atmosphere into a cloud of hot, opaque
+steam centered on the caster. The caster is not immune to the cloud;
+caution is advised.
+%%%%
 Sticky Flame Range spell
 
 Launches a glob of sticky flame, covering a targeted creature with liquid fire

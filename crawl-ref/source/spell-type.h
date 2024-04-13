@@ -563,5 +563,6 @@ enum spell_type : int
     SPELL_TOXIC_DART,
     SPELL_FUNERAL_DIRGE,
     SPELL_FLAME_LANCE,
+    SPELL_STEAM_BURST,
     NUM_SPELLS
 };

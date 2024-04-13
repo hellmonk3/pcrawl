@@ -152,6 +152,21 @@ spret cast_big_c(int pow, spell_type spl, const actor *caster, bolt &beam,
     return spret::success;
 }
 
+spret cast_steam_burst(int pow, bool fail)
+{
+    if (cloud_at(you.pos()))
+    {
+        mpr("You're already standing in a cloud!");
+        return spret::abort;
+    }
+    
+    fail_check();
+    mpr("Steam erupts around you!");
+    int size = 8 + div_rand_round(pow, 6);
+    big_cloud(CLOUD_STEAM, &you, you.pos(), pow, size, -1);
+    return spret::success;
+}
+
 /*
  * A cloud_func that places an individual cloud as part of a cloud area. This
  * function is called by apply_area_cloud();
@@ -173,7 +188,7 @@ static int _make_a_normal_cloud(coord_def where, int pow, int spread_rate,
                                 int excl_rad)
 {
     place_cloud(ctype, where,
-                (3 + random2(pow / 4) + random2(pow / 4) + random2(pow / 4)),
+                (3 + random2(pow / 2) + random2(pow / 2) + random2(pow / 2)),
                 agent, spread_rate, excl_rad);
 
     return 1;

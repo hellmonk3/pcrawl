@@ -2209,6 +2209,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_FLAME_LANCE:
         return cast_flame_lance(powc, fail);
+        
+    case SPELL_STEAM_BURST:
+        return cast_steam_burst(powc, fail);
 
     // non-player spells that have a zap, but that shouldn't be called (e.g
     // because they will crash as a player zap).

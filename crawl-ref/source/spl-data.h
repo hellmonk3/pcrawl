@@ -3664,6 +3664,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_STEAM_BURST, "Steam Burst",
+    spschool::ice | spschool::fire | spschool::air,
+    spflag::area | spflag::destructive | spflag::cloud,
+    2,
+    200,
+    -1, -1,
+    0,
+    TILEG_STEAM_BURST,
+},
+
+{
     SPELL_FUNERAL_DIRGE, "Funeral Dirge",
     spschool::necromancy,
     spflag::area | spflag::monster,

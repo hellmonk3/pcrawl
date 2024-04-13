@@ -41,6 +41,7 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_MAGIC_DART,
     SPELL_FIREBALL,
     SPELL_CALL_IMP,
+    SPELL_STEAM_BURST,
     SPELL_MEPHITIC_CLOUD,
     SPELL_FLAME_LANCE,
     SPELL_PLASMA_BEAM,

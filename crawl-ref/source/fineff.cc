@@ -599,6 +599,7 @@ void explosion_fineff::fire()
             }
 
             act->move_to_pos(newpos);
+            act->stun(beam.agent());
             if (act->is_player())
                 stop_delay(true);
             if (you.can_see(*act))

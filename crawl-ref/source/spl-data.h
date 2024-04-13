@@ -74,7 +74,7 @@ static const struct spell_desc spelldata[] =
     SPELL_BLASTMOTE, "Volatile Blastmotes",
     spschool::fire | spschool::translocation,
     spflag::destructive,
-    3,
+    2,
     50,
     -1, -1,
     0,

@@ -1784,7 +1784,7 @@ void explosive_brand(actor *wielder, coord_def where, int pow)
 
 dice_def scorch_damage(int pow)
 {
-    return dice_def(1, 8 + pow);
+    return dice_def(1, 6 + pow);
 }
 
 static void _animate_scorch(coord_def p)

@@ -2211,7 +2211,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_FLAME_LANCE:
         return cast_flame_lance(powc, fail);
-        
+
     case SPELL_STEAM_BURST:
         return cast_steam_burst(powc, fail);
 

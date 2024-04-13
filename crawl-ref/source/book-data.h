@@ -45,6 +45,7 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_MEPHITIC_CLOUD,
     SPELL_FLAME_LANCE,
     SPELL_PLASMA_BEAM,
+    SPELL_MAGMA_JET,
 },
 
 {   // Book of Conjurations

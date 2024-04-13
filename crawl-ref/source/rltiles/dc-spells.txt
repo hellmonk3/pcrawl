@@ -73,6 +73,7 @@ flame_wave FLAME_WAVE
 plasma_beam PLASMA_BEAM
 flame_lance FLAME_LANCE
 steam_burst STEAM_BURST
+magma_jet MAGMA_JET
 
 %sdir gui/spells/ice
 bolt_of_cold BOLT_OF_COLD

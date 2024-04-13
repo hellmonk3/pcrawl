@@ -564,5 +564,6 @@ enum spell_type : int
     SPELL_FUNERAL_DIRGE,
     SPELL_FLAME_LANCE,
     SPELL_STEAM_BURST,
+    SPELL_MAGMA_JET,
     NUM_SPELLS
 };

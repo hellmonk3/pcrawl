@@ -1798,7 +1798,7 @@ static void _animate_scorch(coord_def p)
         view_add_glyph_overlay(p, {dchar_glyph(DCHAR_FIRED_ZAP),
                                    static_cast<unsigned short>(RED)});
 
-    animation_delay(50, true);
+    animation_delay(25, true);
 }
 
 spret cast_scorch(int pow, bool fail)

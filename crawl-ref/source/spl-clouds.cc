@@ -159,7 +159,7 @@ spret cast_steam_burst(int pow, bool fail)
         mpr("You're already standing in a cloud!");
         return spret::abort;
     }
-    
+
     fail_check();
     mpr("Steam erupts around you!");
     int size = 8 + div_rand_round(pow, 6);

@@ -3675,6 +3675,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_MAGMA_JET, "Magma Jet",
+    spschool::earth | spschool::fire,
+    spflag::dir_or_target | spflag::needs_tracer | spflag::destructive,
+    4,
+    200,
+    5, 5,
+    0,
+    TILEG_MAGMA_JET,
+},
+
+{
     SPELL_FUNERAL_DIRGE, "Funeral Dirge",
     spschool::necromancy,
     spflag::area | spflag::monster,

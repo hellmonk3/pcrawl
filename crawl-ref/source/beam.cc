@@ -2683,6 +2683,7 @@ void bolt::affect_ground()
     if (is_tracer)
         return;
 
+    affect_place_terrain();
     affect_place_clouds();
 
 }
@@ -2740,6 +2741,19 @@ bool bolt::can_affect_wall(const coord_def& p, bool map_knowledge) const
         return true; // smite targeting, we don't care
 
     return false;
+}
+
+void bolt::affect_place_terrain()
+{
+    const coord_def p = pos();
+
+    if (origin_spell == SPELL_MAGMA_JET)
+    {
+        // no automatic lava kills
+        if (!monster_at(p))
+            temp_change_terrain(p, DNGN_LAVA, random_range(150, 300),
+                TERRAIN_CHANGE_FLOOD, agent() ? agent()->mid : MID_NOBODY);
+    }
 }
 
 void bolt::affect_place_clouds()

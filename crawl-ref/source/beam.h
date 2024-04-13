@@ -271,6 +271,7 @@ private:
     void growth_wall_effect();
     void burn_wall_effect();
     void affect_ground();
+    void affect_place_terrain();
     void affect_place_clouds();
     void affect_place_explosion_clouds();
     int range_used(bool leg_only = false) const;

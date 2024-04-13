@@ -865,6 +865,12 @@ Magic Dart spell
 
 Fires a small bolt of magical energy which never misses.
 %%%%
+Magma Jet spell
+
+Releases a powerful jet of magma from deep within the earth. Half of its damage
+bypasses fire resistance. Any unoccupied space in the beam's path will be
+covered in lava for a short duration.
+%%%%
 Major Destruction spell
 
 Shoots a random harmful beam or explosion at the targeted creature.

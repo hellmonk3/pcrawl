@@ -577,7 +577,7 @@ void explosion_fineff::fire()
 
     if (typ == EXPLOSION_FINEFF_CONCUSSION)
     {
-        for (adjacent_iterator ai(beam.target); ai; ++ai)
+        for (fair_adjacent_iterator ai(beam.target); ai; ++ai)
         {
             actor *act = actor_at(*ai);
             if (!act

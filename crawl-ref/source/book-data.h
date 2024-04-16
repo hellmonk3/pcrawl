@@ -467,9 +467,9 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 { // Great Wizards, Vol. II
+    SPELL_NOXIOUS_BOG,
     SPELL_INTOXICATE,
     SPELL_BORGNJORS_VILE_CLUTCH,
-    SPELL_NOXIOUS_BOG,
 },
 
 { // Great Wizards, Vol. VII

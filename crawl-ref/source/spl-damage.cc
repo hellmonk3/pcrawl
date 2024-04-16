@@ -4327,7 +4327,7 @@ spret cast_imb(int pow, bool fail)
 
 dice_def toxic_bog_damage()
 {
-    return dice_def(2, 6);
+    return dice_def(2, 7);
 }
 
 void actor_apply_toxic_bog(actor * act)
@@ -4779,4 +4779,36 @@ void handle_flame_lance_movement(coord_def move)
     beam.target = you.pos() + move;
     zappy(ZAP_BOLT_OF_FIRE, pow, false, beam);
     beam.fire();
+}
+
+spret cast_sandblast(int pow, bool fail, bool tracer)
+{
+    const int r =  spell_range(SPELL_SANDBLAST,pow);
+    actor* act = _find_closest_target(you, r, false);
+    if (!act)
+    {
+        if (tracer)
+            return spret::abort;
+        
+        canned_msg(MSG_NOTHING_HAPPENS);
+        return spret::success;
+    }
+    
+    if(tracer)
+        return spret::success;
+    
+    fail_check();
+    
+    bolt beam;
+    beam.set_agent(&you);
+    beam.range              = r;
+    beam.source             = you.pos();
+    beam.thrower            = KILL_YOU;
+    beam.origin_spell       = SPELL_SANDBLAST;
+    beam.is_tracer          = false;
+    beam.target             = act->pos();
+    zappy(ZAP_SANDBLAST, pow, false, beam);  
+    beam.fire();
+    
+    return spret::success;
 }

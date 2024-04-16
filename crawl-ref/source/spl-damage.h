@@ -158,3 +158,5 @@ void do_boulder_impact(monster& boulder, actor& victim);
 
 spret cast_flame_lance(int powc, bool fail);
 void handle_flame_lance_movement(coord_def move);
+
+spret cast_sandblast(int pow, bool fail, bool tracer = false);

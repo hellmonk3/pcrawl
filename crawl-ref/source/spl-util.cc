@@ -1609,11 +1609,14 @@ bool spell_no_hostile_in_range(spell_type spell)
     case SPELL_DAZZLING_FLASH:
         return cast_dazzling_flash(pow, false, true) == spret::abort;
 
-     case SPELL_MAXWELLS_COUPLING:
+    case SPELL_MAXWELLS_COUPLING:
          return cast_maxwells_coupling(pow, false, true) == spret::abort;
 
-     case SPELL_INTOXICATE:
+    case SPELL_INTOXICATE:
          return cast_intoxicate(-1, false, true) == spret::abort;
+         
+    case SPELL_SANDBLAST:
+        return cast_sandblast(-1, false, true) == spret::abort;
 
     case SPELL_MANIFOLD_ASSAULT:
          return cast_manifold_assault(-1, false, false) == spret::abort;

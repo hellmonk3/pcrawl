@@ -1250,8 +1250,7 @@ spret cast_summon_forest(actor* caster, int pow, god_type god, bool fail, bool t
     if (test)
         return spret::success;
 
-    const int duration = random_range(120 + pow,
-                                      200 + div_rand_round(pow * 3, 2));
+    const int duration = random_range(120 + pow * 4, 200 + pow * 6);
 
     // Hm, should dryads have rPois?
     if (stop_summoning_prompt(MR_NO_FLAGS, M_NO_FLAGS, "summon a forest"))
@@ -1307,7 +1306,7 @@ spret cast_summon_forest(actor* caster, int pow, god_type god, bool fail, bool t
 
     mgen_data dryad_data = _pal_data(MONS_DRYAD, 1, god,
                                      SPELL_SUMMON_FOREST);
-    dryad_data.hd = 5 + div_rand_round(pow, 18);
+    dryad_data.hd = 3;
 
     if (monster *dryad = create_monster(dryad_data))
     {

@@ -86,7 +86,7 @@ static const struct spell_desc spelldata[] =
     spschool::earth,
     spflag::dir_or_target | spflag::not_self | spflag::neutral
         | spflag::utility,
-    4,
+    7,
     200,
     LOS_RADIUS, LOS_RADIUS,
     4,
@@ -146,6 +146,17 @@ static const struct spell_desc spelldata[] =
     LOS_RADIUS, LOS_RADIUS,
     20,
     TILEG_PLASMA_BEAM,
+},
+
+{
+    SPELL_PERMAFROST_ERUPTION, "Permafrost Eruption",
+    spschool::ice | spschool::earth,
+    spflag::destructive,
+    6,
+    200,
+    6, 6, // reduce cases of hitting something outside LOS
+    0,
+    TILEG_BOLT_OF_COLD,
 },
 
 {
@@ -1021,12 +1032,12 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_PASSWALL, "Passwall",
-    spschool::transmutation | spschool::earth,
+    spschool::earth,
     spflag::target | spflag::escape | spflag::not_self | spflag::utility
         | spflag::silent,
     2,
     120,
-    1, 7,
+    3, 3,
     0,
     TILEG_PASSWALL,
 },
@@ -2440,9 +2451,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_SUMMON_FOREST, "Summon Forest",
-    spschool::summoning | spschool::translocation,
+    spschool::summoning | spschool::translocation | spschool::earth,
     spflag::none,
-    5,
+    2,
     200,
     -1, -1,
     10,

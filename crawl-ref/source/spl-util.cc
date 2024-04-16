@@ -502,7 +502,8 @@ bool spell_is_direct_attack(spell_type spell)
         || spell == SPELL_STARBURST
         || spell == SPELL_HAILSTORM
         || spell == SPELL_MANIFOLD_ASSAULT
-        || spell == SPELL_MAXWELLS_COUPLING) // n.b. not an area spell
+        || spell == SPELL_MAXWELLS_COUPLING
+        || spell == SPELL_PERMAFROST_ERUPTION) // n.b. not an area spell
     {
         return true;
     }
@@ -1657,6 +1658,11 @@ bool spell_no_hostile_in_range(spell_type spell)
 
         }
         return true; // TODO
+
+    case SPELL_PERMAFROST_ERUPTION:
+        return permafrost_targets(you, pow).empty();
+
+
 
     default:
         break;

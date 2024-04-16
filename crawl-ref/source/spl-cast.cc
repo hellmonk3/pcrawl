@@ -1191,6 +1191,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
                                                    find_sigil_locations(true));
     case SPELL_BOULDER:
         return make_unique<targeter_boulder>(&you);
+    case SPELL_PERMAFROST_ERUPTION:
+        return make_unique<targeter_permafrost>(you, pow);
 
     default:
         break;
@@ -2209,6 +2211,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_BOULDER:
         return cast_broms_barrelling_boulder(you, beam.target, powc, fail);
 
+    case SPELL_PERMAFROST_ERUPTION:
+        return cast_permafrost_eruption(you, powc, fail);
+
     case SPELL_FLAME_LANCE:
         return cast_flame_lance(powc, fail);
 
@@ -2401,6 +2406,7 @@ string spell_damage_string(spell_type spell, bool evoked, int pow)
     {
         case SPELL_FOXFIRE:
         case SPELL_PLASMA_BEAM:
+        case SPELL_PERMAFROST_ERUPTION:
             mult = "2x";
             break;
         case SPELL_CONJURE_BALL_LIGHTNING:

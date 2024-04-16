@@ -1053,9 +1053,19 @@ gateways close a short time after being opened, or immediately once entered.
 %%%%
 Passwall spell
 
-Tunes the caster's body such that it can instantly pass through solid rock.
-It takes some time for the caster to attune to the rock, during which they will
-be helpless.
+Tunes the caster's body such that it can instantly pass through solid rock, up
+to three tiles of distance. It takes some time for the caster to attune to the
+rock, increasing with the distance traveled, during which they will be helpless.
+%%%%
+Permafrost Eruption spell
+
+Calls on the ancient cold lurking within the earth to emerge - violently. The
+force of its emergence blasts rock from the ceiling, smashing into the target
+with unavoidable force. The cold itself is brief but unbearably bitter,
+bypassing armour entirely as it freezes the target and their neighbours.
+
+It will always attempt to blast the largest concentration of foes in sight, and
+never explodes next to the caster.
 %%%%
 Petrify spell
 
@@ -1460,10 +1470,10 @@ Summons one or more fire elementals.
 Summon Forest spell
 
 Forcefully intersects a forested plane with this world. It requires open space
-to succeed. While the spell holds, a spirit of the forest will be called forth,
+to succeed. While the spell holds, a dryad will be called forth,
 and the trees of the forest will be awakened to deal damage to nearby enemies.
 Spell power increases the duration, size, and thickness of the intersected
-plane; as well as the strength of the spirit.
+plane.
 %%%%
 Summon Greater Demon spell
 

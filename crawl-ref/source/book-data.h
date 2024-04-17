@@ -47,6 +47,7 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_PLASMA_BEAM,
     SPELL_PERMAFROST_ERUPTION,
     SPELL_MAGMA_JET,
+    SPELL_TOMB_OF_DOROKLOHE,
     SPELL_DIG,
 },
 
@@ -188,8 +189,8 @@ static const vector<spell_type> spellbook_templates[] =
 #endif
 
 {   // Book of Unlife
-    SPELL_ANIMATE_DEAD,
     SPELL_BORGNJORS_VILE_CLUTCH,
+    SPELL_ANIMATE_DEAD,
     SPELL_DEATH_CHANNEL,
 },
 
@@ -468,8 +469,8 @@ static const vector<spell_type> spellbook_templates[] =
 
 { // Great Wizards, Vol. II
     SPELL_NOXIOUS_BOG,
-    SPELL_INTOXICATE,
     SPELL_BORGNJORS_VILE_CLUTCH,
+    SPELL_INTOXICATE,
 },
 
 { // Great Wizards, Vol. VII

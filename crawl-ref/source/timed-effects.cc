@@ -762,7 +762,7 @@ monster* update_monster(monster& mon, int turns)
     return &mon;
 }
 
-static void _drop_tomb(const coord_def& pos, bool premature, bool zin)
+static void _drop_tomb(const coord_def& pos, bool zin)
 {
     int count = 0;
     monster* mon = monster_at(pos);
@@ -805,7 +805,7 @@ static void _drop_tomb(const coord_def& pos, bool premature, bool zin)
     if (count)
     {
         if (seen_change && !zin)
-            mprf("The walls disappear%s!", premature ? " prematurely" : "");
+            mprf("The walls disappear!");
         else if (seen_change && zin)
         {
             mprf("Zin %s %s %s.",
@@ -926,24 +926,11 @@ void timeout_tombs(int duration)
         cmark->duration -= duration;
 
         // Empty tombs disappear early.
-        monster* mon_entombed = monster_at(cmark->pos);
-        bool empty_tomb = !(mon_entombed || you.pos() == cmark->pos);
         bool zin = (cmark->source == -GOD_ZIN);
 
-        if (cmark->duration <= 0 || empty_tomb)
+        if (cmark->duration <= 0)
         {
-            _drop_tomb(cmark->pos, empty_tomb, zin);
-
-            monster* mon_src =
-                !invalid_monster_index(cmark->source) ? &env.mons[cmark->source]
-                                                      : nullptr;
-            // A monster's Tomb of Doroklohe spell.
-            if (mon_src
-                && mon_src == mon_entombed)
-            {
-                mon_src->lose_energy(EUT_SPELL);
-            }
-
+            _drop_tomb(cmark->pos, zin);
             env.markers.remove(cmark);
         }
     }

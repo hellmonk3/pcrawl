@@ -4789,16 +4789,16 @@ spret cast_sandblast(int pow, bool fail, bool tracer)
     {
         if (tracer)
             return spret::abort;
-        
+
         canned_msg(MSG_NOTHING_HAPPENS);
         return spret::success;
     }
-    
-    if(tracer)
+
+    if (tracer)
         return spret::success;
-    
+
     fail_check();
-    
+
     bolt beam;
     beam.set_agent(&you);
     beam.range              = r;
@@ -4807,8 +4807,8 @@ spret cast_sandblast(int pow, bool fail, bool tracer)
     beam.origin_spell       = SPELL_SANDBLAST;
     beam.is_tracer          = false;
     beam.target             = act->pos();
-    zappy(ZAP_SANDBLAST, pow, false, beam);  
+    zappy(ZAP_SANDBLAST, pow, false, beam);
     beam.fire();
-    
+
     return spret::success;
 }

@@ -8,12 +8,16 @@
 
 #include "spl-monench.h"
 
+#include "beam.h"
+#include "coordit.h"
 #include "english.h" // apostrophise
 #include "env.h"
+#include "fight.h"
 #include "message.h"
 #include "spl-util.h"
 #include "stringutil.h" // make_stringf
 #include "terrain.h"
+#include "viewchar.h"
 
 int englaciate(coord_def where, int pow, actor *agent)
 {
@@ -159,14 +163,56 @@ bool enfeeble_monster(monster &mon, int pow)
     return simple_monster_message(mon, " is enfeebled!");
 }
 
-spret cast_vile_clutch(int pow, bolt &beam, bool fail)
+spret cast_vile_clutch(int pow, bool fail, bool tracer)
 {
-    spret result = zapping(ZAP_VILE_CLUTCH, pow, beam, true, nullptr, fail);
+    int range = spell_range(SPELL_BORGNJORS_VILE_CLUTCH, pow);
+    auto hitfunc = find_spell_targeter(SPELL_BORGNJORS_VILE_CLUTCH, pow, range);
+    bool (*vulnerable) (const actor *) = [](const actor * act) -> bool
+    {
+        return act->is_monster() && !act->as_monster()->is_insubstantial();
+    };
 
-    if (result == spret::success)
-        you.props[VILE_CLUTCH_POWER_KEY].get_int() = pow;
+    if (tracer)
+    {
+        for (radius_iterator ri(you.pos(), range, C_SQUARE, LOS_SOLID_SEE, true); ri; ++ri)
+        {
+            if (!in_bounds(*ri))
+                continue;
 
-    return result;
+            const monster* mon = monster_at(*ri);
+
+            if (!mon || !you.can_see(*mon))
+                continue;
+
+            if (!mon->friendly() && (*vulnerable)(mon))
+                return spret::success;
+        }
+
+        return spret::abort;
+    }
+
+    if (stop_attack_prompt(*hitfunc, "clutch", vulnerable))
+        return spret::abort;
+
+    fail_check();
+    mpr("Decaying hands burst forth from the earth!");
+
+    bolt beam;
+    beam.name         = "vile clutch";
+    beam.aux_source   = "vile_clutch";
+    beam.flavour      = BEAM_VILE_CLUTCH;
+    beam.glyph        = dchar_glyph(DCHAR_FIRED_BURST);
+    beam.colour       = GREEN;
+    beam.source_id    = MID_PLAYER;
+    beam.thrower      = KILL_YOU;
+    beam.is_explosion = true;
+    beam.ex_size      = 2;
+    beam.ench_power   = pow;
+    beam.origin_spell = SPELL_BORGNJORS_VILE_CLUTCH;
+    beam.loudness = 0;
+    beam.explode(true, true);
+
+    return spret::success;
 }
 
 string mons_simulacrum_immune_reason(const monster *mons)

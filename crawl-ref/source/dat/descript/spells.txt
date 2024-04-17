@@ -1628,9 +1628,9 @@ Creates an arc of electricity.
 %%%%
 Tomb of Doroklohe spell
 
-Entombs the caster within walls of rock. These walls will push away objects in
-their way, but their growth is obstructed by the presence of any creature. They
-are not permanent, and will expire after a period of time.
+Entombs the caster within walls of rock. These walls will grow in any open tile,
+but are obstructed by the presence of creatures or other objects. The walls will
+expire after a period of time; spellpower increases the duration of the effect.
 %%%%
 Toxic Dart spell
 

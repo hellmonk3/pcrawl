@@ -1614,7 +1614,7 @@ bool spell_no_hostile_in_range(spell_type spell)
 
     case SPELL_INTOXICATE:
          return cast_intoxicate(-1, false, true) == spret::abort;
-         
+
     case SPELL_SANDBLAST:
         return cast_sandblast(-1, false, true) == spret::abort;
 
@@ -1948,7 +1948,6 @@ const set<spell_type> removed_spells =
     SPELL_SUNRAY,
     SPELL_SURE_BLADE,
     SPELL_THROW,
-    SPELL_TOMB_OF_DOROKLOHE,
     SPELL_VAMPIRE_SUMMON,
     SPELL_WARP_BRAND,
     SPELL_WEAVE_SHADOWS,

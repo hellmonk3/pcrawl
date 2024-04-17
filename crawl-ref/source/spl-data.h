@@ -3133,11 +3133,11 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_BORGNJORS_VILE_CLUTCH, "Borgnjor's Vile Clutch",
     spschool::necromancy | spschool::earth,
-    spflag::dir_or_target | spflag::needs_tracer,
-    5,
+    spflag::area,
+    3,
     200,
-    6, 6,
-    5,
+    2, 2,
+    0,
     TILEG_BORGNJORS_VILE_CLUTCH,
 },
 
@@ -3707,6 +3707,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_TOMB_OF_DOROKLOHE, "Tomb of Doroklohe",
+    spschool::earth | spschool::enchantments,
+    spflag::none,
+    5,
+    200,
+    -1, -1,
+    10,
+    TILEG_TOMB_OF_DOROKLOHE,
+},
+
+{
     SPELL_NO_SPELL, "nonexistent spell",
     spschool::none,
     spflag::testing,
@@ -3805,7 +3816,6 @@ AXED_SPELL(SPELL_HYDRA_FORM, "Hydra Form")
 AXED_SPELL(SPELL_VORTEX, "Vortex")
 AXED_SPELL(SPELL_GOAD_BEASTS, "Goad Beasts")
 AXED_SPELL(SPELL_TELEPORT_SELF, "Teleport Self")
-AXED_SPELL(SPELL_TOMB_OF_DOROKLOHE, "Tomb of Doroklohe")
 AXED_SPELL(SPELL_EXCRUCIATING_WOUNDS, "Excruciating Wounds")
 AXED_SPELL(SPELL_CONJURE_FLAME, "Conjure Flame")
 AXED_SPELL(SPELL_CORPSE_ROT, "Corpse Rot")

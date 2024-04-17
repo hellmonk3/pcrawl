@@ -835,10 +835,6 @@ spret cast_tomb(int pow, actor* victim, int source, bool fail)
     veto_spots = adj_spots;
     for (adjacent_iterator ai(where); ai; ++ai)
     {
-        // This is where power comes in.
-        if (!zin && one_chance_in(pow / 3))
-            continue;
-
         // The tile is occupied.
         if (zin && actor_at(*ai))
         {
@@ -853,18 +849,14 @@ spret cast_tomb(int pow, actor* victim, int source, bool fail)
         if (!zin && monster_at(*ai))
             proceed = false;
 
+        if (trap_at(*ai))
+            proceed = false;
+
         if (proceed)
         {
             // All items are moved aside for zin, tomb just skips the tile.
             if (env.igrid(*ai) != NON_ITEM && zin)
                 push_items_from(*ai, &adj_spots);
-
-            // All traps are destroyed.
-            if (trap_def *ptrap = trap_at(*ai))
-            {
-                ptrap->destroy();
-                env.grid(*ai) = DNGN_FLOOR;
-            }
 
             // Actually place the wall.
             if (zin)
@@ -914,7 +906,7 @@ spret cast_tomb(int pow, actor* victim, int source, bool fail)
 
         you.update_beholders();
         you.update_fearmongers();
-        const int tomb_duration = BASELINE_DELAY * pow;
+        const int tomb_duration = max(300, BASELINE_DELAY * (10 + random2(pow)));
         env.markers.add(new map_tomb_marker(where,
                                             tomb_duration,
                                             source,

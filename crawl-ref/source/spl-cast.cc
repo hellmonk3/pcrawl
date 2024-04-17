@@ -1059,6 +1059,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
         return make_unique<targeter_radius>(&you, LOS_NO_TRANS, range, 0, 2);
     case SPELL_ISKENDERUNS_MYSTIC_BLAST:
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
+    case SPELL_BORGNJORS_VILE_CLUTCH:
+        return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
     case SPELL_STARBURST:
         return make_unique<targeter_starburst>(&you, range, pow);
     case SPELL_IRRADIATE:
@@ -1109,6 +1111,7 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
     case SPELL_SUBLIMATION_OF_BLOOD:
     case SPELL_BORGNJORS_REVIVIFICATION:
     case SPELL_BLASTMOTE:
+    case SPELL_TOMB_OF_DOROKLOHE:
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, 0);
 
     // LOS radius:
@@ -2113,7 +2116,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
         return cast_englaciation(powc, fail);
 
     case SPELL_BORGNJORS_VILE_CLUTCH:
-        return cast_vile_clutch(powc, beam, fail);
+        return cast_vile_clutch(powc, fail);
 
     case SPELL_ROT:
         return cast_dreadful_rot(powc, fail);
@@ -2150,6 +2153,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_BLASTMOTE:
         return kindle_blastmotes(powc, fail);
+
+    case SPELL_TOMB_OF_DOROKLOHE:
+        return cast_tomb(powc, &you, you.mindex(), fail);
 
     case SPELL_PASSWALL:
         return cast_passwall(beam.target, powc, fail);

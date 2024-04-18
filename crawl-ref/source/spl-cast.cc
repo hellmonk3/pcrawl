@@ -1061,6 +1061,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
     case SPELL_BORGNJORS_VILE_CLUTCH:
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
+    case SPELL_WARP_GRAVITY:
+        return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
     case SPELL_STARBURST:
         return make_unique<targeter_starburst>(&you, range, pow);
     case SPELL_IRRADIATE:
@@ -1987,6 +1989,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_WARP_GRAVITY:
         return warp_gravity(powc, fail);
+
+    case SPELL_FORCE_QUAKE:
+        return cast_force_quake(fail);
 
     case SPELL_LEDAS_LIQUEFACTION:
         return cast_liquefaction(powc, fail);

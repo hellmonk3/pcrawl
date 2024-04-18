@@ -407,6 +407,8 @@ static dice_def _spell_damage(spell_type spell, int hd)
             return polar_vortex_dice(pow, false);
         case SPELL_WARP_GRAVITY:
             return gravity_damage(pow);
+        case SPELL_FORCE_QUAKE:
+            return force_quake_damage(pow);
         default:
             break;
     }

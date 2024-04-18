@@ -3729,6 +3729,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_FORCE_QUAKE, "Force Quake",
+    spschool::earth | spschool::translocation,
+    spflag::none,
+    1,
+    200,
+    -1, -1,
+    0,
+    TILEG_FORCE_LANCE,
+},
+
+{
     SPELL_NO_SPELL, "nonexistent spell",
     spschool::none,
     spflag::testing,

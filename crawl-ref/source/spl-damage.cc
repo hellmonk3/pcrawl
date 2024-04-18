@@ -3862,6 +3862,92 @@ void end_searing_ray()
     you.props.erase(SEARING_RAY_AIM_SPOT_KEY);
 }
 
+void handle_force_quake()
+{
+    if (you.attribute[ATTR_FORCE_QUAKE] < 1)
+        return;
+
+    force_quake();
+}
+
+dice_def force_quake_damage(int pow, bool random)
+{
+    return random ? dice_def(1, 8 + div_rand_round(pow, 2))
+                  : dice_def(1, 8 + pow / 2);
+}
+
+static int _quake_cell(coord_def where, int pow, bool knockback)
+{
+    monster *mons = monster_at(where);
+    if (!mons)
+        return 0;
+
+    bolt beam;
+    beam.name = knockback ? "aftershock" : "quake";
+    beam.flavour = BEAM_MMISSILE;
+    beam.set_agent(&you);
+    beam.range = LOS_RADIUS;
+    beam.source = you.pos();
+    beam.target = where;
+    beam.ench_power = 1 + pow;
+    beam.hit = AUTOMATIC_HIT;
+    beam.damage = force_quake_damage(pow, true);
+    beam.fire();
+
+    return 1;
+}
+
+void force_quake()
+{
+    ASSERT_RANGE(you.attribute[ATTR_FORCE_QUAKE], 1, 4);
+
+    bool knockback = false;
+
+    if (++you.attribute[ATTR_FORCE_QUAKE] > 3)
+        knockback = true;
+
+    bolt beam;
+    beam.name = "force quake";
+    beam.flavour = BEAM_VISUAL;
+    beam.origin_spell = SPELL_FORCE_QUAKE;
+    beam.set_agent(&you);
+    beam.colour = ETC_EARTH;
+    beam.glyph = dchar_glyph(DCHAR_EXPLOSION);
+    beam.range = 1;
+    beam.ex_size = 1;
+    beam.is_explosion = true;
+    beam.explode_delay = beam.explode_delay * 1 / 2;
+    beam.source = you.pos();
+    beam.target = you.pos();
+    beam.hit = AUTOMATIC_HIT;
+    beam.loudness = 0;
+    beam.explode(true, true);
+
+    int pow = calc_spell_power(SPELL_FORCE_QUAKE);
+
+    apply_random_around_square([pow, knockback] (coord_def where) {
+        return _quake_cell(where, pow, knockback);
+    }, you.pos(), true, 8);
+
+    if (knockback)
+        you.attribute[ATTR_FORCE_QUAKE] = 0;
+}
+
+spret cast_force_quake(bool fail)
+{
+    if (you.attribute[ATTR_FORCE_QUAKE] > 0)
+    {
+        mprf("You are already unleashing a force quake!");
+        return spret::abort;
+    }
+
+    fail_check();
+
+    you.attribute[ATTR_FORCE_QUAKE] = 1;
+
+    return spret::success;
+}
+
 /**
  * Can a casting of Glaciate by the player injure the given creature?
  *

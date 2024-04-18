@@ -4781,7 +4781,7 @@ void bolt::knockback_actor(actor *act, int dam)
     const monster_type montyp = act->is_monster() ? act->type
                                                   : you.mons_species();
     const int weight = max_corpse_chunks(montyp);
-    const int roll = origin_spell == SPELL_FORCE_LANCE
+    const int roll = origin_spell == SPELL_FORCE_QUAKE
                      ? 7 + ench_power
                      : 17;
     const int dist = binomial(max_dist, roll - weight, roll); // This is silly! -- PF
@@ -6250,7 +6250,8 @@ bool bolt::explode(bool show_more, bool hole_in_the_middle)
 
         // Not an "explosion", but still a bit noisy at the target location.
         if (origin_spell == SPELL_INFESTATION
-            || origin_spell == SPELL_DAZZLING_FLASH)
+            || origin_spell == SPELL_DAZZLING_FLASH
+            || origin_spell == SPELL_FORCE_QUAKE)
         {
             loudness = spell_effect_noise(origin_spell);
         }
@@ -6829,6 +6830,9 @@ string bolt::get_source_name() const
 */
 bool bolt::can_knockback(int dam) const
 {
+    if (name == "aftershock" && dam)
+        return true;
+
     switch (origin_spell)
     {
     case SPELL_PRIMAL_WAVE:

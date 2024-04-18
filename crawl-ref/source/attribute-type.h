@@ -105,5 +105,6 @@ enum attribute_type
     ATTR_WALL_JUMP_READY,      // Ready to perform a wall jump.
 #endif
     ATTR_DEATHS_DOOR_HP,       // How much HP we should have under Death's Door
+    ATTR_FORCE_QUAKE,          // Track what hit of force quake we're on
     NUM_ATTRIBUTES
 };

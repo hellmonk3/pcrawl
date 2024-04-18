@@ -138,6 +138,10 @@ bool wait_spell_active(spell_type spell);
 spret cast_searing_ray(int pow, bolt &beam, bool fail);
 void handle_searing_ray();
 void end_searing_ray();
+void handle_force_quake();
+spret cast_force_quake(bool fail);
+void force_quake();
+dice_def force_quake_damage(int pow, bool random = false);
 
 vector<monster *> find_maxwells_possibles();
 spret cast_maxwells_coupling(int pow, bool fail, bool tracer = false);

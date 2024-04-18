@@ -17,11 +17,13 @@
 #include "art-enum.h"
 #include "artefact.h"
 #include "cloud.h"
+#include "colour.h"
 #include "coordit.h"
 #include "delay.h"
 #include "directn.h"
 #include "dungeon.h"
 #include "english.h"
+#include "fight.h"
 #include "god-abil.h" // fedhas_passthrough for armataur charge
 #include "item-prop.h"
 #include "items.h"
@@ -41,6 +43,7 @@
 #include "orb.h"
 #include "output.h"
 #include "prompt.h"
+#include "random.h"
 #include "religion.h"
 #include "shout.h"
 #include "spl-damage.h" // cancel_polar_vortex
@@ -1515,7 +1518,7 @@ int gravitas_range(int pow)
 #define GRAVITY "by gravitational forces"
 
 static void _attract_actor(const actor* agent, actor* victim,
-                           const coord_def pos, int pow, int strength)
+                           const coord_def pos, int strength)
 {
     ASSERT(victim); // XXX: change to actor &victim
     const bool fedhas_prot = victim->is_monster()
@@ -1527,20 +1530,9 @@ static void _attract_actor(const actor* agent, actor* victim,
         // This probably shouldn't ever happen, but just in case:
         if (you.can_see(*victim))
         {
-            mprf("%s violently %s moving!",
+            mprf("%s %s moving!",
                  victim->name(DESC_THE).c_str(),
                  victim->conj_verb("stop").c_str());
-        }
-        if (fedhas_prot)
-        {
-            simple_god_message(
-                make_stringf(" protects %s from harm.",
-                    agent->is_player() ? "your" : "a").c_str(), GOD_FEDHAS);
-        }
-        else
-        {
-            victim->hurt(agent, roll_dice(strength / 2, pow / 20),
-                         BEAM_MMISSILE, KILLED_BY_BEAM, "", GRAVITY);
         }
         return;
     }
@@ -1552,16 +1544,9 @@ static void _attract_actor(const actor* agent, actor* victim,
         const coord_def newpos = ray.pos();
 
         if (!victim->can_pass_through_feat(env.grid(newpos)))
-        {
-            victim->collide(newpos, agent, pow);
             break;
-        }
-        else if (actor* act_at_space = actor_at(newpos))
-        {
-            if (victim != act_at_space)
-                victim->collide(newpos, agent, pow);
+        else if (actor_at(newpos))
             break;
-        }
         else if (!victim->is_habitable(newpos))
             break;
         else
@@ -1610,12 +1595,89 @@ bool fatal_attraction(const coord_def& pos, const actor *agent, int pow)
     for (actor * ai : victims)
     {
         const int range = (pos - ai->pos()).rdist();
-        const int strength = ((pow + 100) / 20) / (range*range);
+        if (range > spell_range(SPELL_WARP_GRAVITY, pow))
+            continue;
 
-        _attract_actor(agent, ai, pos, pow, strength);
+        const int strength =
+            min(LOS_RADIUS, (div_rand_round(pow * 4 + 100, 5 * range * range)));
+
+        _attract_actor(agent, ai, pos, strength);
     }
 
     return true;
+}
+
+dice_def gravity_damage(int pow, bool random)
+{
+    return random ? dice_def(1, 20 + div_rand_round(pow * 2, 3))
+                  : dice_def(1, 20 + pow * 2 / 3);
+}
+
+static int _gravity_cell(coord_def where, int pow, actor *agent)
+{
+    monster *mons = monster_at(where);
+    if (!mons)
+        return 0; // XXX: handle damaging the player for mons casts...?
+
+
+    int dam = gravity_damage(pow, true).roll();
+    dam = mons->apply_ac(dam);
+
+     if (you.can_see(*mons))
+    {
+        mprf("%s is crushed and stunned by gravitational force (%d)!",
+             mons->name(DESC_THE).c_str(), dam);
+    }
+
+    mons->hurt(agent, dam, BEAM_MMISSILE);
+
+
+    if (mons->alive())
+        mons->stun(&you);
+
+    return 1;
+}
+
+spret warp_gravity(int pow, bool fail, bool tracer)
+{
+        int radius = spell_range(SPELL_WARP_GRAVITY, pow);
+
+    targeter_radius hitfunc(&you, LOS_NO_TRANS, radius);
+
+    if (stop_attack_prompt(hitfunc, "warp", nullptr))
+        return spret::abort;
+
+    if (tracer)
+    {
+        coord_def pos = you.pos();
+        for (actor_near_iterator ai(pos, LOS_SOLID); ai; ++ai)
+        {
+            if (*ai == &you || ai->is_stationary() || ai->pos() == pos)
+                continue;
+
+            const int range = (pos - ai->pos()).rdist();
+            if (range > spell_range(SPELL_WARP_GRAVITY, pow))
+                continue;
+
+            return spret::success;
+        }
+
+        return spret::abort;
+    }
+
+    fail_check();
+
+    flash_view_delay(UA_PLAYER, ETC_WARP, 80);
+    flash_view_delay(UA_PLAYER, BROWN, 80);
+
+    mprf("Gravity intensifies.");
+    fatal_attraction(you.pos(), &you, pow);
+
+    apply_random_around_square([pow] (coord_def where) {
+        return _gravity_cell(where, pow, &you);
+    }, you.pos(), true, 8);
+
+    return spret::success;
 }
 
 spret cast_gravitas(int pow, const coord_def& where, bool fail)

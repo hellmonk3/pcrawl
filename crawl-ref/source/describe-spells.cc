@@ -24,6 +24,7 @@
 #include "spl-book.h"
 #include "spl-damage.h"
 #include "spl-summoning.h" // mons_ball_lightning_hd
+#include "spl-transloc.h"
 #include "spl-util.h"
 #include "spl-zap.h"
 #include "stringutil.h"
@@ -404,6 +405,8 @@ static dice_def _spell_damage(spell_type spell, int hd)
             return resonance_strike_base_damage(hd);
         case SPELL_POLAR_VORTEX:
             return polar_vortex_dice(pow, false);
+        case SPELL_WARP_GRAVITY:
+            return gravity_damage(pow);
         default:
             break;
     }

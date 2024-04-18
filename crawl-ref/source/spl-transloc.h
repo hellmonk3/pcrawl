@@ -2,6 +2,8 @@
 
 #include "spl-cast.h"
 
+struct dice_def;
+
 class actor;
 class dist;
 
@@ -53,3 +55,5 @@ void attract_monsters(int delay);
 vector<monster *> find_chaos_targets(bool just_check = false);
 spret word_of_chaos(int pow, bool fail);
 spret blinkbolt(int power, bolt &beam, bool fail);
+dice_def gravity_damage(int pow, bool random = false);
+spret warp_gravity(int pow, bool fail, bool tracer=false);

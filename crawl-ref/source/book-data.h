@@ -54,6 +54,7 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Conjurations
     SPELL_MAGIC_DART,
     SPELL_SEARING_RAY,
+    SPELL_WARP_GRAVITY,
     SPELL_FULMINANT_PRISM,
 },
 

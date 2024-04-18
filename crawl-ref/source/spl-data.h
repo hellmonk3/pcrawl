@@ -3718,6 +3718,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_WARP_GRAVITY, "Warp Gravity",
+    spschool::earth | spschool::translocation,
+    spflag::none,
+    3,
+    200,
+    4, 4,
+    0,
+    TILEG_GRAVITAS,
+},
+
+{
     SPELL_NO_SPELL, "nonexistent spell",
     spschool::none,
     spflag::testing,

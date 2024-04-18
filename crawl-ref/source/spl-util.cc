@@ -1621,6 +1621,9 @@ bool spell_no_hostile_in_range(spell_type spell)
     case SPELL_MANIFOLD_ASSAULT:
          return cast_manifold_assault(-1, false, false) == spret::abort;
 
+        case SPELL_WARP_GRAVITY:
+        return warp_gravity(-1, false, true) == spret::abort;
+
     case SPELL_OZOCUBUS_REFRIGERATION:
          return trace_los_attack_spell(SPELL_OZOCUBUS_REFRIGERATION, pow, &you)
              == spret::abort;

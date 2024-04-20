@@ -49,7 +49,7 @@ string describe_airstrike_dam(dice_def dice);
 string describe_resonance_strike_dam(dice_def dice);
 spret cast_momentum_strike(int pow, coord_def target, bool fail);
 spret cast_shatter(int pow, bool fail);
-dice_def shatter_damage(int pow, monster *mons = nullptr, bool random = false);
+dice_def shatter_damage(int pow, monster *mons = nullptr);
 int terrain_shatter_chance(coord_def where, const actor &agent);
 spret cast_irradiate(int powc, actor &caster, bool fail);
 dice_def irradiate_damage(int powc, bool random = true);

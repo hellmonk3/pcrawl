@@ -1498,28 +1498,16 @@ static int _shatter_mon_dice(const monster *mon)
     if (!mon)
         return DEFAULT_SHATTER_DICE;
 
-    // Double damage to stone, metal and crystal - the same as the list of
-    // monsters affected by LRD.
-    if (map_find(fraggable_monsters, mon->type))
-        return DEFAULT_SHATTER_DICE * 2;
-    if (mon->is_insubstantial())
-        return 1;
-    if (mon->petrifying() || mon->petrified()
-        || mon->is_skeletal() || mon->is_icy())
-    {
-        return DEFAULT_SHATTER_DICE * 2;
-    }
-    else if (mon->airborne() || mons_is_slime(*mon))
+    if (mon->is_insubstantial() || mon->airborne())
         return 1;
     // Normal damage to everything else.
     else
         return DEFAULT_SHATTER_DICE;
 }
 
-dice_def shatter_damage(int pow, monster *mon, bool random)
+dice_def shatter_damage(int pow, monster *mon)
 {
-    return dice_def(_shatter_mon_dice(mon), random ? 5 + div_rand_round(pow, 3)
-                                                   : 5 + pow / 3);
+    return dice_def(_shatter_mon_dice(mon), 5 + pow);
 }
 
 static int _shatter_monsters(coord_def where, int pow, actor *agent)
@@ -1541,18 +1529,18 @@ static int _shatter_monsters(coord_def where, int pow, actor *agent)
 }
 
 static const map<dungeon_feature_type, int> terrain_shatter_chances = {
-    { DNGN_CLOSED_DOOR,     100 }, // also applies to all other door types
-    { DNGN_GRATE,           100 },
-    { DNGN_ORCISH_IDOL,     100 },
-    { DNGN_GRANITE_STATUE,  100 },
-    { DNGN_CLEAR_ROCK_WALL,  33 },
-    { DNGN_ROCK_WALL,        33 },
-    { DNGN_SLIMY_WALL,       33 },
-    { DNGN_CRYSTAL_WALL,     33 },
-    { DNGN_TREE,             33 }, // also applies to all other types of tree
+    { DNGN_CLOSED_DOOR,      50 }, // also applies to all other door types
+    { DNGN_GRATE,            50 },
+    { DNGN_ORCISH_IDOL,      50 },
+    { DNGN_GRANITE_STATUE,   50 },
+    { DNGN_CLEAR_ROCK_WALL,  50 },
+    { DNGN_ROCK_WALL,        50 },
+    { DNGN_SLIMY_WALL,       50 },
+    { DNGN_CRYSTAL_WALL,     50 },
+    { DNGN_TREE,             50 }, // also applies to all other types of tree
     { DNGN_CLEAR_STONE_WALL, 25 },
     { DNGN_STONE_WALL,       25 },
-    { DNGN_METAL_WALL,       15 },
+    { DNGN_METAL_WALL,       25 },
 };
 
 // Returns a percentage chance of the given wall being shattered by the given

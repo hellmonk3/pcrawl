@@ -1009,15 +1009,12 @@ everything in line of sight for as long as the spell lasts.
 %%%%
 Orb of Destruction spell
 
-Conjures an orb made of pure destructive magic. Compared to most other
+Conjures a very big rock made of destructive magic. Compared to most other
 projectiles, these orbs travel at a relatively slow pace. The orbs home onto
 their targets, yet because of their huge inertia, especially agile opponents
-may be able to outmanoeuvre them. The orbs need some time to stabilize, and a
-nascent orb will deal reduced damage.
-
-Residents of the dungeon are able to maintain the orb until it impacts a
-target, but when cast by you the orb will dissipate upon leaving your line of
-sight.
+may be able to outmanoeuvre them. The orbs need some time to stabilize, and will
+deal reduced damage based on the distance traveled until it has moved at least
+four tiles. The orb will dissipate if it leaves your line of sight.
 %%%%
 Orb of Electricity spell
 
@@ -1243,11 +1240,9 @@ shadow.
 Shatter spell
 
 Causes an enormous burst of concussive force around the caster, dealing severe
-damage to all nearby creatures. It is especially effective against those made
-from ice, bone, or any wall-like substance (such as rock, metal or crystal), as
-well as those turned to stone by petrification. It is less effective against
-flying, gelatinous and insubstantial creatures. It may also destroy nearby
-walls.
+damage to all creatures within line of sight. It is less effective against
+flying and insubstantial creatures, dealing one-third normal damage. It may also
+destroy nearby walls, doors, trees, and statues.
 %%%%
 Sheza's Dance spell
 

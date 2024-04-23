@@ -1061,6 +1061,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
     case SPELL_BORGNJORS_VILE_CLUTCH:
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
+    case SPELL_WINTERS_EMBRACE:
+        return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
     case SPELL_WARP_GRAVITY:
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, range, 0, 1);
     case SPELL_STARBURST:
@@ -1140,6 +1142,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
         return make_unique<targeter_englaciate>();
     case SPELL_DRAIN_LIFE:
         return make_unique<targeter_drain_life>();
+    case SPELL_FRIGID_HALO:
+        return make_unique<targeter_frigid_halo>();
     case SPELL_DISCORD:
         return make_unique<targeter_discord>();
     case SPELL_IGNITION:
@@ -1196,6 +1200,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
                                                    find_sigil_locations(true));
     case SPELL_BOULDER:
         return make_unique<targeter_boulder>(&you);
+    case SPELL_PETRIFY:
+        return make_unique<targeter_petrify>(&you, range);
     case SPELL_PERMAFROST_ERUPTION:
         return make_unique<targeter_permafrost>(you, pow);
 
@@ -1916,16 +1922,11 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     }
 
     const coord_def target = spd.isTarget ? beam.target : you.pos() + spd.delta;
-    if (spell == SPELL_FREEZE)
-    {
-        if (!adjacent(you.pos(), target))
-            return spret::abort;
-    }
 
     switch (spell)
     {
-    case SPELL_FREEZE:
-        return cast_freeze(powc, monster_at(target), fail);
+    case SPELL_FRIGID_HALO:
+        return cast_freeze(powc, fail);
 
     case SPELL_IOOD:
         return cast_iood(&you, powc, &beam, 0, 0, MHITNOT, fail);
@@ -1996,8 +1997,8 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_LEDAS_LIQUEFACTION:
         return cast_liquefaction(powc, fail);
 
-    case SPELL_OZOCUBUS_REFRIGERATION:
-        return fire_los_attack_spell(spell, powc, &you, fail);
+    case SPELL_WINTERS_EMBRACE:
+        return cast_winters_embrace(powc, fail);
 
     case SPELL_OLGREBS_TOXIC_RADIANCE:
         return cast_toxic_radiance(&you, powc, fail);
@@ -2335,8 +2336,10 @@ static dice_def _spell_damage(spell_type spell, int power)
         return dice_def(0,0);
     switch (spell)
     {
-        case SPELL_FREEZE:
+        case SPELL_FRIGID_HALO:
             return freeze_damage(power);
+        case SPELL_WINTERS_EMBRACE:
+            return winter_damage(power);
         case SPELL_FULMINANT_PRISM:
             return prism_damage(prism_hd(power, false), true);
         case SPELL_CONJURE_BALL_LIGHTNING:

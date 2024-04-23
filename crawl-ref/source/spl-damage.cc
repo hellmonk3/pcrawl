@@ -873,54 +873,51 @@ dice_def freeze_damage(int pow)
     return dice_def(1, 4 + pow);
 }
 
-spret cast_freeze(int pow, monster* mons, bool fail)
+spret cast_freeze(int pow, bool fail, bool tracer)
 {
-    pow = min(25, pow);
-
-    if (!mons || mons->submerged())
-    {
-        fail_check();
-        canned_msg(MSG_NOTHING_CLOSE_ENOUGH);
-        // If there's no monster there, you still pay the costs in
-        // order to prevent locating invisible/submerged monsters.
-        return spret::success;
-    }
-
-    if (stop_attack_prompt(mons, false, you.pos()))
-    {
-        canned_msg(MSG_OK);
-        return spret::abort;
-    }
-
-    fail_check();
-
-    // Set conducts here. The monster needs to be alive when this is done, and
-    // mons_adjust_flavoured() could kill it.
-    god_conduct_trigger conducts[3];
-    set_attack_conducts(conducts, *mons);
-
     bolt beam;
     beam.flavour = BEAM_COLD;
     beam.thrower = KILL_YOU;
 
-    const int orig_hurted = freeze_damage(pow).roll();
-    // calculate the resist adjustment to punctuate
-    int hurted = mons_adjust_flavoured(mons, beam, orig_hurted, false);
-    mprf("You freeze %s%s%s",
-         mons->name(DESC_THE).c_str(),
-         hurted ? "" : " but do no damage",
-         attack_strength_punctuation(hurted).c_str());
+    if (!tracer)
+        fail_check();
 
-    // print the resist message and expose to the cold
-    mons_adjust_flavoured(mons, beam, orig_hurted);
-
-    _player_hurt_monster(*mons, hurted, beam.flavour, false);
-
-    if (mons->alive())
+    for (fair_adjacent_iterator ai(you.pos()); ai; ++ai)
     {
-        mons->expose_to_element(BEAM_COLD, orig_hurted);
-        you.pet_target = mons->mindex();
+        if (cell_is_solid(*ai))
+            continue;
+
+        actor *act = actor_at(*ai);
+
+        if (act && act->is_monster() && !mons_aligned(act, &you)
+                && act->res_cold() < 3)
+        {
+            if (tracer)
+                return spret::success;
+
+            int orig_hurted = freeze_damage(pow).roll();
+            // calculate the resist adjustment to punctuate
+            int hurted = mons_adjust_flavoured(act->as_monster(), beam, orig_hurted, false);
+            mprf("You freeze %s%s%s",
+            act->name(DESC_THE).c_str(),
+            hurted ? "" : " but do no damage",
+            attack_strength_punctuation(hurted).c_str());
+
+            // print the resist message and expose to the cold
+            mons_adjust_flavoured(act->as_monster(), beam, orig_hurted);
+
+            _player_hurt_monster(*act->as_monster(), hurted, beam.flavour, false);
+
+            if (act->alive())
+            {
+                act->expose_to_element(BEAM_COLD, orig_hurted);
+                you.pet_target = act->mindex();
+            }
+        }
     }
+
+    if (tracer)
+        return spret::abort;
 
     return spret::success;
 }
@@ -4519,7 +4516,7 @@ spret cast_frozen_ramparts(int pow, bool fail)
 
     mpr("The walls around you are covered in ice.");
     you.duration[DUR_FROZEN_RAMPARTS] = random_range(40 + pow,
-                                                     80 + pow * 3 / 2);
+                                                     80 + pow * 2);
     return spret::success;
 }
 
@@ -4545,9 +4542,9 @@ void end_frozen_ramparts()
 
 dice_def ramparts_damage(int pow, bool random)
 {
-    int size = 1 + pow * 3 / 10;
+    int size = 3 + pow / 2;
     if (random)
-        size = 1 + div_rand_round(pow * 3, 10);
+        size = 3 + div_rand_round(pow, 2);
     return dice_def(1, size);
 }
 
@@ -4792,8 +4789,8 @@ bool siphon_essence_affects(const monster &m)
 dice_def boulder_damage(int pow, bool random)
 {
     if (random)
-        return dice_def(2, 3 + div_rand_round(pow, 12));
-    return dice_def(2, 3 + pow / 12);
+        return dice_def(2, 3 + div_rand_round(pow, 2));
+    return dice_def(2, 3 + pow / 2);
 }
 
 void do_boulder_impact(monster& boulder, actor& victim)
@@ -4811,7 +4808,7 @@ void do_boulder_impact(monster& boulder, actor& victim)
         _player_hurt_monster(*victim.as_monster(), dam, BEAM_MISSILE);
 
     // Dealing damage causes the boulder to also take damage.
-    boulder.hurt(&boulder, roll_dice(2, 5), BEAM_NONE, KILLED_BY_COLLISION);
+    boulder.hurt(&boulder, roll_dice(2, 3), BEAM_NONE, KILLED_BY_COLLISION);
 }
 
 spret cast_flame_lance(int powc, bool fail)
@@ -4883,6 +4880,80 @@ spret cast_sandblast(int pow, bool fail, bool tracer)
     beam.target             = act->pos();
     zappy(ZAP_SANDBLAST, pow, false, beam);
     beam.fire();
+
+    return spret::success;
+}
+
+dice_def winter_damage(int pow, bool random)
+{
+    if (random)
+        return dice_def(1, 30 + div_rand_round(pow, 3));
+    return dice_def(1, 30 + pow / 3);
+}
+
+//Handle Winter's Embrace at a given cell
+static void _embrace_cell(coord_def where, int pow, actor *agent)
+{
+    bolt beam;
+    beam.flavour    = BEAM_ICE;
+    beam.thrower    = agent->is_player() ? KILL_YOU : KILL_MON;
+    beam.source_id  = agent->mid;
+    beam.attitude   = agent->temp_attitude();
+    beam.glyph      = dchar_glyph(DCHAR_FIRED_BURST);
+    beam.colour     = BLUE;
+#ifdef USE_TILE
+    beam.tile_beam  = -1;
+#endif
+    beam.draw_delay = 10;
+    beam.source     = where;
+    beam.target     = where;
+    beam.damage     = winter_damage(pow, true);
+    beam.hit        = AUTOMATIC_HIT;
+    beam.loudness   = 0;
+    beam.name       = "cold";
+    beam.hit_verb   = "envelops";
+
+    monster *mons = monster_at(where);
+    if (mons && mons->res_cold() > 1)
+    {
+        string msg = "%s is unaffected.";
+        mprf(msg.c_str(), mons->name(DESC_THE).c_str());
+
+        beam.draw(where);
+        return;
+    }
+
+    beam.fire();
+}
+
+spret cast_winters_embrace(int pow, bool fail, bool tracer)
+{
+    if (tracer)
+    {
+        for (radius_iterator ri(you.pos(), 4, C_SQUARE, LOS_NO_TRANS, true); ri; ++ri)
+        {
+            const monster* mon = monster_at(*ri);
+            if (mon && you.can_see(*mon) && mon->res_cold() > 1 && !mon->friendly())
+                return spret::success;
+        }
+        return spret::abort;
+    }
+
+    fail_check();
+
+    mprf("You drain the heat from your surroundings.");
+    noisy(spell_effect_noise(SPELL_WINTERS_EMBRACE), you.pos());
+
+    for (radius_iterator ri(you.pos(), 4, C_SQUARE, LOS_NO_TRANS, true); ri; ++ri)
+    {
+        _embrace_cell(*ri, pow, &you);
+        monster* mons = monster_at(*ri);
+        if (mons && x_chance_in_y(20 + 2 * pow, 50 + 5 * mons->get_hit_dice()))
+        {
+            mprf("%s falls asleep.", mons->name(DESC_THE).c_str());
+                mons->put_to_sleep(&you, pow, true);
+        }
+    }
 
     return spret::success;
 }

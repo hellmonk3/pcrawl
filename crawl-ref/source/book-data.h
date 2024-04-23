@@ -66,9 +66,10 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 {   // Book of Frost
-    SPELL_FREEZE,
-    SPELL_FROZEN_RAMPARTS,
+    SPELL_FRIGID_HALO,
     SPELL_HAILSTORM,
+    SPELL_FROZEN_RAMPARTS,
+    SPELL_WINTERS_EMBRACE,
 },
 
 {   // Book of the Wilderness
@@ -203,7 +204,6 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of Battle
     SPELL_WEREBLOOD,
-    SPELL_OZOCUBUS_ARMOUR,
 },
 #endif
 
@@ -358,7 +358,6 @@ static const vector<spell_type> spellbook_templates[] =
 
 #if TAG_MAJOR_VERSION == 34
 { // Book of Rime
-    SPELL_FROZEN_RAMPARTS,
     SPELL_SUMMON_ICE_BEAST,
 },
 #endif
@@ -428,9 +427,8 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 { // Book of Sloth
-    SPELL_FROZEN_RAMPARTS,
-    SPELL_PETRIFY,
     SPELL_ENGLACIATION,
+    SPELL_FROZEN_RAMPARTS,
 },
 
 { // Book of Blood

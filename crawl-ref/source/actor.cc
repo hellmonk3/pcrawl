@@ -164,13 +164,6 @@ bool actor::can_hibernate(bool holi_only, bool intrinsic_only) const
         {
             return false;
         }
-
-        // The monster has slept recently.
-        if (is_monster() && !intrinsic_only
-            && static_cast<const monster* >(this)->has_ench(ENCH_SLEEP_WARY))
-        {
-            return false;
-        }
     }
 
     return true;

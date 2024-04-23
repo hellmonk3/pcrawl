@@ -1282,6 +1282,23 @@ aff_type targeter_siphon_essence::is_affected(coord_def loc)
     return AFF_YES;
 }
 
+targeter_frigid_halo::targeter_frigid_halo()
+    : targeter_radius(&you, LOS_NO_TRANS, 1, 0, 1)
+{ }
+
+aff_type targeter_frigid_halo::is_affected(coord_def loc)
+{
+    const aff_type base_aff = targeter_radius::is_affected(loc);
+    if (base_aff == AFF_NO)
+        return AFF_NO;
+    monster* mons = monster_at(loc);
+    if (!mons || mons->attitude == ATT_FRIENDLY)
+        return AFF_NO;
+    if (mons->res_cold() > 1)
+        return AFF_NO;
+    return AFF_YES;
+}
+
 aff_type targeter_shatter::is_affected(coord_def loc)
 {
     if (loc == origin)
@@ -2265,5 +2282,60 @@ aff_type targeter_boulder::is_affected(coord_def loc)
     for (auto pc : path_taken)
         if (pc == loc)
             return cell_is_solid(pc) ? AFF_NO : AFF_YES;
+    return AFF_NO;
+}
+
+targeter_petrify::targeter_petrify(const actor* caster, int r)
+    : targeter_beam(caster, r, ZAP_PETRIFY, 0, 0, 0)
+{
+}
+
+bool targeter_petrify::set_aim(coord_def a)
+{
+    if (!targeter::set_aim(a))
+        return false;
+
+    bolt tempbeam = beam;
+
+    tempbeam.target = a;
+    tempbeam.aimed_at_spot = false;
+    tempbeam.path_taken.clear();
+    tempbeam.fire();
+    path_taken = tempbeam.path_taken;
+
+    chain_targ.clear();
+
+    monster* targ = monster_at(path_taken[path_taken.size() - 1]);
+    if (targ && agent->can_see(*targ))
+    {
+        vector<actor*> chain_targ_mons;
+        fill_petrify_chain_targets(tempbeam, *targ, chain_targ_mons);
+
+        for (unsigned int i = 0; i < chain_targ_mons.size(); ++i)
+            chain_targ.push_back(chain_targ_mons[i]->pos());
+    }
+
+    return true;
+}
+
+aff_type targeter_petrify::is_affected(coord_def loc)
+{
+    for (auto pc : path_taken)
+    {
+        if (pc == loc)
+        {
+            if (cell_is_solid(pc))
+                return AFF_NO;
+
+            return AFF_YES;
+        }
+    }
+
+    for (unsigned int i = 0; i < chain_targ.size(); ++i)
+    {
+        if (chain_targ[i] == loc)
+            return AFF_YES;
+    }
+
     return AFF_NO;
 }

@@ -1600,8 +1600,14 @@ bool spell_no_hostile_in_range(spell_type spell)
     case SPELL_IGNITE_POISON:
         return cast_ignite_poison(&you, -1, false, true) == spret::abort;
 
+    case SPELL_FRIGID_HALO:
+        return cast_freeze(-1, false, true) == spret::abort;
+
     case SPELL_STARBURST:
         return cast_starburst(-1, false, true) == spret::abort;
+
+       case SPELL_WINTERS_EMBRACE:
+        return cast_winters_embrace(-1, false, true) == spret::abort;
 
     case SPELL_HAILSTORM:
         return cast_hailstorm(-1, false, true) == spret::abort;

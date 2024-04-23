@@ -5943,8 +5943,7 @@ int player::armour_class_with_specific_items(vector<const item_def *> items) con
 
     if (duration[DUR_ICY_ARMOUR])
     {
-        AC += max(0, 500 + you.props[ICY_ARMOUR_KEY].get_int() * 8
-                     - unadjusted_body_armour_penalty() * 50);
+        AC += max(0, 400 + you.props[ICY_ARMOUR_KEY].get_int() * 50);
     }
 
     if (has_mutation(MUT_ICEMAIL))

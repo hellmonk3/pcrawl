@@ -382,6 +382,7 @@ static dice_def _spell_damage(spell_type spell, int hd)
     switch (spell)
     {
         case SPELL_FREEZE:
+        case SPELL_FRIGID_HALO:
             return freeze_damage(pow);
         case SPELL_WATERSTRIKE:
             return waterstrike_damage(hd);
@@ -434,6 +435,7 @@ static colour_t _spell_colour(spell_type spell)
     switch (spell)
     {
         case SPELL_FREEZE:
+        case SPELL_FRIGID_HALO:
         case SPELL_GLACIATE:
             return WHITE;
         case SPELL_WATERSTRIKE:

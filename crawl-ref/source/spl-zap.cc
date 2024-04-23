@@ -206,11 +206,5 @@ int spell_zap_power_cap(spell_type spell)
 
     const int cap = zap_power_cap(zap);
 
-    switch (spell)
-    {
-    case SPELL_HIBERNATION:
-        return 50;
-    default:
-        return cap;
-    }
+    return cap;
 }

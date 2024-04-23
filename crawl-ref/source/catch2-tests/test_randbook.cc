@@ -27,7 +27,7 @@ TEST_CASE( "When setting book spell list", "[single-file]" ) {
     SECTION("the spell list will be truncated to RANDBOOK_SIZE entries") {
         init_spell_descs();
         vector<spell_type> spells = {
-            SPELL_FREEZE,
+            SPELL_FRIGID_HALO,
             SPELL_NECROTISE,
             SPELL_APPORTATION,
             SPELL_SUMMON_SMALL_MAMMAL,

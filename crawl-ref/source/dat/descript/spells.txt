@@ -202,10 +202,9 @@ Brom's Barrelling Boulder spell
 Unleashes a massive rolling boulder in a given cardinal direction. The boulder
 squashes and knocks back creatures it strikes, suffering wear and tear with each
 hit. If it strikes a wall, it will explode into fragments of rock, doing damage
-that is strongly reduced by armour.
+that is thrice reduced by armour.
 
-The boulder sometimes veers from side to side, and will disintegrate if it leaves
-the caster's sight.
+The boulder will disintegrate if it leaves the caster's sight.
 %%%%
 Brothers in Arms spell
 
@@ -515,8 +514,10 @@ Shoots a stream of webbing at a creature, ensnaring the target in a sticky web.
 %%%%
 Ensorcelled Hibernation spell
 
-Lowers its target's metabolic rate, inducing hibernation. After awakening, the
-target will be unable to be put to sleep again for some time.
+Lowers its target's metabolic rate, putting it to sleep. Creatures put to sleep
+by this spell always have the lowest possible chance to awaken. Undead and
+nonliving creatures are totally immune to sleep, and cold-resistant monsters
+are also unaffected by this spell.
 %%%%
 Entropic Weave spell
 
@@ -608,12 +609,17 @@ of balls created increases with spellpower.
 %%%%
 Freeze spell
 
-Freezes an adjacent creature, dealing damage that bypasses any armour the
-target may have. This may temporarily slow cold-blooded creatures.
+Freezes an adjacent creature, dealing damage that bypasses armour. This may
+temporarily slow cold-blooded creatures.
 %%%%
 Freezing Cloud spell
 
 Conjures up a large cloud of lethally cold vapour.
+%%%%
+Frigid Halo spell
+
+Freezes all hostile creatures adjacent to the caster, dealing cold damage that
+bypasses armour.
 %%%%
 Frozen Ramparts spell
 
@@ -679,7 +685,7 @@ Hailstorm spell
 Conjures a cannonade of hail, battering nearby creatures that fail to dodge.
 The eye of the storm is wide enough that monsters adjacent to the caster are
 unaffected. Due to the strong impact and cutting edges, half of its damage
-bypasses cold resistance.
+bypasses cold resistance. The damage scales strongly with spellpower.
 %%%%
 Haste Other spell
 
@@ -953,10 +959,9 @@ caster's line of sight will end the effect.
 %%%%
 Metabolic Englaciation spell
 
-Lowers the metabolic rate of every creature in the caster's vicinity, slowing
-all those who are not resistant to cold. Cold-blooded creatures will be
-affected much more strongly, and tougher creatures will be slowed for a
-shorter time.
+Lowers the metabolic rate of every hostile creature in the caster's line of
+sight, slowing them. The duration of the effect is reduced by the creature's
+difficulty and their resistance to cold, but is always at least one turn.
 %%%%
 Metal Splinters spell
 
@@ -1026,8 +1031,7 @@ Ozocubu's Armour spell
 Envelops the caster's body in a protective layer of thick ice, granting a
 substantial bonus to armour as long as they remain in their current location.
 The ice will crack and fall away if the caster moves to a new position. The
-spell decreases in effectiveness in heavier armour, granting a lower bonus the
-higher the encumbrance rating of the caster's armour.
+duration of the effect will decrease if the caster is harmed by fire damage.
 %%%%
 Ozocubu's Refrigeration spell
 
@@ -1073,9 +1077,10 @@ never explodes next to the caster.
 %%%%
 Petrify spell
 
-Petrifies a targeted creature. If successful, the target is slowed down for a
-while until it is temporarily turned into stone. In this state, the target will
-take less damage upon being hit.
+Petrifies a targeted creature and any hostile creatures directly adjacent to
+them. If successful, each creature is slowed down briefly until it is
+temporarily turned into stone. In this state, they will be unable to act
+at all and cannot evade attacks.
 %%%%
 Petrifying Cloud spell
 
@@ -1740,6 +1745,12 @@ caster's blood calms the were-spirit and resets the bonus.
 Wind Blast spell
 
 Causes a strong gust of wind, pushing away creatures and clouds in a cone.
+%%%%
+Winter's Embrace spell
+
+Drains heat from the caster's surroundings, causing harm to all
+creatures within range 4. Additionally, creatures that do not resist cold may
+fall asleep.
 %%%%
 Woodweal spell
 

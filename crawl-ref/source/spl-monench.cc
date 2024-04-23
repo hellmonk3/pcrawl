@@ -13,6 +13,7 @@
 #include "english.h" // apostrophise
 #include "env.h"
 #include "fight.h"
+#include "losglobal.h"
 #include "message.h"
 #include "spl-util.h"
 #include "stringutil.h" // make_stringf
@@ -26,13 +27,12 @@ int englaciate(coord_def where, int pow, actor *agent)
     if (!victim || victim == agent)
         return 0;
 
-    if (agent->is_monster() && mons_aligned(agent, victim))
+    if (mons_aligned(agent, victim))
         return 0; // don't let monsters hit friendlies
 
     monster* mons = victim->as_monster();
 
-    if (victim->res_cold() > 0
-        || victim->is_stationary())
+    if (victim->is_stationary())
     {
         if (!mons)
             canned_msg(MSG_YOU_UNAFFECTED);
@@ -41,17 +41,10 @@ int englaciate(coord_def where, int pow, actor *agent)
         return 0;
     }
 
-    int duration = div_rand_round(roll_dice(3, 1 + pow), 6)
-                    - div_rand_round(victim->get_hit_dice() - 1, 2);
+    const int rc = victim->res_cold();
 
-    if (duration <= 0)
-    {
-        if (!mons)
-            canned_msg(MSG_YOU_RESIST);
-        else
-            simple_monster_message(*mons, " resists.");
-        return 0;
-    }
+    int duration = 1 + random2(2 + pow) - random2(victim->get_hit_dice());
+    duration -= rc * 4;
 
     if ((!mons && you.get_mutation_level(MUT_COLD_BLOODED))
         || (mons && mons_class_flag(mons->type, M_COLD_BLOOD)))
@@ -59,8 +52,8 @@ int englaciate(coord_def where, int pow, actor *agent)
         duration *= 2;
     }
 
-    // Guarantee a minimum duration if not fully resisted.
-    duration = max(duration, 2 + random2(4));
+    // Guarantee a minimum duration.
+    duration = max(duration, 2);
 
     if (!mons)
         return slow_player(duration);

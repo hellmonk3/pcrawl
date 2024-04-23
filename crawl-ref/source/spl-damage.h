@@ -40,7 +40,7 @@ void sonic_damage(bool scream);
 bool mons_shatter(monster* caster, bool actual = true);
 void shillelagh(actor *wielder, coord_def where, int pow);
 void explosive_brand(actor *wielder, coord_def where, int pow);
-spret cast_freeze(int pow, monster* mons, bool fail);
+spret cast_freeze(int pow, bool fail, bool tracer = false);
 dice_def freeze_damage(int pow);
 spret cast_airstrike(int pow, coord_def target, bool fail);
 int airstrike_space_around(coord_def target, bool count_invis);
@@ -164,3 +164,5 @@ spret cast_flame_lance(int powc, bool fail);
 void handle_flame_lance_movement(coord_def move);
 
 spret cast_sandblast(int pow, bool fail, bool tracer = false);
+dice_def winter_damage(int pow, bool random = false);
+spret cast_winters_embrace(int pow, bool fail, bool tracer = false);

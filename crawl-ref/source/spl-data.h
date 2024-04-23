@@ -231,9 +231,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_PETRIFY, "Petrify",
-    spschool::transmutation | spschool::earth,
+    spschool::hexes | spschool::earth,
     spflag::dir_or_target | spflag::needs_tracer | spflag::WL_check,
-    4,
+    2,
     200,
     LOS_RADIUS, LOS_RADIUS,
     0,
@@ -298,13 +298,13 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_FREEZING_CLOUD, "Freezing Cloud",
-    spschool::enchantments | spschool::ice | spschool::air,
+    spschool::ice | spschool::air,
     spflag::target | spflag::area | spflag::needs_tracer
         | spflag::cloud,
-    5,
+    3,
     200,
-    5, 5,
-    2,
+    6, 6,
+    0,
     TILEG_FREEZING_CLOUD,
 },
 
@@ -662,7 +662,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_FREEZE, "Freeze",
     spschool::ice,
-    spflag::dir_or_target | spflag::not_self | spflag::destructive,
+    spflag::dir_or_target | spflag::not_self | spflag::monster,
     1,
     25,
     1, 1,
@@ -677,6 +677,17 @@ static const struct spell_desc spelldata[] =
     7,
     200,
     -1, -1,
+    0,
+    TILEG_OZOCUBUS_REFRIGERATION,
+},
+
+{
+    SPELL_WINTERS_EMBRACE, "Winter's Embrace",
+    spschool::ice,
+    spflag::destructive,
+    7,
+    200,
+    4, 4,
     0,
     TILEG_OZOCUBUS_REFRIGERATION,
 },
@@ -705,9 +716,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_OZOCUBUS_ARMOUR, "Ozocubu's Armour",
-    spschool::ice,
+    spschool::ice | spschool::enchantments,
     spflag::no_ghost,
-    3,
+    1,
     100,
     -1, -1,
     0,
@@ -3278,9 +3289,9 @@ static const struct spell_desc spelldata[] =
     SPELL_FROZEN_RAMPARTS, "Frozen Ramparts",
     spschool::ice,
     spflag::area | spflag::no_ghost | spflag::destructive,
-    3,
-    50,
-    2, 2,
+    5,
+    200,
+    5, 5,
     8,
     TILEG_FROZEN_RAMPARTS,
 },
@@ -3596,7 +3607,7 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_BOULDER, "Brom's Barrelling Boulder",
-    spschool::earth | spschool::enchantments,
+    spschool::earth,
     spflag::target | spflag::not_self,
     4,
     100,
@@ -3748,6 +3759,17 @@ static const struct spell_desc spelldata[] =
     -1, -1,
     0,
     TILEG_ERROR,
+},
+
+{
+    SPELL_FRIGID_HALO, "Frigid Halo",
+    spschool::ice,
+    spflag::destructive,
+    1,
+    50,
+    -1, -1,
+    0,
+    TILEG_FREEZE,
 },
 
 #if TAG_MAJOR_VERSION == 34

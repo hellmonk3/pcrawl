@@ -236,7 +236,7 @@ static const map<job_type, job_def> job_data =
     { SP_MERFOLK, SP_NAGA, SP_BASE_DRACONIAN, SP_DEMIGOD,
       SP_GARGOYLE, SP_DJINNI, },
     {
-        SPELL_FREEZE,
+        SPELL_FRIGID_HALO,
         SPELL_FROZEN_RAMPARTS,
         SPELL_OZOCUBUS_ARMOUR,
         SPELL_SUMMON_ICE_BEAST,

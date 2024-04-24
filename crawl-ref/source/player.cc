@@ -1978,9 +1978,10 @@ int player_shield_class()
     }
 
     if (you.duration[DUR_SPWPN_SHIELDING])
-    {
         shield += 2000;
-    }
+
+    if (you.duration[DUR_CONDENSATION_SHIELD])
+        shield += 4000;
 
     shield += qazlal_sh_boost() * 100;
     shield += tso_sh_boost() * 100;
@@ -5414,6 +5415,7 @@ bool player::shielded() const
 {
     return shield()
            || duration[DUR_DIVINE_SHIELD]
+           || duration[DUR_CONDENSATION_SHIELD]
            || get_mutation_level(MUT_LARGE_BONE_PLATES) > 0
            || qazlal_sh_boost() > 0
            || you.wearing(EQ_AMULET, AMU_REFLECTION)

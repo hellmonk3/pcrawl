@@ -67,6 +67,7 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of Frost
     SPELL_FRIGID_HALO,
+    SPELL_CONDENSATION_SHIELD,
     SPELL_HAILSTORM,
     SPELL_FROZEN_RAMPARTS,
     SPELL_WINTERS_EMBRACE,

@@ -39,6 +39,7 @@
 #include "unique-creature-list-type.h"
 #include "unique-item-status-type.h"
 
+#define CONDENSATION_SHIELD_KEY "condensation_shield_pow"
 #define ICY_ARMOUR_KEY "ozocubu's_armour_pow"
 #define BARBS_MOVE_KEY "moved_with_barbs_status"
 #define HORROR_PENALTY_KEY "horror_penalty"

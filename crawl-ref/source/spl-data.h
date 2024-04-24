@@ -3772,6 +3772,17 @@ static const struct spell_desc spelldata[] =
     TILEG_FREEZE,
 },
 
+{
+    SPELL_CONDENSATION_SHIELD, "Condensation Shield",
+    spschool::ice | spschool::enchantments,
+    spflag::utility,
+    2,
+    50,
+    -1, -1,
+    0,
+    TILEG_CONDENSATION_SHIELD,
+},
+
 #if TAG_MAJOR_VERSION == 34
 #define AXED_SPELL(tag, name) \
     { tag, name, spschool::none, spflag::none, 7, 0, -1, -1, 0, TILEG_ERROR },
@@ -3781,7 +3792,6 @@ AXED_SPELL(SPELL_BOLT_OF_INACCURACY, "Bolt of Inaccuracy")
 AXED_SPELL(SPELL_CHANT_FIRE_STORM, "Chant Fire Storm")
 AXED_SPELL(SPELL_CIGOTUVIS_DEGENERATION, "Cigotuvi's Degeneration")
 AXED_SPELL(SPELL_CIGOTUVIS_EMBRACE, "Cigotuvi's Embrace")
-AXED_SPELL(SPELL_CONDENSATION_SHIELD, "Condensation Shield")
 AXED_SPELL(SPELL_CONTROLLED_BLINK, "Controlled Blink")
 AXED_SPELL(SPELL_CONTROL_TELEPORT, "Control Teleport")
 AXED_SPELL(SPELL_CONTROL_UNDEAD, "Control Undead")

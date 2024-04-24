@@ -63,8 +63,8 @@ enum duration_type
     DUR_DEMONIC_GUARDIAN,       // demonic guardian timeout
     DUR_POWERED_BY_DEATH,
     DUR_SILENCE,
-#if TAG_MAJOR_VERSION == 34
     DUR_CONDENSATION_SHIELD,
+#if TAG_MAJOR_VERSION == 34
     DUR_MAGIC_ARMOUR,
     DUR_GOURMAND,
     DUR_BARGAIN,

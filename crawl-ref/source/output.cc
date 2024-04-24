@@ -633,6 +633,7 @@ static bool _boosted_ev()
 static bool _boosted_sh()
 {
     return you.duration[DUR_DIVINE_SHIELD]
+           || you.duration[DUR_CONDENSATION_SHIELD]
            || you.duration[DUR_SPWPN_SHIELDING]
            || qazlal_sh_boost() > 0
            || (you.get_mutation_level(MUT_CONDENSATION_SHIELD)

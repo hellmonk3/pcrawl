@@ -2137,6 +2137,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_OZOCUBUS_ARMOUR:
         return ice_armour(powc, fail);
 
+    case SPELL_CONDENSATION_SHIELD:
+        return cast_condensation_shield(powc, fail);
+
     case SPELL_SILENCE:
         return cast_silence(powc, fail);
 

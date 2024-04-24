@@ -996,6 +996,13 @@ static bool _update_statuses(player_info& c)
                 continue;
             inf.short_text = "divinely shielded";
         }
+        else if (status == DUR_CONDENSATION_SHIELD)
+        {
+            inf = status_info();
+            if (!you.duration[status])
+                continue;
+            inf.short_text = "icily shielded";
+        }
         else if (status == DUR_ICEMAIL_DEPLETED)
         {
             inf = status_info();

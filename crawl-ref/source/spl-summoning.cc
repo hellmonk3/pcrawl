@@ -204,18 +204,15 @@ spret cast_summon_armour_spirit(int pow, god_type god, bool fail)
 
 
 
-spret cast_summon_ice_beast(int pow, god_type god, bool fail)
+spret cast_summon_ice_statue(int pow, god_type god, bool fail)
 {
-    if (stop_summoning_prompt(MR_RES_POISON))
-        return spret::abort;
-
     fail_check();
 
-    mgen_data ice_beast = _pal_data(MONS_ICE_BEAST, 3, god,
-                                    SPELL_SUMMON_ICE_BEAST);
-    ice_beast.hd = (3 + div_rand_round(pow, 13));
+    mgen_data statue = _pal_data(MONS_ICE_STATUE, 3, god,
+                                    SPELL_ICE_STATUE);
+    statue.hd = (1 + div_rand_round(pow, 5));
 
-    if (create_monster(ice_beast))
+    if (create_monster(statue))
         mpr("A chill wind blows around you.");
     else
         canned_msg(MSG_NOTHING_HAPPENS);

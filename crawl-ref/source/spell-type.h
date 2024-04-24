@@ -568,5 +568,6 @@ enum spell_type : int
     SPELL_FORCE_QUAKE,
     SPELL_FRIGID_HALO,
     SPELL_WINTERS_EMBRACE,
+    SPELL_ICE_STATUE,
     NUM_SPELLS
 };

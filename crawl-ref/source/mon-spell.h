@@ -1511,10 +1511,7 @@ static const mon_spellbook mspell_list[] =
 
     {  MST_ICE_STATUE,
       {
-       { SPELL_BOLT_OF_COLD, 20, MON_SPELL_MAGICAL },
-       { SPELL_THROW_ICICLE, 20, MON_SPELL_MAGICAL },
-       { SPELL_FREEZING_CLOUD, 20, MON_SPELL_MAGICAL },
-       { SPELL_SUMMON_ICE_BEAST, 40, MON_SPELL_MAGICAL },
+       { SPELL_SUMMON_ICE_BEAST, 60, MON_SPELL_MAGICAL },
       }
     },
 

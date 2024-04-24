@@ -283,7 +283,7 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 {   // Book of Beasts
-    SPELL_SUMMON_ICE_BEAST,
+    SPELL_ICE_STATUE,
     SPELL_SUMMON_MANA_VIPER,
     SPELL_MONSTROUS_MENAGERIE,
 },
@@ -359,7 +359,7 @@ static const vector<spell_type> spellbook_templates[] =
 
 #if TAG_MAJOR_VERSION == 34
 { // Book of Rime
-    SPELL_SUMMON_ICE_BEAST,
+    SPELL_ICE_STATUE,
 },
 #endif
 
@@ -411,7 +411,6 @@ static const vector<spell_type> spellbook_templates[] =
 
 { // Book of the Tundra
     SPELL_HAILSTORM,
-    SPELL_SUMMON_ICE_BEAST,
     SPELL_SIMULACRUM,
 },
 

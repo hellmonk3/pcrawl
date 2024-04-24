@@ -749,6 +749,11 @@ Iceblast spell
 Fires a large mass of ice, which explodes on impact. It affects even
 cold-resistant creatures somewhat, due to the strong impact and cutting edges.
 %%%%
+Ice Statue spell
+
+Summons a fragile statue made of ice. Though lacking in defenses and unable to
+attack itself, the statue can summon large numbers of ice beasts.
+%%%%
 Ignite Poison spell
 
 Converts all nearby poison into liquid flame, burning poisoned creatures from

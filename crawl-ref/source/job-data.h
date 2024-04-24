@@ -239,7 +239,6 @@ static const map<job_type, job_def> job_data =
         SPELL_FRIGID_HALO,
         SPELL_FROZEN_RAMPARTS,
         SPELL_OZOCUBUS_ARMOUR,
-        SPELL_SUMMON_ICE_BEAST,
     },
     { "robe", "potion of magic" },
     WCHOICE_NONE,

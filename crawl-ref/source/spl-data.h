@@ -706,7 +706,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_SUMMON_ICE_BEAST, "Summon Ice Beast",
     spschool::ice | spschool::summoning,
-    spflag::none,
+    spflag::monster,
     4,
     100,
     -1, -1,
@@ -3781,6 +3781,17 @@ static const struct spell_desc spelldata[] =
     -1, -1,
     0,
     TILEG_CONDENSATION_SHIELD,
+},
+
+{
+    SPELL_ICE_STATUE, "Ice Statue",
+    spschool::ice | spschool::summoning,
+    spflag::none,
+    2,
+    100,
+    -1, -1,
+    0,
+    TILEG_SUMMON_ICE_BEAST,
 },
 
 #if TAG_MAJOR_VERSION == 34

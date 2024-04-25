@@ -176,7 +176,7 @@ static const struct spell_desc spelldata[] =
     spschool::air | spschool::translocation,
     spflag::noisy | spflag::dir_or_target, // hack - should have spflag::needs_tracer
                    // and maybe spflag::hasty?
-    4,
+    1,
     50,
     4, 4,
     0,
@@ -310,10 +310,10 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_MEPHITIC_CLOUD, "Mephitic Cloud",
-    spschool::enchantments | spschool::hexes | spschool::air,
+    spschool::hexes | spschool::air,
     spflag::dir_or_target | spflag::area
         | spflag::needs_tracer | spflag::cloud,
-    3,
+    1,
     100,
     4, 4,
     0,
@@ -1113,7 +1113,7 @@ static const struct spell_desc spelldata[] =
     SPELL_SILENCE, "Silence",
     spschool::hexes | spschool::air,
     spflag::area | spflag::silent, // of course!
-    5,
+    2,
     200,
     -1, -1,
     0,
@@ -1144,9 +1144,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_DISCHARGE, "Static Discharge",
-    spschool::enchantments | spschool::air,
+    spschool::air,
     spflag::area,
-    2,
+    1,
     50,
     1, 1,
     0,
@@ -3300,7 +3300,7 @@ static const struct spell_desc spelldata[] =
     SPELL_MAXWELLS_COUPLING, "Maxwell's Capacitive Coupling",
     spschool::air,
     spflag::no_ghost | spflag::destructive,
-    8,
+    9,
     200,
     LOS_RADIUS, LOS_RADIUS,
     25,

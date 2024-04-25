@@ -367,7 +367,6 @@ static const map<job_type, job_def> job_data =
         SPELL_BECKONING,
         SPELL_TELEPORT_OTHER,
         SPELL_MANIFOLD_ASSAULT,
-        SPELL_ELECTRIC_CHARGE,
     },
     { "leather armour", "scroll of blinking", "dart ego:dispersal q:7" },
     WCHOICE_PLAIN,

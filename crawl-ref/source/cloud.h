@@ -52,8 +52,6 @@ struct cloud_tile_info
     cloud_tile_variation variation;  ///< How (and if) the tile should vary.
 };
 
-#define MEPH_HD_CAP 21
-
 #define BLASTMOTE_POWER_KEY "blastspark_power"
 #define MIASMA_IMMUNE_KEY "miasma_immune"
 

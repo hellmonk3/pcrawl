@@ -1381,9 +1381,7 @@ static vector<string> _desc_meph_chance(const monster_info& mi)
     if (get_resist(mi.resists(), MR_RES_POISON) >= 1 || mi.is(MB_CLARITY))
         return vector<string>{"not susceptible"};
 
-    int pct_chance = 2;
-    if (mi.hd < MEPH_HD_CAP)
-        pct_chance = 100 - (100 * mi.hd / MEPH_HD_CAP);
+    int pct_chance = 100 - (100 * mi.hd / 11);
     return vector<string>{make_stringf("chance to affect: %d%%", pct_chance)};
 }
 

@@ -956,14 +956,15 @@ Maxwell's Capacitive Coupling spell
 
 Gradually builds up electric charge in the caster, so long as they maintain
 focus (by waiting in place and not taking any other actions). When a threshold
-is reached, the charge couples with the nearest foe, vaporising them instantly.
-Higher spell power will allow the caster to accumulate charge more rapidly.
+is reached, the charge couples with the nearest foe, vaporising them instantly
+and irresistibly. Higher spell power will allow the caster to accumulate charge
+more rapidly.
 %%%%
 Mephitic Cloud spell
 
 Conjures up a short-lived cloud of noxious fumes, which may cause confusion in
-any creature not resistant to poison. Tougher, more experienced creatures are
-less likely to be affected.
+any living creature. Tougher, more experienced creatures are less likely to be
+affected.
 %%%%
 Mesmerise spell
 
@@ -1283,12 +1284,13 @@ Only one set of sigils can be maintained at a time.
 %%%%
 Silence spell
 
-Eliminates all sound near the caster. This makes reading scrolls, casting
+Eliminates all sound near the caster. This makes casting
 spells, invoking divine abilities, or shouting impossible in the caster's
-vicinity. The spell's oppressive, unnatural effect will greatly hamper stealth.
+vicinity. The spell's oppressive, unnatural effect will slightly reduce stealth
+for the caster.
 
-Certain monsters have innate magical or special abilities which will still be
-usable while silenced.
+Certain monsters (such as demons) have innate magical or special abilities which
+will still be usable while silenced.
 
 The effect starts out with a radius depending on power, which will then shrink,
 eventually covering only the caster, before it times out.
@@ -1375,7 +1377,8 @@ Static Discharge spell
 Releases electrical charges against those next to the caster. These may arc to
 other adjacent creatures, or back to the caster, before eventually grounding
 out. It deals reduced damage when arcing to the caster, and bypasses any armour
-the target may have.
+the target may have. Spellpower increases both the damage of each arc and the
+maximum number of possible arcs.
 %%%%
 Steam Ball spell
 
@@ -1603,8 +1606,9 @@ Summons one or more water elementals.
 %%%%
 Swiftness spell
 
-Calls forth winds to greatly increase the caster's movement speed. After the
-effect ends, the caster's movements will be sluggish for a time.
+Calls forth winds to make the caster move quickly, enabling a free movement
+action each turn. After the effect ends, the caster's movements will be sluggish
+for a time, stunning them after each movement.
 %%%%
 Symbol of Torment spell
 
@@ -1707,13 +1711,12 @@ around, slither, etc. Only motile creatures can cast this spell.
 %%%%
 Vhi's Electric Charge spell
 
-Sends the caster hurtling at a chosen nearby enemy, launching a high-accuracy
-melee attack on arrival. Additional electric damage will be dealt based on the
+Sends the caster hurtling at a chosen nearby enemy, launching a melee attack
+on arrival. Additional electric damage will be dealt based on the
 length of the charge, the power of the spell, and the physical damage of the
 attack. The caster is wrapped in an envelope of twisted space, allowing them
-to safely pass through creatures, traps, and harmful terrain, and to displace
-creatures at their destination. The time taken by the spell is the greater of
-the time needed to move one step or that needed to launch one melee attack.
+to safely pass through creatures and harmful terrain, and to displace
+creatures at their destination.
 %%%%
 Volley of Thorns spell
 

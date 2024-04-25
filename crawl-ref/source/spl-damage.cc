@@ -2549,7 +2549,7 @@ spret cast_ignition(const actor *agent, int pow, bool fail)
     return spret::success;
 }
 
-static const int DISCHARGE_POWER_DIV = 12;
+static const int DISCHARGE_POWER_DIV = 3;
 
 static int _discharge_monsters(const coord_def &where, int pow,
                                const actor &agent, int remaining)
@@ -2561,11 +2561,11 @@ static int _discharge_monsters(const coord_def &where, int pow,
 
     int damage = 0;
     if (&agent == victim)
-        damage = 1 + random2(1 + div_rand_round(pow, 18));
+        damage = 1;
     else
     {
         damage = FLAT_DISCHARGE_ARC_DAMAGE
-                 + random2(3 + div_rand_round(pow, DISCHARGE_POWER_DIV));
+                 + random2(1 + div_rand_round(pow, DISCHARGE_POWER_DIV));
     }
 
     bolt beam;
@@ -2586,7 +2586,7 @@ static int _discharge_monsters(const coord_def &where, int pow,
 
     if (victim->is_player())
     {
-        damage = 1 + random2(2 + div_rand_round(pow,15));
+        damage = 1;
         dprf("You: static discharge damage: %d", damage);
         damage = check_your_resists(damage, BEAM_ELECTRICITY,
                                     "static discharge");
@@ -2680,11 +2680,11 @@ spret cast_discharge(int pow, const actor &agent, bool fail, bool prompt)
 
     fail_check();
 
-    const int num_targs = 1 + random2(2 + div_rand_round(pow, 25));
+    const int num_targs = 1 + random2(2 + div_rand_round(pow, 3));
     const int dam =
         apply_random_around_square([pow, &agent] (coord_def target) {
             return _discharge_monsters(target, pow, agent,
-                        1 + random2(2 + div_rand_round(pow, 25)));
+                        1 + random2(2 + div_rand_round(pow, 3)));
         }, agent.pos(), true, num_targs);
 
     dprf("Arcs: %d Damage: %d", num_targs, dam);
@@ -4619,8 +4619,7 @@ spret cast_maxwells_coupling(int pow, bool fail, bool tracer)
     insert_commands(msg, { CMD_WAIT });
     mpr(msg);
 
-    you.props[COUPLING_TIME_KEY] =
-        - (30 + div_rand_round(random2((200 - pow) * 40), 200));
+    you.props[COUPLING_TIME_KEY] = - (30 + max(0, 40 - random2(4 * pow)));
     return spret::success;
 }
 

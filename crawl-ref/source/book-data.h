@@ -42,7 +42,6 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_FIREBALL,
     SPELL_CALL_IMP,
     SPELL_STEAM_BURST,
-    SPELL_MEPHITIC_CLOUD,
     SPELL_FLAME_LANCE,
     SPELL_PLASMA_BEAM,
     SPELL_PERMAFROST_ERUPTION,
@@ -143,8 +142,8 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 {   // Book of Vapours
-    SPELL_POISONOUS_VAPOURS,
     SPELL_MEPHITIC_CLOUD,
+    SPELL_POISONOUS_VAPOURS,
     SPELL_FREEZING_CLOUD,
 },
 
@@ -267,7 +266,6 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Burglary
     SPELL_PASSWALL,
     SPELL_HIBERNATION,
-    SPELL_SWIFTNESS,
 },
 
 {   // Book of Dreams
@@ -383,12 +381,11 @@ static const vector<spell_type> spellbook_templates[] =
 { // Book of the Senses
     SPELL_DAZZLING_FLASH,
     SPELL_AGONY,
-    SPELL_SILENCE,
 },
 
 { // Book of the Moon
-    SPELL_GOLUBRIAS_PASSAGE,
     SPELL_SILENCE,
+    SPELL_GOLUBRIAS_PASSAGE,
     SPELL_LEHUDIBS_CRYSTAL_SPEAR,
 },
 

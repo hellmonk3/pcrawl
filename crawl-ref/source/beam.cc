@@ -2850,10 +2850,10 @@ void bolt::affect_place_explosion_clouds()
     if (flavour == BEAM_MEPHITIC)
     {
         const coord_def center = (aimed_at_feet ? source : ray.pos());
-        if (p == center || x_chance_in_y(125 + ench_power, 225))
+        if (p == center || x_chance_in_y(75 + ench_power, 100))
         {
             place_cloud(CLOUD_MEPHITIC, p, roll_dice(2,
-                        2 + div_rand_round(ench_power, 20)), agent());
+                        2 + div_rand_round(ench_power, 3)), agent());
         }
     }
 

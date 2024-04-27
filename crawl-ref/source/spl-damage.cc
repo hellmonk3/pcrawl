@@ -4822,7 +4822,7 @@ spret cast_flame_lance(int powc, bool fail)
 
     noisy(spell_effect_noise(SPELL_FLAME_LANCE), you.pos());
 
-    int dur = 4 + div_rand_round(powc, 3) + random2(powc + 1);
+    int dur = 4 + div_rand_round(powc, 2) + random2(powc + 1);
 
     you.set_duration(DUR_FLAME_LANCE, dur);
 

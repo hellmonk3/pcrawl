@@ -19,6 +19,7 @@ spret corpse_armour(int pow, bool fail);
 spret cast_revivification(int pow, bool fail);
 
 spret cast_swiftness(int power, bool fail);
+spret deflection(int pow, bool fail);
 
 int cast_selective_amnesia(const string &pre_msg = "");
 

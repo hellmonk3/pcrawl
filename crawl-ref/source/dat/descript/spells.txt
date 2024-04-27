@@ -416,6 +416,12 @@ Debugging Ray spell
 
 Fires a ray which does massive damage (1500 hp) and always hits.
 %%%%
+Deflect Missiles spell
+
+Guarantees that ranged attacks will miss the caster for a brief duration.
+The spell has no effect on attacks that cannot normally be dodged, such as
+explosions.
+%%%%
 Dig spell
 
 Digs a tunnel through unworked rock.

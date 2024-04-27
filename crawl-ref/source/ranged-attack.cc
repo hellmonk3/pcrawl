@@ -83,6 +83,10 @@ bool ranged_attack::attack()
     const int ev = defender->evasion(false, attacker);
     const int repulsion = defender->missile_repulsion() ? 50 : 0;
     ev_margin = test_hit(to_hit, ev + repulsion, false);
+
+    if (defender->is_player() && you.duration[DUR_DEFLECT_MISSILES])
+        ev_margin = -100;
+
     bool shield_blocked = attack_shield_blocked(false);
 
     god_conduct_trigger conducts[3];

@@ -119,6 +119,15 @@ spret cast_swiftness(int power, bool fail)
     return spret::success;
 }
 
+spret deflection(int pow, bool fail)
+{
+    fail_check();
+    you.set_duration(DUR_DEFLECT_MISSILES, 5 + random2(1 + pow), 30,
+        "You feel very safe from missiles.");
+
+    return spret::success;
+}
+
 int cast_selective_amnesia(const string &pre_msg)
 {
     if (you.spell_no == 0)

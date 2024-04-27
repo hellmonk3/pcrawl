@@ -769,6 +769,9 @@ static void _decrement_durations()
 
     _decrement_a_duration(DUR_FLAME_LANCE, delay,"Your flame lance burns out.");
 
+    _decrement_a_duration(DUR_DEFLECT_MISSILES, delay,
+            "You are no longer deflecting missiles.");
+
     if (_decrement_a_duration(DUR_LANTERN, delay, "The shadows dissipate."))
         update_vision_range();
 

@@ -629,8 +629,10 @@ static const duration_def duration_data[] =
       LIGHTBLUE, "Shadows",
       "shadows", "lantern of shadows",
       "Your vision is reduced by the lantern.", D_NO_FLAGS},
-     { DUR_FLAME_LANCE, LIGHTBLUE, "Flame", "flame", "flame lance",
+    { DUR_FLAME_LANCE, LIGHTBLUE, "Flame", "flame", "flame lance",
       "You are imbued with flames that will fire when moving.", D_NO_FLAGS},
+    { DUR_DEFLECT_MISSILES, MAGENTA, "DMsl", "DMsl", "deflect missiles",
+      "You are deflecting missiles.", D_NO_FLAGS},
 
     // The following are visible in wizmode only, or are handled
     // specially in the status lights and/or the % or @ screens.
@@ -702,7 +704,6 @@ static const duration_def duration_data[] =
     // And removed ones
     { DUR_MAGIC_SAPPED, 0, "", "", "old magic sapped", "", D_NO_FLAGS},
     { DUR_REPEL_MISSILES, 0, "", "", "old repel missiles", "", D_NO_FLAGS},
-    { DUR_DEFLECT_MISSILES, 0, "", "", "old deflect missiles", "", D_NO_FLAGS},
     { DUR_JELLY_PRAYER, 0, "", "", "old jelly prayer", "", D_NO_FLAGS},
     { DUR_CONTROLLED_FLIGHT, 0, "", "", "old controlled flight", "", D_NO_FLAGS},
     { DUR_SEE_INVISIBLE, 0, "", "", "old see invisible", "", D_NO_FLAGS},

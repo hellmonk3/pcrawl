@@ -2972,6 +2972,9 @@ static bool _test_beam_hit(int hit, int ev, bool repel)
     if (hit == AUTOMATIC_HIT)
         return true;
 
+    if (you.duration[DUR_DEFLECT_MISSILES])
+        return false;
+
     if (repel)
         ev += 50;
 
@@ -3286,20 +3289,21 @@ bool bolt::misses_player()
 
     bool repel = you.missile_repulsion();
 
-    if (!_test_beam_hit(real_tohit, dodge, 0))
+    if (!_test_beam_hit(real_tohit, dodge, repel))
     {
-        mprf("The %s misses you.", name.c_str());
-        count_action(CACT_DODGE, DODGE_EVASION);
+        if (repel && _test_beam_hit(real_tohit, dodge, 0))
+        {
+            mprf("The %s is repelled.", name.c_str());
+            count_action(CACT_DODGE, DODGE_REPEL);
+        }
+        else
+        {
+            mprf("The %s misses you.", name.c_str());
+            count_action(CACT_DODGE, DODGE_EVASION);
+        }
+        return true;
     }
-    else if (repel && !_test_beam_hit(real_tohit, dodge, repel))
-    {
-        mprf("The %s is repelled.", name.c_str());
-        count_action(CACT_DODGE, DODGE_REPEL);
-    }
-    else
-        return false;
-
-    return true;
+    return false;
 }
 
 void bolt::affect_player_enchantment(bool resistible)
@@ -5146,7 +5150,7 @@ void bolt::affect_monster(monster* mon)
         if (mon->observable())
         {
             // if it would have hit otherwise...
-            if (_test_beam_hit(beam_hit, ev, 0))
+            if (repel && _test_beam_hit(beam_hit, ev, 0))
             {
                 msg::stream << mon->name(DESC_THE) << " "
                             << "repels the " << name

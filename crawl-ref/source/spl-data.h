@@ -919,13 +919,24 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_SWIFTNESS, "Swiftness",
-    spschool::air,
+    spschool::air | spschool::enchantments,
     spflag::hasty | spflag::selfench | spflag::utility,
-    3,
+    2,
     100,
     -1, -1,
     0,
     TILEG_SWIFTNESS,
+},
+
+{
+    SPELL_DEFLECT_MISSILES, "Deflect Missiles",
+    spschool::air | spschool::enchantments,
+    spflag::selfench | spflag::utility,
+    3,
+    100,
+    -1, -1,
+    0,
+    TILEG_DEFLECT_MISSILES,
 },
 
 {
@@ -3810,7 +3821,6 @@ AXED_SPELL(SPELL_CONTROL_WINDS, "Control Winds")
 AXED_SPELL(SPELL_CORRUPT_BODY, "Corrupt Body")
 AXED_SPELL(SPELL_CURE_POISON, "Cure Poison")
 AXED_SPELL(SPELL_DARKNESS, "Darkness")
-AXED_SPELL(SPELL_DEFLECT_MISSILES, "Deflect Missiles")
 AXED_SPELL(SPELL_DELAYED_FIREBALL, "Delayed Fireball")
 AXED_SPELL(SPELL_DEMONIC_HORDE, "Demonic Horde")
 AXED_SPELL(SPELL_DRACONIAN_BREATH, "Draconian Breath")

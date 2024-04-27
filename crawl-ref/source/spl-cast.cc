@@ -2347,7 +2347,7 @@ static dice_def _spell_damage(spell_type spell, int power)
         case SPELL_FULMINANT_PRISM:
             return prism_damage(prism_hd(power, false), true);
         case SPELL_CONJURE_BALL_LIGHTNING:
-            return ball_lightning_damage(ball_lightning_hd(power, false), false);
+            return ball_lightning_damage(ball_lightning_hd(power, false));
         case SPELL_IOOD:
             return iood_damage(power, INFINITE_DISTANCE, false);
         case SPELL_IRRADIATE:

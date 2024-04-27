@@ -350,7 +350,7 @@ static string mons_human_readable_spell_damage_string(monster* monster,
         case SPELL_CHAIN_LIGHTNING:
             return mi_calc_chain_lightning_damage(monster);
         case SPELL_CONJURE_BALL_LIGHTNING:
-            return "3x" + dice_def_string(ball_lightning_damage(mons_ball_lightning_hd(pow, false)));
+            return "3x" + dice_def_string(ball_lightning_damage(mons_ball_lightning_hd(pow)));
         case SPELL_MARSHLIGHT:
             return "2x" + dice_def_string(zap_damage(ZAP_FOXFIRE, pow, true));
         case SPELL_PLASMA_BEAM:

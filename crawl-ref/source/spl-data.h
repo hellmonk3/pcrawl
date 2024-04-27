@@ -1222,7 +1222,7 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_CONJURE_BALL_LIGHTNING, "Conjure Ball Lightning",
-    spschool::air | spschool::enchantments,
+    spschool::air,
     spflag::selfench,
     6,
     200,

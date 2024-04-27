@@ -734,8 +734,8 @@ void cast_tukimas_dance(int pow, actor* target)
 int ball_lightning_hd(int pow, bool random)
 {
     if (random)
-        return max(1, div_rand_round(pow, 6) - 6);
-    return max(1, pow / 6 - 6);
+        return max(1, div_rand_round(pow * 4, 3));
+    return max(1, pow * 4 / 3);
 }
 
 int mons_ball_lightning_hd(int pow, bool random)

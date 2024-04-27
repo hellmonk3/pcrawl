@@ -169,6 +169,7 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Air
     SPELL_SHOCK,
     SPELL_SWIFTNESS,
+    SPELL_DEFLECT_MISSILES,
     SPELL_AIRSTRIKE,
 },
 

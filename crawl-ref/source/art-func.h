@@ -298,7 +298,7 @@ static void _POWER_melee_effects(item_def* /*weapon*/, actor* attacker,
         beam.attitude  = attacker->temp_attitude();
         beam.range = 4;
         beam.target = defender->pos();
-        zappy(ZAP_SWORD_BEAM, 100, false, beam);
+        zappy(ZAP_INACCURACY, 100, false, beam);
         beam.fire();
     }
 }

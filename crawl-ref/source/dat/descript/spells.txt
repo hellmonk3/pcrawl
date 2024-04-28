@@ -31,6 +31,15 @@ poison-resistant creatures may resist the effects). The caster will experience
 vertigo briefly if they successfully make contact with other minds. It is
 frequently used as an icebreaker at wizard parties.
 %%%%
+Alistair's Dodgeable Bolt spell
+
+A wizard's party trick, this spell conjures a trick bolt of lightning that is 
+laughably easy to avoid. Any target capable of evading it is guaranteed to do 
+so. 
+
+Not recommended for use on clumsy, sleeping, or otherwise incapacitated
+targets, as the bolt is quite painful if it manages to connect.
+%%%%
 Anguish spell
 
 Afflicts nearby foes with supernatural anguish, causing all damage they deal to

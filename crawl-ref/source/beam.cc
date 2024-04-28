@@ -1492,6 +1492,7 @@ int mons_adjust_flavoured(monster* mons, bolt &pbolt, int hurted,
 
     case BEAM_STUN_BOLT:
     case BEAM_ELECTRICITY:
+    case BEAM_INACCURACY:
     case BEAM_THUNDER:
         hurted = resist_adjust_damage(mons, pbolt.flavour, hurted);
         if (!hurted)
@@ -2967,16 +2968,19 @@ bool bolt::fuzz_invis_tracer()
 // A first step towards to-hit sanity for beams. We're still being
 // very kind to the player, but it should be fairer to monsters than
 // 4.0.
-static bool _test_beam_hit(int hit, int ev, bool repel)
+static bool _test_beam_hit(int hit, int ev, bool repel, bool player_target)
 {
     if (hit == AUTOMATIC_HIT)
         return true;
 
-    if (you.duration[DUR_DEFLECT_MISSILES])
+    if (player_target && you.duration[DUR_DEFLECT_MISSILES])
         return false;
 
     if (repel)
         ev += 50;
+    
+    if (hit == AUTOMATIC_MISS && ev > 0)
+        return false;
 
     hit = random2(hit);
 
@@ -3015,6 +3019,7 @@ bool bolt::is_harmless(const monster* mon) const
         return mon->res_negative_energy() == 3;
 
     case BEAM_ELECTRICITY:
+    case BEAM_INACCURACY:
         return mon->res_elec() >= 3;
 
     case BEAM_POISON:
@@ -3289,9 +3294,9 @@ bool bolt::misses_player()
 
     bool repel = you.missile_repulsion();
 
-    if (!_test_beam_hit(real_tohit, dodge, repel))
+    if (!_test_beam_hit(real_tohit, dodge, repel, true))
     {
-        if (repel && _test_beam_hit(real_tohit, dodge, 0))
+        if (repel && _test_beam_hit(real_tohit, dodge, false, true))
         {
             mprf("The %s is repelled.", name.c_str());
             count_action(CACT_DODGE, DODGE_REPEL);
@@ -4175,6 +4180,7 @@ int bolt::apply_AC(const actor *victim, int hurted)
         break;
     case BEAM_ELECTRICITY:
     case BEAM_THUNDER:
+    case BEAM_INACCURACY:
         ac_rule = ac_type::half; break;
     case BEAM_FRAG:
         ac_rule = ac_type::triple; break;
@@ -5144,13 +5150,13 @@ void bolt::affect_monster(monster* mon)
     int ev = mon->evasion();
     bool repel = mon->missile_repulsion();
 
-    if (!engulfs && !_test_beam_hit(beam_hit, ev, repel))
+    if (!engulfs && !_test_beam_hit(beam_hit, ev, repel, false))
     {
         // If the PLAYER cannot see the monster, don't tell them anything!
         if (mon->observable())
         {
             // if it would have hit otherwise...
-            if (repel && _test_beam_hit(beam_hit, ev, 0))
+            if (repel && _test_beam_hit(beam_hit, ev, false, false))
             {
                 msg::stream << mon->name(DESC_THE) << " "
                             << "repels the " << name
@@ -6878,6 +6884,7 @@ static string _beam_type_name(beam_type type)
     case BEAM_NECROTISE:             return "necrotise";
     case BEAM_ROOTS:                 return "roots";
     case BEAM_TOXIC:                 return "toxic dart";
+    case BEAM_INACCURACY:            return "trick lightning";
 
     case NUM_BEAMS:                  die("invalid beam type");
     }

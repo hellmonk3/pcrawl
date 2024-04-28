@@ -171,6 +171,7 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_SWIFTNESS,
     SPELL_DEFLECT_MISSILES,
     SPELL_AIRSTRIKE,
+    SPELL_BOLT_OF_INACCURACY,
 },
 
 #if TAG_MAJOR_VERSION == 34

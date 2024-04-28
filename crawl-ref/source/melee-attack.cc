@@ -161,7 +161,7 @@ bool melee_attack::player_unrand_bad_attempt()
     }
     if (is_unrandom_artefact(*weapon, UNRAND_POWER))
     {
-        targeter_beam hitfunc(&you, 4, ZAP_SWORD_BEAM, 100, 0, 0);
+        targeter_beam hitfunc(&you, 4, ZAP_INACCURACY, 100, 0, 0);
         hitfunc.beam.aimed_at_spot = false;
         hitfunc.set_aim(defender->pos());
 

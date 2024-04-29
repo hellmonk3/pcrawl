@@ -2719,15 +2719,11 @@ bool monster::res_sticky_flame() const
 
 bool monster::res_miasma(bool /*temp*/) const
 {
-    if ((holiness() & (MH_HOLY | MH_DEMONIC | MH_UNDEAD | MH_NONLIVING))
+    if ((holiness() & (MH_HOLY | MH_UNDEAD | MH_NONLIVING))
         || get_mons_resist(*this, MR_RES_MIASMA))
     {
         return true;
     }
-
-    const item_def *armour = mslot_item(MSLOT_ARMOUR);
-    if (armour && is_unrandom_artefact(*armour, UNRAND_EMBRACE))
-        return true;
 
     return false;
 }

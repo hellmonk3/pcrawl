@@ -863,10 +863,10 @@ static const struct spell_desc spelldata[] =
 },
 
 {
-    SPELL_ROT, "Cigotuvi's Dreadful Rot",
-    spschool::necromancy | spschool::air | spschool::hexes,
+    SPELL_ROT, "Cigotuvi's Creeping Rot",
+    spschool::necromancy | spschool::air,
     spflag::unclean,
-    2,
+    1,
     50,
     -1, -1,
     0,
@@ -3327,6 +3327,17 @@ static const struct spell_desc spelldata[] =
     LOS_RADIUS, LOS_RADIUS,
     25,
     TILEG_MAXWELLS_COUPLING,
+},
+
+{
+    SPELL_THUNDERBOLT_HD, "SUPER THUNDERBOLT HD",
+    spschool::air,
+    spflag::no_ghost | spflag::destructive,
+    8,
+    200,
+    -1, -1,
+    40,
+    TILEG_CHAIN_LIGHTNING,
 },
 
 {

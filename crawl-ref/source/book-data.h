@@ -316,6 +316,7 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_BLASTMOTE,
     SPELL_DAZZLING_FLASH,
     SPELL_STARBURST,
+    SPELL_THUNDERBOLT_HD,
     SPELL_MAXWELLS_COUPLING,
 },
 

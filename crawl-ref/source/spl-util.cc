@@ -1391,12 +1391,6 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
         break;
 
     case SPELL_ROT:
-        {
-            const mon_holy_type holiness = you.holiness(temp, false);
-            if (holiness != MH_NATURAL && holiness != MH_UNDEAD)
-                return "you have no flesh to rot.";
-        }
-        // fallthrough to cloud spells
     case SPELL_BLASTMOTE:
     case SPELL_POISONOUS_CLOUD:
     case SPELL_FREEZING_CLOUD:
@@ -1605,13 +1599,16 @@ bool spell_no_hostile_in_range(spell_type spell)
     case SPELL_IGNITE_POISON:
         return cast_ignite_poison(&you, -1, false, true) == spret::abort;
 
+    case SPELL_ROT:
+        return cast_dreadful_rot(&you, -1, false, true) == spret::abort;
+
     case SPELL_FRIGID_HALO:
         return cast_freeze(-1, false, true) == spret::abort;
 
     case SPELL_STARBURST:
         return cast_starburst(-1, false, true) == spret::abort;
 
-       case SPELL_WINTERS_EMBRACE:
+    case SPELL_WINTERS_EMBRACE:
         return cast_winters_embrace(-1, false, true) == spret::abort;
 
     case SPELL_HAILSTORM:
@@ -1632,7 +1629,7 @@ bool spell_no_hostile_in_range(spell_type spell)
     case SPELL_MANIFOLD_ASSAULT:
          return cast_manifold_assault(-1, false, false) == spret::abort;
 
-        case SPELL_WARP_GRAVITY:
+    case SPELL_WARP_GRAVITY:
         return warp_gravity(-1, false, true) == spret::abort;
 
     case SPELL_OZOCUBUS_REFRIGERATION:

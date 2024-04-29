@@ -2079,6 +2079,26 @@ static int _ignite_tracer_cloud_value(coord_def where, actor *agent)
         return 1;
 }
 
+// How much work can we consider we'll have done by igniting a cloud here?
+// Considers a cloud under a susceptible ally bad, a cloud under a a susceptible
+// enemy good, and other clouds relatively unimportant.
+static int _rot_tracer_cloud_value(coord_def where, actor *agent)
+{
+    actor* act = actor_at(where);
+    if (act)
+    {
+        const int dam = actor_cloud_immune(*act, CLOUD_MIASMA) ? 0 : 40;
+
+        if (god_protects(agent, act->as_monster()))
+            return 0;
+
+        return mons_aligned(act, agent) ? -dam : dam;
+    }
+    // We've done something, but its value is indeterminate
+    else
+        return 1;
+}
+
 /**
  * Place flame clouds over toxic bogs, by the power of Ignite Poison.
  *
@@ -2149,6 +2169,33 @@ static int _ignite_poison_clouds(coord_def where, int pow, actor *agent)
 
     cloud->type = CLOUD_FIRE;
     cloud->decay = 30 + random2(20 + pow); // from 3-5 turns to 3-15 turns
+    cloud->whose = agent->kill_alignment();
+    cloud->killer = agent->is_player() ? KILL_YOU_MISSILE : KILL_MON_MISSILE;
+    cloud->source = agent->mid;
+    return true;
+}
+
+static int _rot_clouds(coord_def where, int pow, actor *agent)
+{
+    const bool tracer = (pow == -1);
+
+    cloud_struct* cloud = cloud_at(where);
+    if (!cloud)
+        return false;
+
+    // does nothing if the cloud is already miasma
+    if (cloud->type == CLOUD_MIASMA)
+        return false;
+
+    if (tracer)
+    {
+        const int value = _rot_tracer_cloud_value(where, agent);
+        // Player doesn't care about magnitude.
+        return agent && agent->is_player() ? sgn(value) : value;
+    }
+
+    cloud->type = CLOUD_MIASMA;
+    cloud->decay = 30 + random2(10 + 5 * pow);
     cloud->whose = agent->kill_alignment();
     cloud->killer = agent->is_player() ? KILL_YOU_MISSILE : KILL_MON_MISSILE;
     cloud->source = agent->mid;
@@ -2359,6 +2406,11 @@ bool ignite_poison_affects_cell(const coord_def where, actor* agent)
          + _ignite_poison_bog(where, -1, agent) != 0;
 }
 
+bool rot_affects_cell(const coord_def where, actor* agent)
+{
+    return _rot_clouds(where, -1, agent);
+}
+
 /**
  * Cast the spell Ignite Poison, burning poisoned creatures and poisonous
  * clouds in LOS.
@@ -2421,6 +2473,52 @@ spret cast_ignite_poison(actor* agent, int pow, bool fail, bool tracer)
         // Only relevant if a monster is casting this spell
         // (never hurts the caster)
         _ignite_poison_player(where, pow, agent);
+        return 0; // ignored
+    }, agent->pos());
+
+    return spret::success;
+}
+
+spret cast_dreadful_rot(actor* agent, int powc, bool fail, bool tracer)
+{
+    if (tracer)
+    {
+        // Estimate how much useful effect we'd get if we cast the spell now
+        const int work = apply_area_visible([agent] (coord_def where) {
+            return _rot_clouds(where, -1, agent);
+        }, agent->pos());
+
+        return work > 0 ? spret::success : spret::abort;
+    }
+
+    if (const cloud_struct* cloud = cloud_at(you.pos()))
+    {
+        if (cloud->type != CLOUD_MIASMA
+                && !actor_cloud_immune(you, CLOUD_MIASMA))
+        {
+            string prompt = "You are standing in a cloud of ";
+            prompt += cloud->cloud_name(true);
+            prompt += "! Turn clouds to miasma anyway?";
+            if (!yesno(prompt.c_str(), false, 'n'))
+                return spret::abort;
+        }
+    }
+
+    fail_check();
+
+    targeter_radius hitfunc(agent, LOS_NO_TRANS);
+    flash_view_delay(
+        agent->is_player()
+            ? UA_PLAYER
+            : UA_MONSTER,
+        MAGENTA, 100, &hitfunc);
+
+    mprf("%s %s the clouds in %s surroundings!", agent->name(DESC_THE).c_str(),
+         agent->conj_verb("decay").c_str(),
+         agent->pronoun(PRONOUN_POSSESSIVE).c_str());
+
+    apply_area_visible([powc, agent] (coord_def where) {
+        _rot_clouds(where, powc, agent);
         return 0; // ignored
     }, agent->pos());
 
@@ -4953,6 +5051,40 @@ spret cast_winters_embrace(int pow, bool fail, bool tracer)
                 mons->put_to_sleep(&you, pow, true);
         }
     }
+
+    return spret::success;
+}
+
+spret cast_thunderbolt_hd(int powc, bool fail)
+{
+    fail_check();
+
+    vector<monster* > mon_list;
+    // Build the list of boltable monsters and randomize
+    for (monster_iterator mi; mi; ++mi)
+    {
+        if (!mons_is_boltable(**mi))
+            continue;
+
+        mon_list.push_back(*mi);
+    }
+
+    if (mon_list.empty())
+    {
+        mpr("You try to call down a lightning bolt, but nothing happens.");
+        return spret::success;
+    }
+
+    shuffle_array(mon_list);
+
+    mpr("You call down a bolt of lightning!");
+    noisy(spell_effect_noise(SPELL_THUNDERBOLT_HD), you.pos());
+
+    monster* target = mon_list[0];
+    int damage = 40 + random2(11 + 10 * powc);
+    damage = resist_adjust_damage(target, BEAM_ELECTRICITY, damage);
+
+    _player_hurt_monster(*target, damage, BEAM_ELECTRICITY);
 
     return spret::success;
 }

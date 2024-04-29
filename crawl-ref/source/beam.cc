@@ -2005,12 +2005,12 @@ bool miasma_monster(monster* mons, const actor* who)
     if (mons->res_miasma())
         return false;
 
-    bool success = poison_monster(mons, who);
+    bool success = false;
 
     if (who && who->is_player() && is_good_god(you.religion))
         did_god_conduct(DID_EVIL, 5 + random2(3));
 
-    if (one_chance_in(3))
+    if (coinflip())
     {
         bolt beam;
         beam.flavour = BEAM_SLOW;
@@ -2978,7 +2978,7 @@ static bool _test_beam_hit(int hit, int ev, bool repel, bool player_target)
 
     if (repel)
         ev += 50;
-    
+
     if (hit == AUTOMATIC_MISS && ev > 0)
         return false;
 
@@ -4032,7 +4032,7 @@ void bolt::affect_player()
         confuse_player(random_range(2, 3));
 
     if (flavour == BEAM_MIASMA && final_dam > 0)
-        was_affected = miasma_player(agent(), name);
+        was_affected = miasma_player();
 
     if (flavour == BEAM_TOXIC)
         was_affected = toxic_dart_actor((actor*) &you, source_name);

@@ -1111,7 +1111,6 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
 
     // at player's position only but not a selfench (wait, why wereblood?)
     case SPELL_WEREBLOOD:
-    case SPELL_ROT:
     case SPELL_SUBLIMATION_OF_BLOOD:
     case SPELL_BORGNJORS_REVIVIFICATION:
     case SPELL_BLASTMOTE:
@@ -1132,6 +1131,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
                                                     // affects walls
     case SPELL_IGNITE_POISON: // many cases
         return make_unique<targeter_ignite_poison>(&you);
+    case SPELL_ROT:
+        return make_unique<targeter_rot>(&you);
     case SPELL_CAUSE_FEAR: // for these, we just mark the eligible monsters
         return make_unique<targeter_fear>();
     case SPELL_ANGUISH:
@@ -2022,6 +2023,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_FROZEN_RAMPARTS:
         return cast_frozen_ramparts(powc, fail);
 
+    case SPELL_THUNDERBOLT_HD:
+        return cast_thunderbolt_hd(powc, fail);
+
     // Summoning spells, and other spells that create new monsters.
     // If a god is making you cast one of these spells, any monsters
     // produced will count as god gifts.
@@ -2126,7 +2130,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
         return cast_vile_clutch(powc, fail);
 
     case SPELL_ROT:
-        return cast_dreadful_rot(powc, fail);
+        return cast_dreadful_rot(&you, powc, fail);
 
     // Our few remaining self-enchantments.
     case SPELL_SWIFTNESS:
@@ -2408,6 +2412,11 @@ string spell_damage_string(spell_type spell, bool evoked, int pow)
     {
         case SPELL_MAXWELLS_COUPLING:
             return Options.char_set == CSET_ASCII ? "death" : "\u221e"; //"∞"
+        case SPELL_THUNDERBOLT_HD:
+        {
+            const int max = 50 + 10 * pow;
+            return make_stringf("40-%d", max);
+        }
         case SPELL_FREEZING_CLOUD:
             return desc_cloud_damage(CLOUD_COLD, false);
         case SPELL_STEAM_BURST:

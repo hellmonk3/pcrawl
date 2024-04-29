@@ -2107,6 +2107,14 @@ targeter_ignite_poison::targeter_ignite_poison(actor *a)
             affected_positions.insert(*ri);
 }
 
+targeter_rot::targeter_rot(actor *a)
+    : targeter_multiposition(a, { })
+{
+    for (radius_iterator ri(a->pos(), LOS_SOLID_SEE); ri; ++ri)
+        if (rot_affects_cell(*ri, a))
+            affected_positions.insert(*ri);
+}
+
 targeter_multimonster::targeter_multimonster(const actor *a)
     : targeter()
 {

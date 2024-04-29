@@ -4265,7 +4265,7 @@ int poison_survival()
     return min(prediction1, prediction2);
 }
 
-bool miasma_player(actor *who, string source_aux)
+bool miasma_player()
 {
     ASSERT(!crawl_state.game_is_arena());
 
@@ -4278,11 +4278,9 @@ bool miasma_player(actor *who, string source_aux)
         return false;
     }
 
-    bool success = poison_player(5 + roll_dice(3, 12),
-                                 who ? who->name(DESC_A) : "",
-                                 source_aux);
+    bool success = false;
 
-    if (one_chance_in(3))
+    if (coinflip())
     {
         slow_player(10 + random2(5));
         success = true;
@@ -6138,10 +6136,6 @@ bool player::res_miasma(bool temp) const
     {
         return true;
     }
-
-    const item_def *armour = slot_item(EQ_BODY_ARMOUR);
-    if (armour && is_unrandom_artefact(*armour, UNRAND_EMBRACE))
-        return true;
 
     return is_lifeless_undead();
 }

@@ -4948,6 +4948,17 @@ bool mons_is_recallable(const actor* caller, const monster& targ)
            && mons_class_is_threatening(targ.type);
 }
 
+bool mons_is_boltable(const monster& targ)
+{
+    // never bolt an ally
+    if (targ.friendly())
+           return false;
+
+    return targ.alive()
+        && !mons_is_conjured(targ.type)
+        && mons_class_is_threatening(targ.type);
+}
+
 vector<monster* > get_on_level_followers()
 {
     vector<monster* > mon_list;

@@ -33,9 +33,9 @@ frequently used as an icebreaker at wizard parties.
 %%%%
 Alistair's Dodgeable Bolt spell
 
-A wizard's party trick, this spell conjures a trick bolt of lightning that is 
-laughably easy to avoid. Any target capable of evading it is guaranteed to do 
-so. 
+A wizard's party trick, this spell conjures a trick bolt of lightning that is
+laughably easy to avoid. Any target capable of evading it is guaranteed to do
+so.
 
 Not recommended for use on clumsy, sleeping, or otherwise incapacitated
 targets, as the bolt is quite painful if it manages to connect.
@@ -299,15 +299,12 @@ Chilling Breath spell
 
 Exhales a blast of frost which may knock the target back if it deals damage.
 %%%%
-Cigotuvi's Dreadful Rot spell
+Cigotuvi's Creeping Rot spell
 
-Rots away a part of the caster's flesh to produce a cloud of miasma around them.
-The miasma slows and powerfully poisons any living creature that lingers within -
-including the caster, if they tarry after casting. Most living creatures are
-terrified of miasma and will not willingly enter it.
-
-The rot leaves the caster's health temporarily drained. The undead can still use
-this spell, but fleshless beings (e.g., those made of stone) cannot.
+Transforms every cloud in the caster's sight into a cloud of miasma. The miasma
+slows and heavily damages living and demonic creatures that linger within it,
+but undead creatures or artifical constructs are immune. Most susceptible
+creatures are terrified of miasma and will not willingly enter it.
 %%%%
 Cleansing Flame spell
 
@@ -1618,6 +1615,13 @@ Summons multiple rats, spiders and worms.
 Summon Water Elementals spell
 
 Summons one or more water elementals.
+%%%%
+SUPER THUNDERBOLT HD spell
+
+CALLS DOWN AN INCREDIBLY POWERFUL LIGHTNING BOLT UPON A RANDOM ENEMY SOMEWHERE
+ON THE CURRENT LEVEL, WHETHER THE CASTER CAN SEE THEM OR NOT. THOUGH LIKELY TO
+BE LETHAL TO ANYTHING THAT IS NOT RESISTANT, BE ADVISED THAT THE SPELL IS ALSO
+VERY LOUD; OTHER ENEMIES WILL BE MADE AWARE OF THE CASTER'S POSITION.
 %%%%
 Swiftness spell
 

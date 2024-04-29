@@ -506,6 +506,7 @@ bool monster_nearby();
 actor *actor_by_mid(mid_t m, bool require_valid = false);
 monster *monster_by_mid(mid_t m, bool require_valid = false);
 bool mons_is_recallable(const actor* caller, const monster& targ);
+bool mons_is_boltable(const monster& targ);
 void init_anon();
 actor *find_agent(mid_t m, kill_category kc);
 const char* mons_class_name(monster_type mc);

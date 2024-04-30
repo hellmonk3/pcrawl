@@ -93,6 +93,7 @@ throw_frost THROW_FROST
 frozen_ramparts FROZEN_RAMPARTS
 hailstorm HAILSTORM
 polar_vortex POLAR_VORTEX
+rimeblight RIMEBLIGHT
 
 %sdir gui/spells/necromancy
 agony AGONY

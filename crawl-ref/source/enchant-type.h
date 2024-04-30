@@ -208,6 +208,7 @@ enum enchant_type
     ENCH_BOUND,
     ENCH_BULLSEYE_TARGET,
     ENCH_STUN,
+    ENCH_RIMEBLIGHT,
     // Update enchant_names[] in mon-ench.cc when adding or removing
     // enchantments.
     NUM_ENCHANTMENTS

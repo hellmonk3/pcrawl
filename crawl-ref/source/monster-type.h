@@ -933,6 +933,7 @@ enum monster_type                      // env.mons[].type
     MONS_PILLAR_OF_SALT,
 #if TAG_MAJOR_VERSION > 34
     MONS_BLOCK_OF_ICE,
+    MONS_PILLAR_OF_RIME,
 #endif
     MONS_HELL_LORD,             // genus
     MONS_MERGED_SLIME_CREATURE, // used only for recolouring
@@ -1202,6 +1203,7 @@ enum monster_type                      // env.mons[].type
     MONS_ORC_SNIPER,
     MONS_OBSIDIAN_BAT,
     MONS_BURIAL_ACOLYTE,
+    MONS_PILLAR_OF_RIME,
 #endif
 
     NUM_MONSTERS,               // used for polymorph

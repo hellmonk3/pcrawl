@@ -10,8 +10,8 @@ for a short time. It may also splash onto other nearby creatures on impact.
 %%%%
 Agony spell
 
-Cuts the health of an adjacent creature in half. This damage is never
-directly lethal.
+Cuts the health of an adjacent living creature in half, provided they do not
+resist. This damage is never directly lethal.
 %%%%
 Agony Range spell
 
@@ -42,8 +42,8 @@ targets, as the bolt is quite painful if it manages to connect.
 %%%%
 Anguish spell
 
-Afflicts nearby foes with supernatural anguish, causing all damage they deal to
-rebound on them for the duration of the effect. Strong-willed foes can resist the
+Afflicts nearby foes with supernatural anguish, causing them to receive damage
+equal to the damage they deal for a duration. Strong-willed foes can resist the
 necromantic visions of pain and suffering, and mindless creatures are unaffected.
 %%%%
 Animate Armour spell
@@ -56,8 +56,9 @@ Animate Dead spell
 
 For some time after casting this, living creatures killed by the caster will rise
 as zombies. The chance of reanimating a monster and the duration of the effect
-increase with spell power. Re-casting this spell will return zombies to dust, as
-will leaving the floor.
+increase with spell power. Re-casting this spell will return any existing 
+zombies to dust. More durable monsters will make more durable zombies, though 
+all creatures reanimated by this spell are quite frail.
 %%%%
 Apportation spell
 
@@ -190,7 +191,8 @@ resistance.
 Borgnjor's Revivification spell
 
 Instantly heals any and all wounds suffered by the caster, but also permanently
-damages their health, to a degree dependent on (and inversely related to) power.
+lowers their maximum health. Spellpower reduces the amount of maximum health 
+lost, but never fully prevents it.
 
 It is powerful enough to cancel the effects of Death's Door, although doing so
 will briefly paralyse the caster. It has no effect on the undead.
@@ -400,8 +402,10 @@ nearby may be dazzled and left stumbling blindly.
 %%%%
 Death Channel spell
 
-Binds the souls of slain living, demonic and holy creatures, forcing their
+Binds the souls of slain living and demonic creatures, forcing their
 spectres to remain and fight for the caster for as long as the channel lasts.
+The spectres are less durable than the original monsters, but deal comparable
+damage. Casting the spell again while it is active will extend its duration.
 %%%%
 Death Rattle spell
 
@@ -670,6 +674,13 @@ Ghostly Fireball spell
 
 Hurls an exploding ball of negative energy which drains any living creature
 it engulfs.
+%%%%
+Ghostly Legion spell
+
+Summons a legion of phantasmal warriors, each attacking a different one of the 
+caster's foes. The number of ghosts summoned depends on the number of foes
+visible, limited by the caster's power. The ghosts disappear quickly once their 
+target is killed.
 %%%%
 Ghostly Sacrifice spell
 
@@ -1197,6 +1208,19 @@ Calls a surge of power from the earth, striking an enemy within the caster's
 sight. The spell cascades through nearby constructs, growing in strength with
 each one standing near the target.
 %%%%
+Rimeblight spell
+
+Afflicts any creature (except the undead) with a magical plague that slowly
+freezes them from the inside out. Victims take AC-ignoring cold damage each
+turn, and as their disease progresses, shards of crystaline ice may erupt
+violently from their flesh, damaging nearby enemies and spreading the
+affliction to them.
+
+The disease feeds off the necromantic energies released by its host's suffering,
+and as they near death, it may accellerate rapidly, devouring the last
+vestigates of their body and leaving nothing behind but a twisted pillar of
+stygian ice.
+%%%%
 Roll spell
 
 Roll into a ball, granting the boulder beetle tremendous speed as well as
@@ -1451,9 +1475,10 @@ sometimes prevent it.
 %%%%
 Sublimation of Blood spell
 
-Converts some of the caster's blood into magical energy. The process is painful
-but never directly lethal. The efficiency of the conversion increases with the
-spell's power.
+Converts some of the caster's blood into magical energy. The process is painful,
+dealing 10 damage that cannot be prevented in any way, and the spell cannot be
+cast at all with insufficient health to power it. The amount of magic restored
+increases with spellpower.
 %%%%
 Summon Air Elementals spell
 
@@ -1687,8 +1712,8 @@ Trog's Hand spell
 Kiss of Death spell
 
 Conjures forth a fragment of the caster's essence and twists it into a fragment
-of death, painfully draining the victim. The caster, too, will find their health
-reduced, until they gain enough experience to recover.
+of death, painfully draining the victim. Only living creatures can be affected
+by this spell. The caster's maximum health will be temporarily drained upon use.
 %%%%
 Tukima's Dance spell
 

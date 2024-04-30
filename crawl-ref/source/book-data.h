@@ -114,7 +114,7 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of Death
     SPELL_ANIMATE_DEAD,
-    SPELL_HAUNT,
+    SPELL_GHOSTLY_LEGION,
     SPELL_INFESTATION,
 },
 
@@ -150,7 +150,6 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Necromancy
     SPELL_NECROTISE,
     SPELL_VAMPIRIC_DRAINING,
-    SPELL_AGONY,
 },
 
 {   // Book of Callings
@@ -194,8 +193,8 @@ static const vector<spell_type> spellbook_templates[] =
 #endif
 
 {   // Book of Unlife
-    SPELL_BORGNJORS_VILE_CLUTCH,
     SPELL_ANIMATE_DEAD,
+    SPELL_BORGNJORS_VILE_CLUTCH,
     SPELL_DEATH_CHANNEL,
 },
 
@@ -228,6 +227,7 @@ static const vector<spell_type> spellbook_templates[] =
 #endif
 
 {   // Book of Power
+    SPELL_AGONY,
     SPELL_BATTLESPHERE,
     SPELL_UNMAKING,
     SPELL_SPELLFORGED_SERVITOR,
@@ -256,8 +256,8 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Debilitation
     SPELL_SLOW,
     SPELL_SIGIL_OF_BINDING,
-    SPELL_VAMPIRIC_DRAINING,
     SPELL_CONFUSING_TOUCH,
+    SPELL_RIMEBLIGHT,
 },
 
 {   // Book of the Dragon
@@ -273,7 +273,6 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Dreams
     SPELL_JINXBITE,
     SPELL_HIBERNATION,
-    SPELL_ANGUISH,
 },
 
 {   // Book of Alchemy
@@ -300,9 +299,8 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 {   // Necronomicon
-    SPELL_HAUNT,
-    SPELL_BORGNJORS_REVIVIFICATION,
     SPELL_DEATHS_DOOR,
+    SPELL_BORGNJORS_REVIVIFICATION,
 },
 
 { }, // BOOK_RANDART_LEVEL
@@ -342,14 +340,12 @@ static const vector<spell_type> spellbook_templates[] =
 #if TAG_MAJOR_VERSION == 34
 { // Book of Pain
     SPELL_NECROTISE,
-    SPELL_AGONY,
 },
 #endif
 
 { // Book of Decay
     SPELL_ROT,
     SPELL_DISPEL_UNDEAD,
-    SPELL_DEATH_CHANNEL,
 },
 
 { // Book of Displacement
@@ -383,7 +379,6 @@ static const vector<spell_type> spellbook_templates[] =
 
 { // Book of the Senses
     SPELL_DAZZLING_FLASH,
-    SPELL_AGONY,
 },
 
 { // Book of the Moon
@@ -450,8 +445,8 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 { // Book of Touch
-    SPELL_KISS_OF_DEATH,
     SPELL_CONFUSING_TOUCH,
+    SPELL_KISS_OF_DEATH,
     SPELL_DISPEL_UNDEAD,
 },
 

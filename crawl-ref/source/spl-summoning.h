@@ -66,6 +66,7 @@ spret cast_spellforged_servitor(int pow, god_type god, bool fail);
 
 monster_type pick_random_wraith();
 spret cast_haunt(int pow, const coord_def& where, god_type god, bool fail);
+spret cast_ghostly_legion(int pow, bool fail, bool tracer = false);
 
 monster* find_battlesphere(const actor* agent);
 spret cast_battlesphere(actor* agent, int pow, god_type god, bool fail);

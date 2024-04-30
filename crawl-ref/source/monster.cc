@@ -2752,10 +2752,7 @@ int monster::res_negative_energy(bool intrinsic_only) const
     if (!(holiness() & (MH_NATURAL | MH_PLANT)))
         return 3;
 
-    int u = get_mons_resist(*this, MR_RES_NEG);
-
-    if (u > 3)
-        u = 3;
+    int u = 0;
 
     return intrinsic_only ? u : u;
 }

@@ -356,9 +356,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_DEATHS_DOOR, "Death's Door",
-    spschool::necromancy,
+    spschool::necromancy | spschool::enchantments,
     spflag::utility | spflag::no_ghost,
-    9,
+    5,
     200,
     -1, -1,
     0,
@@ -583,9 +583,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_ANIMATE_DEAD, "Animate Dead",
-    spschool::necromancy,
+    spschool::necromancy | spschool::enchantments,
     spflag::helpful | spflag::utility | spflag::selfench,
-    4,
+    1,
     100,
     -1, -1,
     0,
@@ -630,7 +630,7 @@ static const struct spell_desc spelldata[] =
     SPELL_VAMPIRIC_DRAINING, "Vampiric Draining",
     spschool::necromancy,
     spflag::dir_or_target | spflag::not_self,
-    3,
+    4,
     100,
     1, 1,
     0,
@@ -640,10 +640,21 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_HAUNT, "Haunt",
     spschool::summoning | spschool::necromancy,
-    spflag::target | spflag::not_self | spflag::mons_abjure,
+    spflag::target | spflag::not_self | spflag::mons_abjure | spflag::monster,
     7,
     200,
     LOS_RADIUS, LOS_RADIUS,
+    0,
+    TILEG_HAUNT,
+},
+
+{
+    SPELL_GHOSTLY_LEGION, "Ghostly Legion",
+    spschool::summoning | spschool::necromancy,
+    spflag::none,
+    4,
+    200,
+    -1, -1,
     0,
     TILEG_HAUNT,
 },
@@ -955,7 +966,7 @@ static const struct spell_desc spelldata[] =
     spschool::necromancy,
     spflag::dir_or_target | spflag::not_self | spflag::needs_tracer
         | spflag::WL_check,
-    5,
+    1,
     200,
     1, 1,
     0,
@@ -976,9 +987,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_DEATH_CHANNEL, "Death Channel",
-    spschool::necromancy,
+    spschool::necromancy | spschool::enchantments,
     spflag::helpful | spflag::utility | spflag::selfench,
-    6,
+    3,
     200,
     -1, -1,
     0,
@@ -3565,7 +3576,7 @@ static const struct spell_desc spelldata[] =
     SPELL_ANGUISH, "Anguish",
     spschool::hexes | spschool::necromancy,
     spflag::area | spflag::WL_check,
-    4,
+    2,
     200,
     LOS_RADIUS, LOS_RADIUS,
     0,
@@ -3596,10 +3607,10 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_KISS_OF_DEATH, "Kiss of Death",
-    spschool::enchantments | spschool::necromancy,
+    spschool::necromancy,
     spflag::dir_or_target | spflag::not_self,
-    1,
-    25,
+    3,
+    200,
     1, 1,
     0,
     TILEG_KISS_OF_DEATH,
@@ -3784,14 +3795,14 @@ static const struct spell_desc spelldata[] =
 },
 
 {
-    SPELL_NO_SPELL, "nonexistent spell",
-    spschool::none,
-    spflag::testing,
-    1,
+    SPELL_RIMEBLIGHT, "Rimeblight",
+    spschool::necromancy | spschool::ice,
+    spflag::dir_or_target | spflag::unclean,
+    4,
+    200,
+    5, 5,
     0,
-    -1, -1,
-    0,
-    TILEG_ERROR,
+    TILEG_RIMEBLIGHT,
 },
 
 {
@@ -3825,6 +3836,17 @@ static const struct spell_desc spelldata[] =
     -1, -1,
     0,
     TILEG_SUMMON_ICE_BEAST,
+},
+
+{
+    SPELL_NO_SPELL, "nonexistent spell",
+    spschool::none,
+    spflag::testing,
+    1,
+    0,
+    -1, -1,
+    0,
+    TILEG_ERROR,
 },
 
 #if TAG_MAJOR_VERSION == 34

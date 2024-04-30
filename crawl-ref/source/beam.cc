@@ -1809,10 +1809,6 @@ spret mass_enchantment(enchant_type wh_enchant, int pow, bool fail)
     fail_check();
     bool did_msg = false;
 
-    // Give mass enchantments a power multiplier.
-    pow *= 3;
-    pow /= 2;
-
     pow = min(pow, 200);
 
     for (monster_iterator mi; mi; ++mi)
@@ -3063,6 +3059,9 @@ bool bolt::harmless_to_player() const
     case BEAM_INVISIBILITY:
     case BEAM_RESISTANCE:
         return true;
+        
+    if (origin_spell == SPELL_RIMEBLIGHT)
+        return true;
 
     case BEAM_HOLY:
         return you.res_holy_energy() >= 3;
@@ -3071,7 +3070,7 @@ bool bolt::harmless_to_player() const
         return you.res_miasma();
 
     case BEAM_NEG:
-        return player_prot_life(false) >= 3;
+        return you.holiness() & MH_UNDEAD || you.holiness() & MH_NONLIVING;
 
     case BEAM_POISON:
         return player_res_poison(false) >= 3
@@ -4157,6 +4156,9 @@ bool bolt::ignores_player() const
     // Digging -- don't care.
     if (flavour == BEAM_DIGGING)
         return true;
+    
+    if (origin_spell == SPELL_RIMEBLIGHT)
+        return true;
 
     if (agent() && agent()->is_monster()
         && mons_is_hepliaklqana_ancestor(agent()->as_monster()->type))
@@ -4836,6 +4838,15 @@ void bolt::monster_post_hit(monster* mon, int dmg)
 
     if (origin_spell == SPELL_PRIMAL_WAVE && agent() && agent()->is_player())
         _waterlog_mon(*mon, ench_power);
+    
+    if (origin_spell == SPELL_RIMEBLIGHT)
+    {
+        if (mon->holiness() & (MH_NATURAL | MH_DEMONIC | MH_NONLIVING)
+            && !mon->has_ench(ENCH_RIMEBLIGHT))
+        {
+            apply_rimeblight(*mon, ench_power);
+        }
+    }
 }
 
 static int _knockback_dist(spell_type origin, int pow)
@@ -5281,6 +5292,10 @@ bool bolt::ignores_monster(const monster* mon) const
 
     if (flavour == BEAM_WATER && mon->type == MONS_WATER_ELEMENTAL)
         return true;
+    
+    // Rimeblight explosions won't hurt allies OR the monster that is exploding
+    if (origin_spell == SPELL_RIMEBLIGHT)
+        return mon->friendly() || mon->pos() == source;
 
     return false;
 }
@@ -5327,6 +5342,7 @@ bool bolt::has_saving_throw() const
     case BEAM_VAMPIRIC_DRAINING:
     case BEAM_CONCENTRATE_VENOM:
     case BEAM_ENFEEBLE:
+    case BEAM_RIMEBLIGHT:
         return false;
     case BEAM_VULNERABILITY:
         return !one_chance_in(3);  // Ignores will 1/3 of the time
@@ -5447,6 +5463,11 @@ bool ench_flavour_affects_monster(actor *agent, beam_type flavour,
              || mon->antimagic_susceptible()
              || !mons_invuln_will(*mon);
         break;
+        
+    case BEAM_RIMEBLIGHT:
+        rc = !mon->has_ench(ENCH_RIMEBLIGHT)
+             && mon->holiness() & (MH_NATURAL | MH_DEMONIC | MH_NONLIVING);
+        break; 
 
     default:
         break;
@@ -6068,6 +6089,15 @@ mon_resist_type bolt::apply_enchantment_to_monster(monster* mon)
         if (enfeeble_monster(*mon, ench_power))
             obvious_effect = true;
         return MON_AFFECTED;
+        
+    case BEAM_RIMEBLIGHT:
+        if (apply_rimeblight(*mon, ench_power, true))
+        {
+            mprf("A stygian plague fills %s body.", 
+                apostrophise(mon->name(DESC_THE)).c_str());
+            obvious_effect = true;
+        }
+        return MON_AFFECTED;
 
     default:
         break;
@@ -6605,6 +6635,7 @@ bool bolt::nasty_to(const monster* mon) const
         case BEAM_MINDBURST:
         case BEAM_VAMPIRIC_DRAINING:
         case BEAM_ENFEEBLE:
+        case BEAM_RIMEBLIGHT:
             return ench_flavour_affects_monster(agent(), flavour, mon);
         case BEAM_TUKIMAS_DANCE:
             return tukima_affects(*mon); // XXX: move to ench_flavour_affects?
@@ -6885,6 +6916,7 @@ static string _beam_type_name(beam_type type)
     case BEAM_ROOTS:                 return "roots";
     case BEAM_TOXIC:                 return "toxic dart";
     case BEAM_INACCURACY:            return "trick lightning";
+    case BEAM_RIMEBLIGHT:            return "rimeblight";
 
     case NUM_BEAMS:                  die("invalid beam type");
     }

@@ -38,32 +38,17 @@ spret cast_sublimation_of_blood(int pow, bool fail)
         else
             mpr("Your body is bloodless.");
     }
-    else if (!enough_hp(2, true))
-        mpr("Your attempt to draw power from your own body fails.");
+    else if (!enough_hp(10, true))
+        mpr("You have insufficient health to draw power from your own body.");
     else
     {
-        // Take at most 90% of currhp.
-        const int minhp = max(div_rand_round(you.hp, 10), 1);
-
-        while (you.magic_points < you.max_magic_points && you.hp > minhp)
-        {
-            fail_check();
-            success = true;
-
-            inc_mp(1);
-            dec_hp(1, false);
-
-            for (int i = 0; i < (you.hp > minhp ? 3 : 0); ++i)
-                if (x_chance_in_y(6, pow))
-                    dec_hp(1, false);
-
-            if (x_chance_in_y(6, pow))
-                break;
-        }
-        if (success)
-            mpr("You draw magical energy from your own body!");
-        else
-            mpr("Your attempt to draw power from your own body fails.");
+        fail_check();
+        success = true;
+        dec_hp(10, false);
+        //always restores at least 1 mp above its cost.
+        int mp = 3 + div_rand_round(pow, 5) + random2(1 + div_rand_round(pow, 3));
+        inc_mp(mp);
+        mpr("You draw magical energy from your own body!");
     }
 
     return success ? spret::success : spret::abort;
@@ -75,7 +60,7 @@ spret cast_death_channel(int pow, god_type god, bool fail)
     mpr("Malign forces permeate your being, awaiting release.");
 
     you.increase_duration(DUR_DEATH_CHANNEL,
-                          30 + random2(1 + div_rand_round(2 * pow, 3)), 200);
+                          30 + random2(1 + div_rand_round(4 * pow, 3)), 200);
 
     if (god != GOD_NO_GOD)
         you.attribute[ATTR_DIVINE_DEATH_CHANNEL] = static_cast<int>(god);
@@ -120,7 +105,7 @@ spret cast_animate_dead(int pow, bool fail)
     else
         mpr("You call upon the dead to rise.");
 
-    you.increase_duration(DUR_ANIMATE_DEAD, 20 + random2(1 + pow), 100);
+    you.increase_duration(DUR_ANIMATE_DEAD, 15 + random2(1 + 5 * pow), 100);
     you.props[ANIMATE_DEAD_POWER_KEY] = pow;
 
     return spret::success;

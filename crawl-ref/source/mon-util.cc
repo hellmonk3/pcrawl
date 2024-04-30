@@ -1192,10 +1192,9 @@ int derived_undead_avg_hp(monster_type mtype, int hd, int scale)
 {
     static const map<monster_type, int> hp_per_hd_by_type = {
         { MONS_BOUND_SOUL,     100 },
-        { MONS_ZOMBIE,          85 },
-        { MONS_SKELETON,        70 },
-        { MONS_SPECTRAL_THING,  60 },
-        // Simulacra aren't tough, but you can create piles of them. - bwr
+        { MONS_ZOMBIE,          20 },
+        { MONS_SKELETON,        10 },
+        { MONS_SPECTRAL_THING,  50 },
         { MONS_SIMULACRUM,      30 },
     };
 

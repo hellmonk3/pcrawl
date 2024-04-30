@@ -37,15 +37,12 @@ spret cast_deaths_door(int pow, bool fail)
     mpr("You stand defiantly in death's doorway!");
     mprf(MSGCH_SOUND, "You seem to hear sand running through an hourglass...");
 
-    you.set_duration(DUR_DEATHS_DOOR, 10 + random2avg(13, 3)
-                                       + div_rand_round(random2(pow), 10));
+    you.set_duration(DUR_DEATHS_DOOR, 10 + random2avg(11, 3) + random2(1 + pow));
 
-    const int hp = max(div_rand_round(pow, 10), 1);
+    const int hp = max(pow, 1);
     you.attribute[ATTR_DEATHS_DOOR_HP] = hp;
     set_hp(hp);
 
-    if (you.duration[DUR_DEATHS_DOOR] > 25 * BASELINE_DELAY)
-        you.duration[DUR_DEATHS_DOOR] = (23 + random2(5)) * BASELINE_DELAY;
     return spret::success;
 }
 
@@ -94,8 +91,9 @@ spret cast_revivification(int pow, bool fail)
     fail_check();
     mpr("Your body is healed in an amazingly painful way.");
 
-    const int loss = 6 + binomial(9, 8, pow);
-    dec_max_hp(loss * you.hp_max / 100);
+    const int loss = min(you.hp_max -1, 
+                        max(1, 20 - div_rand_round(pow, 3) - random2(1 + pow)));
+    dec_max_hp(loss);
     set_hp(you.hp_max);
 
     if (you.duration[DUR_DEATHS_DOOR])

@@ -318,7 +318,7 @@ static void _apply_post_zap_effect(spell_type spell)
     switch (spell)
     {
     case SPELL_KISS_OF_DEATH:
-        drain_player(100, true, true);
+        drain_player(20, true, true);
         break;
     default:
         break;
@@ -1416,6 +1416,16 @@ static vector<string> _desc_vampiric_draining_valid(const monster_info& mi)
     return vector<string>{};
 }
 
+static vector<string> _desc_rimeblight_valid(const monster_info& mi)
+{
+    if (mi.is(MB_RIMEBLIGHT))
+        return vector<string>{"already infected"};
+    else if (!(mi.holi & (MH_NATURAL | MH_DEMONIC | MH_NONLIVING)))
+        return vector<string>{"not susceptible"};
+
+    return vector<string>{};
+}
+
 static vector<string> _desc_dispersal_chance(const monster_info& mi, int pow)
 {
     const int wl = mi.willpower();
@@ -1576,6 +1586,8 @@ desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
             return bind(_desc_meph_chance, placeholders::_1);
         case SPELL_VAMPIRIC_DRAINING:
             return bind(_desc_vampiric_draining_valid, placeholders::_1);
+        case SPELL_RIMEBLIGHT:
+            return bind(_desc_rimeblight_valid, placeholders::_1);
         case SPELL_STARBURST:
         {
             targeter_starburst* burst_hitf =
@@ -2085,6 +2097,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_HAUNT:
         return cast_haunt(powc, beam.target, god, fail);
+        
+    case SPELL_GHOSTLY_LEGION:
+        return cast_ghostly_legion(powc, fail);
 
     case SPELL_DEATH_CHANNEL:
         return cast_death_channel(powc, god, fail);
@@ -2428,6 +2443,8 @@ string spell_damage_string(spell_type spell, bool evoked, int pow)
         }
         case SPELL_AIRSTRIKE:
             return describe_airstrike_dam(base_airstrike_damage(pow));
+        case SPELL_RIMEBLIGHT:
+            return describe_rimeblight_damage(pow, true);
         default:
             break;
     }

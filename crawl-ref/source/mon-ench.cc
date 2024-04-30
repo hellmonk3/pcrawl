@@ -39,6 +39,7 @@
 #include "religion.h"
 #include "spl-clouds.h"
 #include "spl-damage.h"
+#include "spl-monench.h"
 #include "spl-summoning.h"
 #include "state.h"
 #include "stepdown.h"
@@ -1892,6 +1893,20 @@ void monster::apply_enchantment(const mon_enchant &me)
         if (decay_enchantment(en))
             simple_monster_message(*this, " is no longer haunted by guilt.");
         break;
+        
+    case ENCH_RIMEBLIGHT:
+        tick_rimeblight(*this);
+        if (!alive())
+            return;
+        // Instakill at <=20% max hp
+        if (hit_points * 5 <= max_hit_points)
+        {
+            props[RIMEBLIGHT_DEATH_KEY] = true;
+            monster_die(*this, KILL_YOU, NON_MONSTER);
+        }
+        else if (decay_enchantment(en))
+            simple_monster_message(*this, " recovers from rimeblight.");
+        break;
 
     default:
         break;
@@ -2126,7 +2141,7 @@ static const char *enchant_names[] =
     "ring_chaos", "ring_mutation", "ring_fog", "ring_ice", "ring_neg",
     "ring_acid", "ring_miasma", "concentrate_venom", "fire_champion",
     "anguished", "simulacra", "necrotizing", "glowing", "pursuing",
-    "bound", "bullseye_target", "stunned",
+    "bound", "bullseye_target", "stunned", "rimeblight",
     "buggy", // NUM_ENCHANTMENTS
 };
 

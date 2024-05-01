@@ -114,8 +114,8 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of Death
     SPELL_ANIMATE_DEAD,
-    SPELL_GHOSTLY_LEGION,
     SPELL_INFESTATION,
+    SPELL_GHOSTLY_LEGION,
 },
 
 {   // Book of Misfortune

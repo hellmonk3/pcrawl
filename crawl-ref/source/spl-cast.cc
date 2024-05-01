@@ -2111,7 +2111,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
         return cast_battlesphere(&you, powc, god, fail);
 
     case SPELL_INFESTATION:
-        return cast_infestation(powc, beam, fail);
+        return cast_infestation(powc, fail);
 
     case SPELL_FOXFIRE:
         return cast_foxfire(you, powc, god, fail);

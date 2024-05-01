@@ -87,7 +87,7 @@ monster* find_spectral_weapon(const actor* agent);
 void end_spectral_weapon(monster* mons, bool killed, bool quiet = false);
 void check_spectral_weapon(actor &agent);
 
-spret cast_infestation(int pow, bolt &beam, bool fail);
+spret cast_infestation(int pow, bool fail);
 
 void summoned_monster(const monster* mons, const actor* caster,
                       spell_type spell);

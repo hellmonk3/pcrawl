@@ -633,6 +633,8 @@ static const duration_def duration_data[] =
       "You are imbued with flames that will fire when moving.", D_NO_FLAGS},
     { DUR_DEFLECT_MISSILES, MAGENTA, "DMsl", "DMsl", "deflect missiles",
       "You are deflecting missiles.", D_NO_FLAGS},
+    { DUR_INFESTATION, MAGENTA, "Infest", "infest", "infestation",
+      "Enemies you hit in melee will be infested with scarabs.", D_NO_FLAGS},
 
     // The following are visible in wizmode only, or are handled
     // specially in the status lights and/or the % or @ screens.

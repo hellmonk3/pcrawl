@@ -3076,11 +3076,11 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_INFESTATION, "Infestation",
-    spschool::necromancy,
-    spflag::target | spflag::unclean,
-    8,
+    spschool::necromancy | spschool::hexes | spschool::summoning,
+    spflag::none,
+    3,
     200,
-    LOS_RADIUS, LOS_RADIUS,
+    -1, -1,
     4,
     TILEG_INFESTATION,
 },

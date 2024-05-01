@@ -2102,34 +2102,13 @@ void check_spectral_weapon(actor &agent)
     agent.triggered_spectral = false;
 }
 
-static void _setup_infestation(bolt &beam, int pow)
+spret cast_infestation(int pow, bool fail)
 {
-    beam.name         = "infestation";
-    beam.aux_source   = "infestation";
-    beam.flavour      = BEAM_INFESTATION;
-    beam.glyph        = dchar_glyph(DCHAR_FIRED_BURST);
-    beam.colour       = GREEN;
-    beam.source_id    = MID_PLAYER;
-    beam.thrower      = KILL_YOU;
-    beam.is_explosion = true;
-    beam.ex_size      = 2;
-    beam.ench_power   = pow;
-    beam.origin_spell = SPELL_INFESTATION;
-}
-
-spret cast_infestation(int pow, bolt &beam, bool fail)
-{
-    if (cell_is_solid(beam.target))
-    {
-        canned_msg(MSG_SOMETHING_IN_WAY);
-        return spret::abort;
-    }
-
     fail_check();
 
-    _setup_infestation(beam, pow);
     mpr("You call forth a plague of scarabs!");
-    beam.explode();
+    const int dur = 10 + div_rand_round(pow, 2) + random2(11 + pow);
+    you.increase_duration(DUR_INFESTATION, dur, 50);
 
     return spret::success;
 }

@@ -144,13 +144,10 @@ spret cast_call_canine_familiar(int pow, god_type god, bool fail)
 
 spret cast_summon_cactus(int pow, god_type god, bool fail)
 {
-    if (stop_summoning_prompt(MR_RES_POISON))
-        return spret::abort;
-
     fail_check();
 
     mgen_data mg = _pal_data(MONS_CACTUS_GIANT, 3, god, SPELL_SUMMON_CACTUS);
-    mg.hp = hit_points(pow + 27, 1);
+    mg.hp = hit_points(pow * 6 + 13, 1);
     if (!create_monster(mg))
         canned_msg(MSG_NOTHING_HAPPENS);
 
@@ -284,26 +281,6 @@ spret cast_summon_hydra(actor *caster, int pow, god_type god, bool fail)
     return spret::success;
 }
 
-static monster_type _choose_dragon_type(int pow, god_type /*god*/, bool player)
-{
-    monster_type mon = MONS_PROGRAM_BUG;
-
-    const int chance = random2(pow);
-
-    if (chance >= 80 || one_chance_in(6))
-        mon = random_choose(MONS_GOLDEN_DRAGON, MONS_QUICKSILVER_DRAGON);
-    else if (chance >= 40 || one_chance_in(6))
-        mon = random_choose(MONS_IRON_DRAGON, MONS_SHADOW_DRAGON, MONS_STORM_DRAGON);
-    else
-        mon = random_choose(MONS_FIRE_DRAGON, MONS_ICE_DRAGON);
-
-    // For good gods, switch away from shadow dragons to storm/iron dragons.
-    if (player && god_hates_monster(mon))
-        mon = random_choose(MONS_STORM_DRAGON, MONS_IRON_DRAGON);
-
-    return mon;
-}
-
 spret cast_dragon_call(int pow, bool fail)
 {
     if (stop_summoning_prompt(MR_NO_FLAGS, M_NO_FLAGS, "call dragons"))
@@ -324,8 +301,8 @@ spret cast_dragon_call(int pow, bool fail)
 static void _place_dragon()
 {
     const int pow = you.props[DRAGON_CALL_POWER_KEY].get_int();
-    monster_type mon = _choose_dragon_type(pow, you.religion, true);
-    int mp_cost = random_range(2, 3);
+    monster_type mon = MONS_FIRE_DRAGON;
+    int mp_cost = 1;
 
     vector<monster*> targets;
 
@@ -394,7 +371,7 @@ void do_dragon_call(int time)
         time -= you.attribute[ATTR_NEXT_DRAGON_TIME];
         _place_dragon();
         you.attribute[ATTR_NEXT_DRAGON_TIME] = 3 + random2(5)
-                                               + count_summons(&you, SPELL_DRAGON_CALL) * 5;
+                                               + count_summons(&you, SPELL_DRAGON_CALL) * 3;
     }
     you.attribute[ATTR_NEXT_DRAGON_TIME] -= time;
 }
@@ -479,20 +456,14 @@ spret cast_summon_dragon(actor *caster, int pow, god_type god, bool fail)
         god = caster->deity();
 
     int how_many = 1;
-    monster_type mon = _choose_dragon_type(pow, god, caster->is_player());
+    monster_type mon = MONS_FIRE_DRAGON;
 
-    if (pow >= 100 && (mon == MONS_FIRE_DRAGON || mon == MONS_ICE_DRAGON))
-        how_many = 2;
-
-    for (int i = 0; i < how_many; ++i)
+    if (monster *dragon = create_monster(
+            _summon_data(*caster, mon, 6, god, SPELL_SUMMON_DRAGON)))
     {
-        if (monster *dragon = create_monster(
-                _summon_data(*caster, mon, 6, god, SPELL_SUMMON_DRAGON)))
-        {
-            if (you.see_cell(dragon->pos()))
-                mpr("A dragon appears.");
-            success = true;
-        }
+        if (you.see_cell(dragon->pos()))
+            mpr("A dragon appears.");
+        success = true;    
     }
 
     if (!success && caster->is_player())
@@ -503,20 +474,78 @@ spret cast_summon_dragon(actor *caster, int pow, god_type god, bool fail)
 
 spret cast_summon_mana_viper(int pow, god_type god, bool fail)
 {
-    if (stop_summoning_prompt(MR_RES_POISON))
-        return spret::abort;
-
     fail_check();
 
     mgen_data viper = _pal_data(MONS_MANA_VIPER, 2, god,
                                 SPELL_SUMMON_MANA_VIPER);
-    viper.hd = (6 + div_rand_round(pow, 12));
+    viper.hd = (2 + div_rand_round(pow, 4));
 
     if (create_monster(viper))
         mpr("A mana viper appears with a sibilant hiss.");
     else
         canned_msg(MSG_NOTHING_HAPPENS);
 
+    return spret::success;
+}
+
+static skill_type _choose_elemental_skill_type()
+{
+    skill_type sk = SK_FIRE_MAGIC;
+    int pow = 0;
+    int ties = 0;
+    
+    for (skill_type s = SK_FIRE_MAGIC; s <= SK_EARTH_MAGIC; s++)
+    {
+        int p = you.skill(s);
+        if(p > pow)
+        {
+            ties = 0;
+            pow = p;
+            sk = s;
+        }
+        else if (p == pow && one_chance_in(1 + ties++))
+        {
+            pow = p;
+            sk = s;
+        }
+    }
+    
+    return sk;
+}
+
+static monster_type _choose_elemental(skill_type sk)
+{
+    switch(sk)
+    {
+        case SK_FIRE_MAGIC:
+            return MONS_FIRE_ELEMENTAL;
+        case SK_ICE_MAGIC:
+            return MONS_WATER_ELEMENTAL;
+        case SK_AIR_MAGIC:
+            return MONS_AIR_ELEMENTAL;
+        case SK_EARTH_MAGIC:
+            return MONS_EARTH_ELEMENTAL;
+        default:
+            return MONS_PROGRAM_BUG;
+    }
+    
+    return MONS_PROGRAM_BUG;
+}
+
+spret cast_summon_elemental(bool fail)
+{
+    fail_check();
+    
+    skill_type sk = _choose_elemental_skill_type(); 
+    monster_type mon = _choose_elemental(sk);
+    mgen_data ele = _pal_data(mon, 3, GOD_NO_GOD, SPELL_SUMMON_ELEMENTAL);
+    ele.hd = 2 + you.skill(sk);
+    
+    if (create_monster(ele))
+        mpr("An elemental appears.");
+    else
+        canned_msg(MSG_NOTHING_HAPPENS);
+    
     return spret::success;
 }
 
@@ -2127,7 +2156,7 @@ static const map<spell_type, summon_cap> summonsdata =
     { SPELL_CALL_CANINE_FAMILIAR,     { 1, 1 } },
     { SPELL_SUMMON_ICE_BEAST,         { 1, 3 } },
     { SPELL_SUMMON_HYDRA,             { 2, 3 } },
-    { SPELL_SUMMON_MANA_VIPER,        { 1, 3 } },
+    { SPELL_SUMMON_MANA_VIPER,        { 2, 3 } },
     { SPELL_CALL_IMP,                 { 1, 3 } },
     { SPELL_MONSTROUS_MENAGERIE,      { 2, 3 } },
     { SPELL_SUMMON_HORRIBLE_THINGS,   { 8, 8 } },

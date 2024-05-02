@@ -488,9 +488,9 @@ Dragon's Call spell
 
 Issues a powerful call to a draconic realm, beckoning forth dragon after dragon
 to engage the summoner's enemies. The spell is taxing to maintain, and each new
-dragon which answers the call will further drain the summoner's magical
-reserves. After the call ends, it cannot be issued again for a short time. The
-duration of the call and the species of dragons called depend on spell power.
+dragon which answers the call will cost an additional 1 mp. After the call ends, 
+it cannot be issued again for a short time. The duration of the call depends on 
+spell power.
 %%%%
 Drain Life spell
 
@@ -1488,9 +1488,9 @@ Summons one or more air elementals.
 %%%%
 Summon Cactus Giant spell
 
-Summons a warrior from a particularly prickly tribe. Foes that strike these
-giants in melee are in for a painful surprise! When cast at a higher power,
-older, more robust warriors will answer the call.
+Summons a giant from a particularly prickly tribe. Foes that strike these
+giants in melee are in for a painful surprise! The maximum hitpoints of the
+summoned giant increases significantly with spellpower.
 %%%%
 Summon Demon spell
 
@@ -1510,6 +1510,12 @@ Summons multiple drakes, komodo dragons, and lindwurms.
 Summon Earth Elementals spell
 
 Summons one or more earth elementals.
+%%%%
+Summon Elemental spell
+
+Summons an elemental. The type of elemental summoned matches the caster's
+highest skill among the four elemental magics (or is randomly chosen from among 
+them in case of a tie), and its strength depends upon the level of that skill.
 %%%%
 Summon Emperor Scorpions spell
 
@@ -1588,9 +1594,8 @@ of the spire depends on spell power.
 %%%%
 Summon Mana Viper spell
 
-Summons a violet-scaled serpent whose bite can swiftly drain the magical
-reserves of nearly any foe. At higher power, the antimagic properties of the
-viper's bite grow even stronger.
+Summons a violet-scaled serpent whose bite can inflict antimagic, preventing
+foes from casting spells.
 %%%%
 Summon Minor Demon spell
 

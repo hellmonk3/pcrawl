@@ -2572,9 +2572,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_DRAGON_CALL, "Dragon's Call",
-    spschool::summoning,
+    spschool::summoning | spschool::fire,
     spflag::none,
-    9,
+    7,
     200,
     -1, -1,
     15,
@@ -2595,12 +2595,23 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_SUMMON_MANA_VIPER, "Summon Mana Viper",
     spschool::summoning | spschool::hexes,
-    spflag::mons_abjure,
-    5,
+    spflag::none,
+    2,
     100,
     -1, -1,
     0,
     TILEG_SUMMON_MANA_VIPER,
+},
+
+{
+    SPELL_SUMMON_ELEMENTAL, "Summon Elemental",
+    spschool::summoning,
+    spflag::none,
+    4,
+    100,
+    -1, -1,
+    0,
+    TILEG_SUMMON_ELEMENTAL,
 },
 
 {
@@ -3905,7 +3916,6 @@ AXED_SPELL(SPELL_SPECTRAL_WEAPON, "Spectral Weapon")
 AXED_SPELL(SPELL_STICKS_TO_SNAKES, "Sticks to Snakes")
 AXED_SPELL(SPELL_STONESKIN, "Stoneskin")
 AXED_SPELL(SPELL_SUMMON_BUTTERFLIES, "Summon Butterflies")
-AXED_SPELL(SPELL_SUMMON_ELEMENTAL, "Summon Elemental")
 AXED_SPELL(SPELL_SUMMON_RAKSHASA, "Summon Rakshasa")
 AXED_SPELL(SPELL_SUMMON_TWISTER, "Summon Twister")
 AXED_SPELL(SPELL_SUNRAY, "Sunray")

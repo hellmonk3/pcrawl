@@ -284,6 +284,7 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Beasts
     SPELL_ICE_STATUE,
     SPELL_SUMMON_MANA_VIPER,
+    SPELL_SUMMON_ELEMENTAL,
     SPELL_MONSTROUS_MENAGERIE,
 },
 

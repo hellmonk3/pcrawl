@@ -1169,6 +1169,7 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
     case SPELL_SPELLFORGED_SERVITOR:
     case SPELL_SUMMON_LIGHTNING_SPIRE:
     case SPELL_BATTLESPHERE:
+    case SPELL_SUMMON_ELEMENTAL:
         return make_unique<targeter_maybe_radius>(&you, LOS_NO_TRANS, 2, 0, 1);
     case SPELL_FOXFIRE:
         return make_unique<targeter_maybe_radius>(&you, LOS_NO_TRANS, 1, 0, 1);
@@ -2070,6 +2071,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_SUMMON_MANA_VIPER:
         return cast_summon_mana_viper(powc, god, fail);
+        
+    case SPELL_SUMMON_ELEMENTAL:
+        return cast_summon_elemental(fail);
 
     case SPELL_CONJURE_BALL_LIGHTNING:
         return cast_conjure_ball_lightning(powc, god, fail);

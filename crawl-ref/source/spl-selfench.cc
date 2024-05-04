@@ -91,7 +91,7 @@ spret cast_revivification(int pow, bool fail)
     fail_check();
     mpr("Your body is healed in an amazingly painful way.");
 
-    const int loss = min(you.hp_max -1, 
+    const int loss = min(you.hp_max -1,
                         max(1, 20 - div_rand_round(pow, 3) - random2(1 + pow)));
     dec_max_hp(loss);
     set_hp(you.hp_max);

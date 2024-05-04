@@ -896,14 +896,8 @@ void timeout_malign_gateways(int duration)
                 {
                     tentacle->flags |= MF_NO_REWARD;
                     tentacle->add_ench(ENCH_PORTAL_TIMER);
-                    int dur = random2avg(mmark->power, 6);
-                    dur -= random2(4); // sequence point between random calls
-                    dur *= 10;
-                    mon_enchant kduration = mon_enchant(ENCH_PORTAL_PACIFIED, 4,
-                        caster, dur);
                     tentacle->props[BASE_POSITION_KEY].get_coord()
                                         = tentacle->pos();
-                    tentacle->add_ench(kduration);
 
                     mmark->monster_summoned = true;
                 }

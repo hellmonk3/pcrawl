@@ -54,6 +54,7 @@
 #include "prompt.h"
 #include "religion.h"
 #include "shout.h"
+#include "skills.h"
 #include "spl-util.h"
 #include "spl-zap.h"
 #include "state.h"
@@ -463,7 +464,7 @@ spret cast_summon_dragon(actor *caster, int pow, god_type god, bool fail)
     {
         if (you.see_cell(dragon->pos()))
             mpr("A dragon appears.");
-        success = true;    
+        success = true;
     }
 
     if (!success && caster->is_player())
@@ -493,11 +494,11 @@ static skill_type _choose_elemental_skill_type()
     skill_type sk = SK_FIRE_MAGIC;
     int pow = 0;
     int ties = 0;
-    
+
     for (skill_type s = SK_FIRE_MAGIC; s <= SK_EARTH_MAGIC; s++)
     {
         int p = you.skill(s);
-        if(p > pow)
+        if (p > pow)
         {
             ties = 0;
             pow = p;
@@ -509,13 +510,13 @@ static skill_type _choose_elemental_skill_type()
             sk = s;
         }
     }
-    
+
     return sk;
 }
 
 static monster_type _choose_elemental(skill_type sk)
 {
-    switch(sk)
+    switch (sk)
     {
         case SK_FIRE_MAGIC:
             return MONS_FIRE_ELEMENTAL;
@@ -528,24 +529,24 @@ static monster_type _choose_elemental(skill_type sk)
         default:
             return MONS_PROGRAM_BUG;
     }
-    
+
     return MONS_PROGRAM_BUG;
 }
 
 spret cast_summon_elemental(bool fail)
 {
     fail_check();
-    
-    skill_type sk = _choose_elemental_skill_type(); 
+
+    skill_type sk = _choose_elemental_skill_type();
     monster_type mon = _choose_elemental(sk);
     mgen_data ele = _pal_data(mon, 3, GOD_NO_GOD, SPELL_SUMMON_ELEMENTAL);
     ele.hd = 2 + you.skill(sk);
-    
+
     if (create_monster(ele))
         mpr("An elemental appears.");
     else
         canned_msg(MSG_NOTHING_HAPPENS);
-    
+
     return spret::success;
 }
 
@@ -807,14 +808,11 @@ spret cast_conjure_ball_lightning(int pow, god_type god, bool fail)
 
 spret cast_summon_lightning_spire(int pow, god_type god, bool fail)
 {
-    if (stop_summoning_prompt(MR_RES_POISON))
-        return spret::abort;
-
     fail_check();
 
     mgen_data spire = _pal_data(MONS_LIGHTNING_SPIRE, 2, god,
                                 SPELL_SUMMON_LIGHTNING_SPIRE);
-    spire.hd = max(1, div_rand_round(pow, 10));
+    spire.hd = max(1, div_rand_round(pow, 2));
 
     monster* mons = create_monster(spire);
 
@@ -1435,20 +1433,20 @@ spret cast_ghostly_legion (int pow, bool fail, bool tracer)
             && !mons_is_firewood(*ai->as_monster())
             && !mons_is_tentacle_or_tentacle_segment(ai->as_monster()->type))
         {
-            targets.emplace_back(*ai);   
+            targets.emplace_back(*ai);
         }
     }
-    
+
     if (tracer)
     {
         return targets.empty() ? spret::abort : spret::success;
     }
-    
+
     fail_check();
 
     if (targets.empty())
         canned_msg(MSG_NOTHING_HAPPENS);
-    
+
     else
     {
         int success = 0;
@@ -1468,7 +1466,7 @@ spret cast_ghostly_legion (int pow, bool fail, bool tracer)
                 .set_summoned(&you, 3, SPELL_GHOSTLY_LEGION)))
             {
                 success++;
-                mons->add_ench(mon_enchant(ENCH_HAUNTING, 1, 
+                mons->add_ench(mon_enchant(ENCH_HAUNTING, 1,
                     targets[i], INFINITE_DURATION));
                 mons->foe = mi;
             }
@@ -1485,25 +1483,30 @@ spret cast_ghostly_legion (int pow, bool fail, bool tracer)
     return spret::success;
 }
 
-static spell_type servitor_spells[] =
+static spell_type _spell_for_servitor(skill_type skill)
 {
-    // primary spells
-    SPELL_LEHUDIBS_CRYSTAL_SPEAR,
-    SPELL_IOOD,
-    SPELL_UNMAKING,
-    SPELL_BOLT_OF_COLD, // left in for frederick
-    SPELL_PLASMA_BEAM, // maybe should be higher?
-    SPELL_FIREBALL,
-    SPELL_ARCJOLT,
-    SPELL_STONE_ARROW,
-    SPELL_LRD,
-    SPELL_AIRSTRIKE,
-    SPELL_FORCE_LANCE, // left in for frederick
-    // less desirable
-    SPELL_CONJURE_BALL_LIGHTNING,
-    SPELL_FREEZING_CLOUD,
-    SPELL_MEPHITIC_CLOUD,
-    SPELL_STICKY_FLAME,
+    switch (skill)
+    {
+        case SK_HEXES:
+            return SPELL_CONFUSE;
+        case SK_NECROMANCY:
+            return SPELL_AGONY_RANGE;
+        case SK_TRANSLOCATIONS:
+            return SPELL_FORCE_LANCE;
+        case SK_FIRE_MAGIC:
+            return SPELL_FIREBALL;
+        case SK_ICE_MAGIC:
+            return SPELL_BOLT_OF_COLD;
+        case SK_AIR_MAGIC:
+            return SPELL_ARCJOLT;
+        case SK_EARTH_MAGIC:
+            return SPELL_LEHUDIBS_CRYSTAL_SPEAR;
+        default: // shouldn't happen
+            return SPELL_CANTRIP;
+    }
+
+    // REALLY shouldn't happen
+    return SPELL_DEBUGGING_RAY;
 };
 
 /**
@@ -1514,18 +1517,23 @@ static spell_type servitor_spells[] =
  */
 spell_type player_servitor_spell()
 {
-    for (const spell_type spell : servitor_spells)
-        if (you.has_spell(spell))
-            return spell;
-    return SPELL_NO_SPELL;
-}
+    int pow = 0;
+    skill_type sk = SK_HEXES;
 
-bool spell_servitorable(spell_type to_serve)
-{
-    for (const spell_type spell : servitor_spells)
-        if (spell == to_serve)
-            return true;
-    return false;
+    for (skill_type s = SK_HEXES; s <= SK_EARTH_MAGIC; s++)
+    {
+        if (s == SK_SUMMONINGS || is_removed_skill(s))
+            continue;
+
+        int p = you.skill(s);
+        if (p > pow)
+        {
+            pow = p;
+            sk = s;
+        }
+    }
+
+    return _spell_for_servitor(sk);
 }
 
 /**
@@ -1536,30 +1544,16 @@ bool spell_servitorable(spell_type to_serve)
  * @param caster    The entity summoning the servitor; may be the player.
  * @param pow       The caster's spellpower.
  */
-static void _init_servitor_monster(monster &mon, const actor& caster, int pow)
+static void _init_servitor_monster(monster &mon, int pow)
 {
-    const monster* caster_mon = caster.as_monster();
-
-    mon.set_hit_dice(9 + div_rand_round(pow, 14));
-    mon.max_hit_points = mon.hit_points = 60 + roll_dice(7, 5); // 67-95
-                                            // mhp doesn't vary with HD
+    mon.set_hit_dice(2 + div_rand_round(pow, 2));
+    mon.max_hit_points = mon.hit_points = 35; // mhp doesn't vary with HD
     int spell_levels = 0;
 
-    for (const spell_type spell : servitor_spells)
-    {
-        if (caster.has_spell(spell))
-        {
-            mon.spells.emplace_back(spell, 0, MON_SPELL_WIZARD);
-            spell_levels += spell_difficulty(spell);
-
-            // Player servitors take a single spell
-            if (!caster_mon)
-                break;
-        }
-    }
+    mon.spells.emplace_back(player_servitor_spell(), 0, MON_SPELL_WIZARD);
 
     // Fix up frequencies now that we know the total number of spell levels.
-    const int base_freq = caster_mon ? 67 : 150;
+    const int base_freq = 150;
     for (auto& slot : mon.spells)
     {
         slot.freq = max(1, div_rand_round(spell_difficulty(slot.spell)
@@ -1573,11 +1567,11 @@ void init_servitor(monster* servitor, actor* caster, int pow)
 {
     ASSERT(servitor); // XXX: change to monster &servitor
     ASSERT(caster); // XXX: change to actor &caster
-    _init_servitor_monster(*servitor, *caster, pow);
+    _init_servitor_monster(*servitor, pow);
 
     if (you.can_see(*caster))
     {
-        mprf("%s %s a servant imbued with %s destructive magic!",
+        mprf("%s %s a servant imbued with %s magic!",
              caster->name(DESC_THE).c_str(),
              caster->conj_verb("summon").c_str(),
              caster->pronoun(PRONOUN_POSSESSIVE).c_str());
@@ -1600,9 +1594,6 @@ void init_servitor(monster* servitor, actor* caster, int pow)
 
 spret cast_spellforged_servitor(int pow, god_type god, bool fail)
 {
-    if (stop_summoning_prompt(MR_RES_POISON, M_FLIES))
-        return spret::abort;
-
     fail_check();
 
     mgen_data mdata = _pal_data(MONS_SPELLFORGED_SERVITOR, 3, god,

@@ -60,7 +60,6 @@ void do_dragon_call(int time);
 void doom_howl(int time);
 
 spell_type player_servitor_spell();
-bool spell_servitorable(spell_type spell);
 void init_servitor(monster* servitor, actor* caster, int pow);
 spret cast_spellforged_servitor(int pow, god_type god, bool fail);
 

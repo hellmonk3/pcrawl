@@ -771,7 +771,7 @@ static void _decrement_durations()
 
     _decrement_a_duration(DUR_DEFLECT_MISSILES, delay,
             "You are no longer deflecting missiles.");
-            
+
     _decrement_a_duration(DUR_INFESTATION, delay,
             "You are no longer infesting your enemies.");
 

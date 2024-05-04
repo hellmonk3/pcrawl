@@ -1631,7 +1631,7 @@ bool spell_no_hostile_in_range(spell_type spell)
 
     case SPELL_WARP_GRAVITY:
         return warp_gravity(-1, false, true) == spret::abort;
-        
+
     case SPELL_GHOSTLY_LEGION:
         return cast_ghostly_legion(-1, false, true) == spret::abort;
 

@@ -1670,38 +1670,12 @@ void monster::apply_enchantment(const mon_enchant &me)
     }
     break;
 
-    case ENCH_PORTAL_PACIFIED:
-    {
-        if (decay_enchantment(en))
-        {
-            if (has_ench(ENCH_SEVERED))
-                break;
-
-            if (!friendly())
-                break;
-
-            if (!silenced(you.pos()))
-            {
-                if (you.can_see(*this))
-                    simple_monster_message(*this, " suddenly becomes enraged!");
-                else
-                    mpr("You hear a distant and violent thrashing sound.");
-            }
-
-            attitude = ATT_HOSTILE;
-            mons_att_changed(this);
-            if (!crawl_state.game_is_arena())
-                behaviour_event(this, ME_ALERT, &you);
-        }
-    }
-    break;
-
     case ENCH_SEVERED:
     {
         simple_monster_message(*this, " writhes!");
         coord_def base_position = props[BASE_POSITION_KEY].get_coord();
         maybe_bloodify_square(base_position);
-        hurt(me.agent(), 20);
+        hurt(me.agent(), 15);
     }
 
     break;
@@ -1893,7 +1867,7 @@ void monster::apply_enchantment(const mon_enchant &me)
         if (decay_enchantment(en))
             simple_monster_message(*this, " is no longer haunted by guilt.");
         break;
-        
+
     case ENCH_RIMEBLIGHT:
         tick_rimeblight(*this);
         if (!alive())
@@ -2354,10 +2328,6 @@ int mon_enchant::calc_duration(const monster* mons,
 
     case ENCH_STUN:
         return 20;
-
-    case ENCH_PORTAL_PACIFIED:
-        // Must be set by spell.
-        return 0;
 
     case ENCH_BREATH_WEAPON:
         // Must be set by creature.

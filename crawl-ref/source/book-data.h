@@ -222,7 +222,6 @@ static const vector<spell_type> spellbook_templates[] =
 
 {   // Book of Wizardry
     SPELL_AGONY,
-    SPELL_SPELLFORGED_SERVITOR,
 },
 #endif
 
@@ -230,7 +229,6 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_AGONY,
     SPELL_BATTLESPHERE,
     SPELL_UNMAKING,
-    SPELL_SPELLFORGED_SERVITOR,
 },
 
 {   // Book of Cantrips
@@ -441,8 +439,8 @@ static const vector<spell_type> spellbook_templates[] =
 
 { // Book of Dangerous Friends
     SPELL_AMBULATORY_BOMB,
-    SPELL_IOOD,
     SPELL_SPELLFORGED_SERVITOR,
+    SPELL_IOOD,
 },
 
 { // Book of Touch

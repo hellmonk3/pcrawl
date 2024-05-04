@@ -60,6 +60,7 @@
 #include "ouch.h"
 #include "religion.h"
 #include "spl-clouds.h" // explode_blastmotes_at
+#include "spl-damage.h"
 #include "spl-monench.h"
 #include "spl-other.h"
 #include "spl-summoning.h"
@@ -3128,6 +3129,12 @@ int monster::hurt(const actor *agent, int amount, beam_type flavour,
                     amount -= split;
                 }
             }
+        }
+
+        if (type == MONS_LIGHTNING_SPIRE && flavour == BEAM_ELECTRICITY
+            && agent->as_monster()->type != MONS_LIGHTNING_SPIRE)
+        {
+            cast_discharge(3 + get_hit_dice(), *this);
         }
 
         if (amount == INSTANT_DEATH)

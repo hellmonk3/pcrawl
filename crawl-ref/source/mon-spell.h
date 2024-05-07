@@ -1330,6 +1330,12 @@ static const mon_spellbook mspell_list[] =
        { SPELL_PAIN, 17, MON_SPELL_MAGICAL },
       }
     },
+    
+    {  MST_GLOWING_IMP,
+      {
+       { SPELL_MAGIC_DART, 30, MON_SPELL_MAGICAL },
+      }
+    },
 
     // ('3') Common demons.
     {  MST_YNOXINUL,

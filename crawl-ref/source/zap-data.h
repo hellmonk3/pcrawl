@@ -520,7 +520,7 @@ static const zap_info zap_data[] =
     25,
     new dicedef_calculator<1, 3, 1, 5>,
     new tohit_calculator<AUTOMATIC_HIT>,
-    new dicedef_calculator<3, 4, 1, 100>,
+    new dicedef_calculator<1, 4, 0, 1>,
     new tohit_calculator<AUTOMATIC_HIT>,
     LIGHTMAGENTA,
     false,

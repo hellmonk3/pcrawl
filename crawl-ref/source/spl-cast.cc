@@ -2169,6 +2169,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_WEREBLOOD:
         return cast_wereblood(powc, fail);
+        
+    case SPELL_ELDRITCH_ICHOR:
+        return cast_eldritch_ichor(powc, fail);
 
     case SPELL_DIMENSIONAL_BULLSEYE:
         return cast_dimensional_bullseye(powc, monster_at(target), fail);

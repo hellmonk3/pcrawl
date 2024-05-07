@@ -114,3 +114,4 @@ spret summon_butterflies(int pow = 0);
 
 spret cast_broms_barrelling_boulder(actor& agent, coord_def pos, int pow, bool fail);
 spret cast_summon_elemental(bool fail);
+spret cast_eldritch_ichor(int pow, bool fail);

@@ -417,6 +417,7 @@ mon/unique/grinder MONS_GRINDER
 %rim 1
 ufetubus MONS_UFETUBUS
 white_imp MONS_WHITE_IMP
+glowing_imp MONS_GLOWING_IMP
 
 # demonspawn ('6')
 %sdir mon/humanoids/demonspawn

@@ -242,9 +242,8 @@ or nearly adjacent cannot be struck by this.
 %%%%
 Call Imp spell
 
-Calls forth a minor demon from the pits of Hell, equipped with a spear with
-which to jab at the caster's enemies. The quality of the imp's weaponry rises
-with spell power.
+Calls forth one of many types of minor demon from the pits of Hell. No refunds,
+all sales are final.
 %%%%
 Call Lost Soul spell
 
@@ -517,6 +516,16 @@ and duration of this effect.
 Druid's Call spell
 
 Recalls woodland creatures from elsewhere on the same level.
+%%%%
+Eldritch Ichor spell
+
+Taints the caster with horrible energies from a distant plane. Striking an
+enemy while the spell is active may summon a tentacled monstrosity from this
+plane to attack the same foe, though these creatures never stick around for
+long.
+
+Greater spellpower will increase the chance of a successful summoning on each
+hit.
 %%%%
 Electrical Bolt spell
 

@@ -774,6 +774,9 @@ static void _decrement_durations()
 
     _decrement_a_duration(DUR_INFESTATION, delay,
             "You are no longer infesting your enemies.");
+            
+    _decrement_a_duration(DUR_ICHOR, delay,
+            "You are no longer tainted with eldritch energies.");
 
     if (_decrement_a_duration(DUR_LANTERN, delay, "The shadows dissipate."))
         update_vision_range();

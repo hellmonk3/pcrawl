@@ -248,5 +248,6 @@ enum duration_type
     DUR_LANTERN,
     DUR_FLAME_LANCE,
     DUR_INFESTATION,
+    DUR_ICHOR,
     NUM_DURATIONS
 };

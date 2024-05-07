@@ -859,16 +859,23 @@ spret cast_summon_guardian_golem(int pow, god_type god, bool fail)
  */
 spret cast_call_imp(int pow, god_type god, bool fail)
 {
-    if (stop_summoning_prompt(MR_RES_POISON, M_FLIES))
-        return spret::abort;
-
     fail_check();
+    
+    monster_type mon = random_choose(MONS_CERULEAN_IMP,
+                                     MONS_CRIMSON_IMP,
+                                     MONS_LEMURE,
+                                     MONS_GLOWING_IMP,
+                                     MONS_WHITE_IMP,
+                                     MONS_UFETUBUS,
+                                     MONS_QUASIT,
+                                     MONS_IRON_IMP);
 
-    mgen_data imp_data = _pal_data(MONS_CERULEAN_IMP, 3, god, SPELL_CALL_IMP);
+    int dur = 2 + random2(1 + div_rand_round(pow, 4));
+
+    mgen_data imp_data = _pal_data(mon, dur, god, SPELL_CALL_IMP);
     if (monster *imp = create_monster(imp_data))
     {
         mpr("A tiny devil pulls itself out of the air.");
-        imp->weapon()->plus = pow/10 - 4;
         _monster_greeting(imp, "_friendly_imp_greeting");
     }
     else
@@ -1190,6 +1197,18 @@ spret cast_malign_gateway(actor * caster, int pow, god_type god,
     }
 
     return spret::abort;
+}
+
+spret cast_eldritch_ichor(int pow, bool fail)
+{
+    fail_check();
+    
+    mpr("You bathe in eldritch energies!");
+    
+    const int dur = 6 + pow + random2(6 + pow * 2);
+    you.increase_duration(DUR_ICHOR, dur, 50);
+    
+    return spret::success;
 }
 
 spret cast_summon_horrible_things(int pow, god_type god, bool fail)
@@ -2146,10 +2165,13 @@ static const map<spell_type, summon_cap> summonsdata =
     { SPELL_SUMMON_SMALL_MAMMAL,      { 2, 4 } },
     { SPELL_CALL_CANINE_FAMILIAR,     { 1, 1 } },
     { SPELL_SUMMON_ICE_BEAST,         { 1, 3 } },
+    { SPELL_ICE_STATUE,               { 1, 3 } },
     { SPELL_SUMMON_HYDRA,             { 2, 3 } },
     { SPELL_SUMMON_MANA_VIPER,        { 2, 3 } },
     { SPELL_CALL_IMP,                 { 1, 3 } },
+    { SPELL_SUMMON_ELEMENTAL,         { 2, 3 } },
     { SPELL_MONSTROUS_MENAGERIE,      { 2, 3 } },
+    { SPELL_ELDRITCH_ICHOR,           { 8, 8 } },
     { SPELL_SUMMON_HORRIBLE_THINGS,   { 8, 8 } },
     { SPELL_SUMMON_LIGHTNING_SPIRE,   { 1, 1 } },
     { SPELL_AMBULATORY_BOMB,          { 1, 1 } },

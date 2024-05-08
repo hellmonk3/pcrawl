@@ -2161,6 +2161,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_OZOCUBUS_ARMOUR:
         return ice_armour(powc, fail);
 
+    case SPELL_PHASE_SHIFT:
+        return cast_phase_shift(powc, fail);
+
     case SPELL_CONDENSATION_SHIELD:
         return cast_condensation_shield(powc, fail);
 
@@ -2169,7 +2172,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_WEREBLOOD:
         return cast_wereblood(powc, fail);
-        
+
     case SPELL_ELDRITCH_ICHOR:
         return cast_eldritch_ichor(powc, fail);
 

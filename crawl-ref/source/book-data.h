@@ -90,7 +90,6 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 {   // Book of Spatial Translocations
-    SPELL_BLINK,
     SPELL_MOMENTUM_STRIKE,
     SPELL_BECKONING,
 },
@@ -399,8 +398,9 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 { // Inescapable Atlas
-    SPELL_BLINK,
     SPELL_MANIFOLD_ASSAULT,
+    SPELL_BLINK,
+    SPELL_PHASE_SHIFT,
 },
 
 { // Book of the Tundra

@@ -673,3 +673,16 @@ spret cast_condensation_shield(int pow, bool fail)
 
     return spret::success;
 }
+
+spret cast_phase_shift(int pow, bool fail)
+{
+    fail_check();
+    if (!you.duration[DUR_PHASE_SHIFT])
+        mpr("You feel the strange sensation of being on two planes at once.");
+    else
+        mpr("You feel the material plane grow further away.");
+
+    you.increase_duration(DUR_PHASE_SHIFT, 10 + random2(1 + pow * 2), 50);
+    you.redraw_evasion = true;
+    return spret::success;
+}

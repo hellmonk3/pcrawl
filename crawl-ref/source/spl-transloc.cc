@@ -808,9 +808,6 @@ spret cast_blink(int pow, bool fail)
     fail_check();
     uncontrolled_blink();
 
-    you.increase_duration(DUR_BLINK_COOLDOWN,
-                          2 + random2(3) + div_rand_round(50 - pow, 10));
-
     return spret::success;
 }
 
@@ -1239,10 +1236,8 @@ spret cast_manifold_assault(int pow, bool fail, bool real)
     const int initial_time = you.time_taken;
 
     shuffle_array(targets);
-    // UC is worse at launching multiple manifold assaults, since
-    // shapeshifters have a much easier time casting it.
-    const size_t max_targets = weapon ? 2 + div_rand_round(pow, 50)
-                                      : 1 + div_rand_round(pow, 100);
+
+    const size_t max_targets = 1 + div_rand_round(pow,10);
     for (size_t i = 0; i < max_targets && i < targets.size(); i++)
     {
         // Somewhat hacky: reset attack delay before each attack so that only the final

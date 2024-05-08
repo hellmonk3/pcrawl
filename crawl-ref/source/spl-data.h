@@ -494,7 +494,7 @@ static const struct spell_desc spelldata[] =
     SPELL_BLINK, "Blink",
     spschool::translocation,
     spflag::escape | spflag::selfench | spflag::utility,
-    2,
+    3,
     50,
     -1, -1,
     0,
@@ -1135,11 +1135,22 @@ static const struct spell_desc spelldata[] =
     SPELL_ENGLACIATION, "Metabolic Englaciation",
     spschool::hexes | spschool::ice,
     spflag::area,
-    5,
+    3,
     200,
     -1, -1,
     0,
     TILEG_METABOLIC_ENGLACIATION,
+},
+
+{
+    SPELL_PHASE_SHIFT, "Phase Shift",
+    spschool::translocation | spschool::enchantments,
+    spflag::helpful | spflag::utility,
+    3,
+    200,
+    -1, -1,
+    0,
+    TILEG_PHASE_SHIFT,
 },
 
 {
@@ -3443,7 +3454,7 @@ static const struct spell_desc spelldata[] =
     SPELL_MANIFOLD_ASSAULT, "Manifold Assault",
     spschool::translocation,
     spflag::no_ghost,
-    4,
+    1,
     100,
     -1, -1,
     0,
@@ -3910,7 +3921,6 @@ AXED_SPELL(SPELL_IRON_ELEMENTALS, "Summon Iron Elementals")
 AXED_SPELL(SPELL_LETHAL_INFUSION, "Lethal Infusion")
 AXED_SPELL(SPELL_MELEE, "Melee")
 AXED_SPELL(SPELL_MISLEAD, "Mislead")
-AXED_SPELL(SPELL_PHASE_SHIFT, "Phase Shift")
 AXED_SPELL(SPELL_POISON_WEAPON, "Poison Weapon")
 AXED_SPELL(SPELL_RANDOM_BOLT, "Random Bolt")
 AXED_SPELL(SPELL_REARRANGE_PIECES, "Rearrange the Pieces")

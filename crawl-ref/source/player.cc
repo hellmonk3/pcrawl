@@ -1842,6 +1842,9 @@ static int _player_evasion_bonuses()
     if (you.duration[DUR_AGILITY])
         evbonus += AGILITY_BONUS;
 
+    if (you.duration[DUR_PHASE_SHIFT])
+        evbonus += 35;
+
     evbonus += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_EVASION) * 15;
 
     evbonus += you.scan_artefacts(ARTP_EVASION);

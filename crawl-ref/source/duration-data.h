@@ -323,6 +323,13 @@ static const duration_def duration_data[] =
       "on death's door cooldown", "deaths door cooldown",
       "You are unable to enter death's door.", D_NO_FLAGS,
       {{ "You step away from death's doorway." }}},
+    { DUR_PHASE_SHIFT,
+      0, "",
+      "phasing", "phase shift",
+      "You are out of phase with the material plane.", D_DISPELLABLE | D_EXPIRES,
+        {{ "You are firmly grounded in the material plane once more.", []() {
+            you.redraw_evasion = true;
+        }}, { "You feel closer to the material plane.", 1 }}},
     { DUR_QUAD_DAMAGE,
       BLUE, "Quad",
       "quad damage", "",
@@ -727,7 +734,6 @@ static const duration_def duration_data[] =
     { DUR_SURE_BLADE, 0, "", "", "old sure blade", "", D_NO_FLAGS},
     { DUR_CONTROL_TELEPORT, 0, "", "", "old control teleport", "", D_NO_FLAGS},
     { DUR_DOOM_HOWL_IMMUNITY, 0, "", "", "old howl immunity", "", D_NO_FLAGS, {{""}}},
-    { DUR_PHASE_SHIFT, 0, "", "", "old phase shift", "", D_NO_FLAGS},
     { DUR_TELEPATHY, 0, "", "", "old telepathy", "", D_NO_FLAGS},
     { DUR_MAGIC_ARMOUR, 0, "", "", "old magic armour", "", D_NO_FLAGS},
     { DUR_MAGIC_SHIELD, 0, "", "", "old magic shield", "", D_NO_FLAGS},

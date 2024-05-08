@@ -2311,6 +2311,9 @@ int monster::evasion(bool ignore_helpless, const actor* /*act*/) const
     if (has_ench(ENCH_AGILE))
         ev += AGILITY_BONUS;
 
+    if (has_ench(ENCH_PHASE_SHIFT))
+        ev += 35;
+
     if (ignore_helpless)
         return max(ev, 0);
 
@@ -4533,16 +4536,16 @@ void monster::react_to_damage(const actor *oppressor, int damage,
 
     if (!alive())
         return;
-    
+
     if (oppressor == &you && you.duration[DUR_ICHOR]
         && !mons_is_firewood(*this)
         && !wont_attack()
         && x_chance_in_y(20 + calc_spell_power(SPELL_ELDRITCH_ICHOR), 40))
     {
-        mgen_data mg(MONS_TENTACLED_MONSTROSITY, BEH_FRIENDLY, 
+        mgen_data mg(MONS_TENTACLED_MONSTROSITY, BEH_FRIENDLY,
                         pos(), this->mindex(), MG_NONE);
         mg.set_summoned(&you, 1, SPELL_ELDRITCH_ICHOR);
-        if(create_monster(mg))
+        if (create_monster(mg))
             mpr("A tentacled monstrosity appears!");
     }
 

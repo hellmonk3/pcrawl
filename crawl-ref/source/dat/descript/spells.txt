@@ -161,9 +161,7 @@ still within sight of the target.
 %%%%
 Blink spell
 
-Randomly translocates the caster a short distance. After translocating in this
-way, the spell cannot be cast again for a short period of time depending on
-spell power.
+Randomly translocates the caster to another place within their line of sight.
 %%%%
 Blinkbolt spell
 
@@ -958,13 +956,12 @@ cannot affect artificial beings, and the undead will decompose if affected.
 %%%%
 Manifold Assault spell
 
-Warps space into paradoxical configurations to strike many visible foes with
-one melee attack. Power increases the number of foes attacked with one cast,
-but very high power is required to launch multiple unarmed attacks in this
-fashion, since great care must be taken when warping one's own limbs.
+Warps space into paradoxical configurations to strike one or more visible foes
+with one melee attack. Power increases the number of foes attacked with one
+cast.
 
-The time taken for the attack is exactly the same as a normal melee attack.
-It's imprecise, so it can't do extra damage against unsuspecting foes.
+Attacks made with this spell do not deal extra damage against unsuspecting foes,
+and may miss or be reduced by armour as usual.
 %%%%
 Mara Summon spell
 
@@ -1138,6 +1135,11 @@ Phantom Mirror spell
 
 Creates a phantom copy of a creature. The copy will be somewhat fragile, but
 otherwise almost indistinguishable from the original.
+%%%%
+Phase Shift spell
+
+Causes the caster to phase in and out of the material plane, greatly increasing
+their evasion for a duration.
 %%%%
 Plane Rend spell
 

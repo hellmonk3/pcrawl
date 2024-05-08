@@ -860,7 +860,7 @@ spret cast_summon_guardian_golem(int pow, god_type god, bool fail)
 spret cast_call_imp(int pow, god_type god, bool fail)
 {
     fail_check();
-    
+
     monster_type mon = random_choose(MONS_CERULEAN_IMP,
                                      MONS_CRIMSON_IMP,
                                      MONS_LEMURE,
@@ -1202,12 +1202,12 @@ spret cast_malign_gateway(actor * caster, int pow, god_type god,
 spret cast_eldritch_ichor(int pow, bool fail)
 {
     fail_check();
-    
+
     mpr("You bathe in eldritch energies!");
-    
+
     const int dur = 6 + pow + random2(6 + pow * 2);
     you.increase_duration(DUR_ICHOR, dur, 50);
-    
+
     return spret::success;
 }
 

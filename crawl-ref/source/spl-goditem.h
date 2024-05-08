@@ -70,6 +70,7 @@ const enchant_type dispellable_enchantments[] =
     ENCH_BOUND,
     ENCH_BULLSEYE_TARGET,
     ENCH_STUN,
+    ENCH_PHASE_SHIFT,
 };
 
 bool player_is_debuffable();

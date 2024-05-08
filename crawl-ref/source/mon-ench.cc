@@ -959,6 +959,11 @@ void monster::remove_enchantment_effect(const mon_enchant &me, bool quiet)
             simple_monster_message(*this, " is no longer repelling missiles.");
         break;
 
+    case ENCH_PHASE_SHIFT:
+        if (!quiet)
+            simple_monster_message(*this, " seems more solid.");
+        break;
+
     case ENCH_RESISTANCE:
         if (!quiet)
             simple_monster_message(*this, " is no longer unusually resistant.");
@@ -2115,7 +2120,7 @@ static const char *enchant_names[] =
     "ring_chaos", "ring_mutation", "ring_fog", "ring_ice", "ring_neg",
     "ring_acid", "ring_miasma", "concentrate_venom", "fire_champion",
     "anguished", "simulacra", "necrotizing", "glowing", "pursuing",
-    "bound", "bullseye_target", "stunned", "rimeblight",
+    "bound", "bullseye_target", "stunned", "rimeblight", "phase shift",
     "buggy", // NUM_ENCHANTMENTS
 };
 

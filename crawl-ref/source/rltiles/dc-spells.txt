@@ -158,6 +158,7 @@ summon_elemental SUMMON_ELEMENTAL
 apportation APPORTATION
 beckoning BECKONING
 blink BLINK
+controlled_blink CONTROLLED_BLINK
 disjunction DISJUNCTION
 dispersal DISPERSAL
 passage_of_golubria PASSAGE_OF_GOLUBRIA

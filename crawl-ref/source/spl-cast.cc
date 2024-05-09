@@ -2193,6 +2193,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_BLINK:
         return cast_blink(powc, fail);
 
+    case SPELL_CONTROLLED_BLINK:
+        return cast_controlled_blink();
+
     case SPELL_BLASTMOTE:
         return kindle_blastmotes(powc, fail);
 

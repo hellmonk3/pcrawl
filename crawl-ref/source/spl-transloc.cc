@@ -76,10 +76,8 @@ static void _place_tloc_cloud(const coord_def &origin)
 spret cast_disjunction(int pow, bool fail)
 {
     fail_check();
-    int rand = random_range(35, 45) + random2(div_rand_round(pow, 12));
-    you.duration[DUR_DISJUNCTION] = min(90 + div_rand_round(pow, 12),
-        max(you.duration[DUR_DISJUNCTION] + rand,
-        30 + rand));
+    int dur = 4 + div_rand_round(pow,4) + random2(1 + div_rand_round(pow, 2));
+    you.increase_duration(DUR_DISJUNCTION, dur, 25);
     disjunction_spell();
     return spret::success;
 }
@@ -789,6 +787,18 @@ spret controlled_blink(bool safe_cancel, dist *target)
     return spret::success;
 }
 
+spret cast_controlled_blink(bool safe)
+{
+    // don't prompt if it's useless
+    if (you.no_tele(true, true))
+    {
+        canned_msg(MSG_STRANGE_STASIS);
+        return spret::abort;
+    }
+
+    return controlled_blink(safe);
+}
+
 /**
  * Cast the player spell Blink.
  *
@@ -1133,7 +1143,6 @@ spret cast_dimensional_bullseye(int pow, monster *target, bool fail)
     if (target == nullptr || target->submerged() || !you.can_see(*target))
     {
         canned_msg(MSG_NOTHING_THERE);
-        // You cannot place a bullseye on invisible enemies anyway, so just abort
         return spret::abort;
     }
 
@@ -1157,7 +1166,7 @@ spret cast_dimensional_bullseye(int pow, monster *target, bool fail)
     target->add_ench(ENCH_BULLSEYE_TARGET);
 
     you.props[BULLSEYE_TARGET_KEY].get_int() = target->mid;
-    int dur = random_range(5 + div_rand_round(pow, 5), 7 + div_rand_round(pow, 4));
+    int dur = random_range(5 + pow, 7 + div_rand_round(pow * 3, 2));
     you.set_duration(DUR_DIMENSIONAL_BULLSEYE, dur);
     return spret::success;
 }
@@ -1478,8 +1487,8 @@ static int _disperse_monster(monster& mon, int pow)
         monster_teleport(&mon, true);
 
     // Moving the monster may have killed it in apply_location_effects.
-    if (mon.alive() && mon.check_willpower(&you, pow) <= 0)
-        mon.confuse(&you, 1 + random2avg(1 + div_rand_round(pow, 10), 2));
+    if (mon.alive())
+        mon.confuse(&you, 1 + random2(1 + div_rand_round(pow, 4)));
 
     return true;
 }
@@ -1744,6 +1753,8 @@ bool beckon(actor &beckoned, const bolt &path)
     mprf("%s %s suddenly forward!",
          beckoned.name(DESC_THE).c_str(),
          beckoned.conj_verb("hurl").c_str());
+
+    beckoned.stun(&you);
 
     beckoned.apply_location_effects(old_pos); // traps, etc.
     if (beckoned.is_monster())

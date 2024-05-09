@@ -358,6 +358,10 @@ Conjure Living Spells spell
 Creates several living, autonomous spells, which cast themselves at the first foe
 to enter their range. Once cast, they dissipate.
 %%%%
+Controlled Blink spell
+
+Translocates the caster a short distance, with precise control.
+%%%%
 Corona spell
 
 Causes a halo of glowing light to surround and effectively outline a creature.
@@ -442,10 +446,12 @@ Banishment.
 Dimensional Bullseye spell
 
 Weaves a link between the caster's weaponry and a chosen target. Whenever the
-caster fires or throws something at a *different* enemy, a matching projectile
-will be teleported at the target. Spellpower increases their accuracy.
+caster fires a ranged weapon or throws something at a *different* enemy, a
+matching projectile will be teleported at the target. The marked target is also
+unable to dodge ranged attacks, whether they were the original target of the
+attack or not.
 
-Every shot will drain a drop of magic while the link persists.
+Spellpower increases the duration of the effect.
 %%%%
 Discord spell
 
@@ -472,8 +478,7 @@ Dispersal spell
 
 Teleports away any creatures within a short distance of the caster. Any
 creature with the Will to resist will still be irresistibly blinked a shorter
-distance, and any monster it affects at all has a separate Will-based chance
-of being confused by the warping of space.
+distance, and any monster it affects at all will be (very briefly) confused.
 %%%%
 Doom Howl spell
 
@@ -912,7 +917,8 @@ Hurls a lethally sharp shard of crystal.
 %%%%
 Lesser Beckoning spell
 
-Beckons the target forward, attempting to place them adjacent to the caster.
+Beckons the target forward, attempting to place them adjacent to the caster. If
+a monster is moved by this effect, they will be stunned.
 %%%%
 Lightning Bolt spell
 

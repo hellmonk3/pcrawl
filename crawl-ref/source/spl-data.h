@@ -495,10 +495,21 @@ static const struct spell_desc spelldata[] =
     spschool::translocation,
     spflag::escape | spflag::selfench | spflag::utility,
     3,
-    50,
+    0,
     -1, -1,
     0,
     TILEG_BLINK,
+},
+
+{
+    SPELL_CONTROLLED_BLINK, "Controlled Blink",
+    spschool::translocation,
+    spflag::escape | spflag::selfench | spflag::utility,
+    9,
+    0,
+    -1, -1,
+    0,
+    TILEG_CONTROLLED_BLINK,
 },
 
 {
@@ -1181,7 +1192,7 @@ static const struct spell_desc spelldata[] =
     spflag::area | spflag::escape,
     6,
     200,
-    1, 4,
+    4, 4,
     0,
     TILEG_DISPERSAL,
 },
@@ -3164,11 +3175,11 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_BECKONING, "Lesser Beckoning",
-    spschool::translocation,
+    spschool::translocation | spschool::hexes,
     spflag::dir_or_target | spflag::not_self | spflag::needs_tracer,
     2,
     50,
-    3, 5,
+    4, 4,
     0,
     TILEG_BECKONING,
 },
@@ -3675,7 +3686,7 @@ static const struct spell_desc spelldata[] =
     SPELL_DIMENSIONAL_BULLSEYE, "Dimensional Bullseye",
     spschool::translocation | spschool::hexes,
     spflag::target | spflag::not_self,
-    4,
+    2,
     200,
     LOS_RADIUS, LOS_RADIUS,
     0,
@@ -3890,7 +3901,6 @@ AXED_SPELL(SPELL_AURA_OF_ABJURATION, "Aura of Abjuration")
 AXED_SPELL(SPELL_CHANT_FIRE_STORM, "Chant Fire Storm")
 AXED_SPELL(SPELL_CIGOTUVIS_DEGENERATION, "Cigotuvi's Degeneration")
 AXED_SPELL(SPELL_CIGOTUVIS_EMBRACE, "Cigotuvi's Embrace")
-AXED_SPELL(SPELL_CONTROLLED_BLINK, "Controlled Blink")
 AXED_SPELL(SPELL_CONTROL_TELEPORT, "Control Teleport")
 AXED_SPELL(SPELL_CONTROL_UNDEAD, "Control Undead")
 AXED_SPELL(SPELL_CONTROL_WINDS, "Control Winds")

@@ -96,6 +96,10 @@ int aux_to_hit()
 int to_hit_pct(const monster_info& mi, attack &atk, bool melee)
 {
     const int to_land = atk.calc_pre_roll_to_hit(false);
+
+    if (!melee && mi.is(MB_BULLSEYE_TARGET))
+        return 100;
+
     int ev = mi.ev;
     if (to_land >= AUTOMATIC_HIT)
         return 100;

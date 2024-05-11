@@ -251,9 +251,9 @@ static const vector<spell_type> spellbook_templates[] =
 #endif
 
 {   // Book of Debilitation
+    SPELL_CONFUSING_TOUCH,
     SPELL_SLOW,
     SPELL_SIGIL_OF_BINDING,
-    SPELL_CONFUSING_TOUCH,
     SPELL_RIMEBLIGHT,
 },
 

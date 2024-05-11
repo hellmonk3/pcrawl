@@ -1078,7 +1078,7 @@ static const struct spell_desc spelldata[] =
     SPELL_CONFUSING_TOUCH, "Confusing Touch",
     spschool::hexes,
     spflag::selfench | spflag::WL_check, // Show success in the static targeter
-    3,
+    1,
     100,
     -1, -1,
     0,
@@ -1135,7 +1135,7 @@ static const struct spell_desc spelldata[] =
     spschool::hexes | spschool::ice,
     spflag::dir_or_target | spflag::not_self | spflag::needs_tracer
         | spflag::WL_check | spflag::silent,
-    2,
+    1,
     50,
     LOS_RADIUS, LOS_RADIUS,
     0,

@@ -124,8 +124,7 @@ bool enfeeble_monster(monster &mon, int pow)
         hexes.push_back(ENCH_ANTIMAGIC);
     if (res_margin <= 0)
     {
-        if (mons_can_be_blinded(mon.type))
-            hexes.push_back(ENCH_BLIND);
+        hexes.push_back(ENCH_SLOW);
         hexes.push_back(ENCH_DAZED);
     }
 
@@ -136,8 +135,8 @@ bool enfeeble_monster(monster &mon, int pow)
                    mon.resist_margin_phrase(res_margin).c_str());
     }
 
-    const int max_extra_dur = div_rand_round(pow, 40);
-    const int dur = 5 + random2avg(max_extra_dur, 3);
+    const int max_extra_dur = div_rand_round(pow, 5);
+    const int dur = 5 + random2(1 + max_extra_dur);
 
     for (auto hex : hexes)
     {

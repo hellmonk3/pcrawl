@@ -459,9 +459,9 @@ static int _intoxicate_monsters(coord_def where, int pow, bool tracer)
 {
     monster* mons = monster_at(where);
     if (mons == nullptr
-        || mons_intel(*mons) < I_HUMAN
-        || mons->clarity()
-        || mons->res_poison() >= 3)
+        || (mons->holiness() & MH_UNDEAD)
+        || (mons->holiness() & MH_NONLIVING)
+        || mons->clarity())
     {
         return 0;
     }
@@ -469,12 +469,10 @@ static int _intoxicate_monsters(coord_def where, int pow, bool tracer)
     if (tracer && !you.can_see(*mons))
         return 0;
 
-    if (!tracer && monster_resists_this_poison(*mons))
-        return 0;
-
-    if (!tracer && x_chance_in_y(40 + div_rand_round(pow, 3), 100))
+    if (!tracer && x_chance_in_y(40 + pow * 3, 100))
     {
-        mons->add_ench(mon_enchant(ENCH_CONFUSION, 0, &you));
+        int dur = (4 + random2(3 + pow)) * BASELINE_DELAY;
+        mons->add_ench(mon_enchant(ENCH_CONFUSION, 0, &you, dur));
         simple_monster_message(*mons, " looks rather confused.");
         return 1;
     }
@@ -501,11 +499,7 @@ spret cast_intoxicate(int pow, bool fail, bool tracer)
     }, you.pos());
 
     if (count > 0)
-    {
-        mprf(MSGCH_WARN, "The world spins around you!");
-        you.increase_duration(DUR_VERTIGO, 4 + count + random2(count + 1));
-        you.redraw_evasion = true;
-    }
+        mpr("The world spins around you!");
 
     return spret::success;
 }

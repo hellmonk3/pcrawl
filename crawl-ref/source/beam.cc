@@ -1960,9 +1960,6 @@ bool poison_monster(monster* mons, const actor *who, int levels,
     if (!mons->alive() || levels <= 0)
         return false;
 
-    if (monster_resists_this_poison(*mons, force))
-        return false;
-
     const mon_enchant old_pois = mons->get_ench(ENCH_POISON);
     mons->add_ench(mon_enchant(ENCH_POISON, levels, who));
     const mon_enchant new_pois = mons->get_ench(ENCH_POISON);

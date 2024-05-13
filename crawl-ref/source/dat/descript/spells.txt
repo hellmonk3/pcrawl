@@ -26,10 +26,9 @@ meteorological fury. It does more damage to targets surrounded by empty space.
 Alistair's Intoxication spell
 
 Converts a small portion of the brain matter of those around you into alcohol,
-attempting to confuse all intelligent creatures within view (although
-poison-resistant creatures may resist the effects). The caster will experience
-vertigo briefly if they successfully make contact with other minds. It is
-frequently used as an icebreaker at wizard parties.
+attempting to confuse all natural and demonic monsters you can see. The spell
+has a fixed chance of success depending on power and is not resistible by other
+means. It is frequently used as an icebreaker at wizard parties.
 %%%%
 Alistair's Dodgeable Bolt spell
 
@@ -332,9 +331,9 @@ Induces a state of bewilderment and confusion in a creature's mind.
 %%%%
 Confusing Touch spell
 
-Enchants the caster's dominant hand with magical energy. The energy may induce 
-confusion in a monster the caster touches, which will end the effect. The 
-caster's melee attacks do no damage while attempting to touch a monster in this 
+Enchants the caster's dominant hand with magical energy. The energy may induce
+confusion in a monster the caster touches, which will end the effect. The
+caster's melee attacks do no damage while attempting to touch a monster in this
 way.
 %%%%
 Confusion Gaze spell
@@ -541,7 +540,7 @@ Fires a bolt of highly destructive energy.
 Enfeeble spell
 
 Overwhelms an enemy with malignant energies, irresistibly weakening their melee
-attacks and disrupting their magic. It will additionally daze and blind any foe
+attacks and disrupting their magic. It will additionally daze and slow any foe
 that fails to resist the full force of the curse.
 %%%%
 Ensnare spell

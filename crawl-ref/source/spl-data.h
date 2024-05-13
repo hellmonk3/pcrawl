@@ -1233,10 +1233,10 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_INTOXICATE, "Alistair's Intoxication",
-    spschool::transmutation | spschool::hexes,
+    spschool::hexes,
     spflag::none,
-    5,
-    150,
+    7,
+    200,
     -1, -1,
     0,
     TILEG_ALISTAIRS_INTOXICATION,
@@ -3598,7 +3598,7 @@ static const struct spell_desc spelldata[] =
     SPELL_ENFEEBLE, "Enfeeble",
     spschool::hexes,
     spflag::dir_or_target | spflag::needs_tracer | spflag::WL_check,
-    7,
+    5,
     200,
     LOS_RADIUS, LOS_RADIUS,
     0,

@@ -2157,6 +2157,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_OZOCUBUS_ARMOUR:
         return ice_armour(powc, fail);
+        
+    case SPELL_HASTE:
+        return haste_spell(powc, fail);
 
     case SPELL_PHASE_SHIFT:
         return cast_phase_shift(powc, fail);

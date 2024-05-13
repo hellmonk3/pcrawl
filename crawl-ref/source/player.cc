@@ -4434,9 +4434,6 @@ bool haste_player(int turns, bool rageext)
         return false;
     }
 
-    // Cutting the nominal turns in half since hasted actions take half the
-    // usual delay.
-    turns = haste_div(turns);
     const int threshold = 40;
 
     if (!you.duration[DUR_HASTE])

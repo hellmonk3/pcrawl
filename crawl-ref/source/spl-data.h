@@ -219,10 +219,9 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_HASTE, "Haste",
-    spschool::hexes,
-    spflag::helpful | spflag::hasty | spflag::selfench | spflag::utility
-                    | spflag::monster,
-    6,
+    spschool::enchantments,
+    spflag::helpful | spflag::hasty | spflag::selfench | spflag::utility,
+    9,
     200,
     -1, -1,
     0,

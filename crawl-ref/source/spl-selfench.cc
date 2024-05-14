@@ -180,18 +180,18 @@ int cast_selective_amnesia(const string &pre_msg)
     return -1;
 }
 
-spret cast_wereblood(int pow, bool fail)
+spret cast_song_of_slaying(int pow, bool fail)
 {
     fail_check();
 
-    if (you.duration[DUR_WEREBLOOD])
-        mpr("Your blood is freshly infused with primal strength!");
+    if (you.duration[DUR_SONG_OF_SLAYING])
+        mpr("You start a new song!");
     else
-        mpr("Your blood is infused with primal strength.");
+        mpr("You start singing a song of slaying.");
 
-    you.set_duration(DUR_WEREBLOOD, 20 + random2avg(pow, 2));
+    you.set_duration(DUR_SONG_OF_SLAYING, 12 + random2(6 + pow * 3));
 
-    you.props[WEREBLOOD_KEY] = 0;
+    you.props[SONG_OF_SLAYING_KEY] = 0;
     return spret::success;
 }
 

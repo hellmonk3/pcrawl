@@ -2312,14 +2312,14 @@ static const struct spell_desc spelldata[] =
 },
 
 {
-    SPELL_WEREBLOOD, "Wereblood",
-    spschool::transmutation,
-    spflag::utility | spflag::chaotic,
-    2,
+    SPELL_SONG_OF_SLAYING, "Song of Slaying",
+    spschool::enchantments,
+    spflag::utility,
+    1,
     100,
     -1, -1,
     8,
-    TILEG_WEREBLOOD,
+    TILEG_SONG_OF_SLAYING,
 },
 
 {

@@ -27,7 +27,7 @@ int silence_min_range(int pow);
 int silence_max_range(int pow);
 spret cast_silence(int pow, bool fail = false);
 
-spret cast_wereblood(int pow, bool fail);
+spret cast_song_of_slaying(int pow, bool fail);
 
 int liquefaction_max_range(int pow);
 spret cast_liquefaction(int pow, bool fail);

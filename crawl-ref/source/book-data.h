@@ -126,7 +126,7 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 {   // Book of Changes
-    SPELL_WEREBLOOD,
+    SPELL_SONG_OF_SLAYING,
     SPELL_IRRADIATE,
 },
 
@@ -205,7 +205,7 @@ static const vector<spell_type> spellbook_templates[] =
 },
 
 {   // Book of Battle
-    SPELL_WEREBLOOD,
+    SPELL_SONG_OF_SLAYING,
 },
 #endif
 
@@ -430,7 +430,6 @@ static const vector<spell_type> spellbook_templates[] =
 
 { // Book of Blood
     SPELL_SUBLIMATION_OF_BLOOD,
-    SPELL_WEREBLOOD,
     SPELL_SUMMON_HYDRA,
 },
 

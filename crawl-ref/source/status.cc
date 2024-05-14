@@ -474,10 +474,10 @@ bool fill_status_info(int status, status_info& inf)
         }
         break;
 
-    case DUR_WEREBLOOD:
+    case DUR_SONG_OF_SLAYING:
         inf.light_text
             = make_stringf("Slay (%u)",
-                           you.props[WEREBLOOD_KEY].get_int());
+                           you.props[SONG_OF_SLAYING_KEY].get_int());
         break;
 
     case STATUS_BEOGH:

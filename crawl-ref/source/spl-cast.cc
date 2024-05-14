@@ -1109,8 +1109,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
     case SPELL_POISONOUS_VAPOURS:
         return make_unique<targeter_poisonous_vapours>(&you, range);
 
-    // at player's position only but not a selfench (wait, why wereblood?)
-    case SPELL_WEREBLOOD:
+    // at player's position only but not a selfench
+    case SPELL_SONG_OF_SLAYING:
     case SPELL_SUBLIMATION_OF_BLOOD:
     case SPELL_BORGNJORS_REVIVIFICATION:
     case SPELL_BLASTMOTE:
@@ -2170,8 +2170,8 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_SILENCE:
         return cast_silence(powc, fail);
 
-    case SPELL_WEREBLOOD:
-        return cast_wereblood(powc, fail);
+    case SPELL_SONG_OF_SLAYING:
+        return cast_song_of_slaying(powc, fail);
 
     case SPELL_ELDRITCH_ICHOR:
         return cast_eldritch_ichor(powc, fail);

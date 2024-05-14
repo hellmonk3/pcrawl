@@ -54,6 +54,7 @@ haste HASTE
 invisibility INVISIBILITY
 mass_confusion MASS_CONFUSION
 slow SLOW
+song_of_slaying SONG_OF_SLAYING
 tukimas_dance TUKIMAS_DANCE
 violent_unravelling VIOLENT_UNRAVELLING
 piercing_shot PIERCING_SHOT
@@ -178,8 +179,6 @@ cloud_cone CLOUD_CONE
 bolt_corrosive CORROSIVE_BOLT
 iceblast ICEBLAST
 bolt_energy ENERGY_BOLT
-# and wereblood
-wereblood WEREBLOOD
 
 # spells normally only used by monsters
 %back gui/spells/bg

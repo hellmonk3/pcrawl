@@ -352,7 +352,7 @@ randomly blinked away from you.
 %%%%
 Slay status
 
-You have the blood of a were-beast, healing you and providing bonuses to
+You are singing a Song of Slaying, providing bonuses to your ranged and melee
 your ranged and melee attacks which increase every time you slay a foe.
 %%%%
 Debt status

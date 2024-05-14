@@ -889,23 +889,6 @@ static void _handle_emergency_flight()
     }
 }
 
-static void _handle_wereblood(int delay)
-{
-    if (you.duration[DUR_WEREBLOOD]
-        && x_chance_in_y(you.props[WEREBLOOD_KEY].get_int() * delay,
-                         9 * BASELINE_DELAY)
-        && !silenced(you.pos()))
-    {
-        // Keep the spam down
-        if (you.props[WEREBLOOD_KEY].get_int() < 3 || one_chance_in(5))
-        {
-            mprf("You %s as the wereblood boils in your veins!",
-                 you.shout_verb().c_str());
-        }
-        noisy(spell_effect_noise(SPELL_WEREBLOOD), you.pos());
-    }
-}
-
 void player_reacts()
 {
     //XXX: does this _need_ to be calculated up here?
@@ -919,7 +902,19 @@ void player_reacts()
     if (you.unrand_reacts.any())
         unrand_reacts();
 
-    _handle_wereblood(you.time_taken);
+    // Handle sound-dependent effects that are silenced
+    if (silenced(you.pos()))
+    {
+        if (you.duration[DUR_SONG_OF_SLAYING])
+        {
+            mpr("The silence causes your song to end.");
+            _decrement_a_duration(DUR_SONG_OF_SLAYING, you.duration[DUR_SONG_OF_SLAYING]);
+        }
+    }
+
+    // Singing makes a continuous noise
+    if (you.duration[DUR_SONG_OF_SLAYING])
+        noisy(spell_effect_noise(SPELL_SONG_OF_SLAYING), you.pos());
 
     if (x_chance_in_y(you.time_taken, 10 * BASELINE_DELAY))
     {

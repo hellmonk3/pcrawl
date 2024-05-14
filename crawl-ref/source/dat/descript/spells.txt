@@ -1822,15 +1822,15 @@ Weakening Gaze spell
 Irresistably weakens a creature's melee attacks for a period of time,
 requiring line of sight but not line of fire.
 %%%%
-Wereblood spell
+Song of Slaying spell
 
-Transforms some of the caster's blood into that of a were-beast, causing them
-to occasionally howl uncontrollably. While active, each non-summoned enemy the
-caster slays in combat temporarily enhances their melee and ranged
-effectiveness, and killing adjacent enemies also provides minor healing.
+Recites ancient verses of battle. Each non-summoned enemy the caster slays in
+combat during this recitation temporarily enhances their melee and ranged
+skills. The bonus only lasts for the duration of the song; casting this spell
+while already singing will start a new song, not extend an existing one.
 
-The bonus only lasts for the duration of a single cast; retransforming the
-caster's blood calms the were-spirit and resets the bonus.
+Spellpower increases the duration of the recitation, as well as the maximum
+slaying bonus that may be obtained.
 %%%%
 Wind Blast spell
 

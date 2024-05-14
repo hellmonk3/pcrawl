@@ -1146,6 +1146,12 @@ Phase Shift spell
 Causes the caster to phase in and out of the material plane, greatly increasing
 their evasion for a duration.
 %%%%
+Piercing Shots spell
+
+Imbues the caster's thrown or ranged weapons with magical energy, causing them
+to pierce through any number of targets in their line of fire. The duration of
+the effect increases strongly with spellpower.
+%%%%
 Plane Rend spell
 
 Summons some of the greater threats from one of the Pits of Slime, the Elven

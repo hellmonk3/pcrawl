@@ -56,6 +56,7 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_SEARING_RAY,
     SPELL_WARP_GRAVITY,
     SPELL_FULMINANT_PRISM,
+    SPELL_PIERCING_SHOT,
     SPELL_HASTE,
 },
 

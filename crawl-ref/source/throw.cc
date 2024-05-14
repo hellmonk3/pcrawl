@@ -57,11 +57,14 @@ static bool _thrown_object_destroyed(const item_def &item);
 bool is_penetrating_attack(const actor& attacker, const item_def* weapon,
                            const item_def& projectile)
 {
+    const bool pierce = attacker.is_player() && you.duration[DUR_PIERCING_SHOT];
+
     return is_throwable(&attacker, projectile)
-            && projectile.is_type(OBJ_MISSILES, MI_JAVELIN)
+            && (projectile.is_type(OBJ_MISSILES, MI_JAVELIN) || pierce)
            || weapon
               && (get_weapon_brand(*weapon) == SPWPN_PENETRATION
-                  || is_unrandom_artefact(*weapon, UNRAND_STORM_BOW));
+                  || is_unrandom_artefact(*weapon, UNRAND_STORM_BOW)
+                  || pierce);
 }
 
 class fire_target_behaviour : public targeting_behaviour
@@ -367,8 +370,7 @@ bool fire_warn_if_impossible(bool silent, item_def *weapon)
 // Dimensional Bullseye requires MP per shot.
 bool is_bullseye_active()
 {
-    return !you.confused() && you.duration[DUR_DIMENSIONAL_BULLSEYE]
-           && enough_mp(1, true, false);
+    return !you.confused() && you.duration[DUR_DIMENSIONAL_BULLSEYE];
 }
 
 class ammo_only_action_cycler : public quiver::action_cycler

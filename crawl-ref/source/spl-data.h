@@ -3871,6 +3871,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_PIERCING_SHOT, "Piercing Shots",
+    spschool::enchantments,
+    spflag::utility,
+    5,
+    200,
+    -1, -1,
+    0,
+    TILEG_PIERCING_SHOT,
+},
+
+{
     SPELL_ICE_STATUE, "Ice Statue",
     spschool::ice | spschool::summoning,
     spflag::none,

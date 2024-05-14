@@ -778,6 +778,9 @@ static void _decrement_durations()
     _decrement_a_duration(DUR_ICHOR, delay,
             "You are no longer tainted with eldritch energies.");
 
+    _decrement_a_duration(DUR_PIERCING_SHOT, delay,
+            "Your ranged attacks no longer penetrate multiple targets.");
+
     if (_decrement_a_duration(DUR_LANTERN, delay, "The shadows dissipate."))
         update_vision_range();
 

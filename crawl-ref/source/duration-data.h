@@ -637,13 +637,15 @@ static const duration_def duration_data[] =
       "shadows", "lantern of shadows",
       "Your vision is reduced by the lantern.", D_NO_FLAGS},
     { DUR_FLAME_LANCE, LIGHTBLUE, "Flame", "flame", "flame lance",
-      "You are imbued with flames that will fire when moving.", D_NO_FLAGS},
+      "You are imbued with flames that will fire when moving.", D_DISPELLABLE},
     { DUR_DEFLECT_MISSILES, MAGENTA, "DMsl", "DMsl", "deflect missiles",
-      "You are deflecting missiles.", D_NO_FLAGS},
+      "You are deflecting missiles.", D_DISPELLABLE},
     { DUR_INFESTATION, MAGENTA, "Infest", "infest", "infestation",
-      "Enemies you hit in melee will be infested with scarabs.", D_NO_FLAGS},
+      "Enemies you hit in melee will be infested with scarabs.", D_DISPELLABLE},
     { DUR_ICHOR, MAGENTA, "Ichor", "ichor", "eldritch ichor",
-      "You are tainted with eldritch energies, screaming for release.", D_NO_FLAGS},
+      "You are tainted with eldritch energies, screaming for release.", D_DISPELLABLE},
+    { DUR_PIERCING_SHOT, LIGHTBLUE, "Pierce", "piercing", "piercing shot",
+      "Your ranged attacks will penetrate multiple targets.", D_DISPELLABLE},
 
     // The following are visible in wizmode only, or are handled
     // specially in the status lights and/or the % or @ screens.

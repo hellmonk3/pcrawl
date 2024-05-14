@@ -249,5 +249,6 @@ enum duration_type
     DUR_FLAME_LANCE,
     DUR_INFESTATION,
     DUR_ICHOR,
+    DUR_PIERCING_SHOT,
     NUM_DURATIONS
 };

@@ -2157,7 +2157,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_OZOCUBUS_ARMOUR:
         return ice_armour(powc, fail);
-        
+
     case SPELL_HASTE:
         return haste_spell(powc, fail);
 
@@ -2178,6 +2178,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     case SPELL_DIMENSIONAL_BULLSEYE:
         return cast_dimensional_bullseye(powc, monster_at(target), fail);
+
+    case SPELL_PIERCING_SHOT:
+        return cast_piercing_shot(powc, fail);
 
     // other
     case SPELL_BORGNJORS_REVIVIFICATION:

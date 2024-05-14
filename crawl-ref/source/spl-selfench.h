@@ -34,3 +34,4 @@ spret cast_liquefaction(int pow, bool fail);
 
 bool jinxbite_targets_available();
 spret cast_jinxbite(int pow, bool fail);
+spret cast_piercing_shot(int pow, bool fail);

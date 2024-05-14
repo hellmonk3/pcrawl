@@ -56,6 +56,7 @@ mass_confusion MASS_CONFUSION
 slow SLOW
 tukimas_dance TUKIMAS_DANCE
 violent_unravelling VIOLENT_UNRAVELLING
+piercing_shot PIERCING_SHOT
 
 %sdir gui/spells/fire
 bolt_of_fire BOLT_OF_FIRE

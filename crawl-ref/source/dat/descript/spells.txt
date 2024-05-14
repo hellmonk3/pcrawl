@@ -1272,6 +1272,11 @@ Scorches a random foe, plus up to one additional random foe for each 3
 spellpower. Those injured by this have their resistance to fire
 burned away for a short time.
 %%%%
+Scrying spell
+
+Provides the caster with astral sight for a brief time, enabling them to see
+through walls with perfect clarity.
+%%%%
 Seal Doors spell
 
 Imparts seals on nearby doors and stairs, preventing those not allied with

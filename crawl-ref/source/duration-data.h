@@ -709,7 +709,7 @@ static const duration_def duration_data[] =
           if (!you.duration[DUR_BRAINLESS] && !player_in_branch(BRANCH_GEHENNA))
               mprf(MSGCH_RECOVERY, "You can read scrolls again.");
       }}}},
-    { DUR_REVELATION, 0, "", "", "revelation", "", D_NO_FLAGS, {{""}}},
+    { DUR_REVELATION, WHITE, "Scry", "scrying", "revelation", "", D_EXPIRES, {{""}}},
     { DUR_BINDING_SIGIL_WARNING, 0, "", "", "", "", D_EXPIRES, {{"", maybe_show_binding_sigil_duration_warning}}},
     { DUR_JINXBITE_LOST_INTEREST, 0, "", "", "", "", D_EXPIRES, {{"", _maybe_expire_jinxbite}}},
 

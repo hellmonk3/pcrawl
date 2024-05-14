@@ -58,6 +58,7 @@ song_of_slaying SONG_OF_SLAYING
 tukimas_dance TUKIMAS_DANCE
 violent_unravelling VIOLENT_UNRAVELLING
 piercing_shot PIERCING_SHOT
+scrying SCRYING
 
 %sdir gui/spells/fire
 bolt_of_fire BOLT_OF_FIRE

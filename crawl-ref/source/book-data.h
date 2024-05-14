@@ -322,6 +322,7 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_OZOCUBUS_ARMOUR,
     SPELL_ENGLACIATION,
     SPELL_SIMULACRUM,
+    SPELL_SCRYING,
 },
 
 { // Book of Spheres

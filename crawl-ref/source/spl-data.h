@@ -758,6 +758,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_SCRYING, "Scrying",
+    spschool::enchantments,
+    spflag::no_ghost,
+    7,
+    100,
+    -1, -1,
+    0,
+    TILEG_SCRYING,
+},
+
+{
     SPELL_CALL_IMP, "Call Imp",
     spschool::summoning,
     spflag::unholy | spflag::selfench,

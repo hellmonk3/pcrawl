@@ -712,6 +712,7 @@ static const duration_def duration_data[] =
     { DUR_REVELATION, WHITE, "Scry", "scrying", "revelation", "", D_EXPIRES, {{""}}},
     { DUR_BINDING_SIGIL_WARNING, 0, "", "", "", "", D_EXPIRES, {{"", maybe_show_binding_sigil_duration_warning}}},
     { DUR_JINXBITE_LOST_INTEREST, 0, "", "", "", "", D_EXPIRES, {{"", _maybe_expire_jinxbite}}},
+    { DUR_CONSTRICTION_IMMUNITY, 0, "", "", "constrict immune", "", D_NO_FLAGS, {{""}}},
 
 #if TAG_MAJOR_VERSION == 34
     // And removed ones

@@ -1391,15 +1391,10 @@ static void _pre_monster_move(monster& mons)
 
     // Handle clouds on nonmoving monsters.
     if (mons.speed == 0)
-    {
         _mons_in_cloud(mons);
 
-        // Update constriction durations
-        mons.accum_has_constricted();
-
-        if (mons.type == MONS_NO_MONSTER)
-            return;
-    }
+    if (mons.type == MONS_NO_MONSTER)
+        return;
 
     // Apply monster enchantments once for every normal-speed
     // player turn.

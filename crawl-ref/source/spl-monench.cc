@@ -249,20 +249,27 @@ spret cast_simulacrum(coord_def target, int pow, bool fail)
     return spret::success;
 }
 
-void grasp_with_roots(actor &caster, actor &target, int turns)
+bool start_ranged_constriction(actor& caster, actor& target, int duration,
+                               constrict_type type)
 {
+    if (!caster.can_constrict(target, type))
+        return false;
+
     if (target.is_player())
     {
-        you.increase_duration(DUR_GRASPING_ROOTS, turns);
+        you.increase_duration(DUR_GRASPING_ROOTS, duration);
         caster.start_constricting(you);
         mprf(MSGCH_WARN, "The grasping roots grab you!");
     }
     else
     {
-        auto ench = mon_enchant(ENCH_GRASPING_ROOTS, 0, &caster,
-                                turns * BASELINE_DELAY);
+        enchant_type etype = (type == CONSTRICT_ROOTS ? ENCH_GRASPING_ROOTS
+                                                      : ENCH_VILE_CLUTCH);
+        auto ench = mon_enchant(etype, 0, &caster, duration * BASELINE_DELAY);
         target.as_monster()->add_ench(ench);
     }
+
+    return true;
 }
 
 dice_def rimeblight_dot_damage(int pow)

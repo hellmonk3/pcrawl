@@ -4608,6 +4608,8 @@ static string _monster_attacks_description(const monster_info& mi)
         int dam = attack.damage;
         if (attack.flavour == AF_PURE_FIRE)
             dam = flav_dam;
+        else if (attack.flavour == AF_CRUSH)
+            dam = 0;
         else if (info.weapon)
         {
             const int base_dam = property(*info.weapon, PWPN_DAMAGE);
@@ -4632,6 +4634,8 @@ static string _monster_attacks_description(const monster_info& mi)
                 result << " each";
             result << ")";
         }
+        else if (attack.flavour == AF_CRUSH)
+            result << " (" << attack.damage << "-" <<  (attack.damage*2) << " dam)";
 
         if (flavour_without_dam
             && !base_desc.empty()

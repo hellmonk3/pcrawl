@@ -478,9 +478,9 @@ void player_reacts_to_monsters()
     if (_decrement_a_duration(DUR_GRASPING_ROOTS, you.time_taken)
         && you.is_constricted())
     {
-        // We handle the end-of-enchantment message here since the method
-        // of constriction is no longer detectable.
-        mprf("The grasping roots release their grip on you.");
+        actor* src = actor_by_mid(you.constricted_by);
+        mprf("%s grasping roots sink back into the ground.",
+             src ? src->name(DESC_ITS).c_str() : "The");
         you.stop_being_constricted(true);
     }
 
@@ -954,9 +954,6 @@ void player_reacts()
     you.update_fearmongers();
 
     you.handle_constriction();
-
-    // increment constriction durations
-    you.accum_has_constricted();
 
     if (you.duration[DUR_POISONING])
         handle_player_poison(you.time_taken);

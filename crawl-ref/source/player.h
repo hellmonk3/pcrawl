@@ -620,8 +620,6 @@ public:
     random_var  attack_delay(const item_def *projectile = nullptr,
                              bool rescale = true) const override;
     int         constriction_damage(constrict_type typ) const override;
-    bool        constriction_does_damage(constrict_type /* typ */) const override
-                    { return true; };
 
     int       has_claws(bool allow_tran = true) const override;
     bool      has_usable_claws(bool allow_tran = true) const;
@@ -780,7 +778,7 @@ public:
     bool res_torment() const override;
     bool res_polar_vortex() const override;
     bool res_petrify(bool temp = true) const override;
-    int res_constrict() const override;
+    bool res_constrict() const override;
     int willpower() const override;
     bool no_tele(bool blink = false, bool temp = true) const override;
     string no_tele_reason(bool blink = false, bool temp = true) const;
@@ -910,7 +908,7 @@ public:
     void set_duration(duration_type dur, int turns, int cap = 0,
                       const char *msg = nullptr);
 
-    bool attempt_escape(int attempts = 1);
+    bool attempt_escape();
     int usable_tentacles() const;
     bool has_usable_tentacle() const override;
 

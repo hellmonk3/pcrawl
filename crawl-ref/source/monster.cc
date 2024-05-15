@@ -1920,12 +1920,12 @@ int monster::constriction_damage(constrict_type typ) const
         {
             const mon_attack_def attack = mons_attack_spec(*this, i);
             if (attack.type == AT_CONSTRICT)
-                return attack.damage;
+                return random_range(attack.damage, attack.damage * 2);
         }
         return -1;
     case CONSTRICT_ROOTS:
-        return roll_dice(2, div_rand_round(40 +
-                    mons_spellpower(*this, SPELL_GRASPING_ROOTS), 20));
+        return roll_dice(2, div_rand_round(6 +
+                    mons_spellpower(*this, SPELL_GRASPING_ROOTS), 4));
     default:
         return 0;
     }
@@ -2777,17 +2777,9 @@ bool monster::res_petrify(bool /*temp*/) const
     return is_insubstantial() || get_mons_resist(*this, MR_RES_PETRIFY) > 0;
 }
 
-int monster::res_constrict() const
+bool monster::res_constrict() const
 {
-    // 3 is immunity, 1 or 2 reduces damage
-    if (is_insubstantial())
-        return 3;
-    if (mons_genus(type) == MONS_JELLY)
-        return 3;
-    if (is_spiny())
-        return 3;
-
-    return 0;
+    return is_insubstantial() || is_spiny() || mons_genus(type) == MONS_JELLY;
 }
 
 bool monster::res_corr(bool /*allow_random*/, bool temp) const
@@ -4748,26 +4740,25 @@ bool monster::nightvision() const
            || umbra_radius() >= 0;
 }
 
-bool monster::attempt_escape(int attempts)
+bool monster::attempt_escape()
 {
-    int attfactor;
-    int randfact;
-
     if (!is_constricted())
         return true;
 
-    escape_attempts += attempts;
-    attfactor = 3 * escape_attempts;
+    escape_attempts += 1;
+
+    const auto constr_typ = get_constrict_type();
+    int escape_pow = 5 + get_hit_dice() + (escape_attempts * escape_attempts * 5);
+    int hold_pow;
 
     if (constricted_by == MID_PLAYER)
     {
-        if (has_ench(ENCH_VILE_CLUTCH))
-        {
-            randfact = roll_dice(1, 10 + div_rand_round(
-                           you.props[VILE_CLUTCH_POWER_KEY].get_int(), 5));
-        }
+        if (constr_typ == CONSTRICT_BVC)
+            hold_pow = 80 + you.props[VILE_CLUTCH_POWER_KEY].get_int() * 2;
+        else if (constr_typ == CONSTRICT_ROOTS)
+            hold_pow = 80 + you.props[FASTROOT_POWER_KEY].get_int() * 2;
         else
-            randfact = roll_dice(1, 3 + you.experience_level);
+            hold_pow = 80;
     }
     else
     {
@@ -4775,11 +4766,10 @@ bool monster::attempt_escape(int attempts)
         ASSERT(themonst);
 
         // Monsters use the same escape formula for all forms of constriction.
-        randfact = 5 + roll_dice(1, 5)
-            + roll_dice(1, themonst->get_hit_dice());
+        hold_pow = 40 + themonst->get_hit_dice() * 4;
     }
 
-    if (attfactor > randfact)
+    if (x_chance_in_y(escape_pow, hold_pow))
     {
         stop_being_constricted(true);
         return true;

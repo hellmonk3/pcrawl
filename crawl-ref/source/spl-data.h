@@ -1849,7 +1849,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_IOOD, "Orb of Destruction",
     spschool::earth,
-    spflag::dir_or_target | spflag::not_self | spflag::needs_tracer 
+    spflag::dir_or_target | spflag::not_self | spflag::needs_tracer
         | spflag::destructive,
     7,
     200,

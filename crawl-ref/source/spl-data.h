@@ -299,7 +299,7 @@ static const struct spell_desc spelldata[] =
     SPELL_FREEZING_CLOUD, "Freezing Cloud",
     spschool::ice | spschool::air,
     spflag::target | spflag::area | spflag::needs_tracer
-        | spflag::cloud,
+        | spflag::cloud | spflag::destructive,
     3,
     200,
     6, 6,
@@ -705,7 +705,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_OZOCUBUS_REFRIGERATION, "Ozocubu's Refrigeration",
     spschool::ice,
-    spflag::area | spflag::destructive,
+    spflag::area,
     7,
     200,
     -1, -1,
@@ -1110,7 +1110,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_IGNITE_POISON, "Ignite Poison",
     spschool::fire | spschool::transmutation | spschool::hexes,
-    spflag::area | spflag::destructive,
+    spflag::area,
     3,
     100,
     -1, -1,
@@ -1210,7 +1210,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_DISCHARGE, "Static Discharge",
     spschool::air,
-    spflag::area,
+    spflag::area | spflag::destructive,
     1,
     50,
     1, 1,
@@ -1255,7 +1255,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_LRD, "Lee's Rapid Deconstruction",
     spschool::earth,
-    spflag::target | spflag::destructive,
+    spflag::target,
     5,
     200,
     LOS_RADIUS, LOS_RADIUS,
@@ -1288,7 +1288,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_CONJURE_BALL_LIGHTNING, "Conjure Ball Lightning",
     spschool::air,
-    spflag::selfench,
+    spflag::selfench | spflag::destructive,
     6,
     200,
     -1, -1,
@@ -1298,7 +1298,7 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_CHAIN_LIGHTNING, "Chain Lightning",
-    spschool::air | spschool::enchantments,
+    spschool::air,
     spflag::area,
     9,
     200,
@@ -1849,7 +1849,8 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_IOOD, "Orb of Destruction",
     spschool::earth,
-    spflag::dir_or_target | spflag::not_self | spflag::needs_tracer,
+    spflag::dir_or_target | spflag::not_self | spflag::needs_tracer 
+        | spflag::destructive,
     7,
     200,
     8, 8,
@@ -2560,7 +2561,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_AMBULATORY_BOMB, "Ambulatory Bomb",
     spschool::summoning | spschool::fire,
-    spflag::none,
+    spflag::destructive,
     3,
     100,
     -1, -1,
@@ -2627,7 +2628,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_SPELLFORGED_SERVITOR, "Spellforged Servitor",
     spschool::enchantments | spschool::summoning,
-    spflag::none,
+    spflag::destructive,
     3,
     200,
     -1, -1,
@@ -3308,7 +3309,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_FOXFIRE, "Foxfire",
     spschool::summoning | spschool::fire,
-    spflag::selfench,
+    spflag::selfench | spflag::destructive,
     1,
     50,
     -1, -1,
@@ -3329,8 +3330,8 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_HAILSTORM, "Hailstorm",
-    spschool::enchantments | spschool::ice,
-    spflag::area,
+    spschool::ice,
+    spflag::area | spflag::destructive,
     3,
     100,
     3, 3, // Range special-cased in describe-spells
@@ -3662,7 +3663,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_KISS_OF_DEATH, "Kiss of Death",
     spschool::necromancy,
-    spflag::dir_or_target | spflag::not_self,
+    spflag::dir_or_target | spflag::not_self | spflag::destructive,
     3,
     200,
     1, 1,
@@ -3706,7 +3707,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_BOULDER, "Brom's Barrelling Boulder",
     spschool::earth,
-    spflag::target | spflag::not_self,
+    spflag::target | spflag::not_self | spflag::destructive,
     4,
     100,
     1, 1,
@@ -3840,7 +3841,7 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_FORCE_QUAKE, "Force Quake",
     spschool::earth | spschool::translocation,
-    spflag::none,
+    spflag::destructive,
     1,
     200,
     -1, -1,

@@ -517,12 +517,12 @@ bool spell_is_direct_attack(spell_type spell)
 int spell_mana(spell_type which_spell, bool real_spell)
 {
     const int level = _seekspell(which_spell)->level;
-    if (real_spell && (you.duration[DUR_BRILLIANCE]
+    if (real_spell && level && (you.duration[DUR_BRILLIANCE]
                        || player_equip_unrand(UNRAND_FOLLY)))
     {
-        return level/2 + level%2; // round up
+        return 1;
     }
-    return level;
+    return 2;
 }
 
 // applied in naughties (more difficult = higher level knowledge = worse)

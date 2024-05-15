@@ -3733,7 +3733,7 @@ int get_real_mp(bool include_items)
 
     const int scale = 100;
     int spellcasting = you.skill(SK_SPELLCASTING, 1 * scale, false, false);
-    int enp = 10 * scale;
+    int enp = 20 * scale;
 
     int spell_extra = spellcasting; // 100%
     int invoc_extra = you.skill(SK_INVOCATIONS, 1 * scale, false, false) / 2; // 50%

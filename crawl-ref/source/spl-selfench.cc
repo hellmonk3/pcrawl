@@ -294,3 +294,18 @@ spret scrying(int pow, bool fail)
 
     return spret::success;
 }
+
+spret cast_arcane_nova(int pow, bool fail)
+{
+    fail_check();
+
+    if (you.duration[DUR_NOVA])
+    {
+        mpr("You're already filled with stellar energy!");
+        return spret::abort;
+    }
+
+    you.set_duration(DUR_NOVA, 5);
+    invalidate_agrid(true);
+    return spret::success;
+}

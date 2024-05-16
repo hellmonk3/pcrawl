@@ -646,6 +646,8 @@ static const duration_def duration_data[] =
       "You are tainted with eldritch energies, screaming for release.", D_DISPELLABLE},
     { DUR_PIERCING_SHOT, LIGHTBLUE, "Pierce", "piercing", "piercing shot",
       "Your ranged attacks will penetrate multiple targets.", D_DISPELLABLE},
+    { DUR_NOVA, WHITE, "Nova", "nova", "arcane nova",
+      "You are preparing to release an arcane nova.", D_DISPELLABLE},
 
     // The following are visible in wizmode only, or are handled
     // specially in the status lights and/or the % or @ screens.

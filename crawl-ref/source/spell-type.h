@@ -569,5 +569,6 @@ enum spell_type : int
     SPELL_ELDRITCH_ICHOR,
     SPELL_PIERCING_SHOT,
     SPELL_SCRYING,
+    SPELL_ARCANE_NOVA,
     NUM_SPELLS
 };

@@ -781,6 +781,9 @@ static void _decrement_durations()
     _decrement_a_duration(DUR_PIERCING_SHOT, delay,
             "Your ranged attacks no longer penetrate multiple targets.");
 
+    if (_decrement_a_duration(DUR_NOVA, delay, "Your arcane nova is released!"))
+        fire_arcane_nova();
+
     if (_decrement_a_duration(DUR_LANTERN, delay, "The shadows dissipate."))
         update_vision_range();
 

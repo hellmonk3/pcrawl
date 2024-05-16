@@ -68,6 +68,12 @@ caster's position.
 Extremely powerful magical items, such as the Orb of Zot, may actively resist
 the pull of this spell.
 %%%%
+Arcane Nova spell
+
+Fills the caster with stellar energy, causing them to glow for a brief time.
+The energy is violently released at the end of this duration, dealing fire
+damage to everything in the caster's line of sight.
+%%%%
 Arcjolt spell
 
 Sends a wave of electricity through everything adjacent or near-adjacent to

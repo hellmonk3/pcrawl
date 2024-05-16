@@ -36,3 +36,4 @@ bool jinxbite_targets_available();
 spret cast_jinxbite(int pow, bool fail);
 spret cast_piercing_shot(int pow, bool fail);
 spret scrying(int pow, bool fail);
+spret cast_arcane_nova(int pow, bool fail);

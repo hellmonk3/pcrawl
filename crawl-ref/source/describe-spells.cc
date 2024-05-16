@@ -410,6 +410,8 @@ static dice_def _spell_damage(spell_type spell, int hd)
             return gravity_damage(pow);
         case SPELL_FORCE_QUAKE:
             return force_quake_damage(pow);
+        case SPELL_ARCANE_NOVA:
+            return nova_damage(pow);
         default:
             break;
     }

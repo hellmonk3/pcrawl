@@ -57,6 +57,7 @@ static const vector<spell_type> spellbook_templates[] =
     SPELL_WARP_GRAVITY,
     SPELL_FULMINANT_PRISM,
     SPELL_PIERCING_SHOT,
+    SPELL_ARCANE_NOVA,
     SPELL_HASTE,
 },
 

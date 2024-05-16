@@ -595,6 +595,8 @@ int player::halo_radius() const
                                                     / piety_breakpoint(5);
     }
 
+    else if (you.duration[DUR_NOVA])
+        size = max(size, 4);
     if (player_equip_unrand(UNRAND_EOS))
         size = max(size, 3);
     else if (wearing_ego(EQ_ALL_ARMOUR, SPARM_LIGHT))

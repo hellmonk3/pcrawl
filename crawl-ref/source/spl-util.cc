@@ -1470,6 +1470,11 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
             return "there is no room nearby to place a sigil.";
         break;
 
+    case SPELL_ARCANE_NOVA:
+        if (temp && you.duration[DUR_NOVA])
+            return "you are already full of stellar energy.";
+        break;
+
     default:
         break;
     }

@@ -251,5 +251,6 @@ enum duration_type
     DUR_ICHOR,
     DUR_PIERCING_SHOT,
     DUR_CONSTRICTION_IMMUNITY,
+    DUR_NOVA,
     NUM_DURATIONS
 };

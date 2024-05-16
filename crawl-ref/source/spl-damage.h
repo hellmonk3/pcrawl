@@ -170,3 +170,5 @@ spret cast_winters_embrace(int pow, bool fail, bool tracer = false);
 bool rot_affects_cell(const coord_def where, actor* agent);
 spret cast_dreadful_rot(actor* agent, int powc, bool fail, bool tracer = false);
 spret cast_thunderbolt_hd(int powc, bool fail);
+dice_def nova_damage(int pow);
+spret fire_arcane_nova();

@@ -3297,8 +3297,19 @@ static const struct spell_desc spelldata[] =
 
 {
     SPELL_STARBURST, "Starburst",
-    spschool::enchantments | spschool::fire,
+    spschool::fire,
     spflag::area,
+    6,
+    200,
+    5, 5,
+    0,
+    TILEG_STARBURST,
+},
+
+{
+    SPELL_ARCANE_NOVA, "Arcane Nova",
+    spschool::fire,
+    spflag::area | spflag::destructive,
     6,
     200,
     5, 5,

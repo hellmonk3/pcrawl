@@ -92,7 +92,7 @@ void trap_def::prepare_ammo(int charges)
     {
     case TRAP_GOLUBRIA:
         // really, time until it vanishes
-        ammo_qty = 10 + random2(10);
+        ammo_qty = 30 + random2(20);
         break;
     case TRAP_TELEPORT:
         ammo_qty = 1;

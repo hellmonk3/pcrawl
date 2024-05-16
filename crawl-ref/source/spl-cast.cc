@@ -1115,6 +1115,7 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
     case SPELL_BORGNJORS_REVIVIFICATION:
     case SPELL_BLASTMOTE:
     case SPELL_TOMB_OF_DOROKLOHE:
+    case SPELL_GOLUBRIAS_PASSAGE:
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, 0);
 
     // LOS radius:
@@ -1195,8 +1196,6 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
         return make_unique<targeter_bog>(&you, pow);
     case SPELL_FLAME_WAVE:
         return make_unique<targeter_flame_wave>(range);
-    case SPELL_GOLUBRIAS_PASSAGE:
-        return make_unique<targeter_passage>(range);
     case SPELL_SIGIL_OF_BINDING:
         return make_unique<targeter_multiposition>(&you,
                                                    find_sigil_locations(true));
@@ -2221,7 +2220,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
         return cast_manifold_assault(powc, fail);
 
     case SPELL_GOLUBRIAS_PASSAGE:
-        return cast_golubrias_passage(powc, beam.target, fail);
+        return cast_golubrias_passage(powc, fail);
 
     case SPELL_FULMINANT_PRISM:
         return cast_fulminating_prism(&you, powc, beam.target, fail);

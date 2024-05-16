@@ -1388,58 +1388,25 @@ bool golubria_valid_cell(coord_def p, bool just_check)
            && cell_see_cell(you.pos(), p, LOS_NO_TRANS);
 }
 
-spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
+spret cast_golubrias_passage(int pow, bool fail)
 {
-    if (player_in_branch(BRANCH_GAUNTLET))
-    {
-        mprf(MSGCH_ORB, "A magic seal in the Gauntlet prevents you from "
-                "opening a passage!");
-        return spret::abort;
-    }
-
-    if (grid_distance(where, you.pos())
-        > spell_range(SPELL_GOLUBRIAS_PASSAGE, pow))
-    {
-        mpr("That's out of range!");
-        return spret::abort;
-    }
-
-    if (cell_is_solid(where))
-    {
-        mpr("You can't create a passage there!");
-        return spret::abort;
-    }
-
     int tries = 0;
-    int tries2 = 0;
     const int range = GOLUBRIA_FUZZ_RANGE;
-    coord_def randomized_where = where;
     coord_def randomized_here = you.pos();
+
     do
     {
         tries++;
-        randomized_where = where;
-        randomized_where.x += random_range(-range, range);
-        randomized_where.y += random_range(-range, range);
-    }
-    while ((!golubria_valid_cell(randomized_where)
-            || randomized_where == you.pos())
-           && tries < 100);
-
-    do
-    {
-        tries2++;
         randomized_here = you.pos();
         randomized_here.x += random_range(-range, range);
         randomized_here.y += random_range(-range, range);
     }
-    while ((!golubria_valid_cell(randomized_here)
-            || randomized_here == randomized_where)
-           && tries2 < 100);
+    while (!golubria_valid_cell(randomized_here)
+           && tries < 100);
 
-    if (tries >= 100 || tries2 >= 100)
+    if (tries >= 100)
     {
-        if (you.trans_wall_blocking(randomized_where))
+        if (you.trans_wall_blocking(randomized_here))
         {
             mpr("You cannot create a passage on the other side of the "
                 "transparent wall.");
@@ -1455,20 +1422,18 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
     }
 
     fail_check();
-    place_specific_trap(randomized_where, TRAP_GOLUBRIA);
     place_specific_trap(randomized_here, TRAP_GOLUBRIA);
     env.level_state |= LSTATE_GOLUBRIA;
 
-    trap_def *trap = trap_at(randomized_where);
-    trap_def *trap2 = trap_at(randomized_here);
-    if (!trap || !trap2)
+    trap_def *trap = trap_at(randomized_here);
+
+    if (!trap)
     {
         mpr("Something buggy happened.");
         return spret::abort;
     }
 
     trap->reveal();
-    trap2->reveal();
 
     return spret::success;
 }

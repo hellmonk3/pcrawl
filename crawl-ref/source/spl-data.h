@@ -1332,11 +1332,11 @@ static const struct spell_desc spelldata[] =
 {
     SPELL_GOLUBRIAS_PASSAGE, "Passage of Golubria",
     spschool::translocation,
-    spflag::target | spflag::neutral | spflag::escape | spflag::selfench,
+    spflag::neutral | spflag::escape | spflag::selfench,
     4,
     100,
-    2, LOS_RADIUS,
-    8, // when it closes
+    -1, -1,
+    0,
     TILEG_PASSAGE_OF_GOLUBRIA,
 },
 

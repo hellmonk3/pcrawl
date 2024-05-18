@@ -3649,6 +3649,65 @@ spret cast_unravelling(coord_def target, int pow, bool fail)
     return spret::success;
 }
 
+static void _setup_dismissal(bolt &beam, int pow, coord_def target)
+{
+    zappy(ZAP_DISMISSAL, pow, false, beam);
+    beam.set_agent(&you);
+    beam.source = target;
+    beam.target = target;
+    beam.ex_size = 2;
+}
+
+spret cast_dismissal(coord_def target, int pow, bool fail)
+{
+    if (cell_is_solid(target))
+    {
+        canned_msg(MSG_UNTHINKING_ACT);
+        return spret::abort;
+    }
+
+    const monster* victim = monster_at(target);
+    if (!victim)
+    {
+        canned_msg(MSG_UNTHINKING_ACT);
+        return spret::abort;
+    }
+
+    if (!victim->is_summoned())
+    {
+        mprf("%s is not a summoned creature.",
+             victim->name(DESC_THE).c_str());
+        return spret::abort;
+    }
+
+    targeter_dismissal hitfunc;
+    hitfunc.set_aim(target);
+    auto vulnerable = [](const actor *act) -> bool
+    {
+        return !(act->is_monster() && god_protects(act->as_monster()));
+    };
+
+    if (hitfunc.is_affected(you.pos()) >= AFF_MAYBE
+        && !yesno("The implosion is likely to hit you. Continue anyway?",
+                  false, 'n'))
+    {
+        canned_msg(MSG_OK);
+        return spret::abort;
+    }
+
+    if (stop_attack_prompt(hitfunc, "unravel", vulnerable))
+        return spret::abort;
+
+    fail_check();
+
+    bolt beam;
+    _setup_dismissal(beam, pow, target);
+    beam.fire();
+
+    return spret::success;
+
+}
+
 // XXX: this should take a monster_info.
 string mons_inner_flame_immune_reason(const monster *mons)
 {

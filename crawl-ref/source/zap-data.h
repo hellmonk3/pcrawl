@@ -1495,6 +1495,22 @@ _mon_hex_zap(ZAP_SLEEP, BEAM_SLEEP),
 },
 
 {
+    ZAP_DISMISSAL,
+    "dismissal",
+    200,
+    new dicedef_calculator<1, 14, 1, 2>,
+    new tohit_calculator<0, 1, 1>,
+    nullptr,
+    nullptr,
+    ETC_WARP,
+    true,
+    BEAM_DISMISSAL,
+    NUM_DCHAR_TYPES,
+    false,
+    false,
+},
+
+{
     ZAP_ICEBLAST,
     "iceblast",
     200,

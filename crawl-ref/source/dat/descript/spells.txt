@@ -635,6 +635,12 @@ a localized earthquake that damages adjacent creatures, moves with the caster,
 and lasts for three actions. The final aftershock releases the translocational
 energy and may knock back anything it hits.
 %%%%
+Forceful Dismissal spell
+
+Immediately returns a summoned creature to its home plane via a localized
+spatial implosion. Anything near the creature will be caught in the implosion,
+taking damage and blinking randomly.
+%%%%
 Forceful Invitation spell
 
 Summons some creatures from one of the Snake Pit, the Spider Nest, the Swamp,

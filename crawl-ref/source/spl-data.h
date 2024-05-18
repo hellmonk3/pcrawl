@@ -3031,6 +3031,17 @@ static const struct spell_desc spelldata[] =
 },
 
 {
+    SPELL_FORCEFUL_DISMISSAL, "Forceful Dismissal",
+    spschool::summoning | spschool::translocation,
+    spflag::target | spflag::no_ghost | spflag::destructive,
+    3,
+    200,
+    LOS_RADIUS, LOS_RADIUS,
+    0,
+    TILEG_VIOLENT_UNRAVELLING,
+},
+
+{
     SPELL_ENTROPIC_WEAVE, "Entropic Weave",
     spschool::hexes,
     spflag::utility | spflag::target | spflag::monster,
@@ -3949,7 +3960,6 @@ AXED_SPELL(SPELL_EXPLOSIVE_BOLT, "Explosive Bolt")
 AXED_SPELL(SPELL_FAKE_RAKSHASA_SUMMON, "Rakshasa Summon")
 AXED_SPELL(SPELL_FIRE_BRAND, "Fire Brand")
 AXED_SPELL(SPELL_FLY, "Flight")
-AXED_SPELL(SPELL_FORCEFUL_DISMISSAL, "Forceful Dismissal")
 AXED_SPELL(SPELL_FREEZING_AURA, "Freezing Aura")
 AXED_SPELL(SPELL_FRENZY, "Frenzy")
 AXED_SPELL(SPELL_FULSOME_DISTILLATION, "Fulsome Distillation")

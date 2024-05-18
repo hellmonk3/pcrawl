@@ -123,6 +123,7 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Book of Misfortune
     SPELL_INNER_FLAME,
     SPELL_VIOLENT_UNRAVELLING,
+    SPELL_FORCEFUL_DISMISSAL,
     SPELL_ENFEEBLE,
 },
 

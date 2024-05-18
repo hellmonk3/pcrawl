@@ -844,6 +844,64 @@ bool targeter_unravelling::set_aim(coord_def a)
     return true;
 }
 
+targeter_dismissal::targeter_dismissal()
+    : targeter_smite(&you, LOS_RADIUS, 2, 2, false, nullptr)
+{
+}
+
+static bool _dismissal_works_at(const coord_def c)
+{
+    const monster *mons = monster_at(c);
+    return mons && mons->is_summoned();
+}
+
+bool targeter_dismissal::valid_aim(coord_def a)
+{
+    if (!targeter_smite::valid_aim(a))
+        return false;
+
+    const monster* mons = monster_at(a);
+    if (mons && !_dismissal_works_at(a))
+    {
+        return notify_fail(mons->name(DESC_THE) + " is not a summoned creature.");
+    }
+
+    if (mons && _dismissal_works_at(a) && god_protects(&you, mons))
+    {
+        return notify_fail(mons->name(DESC_THE) + " is protected by " +
+                           god_name(you.religion) + ".");
+    }
+
+    return true;
+}
+
+bool targeter_dismissal::set_aim(coord_def a)
+{
+    if (!targeter::set_aim(a))
+        return false;
+
+    if (_dismissal_works_at(a))
+    {
+        exp_range_min = 2;
+        exp_range_max = 2;
+    }
+    else
+    {
+        exp_range_min = exp_range_max = 0;
+        return false;
+    }
+
+    bolt beam;
+    beam.target = a;
+    beam.use_target_as_pos = true;
+    exp_map_min.init(INT_MAX);
+    beam.determine_affected_cells(exp_map_min, coord_def(), 0,
+                                  exp_range_min, true, true);
+    exp_map_max = exp_map_min;
+
+    return true;
+}
+
 targeter_airstrike::targeter_airstrike()
 {
     agent = &you;

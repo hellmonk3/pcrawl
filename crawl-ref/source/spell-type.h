@@ -568,5 +568,6 @@ enum spell_type : int
     SPELL_PIERCING_SHOT,
     SPELL_SCRYING,
     SPELL_ARCANE_NOVA,
+    SPELL_BLOOD_EXPLOSION,
     NUM_SPELLS
 };

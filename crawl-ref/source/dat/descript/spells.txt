@@ -173,6 +173,15 @@ Blinkbolt spell
 Transforms the caster into a lightning bolt, and translocates the caster to
 the bolt's destination.
 %%%%
+Blood Explosion Spell spell
+
+Violently exsanguinates the nearest living creature, instantly killing it and
+generating a fiery explosion one tile in radius. The damage of the secondary
+explosion increases with spellpower.
+
+This spell causes immense backlash upon the caster, irresistibly damaging them
+in proportion to the strength of the monster targeted.
+%%%%
 Bolt of Cold spell
 
 Fires a penetrating bolt of frost.

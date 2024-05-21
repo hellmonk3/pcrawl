@@ -4711,6 +4711,11 @@ static bool _maxwells_target_check(const monster &m)
             && !m.wont_attack();
 }
 
+static bool _blood_explosion_check(const monster &m)
+{
+    return _act_worth_targeting(you, m) && (m.holiness() & (MH_NATURAL));
+}
+
 bool wait_spell_active(spell_type spell)
 {
     // XX deduplicate code somehow
@@ -4738,6 +4743,20 @@ static monster* _find_maxwells_target(bool tracer)
 
     return nullptr;
 }
+static monster* _find_blood_explosion_target(bool tracer)
+{
+    for (distance_iterator di(you.pos(), !tracer, true, LOS_RADIUS); di; ++di)
+    {
+        monster *mon = monster_at(*di);
+        if (mon && _blood_explosion_check(*mon)
+            && (!tracer || you.can_see(*mon)))
+        {
+            return mon;
+        }
+    }
+
+    return nullptr;
+}
 
 // find all possible targets at the closest distance; used for targeting
 vector<monster *> find_maxwells_possibles()
@@ -4752,6 +4771,23 @@ vector<monster *> find_maxwells_possibles()
     {
         monster *mon = monster_at(*di);
         if (mon && _maxwells_target_check(*mon) && you.can_see(*mon))
+            result.push_back(mon);
+    }
+    return result;
+}
+
+vector<monster *> find_blood_explosion_possibles()
+{
+    vector<monster *> result;
+    monster *seed = _find_blood_explosion_target(true);
+    if (!seed)
+        return result;
+
+    const int distance = grid_distance(you.pos(), seed->pos());
+    for (distance_iterator di(you.pos(), true, true, distance); di; ++di)
+    {
+        monster *mon = monster_at(*di);
+        if (mon && _blood_explosion_check(*mon) && you.can_see(*mon))
             result.push_back(mon);
     }
     return result;
@@ -4777,6 +4813,67 @@ spret cast_maxwells_coupling(int pow, bool fail, bool tracer)
     mpr(msg);
 
     you.props[COUPLING_TIME_KEY] = - (30 + max(0, 40 - random2(4 * pow)));
+    return spret::success;
+}
+
+dice_def blood_explosion_damage(int pow)
+{
+    return dice_def(1, 5 + pow * 5);
+}
+
+spret cast_blood_explosion(int pow, bool fail, bool tracer)
+{
+
+    monster* const mon = _find_blood_explosion_target(tracer);
+
+    if (tracer)
+    {
+        if (!mon || !you.can_see(*mon))
+            return spret::abort;
+        else
+            return spret::success;
+    }
+
+    if (!mon)
+    {
+        mprf("There's nothing to exsanguinate here!");
+        return spret::abort;
+    }
+
+    if (grid_distance(mon->pos(), you.pos()) == 1 &&
+        !yesno("You might be caught in the explosion! Blood explode anyway?", false, 'n'))
+    {
+        canned_msg(MSG_OK);
+        return spret::abort;
+    }
+
+    fail_check();
+
+    string attack_punctuation = attack_strength_punctuation(mon->hit_points);
+
+    mprf("%s explodes in a cloud of flaming blood%s",
+            mon->name(DESC_THE).c_str(), attack_punctuation.c_str());
+
+    bolt beam;
+    beam.name = "blood explosion";
+    beam.flavour = BEAM_FIRE;
+    beam.set_agent(&you);
+    beam.colour = RED;
+    beam.glyph = dchar_glyph(DCHAR_EXPLOSION);
+    beam.range = 1;
+    beam.ex_size = 1;
+    beam.damage = blood_explosion_damage(pow);
+    beam.is_explosion = true;
+    beam.source = mon->pos();
+    beam.target = mon->pos();
+    beam.hit = AUTOMATIC_HIT;
+
+    dec_hp(2 * mon->get_hit_dice(), false);
+    mon->flags |= MF_EXPLODE_KILL;
+    monster_die(*mon, KILL_YOU, actor_to_death_source(&you));
+
+    beam.explode();
+
     return spret::success;
 }
 

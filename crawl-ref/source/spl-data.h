@@ -3428,6 +3428,18 @@ static const struct spell_desc spelldata[] =
     TILEG_CHAIN_LIGHTNING,
 },
 
+
+{
+    SPELL_BLOOD_EXPLOSION, "Blood Explosion Spell",
+    spschool::necromancy | spschool::fire,
+    spflag::no_ghost | spflag::destructive,
+    4,
+    200,
+    LOS_RADIUS, LOS_RADIUS,
+    0,
+    TILEG_BLOOD_EXPLOSION,
+},
+
 {
     // This "spell" is implemented in a way that ignores all this information,
     // and it is never triggered the way spells usually are, but it still has

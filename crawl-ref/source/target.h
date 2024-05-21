@@ -494,6 +494,12 @@ public:
     targeter_maxwells_coupling();
 };
 
+class targeter_blood_explosion : public targeter_multiposition
+{
+public:
+    targeter_blood_explosion();
+};
+
 class targeter_multifireball : public targeter_multiposition
 {
 public:

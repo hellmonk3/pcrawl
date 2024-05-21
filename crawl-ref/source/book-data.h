@@ -141,6 +141,7 @@ static const vector<spell_type> spellbook_templates[] =
 {   // Fen Folio
     SPELL_SUMMON_FOREST,
     SPELL_NOXIOUS_BOG,
+    SPELL_BLOOD_EXPLOSION,
     SPELL_SUMMON_HYDRA,
 },
 

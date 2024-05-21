@@ -504,6 +504,7 @@ bool spell_is_direct_attack(spell_type spell)
         || spell == SPELL_HAILSTORM
         || spell == SPELL_MANIFOLD_ASSAULT
         || spell == SPELL_MAXWELLS_COUPLING
+        || spell == SPELL_BLOOD_EXPLOSION
         || spell == SPELL_PERMAFROST_ERUPTION) // n.b. not an area spell
     {
         return true;
@@ -1619,6 +1620,9 @@ bool spell_no_hostile_in_range(spell_type spell)
 
     case SPELL_MAXWELLS_COUPLING:
          return cast_maxwells_coupling(pow, false, true) == spret::abort;
+
+    case SPELL_BLOOD_EXPLOSION:
+         return cast_blood_explosion(pow, false, true) == spret::abort;
 
     case SPELL_INTOXICATE:
          return cast_intoxicate(-1, false, true) == spret::abort;

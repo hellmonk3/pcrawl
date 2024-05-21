@@ -1084,6 +1084,8 @@ unique_ptr<targeter> find_spell_targeter(spell_type spell, int pow, int range)
         return make_unique<targeter_chain_lightning>();
     case SPELL_MAXWELLS_COUPLING:
         return make_unique<targeter_maxwells_coupling>();
+    case SPELL_BLOOD_EXPLOSION:
+        return make_unique<targeter_blood_explosion>();
     case SPELL_FROZEN_RAMPARTS:
         return make_unique<targeter_walls>(&you, find_ramparts_walls());
     case SPELL_DISPERSAL:
@@ -2263,6 +2265,9 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
     case SPELL_MAXWELLS_COUPLING:
         return cast_maxwells_coupling(powc, fail);
 
+    case SPELL_BLOOD_EXPLOSION:
+        return cast_blood_explosion(powc, fail);
+
     case SPELL_ISKENDERUNS_MYSTIC_BLAST:
         return cast_imb(powc, fail);
 
@@ -2412,6 +2417,8 @@ static dice_def _spell_damage(spell_type spell, int power)
             return toxic_bog_damage();
         case SPELL_BOULDER:
             return boulder_damage(power, false);
+        case SPELL_BLOOD_EXPLOSION:
+            return blood_explosion_damage(power);
         default:
             break;
     }

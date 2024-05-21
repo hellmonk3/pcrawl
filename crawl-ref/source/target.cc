@@ -2072,6 +2072,13 @@ targeter_maxwells_coupling::targeter_maxwells_coupling()
         positive = AFF_YES;
 }
 
+targeter_blood_explosion::targeter_blood_explosion()
+    : targeter_multiposition(&you, find_blood_explosion_possibles())
+{
+    if (affected_positions.size() == 1)
+        positive = AFF_YES;
+}
+
 targeter_multifireball::targeter_multifireball(const actor *a, vector<coord_def> seeds)
     : targeter_multiposition(a, seeds)
 {

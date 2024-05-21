@@ -102,6 +102,7 @@ rimeblight RIMEBLIGHT
 agony AGONY
 animate_dead ANIMATE_DEAD
 animate_skeleton ANIMATE_SKELETON
+blood_explosion BLOOD_EXPLOSION
 bolt_of_draining BOLT_OF_DRAINING
 borgnjors_revivification BORGNJORS_REVIVIFICATION
 corpse_rot CORPSE_ROT

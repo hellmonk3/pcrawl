@@ -149,6 +149,10 @@ spret cast_maxwells_coupling(int pow, bool fail, bool tracer = false);
 void handle_maxwells_coupling();
 void end_maxwells_coupling(bool quiet = false);
 
+dice_def blood_explosion_damage(int pow);
+vector<monster *> find_blood_explosion_possibles();
+spret cast_blood_explosion(int pow, bool fail, bool tracer = false);
+
 spret cast_noxious_bog(int pow, bool fail);
 vector<coord_def> find_bog_locations(const coord_def &center, int pow);
 

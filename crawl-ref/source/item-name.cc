@@ -1073,86 +1073,100 @@ static const char* _book_type_name(int booktype)
 {
     switch (static_cast<book_type>(booktype))
     {
-    case BOOK_MINOR_MAGIC:            return "Minor Magic";
-    case BOOK_CONJURATIONS:           return "Conjurations";
-    case BOOK_FLAMES:                 return "Flames";
-    case BOOK_FROST:                  return "Frost";
-    case BOOK_WILDERNESS:             return "the Wilderness";
-    case BOOK_FIRE:                   return "Fire";
-    case BOOK_ICE:                    return "Ice";
-    case BOOK_SPATIAL_TRANSLOCATIONS: return "Spatial Translocations";
-    case BOOK_HEXES:                  return "Hexes";
-    case BOOK_LIGHTNING:              return "Lightning";
-    case BOOK_DEATH:                  return "Death";
-    case BOOK_MISFORTUNE:             return "Misfortune";
-    case BOOK_CHANGES:                return "Changes";
-#if TAG_MAJOR_VERSION == 34
-    case BOOK_TRANSFIGURATIONS:       return "Transfigurations";
-    case BOOK_BATTLE:                 return "Battle";
-#endif
-    case BOOK_VAPOURS:                return "Vapours";
-    case BOOK_NECROMANCY:             return "Necromancy";
-    case BOOK_CALLINGS:               return "Callings";
-#if TAG_MAJOR_VERSION == 34
-    case BOOK_MALEDICT:               return "Maledictions";
-#endif
-    case BOOK_AIR:                    return "Air";
-#if TAG_MAJOR_VERSION == 34
-    case BOOK_SKY:                    return "the Sky";
-#endif
-    case BOOK_WARP:                   return "the Warp";
-#if TAG_MAJOR_VERSION == 34
-    case BOOK_ENVENOMATIONS:          return "Envenomations";
-#endif
-    case BOOK_ANNIHILATIONS:          return "Annihilations";
-    case BOOK_UNLIFE:                 return "Unlife";
-#if TAG_MAJOR_VERSION == 34
-    case BOOK_CONTROL:                return "Control";
-#endif
-    case BOOK_GEOMANCY:               return "Geomancy";
-    case BOOK_EARTH:                  return "the Earth";
-#if TAG_MAJOR_VERSION == 34
-    case BOOK_WIZARDRY:               return "Wizardry";
-#endif
-    case BOOK_POWER:                  return "Power";
-    case BOOK_CANTRIPS:               return "Cantrips";
-    case BOOK_PARTY_TRICKS:           return "Party Tricks";
-    case BOOK_DEBILITATION:           return "Debilitation";
-    case BOOK_DRAGON:                 return "the Dragon";
-    case BOOK_BURGLARY:               return "Burglary";
-    case BOOK_DREAMS:                 return "Dreams";
-    case BOOK_ALCHEMY:                return "Alchemy";
-    case BOOK_BEASTS:                 return "Beasts";
-    case BOOK_SPECTACLE:              return "Spectacle";
-    case BOOK_WINTER:                 return "Winter";
-    case BOOK_SPHERES:                return "the Spheres";
-    case BOOK_ARMAMENTS:              return "Armaments";
-#if TAG_MAJOR_VERSION == 34
-    case BOOK_PAIN:                   return "Pain";
-#endif
-    case BOOK_DECAY:                  return "Decay";
-    case BOOK_DISPLACEMENT:           return "Displacement";
-#if TAG_MAJOR_VERSION == 34
-    case BOOK_RIME:                   return "Rime";
-    case BOOK_STONE:                  return "Stone";
-#endif
-    case BOOK_SENSES:                 return "the Senses";
-    case BOOK_BLASTING:               return "Blasting";
-    case BOOK_IRON:                   return "Iron";
-    case BOOK_TUNDRA:                 return "the Tundra";
-    case BOOK_MOON:                   return "the Moon";
-    case BOOK_STORMS:                 return "Storms";
-    case BOOK_WEAPONS:                return "Weapons";
-    case BOOK_SLOTH:                  return "Sloth";
-    case BOOK_BLOOD:                  return "Blood";
-    case BOOK_DANGEROUS_FRIENDS:      return "Dangerous Friends";
-    case BOOK_TOUCH:                  return "Touch";
-    case BOOK_CHAOS:                  return "Chaos";
-    case BOOK_HUNTER:                 return "the Hunter";
-    case BOOK_SCORCHING:              return "Scorching";
-    case BOOK_RANDART_LEVEL:          return "Fixed Level";
-    case BOOK_RANDART_THEME:          return "Fixed Theme";
-    default:                          return "Bugginess";
+    case BOOK_FIREBALL:             return "Fireball";
+    case BOOK_INNER_FLAME:          return "Inner Flame";
+    case BOOK_FOXFIRE:              return "Foxfire";
+    case BOOK_SCORCH:               return "Scorch";
+    case BOOK_BLASTMOTES:           return "Volatile Blastmotes";
+    case BOOK_UNRAVELLING:          return "Yara's Violent Unravelling";
+    case BOOK_STEAM_BURST:          return "Steam Burst";
+    case BOOK_AMBULATORY_BOMB:      return "Ambulatory Bomb";
+    case BOOK_PLASMA_BEAM:          return "Plasma Beam";
+    case BOOK_FLAME_LANCE:          return "Flame Lance";
+    case BOOK_FLAME_WAVE:           return "Flame Wave";
+    case BOOK_MAGMA_JET:            return "Magma Jet";
+    case BOOK_BLOOD_EXPLOSION:      return "Blood Explosion Spell";
+    case BOOK_ARCANE_NOVA:          return "Arcane Nova";
+    case BOOK_DRAGON_CALL:          return "Dragon's Call";
+    case BOOK_IGNITION:             return "Ignition";
+    case BOOK_SANDBLAST:            return "Sandblast";
+    case BOOK_FORCE_QUAKE:          return "Force Quake";
+    case BOOK_PASSWALL:             return "Passwall";
+    case BOOK_PETRIFY:              return "Petrify";
+    case BOOK_SUMMON_FOREST:        return "Summon Forest";
+    case BOOK_NOXIOUS_BOG:          return "Eringya's Noxious Bog";
+    case BOOK_VILE_CLUTCH:          return "Borgnjor's Vile Clutch";
+    case BOOK_PERMAFROST:           return "Permafrost Eruption";
+    case BOOK_WARP_GRAVITY:         return "Warp Gravity";
+    case BOOK_BOULDER:              return "Brom's Barrelling Boulder";
+    case BOOK_DOROKLOHE:            return "Tomb of Doroklohe";
+    case BOOK_IOOD:                 return "Orb of Destruction";
+    case BOOK_DIG:                  return "Dig";
+    case BOOK_SHATTER:              return "Shatter";
+    case BOOK_FRIGID_HALO:          return "Frigid Halo";
+    case BOOK_OZOCUBU_ARMOUR:       return "Ozocubu's Armour";
+    case BOOK_HIBERNATION:          return "Ensorcelled Hibernation";
+    case BOOK_CONDENSATION_SHIELD:  return "Condensation Shield";
+    case BOOK_ICE_STATUE:           return "Ice Statue";
+    case BOOK_HAILSTORM:            return "Hailstorm";
+    case BOOK_ENGLACIATION:         return "Metabolic Englaciation";
+    case BOOK_FREEZING_CLOUD:       return "Freezing Cloud";
+    case BOOK_RIMEBLIGHT:           return "Rimeblight";
+    case BOOK_RAMPARTS:             return "Frozen Ramparts";
+    case BOOK_WINTERS_EMBRACE:      return "Winter's Embrace";
+    case BOOK_POLAR_VORTEX:         return "Polar Vortex";
+    case BOOK_ELECTRIC_CHARGE:      return "Vhi's Electric Charge";
+    case BOOK_STATIC_DISCHARGE:     return "Static Discharge";
+    case BOOK_MEPHITIC_CLOUD:       return "Mephitic Cloud";
+    case BOOK_CREEPING_ROT:         return "Cigotuvi's Creeping Rot";
+    case BOOK_SWIFTNESS:            return "Swiftness";
+    case BOOK_SILENCE:              return "Silence";
+    case BOOK_DEFLECT_MISSILES:     return "Deflect Missiles";
+    case BOOK_ADB:                  return "Alistair's Dodgeable Bolt";
+    case BOOK_CBL:                  return "Conjure Ball Lightning";
+    case BOOK_SUPER_THUNDERBOLT:    return "SUPER THUNDERBOLT HD";
+    case BOOK_MCC:                  return "Maxwell's Capacitive Coupling";
+    case BOOK_AGONY:                return "Agony";
+    case BOOK_ANIMATE_DEAD:         return "Animate Dead";
+    case BOOK_SUBLIMATION:          return "Sublimation of Blood";
+    case BOOK_ANGUISH:              return "Anguish";
+    case BOOK_KISS_OF_DEATH:        return "Kiss of Death";
+    case BOOK_INFESTATION:          return "Infestation";
+    case BOOK_DEATH_CHANNEL:        return "Death Channel";
+    case BOOK_VAMPIRIC_DRAINING:    return "Vampiric Draining";
+    case BOOK_GHOSTLY_LEGION:       return "Ghostly Legion";
+    case BOOK_DEATHS_DOOR:          return "Death's Door";
+    case BOOK_REVIVIFICATION:       return "Borgnjor's Revivification";
+    case BOOK_CALL_IMP:             return "Call Imp";
+    case BOOK_LIGHTNING_SPIRE:      return "Summon Lightning Spire";
+    case BOOK_MANA_VIPER:           return "Summon Mana Viper";
+    case BOOK_SPELLFORGED_SERVITOR: return "Spellforged Servitor";
+    case BOOK_FORCEFUL_DISMISSAL:   return "Forceful Dismissal";
+    case BOOK_SUMMON_ELEMENTAL:     return "Summon Elemental";
+    case BOOK_MALIGN_GATEWAY:       return "Malign Gateway";
+    case BOOK_SUMMON_CACTUS:        return "Summon Cactus Giant";
+    case BOOK_ELDRITCH_ICHOR:       return "Eldritch Ichor";
+    case BOOK_MANIFOLD_ASSAULT:     return "Manifold Assault";
+    case BOOK_DIMENSIONAL_BULLSEYE: return "Dimensional Bullseye";
+    case BOOK_LESSER_BECKONING:     return "Lesser Beckoning";
+    case BOOK_BLINK:                return "Blink";
+    case BOOK_PHASE_SHIFT:          return "Phase Shift";
+    case BOOK_PASSAGE_OF_GOLUBRIA:  return "Passage of Golubria";
+    case BOOK_DISPERSAL:            return "Dispersal";
+    case BOOK_DISJUNCTION:          return "Disjunction";
+    case BOOK_CONTROLLED_BLINK:     return "Controlled Blink";
+    case BOOK_CONFUSING_TOUCH:      return "Confusing Touch";
+    case BOOK_ENFEEBLE:             return "Enfeeble";
+    case BOOK_INTOXICATION:         return "Alistair's Intoxication";
+    case BOOK_DISCORD:              return "Discord";
+    case BOOK_SONG_OF_SLAYING:      return "Song of Slaying";
+    case BOOK_PIERCING_SHOTS:       return "Piercing Shots";
+    case BOOK_SCRYING:              return "Scrying";
+    case BOOK_HASTE:                return "Haste";
+    case BOOK_ANIMATE_ARMOUR:       return "Animate Armour";
+    case BOOK_RANDART_LEVEL:        return "Fixed Level";
+    case BOOK_RANDART_THEME:        return "Fixed Theme";
+    default:                        return "Bugginess";
     }
 }
 
@@ -1249,41 +1263,6 @@ string sub_type_string(const item_def &item, bool known)
             bookname += skill_name(static_cast<skill_type>(item.plus));
             return bookname;
             }
-        case BOOK_NECRONOMICON:
-            return "Necronomicon";
-        case BOOK_GRAND_GRIMOIRE:
-            return "Grand Grimoire";
-#if TAG_MAJOR_VERSION == 34
-        case BOOK_BUGGY_DESTRUCTION:
-            return "tome of obsoleteness";
-#endif
-        case BOOK_EVERBURNING:
-            // Aus. English apparently follows the US spelling, not UK.
-            return "Everburning Encyclopedia";
-        case BOOK_OZOCUBU:
-            return "Ozocubu's Autobiography";
-        case BOOK_MAXWELL:
-            return "Maxwell's Memoranda";
-        case BOOK_YOUNG_POISONERS:
-            return "Young Poisoner's Handbook";
-        case BOOK_FEN:
-            return "Fen Folio";
-        case BOOK_NEARBY:
-            return "Inescapable Atlas";
-        case BOOK_THERE_AND_BACK:
-            return "There-And-Back Book";
-        case BOOK_BIOGRAPHIES_II:
-            return "Great Wizards, Vol. II";
-        case BOOK_BIOGRAPHIES_VII:
-            return "Great Wizards, Vol. VII";
-        case BOOK_TRISMEGISTUS:
-            return "Trismegistus Codex";
-        case BOOK_UNRESTRAINED:
-            return "the Unrestrained Analects";
-#if TAG_MAJOR_VERSION == 34
-        case BOOK_AKASHIC_RECORD:
-            return "Akashic Record";
-#endif
         default:
             return string("book of ") + _book_type_name(sub_type);
         }

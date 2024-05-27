@@ -123,117 +123,829 @@ dealt.
 
 While transformed, equipped weapons, shields, and gloves are melded.
 %%%%
-book of air
+Book of Fireball
 
-A primer on the elemental magics of Air. The great minotaur hero Vuxhurn, given
-a copy of this book while trapped atop the tower of a wizard with a particularly
-perverse sense of humor, used its pages to construct a rudimentary glider and
-soared to freedom.
-%%%%
-book of alchemy
+A standard-issue wizarding textbook containing the most essential spell for any
+aspiring mage. 
 
-A book focusing on alchemical processes and their use in magic spells,
-collecting the wisdom of many ancient alchemists.
-%%%%
-book of annihilations
+It describes the Fireball spell:
 
-A tome of arcane fury, greatly sought after by sorcerers. It allows the gifted
-and resourceful to conjure destruction with ease.
+<Fireball spell>
 %%%%
-book of armaments
+Book of Inner Flame
 
-A book describing various magical arms and armours. It was written in the midst
-of a particularly bloody civil war, and the text is made substantially less
-helpful by its author's frequent digressions describing the crimes committed by
-the other side.
-%%%%
-book of beasts
+A slick, oily manuscript bound with straw. 
 
-A book of spells focused on the summoning of beasts. Its pages nip at careless
-readers' fingers.
-%%%%
-book of blasting
+It describes the Inner Flame spell:
 
-A book of spells used to set off powerful explosions. This edition's binder
-was careful to pad the cover, so that if its reader lacked sufficient caution,
-the book, at least, would survive.
+<Inner Flame spell>
 %%%%
-book of blood
+Book of Foxfire
 
-A book of works dedicated to the manipulation of blood, both that of the caster
-and of creatures with particularly unusual ichor flowing through their veins.
-Some claim it to have been composed by the vampire lord Jory, but it's unclear
-why he would deign to share his secrets with others.
-%%%%
-book of burglary
+A book with a crudely-drawn kitsune on the cover. It is slightly warm to the
+touch.
 
-A book containing spells useful for theft, breaking and entering, and other
-miscellaneous larceny.
-%%%%
-book of callings
+It describes the Foxfire spell:
 
-An introductory text on the magical summoning of beasts and beings from other
-realms.
+<Foxfire spell>
 %%%%
-book of cantrips
+Book of Scorch
 
-A book containing a small selection of very basic magic spells, intended for
-beginners who wish to learn the rudiments of one of the featured magical
-schools.
-%%%%
-book of changes
+A slim volume charred to the point of near-unreadability.
 
-A student's primer to the magic arts of Transmutations. Contrary to common
-wisdom, the book has no ability to move, but it does have a nasty habit of
-disguising itself as other nearby objects.
-%%%%
-book of chaos
+It describes the Scorch spell:
 
-A book of spells that leave the caster's surroundings in a state of complete
-disarray. It's not clear why anyone would write such a thing, but it's here.
+<Scorch spell>
 %%%%
-book of conjurations
+Book of Volatile Blastmotes
 
-A book containing an introduction to the destructive magical arts of
-Conjurations.
-%%%%
-book of dangerous friends
+A book that makes a sizzling sound when opened. No author is listed.
 
-A book describing the creation and use of magical entities best kept at arm's
-reach. Or, preferably, even farther.
-%%%%
-book of death
+It describes the Volatile Blastmotes spell:
 
-A manuscript containing dark spells of Necromancy. Each page is filled with
-grotesque art depicting scenes of disgusting decay.
+<Volatile Blastmotes spell>
 %%%%
-book of debilitation
+Book of Yara's Violent Unravelling
 
-A spellbook containing spells known for having a particularly unpleasant
-effect on their victims. It's considered something of a faux pas in the
-wizarding community to be seen with this book in one's collection.
+A treatise by the great magic knight Yara, full of bitter invective against
+their rivals. It includes lengthy digressions on the most popular enchantments
+of eras gone by and the most effective methods of countering each.
+
+It describes Yara's Violent Unravelling:
+
+<Yara's Violent Unravelling spell>
 %%%%
-book of decay
+Book of Steam Burst
+
+A travelogue from a distant continent. The narrator painstakingly describes
+his native country's geology and bathhouse culture, and suggests a spell to
+replicate it in less volcanically active lands.
+
+It describes the Steam Burst spell:
+
+<Steam Burst spell>
+%%%%
+Book of Ambulatory Bomb
+
+A pamphlet describing the construction of various magical and nonmagical 
+explosives. The author's name has been struck out.
+
+It describes the Ambulatory Bomb spell:
+
+<Ambulatory Bomb spell>
+%%%%
+Book of Plasma Beam
+
+A scientific dissertation in two parts. The first concerns matter manipulation
+on an atomic scale. The second concerns sending magical treatises backwards in
+time.
+
+It describes the Plasma Beam spell:
+
+<Plasma Beam spell>
+%%%%
+Book of Flame Lance
+
+A novel about a disgraced knight doomed to be executed. The narrative expertly
+interplays the knight's present misfortune and heroic past with several
+metatextual digressions on the nature of loyalty and duty and presents - as
+a hypothetical aside - a spell that could have saved its protagonist's life at
+the expense of his knightly oath.
+
+It describes the Flame Lance spell:
+
+<Flame Lance spell>
+%%%%
+Book of Flame Wave
+
+A lengthy history of fire magic. Every spell in the book save one has been
+redacted, however.
+
+It describes the Flame Wave spell:
+
+<Flame Wave spell>
+%%%%
+Book of Magma Jet
+
+A picture book about volcanoes. A spell is scrawled in the margins by someone
+known only as 'J'.
+
+<Magma Jet spell>
+%%%%
+Book of Blood Explosion Spell
 
 A book of necromancy, dictated by the god Kikubaaqudgha to an unfortunate
 apostle across the course of a nine-day fugue. The necromancer is said to have
 finished the dread work with their own life's blood... but of course this is
 just a copy, written in almost entirely normal ink.
-%%%%
-book of displacement
 
-A book of spells to bring others closer, or sometimes farther, depending on the
-user's whim.
-%%%%
-book of dreams
+It describes the Blood Explosion Spell:
 
-The somniloquent utterings of a famed mystic, using uniquely bizarre imagery
-and cryptic digressions to describe spells drawn from the mystic's visions.
+<Blood Explosion Spell spell>
 %%%%
-book of fire
+Book of Arcane Nova
 
-A book containing advanced spells in the elemental school of Fire, stolen from
-the secret college of the djinn.
+A softly glowing book. The author claims the spell within came to her in a
+dream.
+
+It describes the Arcane Nova spell:
+
+<Arcane Nova spell>
+%%%%
+Book of Dragon's Call
+
+A short manuscript of draconic authorship, bound in scale and bone. It records 
+an ancient treaty between elvish and draconic tribes, as well as a spell for 
+one side to call upon the other in times of need.
+
+It describes the Dragon's Call spell:
+
+<Dragon's Call spell>
+%%%%
+Book of Ignition
+
+A single-page work (nonetheless handsomely bound) describing in twelve neat
+lines a spell to rival the pinnacle of fire magic. It is signed illegibly.
+
+It describes the Ignition spell:
+
+<Ignition spell>
+%%%%
+Book of Sandblast
+
+A dusty tome, it appears commonly on wizards' bookshelves but is not much read.
+
+It describes the Sandblast spell:
+
+<Sandblast spell>
+%%%%
+Book of Force Quake
+
+A guide to earthquake safety. The dwarven author included a spell as a teaching
+tool.
+
+It describes the Force Quake spell:
+
+<Force Quake spell>
+%%%%
+Book of Passwall
+
+The "true and faithful tale of Maxim Correli, Gentleman Thief, from his noble
+birth, through his Fruitful Career, culminating in Betrayal by his Unscrupulous
+Associates and his Tragic Execution." Maxim's innate magical talent features
+heavily in the story.
+
+It describes the Passwall spell:
+
+<Passwall spell>
+%%%%
+Book of Petrify
+
+A field guide to basilisks. The illustrations have faded to a dull grey.
+
+It describes the Petrify spell:
+
+<Petrify spell>
+%%%%
+Book of Summon Forest
+
+A volume of magically etched bronze sheets. The author claims to be a dryad who
+was raised by human parents and returned to her native forest in adulthood.
+
+It describes the Summon Forest spell:
+
+<Summon Forest spell> 
+%%%%
+Book of Eringya's Noxious Bog
+
+A massive, filthy volume authored by the witch Eringya in her later, senile
+years. The spell within is functional if a bit disgusting.
+
+It describes Eringya's Noxious Bog:
+
+<Eringya's Noxious Bog spell>
+%%%%
+Book of Borgnjor's Vile Clutch
+
+The last but most famous of Borgnjor's treatises, it contains one of her most
+noteworthy contributions to the necromantic field. It is highly sought after
+and often out of print.
+
+It describes Borgnjor's Vile Clutch:
+
+<Borgnjor's Vile Clutch spell>
+%%%%
+Book of Permafrost Eruption
+
+A frost-gripped tome, cold to the touch. One spell towards the front is readable
+but the remaining pages seem to have frozen together into one solid mass.
+
+It describes the Permafrost Eruption spell:
+
+<Permafrost Eruption spell>
+%%%%
+Book of Warp Gravity
+
+An exceedingly dense work on theoretical physics. The workings of the spell
+within are left as an exercise to the reader.
+
+It describes the Warp Gravity spell:
+
+<Warp Gravity spell>
+%%%%
+Book of Brom's Barrelling Boulder
+
+A nigh-unreadable mess of gibberish purported to be authored by the earth mage
+Brom. The text is entirely uncapitalized, unspaced, and unpunctuated. Reading 
+past the first spell would best be described as sisyphean.
+
+It describes Brom's Barrelling Boulder:
+
+<Brom's Barrelling Boulder spell>
+%%%%
+Book of Tomb of Doroklohe
+
+A copy of a truly ancient text written by a long deceased, then long-undeceased,
+then long-redeceased royal mummy. Though often faked, this appears to be the 
+genuine article, since the rather tricky name of the author is spelled correctly
+atop each page.
+
+It describes Tomb of Doroklohe:
+
+<Tomb of Doroklohe spell>
+%%%%
+Book of Orb of Destruction
+
+A prose poem comparing destructive magic to the unwinding of a ball of yarn. A
+pawprint is stamped on the inside cover.
+
+It describes the Orb of Destruction spell:
+
+<Orb of Destruction spell>
+%%%%
+Book of Dig
+
+A book about excavation. After five hundred pages concerning the most optimal
+mundane methods for digging tunnels, a spell to perform the same function is 
+mentioned in a brief aside. Truly, a dwarf wrote this.
+
+It describes the Dig spell:
+
+<Dig spell>
+%%%%
+Book of Shatter
+
+The pages of this tome are mixed up and torn. It's easy enough to get the gist 
+of the spell within, but not so easy to cast it.
+
+It describes the Shatter spell:
+
+<Shatter spell>
+%%%%
+Book of Frigid Halo
+
+A slightly damp book for merfolk students studying the basics of ice magic.
+
+It describes the Frigid Halo spell:
+
+<Frigid Halo spell>
+%%%%
+Book of Ozocubu's Armour
+
+The first in a series of serialized autobiographical texts. The author's
+pretentiousness is matched only by their incompetence, though it does contain
+one functional spell.
+
+It describes Ozocubu's Armour:
+
+<Ozocubu's Armour spell>
+%%%%
+Book of Ensorcelled Hibernation
+
+A children's story about a young woman cursed by the fae to sleep for a
+thousand years.
+
+It describes the Ensorcelled Hibernation spell:
+
+<Ensorcelled Hibernation spell>
+%%%%
+Book of Condensation Shield
+
+An abridged description of a once-popular spell that fell out of favor long ago.
+The lingo has been updated to appeal to a more modern wizarding youth.
+
+It describes the Condensation Shield spell:
+
+<Condensation Shield spell>
+%%%%
+Book of Ice Statue
+
+A horror story detailing an unnamed man's descent into madness after his
+adventuring party is snowed in to an icy mountain cavern. The last twelve pages
+of the text consist of the spell's incantation repeated several dozen times.
+
+It describes the Ice Statue spell:
+
+<Ice Statue spell>
+%%%%
+Book of Hailstorm
+
+A book on meteorological phenomena. The middle portion is missing.
+
+It describes the Hailstorm spell:
+
+<Hailstorm spell>
+%%%%
+Book of Metabolic Englaciation
+
+An untitled ode to a bear. A spell may be deduced from the first word of each
+sentence.
+
+It describes the Metabolic Englaciation spell:
+
+<Metabolic Englaciation spell>
+%%%%
+Book of Freezing Cloud
+
+A treatise on aeromancy. Scribblings in the margins suggest a method for faking
+results if necessary.
+
+It describes the Freezing Cloud spell:
+
+<Freezing Cloud spell>
+%%%%
+Book of Rimeblight
+
+A short historical record of a magical plague. The text cuts off abruptly,
+midsentence.
+
+It describes the Rimeblight spell:
+
+<Rimeblight spell>
+%%%%
+Book of Frozen Ramparts
+
+A disquisition on the similarities and differences of ogres and yetis. The
+author seems to have been an ogre mage of some renown, given their emotional
+attachment to the subject matter and their atrocious penmanship.
+
+It describes the Frozen Ramparts spell:
+
+<Frozen Ramparts spell>
+%%%%
+Book of Winter's Embrace
+
+Nearly four thousand pages of festival descriptions from the winter court of the
+fae. Nevertheless, the book fits neatly in one hand no matter the reader's size.
+
+It describes the Winter's Embrace spell:
+
+<Winter's Embrace spell>
+%%%%
+Book of Polar Vortex
+
+A magnum opus on storm magic by the magician Lan Shi. It contains a reminder to
+read the work counterclockwise if studying in the Northern hemisphere.
+
+It describes the Polar Vortex spell:
+
+<Polar Vortex spell>
+%%%%
+Book of Vhi's Electric Charge
+
+A short, brilliant work by a little-known air mage. The text proceeds at a
+frantic pace, as if the author's genius could not be contained.
+
+It describes Vhi's Electric Charge:
+
+<Vhi's Electric Charge spell>
+%%%%
+Book of Static Discharge
+
+A shocking text on basic air magic. Rubbing the book vigorously seems to
+improve students' results.
+
+It describes the Static Discharge spell:
+
+<Static Discharge spell>
+%%%%
+Book of Mephitic Cloud
+
+A prank book for jesters, jokers, and clowns of all types. Though often
+attributed to Alistair, the authorship is unknown.
+
+It describes the Mephitic Cloud spell:
+
+<Mephitic Cloud spell>
+%%%%
+Book of Cigotuvi's Creeping Rot
+
+Cigotuvi's obsessive development and revision of a rotting spell derailed a
+most fruitful, if horrifying, career in mutation and transmutation. This book
+claims to contain the definitive final version.
+
+It describes Cigotuvi's Creeping Rot:
+
+<Cigotuvi's Creeping Rot spell>
+%%%%
+Book of Swiftness
+
+A quick read.
+
+It describes the Swiftness spell:
+
+<Swiftness spell>
+%%%%
+Book of Silence
+
+A sketch portfolio of a beautiful, ghostly woman. Just gazing at her grants 
+ethereal knowledge.
+
+It grants understanding of the Silence spell:
+
+<Silence spell>
+%%%%
+Book of Deflect Missiles
+
+A pockmarked copybook. An arrowhead is embedded firmly in the back cover.
+
+It describes the Deflect Missiles spell:
+
+<Deflect Missiles spell>
+%%%%
+Book of Alistair's Dodgeable Bolt
+
+One of rogue archmage, prankster, and all-around dandy Alistair's less popular
+inventions. Inadvertently shocking guests seems to have gone over less well than
+forcibly inebriating them.
+
+It describes Alistair's Dodgeable Bolt:
+
+<Alistair's Dodgeable Bolt spell>
+%%%%
+Book of Conjure Ball Lightning
+
+A serious academic work on lightning magic. Obscene jokes are scrawled in the
+margins on nearly every page.
+
+It describes the Conjure Ball Lightning spell:
+
+<Conjure Ball Lightning spell>
+%%%%
+Book of SUPER THUNDERBOLT HD
+
+AN EMPTY BINDING MAGICALLY ENCHANTED TO SCREAM A SPELL'S DESCRIPTION DIRECTLY
+INTO THE READER'S MIND WHEN OPENED.
+
+IT DESCRIBES THE SUPER THUNDERBOLT HD SPELL:
+
+<SUPER THUNDERBOLT HD spell>
+%%%%
+Book of Maxwell's Capacitive Coupling
+
+The research journal of the famous inventor Maxwell. It carefully records his
+unorthodox magical experiments and traces a spell's development from start to
+finish, including less fruitful excursions in other elemental schools.
+
+It describes Maxwell's Capacitive Coupling:
+
+<Maxwell's Capacitive Coupling spell>
+%%%%
+Book of Agony
+
+A truly painful read.
+
+It describes the Agony spell:
+
+<Agony spell>
+%%%%
+Book of Animate Dead
+
+An essential text for the aspiring necromancer. It is forbidden in several
+countries.
+
+It describes the Animate Dead spell:
+
+<Animate Dead spell>
+%%%%
+Book of Sublimation of Blood
+
+The first quarter of a famous work on the humors. Sublimations of bile and
+phlegm are less magically useful, so this portion of the book is often printed
+separately.
+
+It describes the Sublimation of Blood spell:
+
+<Sublimation of Blood spell>
+%%%%
+Book of Anguish
+
+An emotionally painful read.
+
+It describes the Anguish spell:
+
+<Anguish spell>
+%%%%
+Book of Kiss of Death
+
+A narrative on forbidden love written from the perspective of the grim reaper.
+
+It describes the Kiss of Death spell:
+
+<Kiss of Death spell>
+%%%%
+Book of Infestation
+
+This tome seems to spontaneously generate hideous insects of all kinds. The 
+writing itself is mundane and unimpressive.
+
+It describes the Infestation spell:
+
+<Infestation spell>
+%%%%
+Book of Death Channel
+
+Yet another forbidden necromantic tome. The letters shift and writhe, recounting
+the names of all those the book's owner has killed.
+
+It describes the Death Channel spell:
+
+<Death Channel spell>
+%%%%
+Book of Vampiric Draining
+
+A diary kept by one of the many blood thralls of the vampire lord Jory. Though
+the author somehow managed to uncover a few of their master's secrets and share
+them with the outside world, their ultimate fate is unknown.
+
+It describes the Vampiric Draining spell:
+
+<Vampiric Draining spell>
+%%%%
+Book of Ghostly Legion
+
+An ethereal, weightless book.
+
+It describes the Ghostly Legion spell:
+
+<Ghostly Legion spell>
+%%%%
+Book of Death's Door
+
+A book on the afterlife penned (allegedly) by an inhabitant of the Iron City
+of Dis. She recommends not dying at any cost and helpfully provides a magical
+means to that effect.
+
+It describes the Death's Door spell:
+
+<Death's Door spell>
+%%%%
+Book of Borgnjor's Revivification
+
+Borgnjor's most daring and potent necromantic work. Few appreciate the great
+subtleties of the spellcraft contained within its slender pages, and fewer still
+are worthy to wield them.
+
+It describes Borgnjor's Revivification:
+
+<Borgnjor's Revivification spell>
+%%%%
+Book of Call Imp
+
+A large volume of yellowing pages. Most summoners own a copy, though the more
+powerful sort prefer to deal in creatures that are less fickle.
+
+It describes the Call Imp spell:
+
+<Call Imp spell>
+%%%%
+Book of Summon Lightning Spire
+
+A book that crackles with electrical energy.
+
+It describes the Summon Lightning Spire spell:
+
+<Summon Lightning Spire spell>
+%%%%
+Book of Summon Mana Viper
+
+A book with mildly venomous pages. Particularly tacky editions are often
+bound in snakeskin.
+
+It describes the Summon Mana Viper spell:
+
+<Summon Mana Viper spell>
+%%%%
+Book of Spellforged Servitor
+
+A dwarven manual on golemcraft. Most of the recipes require far more time and
+resources than a single mage can muster.
+
+It describes the Spellforged Servitor spell:
+
+<Spellforged Servitor spell>
+%%%%
+Book of Forceful Dismissal
+
+A book on High Elven employment law. Termination of employment of bound magical
+creatures is handled in Section 45 subsection D.
+
+It describes the Forceful Dismissal spell
+
+<Forceful Dismissal spell>
+%%%%
+Book of Summon Elemental
+
+A tome that is alternately warm, wet, dusty, and shocking to the touch.
+
+It describes the Summon Elemental spell:
+
+<Summon Elemental spell>
+%%%%
+Book of Malign Gateway
+
+A short cosmological work. The heavens it describes contains five moons,
+eleven fixed stars, and a massive violet sun.
+
+It describes the Malign Gateway spell:
+
+<Malign Gateway spell>
+%%%%
+Book of Summon Cactus Giant
+
+A magical book, blasted and scoured by long exposure to the desert sun.
+
+It describes the Summon Cactus Giant spell:
+
+<Summon Cactus Gaint spell>
+%%%%
+Book of Eldritch Ichor
+
+A tentacled book that writhes and screams when touched. Just grasping it fills 
+you with a sense of foreboding.
+
+It describes the Eldritch Ichor spell:
+
+<Eldritch Ichor spell>
+%%%%
+Book of Manifold Assault
+
+A manual of physical combat for the translocationally inclined.
+
+It describes the Manifold Assault spell:
+
+<Manifold Assault spell>
+%%%%
+Book of Dimensional Bullseye
+
+An archery manual. The trick shots proposed are quite complex.
+
+It describes the Dimensional Bullseye spell:
+
+<Dimensional Bullseye spell>
+%%%%
+Book of Lesser Beckoning
+
+A short manuscript on translocations. The postscript promises a larger volume to
+follow.
+
+It describes the Lesser Beckoning spell:
+
+<Lesser Beckoning spell>
+%%%%
+Book of Blink
+
+A wizarding classic with an enthusiastic fanbase.
+
+It describes the Blink spell:
+
+<Blink spell>
+%%%%
+Book of Phase Shift
+
+A shimmering book. Whether or not a given page is present when the book is 
+opened seems to be completely random.
+
+It describes the Phase Shift spell:
+
+<Phase Shift spell>
+%%%%
+Book of Passage of Golubria
+
+A treatise by the translocations expert Golubria. It appears on many a mage's
+bookshelf, often apported there without their knowledge by one of the writer's
+followers.
+
+It describes Passage of Golubria:
+
+<Passage of Golubria spell>
+%%%%
+Book of Dispersal
+
+A book on Translocations written by a particularly misanthropic mage. After its 
+completion, they were never seen again, which may or may not have been the 
+point.
+
+It describes the Dispersal spell:
+
+<Dispersal spell>
+%%%%
+Book of Disjunction
+
+An experimental work that seeks to apply logic to the field of Translocations
+magic, with mixed results.
+
+It describes the Disjunction spell:
+
+<Disjunction spell>
+%%%%
+Book of Controlled Blink
+
+A great tome of proposed improvements to the standard blink spell. Most of the
+suggested variants never caught on.
+
+It describes the Controlled Blink spell:
+
+<Controlled Blink spell>
+%%%%
+Book of Confusing Touch
+
+A beginner work on Hexes.
+
+It describes the Confusing Touch spell:
+
+<Confusing Touch spell>
+%%%%
+Book of Enfeeble
+
+A spellbook dedicated to the art of inflicting creative calamities on one's
+foes. Superstitious wizards claim that the book itself actually absorbs ill
+fortune and carry it around as a good-luck charm, but the effects of this
+seem subtle at best.
+
+It describes the Enfeeble spell:
+
+<Enfeeble spell>
+%%%%
+Book of Alistair's Intoxication
+
+A book containing a classic wizard party trick, as well as a number of toasts, 
+jokes, and party games.
+
+It describes Alistair's Intoxication:
+
+<Alistair's Intoxication spell>
+%%%%
+Book of Discord
+
+A controversial work on Hexes.
+
+It describes the Discord spell:
+
+<Discord spell>
+%%%%
+Book of Song of Slaying
+
+A book of chants, anthems, hymns, and other music intended for battle.
+
+It describes the Song of Slaying spell:
+
+<Song of Slaying spell>
+%%%%
+Book of Piercing Shots
+
+A military manual containing a variety of spells useful for augmenting mundane
+troops. Unfortunately, most of the spells apply to unwieldy siege equipment
+rather than more practical personal arms.
+
+It describes the Piercing Shot spell:
+
+<Piercing Shot spell>
+%%%%
+Book of Scrying
+
+A popular book on divination.
+
+It describes the Scrying spell:
+
+<Scrying spell>
+%%%%
+Book of Haste
+
+An exceedingly quick read.
+
+It describes the Haste spell:
+
+<Haste spell>
+%%%%
+Book of Animate Armour
+
+A philosophical examination on whether objects possess souls. The author 
+wholeheartedly posits the affirmative position.
+
+It describes the Animate Armour spell:
+
+<Animate Armour spell>
 %%%%
 book of fixed level
 
@@ -242,185 +954,6 @@ A book of magic spells.
 book of fixed theme
 
 A book of magic spells.
-%%%%
-book of flames
-
-The standard text used in arcane academies by students of the elemental magic
-of Fire. Readers are recommended to wear a pair of insulated gloves.
-%%%%
-book of frost
-
-A book of magic spells, often used as an introduction to the elemental magics
-of Ice. Its pages feel unusually brittle, as if they'd crumble at a touch.
-%%%%
-book of geomancy
-
-A book containing basic spells involving the element of Earth. Readers are
-recommended to wear a pair of gardening gloves.
-%%%%
-book of hexes
-
-A spellbook containing an assortment of powerful Hexes, which sparkles and
-shimmers as the pages are flipped.
-%%%%
-book of ice
-
-A book of advanced magical spells using the element of Ice. Readers are
-recommended to wear a pair of warm gloves.
-%%%%
-book of iron
-
-An ancient, metal-bound spellbook, covered in dark red blotches. Are they
-rust stains, or..?
-%%%%
-book of lightning
-
-A book that fairly crackles with arcane power.
-%%%%
-book of minor magic
-
-A spellbook containing a variety of simple but useful magical incantations.
-Many prominent spellcasters used this book to begin their arcane studies.
-%%%%
-book of misfortune
-
-A spellbook dedicated to the art of inflicting creative calamities on one's
-foes. Superstitious wizards claim that the book itself actually absorbs ill
-fortune and carry it around as a good-luck charm, but the effects of this
-seem subtle at best.
-%%%%
-book of necromancy
-
-A macabre book containing basic Necromancy spells. Readers are recommended to
-wear a pair of gloves they don't mind disposing of afterward.
-%%%%
-book of party tricks
-
-A book containing a variety of fun spells guaranteed to liven up any wizarding
-party, as well as a number of toasts, jokes, and party games.
-%%%%
-book of power
-
-A book of powerful and destructive magic spells, rumbling and shuddering with
-barely-contained energies.
-%%%%
-book of scorching
-
-A magical book, blasted and scoured by long exposure to the desert sun. Upon
-its badly-weathered pages lie the secrets to inflicting the desert's dangers
-upon the caster's foes.
-%%%%
-book of sloth
-
-A lazily written book.
-%%%%
-book of spatial translocations
-
-A basic spellbook on the magical field of Translocations. Many would-be mages
-have seen it disappear just as they needed it most.
-%%%%
-book of spectacle
-
-A book covered in glittering sequins. An impromptu lightshow bursts from every
-page, clearly reserving this book for only the tackiest of wizards.
-%%%%
-book of the spheres
-
-A book containing a comprehensive, well-rounded collection of sphere-related
-spells. Its final pages begin to describe a spell titled 'Summon Orb of Zot',
-but sadly, the remainder of the book has been completely vaporised.
-%%%%
-book of storms
-
-A book written by the magician Lan Shi, who was preoccupied with the study and
-control of natural phenomena. Most of Shi's works have been lost, but those
-still remaining are treasured by wizards lucky (or unscrupulous) enough to get
-their hands on a copy.
-%%%%
-book of the dragon
-
-A magical book of spells which allow some command over dragons and their
-aspects.
-%%%%
-book of the wilderness
-
-A book holding lore ripped from distant and untamed lands, allowing their
-denizens to be called forth to serve the reader.
-{{
-    if you.can_smell() then
-        return "It smells distressingly musty."
-    end
-}}
-%%%%
-book of the earth
-
-A guide to drawing immense power from the depths of the earth. The original was
-written as a collaboration between the hill dwarves and the mountain dwarves, but
-its compilation was cut short when a massive wave of earthquakes plunged their
-civilizations into ruin.
-%%%%
-book of the hunter
-
-A mundane book on hunting. Someone has gone through and covered the book in
-corrections and scathing criticisms, crossing out entire sections in favor of
-spells that accomplish the same task.
-%%%%
-book of the moon
-
-A book written by a mad wizard, who had become convinced that the moon far above
-was composed, not of shining light, but of rock as solid as that beneath one's feet.
-Many of the pages have been mangled beyond recognition, seemingly shredded by a
-pair of powerful claws... but what would a troll be doing with a spellbook?
-%%%%
-book of the senses
-
-A scholarly work, describing the senses used by living creatures to perceive the
-world around them. A handful of spells are included to demonstrate the principles
-being described.
-%%%%
-book of the tundra
-
-A frost-gripped tome describing icy spells, somewhat abridged. The Vaults are
-said to hold the full text, but the guardians of that place guard their
-treasures jealously.
-%%%%
-book of the warp
-
-A book of advanced Translocations spells, written by a particularly
-misanthropic mage. After its completion, they were never seen again, which may
-or may not have been the point.
-%%%%
-book of touch
-
-A book describing spells requiring very close proximity to their target. The
-author seems to have had a low opinion of their wizardly peers, and spends much
-of the text describing the hygiene and social etiquette needed to enter close
-proximity to other sentient beings.
-%%%%
-book of unlife
-
-An unholy book describing a variety of magical methods for the creation and
-command of undead servants.
-%%%%
-book of vapours
-
-A book of magic spells for creating an assortment of clouds, vapours and mists.
-It is difficult to read, as the text is frequently interrupted by descriptions
-of unusually-shaped clouds the author spotted while writing.
-%%%%
-book of weapons
-
-A book of spells used by rebels against an ancient and evil empire. The rebels
-were crushed, but this book was rediscovered years later, found by paladins of
-the crusade that finally destroyed the empire and slew its immortal twin
-sovereigns.
-%%%%
-book of winter
-
-A book of spells written by the sorceress Ellawe, who sought to use her time
-productively while trapped inside by particularly harsh weather for over six
-months. A postscript details the bloody vengeance she took after discovering
-the weather mage responsible.
 %%%%
 boomerang
 

@@ -922,18 +922,6 @@ const set<pair<object_class_type, int> > removed_items =
     { OBJ_POTIONS,   POT_CURE_MUTATION },
     { OBJ_POTIONS,   POT_BENEFICIAL_MUTATION },
     { OBJ_POTIONS,   POT_DUMMY_AGILITY },
-    { OBJ_BOOKS,     BOOK_WIZARDRY },
-    { OBJ_BOOKS,     BOOK_CONTROL },
-    { OBJ_BOOKS,     BOOK_BUGGY_DESTRUCTION },
-    { OBJ_BOOKS,     BOOK_ENVENOMATIONS },
-    { OBJ_BOOKS,     BOOK_AKASHIC_RECORD },
-    { OBJ_BOOKS,     BOOK_BATTLE },
-    { OBJ_BOOKS,     BOOK_STONE },
-    { OBJ_BOOKS,     BOOK_PAIN },
-    { OBJ_BOOKS,     BOOK_MALEDICT },
-    { OBJ_BOOKS,     BOOK_SKY },
-    { OBJ_BOOKS,     BOOK_RIME },
-    { OBJ_BOOKS,     BOOK_TRANSFIGURATIONS },
     { OBJ_RODS,      ROD_VENOM },
     { OBJ_RODS,      ROD_WARDING },
     { OBJ_RODS,      ROD_DESTRUCTION },
@@ -2303,9 +2291,6 @@ bool item_is_horn_of_geryon(const item_def &item)
 bool item_is_spellbook(const item_def &item)
 {
     return item.base_type == OBJ_BOOKS
-#if TAG_MAJOR_VERSION == 34
-           && item.sub_type != BOOK_BUGGY_DESTRUCTION
-#endif
            && item.sub_type != NUM_BOOKS
            && item.sub_type != BOOK_MANUAL;
 }

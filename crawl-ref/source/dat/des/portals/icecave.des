@@ -372,7 +372,7 @@ function ice_cave_magic_loot(e, glyphs)
     if dgn.persist.ice_cave_hard then
         quality = " good_item"
     end
-    e.kitem(glyphs .. " = book of ice / book of the tundra" ..
+    e.kitem(glyphs .. " = nothing / nothing" ..
         " / ozocubu's autobiography / randbook disc:ice" ..
         " / manual of ice magic / staff of cold / ring of ice" .. quality ..
         " / ring of protection from cold" .. quality ..
@@ -411,7 +411,7 @@ function ice_cave_necro_loot(e, glyphs)
         glyphs = "j"
     end
 
-    e.kitem(glyphs .. " = book of unlife / randbook disc:ice" ..
+    e.kitem(glyphs .. " = nothing / randbook disc:ice" ..
             "    disc2:necromancy numspells:6" ..
             "/ manual of necromancy w:5 / staff of death")
 end

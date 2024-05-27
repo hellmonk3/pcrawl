@@ -389,7 +389,7 @@ static int _acquirement_misc_subtype(bool /*divine*/, int & /*quantity*/,
 static int _acquirement_book_subtype(bool /*divine*/, int & /*quantity*/,
                                      int /*agent*/)
 {
-    return BOOK_MINOR_MAGIC;
+    return BOOK_FIREBALL;
     //this gets overwritten later, but needs to be a sane value
     //or asserts will get set off
 }

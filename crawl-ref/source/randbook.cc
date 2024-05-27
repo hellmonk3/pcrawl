@@ -900,12 +900,7 @@ static int _randbook_spell_weight(spell_type spell, int agent)
         return 1;
 
     // prefer unseen spells
-    const int seen_weight = you.spell_library[spell] ? 1 : 4;
-
-    // prefer spells roughly approximating the player's overall spellcasting
-    // ability (?????)
-    const int Spc = div_rand_round(you.skill(SK_SPELLCASTING, 256, true), 256);
-    const int difficult_weight = 5 - abs(3 * spell_difficulty(spell) - Spc) / 7;
+    const int seen_weight = you.spell_library[spell] ? 1 : 6;
 
     // prefer spells in disciplines the player is skilled with
     const spschools_type disciplines = get_spell_disciplines(spell);
@@ -916,16 +911,16 @@ static int _randbook_spell_weight(spell_type spell, int agent)
         if (disciplines & disc)
         {
             const skill_type sk = spell_type2skill(disc);
-            total_skill += div_rand_round(you.skill(sk, 256, true), 256);
+            total_skill += you.skill(sk);
             num_skills++;
         }
     }
     int skill_weight = 1;
     if (num_skills > 0)
-        skill_weight = (2 + (total_skill / num_skills)) / 3;
+        skill_weight = num_skills + div_rand_round(div_rand_round(total_skill, num_skills), 2);
     skill_weight = max(1, skill_weight);
 
-    const int weight = seen_weight * skill_weight * difficult_weight;
+    const int weight = seen_weight * skill_weight;
     ASSERT(weight > 0);
     return weight;
     /// XXX: I'm not sure how much impact all this actually has.
@@ -1044,8 +1039,8 @@ void acquire_themed_randbook(item_def &book, int agent)
     weighted_spells possible_spells;
     _get_weighted_randbook_spells(possible_spells, agent);
 
-    // include 2-8 spells in the book, leaning heavily toward 5
-    const int size = min(2 + random2avg(7, 3),
+    // include 2-5 spells in the book
+    const int size = min(2 + random2avg(4, 2),
                          (int)possible_spells.size());
     ASSERT(size);
 
@@ -1062,7 +1057,7 @@ void acquire_themed_randbook(item_def &book, int agent)
     fixup_randbook_disciplines(discipline_1, discipline_2, spells);
 
     // Acquired randart books have a chance of being named after the player.
-    const string owner = agent == AQ_SCROLL && one_chance_in(12) ?
+    const string owner = agent == AQ_SCROLL && one_chance_in(150) ?
         you.your_name :
         "";
 

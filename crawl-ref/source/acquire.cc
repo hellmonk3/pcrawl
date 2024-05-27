@@ -523,10 +523,7 @@ static bool _do_book_acquirement(item_def &book, int agent)
     // items() shouldn't make book a randart for acquirement items.
     ASSERT(!is_random_artefact(book));
 
-    const int choice = random_choose_weighted(
-                                    30, BOOK_RANDART_THEME,
-       agent == GOD_SIF_MUNA ? 10 : 40, NUM_BOOKS, // normal books
-                                     1, BOOK_RANDART_LEVEL);
+    const int choice = BOOK_RANDART_THEME;
 
     switch (choice)
     {
@@ -624,7 +621,7 @@ static void _adjust_brand(item_def &item, bool divine, int agent)
 }
 
 static void _force_cold_brand(item_def &item)
-{
+{ 
     if (is_artefact(item))
         return;
 
@@ -640,6 +637,22 @@ static void _force_cold_brand(item_def &item)
     }
     else if (item.base_type == OBJ_WEAPONS)
         item.brand = SPWPN_FREEZING;
+}
+
+static void _force_necro_brand(item_def &item)
+{
+    if (is_artefact(item))
+        return;
+    
+    if (item.base_type == OBJ_WEAPONS)
+    {
+        bool ranged = is_range_weapon(item);
+        
+        item.brand = random_choose_weighted(ranged ? 0 : 3, SPWPN_VAMPIRISM,
+                                                         3, SPWPN_REAPING,
+                                                         3, SPWPN_PAIN,
+                                            ranged ? 0 : 1, SPWPN_SPELLVAMP);
+    }
 }
 
 /**
@@ -1181,6 +1194,29 @@ void make_acquirement_items()
         acq_items.push_back(upgrade_item);
 }
 
+static item_def _branch_theme_item(branch_type branch)
+{
+    item_def item;
+    
+    int armweight = (branch == BRANCH_CRYPT ||you.has_mutation(MUT_NO_ARMOUR)) ? 
+                        0 : 1;
+    int weapweight = you.has_mutation(MUT_NO_GRASPING) ? 0 : 1;
+    
+    object_class_type type = random_choose_weighted(armweight, OBJ_ARMOUR,
+                                                    weapweight, OBJ_WEAPONS,
+                                                    1, OBJ_BOOKS);
+    
+    item = _acquirement_item_def(type);
+    if (branch == BRANCH_SWAMP)
+    {
+        if (type == OBJ_WEAPONS || type == OBJ_ARMOUR)
+            _force_cold_brand(item);
+    }
+    else if (branch == BRANCH_CRYPT && type == OBJ_WEAPONS)
+        _force_necro_brand(item);
+    
+    return item;
+}
 
 item_def branch_specific_item()
 {
@@ -1203,19 +1239,12 @@ item_def branch_specific_item()
         break;
     }
     case BRANCH_CRYPT: // necromancy theme items
+    case BRANCH_SWAMP: // cold theme
+        item = _branch_theme_item(branch);
         break;
     case BRANCH_ELF: // books
         item = _acquirement_item_def(OBJ_BOOKS);
         break;
-    case BRANCH_SWAMP: // cold theme
-    {
-        if (type)
-        {
-            item = _acquirement_item_def(type);
-            _force_cold_brand(item);
-        }
-        break;
-    }
     case BRANCH_SPIDER: // upgrades
         item = item_based_on_equip();
         break;

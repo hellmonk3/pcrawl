@@ -255,6 +255,25 @@ bool fill_status_info(int status, status_info& inf)
         _describe_glow(inf);
         break;
 
+    case STATUS_FORCE_QUAKE:
+    {
+        switch (you.attribute[ATTR_FORCE_QUAKE])
+        {
+        case 1:
+        case 2:
+            inf.light_text = "Quake";
+            inf.light_colour = WHITE;
+            break;
+        case 3:
+            inf.light_text = "Quake+";
+            inf.light_colour = WHITE;
+            break;
+        default:
+            break;
+        }
+        break;
+    }
+
     case STATUS_BACKLIT:
         if (you.backlit())
         {
@@ -400,12 +419,9 @@ bool fill_status_info(int status, status_info& inf)
             const monster * const cstr = monster_by_mid(you.constricted_by);
             ASSERT(cstr);
 
-            const bool damage =
-                cstr->constriction_does_damage(you.get_constrict_type());
-
             inf.light_colour = YELLOW;
-            inf.light_text   = damage ? "Constr"      : "Held";
-            inf.short_text   = damage ? "constricted" : "held";
+            inf.light_text   = "Constr";
+            inf.short_text   = "constricted";
         }
         break;
 
@@ -455,10 +471,10 @@ bool fill_status_info(int status, status_info& inf)
         }
         break;
 
-    case DUR_WEREBLOOD:
+    case DUR_SONG_OF_SLAYING:
         inf.light_text
             = make_stringf("Slay (%u)",
-                           you.props[WEREBLOOD_KEY].get_int());
+                           you.props[SONG_OF_SLAYING_KEY].get_int());
         break;
 
     case STATUS_BEOGH:

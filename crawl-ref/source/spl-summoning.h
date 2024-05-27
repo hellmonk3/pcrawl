@@ -16,7 +16,7 @@ spret cast_summon_small_mammal(int pow, god_type god, bool fail);
 
 spret cast_call_canine_familiar(int pow, god_type god, bool fail);
 spret cast_summon_armour_spirit(int pow, god_type god, bool fail);
-spret cast_summon_ice_beast(int pow, god_type god, bool fail);
+spret cast_summon_ice_statue(int pow, god_type god, bool fail);
 spret cast_summon_cactus(int pow, god_type god, bool fail);
 spret cast_monstrous_menagerie(actor* caster, int pow, god_type god,
                                  bool fail = false);
@@ -60,12 +60,12 @@ void do_dragon_call(int time);
 void doom_howl(int time);
 
 spell_type player_servitor_spell();
-bool spell_servitorable(spell_type spell);
 void init_servitor(monster* servitor, actor* caster, int pow);
 spret cast_spellforged_servitor(int pow, god_type god, bool fail);
 
 monster_type pick_random_wraith();
 spret cast_haunt(int pow, const coord_def& where, god_type god, bool fail);
+spret cast_ghostly_legion(int pow, bool fail, bool tracer = false);
 
 monster* find_battlesphere(const actor* agent);
 spret cast_battlesphere(actor* agent, int pow, god_type god, bool fail);
@@ -86,7 +86,7 @@ monster* find_spectral_weapon(const actor* agent);
 void end_spectral_weapon(monster* mons, bool killed, bool quiet = false);
 void check_spectral_weapon(actor &agent);
 
-spret cast_infestation(int pow, bolt &beam, bool fail);
+spret cast_infestation(int pow, bool fail);
 
 void summoned_monster(const monster* mons, const actor* caster,
                       spell_type spell);
@@ -113,3 +113,5 @@ spret summon_spiders(actor &agent, int pow, god_type god, bool fail = false);
 spret summon_butterflies(int pow = 0);
 
 spret cast_broms_barrelling_boulder(actor& agent, coord_def pos, int pow, bool fail);
+spret cast_summon_elemental(bool fail);
+spret cast_eldritch_ichor(int pow, bool fail);

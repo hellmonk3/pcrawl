@@ -731,6 +731,10 @@ static spret _rampage_forward(coord_def move)
     if (you_are_delayed() && current_delay()->is_run())
         env.travel_trail.push_back(you.pos());
 
+    // Handle flame lance here in case our next move would be an attack.
+    if (you.duration[DUR_FLAME_LANCE])
+        handle_flame_lance_movement(move);
+
     return spret::success;
 }
 
@@ -1097,6 +1101,12 @@ void move_player_action(coord_def move)
             // stun the player if they are wearing ponderous items
             if (you.wearing_ego(EQ_ALL_ARMOUR, SPARM_PONDEROUSNESS))
                 you.stun(&you);
+
+            if (you.duration[DUR_FLAME_LANCE])
+            {
+                mpr("a bolt of fire bursts forth.");
+                handle_flame_lance_movement(move);
+            }
         }
 
         // Now it is safe to apply the swappee's location effects and add

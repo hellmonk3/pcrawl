@@ -60,6 +60,7 @@
 #include "ouch.h"
 #include "religion.h"
 #include "spl-clouds.h" // explode_blastmotes_at
+#include "spl-damage.h"
 #include "spl-monench.h"
 #include "spl-other.h"
 #include "spl-summoning.h"
@@ -748,10 +749,6 @@ void monster::bind_melee_flags()
 
 static bool _needs_ranged_attack(const monster* mon)
 {
-    // Prevent monsters that have conjurations from grabbing missiles.
-    if (mon->has_spell_of_type(spschool::conjuration))
-        return false;
-
     // Same for summonings, but make an exception for friendlies.
     if (!mon->friendly() && mon->has_spell_of_type(spschool::summoning))
         return false;
@@ -1923,12 +1920,12 @@ int monster::constriction_damage(constrict_type typ) const
         {
             const mon_attack_def attack = mons_attack_spec(*this, i);
             if (attack.type == AT_CONSTRICT)
-                return attack.damage;
+                return random_range(attack.damage, attack.damage * 2);
         }
         return -1;
     case CONSTRICT_ROOTS:
-        return roll_dice(2, div_rand_round(40 +
-                    mons_spellpower(*this, SPELL_GRASPING_ROOTS), 20));
+        return roll_dice(2, div_rand_round(6 +
+                    mons_spellpower(*this, SPELL_GRASPING_ROOTS), 4));
     default:
         return 0;
     }
@@ -2313,6 +2310,9 @@ int monster::evasion(bool ignore_helpless, const actor* /*act*/) const
 
     if (has_ench(ENCH_AGILE))
         ev += AGILITY_BONUS;
+
+    if (has_ench(ENCH_PHASE_SHIFT))
+        ev += 35;
 
     if (ignore_helpless)
         return max(ev, 0);
@@ -2723,15 +2723,11 @@ bool monster::res_sticky_flame() const
 
 bool monster::res_miasma(bool /*temp*/) const
 {
-    if ((holiness() & (MH_HOLY | MH_DEMONIC | MH_UNDEAD | MH_NONLIVING))
+    if ((holiness() & (MH_HOLY | MH_UNDEAD | MH_NONLIVING))
         || get_mons_resist(*this, MR_RES_MIASMA))
     {
         return true;
     }
-
-    const item_def *armour = mslot_item(MSLOT_ARMOUR);
-    if (armour && is_unrandom_artefact(*armour, UNRAND_EMBRACE))
-        return true;
 
     return false;
 }
@@ -2760,10 +2756,7 @@ int monster::res_negative_energy(bool intrinsic_only) const
     if (!(holiness() & (MH_NATURAL | MH_PLANT)))
         return 3;
 
-    int u = get_mons_resist(*this, MR_RES_NEG);
-
-    if (u > 3)
-        u = 3;
+    int u = 0;
 
     return intrinsic_only ? u : u;
 }
@@ -2784,17 +2777,9 @@ bool monster::res_petrify(bool /*temp*/) const
     return is_insubstantial() || get_mons_resist(*this, MR_RES_PETRIFY) > 0;
 }
 
-int monster::res_constrict() const
+bool monster::res_constrict() const
 {
-    // 3 is immunity, 1 or 2 reduces damage
-    if (is_insubstantial())
-        return 3;
-    if (mons_genus(type) == MONS_JELLY)
-        return 3;
-    if (is_spiny())
-        return 3;
-
-    return 0;
+    return is_insubstantial() || is_spiny() || mons_genus(type) == MONS_JELLY;
 }
 
 bool monster::res_corr(bool /*allow_random*/, bool temp) const
@@ -2829,44 +2814,10 @@ int monster::willpower() const
     if (props.exists(KIKU_WRETCH_KEY))
         return 0;
 
-    const item_def *arm = mslot_item(MSLOT_ARMOUR);
-    if (arm && is_unrandom_artefact(*arm, UNRAND_FOLLY))
-        return 0;
-
-    const int type_wl = (get_monster_data(type))->willpower;
-    // Negative values get multiplied with monster hit dice.
-    int u = type_wl < 0 ?
-                get_hit_dice() * -type_wl * 4 / 3 :
-                mons_class_willpower(type, base_monster);
-
-    // Hepliaklqana ancestors scale with xl.
-    if (mons_is_hepliaklqana_ancestor(type))
-        u = get_experience_level() * get_experience_level() / 2; // 0-160ish
-
-    // Draining/malmutation reduce monster base WL proportionately.
-    const int HD = get_hit_dice();
-    if (HD < get_experience_level())
-        u = u * HD / get_experience_level();
-
-    // Resistance from artefact properties.
-    u += WL_PIP * scan_artefacts(ARTP_WILLPOWER);
-
-    // Ego equipment resistance.
-    const int armour    = inv[MSLOT_ARMOUR];
-    const int shld      = inv[MSLOT_SHIELD];
-    const int jewellery = inv[MSLOT_JEWELLERY];
-
-    if (armour != NON_ITEM && env.item[armour].base_type == OBJ_ARMOUR)
-        u += get_armour_willpower(env.item[armour], false);
-
-    if (shld != NON_ITEM && env.item[shld].base_type == OBJ_ARMOUR)
-        u += get_armour_willpower(env.item[shld], false);
-
-    if (jewellery != NON_ITEM && env.item[jewellery].base_type == OBJ_JEWELLERY)
-        u += get_jewellery_willpower(env.item[jewellery], false);
+    int u = get_hit_dice();
 
     if (has_ench(ENCH_STRONG_WILLED)) //trog's hand
-        u += 80;
+        u += 2;
 
     if (has_ench(ENCH_LOWERED_WL))
         u /= 2;
@@ -3139,6 +3090,12 @@ int monster::hurt(const actor *agent, int amount, beam_type flavour,
                     amount -= split;
                 }
             }
+        }
+
+        if (type == MONS_LIGHTNING_SPIRE && flavour == BEAM_ELECTRICITY
+            && agent->as_monster()->type != MONS_LIGHTNING_SPIRE)
+        {
+            cast_discharge(3 + get_hit_dice(), *this);
         }
 
         if (amount == INSTANT_DEATH)
@@ -4538,16 +4495,17 @@ void monster::react_to_damage(const actor *oppressor, int damage,
     if (!alive())
         return;
 
-    const int corrode = corrosion_chance(scan_artefacts(ARTP_CORRODE));
-    if (res_acid() < 3 && x_chance_in_y(corrode, 100))
+    if (oppressor == &you && you.duration[DUR_ICHOR]
+        && !mons_is_firewood(*this)
+        && !wont_attack()
+        && x_chance_in_y(20 + calc_spell_power(SPELL_ELDRITCH_ICHOR), 40))
     {
-        corrode_equipment(make_stringf("%s corrosive artefact",
-                                       name(DESC_ITS).c_str()).c_str());
+        mgen_data mg(MONS_TENTACLED_MONSTROSITY, BEH_FRIENDLY,
+                        pos(), this->mindex(), MG_NONE);
+        mg.set_summoned(&you, 1, SPELL_ELDRITCH_ICHOR);
+        if (create_monster(mg))
+            mpr("A tentacled monstrosity appears!");
     }
-
-    const int slow = scan_artefacts(ARTP_SLOW);
-    if (x_chance_in_y(slow, 100))
-        do_slow_monster(*this, oppressor, (10 + random2(5)) * BASELINE_DELAY);
 
     if (mons_species() == MONS_BUSH
         && res_fire() < 0 && flavour == BEAM_FIRE
@@ -4748,26 +4706,25 @@ bool monster::nightvision() const
            || umbra_radius() >= 0;
 }
 
-bool monster::attempt_escape(int attempts)
+bool monster::attempt_escape()
 {
-    int attfactor;
-    int randfact;
-
     if (!is_constricted())
         return true;
 
-    escape_attempts += attempts;
-    attfactor = 3 * escape_attempts;
+    escape_attempts += 1;
+
+    const auto constr_typ = get_constrict_type();
+    int escape_pow = 5 + get_hit_dice() + (escape_attempts * escape_attempts * 5);
+    int hold_pow;
 
     if (constricted_by == MID_PLAYER)
     {
-        if (has_ench(ENCH_VILE_CLUTCH))
-        {
-            randfact = roll_dice(1, 10 + div_rand_round(
-                           you.props[VILE_CLUTCH_POWER_KEY].get_int(), 5));
-        }
+        if (constr_typ == CONSTRICT_BVC)
+            hold_pow = 80 + you.props[VILE_CLUTCH_POWER_KEY].get_int() * 2;
+        else if (constr_typ == CONSTRICT_ROOTS)
+            hold_pow = 80 + you.props[FASTROOT_POWER_KEY].get_int() * 2;
         else
-            randfact = roll_dice(1, 3 + you.experience_level);
+            hold_pow = 80;
     }
     else
     {
@@ -4775,11 +4732,10 @@ bool monster::attempt_escape(int attempts)
         ASSERT(themonst);
 
         // Monsters use the same escape formula for all forms of constriction.
-        randfact = 5 + roll_dice(1, 5)
-            + roll_dice(1, themonst->get_hit_dice());
+        hold_pow = 40 + themonst->get_hit_dice() * 4;
     }
 
-    if (attfactor > randfact)
+    if (x_chance_in_y(escape_pow, hold_pow))
     {
         stop_being_constricted(true);
         return true;

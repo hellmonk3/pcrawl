@@ -116,6 +116,16 @@ private:
     bool (*affects_pos)(const coord_def &);
 };
 
+class targeter_permafrost : public targeter_smite
+{
+public:
+    targeter_permafrost(const actor &act, int power);
+    aff_type is_affected(coord_def loc) override;
+private:
+    set<coord_def> targets;
+    bool single_target;
+};
+
 class targeter_walljump : public targeter_smite
 {
 public:
@@ -149,6 +159,14 @@ class targeter_unravelling : public targeter_smite
 {
 public:
     targeter_unravelling();
+    bool valid_aim(coord_def a) override;
+    bool set_aim(coord_def a) override;
+};
+
+class targeter_dismissal : public targeter_smite
+{
+public:
+    targeter_dismissal();
     bool valid_aim(coord_def a) override;
     bool set_aim(coord_def a) override;
 };
@@ -277,6 +295,13 @@ class targeter_siphon_essence : public targeter_radius
 {
 public:
     targeter_siphon_essence();
+    aff_type is_affected(coord_def loc) override;
+};
+
+class targeter_frigid_halo : public targeter_radius
+{
+public:
+    targeter_frigid_halo();
     aff_type is_affected(coord_def loc) override;
 };
 
@@ -469,6 +494,12 @@ public:
     targeter_maxwells_coupling();
 };
 
+class targeter_blood_explosion : public targeter_multiposition
+{
+public:
+    targeter_blood_explosion();
+};
+
 class targeter_multifireball : public targeter_multiposition
 {
 public:
@@ -516,6 +547,12 @@ class targeter_ignite_poison : public targeter_multiposition
 {
 public:
     targeter_ignite_poison(actor *a);
+};
+
+class targeter_rot : public targeter_multiposition
+{
+public:
+    targeter_rot(actor *a);
 };
 
 class targeter_multimonster : public targeter
@@ -586,4 +623,15 @@ public:
     bool valid_aim(coord_def a) override;
     bool set_aim(coord_def a) override;
     aff_type is_affected(coord_def loc) override;
+};
+
+class targeter_petrify : public targeter_beam
+{
+public:
+    targeter_petrify(const actor *act, int r);
+    bool set_aim(coord_def a) override;
+    aff_type is_affected(coord_def loc) override;
+
+private:
+    vector<coord_def> chain_targ;
 };

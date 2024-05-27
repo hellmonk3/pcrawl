@@ -203,7 +203,7 @@ function ice_cave_undead_demon_monster_set(e, reaper_glyphs)
             reaper_glyphs = "8"
         end
 
-        e.kmons("1 = " .. simul["mocking"] .. "/ white imp / ufetubus")
+        e.kmons("1 = " .. simul["mocking"] .. "/ white imp / brain imp")
         e.kmons("2 = " .. simul["animal"])
         e.kmons("3 = ice statue")
         e.kmons("4 = ice devil")
@@ -214,7 +214,7 @@ function ice_cave_undead_demon_monster_set(e, reaper_glyphs)
 
         e.set_random_mon_list(
             -- 120 * 6 = 720 total weight for tier 1.
-            dgn.random_entry_arg(simul["mocking"] .. " / white imp / ufetubus",
+            dgn.random_entry_arg(simul["mocking"] .. " / white imp / brain imp",
                 "w:120") ..
             -- 48 * 5 = 240 total weight for tier 2.
             " / " .. dgn.random_entry_arg(simul["animal"], "w:48") ..
@@ -372,7 +372,7 @@ function ice_cave_magic_loot(e, glyphs)
     if dgn.persist.ice_cave_hard then
         quality = " good_item"
     end
-    e.kitem(glyphs .. " = book of ice / book of the tundra" ..
+    e.kitem(glyphs .. " = nothing / nothing" ..
         " / ozocubu's autobiography / randbook disc:ice" ..
         " / manual of ice magic / staff of cold / ring of ice" .. quality ..
         " / ring of protection from cold" .. quality ..
@@ -411,7 +411,7 @@ function ice_cave_necro_loot(e, glyphs)
         glyphs = "j"
     end
 
-    e.kitem(glyphs .. " = book of unlife / randbook disc:ice" ..
+    e.kitem(glyphs .. " = nothing / randbook disc:ice" ..
             "    disc2:necromancy numspells:6" ..
             "/ manual of necromancy w:5 / staff of death")
 end

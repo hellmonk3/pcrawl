@@ -832,12 +832,13 @@ int player::constriction_damage(constrict_type typ) const
     switch (typ)
     {
     case CONSTRICT_BVC:
-        return roll_dice(2, div_rand_round(40 +
-                   you.props[VILE_CLUTCH_POWER_KEY].get_int(), 25));
+        return roll_dice(2, div_rand_round(8 +
+                   you.props[VILE_CLUTCH_POWER_KEY].get_int(), 2));
     case CONSTRICT_ROOTS:
-        return roll_dice(1, you.props[FASTROOT_POWER_KEY].get_int());
+        return roll_dice(2, div_rand_round(8 +
+                   you.props[FASTROOT_POWER_KEY].get_int(), 2));
     default:
-        return roll_dice(2, div_rand_round(strength(), 5));
+        return roll_dice(2, 4);
     }
 
 }

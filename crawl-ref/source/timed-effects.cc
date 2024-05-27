@@ -624,6 +624,7 @@ void monster::timeout_enchantments(int levels)
         case ENCH_MERFOLK_AVATAR_SONG:
         case ENCH_INFESTATION:
         case ENCH_HELD:
+        case ENCH_BULLSEYE_TARGET:
             del_ench(entry.first);
             break;
 
@@ -762,7 +763,7 @@ monster* update_monster(monster& mon, int turns)
     return &mon;
 }
 
-static void _drop_tomb(const coord_def& pos, bool premature, bool zin)
+static void _drop_tomb(const coord_def& pos, bool zin)
 {
     int count = 0;
     monster* mon = monster_at(pos);
@@ -805,7 +806,7 @@ static void _drop_tomb(const coord_def& pos, bool premature, bool zin)
     if (count)
     {
         if (seen_change && !zin)
-            mprf("The walls disappear%s!", premature ? " prematurely" : "");
+            mprf("The walls disappear!");
         else if (seen_change && zin)
         {
             mprf("Zin %s %s %s.",
@@ -896,14 +897,8 @@ void timeout_malign_gateways(int duration)
                 {
                     tentacle->flags |= MF_NO_REWARD;
                     tentacle->add_ench(ENCH_PORTAL_TIMER);
-                    int dur = random2avg(mmark->power, 6);
-                    dur -= random2(4); // sequence point between random calls
-                    dur *= 10;
-                    mon_enchant kduration = mon_enchant(ENCH_PORTAL_PACIFIED, 4,
-                        caster, dur);
                     tentacle->props[BASE_POSITION_KEY].get_coord()
                                         = tentacle->pos();
-                    tentacle->add_ench(kduration);
 
                     mmark->monster_summoned = true;
                 }
@@ -926,24 +921,11 @@ void timeout_tombs(int duration)
         cmark->duration -= duration;
 
         // Empty tombs disappear early.
-        monster* mon_entombed = monster_at(cmark->pos);
-        bool empty_tomb = !(mon_entombed || you.pos() == cmark->pos);
         bool zin = (cmark->source == -GOD_ZIN);
 
-        if (cmark->duration <= 0 || empty_tomb)
+        if (cmark->duration <= 0)
         {
-            _drop_tomb(cmark->pos, empty_tomb, zin);
-
-            monster* mon_src =
-                !invalid_monster_index(cmark->source) ? &env.mons[cmark->source]
-                                                      : nullptr;
-            // A monster's Tomb of Doroklohe spell.
-            if (mon_src
-                && mon_src == mon_entombed)
-            {
-                mon_src->lose_energy(EUT_SPELL);
-            }
-
+            _drop_tomb(cmark->pos, zin);
             env.markers.remove(cmark);
         }
     }

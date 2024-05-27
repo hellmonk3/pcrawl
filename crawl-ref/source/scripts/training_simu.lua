@@ -38,7 +38,7 @@ elseif (job == "FE") then
                Traps             = { 10, 1,  8 },
 
                Spellcasting      = {  2, 1, 27 },
-               Conjurations      = {  1, 1, 27 },
+               Enchantments      = {  1, 1, 27 },
                ["Fire Magic"]    = {  1, 1, 27 },
                ["Air Magic"]     = {  1, 13, 6 },
                Evocations        = {  5, 5,  5 },

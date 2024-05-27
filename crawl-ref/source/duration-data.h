@@ -323,6 +323,13 @@ static const duration_def duration_data[] =
       "on death's door cooldown", "deaths door cooldown",
       "You are unable to enter death's door.", D_NO_FLAGS,
       {{ "You step away from death's doorway." }}},
+    { DUR_PHASE_SHIFT,
+      0, "",
+      "phasing", "phase shift",
+      "You are out of phase with the material plane.", D_DISPELLABLE | D_EXPIRES,
+        {{ "You are firmly grounded in the material plane once more.", []() {
+            you.redraw_evasion = true;
+        }}, { "You feel closer to the material plane.", 1 }}},
     { DUR_QUAD_DAMAGE,
       BLUE, "Quad",
       "quad damage", "",
@@ -385,12 +392,12 @@ static const duration_def duration_data[] =
       "marked", "sentinel's mark",
       "A sentinel's mark is revealing your location to enemies.", D_DISPELLABLE | D_EXPIRES,
       {{ "The sentinel's mark upon you fades away." }}},
-    { DUR_WEREBLOOD,
+    { DUR_SONG_OF_SLAYING,
       BLUE, "Slay",
-      "wereblooded", "wereblood",
-      "Your melee attacks are strengthened by your wereblood.", D_DISPELLABLE | D_EXPIRES,
-      {{ "Your primal bloodlust has ended." },
-        { "Your primal bloodlust is almost over." }}, 6},
+      "singing", "song of slaying",
+      "Your melee attacks are strengthened by your song.", D_DISPELLABLE | D_EXPIRES,
+      {{ "Your song has ended." },
+      { "Your song is almost over." }}, 6},
     { DUR_FLAYED,
       RED, "Flay",
       "flayed", "",
@@ -503,6 +510,14 @@ static const duration_def duration_data[] =
       RED, "Horr",
       "horrified", "horror",
       "You are horrified, weakening your attacks and spells.", D_NO_FLAGS},
+    { DUR_CONDENSATION_SHIELD,
+      0, "",
+      "icy shield", "",
+      "You are shielded by a disc of ice.", D_DISPELLABLE,
+      {{ "Your icy shield evaporates.", [](){
+         you.props.erase(CONDENSATION_SHIELD_KEY);
+         you.redraw_armour_class = true;
+      }}, { "Your icy shield starts to melt.", 1 }}},
     { DUR_DIVINE_SHIELD,
       0, "",
       "divinely shielded", "divine shield",
@@ -621,6 +636,18 @@ static const duration_def duration_data[] =
       LIGHTBLUE, "Shadows",
       "shadows", "lantern of shadows",
       "Your vision is reduced by the lantern.", D_NO_FLAGS},
+    { DUR_FLAME_LANCE, LIGHTBLUE, "Flame", "flame", "flame lance",
+      "You are imbued with flames that will fire when moving.", D_DISPELLABLE},
+    { DUR_DEFLECT_MISSILES, MAGENTA, "DMsl", "DMsl", "deflect missiles",
+      "You are deflecting missiles.", D_DISPELLABLE},
+    { DUR_INFESTATION, MAGENTA, "Infest", "infest", "infestation",
+      "Enemies you hit in melee will be infested with scarabs.", D_DISPELLABLE},
+    { DUR_ICHOR, MAGENTA, "Ichor", "ichor", "eldritch ichor",
+      "You are tainted with eldritch energies, screaming for release.", D_DISPELLABLE},
+    { DUR_PIERCING_SHOT, LIGHTBLUE, "Pierce", "piercing", "piercing shot",
+      "Your ranged attacks will penetrate multiple targets.", D_DISPELLABLE},
+    { DUR_NOVA, WHITE, "Nova", "nova", "arcane nova",
+      "You are preparing to release an arcane nova.", D_DISPELLABLE},
 
     // The following are visible in wizmode only, or are handled
     // specially in the status lights and/or the % or @ screens.
@@ -684,15 +711,15 @@ static const duration_def duration_data[] =
           if (!you.duration[DUR_BRAINLESS] && !player_in_branch(BRANCH_GEHENNA))
               mprf(MSGCH_RECOVERY, "You can read scrolls again.");
       }}}},
-    { DUR_REVELATION, 0, "", "", "revelation", "", D_NO_FLAGS, {{""}}},
+    { DUR_REVELATION, WHITE, "Scry", "scrying", "revelation", "", D_EXPIRES, {{""}}},
     { DUR_BINDING_SIGIL_WARNING, 0, "", "", "", "", D_EXPIRES, {{"", maybe_show_binding_sigil_duration_warning}}},
     { DUR_JINXBITE_LOST_INTEREST, 0, "", "", "", "", D_EXPIRES, {{"", _maybe_expire_jinxbite}}},
+    { DUR_CONSTRICTION_IMMUNITY, 0, "", "", "constrict immune", "", D_NO_FLAGS, {{""}}},
 
 #if TAG_MAJOR_VERSION == 34
     // And removed ones
     { DUR_MAGIC_SAPPED, 0, "", "", "old magic sapped", "", D_NO_FLAGS},
     { DUR_REPEL_MISSILES, 0, "", "", "old repel missiles", "", D_NO_FLAGS},
-    { DUR_DEFLECT_MISSILES, 0, "", "", "old deflect missiles", "", D_NO_FLAGS},
     { DUR_JELLY_PRAYER, 0, "", "", "old jelly prayer", "", D_NO_FLAGS},
     { DUR_CONTROLLED_FLIGHT, 0, "", "", "old controlled flight", "", D_NO_FLAGS},
     { DUR_SEE_INVISIBLE, 0, "", "", "old see invisible", "", D_NO_FLAGS},
@@ -712,8 +739,6 @@ static const duration_def duration_data[] =
     { DUR_SURE_BLADE, 0, "", "", "old sure blade", "", D_NO_FLAGS},
     { DUR_CONTROL_TELEPORT, 0, "", "", "old control teleport", "", D_NO_FLAGS},
     { DUR_DOOM_HOWL_IMMUNITY, 0, "", "", "old howl immunity", "", D_NO_FLAGS, {{""}}},
-    { DUR_CONDENSATION_SHIELD, 0, "", "", "old condensation shield", "", D_NO_FLAGS},
-    { DUR_PHASE_SHIFT, 0, "", "", "old phase shift", "", D_NO_FLAGS},
     { DUR_TELEPATHY, 0, "", "", "old telepathy", "", D_NO_FLAGS},
     { DUR_MAGIC_ARMOUR, 0, "", "", "old magic armour", "", D_NO_FLAGS},
     { DUR_MAGIC_SHIELD, 0, "", "", "old magic shield", "", D_NO_FLAGS},

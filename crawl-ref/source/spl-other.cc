@@ -38,32 +38,17 @@ spret cast_sublimation_of_blood(int pow, bool fail)
         else
             mpr("Your body is bloodless.");
     }
-    else if (!enough_hp(2, true))
-        mpr("Your attempt to draw power from your own body fails.");
+    else if (!enough_hp(10, true))
+        mpr("You have insufficient health to draw power from your own body.");
     else
     {
-        // Take at most 90% of currhp.
-        const int minhp = max(div_rand_round(you.hp, 10), 1);
-
-        while (you.magic_points < you.max_magic_points && you.hp > minhp)
-        {
-            fail_check();
-            success = true;
-
-            inc_mp(1);
-            dec_hp(1, false);
-
-            for (int i = 0; i < (you.hp > minhp ? 3 : 0); ++i)
-                if (x_chance_in_y(6, pow))
-                    dec_hp(1, false);
-
-            if (x_chance_in_y(6, pow))
-                break;
-        }
-        if (success)
-            mpr("You draw magical energy from your own body!");
-        else
-            mpr("Your attempt to draw power from your own body fails.");
+        fail_check();
+        success = true;
+        dec_hp(10, false);
+        //always restores at least 1 mp above its cost.
+        int mp = 3 + div_rand_round(pow, 5) + random2(1 + div_rand_round(pow, 3));
+        inc_mp(mp);
+        mpr("You draw magical energy from your own body!");
     }
 
     return success ? spret::success : spret::abort;
@@ -75,7 +60,7 @@ spret cast_death_channel(int pow, god_type god, bool fail)
     mpr("Malign forces permeate your being, awaiting release.");
 
     you.increase_duration(DUR_DEATH_CHANNEL,
-                          30 + random2(1 + div_rand_round(2 * pow, 3)), 200);
+                          30 + random2(1 + div_rand_round(4 * pow, 3)), 200);
 
     if (god != GOD_NO_GOD)
         you.attribute[ATTR_DIVINE_DEATH_CHANNEL] = static_cast<int>(god);
@@ -120,7 +105,7 @@ spret cast_animate_dead(int pow, bool fail)
     else
         mpr("You call upon the dead to rise.");
 
-    you.increase_duration(DUR_ANIMATE_DEAD, 20 + random2(1 + pow), 100);
+    you.increase_duration(DUR_ANIMATE_DEAD, 15 + random2(1 + 5 * pow), 100);
     you.props[ANIMATE_DEAD_POWER_KEY] = pow;
 
     return spret::success;
@@ -474,9 +459,9 @@ static int _intoxicate_monsters(coord_def where, int pow, bool tracer)
 {
     monster* mons = monster_at(where);
     if (mons == nullptr
-        || mons_intel(*mons) < I_HUMAN
-        || mons->clarity()
-        || mons->res_poison() >= 3)
+        || (mons->holiness() & MH_UNDEAD)
+        || (mons->holiness() & MH_NONLIVING)
+        || mons->clarity())
     {
         return 0;
     }
@@ -484,12 +469,10 @@ static int _intoxicate_monsters(coord_def where, int pow, bool tracer)
     if (tracer && !you.can_see(*mons))
         return 0;
 
-    if (!tracer && monster_resists_this_poison(*mons))
-        return 0;
-
-    if (!tracer && x_chance_in_y(40 + div_rand_round(pow, 3), 100))
+    if (!tracer && x_chance_in_y(40 + pow * 3, 100))
     {
-        mons->add_ench(mon_enchant(ENCH_CONFUSION, 0, &you));
+        int dur = (4 + random2(3 + pow)) * BASELINE_DELAY;
+        mons->add_ench(mon_enchant(ENCH_CONFUSION, 0, &you, dur));
         simple_monster_message(*mons, " looks rather confused.");
         return 1;
     }
@@ -516,11 +499,7 @@ spret cast_intoxicate(int pow, bool fail, bool tracer)
     }, you.pos());
 
     if (count > 0)
-    {
-        mprf(MSGCH_WARN, "The world spins around you!");
-        you.increase_duration(DUR_VERTIGO, 4 + count + random2(count + 1));
-        you.redraw_evasion = true;
-    }
+        mpr("The world spins around you!");
 
     return spret::success;
 }
@@ -664,4 +643,40 @@ void trigger_binding_sigil(actor& actor)
             revert_terrain_change(actor.pos(), TERRAIN_CHANGE_BINDING_SIGIL);
         }
     }
+}
+
+void remove_condensation_shield()
+{
+    mprf(MSGCH_DURATION, "Your icy shield evaporates.");
+    you.duration[DUR_CONDENSATION_SHIELD] = 0;
+    you.redraw_armour_class = true;
+}
+
+spret cast_condensation_shield(int pow, bool fail)
+{
+    fail_check();
+
+    if (you.duration[DUR_CONDENSATION_SHIELD] > 0)
+        mpr("The disc of vapour around you crackles some more.");
+    else
+        mpr("A crackling disc of dense vapour forms in the air!");
+
+    you.increase_duration(DUR_CONDENSATION_SHIELD, 10 + random2(3 * pow), 40);
+    you.props[CONDENSATION_SHIELD_KEY] = pow;
+    you.redraw_armour_class = true;
+
+    return spret::success;
+}
+
+spret cast_phase_shift(int pow, bool fail)
+{
+    fail_check();
+    if (!you.duration[DUR_PHASE_SHIFT])
+        mpr("You feel the strange sensation of being on two planes at once.");
+    else
+        mpr("You feel the material plane grow further away.");
+
+    you.increase_duration(DUR_PHASE_SHIFT, 10 + random2(1 + pow * 2), 50);
+    you.redraw_evasion = true;
+    return spret::success;
 }

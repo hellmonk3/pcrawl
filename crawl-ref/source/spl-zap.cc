@@ -39,6 +39,10 @@ static pair<spell_type, zap_type> _spl_zaps[] =
     { SPELL_VAMPIRIC_DRAINING, ZAP_VAMPIRIC_DRAINING },
     { SPELL_BLASTMOTE, ZAP_BLASTMOTE },
     { SPELL_KISS_OF_DEATH, ZAP_KISS_OF_DEATH },
+    { SPELL_PERMAFROST_ERUPTION, ZAP_PERMAFROST_ERUPTION_COLD },
+    { SPELL_BOLT_OF_INACCURACY, ZAP_INACCURACY },
+    { SPELL_RIMEBLIGHT, ZAP_RIMEBLIGHT },
+    { SPELL_FORCEFUL_DISMISSAL, ZAP_DISMISSAL },
     // Wizard mode only.
     { SPELL_PORKALATOR, ZAP_PORKALATOR },
     { SPELL_HURL_DAMNATION, ZAP_HURL_DAMNATION },
@@ -76,6 +80,8 @@ static pair<spell_type, zap_type> _spl_zaps[] =
     { SPELL_BOLT_OF_LIGHT, ZAP_BOLT_OF_LIGHT },
     { SPELL_FASTROOT, ZAP_FASTROOT },
     { SPELL_MOMENTUM_STRIKE, ZAP_MOMENTUM_STRIKE },
+    { SPELL_FLAME_LANCE, ZAP_BOLT_OF_FIRE },
+    { SPELL_MAGMA_JET, ZAP_BOLT_OF_MAGMA },
 
     // monster-specific
     { SPELL_SLUG_DART, ZAP_SLUG_DART },
@@ -203,11 +209,5 @@ int spell_zap_power_cap(spell_type spell)
 
     const int cap = zap_power_cap(zap);
 
-    switch (spell)
-    {
-    case SPELL_HIBERNATION:
-        return 50;
-    default:
-        return cap;
-    }
+    return cap;
 }

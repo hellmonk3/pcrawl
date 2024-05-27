@@ -317,7 +317,7 @@ tier1_gauntlet_arenas = {
   },
   {
     first  = {mons = "sixfirhy", min = 1, max = 1},
-    second = {mons = "ufetubus", min = 2, max = 4},
+    second = {mons = "brain imp", min = 2, max = 4},
     liquid = "water",
     plant  = "demonic",
   },

@@ -36,6 +36,7 @@ enum beam_type                  // bolt::flavour
     BEAM_UNRAVELLED_MAGIC,
     BEAM_LIGHT,
     BEAM_TOXIC,
+    BEAM_INACCURACY,
 
     // Enchantments
     BEAM_SLOW,
@@ -86,7 +87,9 @@ enum beam_type                  // bolt::flavour
     BEAM_CONCENTRATE_VENOM,
     BEAM_ENFEEBLE,
     BEAM_NECROTISE,
-    BEAM_LAST_ENCHANTMENT = BEAM_NECROTISE,
+    BEAM_RIMEBLIGHT,
+    BEAM_DISMISSAL,
+    BEAM_LAST_ENCHANTMENT = BEAM_DISMISSAL,
 
     BEAM_MEPHITIC,
     BEAM_AIR,

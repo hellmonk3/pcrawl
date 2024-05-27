@@ -1398,8 +1398,7 @@ bool vehumet_supports_spell(spell_type spell)
     // propelling it towards the victim. This is the most popular way, but
     // by no means it has a monopoly for being destructive.
     // Vehumet loves all direct physical destruction.
-    return spell_typematch(spell, spschool::conjuration)
-           || (get_spell_flags(spell) & spflag::destructive);
+    return false || (get_spell_flags(spell) & spflag::destructive);
 }
 
 void trog_do_trogs_hand(int pow)
@@ -1720,7 +1719,7 @@ void yred_make_bound_soul(monster* mon, bool force_hostile)
     mons_att_changed(mon);
 
     mon->stop_constricting_all();
-    mon->stop_being_constricted();
+    mon->stop_being_constricted(true);
 
     if (orig.halo_radius()
         || orig.umbra_radius()
@@ -2010,7 +2009,7 @@ static map<curse_type, curse_data> _ashenzari_curses =
     } },
     { CURSE_BEGUILING, {
         "Beguiling", "Bglg",
-        { SK_CONJURATIONS, SK_HEXES, SK_TRANSLOCATIONS },
+        { SK_ENCHANTMENTS, SK_HEXES, SK_TRANSLOCATIONS },
     } },
     { CURSE_SELF, {
         "Introspection", "Self",
@@ -2433,8 +2432,7 @@ spret dithmenos_shadow_step(bool fail)
 
     fail_check();
 
-    if (!you.attempt_escape(2))
-        return spret::success;
+    you.stop_being_constricted(false, "step");
 
     const coord_def old_pos = you.pos();
     // XXX: This only ever fails if something's on the landing site;
@@ -3760,7 +3758,7 @@ static int _piety_for_skill(skill_type skill)
     if (is_useless_skill(skill))
         return 0;
 
-    return skill_exp_needed(you.skills[skill], skill, you.species) / 500;
+    return skill_exp_needed(you.skills[skill]) / 500;
 }
 
 static int _piety_for_skill_by_sacrifice(ability_type sacrifice)
@@ -4655,7 +4653,7 @@ void ru_draw_out_power()
     stop_being_held();
 
     // Escape constriction
-    you.stop_being_constricted(false);
+    you.stop_being_constricted(false, "burst");
 
     // cancel petrification/confusion/slow
     you.duration[DUR_CONF] = 0;
@@ -4775,8 +4773,7 @@ bool ru_power_leap()
         }
     }
 
-    if (!you.attempt_escape(2)) // returns true if not constricted
-        return true;
+    you.stop_being_constricted(false, "leap");
 
     if (cell_is_solid(beam.target) || monster_at(beam.target))
     {
@@ -5087,8 +5084,8 @@ bool uskayaw_line_pass()
         mpr("Something unexpectedly blocked you, preventing you from passing!");
     else
     {
+        you.stop_being_constricted(false, "dance");
         line_pass.fire();
-        you.stop_being_constricted(false);
         move_player_to_grid(beam.target, false);
         apply_barbs_damage();
     }
@@ -5713,8 +5710,7 @@ spret wu_jian_wall_jump_ability()
         return spret::abort;
     }
 
-    if (!you.attempt_escape())
-        return spret::fail;
+    you.stop_being_constricted(false, "jump");
 
     // query for location:
     dist beam;
@@ -5841,7 +5837,7 @@ spret okawaru_duel(const coord_def& target, bool fail)
     behaviour_event(mons, ME_ALERT, &you);
     mons->props[OKAWARU_DUEL_TARGET_KEY] = true;
     mons->props[OKAWARU_DUEL_CURRENT_KEY] = true;
-    mons->stop_being_constricted();
+    mons->stop_being_constricted(true);
     mons->set_transit(level_id(BRANCH_ARENA));
     mons->destroy_inventory();
     if (mons_is_elven_twin(mons))

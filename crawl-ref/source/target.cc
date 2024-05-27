@@ -720,6 +720,28 @@ bool targeter_transference::valid_aim(coord_def a)
     return true;
 }
 
+targeter_permafrost::targeter_permafrost(const actor &act, int power) :
+    targeter_smite(&act)
+{
+    set<coord_def> possible_centres = permafrost_targets(act, power);
+    for (coord_def t : possible_centres)
+    {
+        targets.insert(t);
+        for (adjacent_iterator ai(t); ai; ++ai)
+            if (!cell_is_solid(*ai))
+                targets.insert(*ai);
+    }
+    single_target = possible_centres.size() <= 1;
+}
+
+aff_type targeter_permafrost::is_affected(coord_def loc)
+{
+    // TODO: consider displaying each centre differently from the AOEs.
+    if (targets.count(loc))
+        return single_target ? AFF_YES : AFF_MAYBE;
+    return AFF_NO;
+}
+
 targeter_inner_flame::targeter_inner_flame(const actor* act, int r) :
     targeter_smite(act, r, 0, 0, false, nullptr)
 {
@@ -804,6 +826,64 @@ bool targeter_unravelling::set_aim(coord_def a)
     {
         exp_range_min = 1;
         exp_range_max = 1;
+    }
+    else
+    {
+        exp_range_min = exp_range_max = 0;
+        return false;
+    }
+
+    bolt beam;
+    beam.target = a;
+    beam.use_target_as_pos = true;
+    exp_map_min.init(INT_MAX);
+    beam.determine_affected_cells(exp_map_min, coord_def(), 0,
+                                  exp_range_min, true, true);
+    exp_map_max = exp_map_min;
+
+    return true;
+}
+
+targeter_dismissal::targeter_dismissal()
+    : targeter_smite(&you, LOS_RADIUS, 2, 2, false, nullptr)
+{
+}
+
+static bool _dismissal_works_at(const coord_def c)
+{
+    const monster *mons = monster_at(c);
+    return mons && mons->is_summoned();
+}
+
+bool targeter_dismissal::valid_aim(coord_def a)
+{
+    if (!targeter_smite::valid_aim(a))
+        return false;
+
+    const monster* mons = monster_at(a);
+    if (mons && !_dismissal_works_at(a))
+    {
+        return notify_fail(mons->name(DESC_THE) + " is not a summoned creature.");
+    }
+
+    if (mons && _dismissal_works_at(a) && god_protects(&you, mons))
+    {
+        return notify_fail(mons->name(DESC_THE) + " is protected by " +
+                           god_name(you.religion) + ".");
+    }
+
+    return true;
+}
+
+bool targeter_dismissal::set_aim(coord_def a)
+{
+    if (!targeter::set_aim(a))
+        return false;
+
+    if (_dismissal_works_at(a))
+    {
+        exp_range_min = 2;
+        exp_range_max = 2;
     }
     else
     {
@@ -1256,6 +1336,23 @@ aff_type targeter_siphon_essence::is_affected(coord_def loc)
     if (!mons || !you.can_see(*mons))
         return AFF_MAYBE;
     if (!siphon_essence_affects(*mons))
+        return AFF_NO;
+    return AFF_YES;
+}
+
+targeter_frigid_halo::targeter_frigid_halo()
+    : targeter_radius(&you, LOS_NO_TRANS, 1, 0, 1)
+{ }
+
+aff_type targeter_frigid_halo::is_affected(coord_def loc)
+{
+    const aff_type base_aff = targeter_radius::is_affected(loc);
+    if (base_aff == AFF_NO)
+        return AFF_NO;
+    monster* mons = monster_at(loc);
+    if (!mons || mons->attitude == ATT_FRIENDLY)
+        return AFF_NO;
+    if (mons->res_cold() > 1)
         return AFF_NO;
     return AFF_YES;
 }
@@ -1975,6 +2072,13 @@ targeter_maxwells_coupling::targeter_maxwells_coupling()
         positive = AFF_YES;
 }
 
+targeter_blood_explosion::targeter_blood_explosion()
+    : targeter_multiposition(&you, find_blood_explosion_possibles())
+{
+    if (affected_positions.size() == 1)
+        positive = AFF_YES;
+}
+
 targeter_multifireball::targeter_multifireball(const actor *a, vector<coord_def> seeds)
     : targeter_multiposition(a, seeds)
 {
@@ -2065,6 +2169,14 @@ targeter_ignite_poison::targeter_ignite_poison(actor *a)
 {
     for (radius_iterator ri(a->pos(), LOS_SOLID_SEE); ri; ++ri)
         if (ignite_poison_affects_cell(*ri, a))
+            affected_positions.insert(*ri);
+}
+
+targeter_rot::targeter_rot(actor *a)
+    : targeter_multiposition(a, { })
+{
+    for (radius_iterator ri(a->pos(), LOS_SOLID_SEE); ri; ++ri)
+        if (rot_affects_cell(*ri, a))
             affected_positions.insert(*ri);
 }
 
@@ -2243,5 +2355,60 @@ aff_type targeter_boulder::is_affected(coord_def loc)
     for (auto pc : path_taken)
         if (pc == loc)
             return cell_is_solid(pc) ? AFF_NO : AFF_YES;
+    return AFF_NO;
+}
+
+targeter_petrify::targeter_petrify(const actor* caster, int r)
+    : targeter_beam(caster, r, ZAP_PETRIFY, 0, 0, 0)
+{
+}
+
+bool targeter_petrify::set_aim(coord_def a)
+{
+    if (!targeter::set_aim(a))
+        return false;
+
+    bolt tempbeam = beam;
+
+    tempbeam.target = a;
+    tempbeam.aimed_at_spot = false;
+    tempbeam.path_taken.clear();
+    tempbeam.fire();
+    path_taken = tempbeam.path_taken;
+
+    chain_targ.clear();
+
+    monster* targ = monster_at(path_taken[path_taken.size() - 1]);
+    if (targ && agent->can_see(*targ))
+    {
+        vector<actor*> chain_targ_mons;
+        fill_petrify_chain_targets(tempbeam, *targ, chain_targ_mons);
+
+        for (unsigned int i = 0; i < chain_targ_mons.size(); ++i)
+            chain_targ.push_back(chain_targ_mons[i]->pos());
+    }
+
+    return true;
+}
+
+aff_type targeter_petrify::is_affected(coord_def loc)
+{
+    for (auto pc : path_taken)
+    {
+        if (pc == loc)
+        {
+            if (cell_is_solid(pc))
+                return AFF_NO;
+
+            return AFF_YES;
+        }
+    }
+
+    for (unsigned int i = 0; i < chain_targ.size(); ++i)
+    {
+        if (chain_targ[i] == loc)
+            return AFF_YES;
+    }
+
     return AFF_NO;
 }

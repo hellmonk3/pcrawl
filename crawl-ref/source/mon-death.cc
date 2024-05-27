@@ -57,7 +57,9 @@
 #include "notes.h"
 #include "religion.h"
 #include "shout.h"
+#include "spl-cast.h"
 #include "spl-damage.h"
+#include "spl-monench.h"
 #include "spl-other.h"
 #include "spl-summoning.h"
 #include "sprint.h" // SPRINT_MULTIPLIER
@@ -1261,7 +1263,7 @@ static bool _animate_dead_reap(monster &mons)
     if (!you.duration[DUR_ANIMATE_DEAD])
         return false;
     const int pow = you.props[ANIMATE_DEAD_POWER_KEY].get_int();
-    if (!x_chance_in_y(150 + div_rand_round(pow, 2), 200))
+    if (!x_chance_in_y(150 + pow * 2, 200))
         return false;
 
     _make_derived_undead(&mons, false, MONS_ZOMBIE, BEH_FRIENDLY,
@@ -1630,9 +1632,9 @@ item_def* monster_die(monster& mons, killer_type killer,
     const bool was_banished  = (killer == KILL_BANISHED);
     const bool mons_reset    = (killer == KILL_RESET
                                 || killer == KILL_DISMISSED);
-    const bool leaves_corpse = !summoned && !fake_abjure && !timeout
-                               && !mons_reset
-                               && !mons_is_tentacle_segment(mons.type);
+    bool leaves_corpse = !summoned && !fake_abjure && !timeout
+                            && !mons_reset
+                            && !mons_is_tentacle_segment(mons.type);
     // Award experience for suicide if the suicide was caused by the
     // player.
     if (MON_KILL(killer) && monster_killed == killer_index)
@@ -1885,6 +1887,19 @@ item_def* monster_die(monster& mons, killer_type killer,
     {
         _druid_final_boon(&mons);
     }
+    else if (leaves_corpse && mons.has_ench(ENCH_RIMEBLIGHT)
+             && !silent && !was_banished && !wizard && !mons_reset && !mons_reset
+             && mons.props.exists(RIMEBLIGHT_DEATH_KEY))
+    {
+        leaves_corpse = false;
+        did_death_message = true;
+        if (you.see_cell(mons.pos()))
+        {
+            mprf(MSGCH_MONSTER_DAMAGE, MDAM_DEAD,
+                 "Tendrils of ice devour %s body!", mons.name(DESC_ITS).c_str());
+        }
+        rime_pillar_fineff::schedule(mons.pos(), random_range(3, 11) * BASELINE_DELAY);
+    }
 
     const bool death_message = !silent && !did_death_message
                                && you.can_see(mons);
@@ -1892,25 +1907,16 @@ item_def* monster_die(monster& mons, killer_type killer,
     bool anon = (killer_index == ANON_FRIENDLY_MONSTER);
     const mon_holy_type targ_holy = mons.holiness();
 
-    // Adjust song of slaying bonus & add heals if applicable. Kills by
+    // Adjust song of slaying bonus. Kills by
     // relevant avatars are adjusted by now to KILL_YOU and are counted.
-    if (you.duration[DUR_WEREBLOOD]
+    if (you.duration[DUR_SONG_OF_SLAYING]
         && (killer == KILL_YOU || killer == KILL_YOU_MISSILE)
         && gives_player_xp)
     {
-        const int wereblood_bonus = you.props[WEREBLOOD_KEY].get_int();
-        if (wereblood_bonus <= 8) // cap at +9 slay
-            you.props[WEREBLOOD_KEY] = wereblood_bonus + 1;
-        if (you.hp < you.hp_max
-            && !you.duration[DUR_DEATHS_DOOR]
-            && !mons_is_object(mons.type)
-            && adjacent(mons.pos(), you.pos()))
-        {
-            const int hp = you.hp;
-            you.heal(random_range(1, 3));
-            if (you.hp > hp)
-                mpr("You feel a bit better.");
-        }
+        const int cappow = calc_spell_power(SPELL_SONG_OF_SLAYING);
+        const int sos_bonus = you.props[SONG_OF_SLAYING_KEY].get_int();
+        if (sos_bonus <= 3 + cappow / 2)
+            you.props[SONG_OF_SLAYING_KEY] = sos_bonus + 1;
     }
 
     // Apply unrand effects.

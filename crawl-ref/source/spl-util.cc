@@ -463,6 +463,7 @@ bool spell_is_direct_attack(spell_type spell)
         if (spell == SPELL_VIOLENT_UNRAVELLING  // hex
             || spell == SPELL_FORCE_LANCE // transloc
             || spell == SPELL_GRAVITAS
+            || spell == SPELL_FORCEFUL_DISMISSAL
             || spell == SPELL_BLINKBOLT
             || spell == SPELL_BANISHMENT)
         {
@@ -502,7 +503,9 @@ bool spell_is_direct_attack(spell_type spell)
         || spell == SPELL_STARBURST
         || spell == SPELL_HAILSTORM
         || spell == SPELL_MANIFOLD_ASSAULT
-        || spell == SPELL_MAXWELLS_COUPLING) // n.b. not an area spell
+        || spell == SPELL_MAXWELLS_COUPLING
+        || spell == SPELL_BLOOD_EXPLOSION
+        || spell == SPELL_PERMAFROST_ERUPTION) // n.b. not an area spell
     {
         return true;
     }
@@ -516,12 +519,12 @@ bool spell_is_direct_attack(spell_type spell)
 int spell_mana(spell_type which_spell, bool real_spell)
 {
     const int level = _seekspell(which_spell)->level;
-    if (real_spell && (you.duration[DUR_BRILLIANCE]
+    if (real_spell && level && (you.duration[DUR_BRILLIANCE]
                        || player_equip_unrand(UNRAND_FOLLY)))
     {
-        return level/2 + level%2; // round up
+        return 1;
     }
-    return level;
+    return 2;
 }
 
 // applied in naughties (more difficult = higher level knowledge = worse)
@@ -842,8 +845,8 @@ const char* spelltype_short_name(spschool which_spelltype)
 {
     switch (which_spelltype)
     {
-    case spschool::conjuration:
-        return "Conj";
+    case spschool::enchantments:
+        return "Ench";
     case spschool::hexes:
         return "Hex";
     case spschool::fire:
@@ -875,8 +878,8 @@ const char* spelltype_long_name(spschool which_spelltype)
 {
     switch (which_spelltype)
     {
-    case spschool::conjuration:
-        return "Conjuration";
+    case spschool::enchantments:
+        return "Enchantment";
     case spschool::hexes:
         return "Hexes";
     case spschool::fire:
@@ -908,7 +911,7 @@ skill_type spell_type2skill(spschool spelltype)
 {
     switch (spelltype)
     {
-    case spschool::conjuration:    return SK_CONJURATIONS;
+    case spschool::enchantments:    return SK_ENCHANTMENTS;
     case spschool::hexes:          return SK_HEXES;
     case spschool::fire:           return SK_FIRE_MAGIC;
     case spschool::ice:            return SK_ICE_MAGIC;
@@ -931,7 +934,7 @@ spschool skill2spell_type(skill_type spell_skill)
 {
     switch (spell_skill)
     {
-    case SK_CONJURATIONS:    return spschool::conjuration;
+    case SK_ENCHANTMENTS:    return spschool::enchantments;
     case SK_HEXES:           return spschool::hexes;
     case SK_FIRE_MAGIC:      return spschool::fire;
     case SK_ICE_MAGIC:       return spschool::ice;
@@ -1079,6 +1082,7 @@ int spell_effect_noise(spell_type spell)
 
     case SPELL_LRD: // Can reach 3 only with crystal walls, which are rare
     case SPELL_FULMINANT_PRISM: // Players usually want the full size explosion
+    case SPELL_FORCEFUL_DISMISSAL:
         expl_size = 2;
         break;
 
@@ -1260,6 +1264,7 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
     switch (spell)
     {
     case SPELL_BLINK:
+    case SPELL_CONTROLLED_BLINK:
         // XXX: this is a little redundant with you_no_tele_reason()
         // but trying to sort out temp and so on is a mess
         if (you.stasis())
@@ -1286,6 +1291,11 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
             if (!you.is_motile())
                 return "you can't move.";
         }
+        break;
+
+    case SPELL_DEFLECT_MISSILES:
+        if (temp && you.duration[DUR_DEFLECT_MISSILES])
+            return "you're already deflecting missiles.";
         break;
 
     case SPELL_DIMENSIONAL_BULLSEYE:
@@ -1385,12 +1395,6 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
         break;
 
     case SPELL_ROT:
-        {
-            const mon_holy_type holiness = you.holiness(temp, false);
-            if (holiness != MH_NATURAL && holiness != MH_UNDEAD)
-                return "you have no flesh to rot.";
-        }
-        // fallthrough to cloud spells
     case SPELL_BLASTMOTE:
     case SPELL_POISONOUS_CLOUD:
     case SPELL_FREEZING_CLOUD:
@@ -1418,14 +1422,6 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
     case SPELL_FROZEN_RAMPARTS:
         if (temp && you.duration[DUR_FROZEN_RAMPARTS])
             return "you cannot sustain more frozen ramparts right now.";
-        break;
-
-    case SPELL_WEREBLOOD:
-        if (you.undead_state(temp) == US_UNDEAD
-            || you.is_lifeless_undead(temp))
-        {
-            return "you lack blood to transform.";
-        }
         break;
 
     case SPELL_NOXIOUS_BOG:
@@ -1475,6 +1471,11 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
     case SPELL_SIGIL_OF_BINDING:
         if (temp && cast_sigil_of_binding(0, false, true) == spret::abort)
             return "there is no room nearby to place a sigil.";
+        break;
+
+    case SPELL_ARCANE_NOVA:
+        if (temp && you.duration[DUR_NOVA])
+            return "you are already full of stellar energy.";
         break;
 
     default:
@@ -1599,8 +1600,17 @@ bool spell_no_hostile_in_range(spell_type spell)
     case SPELL_IGNITE_POISON:
         return cast_ignite_poison(&you, -1, false, true) == spret::abort;
 
+    case SPELL_ROT:
+        return cast_dreadful_rot(&you, -1, false, true) == spret::abort;
+
+    case SPELL_FRIGID_HALO:
+        return cast_freeze(-1, false, true) == spret::abort;
+
     case SPELL_STARBURST:
         return cast_starburst(-1, false, true) == spret::abort;
+
+    case SPELL_WINTERS_EMBRACE:
+        return cast_winters_embrace(-1, false, true) == spret::abort;
 
     case SPELL_HAILSTORM:
         return cast_hailstorm(-1, false, true) == spret::abort;
@@ -1608,14 +1618,26 @@ bool spell_no_hostile_in_range(spell_type spell)
     case SPELL_DAZZLING_FLASH:
         return cast_dazzling_flash(pow, false, true) == spret::abort;
 
-     case SPELL_MAXWELLS_COUPLING:
+    case SPELL_MAXWELLS_COUPLING:
          return cast_maxwells_coupling(pow, false, true) == spret::abort;
 
-     case SPELL_INTOXICATE:
+    case SPELL_BLOOD_EXPLOSION:
+         return cast_blood_explosion(pow, false, true) == spret::abort;
+
+    case SPELL_INTOXICATE:
          return cast_intoxicate(-1, false, true) == spret::abort;
+
+    case SPELL_SANDBLAST:
+        return cast_sandblast(-1, false, true) == spret::abort;
 
     case SPELL_MANIFOLD_ASSAULT:
          return cast_manifold_assault(-1, false, false) == spret::abort;
+
+    case SPELL_WARP_GRAVITY:
+        return warp_gravity(-1, false, true) == spret::abort;
+
+    case SPELL_GHOSTLY_LEGION:
+        return cast_ghostly_legion(-1, false, true) == spret::abort;
 
     case SPELL_OZOCUBUS_REFRIGERATION:
          return trace_los_attack_spell(SPELL_OZOCUBUS_REFRIGERATION, pow, &you)
@@ -1657,6 +1679,11 @@ bool spell_no_hostile_in_range(spell_type spell)
 
         }
         return true; // TODO
+
+    case SPELL_PERMAFROST_ERUPTION:
+        return permafrost_targets(you, pow).empty();
+
+
 
     default:
         break;
@@ -1868,18 +1895,14 @@ const set<spell_type> removed_spells =
 {
 #if TAG_MAJOR_VERSION == 34
     SPELL_AURA_OF_ABJURATION,
-    SPELL_BOLT_OF_INACCURACY,
     SPELL_CHANT_FIRE_STORM,
     SPELL_CIGOTUVIS_DEGENERATION,
     SPELL_CIGOTUVIS_EMBRACE,
-    SPELL_CONDENSATION_SHIELD,
-    SPELL_CONTROLLED_BLINK,
     SPELL_CONTROL_TELEPORT,
     SPELL_CONTROL_UNDEAD,
     SPELL_CONTROL_WINDS,
     SPELL_CORRUPT_BODY,
     SPELL_CURE_POISON,
-    SPELL_DEFLECT_MISSILES,
     SPELL_DELAYED_FIREBALL,
     SPELL_DEMONIC_HORDE,
     SPELL_DRACONIAN_BREATH,
@@ -1890,7 +1913,6 @@ const set<spell_type> removed_spells =
     SPELL_FIRE_BRAND,
     SPELL_FIRE_CLOUD,
     SPELL_FLY,
-    SPELL_FORCEFUL_DISMISSAL,
     SPELL_FREEZING_AURA,
     SPELL_FRENZY,
     SPELL_FULSOME_DISTILLATION,
@@ -1932,14 +1954,12 @@ const set<spell_type> removed_spells =
     SPELL_STONESKIN,
     SPELL_STRIKING,
     SPELL_SUMMON_BUTTERFLIES,
-    SPELL_SUMMON_ELEMENTAL,
     SPELL_SUMMON_RAKSHASA,
     SPELL_SUMMON_SWARM,
     SPELL_SUMMON_TWISTER,
     SPELL_SUNRAY,
     SPELL_SURE_BLADE,
     SPELL_THROW,
-    SPELL_TOMB_OF_DOROKLOHE,
     SPELL_VAMPIRE_SUMMON,
     SPELL_WARP_BRAND,
     SPELL_WEAVE_SHADOWS,

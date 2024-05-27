@@ -74,6 +74,7 @@ static const vector<monster_info_flag_name> monster_info_flag_names = {
     { MB_CLOUD_RING_MIASMA, "clouds", "surrounded by foul miasma", "clouds" },
     { MB_FIRE_CHAMPION, "flame-wreathed", "flame-wreathed", "flame-wreathed"},
     { MB_SILENCE_IMMUNE, "unsilenced", "unaffected by silence", "unsilenced" },
+    { MB_PHASE_SHIFT, "phase shift", "phase shifted", "phase shift"},
     // Vulnerabilities
     { MB_POSSESSABLE, "possessable", "possessable", "possessable"},
     { MB_CAUGHT, "caught", "entangled in a net", "caught"},
@@ -140,4 +141,5 @@ static const vector<monster_info_flag_name> monster_info_flag_names = {
     { MB_BOUND, "bound", "bound in place", "bound" },
     { MB_BULLSEYE_TARGET, "bullseye target", "targeted by your dimensional bullseye", "bullseye target" },
     { MB_STUNNED, "stunned", "stunned", "stunned"},
+    { MB_RIMEBLIGHT, "rimeblight", "afflicted by rimeblight", "rimeblight"},
 };

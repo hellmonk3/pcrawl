@@ -716,15 +716,15 @@ static void _fix_missing_constrictions()
             continue;
 
         if (!h->constricting)
-            h->constricting = new actor::constricting_t;
-        if (h->constricting->find(m->mid) == h->constricting->end())
+            h->constricting = new vector<mid_t>;
+        if (!h->is_constricting(*m))
         {
             dprf("Fixing missing constriction for %s (mindex=%d mid=%d)"
                  " of %s (mindex=%d mid=%d)",
                  h->name(DESC_PLAIN, true).c_str(), h->mindex(), h->mid,
                  m->name(DESC_PLAIN, true).c_str(), m->mindex(), m->mid);
 
-            (*h->constricting)[m->mid] = 0;
+            h->constricting->push_back(m->mid);
         }
     }
 }
@@ -735,10 +735,10 @@ static void _marshall_constriction(writer &th, const actor *who)
     marshallInt(th, who->constricted_by);
     marshallInt(th, who->escape_attempts);
 
-    // Assumes an empty map is marshalled as just the int 0.
-    const actor::constricting_t * const cmap = who->constricting;
-    if (cmap)
-        marshallMap(th, *cmap, _marshall_as_int<mid_t>, _marshall_as_int<int>);
+    // Assumes an empty vector is marshalled as just the int 0.
+    const vector<mid_t> * const cvec = who->constricting;
+    if (cvec)
+        _marshall_iterator(th, cvec->begin(), cvec->end(), marshallInt);
     else
         marshallInt(th, 0);
 }
@@ -752,13 +752,13 @@ static void _unmarshall_constriction(reader &th, actor *who)
     who->constricted_by = unmarshallInt(th);
     who->escape_attempts = unmarshallInt(th);
 
-    actor::constricting_t cmap;
-    unmarshallMap(th, cmap, unmarshall_int_as<mid_t>, unmarshallInt);
+    vector<mid_t> cvec;
+    unsigned int count = unmarshallInt(th);
+    for (unsigned int i = 0; i < count; ++i)
+        cvec.push_back(unmarshallInt(th));
 
-    if (cmap.size() == 0)
-        who->constricting = 0;
-    else
-        who->constricting = new actor::constricting_t(cmap);
+    if (!cvec.empty())
+        who->constricting = new vector<mid_t>(cvec);
 }
 
 template <typename marshall, typename grid>
@@ -5337,8 +5337,6 @@ void unmarshallItem(reader &th, item_def &item)
 
         // Moved under TAG_MINOR_NO_POT_FOOD because it was formerly
         // not restricted to a particular range of minor tags.
-        if (item.is_type(OBJ_BOOKS, BOOK_WAR_CHANTS))
-            item.sub_type = BOOK_BATTLE;
 
         if (item.base_type == OBJ_FOOD && (item.sub_type == FOOD_UNUSED
                                            || item.sub_type == FOOD_AMBROSIA))

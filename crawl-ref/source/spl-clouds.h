@@ -7,8 +7,6 @@ struct bolt;
 class dist;
 class actor;
 
-spret cast_dreadful_rot(int pow, bool fail);
-
 spret kindle_blastmotes(int pow, bool fail);
 void explode_blastmotes_at(coord_def p);
 
@@ -17,6 +15,8 @@ void big_cloud(cloud_type cl_type, const actor *agent, const coord_def& where,
 
 spret cast_big_c(int pow, spell_type spl, const actor *caster, bolt &beam,
                       bool fail);
+
+spret cast_steam_burst(int pow, bool fail);
 
 spret cast_ring_of_flames(int power, bool fail);
 void manage_fire_shield();

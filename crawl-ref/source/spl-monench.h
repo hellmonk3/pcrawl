@@ -1,5 +1,7 @@
 #pragma once
 
+#include "random.h"
+#include "constrict-type.h"
 #include "spl-cast.h"
 
 struct bolt;
@@ -8,6 +10,9 @@ class monster;
 
 #define VILE_CLUTCH_POWER_KEY "vile_clutch_power"
 #define FASTROOT_POWER_KEY "fastroot_power"
+#define RIMEBLIGHT_POWER_KEY "rimeblight_power"
+#define RIMEBLIGHT_TICKS_KEY "rimeblight_ticks"
+#define RIMEBLIGHT_DEATH_KEY "death_by_rimeblight"
 
 int englaciate(coord_def where, int pow, actor *agent);
 spret cast_englaciation(int pow, bool fail);
@@ -18,5 +23,12 @@ bool do_slow_monster(monster& mon, const actor *agent, int dur = 0);
 bool enfeeble_monster(monster &mon, int pow);
 string mons_simulacrum_immune_reason(const monster *mons);
 spret cast_simulacrum(coord_def target, int pow, bool fail);
-spret cast_vile_clutch(int pow, bolt &beam, bool fail);
-void grasp_with_roots(actor &caster, actor &target, int turns);
+spret cast_vile_clutch(int pow, bool fail, bool tracer = false);
+bool start_ranged_constriction(actor& caster, actor& target, int duration,
+                               constrict_type type);
+
+dice_def rimeblight_dot_damage(int pow);
+string describe_rimeblight_damage(int pow, bool terse);
+void do_rimeblight_explosion(coord_def pos, int power, int size);
+bool apply_rimeblight(monster& victim, int power, bool quiet = false);
+void tick_rimeblight(monster& victim);

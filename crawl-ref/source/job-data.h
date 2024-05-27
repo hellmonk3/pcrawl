@@ -48,7 +48,7 @@ static const map<job_type, job_def> job_data =
     },
     { "robe", "potion of magic" },
     WCHOICE_NONE,
-    { { SK_CONJURATIONS, 1 }, { SK_AIR_MAGIC, 3 }, { SK_SPELLCASTING, 2 },
+    { { SK_ENCHANTMENTS, 1 }, { SK_AIR_MAGIC, 3 }, { SK_SPELLCASTING, 2 },
       { SK_DODGING, 2 }, { SK_STEALTH, 2 }, },
 } },
 
@@ -123,7 +123,7 @@ static const map<job_type, job_def> job_data =
     },
     { "robe", "potion of magic" },
     WCHOICE_NONE,
-    { { SK_CONJURATIONS, 4 }, { SK_SPELLCASTING, 2 }, { SK_DODGING, 2 },
+    { { SK_ENCHANTMENTS, 4 }, { SK_SPELLCASTING, 2 }, { SK_DODGING, 2 },
       { SK_STEALTH, 2 }, },
 } },
 
@@ -187,7 +187,7 @@ static const map<job_type, job_def> job_data =
     },
     { "robe", "potion of magic" },
     WCHOICE_NONE,
-    { { SK_CONJURATIONS, 1 }, { SK_FIRE_MAGIC, 3 }, { SK_SPELLCASTING, 2 },
+    { { SK_ENCHANTMENTS, 1 }, { SK_FIRE_MAGIC, 3 }, { SK_SPELLCASTING, 2 },
       { SK_DODGING, 2 }, { SK_STEALTH, 2 }, },
 } },
 
@@ -236,10 +236,9 @@ static const map<job_type, job_def> job_data =
     { SP_MERFOLK, SP_NAGA, SP_BASE_DRACONIAN, SP_DEMIGOD,
       SP_GARGOYLE, SP_DJINNI, },
     {
-        SPELL_FREEZE,
+        SPELL_FRIGID_HALO,
         SPELL_FROZEN_RAMPARTS,
         SPELL_OZOCUBUS_ARMOUR,
-        SPELL_SUMMON_ICE_BEAST,
     },
     { "robe", "potion of magic" },
     WCHOICE_NONE,
@@ -299,7 +298,7 @@ static const map<job_type, job_def> job_data =
     { "leather armour" },
     WCHOICE_PLAIN,
     { { SK_FIGHTING, 2 }, { SK_WEAPON, 3 }, { SK_DODGING, 2 },
-      { SK_SPELLCASTING, 2 }, { SK_CONJURATIONS, 3 }, },
+      { SK_SPELLCASTING, 2 }, { SK_ENCHANTMENTS, 3 }, },
 } },
 
 { JOB_SUMMONER, {
@@ -311,7 +310,6 @@ static const map<job_type, job_def> job_data =
         SPELL_SUMMON_SMALL_MAMMAL,
         SPELL_CALL_IMP,
         SPELL_CALL_CANINE_FAMILIAR,
-        SPELL_SUMMON_GUARDIAN_GOLEM,
         SPELL_SUMMON_LIGHTNING_SPIRE,
     },
     { "robe", "potion of magic" },
@@ -369,7 +367,6 @@ static const map<job_type, job_def> job_data =
         SPELL_BECKONING,
         SPELL_TELEPORT_OTHER,
         SPELL_MANIFOLD_ASSAULT,
-        SPELL_ELECTRIC_CHARGE,
     },
     { "leather armour", "scroll of blinking", "dart ego:dispersal q:7" },
     WCHOICE_PLAIN,
@@ -394,7 +391,7 @@ static const map<job_type, job_def> job_data =
     { "dagger", "robe", "hat", "potion of magic" },
     WCHOICE_NONE,
     { { SK_DODGING, 2 }, { SK_STEALTH, 2 }, { SK_SPELLCASTING, 3 },
-      { SK_TRANSLOCATIONS, 1 }, { SK_CONJURATIONS, 1 }, { SK_SUMMONINGS, 1 }, },
+      { SK_TRANSLOCATIONS, 1 }, { SK_ENCHANTMENTS, 1 }, { SK_SUMMONINGS, 1 }, },
 } },
 #if TAG_MAJOR_VERSION == 34
 { JOB_ABYSSAL_KNIGHT, {

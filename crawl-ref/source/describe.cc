@@ -372,8 +372,8 @@ static const vector<property_descriptor> & _get_all_artp_desc_data()
         { ARTP_ARCHMAGI,
             "It increases the power of your magical spells.",
             prop_note::plain },
-        { ARTP_ENHANCE_CONJ,
-            "It increases your Conjurations skill (%d).",
+        { ARTP_ENHANCE_ENCH,
+            "It increases your Enchantments skill (%d).",
             prop_note::numeral },
         { ARTP_ENHANCE_HEXES,
             "It increases your Hexes skill (%d).",
@@ -481,7 +481,7 @@ static vector<string> _randart_propnames(const item_def& item,
 
         // spell enhancers
         ARTP_ARCHMAGI,
-        ARTP_ENHANCE_CONJ,
+        ARTP_ENHANCE_ENCH,
         ARTP_ENHANCE_HEXES,
         ARTP_ENHANCE_SUMM,
         ARTP_ENHANCE_NECRO,
@@ -4608,6 +4608,8 @@ static string _monster_attacks_description(const monster_info& mi)
         int dam = attack.damage;
         if (attack.flavour == AF_PURE_FIRE)
             dam = flav_dam;
+        else if (attack.flavour == AF_CRUSH)
+            dam = 0;
         else if (info.weapon)
         {
             const int base_dam = property(*info.weapon, PWPN_DAMAGE);
@@ -4632,6 +4634,8 @@ static string _monster_attacks_description(const monster_info& mi)
                 result << " each";
             result << ")";
         }
+        else if (attack.flavour == AF_CRUSH)
+            result << " (" << attack.damage << "-" <<  (attack.damage*2) << " dam)";
 
         if (flavour_without_dam
             && !base_desc.empty()

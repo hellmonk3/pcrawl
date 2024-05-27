@@ -2236,7 +2236,9 @@ static const map<monster_info_flags, tileidx_t> status_icons = {
     { MB_CONTAM_HEAVY, TILEI_GLOW_HEAVY },
     { MB_PAIN_BOND, TILEI_PAIN_BOND },
     { MB_BOUND, TILEI_CONSTRICTED},     // XXX: Terrible placeholder, since this doesn't do damage. Replace as soon as possible.
-    { MB_BULLSEYE_TARGET, TILEI_IDEALISED} // XXX: Another terrible placeholder, but at least it's unambiguous.
+    { MB_BULLSEYE_TARGET, TILEI_IDEALISED}, // XXX: Another terrible placeholder, but at least it's unambiguous.
+    { MB_RIMEBLIGHT, TILEI_RIMEBLIGHT },
+    { MB_PHASE_SHIFT, TILEI_FIRE_CHAMP }, // XXX placeholder
 };
 
 set<tileidx_t> status_icons_for(const monster_info &mons)
@@ -3392,7 +3394,7 @@ tileidx_t tileidx_skill(skill_type skill, int train)
         }
         break;
     case SK_SPELLCASTING:   ch = TILEG_SPELLCASTING_ON; break;
-    case SK_CONJURATIONS:   ch = TILEG_CONJURATIONS_ON; break;
+    case SK_ENCHANTMENTS:   ch = TILEG_CONJURATIONS_ON; break;
     case SK_HEXES:          ch = TILEG_HEXES_ON; break;
     case SK_SUMMONINGS:     ch = TILEG_SUMMONINGS_ON; break;
     case SK_NECROMANCY:

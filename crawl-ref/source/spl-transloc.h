@@ -2,6 +2,8 @@
 
 #include "spl-cast.h"
 
+struct dice_def;
+
 class actor;
 class dist;
 
@@ -11,6 +13,7 @@ spret cast_disjunction(int pow, bool fail);
 void disjunction_spell();
 
 spret cast_blink(int pow, bool fail = false);
+spret cast_controlled_blink(bool safe = true);
 void uncontrolled_blink(bool override_stasis = false);
 spret controlled_blink(bool safe_cancel = true, dist *target = nullptr);
 void wizard_blink();
@@ -40,7 +43,7 @@ string weapon_unprojectability_reason();
 struct bolt;
 spret cast_apportation(int pow, bolt& beam, bool fail);
 bool golubria_valid_cell(coord_def p, bool just_check = false);
-spret cast_golubrias_passage(int pow, const coord_def& where, bool fail);
+spret cast_golubrias_passage(int pow, bool fail);
 
 spret cast_dispersal(int pow, bool fail);
 
@@ -53,3 +56,5 @@ void attract_monsters(int delay);
 vector<monster *> find_chaos_targets(bool just_check = false);
 spret word_of_chaos(int pow, bool fail);
 spret blinkbolt(int power, bolt &beam, bool fail);
+dice_def gravity_damage(int pow, bool random = false);
+spret warp_gravity(int pow, bool fail, bool tracer=false);

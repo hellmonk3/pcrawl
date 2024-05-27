@@ -37,15 +37,12 @@ spret cast_deaths_door(int pow, bool fail)
     mpr("You stand defiantly in death's doorway!");
     mprf(MSGCH_SOUND, "You seem to hear sand running through an hourglass...");
 
-    you.set_duration(DUR_DEATHS_DOOR, 10 + random2avg(13, 3)
-                                       + div_rand_round(random2(pow), 10));
+    you.set_duration(DUR_DEATHS_DOOR, 10 + random2avg(11, 3) + random2(1 + pow));
 
-    const int hp = max(div_rand_round(pow, 10), 1);
+    const int hp = max(pow, 1);
     you.attribute[ATTR_DEATHS_DOOR_HP] = hp;
     set_hp(hp);
 
-    if (you.duration[DUR_DEATHS_DOOR] > 25 * BASELINE_DELAY)
-        you.duration[DUR_DEATHS_DOOR] = (23 + random2(5)) * BASELINE_DELAY;
     return spret::success;
 }
 
@@ -72,6 +69,15 @@ spret ice_armour(int pow, bool fail)
     return spret::success;
 }
 
+spret haste_spell(int pow, bool fail)
+{
+    fail_check();
+
+    haste_player(10 + div_rand_round(pow, 2) + random2(1 + pow * 2));
+
+    return spret::success;
+}
+
 void fiery_armour()
 {
     if (you.duration[DUR_FIERY_ARMOUR])
@@ -94,8 +100,9 @@ spret cast_revivification(int pow, bool fail)
     fail_check();
     mpr("Your body is healed in an amazingly painful way.");
 
-    const int loss = 6 + binomial(9, 8, pow);
-    dec_max_hp(loss * you.hp_max / 100);
+    const int loss = min(you.hp_max -1,
+                        max(1, 20 - div_rand_round(pow, 3) - random2(1 + pow)));
+    dec_max_hp(loss);
     set_hp(you.hp_max);
 
     if (you.duration[DUR_DEATHS_DOOR])
@@ -112,9 +119,18 @@ spret cast_swiftness(int power, bool fail)
 {
     fail_check();
 
-    you.set_duration(DUR_SWIFTNESS, 12 + random2(power)/2, 30,
+    you.set_duration(DUR_SWIFTNESS, 7 + random2(2 * power), 30,
                      "You feel quick.");
     you.attribute[ATTR_SWIFTNESS] = you.duration[DUR_SWIFTNESS];
+
+    return spret::success;
+}
+
+spret deflection(int pow, bool fail)
+{
+    fail_check();
+    you.set_duration(DUR_DEFLECT_MISSILES, 5 + random2(1 + pow), 30,
+        "You feel very safe from missiles.");
 
     return spret::success;
 }
@@ -164,18 +180,18 @@ int cast_selective_amnesia(const string &pre_msg)
     return -1;
 }
 
-spret cast_wereblood(int pow, bool fail)
+spret cast_song_of_slaying(int pow, bool fail)
 {
     fail_check();
 
-    if (you.duration[DUR_WEREBLOOD])
-        mpr("Your blood is freshly infused with primal strength!");
+    if (you.duration[DUR_SONG_OF_SLAYING])
+        mpr("You start a new song!");
     else
-        mpr("Your blood is infused with primal strength.");
+        mpr("You start singing a song of slaying.");
 
-    you.set_duration(DUR_WEREBLOOD, 20 + random2avg(pow, 2));
+    you.set_duration(DUR_SONG_OF_SLAYING, 12 + random2(6 + pow * 3));
 
-    you.props[WEREBLOOD_KEY] = 0;
+    you.props[SONG_OF_SLAYING_KEY] = 0;
     return spret::success;
 }
 
@@ -194,8 +210,7 @@ spret cast_silence(int pow, bool fail)
     fail_check();
     mpr("A profound silence engulfs you.");
 
-    you.increase_duration(DUR_SILENCE, 20 + div_rand_round(pow,5)
-                            + random2avg(div_rand_round(pow,2), 2), 100);
+    you.increase_duration(DUR_SILENCE, 16 + pow + random2(1 + 2 * pow), 100);
     invalidate_agrid(true);
 
     if (you.beheld())
@@ -257,5 +272,40 @@ spret cast_jinxbite(int pow, bool fail)
     you.increase_duration(DUR_JINXBITE, dur);
     you.increase_duration(DUR_LOWERED_WL, dur * 2, 0, "You feel your willpower being sapped.");
 
+    return spret::success;
+}
+
+spret cast_piercing_shot(int pow, bool fail)
+{
+    fail_check();
+
+    int dur = 4 + pow + random2(2 + pow * 3);
+    you.increase_duration(DUR_PIERCING_SHOT, dur);
+
+    return spret::success;
+}
+
+spret scrying(int pow, bool fail)
+{
+    fail_check();
+
+    int dur = 5 + random2(8 + pow * 2);
+    you.increase_duration(DUR_REVELATION, dur);
+
+    return spret::success;
+}
+
+spret cast_arcane_nova(int pow, bool fail)
+{
+    fail_check();
+
+    if (you.duration[DUR_NOVA])
+    {
+        mpr("You're already filled with stellar energy!");
+        return spret::abort;
+    }
+
+    you.set_duration(DUR_NOVA, 5);
+    invalidate_agrid(true);
     return spret::success;
 }

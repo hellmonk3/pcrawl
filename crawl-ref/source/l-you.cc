@@ -430,6 +430,11 @@ LUARET1(you_agile, boolean, you.duration[DUR_AGILITY])
  * @function brilliant
  */
 LUARET1(you_brilliant, boolean, you.duration[DUR_BRILLIANCE])
+/*** Are you phase shifted?
+ * @treturn boolean
+ * @function phase_shifted
+ */
+LUARET1(you_phase_shifted, boolean, you.duration[DUR_PHASE_SHIFT])
 /*** Are you silenced?
  * @treturn boolean
  * @function silenced
@@ -1337,6 +1342,7 @@ static const struct luaL_reg you_clib[] =
     { "constricting", you_constricting },
     { "status",       you_status },
     { "immune_to_hex", you_immune_to_hex },
+    { "phase_shifted", you_phase_shifted },
 
     { "stop_activity", you_stop_activity },
     { "taking_stairs", you_taking_stairs },

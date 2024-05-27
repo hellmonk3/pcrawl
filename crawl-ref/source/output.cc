@@ -626,6 +626,7 @@ static bool _boosted_ac()
 static bool _boosted_ev()
 {
     return you.duration[DUR_AGILITY]
+           || you.duration[DUR_PHASE_SHIFT]
            || you.props.exists(WU_JIAN_HEAVENLY_STORM_KEY)
            || acrobat_boost_active();
 }
@@ -633,6 +634,7 @@ static bool _boosted_ev()
 static bool _boosted_sh()
 {
     return you.duration[DUR_DIVINE_SHIELD]
+           || you.duration[DUR_CONDENSATION_SHIELD]
            || you.duration[DUR_SPWPN_SHIELDING]
            || qazlal_sh_boost() > 0
            || (you.get_mutation_level(MUT_CONDENSATION_SHIELD)

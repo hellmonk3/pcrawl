@@ -17,11 +17,13 @@
 #include "art-enum.h"
 #include "artefact.h"
 #include "cloud.h"
+#include "colour.h"
 #include "coordit.h"
 #include "delay.h"
 #include "directn.h"
 #include "dungeon.h"
 #include "english.h"
+#include "fight.h"
 #include "god-abil.h" // fedhas_passthrough for armataur charge
 #include "item-prop.h"
 #include "items.h"
@@ -41,6 +43,7 @@
 #include "orb.h"
 #include "output.h"
 #include "prompt.h"
+#include "random.h"
 #include "religion.h"
 #include "shout.h"
 #include "spl-damage.h" // cancel_polar_vortex
@@ -73,10 +76,8 @@ static void _place_tloc_cloud(const coord_def &origin)
 spret cast_disjunction(int pow, bool fail)
 {
     fail_check();
-    int rand = random_range(35, 45) + random2(div_rand_round(pow, 12));
-    you.duration[DUR_DISJUNCTION] = min(90 + div_rand_round(pow, 12),
-        max(you.duration[DUR_DISJUNCTION] + rand,
-        30 + rand));
+    int dur = 4 + div_rand_round(pow,4) + random2(1 + div_rand_round(pow, 2));
+    you.increase_duration(DUR_DISJUNCTION, dur, 25);
     disjunction_spell();
     return spret::success;
 }
@@ -140,8 +141,7 @@ void uncontrolled_blink(bool override_stasis)
         return;
     }
 
-    if (!you.attempt_escape(2)) // prints its own messages
-        return;
+    you.stop_being_constricted(false, "blink");
 
     canned_msg(MSG_YOU_BLINK);
     const coord_def origin = you.pos();
@@ -407,8 +407,7 @@ spret frog_hop(bool fail, dist *target)
 
     fail_check();
 
-    if (!you.attempt_escape(2)) // XXX: 1?
-        return spret::success; // of a sort
+    you.stop_being_constricted(false, "hop");
 
     // invisible monster that the targeter didn't know to avoid, or similar
     if (target->target.origin())
@@ -687,7 +686,7 @@ spret electric_charge(int powc, bool fail, const coord_def &target)
         return spret::success;
     }
 
-    if (!you.attempt_escape(1)) // prints its own messages
+    if (!you.attempt_escape()) // prints its own messages
         return spret::success;
 
     const coord_def target_pos = target_path.back();
@@ -733,16 +732,9 @@ spret electric_charge(int powc, bool fail, const coord_def &target)
     if (you.attribute[ATTR_HELD])
         return spret::success;
 
-    const int base_delay =
-        div_rand_round(you.time_taken * player_movement_speed(), 10);
-
     melee_attack charge_atk(&you, target_mons);
-    charge_atk.charge_pow = powc + 50 * grid_distance(initial_pos, you.pos());
+    charge_atk.charge_pow = 4 * powc + 40 * grid_distance(initial_pos, you.pos());
     charge_atk.attack();
-
-    // Normally this is 10 aut (times haste, chei etc), but slow weapons
-    // take longer. Most relevant for low-skill players and Dark Maul.
-    you.time_taken = max(you.time_taken, base_delay);
 
     return spret::success;
 }
@@ -773,9 +765,6 @@ spret controlled_blink(bool safe_cancel, dist *target)
     if (!_find_cblink_target(*target, safe_cancel, "blink", &tgt))
         return spret::abort;
 
-    if (!you.attempt_escape(2))
-        return spret::success; // of a sort
-
     // invisible monster that the targeter didn't know to avoid
     if (monster_at(target->target))
     {
@@ -784,6 +773,8 @@ spret controlled_blink(bool safe_cancel, dist *target)
         return spret::success; // of a sort
     }
 
+    you.stop_being_constricted(false, "blink");
+
     _place_tloc_cloud(you.pos());
     move_player_to_grid(target->target, false);
 
@@ -791,6 +782,18 @@ spret controlled_blink(bool safe_cancel, dist *target)
     crawl_state.cancel_cmd_repeat();
 
     return spret::success;
+}
+
+spret cast_controlled_blink(bool safe)
+{
+    // don't prompt if it's useless
+    if (you.no_tele(true, true))
+    {
+        canned_msg(MSG_STRANGE_STASIS);
+        return spret::abort;
+    }
+
+    return controlled_blink(safe);
 }
 
 /**
@@ -811,9 +814,6 @@ spret cast_blink(int pow, bool fail)
 
     fail_check();
     uncontrolled_blink();
-
-    you.increase_duration(DUR_BLINK_COOLDOWN,
-                          2 + random2(3) + div_rand_round(50 - pow, 10));
 
     return spret::success;
 }
@@ -1140,7 +1140,6 @@ spret cast_dimensional_bullseye(int pow, monster *target, bool fail)
     if (target == nullptr || target->submerged() || !you.can_see(*target))
     {
         canned_msg(MSG_NOTHING_THERE);
-        // You cannot place a bullseye on invisible enemies anyway, so just abort
         return spret::abort;
     }
 
@@ -1164,7 +1163,7 @@ spret cast_dimensional_bullseye(int pow, monster *target, bool fail)
     target->add_ench(ENCH_BULLSEYE_TARGET);
 
     you.props[BULLSEYE_TARGET_KEY].get_int() = target->mid;
-    int dur = random_range(5 + div_rand_round(pow, 5), 7 + div_rand_round(pow, 4));
+    int dur = random_range(5 + pow, 7 + div_rand_round(pow * 3, 2));
     you.set_duration(DUR_DIMENSIONAL_BULLSEYE, dur);
     return spret::success;
 }
@@ -1243,10 +1242,8 @@ spret cast_manifold_assault(int pow, bool fail, bool real)
     const int initial_time = you.time_taken;
 
     shuffle_array(targets);
-    // UC is worse at launching multiple manifold assaults, since
-    // shapeshifters have a much easier time casting it.
-    const size_t max_targets = weapon ? 2 + div_rand_round(pow, 50)
-                                      : 1 + div_rand_round(pow, 100);
+
+    const size_t max_targets = 1 + div_rand_round(pow,10);
     for (size_t i = 0; i < max_targets && i < targets.size(); i++)
     {
         // Somewhat hacky: reset attack delay before each attack so that only the final
@@ -1391,58 +1388,25 @@ bool golubria_valid_cell(coord_def p, bool just_check)
            && cell_see_cell(you.pos(), p, LOS_NO_TRANS);
 }
 
-spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
+spret cast_golubrias_passage(int pow, bool fail)
 {
-    if (player_in_branch(BRANCH_GAUNTLET))
-    {
-        mprf(MSGCH_ORB, "A magic seal in the Gauntlet prevents you from "
-                "opening a passage!");
-        return spret::abort;
-    }
-
-    if (grid_distance(where, you.pos())
-        > spell_range(SPELL_GOLUBRIAS_PASSAGE, pow))
-    {
-        mpr("That's out of range!");
-        return spret::abort;
-    }
-
-    if (cell_is_solid(where))
-    {
-        mpr("You can't create a passage there!");
-        return spret::abort;
-    }
-
     int tries = 0;
-    int tries2 = 0;
     const int range = GOLUBRIA_FUZZ_RANGE;
-    coord_def randomized_where = where;
     coord_def randomized_here = you.pos();
+
     do
     {
         tries++;
-        randomized_where = where;
-        randomized_where.x += random_range(-range, range);
-        randomized_where.y += random_range(-range, range);
-    }
-    while ((!golubria_valid_cell(randomized_where)
-            || randomized_where == you.pos())
-           && tries < 100);
-
-    do
-    {
-        tries2++;
         randomized_here = you.pos();
         randomized_here.x += random_range(-range, range);
         randomized_here.y += random_range(-range, range);
     }
-    while ((!golubria_valid_cell(randomized_here)
-            || randomized_here == randomized_where)
-           && tries2 < 100);
+    while (!golubria_valid_cell(randomized_here)
+           && tries < 100);
 
-    if (tries >= 100 || tries2 >= 100)
+    if (tries >= 100)
     {
-        if (you.trans_wall_blocking(randomized_where))
+        if (you.trans_wall_blocking(randomized_here))
         {
             mpr("You cannot create a passage on the other side of the "
                 "transparent wall.");
@@ -1458,20 +1422,18 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
     }
 
     fail_check();
-    place_specific_trap(randomized_where, TRAP_GOLUBRIA);
     place_specific_trap(randomized_here, TRAP_GOLUBRIA);
     env.level_state |= LSTATE_GOLUBRIA;
 
-    trap_def *trap = trap_at(randomized_where);
-    trap_def *trap2 = trap_at(randomized_here);
-    if (!trap || !trap2)
+    trap_def *trap = trap_at(randomized_here);
+
+    if (!trap)
     {
         mpr("Something buggy happened.");
         return spret::abort;
     }
 
     trap->reveal();
-    trap2->reveal();
 
     return spret::success;
 }
@@ -1487,8 +1449,8 @@ static int _disperse_monster(monster& mon, int pow)
         monster_teleport(&mon, true);
 
     // Moving the monster may have killed it in apply_location_effects.
-    if (mon.alive() && mon.check_willpower(&you, pow) <= 0)
-        mon.confuse(&you, 1 + random2avg(1 + div_rand_round(pow, 10), 2));
+    if (mon.alive())
+        mon.confuse(&you, 1 + random2(1 + div_rand_round(pow, 4)));
 
     return true;
 }
@@ -1515,7 +1477,7 @@ int gravitas_range(int pow)
 #define GRAVITY "by gravitational forces"
 
 static void _attract_actor(const actor* agent, actor* victim,
-                           const coord_def pos, int pow, int strength)
+                           const coord_def pos, int strength)
 {
     ASSERT(victim); // XXX: change to actor &victim
     const bool fedhas_prot = victim->is_monster()
@@ -1527,20 +1489,9 @@ static void _attract_actor(const actor* agent, actor* victim,
         // This probably shouldn't ever happen, but just in case:
         if (you.can_see(*victim))
         {
-            mprf("%s violently %s moving!",
+            mprf("%s %s moving!",
                  victim->name(DESC_THE).c_str(),
                  victim->conj_verb("stop").c_str());
-        }
-        if (fedhas_prot)
-        {
-            simple_god_message(
-                make_stringf(" protects %s from harm.",
-                    agent->is_player() ? "your" : "a").c_str(), GOD_FEDHAS);
-        }
-        else
-        {
-            victim->hurt(agent, roll_dice(strength / 2, pow / 20),
-                         BEAM_MMISSILE, KILLED_BY_BEAM, "", GRAVITY);
         }
         return;
     }
@@ -1552,16 +1503,9 @@ static void _attract_actor(const actor* agent, actor* victim,
         const coord_def newpos = ray.pos();
 
         if (!victim->can_pass_through_feat(env.grid(newpos)))
-        {
-            victim->collide(newpos, agent, pow);
             break;
-        }
-        else if (actor* act_at_space = actor_at(newpos))
-        {
-            if (victim != act_at_space)
-                victim->collide(newpos, agent, pow);
+        else if (actor_at(newpos))
             break;
-        }
         else if (!victim->is_habitable(newpos))
             break;
         else
@@ -1610,12 +1554,89 @@ bool fatal_attraction(const coord_def& pos, const actor *agent, int pow)
     for (actor * ai : victims)
     {
         const int range = (pos - ai->pos()).rdist();
-        const int strength = ((pow + 100) / 20) / (range*range);
+        if (range > spell_range(SPELL_WARP_GRAVITY, pow))
+            continue;
 
-        _attract_actor(agent, ai, pos, pow, strength);
+        const int strength =
+            min(LOS_RADIUS, (div_rand_round(pow * 4 + 100, 5 * range * range)));
+
+        _attract_actor(agent, ai, pos, strength);
     }
 
     return true;
+}
+
+dice_def gravity_damage(int pow, bool random)
+{
+    return random ? dice_def(1, 20 + div_rand_round(pow * 2, 3))
+                  : dice_def(1, 20 + pow * 2 / 3);
+}
+
+static int _gravity_cell(coord_def where, int pow, actor *agent)
+{
+    monster *mons = monster_at(where);
+    if (!mons)
+        return 0; // XXX: handle damaging the player for mons casts...?
+
+
+    int dam = gravity_damage(pow, true).roll();
+    dam = mons->apply_ac(dam);
+
+     if (you.can_see(*mons))
+    {
+        mprf("%s is crushed and stunned by gravitational force (%d)!",
+             mons->name(DESC_THE).c_str(), dam);
+    }
+
+    mons->hurt(agent, dam, BEAM_MMISSILE);
+
+
+    if (mons->alive())
+        mons->stun(&you);
+
+    return 1;
+}
+
+spret warp_gravity(int pow, bool fail, bool tracer)
+{
+        int radius = spell_range(SPELL_WARP_GRAVITY, pow);
+
+    targeter_radius hitfunc(&you, LOS_NO_TRANS, radius);
+
+    if (stop_attack_prompt(hitfunc, "warp", nullptr))
+        return spret::abort;
+
+    if (tracer)
+    {
+        coord_def pos = you.pos();
+        for (actor_near_iterator ai(pos, LOS_SOLID); ai; ++ai)
+        {
+            if (*ai == &you || ai->is_stationary() || ai->pos() == pos)
+                continue;
+
+            const int range = (pos - ai->pos()).rdist();
+            if (range > spell_range(SPELL_WARP_GRAVITY, pow))
+                continue;
+
+            return spret::success;
+        }
+
+        return spret::abort;
+    }
+
+    fail_check();
+
+    flash_view_delay(UA_PLAYER, ETC_WARP, 80);
+    flash_view_delay(UA_PLAYER, BROWN, 80);
+
+    mprf("Gravity intensifies.");
+    fatal_attraction(you.pos(), &you, pow);
+
+    apply_random_around_square([pow] (coord_def where) {
+        return _gravity_cell(where, pow, &you);
+    }, you.pos(), true, 8);
+
+    return spret::success;
 }
 
 spret cast_gravitas(int pow, const coord_def& where, bool fail)
@@ -1694,6 +1715,8 @@ bool beckon(actor &beckoned, const bolt &path)
     mprf("%s %s suddenly forward!",
          beckoned.name(DESC_THE).c_str(),
          beckoned.conj_verb("hurl").c_str());
+
+    beckoned.stun(&you);
 
     beckoned.apply_location_effects(old_pos); // traps, etc.
     if (beckoned.is_monster())
@@ -1854,10 +1877,7 @@ spret blinkbolt(int power, bolt &beam, bool fail)
 
     fail_check();
 
-    // Storm Form is immune to constriction, but check for it anyway in
-    // case casting Blinkbolt becomes possible in some other way!
-    if (!you.attempt_escape(2))
-        return spret::success;
+    you.stop_being_constricted(false, "bolt");
 
     beam.thrower = KILL_YOU_MISSILE;
     zappy(ZAP_BLINKBOLT, power, false, beam);

@@ -9,7 +9,7 @@
     {{{enum}, SK_SHIELDS,        {shields}}},
     {{{enum}, SK_UNARMED_COMBAT, {unarmed_combat}}},
     {{{enum}, SK_SPELLCASTING,   {spellcasting}}},
-    {{{enum}, SK_CONJURATIONS,   {conjurations}}},
+    {{{enum}, SK_ENCHANTMENTS,   {enchantments}}},
     {{{enum}, SK_HEXES,          {hexes}}},
     {{{enum}, SK_SUMMONINGS,     {summoning}}},
     {{{enum}, SK_NECROMANCY,     {necromancy}}},

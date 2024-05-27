@@ -69,7 +69,9 @@ enum attribute_type
     ATTR_BARBS_POW,            // How badly we are currently skewered
 #if TAG_MAJOR_VERSION == 34
     ATTR_REPEL_MISSILES,       // Repel missiles active
+#endif
     ATTR_DEFLECT_MISSILES,     // Deflect missiles active
+#if TAG_MAJOR_VERSION == 34
     ATTR_PORTAL_PROJECTILE,    // Accuracy bonus during portal projectile
 #endif
     ATTR_GOD_WRATH_XP,         // How much XP before our next god wrath check?
@@ -105,5 +107,6 @@ enum attribute_type
     ATTR_WALL_JUMP_READY,      // Ready to perform a wall jump.
 #endif
     ATTR_DEATHS_DOOR_HP,       // How much HP we should have under Death's Door
+    ATTR_FORCE_QUAKE,          // Track what hit of force quake we're on
     NUM_ATTRIBUTES
 };

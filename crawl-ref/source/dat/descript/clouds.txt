@@ -91,9 +91,8 @@ with undead and demonic creatures being greatly harmed.
 %%%%
 foul pestilence cloud
 
-# XXX: clarify gargoyles
-A cloud of foul pestilence. Any living being caught within it will find
-themselves poisoned, and may also find their movements slowed.
+A cloud of miasma. Any living or demonic being caught within it will take heavy
+damage and may also find their movements slowed.
 %%%%
 thin mist cloud
 

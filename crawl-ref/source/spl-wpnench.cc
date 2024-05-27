@@ -27,7 +27,7 @@ spret cast_confusing_touch(int power, bool fail)
                 << "." << endl;
 
     you.set_duration(DUR_CONFUSING_TOUCH,
-                     max(10 + div_rand_round(random2(1 + power), 5),
+                     max(6 + random2(1 + power),
                          you.duration[DUR_CONFUSING_TOUCH]),
                      20, nullptr);
     you.props[CONFUSING_TOUCH_KEY] = power;

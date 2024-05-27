@@ -56,11 +56,7 @@ private:
     bool seen_skills;
 };
 
-static uint8_t _jewellery_type_from_artefact_prop(const string &s
-#if TAG_MAJOR_VERSION == 34
-                                                  , bool is_amulet
-#endif
-                                                  )
+static uint8_t _jewellery_type_from_artefact_prop(const string &s)
 {
     if (s == "Vamp")
         return AMU_VAMPIRISM;
@@ -199,12 +195,7 @@ static void _apply_randart_properties(item_def &item,
 
         if (item.is_type(OBJ_JEWELLERY, NUM_JEWELLERY))
         {
-            item.sub_type = _jewellery_type_from_artefact_prop(
-                brand_name
-#if TAG_MAJOR_VERSION == 34
-                , name.find("amulet") != string::npos
-#endif
-            );
+            item.sub_type = _jewellery_type_from_artefact_prop(brand_name);
         }
 
         string ins = artefact_inscription(item);

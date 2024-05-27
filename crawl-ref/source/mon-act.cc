@@ -1012,28 +1012,12 @@ static void _setup_boulder_explosion(monster& boulder, bolt& beam)
     beam.damage       = boulder_damage(pow, true);
 }
 
-static coord_def _wobble_dir(coord_def dir)
-{
-    // Computer, can I get a boulder wobble?
-    if (dir.x && dir.y)
-    {
-        if (coinflip())
-            return coord_def(dir.x, 0);
-        return coord_def(0, dir.y);
-    }
-    if (dir.y)
-        return coord_def(coinflip() ? 1 : -1, dir.y);
-    return coord_def(dir.x, coinflip() ? 1 : -1);
-}
-
 static void _handle_boulder_movement(monster& boulder)
 {
     place_cloud(CLOUD_DUST, boulder.pos(), 2 + random2(3), &boulder);
 
     // First, find out where we intend to move next
     coord_def dir = boulder.props[BOULDER_DIRECTION_KEY].get_coord();
-    if (one_chance_in(6))
-        dir = _wobble_dir(dir);
     coord_def targ = boulder.pos() + dir;
 
     // If our summoner is the player, and they cannot see us, silently crumble
@@ -1407,15 +1391,10 @@ static void _pre_monster_move(monster& mons)
 
     // Handle clouds on nonmoving monsters.
     if (mons.speed == 0)
-    {
         _mons_in_cloud(mons);
 
-        // Update constriction durations
-        mons.accum_has_constricted();
-
-        if (mons.type == MONS_NO_MONSTER)
-            return;
-    }
+    if (mons.type == MONS_NO_MONSTER)
+        return;
 
     // Apply monster enchantments once for every normal-speed
     // player turn.
@@ -2139,9 +2118,6 @@ static void _post_monster_move(monster* mons)
                                     TERRAIN_CHANGE_FLOOD, mons->mid);
             }
     }
-
-    if (mons->type == MONS_GUARDIAN_GOLEM)
-        guardian_golem_bond(*mons);
 
     // A rakshasa that has regained full health dismisses its emergency clones
     // (if they're somehow still alive) and regains the ability to summon new ones.

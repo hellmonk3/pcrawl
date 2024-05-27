@@ -478,9 +478,9 @@ void player_reacts_to_monsters()
     if (_decrement_a_duration(DUR_GRASPING_ROOTS, you.time_taken)
         && you.is_constricted())
     {
-        // We handle the end-of-enchantment message here since the method
-        // of constriction is no longer detectable.
-        mprf("The grasping roots release their grip on you.");
+        actor* src = actor_by_mid(you.constricted_by);
+        mprf("%s grasping roots sink back into the ground.",
+             src ? src->name(DESC_ITS).c_str() : "The");
         you.stop_being_constricted(true);
     }
 
@@ -767,6 +767,23 @@ static void _decrement_durations()
         you.props.erase(XOM_CLOUD_TRAIL_TYPE_KEY);
     }
 
+    _decrement_a_duration(DUR_FLAME_LANCE, delay,"Your flame lance burns out.");
+
+    _decrement_a_duration(DUR_DEFLECT_MISSILES, delay,
+            "You are no longer deflecting missiles.");
+
+    _decrement_a_duration(DUR_INFESTATION, delay,
+            "You are no longer infesting your enemies.");
+
+    _decrement_a_duration(DUR_ICHOR, delay,
+            "You are no longer tainted with eldritch energies.");
+
+    _decrement_a_duration(DUR_PIERCING_SHOT, delay,
+            "Your ranged attacks no longer penetrate multiple targets.");
+
+    if (_decrement_a_duration(DUR_NOVA, delay, "Your arcane nova is released!"))
+        fire_arcane_nova();
+
     if (_decrement_a_duration(DUR_LANTERN, delay, "The shadows dissipate."))
         update_vision_range();
 
@@ -875,23 +892,6 @@ static void _handle_emergency_flight()
     }
 }
 
-static void _handle_wereblood(int delay)
-{
-    if (you.duration[DUR_WEREBLOOD]
-        && x_chance_in_y(you.props[WEREBLOOD_KEY].get_int() * delay,
-                         9 * BASELINE_DELAY)
-        && !silenced(you.pos()))
-    {
-        // Keep the spam down
-        if (you.props[WEREBLOOD_KEY].get_int() < 3 || one_chance_in(5))
-        {
-            mprf("You %s as the wereblood boils in your veins!",
-                 you.shout_verb().c_str());
-        }
-        noisy(spell_effect_noise(SPELL_WEREBLOOD), you.pos());
-    }
-}
-
 void player_reacts()
 {
     //XXX: does this _need_ to be calculated up here?
@@ -905,7 +905,19 @@ void player_reacts()
     if (you.unrand_reacts.any())
         unrand_reacts();
 
-    _handle_wereblood(you.time_taken);
+    // Handle sound-dependent effects that are silenced
+    if (silenced(you.pos()))
+    {
+        if (you.duration[DUR_SONG_OF_SLAYING])
+        {
+            mpr("The silence causes your song to end.");
+            _decrement_a_duration(DUR_SONG_OF_SLAYING, you.duration[DUR_SONG_OF_SLAYING]);
+        }
+    }
+
+    // Singing makes a continuous noise
+    if (you.duration[DUR_SONG_OF_SLAYING])
+        noisy(spell_effect_noise(SPELL_SONG_OF_SLAYING), you.pos());
 
     if (x_chance_in_y(you.time_taken, 10 * BASELINE_DELAY))
     {
@@ -945,9 +957,6 @@ void player_reacts()
     you.update_fearmongers();
 
     you.handle_constriction();
-
-    // increment constriction durations
-    you.accum_has_constricted();
 
     if (you.duration[DUR_POISONING])
         handle_player_poison(you.time_taken);

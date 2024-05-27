@@ -11,6 +11,7 @@ silence SILENCE
 static_discharge STATIC_DISCHARGE
 swiftness SWIFTNESS
 mass_repulsion MASS_REPULSION
+deflect_missiles DEFLECT_MISSILES
 
 %sdir gui/spells/conjuration
 iskenderuns_mystic_blast ISKENDERUNS_MYSTIC_BLAST
@@ -37,6 +38,7 @@ sandblast SANDBLAST
 shatter SHATTER
 statue_form STATUE_FORM
 stone_arrow STONE_ARROW
+tomb_of_doroklohe TOMB_OF_DOROKLOHE
 
 %sdir gui/spells/enchantment
 anguish ANGUISH
@@ -52,8 +54,11 @@ haste HASTE
 invisibility INVISIBILITY
 mass_confusion MASS_CONFUSION
 slow SLOW
+song_of_slaying SONG_OF_SLAYING
 tukimas_dance TUKIMAS_DANCE
 violent_unravelling VIOLENT_UNRAVELLING
+piercing_shot PIERCING_SHOT
+scrying SCRYING
 
 %sdir gui/spells/fire
 bolt_of_fire BOLT_OF_FIRE
@@ -71,9 +76,13 @@ foxfire FOXFIRE
 scorch SCORCH
 flame_wave FLAME_WAVE
 plasma_beam PLASMA_BEAM
+flame_lance FLAME_LANCE
+steam_burst STEAM_BURST
+magma_jet MAGMA_JET
 
 %sdir gui/spells/ice
 bolt_of_cold BOLT_OF_COLD
+condensation_shield CONDENSATION_SHIELD
 ensorcelled_hibernation ENSORCELLED_HIBERNATION
 freeze FREEZE
 freezing_cloud FREEZING_CLOUD
@@ -87,11 +96,13 @@ throw_frost THROW_FROST
 frozen_ramparts FROZEN_RAMPARTS
 hailstorm HAILSTORM
 polar_vortex POLAR_VORTEX
+rimeblight RIMEBLIGHT
 
 %sdir gui/spells/necromancy
 agony AGONY
 animate_dead ANIMATE_DEAD
 animate_skeleton ANIMATE_SKELETON
+blood_explosion BLOOD_EXPLOSION
 bolt_of_draining BOLT_OF_DRAINING
 borgnjors_revivification BORGNJORS_REVIVIFICATION
 corpse_rot CORPSE_ROT
@@ -145,14 +156,17 @@ monstrous_menagerie MONSTROUS_MENAGERIE
 summon_mana_viper SUMMON_MANA_VIPER
 spellforged_servitor SPELLFORGED_SERVITOR
 summon_cactus_giant SUMMON_CACTUS_GIANT
+summon_elemental SUMMON_ELEMENTAL
 
 %sdir gui/spells/translocation
 apportation APPORTATION
 beckoning BECKONING
 blink BLINK
+controlled_blink CONTROLLED_BLINK
 disjunction DISJUNCTION
 dispersal DISPERSAL
 passage_of_golubria PASSAGE_OF_GOLUBRIA
+phase_shift PHASE_SHIFT
 portal_projectile PORTAL_PROJECTILE
 teleport_other TELEPORT_OTHER
 gravitas GRAVITAS
@@ -167,8 +181,6 @@ cloud_cone CLOUD_CONE
 bolt_corrosive CORROSIVE_BOLT
 iceblast ICEBLAST
 bolt_energy ENERGY_BOLT
-# and wereblood
-wereblood WEREBLOOD
 
 # spells normally only used by monsters
 %back gui/spells/bg

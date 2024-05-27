@@ -939,105 +939,19 @@ the Wind
 
 the Zephyr
 %%%%
-Conjuration
+Enchantment
 
-Arcane Combat
+Buffing
 
-Arcane Weapons
+Charms
 
-Assaults
+Empowerment
 
-Attacks
+Enchanting
 
-Battle Magic
+Enhancements
 
-Battling
-
-Blasting
-
-Blasts
-
-Blows
-
-Bolts
-
-Bombardment
-
-Bruises
-
-Combat Magic
-
-Concussion
-
-Conflict
-
-Confrontation
-
-Conjuration
-
-w:5
-Conjuring
-
-w:5
-Conjury
-
-Damage
-
-Destruction
-
-Energy
-
-w:5
-Force
-
-w:5
-Forces
-
-Fulmination
-
-Hurting
-
-Impulse
-
-Injury
-
-Kinetic Energy
-
-Momentum
-
-Outbursts
-
-Percussion
-
-Power
-
-Striking
-
-Trauma
-
-w:2
-Traumaturgy
-
-Violence
-
-Wounds
-
-the Barrage
-
-the Discharge
-
-# Lore callback to the Mad Mage's Maulers
-the Fifth Circle
-
-the Impact
-
-the Missiles
-
-the Salvo
-
-the Shot
-
-the Volley
+Strengthening
 %%%%
 Earth
 
@@ -1254,13 +1168,9 @@ Beguiling
 
 Bewitchment
 
-Charms
-
 Curses
 
 Doom
-
-Enchantment
 
 Ensorcelling
 

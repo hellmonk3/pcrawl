@@ -220,6 +220,8 @@ enum monster_info_flags
     MB_BOUND,
     MB_BULLSEYE_TARGET,
     MB_STUNNED,
+    MB_RIMEBLIGHT,
+    MB_PHASE_SHIFT,
     NUM_MB_FLAGS
 };
 

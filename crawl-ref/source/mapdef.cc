@@ -5403,7 +5403,7 @@ bool item_list::parse_single_spec(item_spec& result, string s)
 
         result.base_type = OBJ_BOOKS;
         // This is changed in build_themed_book().
-        result.sub_type = BOOK_MINOR_MAGIC;
+        result.sub_type = BOOK_FIREBALL;
         result.plus = -1;
 
         return true;

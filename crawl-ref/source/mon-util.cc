@@ -414,17 +414,6 @@ int get_mons_resist(const monster& mon, mon_resist_flags res)
     return get_resist(get_mons_resists(mon), res);
 }
 
-// Returns true if the monster successfully resists this attempt to poison it.
-bool monster_resists_this_poison(const monster& mons, bool force)
-{
-    const int res = mons.res_poison();
-    if (res >= 3)
-        return true;
-    if (!force && res >= 1 && x_chance_in_y(2, 3))
-        return true;
-    return false;
-}
-
 monster* monster_at(const coord_def &pos)
 {
     if (!in_bounds(pos))
@@ -1192,10 +1181,9 @@ int derived_undead_avg_hp(monster_type mtype, int hd, int scale)
 {
     static const map<monster_type, int> hp_per_hd_by_type = {
         { MONS_BOUND_SOUL,     100 },
-        { MONS_ZOMBIE,          85 },
-        { MONS_SKELETON,        70 },
-        { MONS_SPECTRAL_THING,  60 },
-        // Simulacra aren't tough, but you can create piles of them. - bwr
+        { MONS_ZOMBIE,          20 },
+        { MONS_SKELETON,        10 },
+        { MONS_SPECTRAL_THING,  50 },
         { MONS_SIMULACRUM,      30 },
     };
 
@@ -3606,10 +3594,6 @@ static bool _ms_ranged_spell(spell_type monspell, bool attack_only = false,
         return false;
     }
 
-    // conjurations are attacks.
-    if (spell_typematch(monspell, spschool::conjuration))
-        return true;
-
     // hexes that aren't conjurations or summons are enchantments.
     if (spell_typematch(monspell, spschool::hexes))
         return !attack_only && ench_too;
@@ -4950,6 +4934,17 @@ bool mons_is_recallable(const actor* caller, const monster& targ)
            && !mons_class_is_stationary(targ.type)
            && !mons_is_conjured(targ.type)
            && mons_class_is_threatening(targ.type);
+}
+
+bool mons_is_boltable(const monster& targ)
+{
+    // never bolt an ally
+    if (targ.friendly())
+           return false;
+
+    return targ.alive()
+        && !mons_is_conjured(targ.type)
+        && mons_class_is_threatening(targ.type);
 }
 
 vector<monster* > get_on_level_followers()

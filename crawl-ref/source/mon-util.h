@@ -200,7 +200,6 @@ int get_mons_class_ev(monster_type mc) IMMUTABLE;
 resists_t get_mons_class_resists(monster_type mc) IMMUTABLE;
 resists_t get_mons_resists(const monster& mon);
 int get_mons_resist(const monster& mon, mon_resist_flags res);
-bool monster_resists_this_poison(const monster& mons, bool force = false);
 
 void init_monsters();
 void init_monster_symbols();
@@ -506,6 +505,7 @@ bool monster_nearby();
 actor *actor_by_mid(mid_t m, bool require_valid = false);
 monster *monster_by_mid(mid_t m, bool require_valid = false);
 bool mons_is_recallable(const actor* caller, const monster& targ);
+bool mons_is_boltable(const monster& targ);
 void init_anon();
 actor *find_agent(mid_t m, kill_category kc);
 const char* mons_class_name(monster_type mc);

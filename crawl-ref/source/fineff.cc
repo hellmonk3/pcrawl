@@ -33,6 +33,7 @@
 #include "ouch.h"
 #include "religion.h"
 #include "spl-damage.h"
+#include "spl-monench.h"
 #include "spl-summoning.h"
 #include "state.h"
 #include "stringutil.h"
@@ -577,7 +578,7 @@ void explosion_fineff::fire()
 
     if (typ == EXPLOSION_FINEFF_CONCUSSION)
     {
-        for (adjacent_iterator ai(beam.target); ai; ++ai)
+        for (fair_adjacent_iterator ai(beam.target); ai; ++ai)
         {
             actor *act = actor_at(*ai);
             if (!act
@@ -599,6 +600,7 @@ void explosion_fineff::fire()
             }
 
             act->move_to_pos(newpos);
+            act->stun(beam.agent());
             if (act->is_player())
                 stop_delay(true);
             if (you.can_see(*act))
@@ -909,6 +911,17 @@ void jinxbite_fineff::fire()
     actor* defend = defender();
     if (defend && defend->alive())
         attempt_jinxbite_hit(*defend);
+}
+
+void rime_pillar_fineff::fire()
+{
+    if (monster *pillar = create_monster(mgen_data(MONS_PILLAR_OF_RIME,
+                                                   BEH_HOSTILE, posn,
+                                                   MHITNOT, MG_FORCE_PLACE),
+                                         false))
+    {
+        pillar->add_ench(mon_enchant(ENCH_SLOWLY_DYING, 1, &you, duration));
+    }
 }
 
 // Effects that occur after all other effects, even if the monster is dead.

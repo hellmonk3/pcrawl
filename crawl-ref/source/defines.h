@@ -139,6 +139,9 @@ COMPILE_CHECK(MAX_BRANCH_DEPTH < 256); // 8 bits
 // This value is used to make test_hit checks always succeed
 #define AUTOMATIC_HIT           1500
 
+// Used for inaccuracy
+#define AUTOMATIC_MISS          1600
+
 const int MAX_SKILL_LEVEL = 27;
 const int MAX_EXP_TOTAL = 8999999;
 const int EXERCISE_QUEUE_SIZE = 100;

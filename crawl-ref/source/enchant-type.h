@@ -77,9 +77,7 @@ enum enchant_type
 #if TAG_MAJOR_VERSION == 34
     ENCH_MAGIC_ARMOUR,
     ENCH_FEAR_INSPIRING,
-#endif
     ENCH_PORTAL_PACIFIED,
-#if TAG_MAJOR_VERSION == 34
     ENCH_WITHDRAWN,
     ENCH_ATTACHED,
 #endif
@@ -162,8 +160,8 @@ enum enchant_type
     ENCH_GOLD_LUST,
     ENCH_DRAINED,
     ENCH_REPEL_MISSILES,
-#if TAG_MAJOR_VERSION == 34
     ENCH_DEFLECT_MISSILES,
+#if TAG_MAJOR_VERSION == 34
     ENCH_NEGATIVE_VULN,
     ENCH_CONDENSATION_SHIELD,
 #endif
@@ -208,6 +206,8 @@ enum enchant_type
     ENCH_BOUND,
     ENCH_BULLSEYE_TARGET,
     ENCH_STUN,
+    ENCH_RIMEBLIGHT,
+    ENCH_PHASE_SHIFT,
     // Update enchant_names[] in mon-ench.cc when adding or removing
     // enchantments.
     NUM_ENCHANTMENTS

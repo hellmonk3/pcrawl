@@ -870,8 +870,7 @@ and able to use them skillfully.
 %%%%
 cerulean imp
 
-A small, willful minor demon. Its wings, far larger than its scrawny body, were
-made to soar, and it lands only rarely and with the greatest reluctance.
+A small, willful minor demon. It has surprisingly long arms.
 %%%%
 chaos spawn
 
@@ -2077,6 +2076,18 @@ A royal ant returned to unlife through strange, probably horrifying means. It
 binds the souls of its allies when slain, allowing them to fight on after death
 as simulacra.
 %%%%
+pillar of rime
+
+A spire of strangely tenebrous ice, its brittle tendrils reaching skyward like
+the fingers of an outstretched hand. {{
+    if spells.memorised("rimeblight") then
+        return "If only the dying breath of every soul could create such art."
+    else
+        return "It might even be beautiful if you didn't know the gruesome " ..
+               "way it formed."
+    end
+}}
+%%%%
 pillar of salt
 
 A pillar of salt shaped like a statue, but worked by no living hands.
@@ -2118,10 +2129,10 @@ purple draconian
 
 A muscular purple-scaled humanoid with a reptilian tail and small wings.
 %%%%
-quasit
+drain imp
 
 A cowardly little demon with a long, viciously pointed tail. Its sharp claws
-are engraved with cursing runes that stiffen muscles.
+are engraved with cursing runes that drain magic.
 %%%%
 queen bee
 
@@ -2691,9 +2702,9 @@ A horrific fallen divinity, possessing jaws of gnashing stone and a necklace of
 starry organs. It spreads disease and despair, and patiently awaits the end of
 days when it will devour the sun.
 %%%%
-ufetubus
+brain imp
 
-A chattering and shrieking minor demon.
+A very smart minor demon. Its attacks cause confusion.
 %%%%
 ugly thing
 
@@ -2885,6 +2896,10 @@ glow worm
 
 A worm well-fed on the remains of priests. This has made the worm enlightened,
 and its food holey.
+%%%%
+glowing imp
+
+A minor demon that glows brightly and launches unerringly-accurate magic darts.
 %%%%
 wraith
 

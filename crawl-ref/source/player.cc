@@ -1842,6 +1842,9 @@ static int _player_evasion_bonuses()
     if (you.duration[DUR_AGILITY])
         evbonus += AGILITY_BONUS;
 
+    if (you.duration[DUR_PHASE_SHIFT])
+        evbonus += 35;
+
     evbonus += you.wearing_ego(EQ_ALL_ARMOUR, SPARM_EVASION) * 15;
 
     evbonus += you.scan_artefacts(ARTP_EVASION);
@@ -1978,9 +1981,10 @@ int player_shield_class()
     }
 
     if (you.duration[DUR_SPWPN_SHIELDING])
-    {
         shield += 2000;
-    }
+
+    if (you.duration[DUR_CONDENSATION_SHIELD])
+        shield += 4000;
 
     shield += qazlal_sh_boost() * 100;
     shield += tso_sh_boost() * 100;
@@ -2872,8 +2876,8 @@ static artefact_prop_type _enhancer_for_skill(skill_type sk)
         return ARTP_ENHANCE_TLOC;
     case SK_NECROMANCY:
         return ARTP_ENHANCE_NECRO;
-    case SK_CONJURATIONS:
-        return ARTP_ENHANCE_CONJ;
+    case SK_ENCHANTMENTS:
+        return ARTP_ENHANCE_ENCH;
     case SK_HEXES:
         return ARTP_ENHANCE_HEXES;
     case SK_TRANSMUTATIONS:
@@ -3283,8 +3287,8 @@ int slaying_bonus(bool ranged, bool random)
     ret += 3 * augmentation_amount();
     ret += you.get_mutation_level(MUT_SHARP_SCALES);
 
-    if (you.duration[DUR_WEREBLOOD])
-        ret += you.props[WEREBLOOD_KEY].get_int();
+    if (you.duration[DUR_SONG_OF_SLAYING])
+        ret += you.props[SONG_OF_SLAYING_KEY].get_int();
 
     if (you.duration[DUR_HORROR])
         ret -= you.props[HORROR_PENALTY_KEY].get_int();
@@ -3729,7 +3733,7 @@ int get_real_mp(bool include_items)
 
     const int scale = 100;
     int spellcasting = you.skill(SK_SPELLCASTING, 1 * scale, false, false);
-    int enp = 10 * scale;
+    int enp = 20 * scale;
 
     int spell_extra = spellcasting; // 100%
     int invoc_extra = you.skill(SK_INVOCATIONS, 1 * scale, false, false) / 2; // 50%
@@ -4264,7 +4268,7 @@ int poison_survival()
     return min(prediction1, prediction2);
 }
 
-bool miasma_player(actor *who, string source_aux)
+bool miasma_player()
 {
     ASSERT(!crawl_state.game_is_arena());
 
@@ -4277,11 +4281,9 @@ bool miasma_player(actor *who, string source_aux)
         return false;
     }
 
-    bool success = poison_player(5 + roll_dice(3, 12),
-                                 who ? who->name(DESC_A) : "",
-                                 source_aux);
+    bool success = false;
 
-    if (one_chance_in(3))
+    if (coinflip())
     {
         slow_player(10 + random2(5));
         success = true;
@@ -4432,9 +4434,6 @@ bool haste_player(int turns, bool rageext)
         return false;
     }
 
-    // Cutting the nominal turns in half since hasted actions take half the
-    // usual delay.
-    turns = haste_div(turns);
     const int threshold = 40;
 
     if (!you.duration[DUR_HASTE])
@@ -5263,10 +5262,6 @@ string player::shout_verb(bool directed) const
     if (!get_form()->shout_verb.empty())
         return get_form()->shout_verb;
 
-    // Overrides species, but gets overridden in turn by other forms.
-    if (you.duration[DUR_WEREBLOOD])
-        return "howl";
-
     const int screaminess = get_mutation_level(MUT_SCREAM);
     return species::shout_verb(you.species, screaminess, directed);
 }
@@ -5414,6 +5409,7 @@ bool player::shielded() const
 {
     return shield()
            || duration[DUR_DIVINE_SHIELD]
+           || duration[DUR_CONDENSATION_SHIELD]
            || get_mutation_level(MUT_LARGE_BONE_PLATES) > 0
            || qazlal_sh_boost() > 0
            || you.wearing(EQ_AMULET, AMU_REFLECTION)
@@ -5454,7 +5450,8 @@ bool player::missile_repulsion() const
     return get_mutation_level(MUT_DISTORTION_FIELD) == 3
         || you.wearing_ego(EQ_ALL_ARMOUR, SPARM_REPULSION)
         || scan_artefacts(ARTP_RMSL)
-        || have_passive(passive_t::upgraded_storm_shield);
+        || have_passive(passive_t::upgraded_storm_shield)
+        || you.duration[DUR_DEFLECT_MISSILES]; //used for messaging
 }
 
 /**
@@ -5531,7 +5528,7 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
     // skill training, so make sure to use the correct value.
     int actual_skill = skills[sk];
     unsigned int effective_points = skill_points[sk];
-    effective_points = min(effective_points, skill_exp_needed(MAX_SKILL_LEVEL, sk));
+    effective_points = min(effective_points, skill_exp_needed(MAX_SKILL_LEVEL));
     actual_skill = calc_skill_level_change(sk, actual_skill, effective_points);
 
     int level = actual_skill * scale
@@ -5547,8 +5544,8 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
 
     switch (sk)
     {
-    case SK_CONJURATIONS:
-        level = min(level + scan_artefacts(ARTP_ENHANCE_CONJ) * scale, 27 * scale);
+    case SK_ENCHANTMENTS:
+        level = min(level + scan_artefacts(ARTP_ENHANCE_ENCH) * scale, 27 * scale);
         break;
     case SK_NECROMANCY:
         level = min(level + scan_artefacts(ARTP_ENHANCE_NECRO) * scale, 27 * scale);
@@ -5943,8 +5940,7 @@ int player::armour_class_with_specific_items(vector<const item_def *> items) con
 
     if (duration[DUR_ICY_ARMOUR])
     {
-        AC += max(0, 500 + you.props[ICY_ARMOUR_KEY].get_int() * 8
-                     - unadjusted_body_armour_penalty() * 50);
+        AC += max(0, 400 + you.props[ICY_ARMOUR_KEY].get_int() * 50);
     }
 
     if (has_mutation(MUT_ICEMAIL))
@@ -6137,10 +6133,6 @@ bool player::res_miasma(bool temp) const
         return true;
     }
 
-    const item_def *armour = slot_item(EQ_BODY_ARMOUR);
-    if (armour && is_unrandom_artefact(*armour, UNRAND_EMBRACE))
-        return true;
-
     return is_lifeless_undead();
 }
 
@@ -6197,18 +6189,12 @@ bool player::res_petrify(bool temp) const
            || cur_form(temp)->res_petrify();
 }
 
-int player::res_constrict() const
+bool player::res_constrict() const
 {
-    if (is_insubstantial())
-        return 3;
-
-    if (get_mutation_level(MUT_SPINY))
-        return 3;
-
-    if (player_equip_unrand(UNRAND_SLICK_SLIPPERS))
-        return 3;
-
-    return 0;
+    return is_insubstantial()
+           || get_mutation_level(MUT_SPINY)
+           || player_equip_unrand(UNRAND_SLICK_SLIPPERS)
+           || you.duration[DUR_CONSTRICTION_IMMUNITY];
 }
 
 int player::willpower() const
@@ -7377,7 +7363,13 @@ void player::goto_place(const level_id &lid)
     ASSERT_RANGE(depth, 1, brdepth[where_are_you] + 1);
 }
 
-bool player::attempt_escape(int attempts)
+static int _constriction_escape_chance(int attempts)
+{
+    static int escape_chance[] = {50, 75, 100};
+    return escape_chance[min(3, attempts) - 1];
+}
+
+bool player::attempt_escape()
 {
     monster *themonst;
 
@@ -7386,22 +7378,19 @@ bool player::attempt_escape(int attempts)
 
     themonst = monster_by_mid(constricted_by);
     ASSERT(themonst);
-    escape_attempts += attempts;
+    escape_attempts += 1;
 
     const auto constr_typ = get_constrict_type();
     const string object
         = constr_typ == CONSTRICT_ROOTS ? "the roots"
                                         : themonst->name(DESC_ITS, true);
-    // player breaks free if (4+n)d13 >= 5d(8+HD/4)
-    const int escape_score = roll_dice(4 + escape_attempts, 13);
-    if (escape_score
-        >= roll_dice(5, 8 + div_rand_round(themonst->get_hit_dice(), 4)))
+    if (x_chance_in_y(_constriction_escape_chance(escape_attempts), 100))
     {
         mprf("You escape %s grasp.", object.c_str());
 
         // Stun the monster to prevent it from constricting again right away.
         if (constr_typ == CONSTRICT_MELEE)
-            themonst->speed_increment -= 5;
+            themonst->stun(&you);
 
         stop_being_constricted(true);
 
@@ -7549,9 +7538,7 @@ static string _constriction_description()
         if (!cinfo.empty())
             cinfo += "\n";
 
-        cinfo += make_stringf("You are being %s by %s.",
-                              constrictor->constriction_does_damage(constr_typ) ?
-                                  "held" : "constricted",
+        cinfo += make_stringf("You are being constricted by %s.",
                               constrictor->name(DESC_A).c_str());
     }
 
@@ -7559,7 +7546,7 @@ static string _constriction_description()
     {
         for (const auto &entry : *you.constricting)
         {
-            monster *whom = monster_by_mid(entry.first);
+            monster *whom = monster_by_mid(entry);
             ASSERT(whom);
 
             if (whom->get_constrict_type() != CONSTRICT_MELEE)

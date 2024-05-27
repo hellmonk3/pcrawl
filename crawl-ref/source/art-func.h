@@ -298,7 +298,7 @@ static void _POWER_melee_effects(item_def* /*weapon*/, actor* attacker,
         beam.attitude  = attacker->temp_attitude();
         beam.range = 4;
         beam.target = defender->pos();
-        zappy(ZAP_SWORD_BEAM, 100, false, beam);
+        zappy(ZAP_INACCURACY, 100, false, beam);
         beam.fire();
     }
 }
@@ -1425,7 +1425,7 @@ static void _BATTLE_world_reacts(item_def */*item*/)
         && there_are_monsters_nearby(true, true, false)
         && stop_summoning_reason(MR_RES_POISON, M_FLIES).empty())
     {
-        const int pow = div_rand_round(15 + you.skill(SK_CONJURATIONS, 15), 3);
+        const int pow = div_rand_round(15 + you.skill(SK_ENCHANTMENTS, 15), 3);
         cast_battlesphere(&you, pow, GOD_NO_GOD, false);
         did_god_conduct(DID_WIZARDLY_ITEM, 10);
     }

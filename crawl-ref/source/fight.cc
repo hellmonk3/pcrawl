@@ -96,6 +96,10 @@ int aux_to_hit()
 int to_hit_pct(const monster_info& mi, attack &atk, bool melee)
 {
     const int to_land = atk.calc_pre_roll_to_hit(false);
+
+    if (!melee && mi.is(MB_BULLSEYE_TARGET))
+        return 100;
+
     int ev = mi.ev;
     if (to_land >= AUTOMATIC_HIT)
         return 100;
@@ -543,6 +547,7 @@ static int _beam_to_resist(const actor* defender, beam_type flavour)
         case BEAM_WATER:
             return defender->res_water_drowning();
         case BEAM_ELECTRICITY:
+        case BEAM_INACCURACY:
         case BEAM_THUNDER:
         case BEAM_STUN_BOLT:
             return defender->res_elec();

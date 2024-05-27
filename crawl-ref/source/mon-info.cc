@@ -130,6 +130,8 @@ static map<enchant_type, monster_info_flags> trivial_ench_mb_mappings = {
     { ENCH_BOUND,           MB_BOUND },
     { ENCH_BULLSEYE_TARGET, MB_BULLSEYE_TARGET},
     { ENCH_STUN,            MB_STUNNED },
+    { ENCH_RIMEBLIGHT,      MB_RIMEBLIGHT },
+    { ENCH_PHASE_SHIFT,     MB_PHASE_SHIFT },
 };
 
 static monster_info_flags ench_to_mb(const monster& mons, enchant_type ench)
@@ -812,8 +814,7 @@ monster_info::monster_info(const monster* m, int milev)
     {
         const actor * const constrictor = actor_by_mid(m->constricted_by);
         ASSERT(constrictor);
-        constrictor_name = (constrictor->constriction_does_damage(constr_typ) ?
-                            "constricted by " : "held by ")
+        constrictor_name = "constricted by "
                            + constrictor->name(_article_for(constrictor),
                                                true);
     }
@@ -821,15 +822,13 @@ monster_info::monster_info(const monster* m, int milev)
     // Names of what this monster is directly constricting, if any
     if (m->constricting)
     {
-        const char *participle =
-            m->constriction_does_damage(CONSTRICT_MELEE) ? "constricting " : "holding ";
         for (const auto &entry : *m->constricting)
         {
-            const actor* const constrictee = actor_by_mid(entry.first);
+            const actor* const constrictee = actor_by_mid(entry);
 
             if (constrictee && constrictee->get_constrict_type() == CONSTRICT_MELEE)
             {
-                constricting_name.push_back(participle
+                constricting_name.push_back("constricting "
                                             + constrictee->name(
                                                   _article_for(constrictee),
                                                   true));
@@ -1783,16 +1782,8 @@ bool monster_info::has_trivial_ench(enchant_type ench) const
 // the player's knowledge?
 bool monster_info::unravellable() const
 {
-    if (is(MB_SUMMONED))
-        return true;
-
     // NOTE: assumes that all debuffable enchantments are trivially mapped
     // to MBs.
-
-    // can't debuff innately invisible monsters
-    if (is(MB_INVISIBLE) && !mons_class_flag(type, M_INVIS))
-        return true;
-
     return any_of(begin(dispellable_enchantments),
                   end(dispellable_enchantments),
                   [this](enchant_type ench) -> bool

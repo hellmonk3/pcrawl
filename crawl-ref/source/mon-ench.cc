@@ -39,6 +39,7 @@
 #include "religion.h"
 #include "spl-clouds.h"
 #include "spl-damage.h"
+#include "spl-monench.h"
 #include "spl-summoning.h"
 #include "state.h"
 #include "stepdown.h"
@@ -958,6 +959,11 @@ void monster::remove_enchantment_effect(const mon_enchant &me, bool quiet)
             simple_monster_message(*this, " is no longer repelling missiles.");
         break;
 
+    case ENCH_PHASE_SHIFT:
+        if (!quiet)
+            simple_monster_message(*this, " seems more solid.");
+        break;
+
     case ENCH_RESISTANCE:
         if (!quiet)
             simple_monster_message(*this, " is no longer unusually resistant.");
@@ -991,16 +997,17 @@ void monster::remove_enchantment_effect(const mon_enchant &me, bool quiet)
     case ENCH_VILE_CLUTCH:
     case ENCH_GRASPING_ROOTS:
     {
-        const string noun = me.ench == ENCH_VILE_CLUTCH ? "zombie hands"
-                                                        : "roots";
         if (is_constricted())
         {
-            // We handle the end-of-enchantment message here since the method
-            // of constriction is no longer detectable.
-            if (!quiet && you.can_see(*this))
+            if (me.ench == ENCH_VILE_CLUTCH)
             {
-                mprf("The %s release their grip on %s.", noun.c_str(),
-                        name(DESC_THE).c_str());
+                mprf("%s zombie hands return to the earth.",
+                     me.agent()->name(DESC_THE).c_str());
+            }
+            else
+            {
+                mprf("%s grasping roots sink back into the ground.",
+                     me.agent()->name(DESC_THE).c_str());
             }
             stop_being_constricted(true);
         }
@@ -1669,38 +1676,12 @@ void monster::apply_enchantment(const mon_enchant &me)
     }
     break;
 
-    case ENCH_PORTAL_PACIFIED:
-    {
-        if (decay_enchantment(en))
-        {
-            if (has_ench(ENCH_SEVERED))
-                break;
-
-            if (!friendly())
-                break;
-
-            if (!silenced(you.pos()))
-            {
-                if (you.can_see(*this))
-                    simple_monster_message(*this, " suddenly becomes enraged!");
-                else
-                    mpr("You hear a distant and violent thrashing sound.");
-            }
-
-            attitude = ATT_HOSTILE;
-            mons_att_changed(this);
-            if (!crawl_state.game_is_arena())
-                behaviour_event(this, ME_ALERT, &you);
-        }
-    }
-    break;
-
     case ENCH_SEVERED:
     {
         simple_monster_message(*this, " writhes!");
         coord_def base_position = props[BASE_POSITION_KEY].get_coord();
         maybe_bloodify_square(base_position);
-        hurt(me.agent(), 20);
+        hurt(me.agent(), 15);
     }
 
     break;
@@ -1891,6 +1872,20 @@ void monster::apply_enchantment(const mon_enchant &me)
     case ENCH_ANGUISH:
         if (decay_enchantment(en))
             simple_monster_message(*this, " is no longer haunted by guilt.");
+        break;
+
+    case ENCH_RIMEBLIGHT:
+        tick_rimeblight(*this);
+        if (!alive())
+            return;
+        // Instakill at <=20% max hp
+        if (hit_points * 5 <= max_hit_points)
+        {
+            props[RIMEBLIGHT_DEATH_KEY] = true;
+            monster_die(*this, KILL_YOU, NON_MONSTER);
+        }
+        else if (decay_enchantment(en))
+            simple_monster_message(*this, " recovers from rimeblight.");
         break;
 
     default:
@@ -2126,7 +2121,7 @@ static const char *enchant_names[] =
     "ring_chaos", "ring_mutation", "ring_fog", "ring_ice", "ring_neg",
     "ring_acid", "ring_miasma", "concentrate_venom", "fire_champion",
     "anguished", "simulacra", "necrotizing", "glowing", "pursuing",
-    "bound", "bullseye_target", "stunned",
+    "bound", "bullseye_target", "stunned", "rimeblight", "phase shift",
     "buggy", // NUM_ENCHANTMENTS
 };
 
@@ -2339,10 +2334,6 @@ int mon_enchant::calc_duration(const monster* mons,
 
     case ENCH_STUN:
         return 20;
-
-    case ENCH_PORTAL_PACIFIED:
-        // Must be set by spell.
-        return 0;
 
     case ENCH_BREATH_WEAPON:
         // Must be set by creature.

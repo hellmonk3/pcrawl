@@ -792,11 +792,6 @@ bool string_matches_ability_name(const string& key)
     return ability_by_name(key) != ABIL_NON_ABILITY;
 }
 
-static bool _invis_causes_drain()
-{
-    return !player_equip_unrand(UNRAND_INVISIBILITY);
-}
-
 /**
  * Find an ability whose name matches the given key.
  *

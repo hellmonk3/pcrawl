@@ -39,11 +39,12 @@
 #include "unique-creature-list-type.h"
 #include "unique-item-status-type.h"
 
+#define CONDENSATION_SHIELD_KEY "condensation_shield_pow"
 #define ICY_ARMOUR_KEY "ozocubu's_armour_pow"
 #define BARBS_MOVE_KEY "moved_with_barbs_status"
 #define HORROR_PENALTY_KEY "horror_penalty"
 #define POWERED_BY_DEATH_KEY "powered_by_death_strength"
-#define WEREBLOOD_KEY "wereblood_bonus"
+#define SONG_OF_SLAYING_KEY "song_of_slaying_bonus"
 #define FORCE_MAPPABLE_KEY "force_mappable"
 #define MANA_REGEN_AMULET_ACTIVE "mana_regen_amulet_active"
 #define TEMP_WATERWALK_KEY "temp_waterwalk"
@@ -619,8 +620,6 @@ public:
     random_var  attack_delay(const item_def *projectile = nullptr,
                              bool rescale = true) const override;
     int         constriction_damage(constrict_type typ) const override;
-    bool        constriction_does_damage(constrict_type /* typ */) const override
-                    { return true; };
 
     int       has_claws(bool allow_tran = true) const override;
     bool      has_usable_claws(bool allow_tran = true) const;
@@ -779,7 +778,7 @@ public:
     bool res_torment() const override;
     bool res_polar_vortex() const override;
     bool res_petrify(bool temp = true) const override;
-    int res_constrict() const override;
+    bool res_constrict() const override;
     int willpower() const override;
     bool no_tele(bool blink = false, bool temp = true) const override;
     string no_tele_reason(bool blink = false, bool temp = true) const;
@@ -909,7 +908,7 @@ public:
     void set_duration(duration_type dur, int turns, int cap = 0,
                       const char *msg = nullptr);
 
-    bool attempt_escape(int attempts = 1);
+    bool attempt_escape();
     int usable_tentacles() const;
     bool has_usable_tentacle() const override;
 
@@ -1144,7 +1143,7 @@ int get_player_poisoning();
 bool poison_is_lethal();
 int poison_survival();
 
-bool miasma_player(actor *who, string source_aux = "");
+bool miasma_player();
 
 bool napalm_player(int amount, string source, string source_aux = "");
 void dec_napalm_player(int delay);

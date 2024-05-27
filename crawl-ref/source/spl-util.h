@@ -16,7 +16,7 @@ using std::vector;
 enum class spschool
 {
   none           = 0,
-  conjuration    = 1<<0,
+  enchantments   = 1<<0,
   hexes          = 1<<1,
   fire           = 1<<2,
   ice            = 1<<3,

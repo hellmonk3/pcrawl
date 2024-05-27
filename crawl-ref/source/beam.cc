@@ -7026,7 +7026,7 @@ void clear_zap_info_on_exit()
 
 int ench_power_stepdown(int pow)
 {
-    return stepdown(pow, 35);
+    return pow;
 }
 
 /// Translate a given ench power to a duration, in aut, and randomize it.

@@ -126,7 +126,7 @@ While transformed, equipped weapons, shields, and gloves are melded.
 Book of Fireball
 
 A standard-issue wizarding textbook containing the most essential spell for any
-aspiring mage. 
+aspiring mage.
 
 It describes the Fireball spell:
 
@@ -134,7 +134,7 @@ It describes the Fireball spell:
 %%%%
 Book of Inner Flame
 
-A slick, oily manuscript bound with straw. 
+A slick, oily manuscript bound with straw.
 
 It describes the Inner Flame spell:
 
@@ -187,7 +187,7 @@ It describes the Steam Burst spell:
 %%%%
 Book of Ambulatory Bomb
 
-A pamphlet describing the construction of various magical and nonmagical 
+A pamphlet describing the construction of various magical and nonmagical
 explosives. The author's name has been struck out.
 
 It describes the Ambulatory Bomb spell:
@@ -254,8 +254,8 @@ It describes the Arcane Nova spell:
 %%%%
 Book of Dragon's Call
 
-A short manuscript of draconic authorship, bound in scale and bone. It records 
-an ancient treaty between elvish and draconic tribes, as well as a spell for 
+A short manuscript of draconic authorship, bound in scale and bone. It records
+an ancient treaty between elvish and draconic tribes, as well as a spell for
 one side to call upon the other in times of need.
 
 It describes the Dragon's Call spell:
@@ -314,7 +314,7 @@ was raised by human parents and returned to her native forest in adulthood.
 
 It describes the Summon Forest spell:
 
-<Summon Forest spell> 
+<Summon Forest spell>
 %%%%
 Book of Eringya's Noxious Bog
 
@@ -356,7 +356,7 @@ It describes the Warp Gravity spell:
 Book of Brom's Barrelling Boulder
 
 A nigh-unreadable mess of gibberish purported to be authored by the earth mage
-Brom. The text is entirely uncapitalized, unspaced, and unpunctuated. Reading 
+Brom. The text is entirely uncapitalized, unspaced, and unpunctuated. Reading
 past the first spell would best be described as sisyphean.
 
 It describes Brom's Barrelling Boulder:
@@ -366,7 +366,7 @@ It describes Brom's Barrelling Boulder:
 Book of Tomb of Doroklohe
 
 A copy of a truly ancient text written by a long deceased, then long-undeceased,
-then long-redeceased royal mummy. Though often faked, this appears to be the 
+then long-redeceased royal mummy. Though often faked, this appears to be the
 genuine article, since the rather tricky name of the author is spelled correctly
 atop each page.
 
@@ -386,7 +386,7 @@ It describes the Orb of Destruction spell:
 Book of Dig
 
 A book about excavation. After five hundred pages concerning the most optimal
-mundane methods for digging tunnels, a spell to perform the same function is 
+mundane methods for digging tunnels, a spell to perform the same function is
 mentioned in a brief aside. Truly, a dwarf wrote this.
 
 It describes the Dig spell:
@@ -395,7 +395,7 @@ It describes the Dig spell:
 %%%%
 Book of Shatter
 
-The pages of this tome are mixed up and torn. It's easy enough to get the gist 
+The pages of this tome are mixed up and torn. It's easy enough to get the gist
 of the spell within, but not so easy to cast it.
 
 It describes the Shatter spell:
@@ -558,7 +558,7 @@ It describes the Swiftness spell:
 %%%%
 Book of Silence
 
-A sketch portfolio of a beautiful, ghostly woman. Just gazing at her grants 
+A sketch portfolio of a beautiful, ghostly woman. Just gazing at her grants
 ethereal knowledge.
 
 It grants understanding of the Silence spell:
@@ -656,7 +656,7 @@ It describes the Kiss of Death spell:
 %%%%
 Book of Infestation
 
-This tome seems to spontaneously generate hideous insects of all kinds. The 
+This tome seems to spontaneously generate hideous insects of all kinds. The
 writing itself is mundane and unimpressive.
 
 It describes the Infestation spell:
@@ -781,7 +781,7 @@ It describes the Summon Cactus Giant spell:
 %%%%
 Book of Eldritch Ichor
 
-A tentacled book that writhes and screams when touched. Just grasping it fills 
+A tentacled book that writhes and screams when touched. Just grasping it fills
 you with a sense of foreboding.
 
 It describes the Eldritch Ichor spell:
@@ -823,7 +823,7 @@ It describes the Blink spell:
 %%%%
 Book of Phase Shift
 
-A shimmering book. Whether or not a given page is present when the book is 
+A shimmering book. Whether or not a given page is present when the book is
 opened seems to be completely random.
 
 It describes the Phase Shift spell:
@@ -842,8 +842,8 @@ It describes Passage of Golubria:
 %%%%
 Book of Dispersal
 
-A book on Translocations written by a particularly misanthropic mage. After its 
-completion, they were never seen again, which may or may not have been the 
+A book on Translocations written by a particularly misanthropic mage. After its
+completion, they were never seen again, which may or may not have been the
 point.
 
 It describes the Dispersal spell:
@@ -889,7 +889,7 @@ It describes the Enfeeble spell:
 %%%%
 Book of Alistair's Intoxication
 
-A book containing a classic wizard party trick, as well as a number of toasts, 
+A book containing a classic wizard party trick, as well as a number of toasts,
 jokes, and party games.
 
 It describes Alistair's Intoxication:
@@ -940,7 +940,7 @@ It describes the Haste spell:
 %%%%
 Book of Animate Armour
 
-A philosophical examination on whether objects possess souls. The author 
+A philosophical examination on whether objects possess souls. The author
 wholeheartedly posits the affirmative position.
 
 It describes the Animate Armour spell:

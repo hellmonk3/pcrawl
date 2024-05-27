@@ -2814,44 +2814,10 @@ int monster::willpower() const
     if (props.exists(KIKU_WRETCH_KEY))
         return 0;
 
-    const item_def *arm = mslot_item(MSLOT_ARMOUR);
-    if (arm && is_unrandom_artefact(*arm, UNRAND_FOLLY))
-        return 0;
-
-    const int type_wl = (get_monster_data(type))->willpower;
-    // Negative values get multiplied with monster hit dice.
-    int u = type_wl < 0 ?
-                get_hit_dice() * -type_wl * 4 / 3 :
-                mons_class_willpower(type, base_monster);
-
-    // Hepliaklqana ancestors scale with xl.
-    if (mons_is_hepliaklqana_ancestor(type))
-        u = get_experience_level() * get_experience_level() / 2; // 0-160ish
-
-    // Draining/malmutation reduce monster base WL proportionately.
-    const int HD = get_hit_dice();
-    if (HD < get_experience_level())
-        u = u * HD / get_experience_level();
-
-    // Resistance from artefact properties.
-    u += WL_PIP * scan_artefacts(ARTP_WILLPOWER);
-
-    // Ego equipment resistance.
-    const int armour    = inv[MSLOT_ARMOUR];
-    const int shld      = inv[MSLOT_SHIELD];
-    const int jewellery = inv[MSLOT_JEWELLERY];
-
-    if (armour != NON_ITEM && env.item[armour].base_type == OBJ_ARMOUR)
-        u += get_armour_willpower(env.item[armour], false);
-
-    if (shld != NON_ITEM && env.item[shld].base_type == OBJ_ARMOUR)
-        u += get_armour_willpower(env.item[shld], false);
-
-    if (jewellery != NON_ITEM && env.item[jewellery].base_type == OBJ_JEWELLERY)
-        u += get_jewellery_willpower(env.item[jewellery], false);
+    int u = get_hit_dice();
 
     if (has_ench(ENCH_STRONG_WILLED)) //trog's hand
-        u += 80;
+        u += 2;
 
     if (has_ench(ENCH_LOWERED_WL))
         u /= 2;

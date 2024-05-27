@@ -621,7 +621,7 @@ static void _adjust_brand(item_def &item, bool divine, int agent)
 }
 
 static void _force_cold_brand(item_def &item)
-{ 
+{
     if (is_artefact(item))
         return;
 
@@ -643,11 +643,11 @@ static void _force_necro_brand(item_def &item)
 {
     if (is_artefact(item))
         return;
-    
+
     if (item.base_type == OBJ_WEAPONS)
     {
         bool ranged = is_range_weapon(item);
-        
+
         item.brand = random_choose_weighted(ranged ? 0 : 3, SPWPN_VAMPIRISM,
                                                          3, SPWPN_REAPING,
                                                          3, SPWPN_PAIN,
@@ -1197,15 +1197,15 @@ void make_acquirement_items()
 static item_def _branch_theme_item(branch_type branch)
 {
     item_def item;
-    
-    int armweight = (branch == BRANCH_CRYPT ||you.has_mutation(MUT_NO_ARMOUR)) ? 
+
+    int armweight = (branch == BRANCH_CRYPT ||you.has_mutation(MUT_NO_ARMOUR)) ?
                         0 : 1;
     int weapweight = you.has_mutation(MUT_NO_GRASPING) ? 0 : 1;
-    
+
     object_class_type type = random_choose_weighted(armweight, OBJ_ARMOUR,
                                                     weapweight, OBJ_WEAPONS,
                                                     1, OBJ_BOOKS);
-    
+
     item = _acquirement_item_def(type);
     if (branch == BRANCH_SWAMP)
     {
@@ -1214,7 +1214,7 @@ static item_def _branch_theme_item(branch_type branch)
     }
     else if (branch == BRANCH_CRYPT && type == OBJ_WEAPONS)
         _force_necro_brand(item);
-    
+
     return item;
 }
 

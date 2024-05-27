@@ -1235,12 +1235,6 @@ bool spell_has_targeter(spell_type spell)
     return bool(find_spell_targeter(spell, 1, 1));
 }
 
-// Returns the nth triangular number.
-static int _triangular_number(int n)
-{
-    return n * (n+1) / 2;
-}
-
 // _tetrahedral_number: returns the nth tetrahedral number.
 // This is the number of triples of nonnegative integers with sum < n.
 static int _tetrahedral_number(int n)
@@ -1261,18 +1255,16 @@ static int _tetrahedral_number(int n)
  */
 int hex_success_chance(const int wl, int powc, int scale, bool round_up)
 {
-    const int pow = ench_power_stepdown(powc);
-    const int target = wl + 100 - pow;
-    const int denom = 101 * 100;
+    const int target = 10 + wl * 10 - powc * 5;
+    const int denom = 100;
     const int adjust = round_up ? denom - 1 : 0;
 
     if (target <= 0)
         return scale;
-    if (target > 200)
+    if (target > 100)
         return 0;
-    if (target <= 100)
-        return (scale * (denom - _triangular_number(target)) + adjust) / denom;
-    return (scale * _triangular_number(201 - target) + adjust) / denom;
+
+    return (scale * (denom - target));
 }
 
 // approximates _test_beam_hit in a deterministic fashion.

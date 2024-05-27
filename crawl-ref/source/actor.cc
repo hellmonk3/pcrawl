@@ -128,11 +128,8 @@ int actor::check_willpower(const actor* source, int power) const
     if (source && source->wearing_ego(EQ_ALL_ARMOUR, SPARM_GUILE))
         wl = guile_adjust_willpower(wl);
 
-    const int adj_pow = ench_power_stepdown(power);
-
-    const int wlchance = (100 + wl) - adj_pow;
+    const int wlchance = 10 + wl * 10 - power * 5;
     int wlch2 = random2(100);
-    wlch2 += random2(101);
 
     dprf("Power: %d (%d pre-stepdown), WL: %d, target: %d, roll: %d",
          adj_pow, power, wl, wlchance, wlch2);

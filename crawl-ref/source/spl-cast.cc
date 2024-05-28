@@ -360,8 +360,8 @@ int calc_spell_power(spell_type spell)
     power = _apply_enhancement(power, _spell_enhancement(spell));
 
     // Wild magic boosts spell power, subdued magic decreases it.
-    power += you.get_mutation_level(MUT_WILD_MAGIC);
-    power -= you.get_mutation_level(MUT_SUBDUED_MAGIC);
+    power += you.get_mutation_level(MUT_WILD_MAGIC) * 2;
+    power -= you.get_mutation_level(MUT_SUBDUED_MAGIC) * 2;
 
     // Augmentation boosts spell power at high HP.
     power += augmentation_amount();
@@ -429,7 +429,7 @@ static int _spell_enhancement(spell_type spell)
             enhanced--;
     }
 
-    enhanced += you.archmagi();
+    enhanced += you.archmagi() * 3;
     enhanced += you.duration[DUR_BRILLIANCE] > 0
                 || player_equip_unrand(UNRAND_FOLLY);
 

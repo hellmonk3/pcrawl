@@ -274,31 +274,32 @@ static const mutation_def mut_data[] =
 },
 #endif
 
-{ MUT_WEAK, 8, 2, mutflag::bad, false,
+{ MUT_WEAK, 8, 1, mutflag::bad, false,
   "weak",
 
-  {"You are weak. (Str -2)",
-   "You are very weak. (Str -4)", ""},
-  {"", "", ""},
-  {"", "", ""},
+  {"You are weak. (Slay -3)",
+   "", ""},
+  {"You feel weaker.", "", ""},
+  {"You feel weaker", "", ""},
   TILEG_MUT_WEAK,
 },
 
-{ MUT_DOPEY, 8, 2, mutflag::bad, false,
+// use subdued magic instead
+{ MUT_DOPEY, 0, 1, mutflag::bad, false,
   "dopey",
 
-  {"You are dopey. (Int -2)",
-   "You are very dopey. (Int -4)", ""},
+  {"You are dopey. (Spellpower - 2)",
+   "", ""},
   {"", "", ""},
   {"", "", ""},
   TILEG_MUT_DOPEY,
 },
 
-{ MUT_CLUMSY, 8, 2, mutflag::bad, false,
+{ MUT_CLUMSY, 8, 1, mutflag::bad, false,
   "clumsy",
 
-  {"You are clumsy. (Dex -2)",
-   "You are very clumsy. (Dex -4)", ""},
+  {"You are clumsy. (Ev -20)",
+   "", ""},
   {"", "", ""},
   {"", "", ""},
   TILEG_MUT_CLUMSY,

@@ -1770,33 +1770,6 @@ bool physiology_mutation_conflict(mutation_type mutat)
     return false;
 }
 
-static const char* _stat_mut_desc(mutation_type mut, bool gain)
-{
-    stat_type stat = STAT_STR;
-    bool positive = gain;
-    switch (mut)
-    {
-    case MUT_WEAK:
-        positive = !positive;
-        stat = STAT_STR;
-        break;
-
-    case MUT_DOPEY:
-        positive = !positive;
-        stat = STAT_INT;
-        break;
-
-    case MUT_CLUMSY:
-        positive = !positive;
-        stat = STAT_DEX;
-        break;
-
-    default:
-        die("invalid stat mutation: %d", mut);
-    }
-    return stat_desc(stat, positive ? SD_INCREASE : SD_DECREASE);
-}
-
 /**
  * Do a resistance check for the given mutation permanence class.
  * Does not include divine intervention!
@@ -2009,11 +1982,6 @@ bool mutate(mutation_type which_mutation, const string &reason, bool failMsg,
         // More than three messages, need to give them by hand.
         switch (mutat)
         {
-        case MUT_WEAK:   case MUT_CLUMSY: case MUT_DOPEY:
-            mprf(MSGCH_MUTATION, "You feel %s.", _stat_mut_desc(mutat, true));
-            gain_msg = false;
-            break;
-
         case MUT_LARGE_BONE_PLATES:
             {
                 const string arms = pluralise(species::arm_name(you.species));
@@ -2209,11 +2177,6 @@ static bool _delete_single_mutation_level(mutation_type mutat,
 
     switch (mutat)
     {
-    case MUT_WEAK:   case MUT_CLUMSY: case MUT_DOPEY:
-        mprf(MSGCH_MUTATION, "You feel %s.", _stat_mut_desc(mutat, false));
-        lose_msg = false;
-        break;
-
     case MUT_SPIT_POISON:
         // Breathe poison replaces spit poison (so it takes the slot).
         if (you.mutation[mutat] < 2)
@@ -2631,11 +2594,6 @@ string mutation_desc(mutation_type mut, int level, bool colour,
 
     const mutation_def& mdef = _get_mutation_def(mut);
 
-    if (mut == MUT_WEAK
-        || mut == MUT_DOPEY || mut == MUT_CLUMSY)
-    {
-        level = min(level, 2);
-    }
     if (mut == MUT_ICEMAIL)
     {
         ostringstream ostr;

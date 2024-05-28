@@ -1901,11 +1901,14 @@ static int _player_evasion(bool ignore_helpless)
 
     const int natural_evasion = you.skill(SK_DODGING, 7)
         - _player_adjusted_evasion_penalty();
-
+        
     const int evasion_bonuses = _player_evasion_bonuses();
 
     int final_evasion =
         _player_scale_evasion(natural_evasion) + evasion_bonuses;
+        
+    if (you.has_mutation(MUT_CLUMSY))
+        final_evasion -= 20;
 
     // If you have an active amulet of the acrobat and just moved or waited,
     // get a massive EV bonus.
@@ -3286,6 +3289,8 @@ int slaying_bonus(bool ranged, bool random)
 
     ret += 3 * augmentation_amount();
     ret += you.get_mutation_level(MUT_SHARP_SCALES);
+    
+    ret -= 3 * you.get_mutation_level(MUT_WEAK);
 
     if (you.duration[DUR_SONG_OF_SLAYING])
         ret += you.props[SONG_OF_SLAYING_KEY].get_int();

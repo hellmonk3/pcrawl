@@ -3230,7 +3230,7 @@ static void _tag_read_you(reader &th)
                 you.mutation[mut] = 2;
             }
         }
-        mutation_type bad_stat_mutations[] = { MUT_WEAK, MUT_DOPEY, MUT_CLUMSY };
+        mutation_type bad_stat_mutations[] = {MUT_DOPEY, MUT_CLUMSY };
         for (int j = 0; j < 3; ++j)
         {
             mutation_type mut = bad_stat_mutations[j];

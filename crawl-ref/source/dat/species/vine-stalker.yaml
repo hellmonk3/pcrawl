@@ -27,13 +27,11 @@ levelup_stats:
   - dex
 mutations:
   1:
-    MUT_FANGS: 2
+    MUT_FANGS: 1
     MUT_MANA_SHIELD: 1
     MUT_ANTIMAGIC_BITE: 1
     MUT_NO_POTION_HEAL: 2
     MUT_REGENERATION: 1
-  8:
-    MUT_FANGS: 1
 recommended_jobs:
   - JOB_FIGHTER
   - JOB_BRIGAND

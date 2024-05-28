@@ -1458,8 +1458,6 @@ static string _mut_blocks_item_reason(const item_def &item, mutation_type mut, i
                                 you.hand_name(true).c_str());
         case MUT_HORNS:
         case MUT_ANTENNAE:
-            if (level < 3)
-                return "";
             return "The hauberk won't fit your head.";
         default:
             return "";
@@ -1468,8 +1466,6 @@ static string _mut_blocks_item_reason(const item_def &item, mutation_type mut, i
     switch (get_armour_slot(item))
     {
     case EQ_GLOVES:
-        if (level < 3)
-            break;
         if (mut == MUT_CLAWS)
         {
             return make_stringf("You can't wear gloves with your huge claw%s!",
@@ -1482,7 +1478,7 @@ static string _mut_blocks_item_reason(const item_def &item, mutation_type mut, i
     case EQ_BOOTS:
         if (mut == MUT_FLOAT)
             return "You have no feet!"; // or legs
-        if (level < 3 || item.sub_type == ARM_BARDING)
+        if (item.sub_type == ARM_BARDING)
             break;
         if (mut == MUT_HOOVES)
             return "You can't wear boots with hooves!";
@@ -1491,21 +1487,17 @@ static string _mut_blocks_item_reason(const item_def &item, mutation_type mut, i
         break;
 
     case EQ_HELMET:
-        if (mut == MUT_HORNS && level >= 3)
-            return "You can't wear any headgear with your large horns!";
-        if (mut == MUT_ANTENNAE && level >= 3)
-            return "You can't wear any headgear with your large antennae!";
+        if (mut == MUT_HORNS)
+            return "You can't wear any headgear with your horns!";
+        if (mut == MUT_ANTENNAE)
+            return "You can't wear any headgear with your antennae!";
         // Soft helmets (caps and wizard hats) always fit, otherwise.
         // Caps and wizard hats haven't existed for many years, but I find this
         // comment quaint and wish to preserve it. -- pf
         if (!is_hard_helmet(item))
             return "";
-        if (mut == MUT_HORNS)
-            return "You can't wear that with your horns!";
         if (mut == MUT_BEAK)
             return "You can't wear that with your beak!";
-        if (mut == MUT_ANTENNAE)
-            return "You can't wear that with your antennae!";
         break;
 
     case EQ_CLOAK:

@@ -40,7 +40,7 @@ mutations:
     MUT_NO_ARMOUR: 1
     MUT_MULTILIVED: 1
     MUT_FAST: 1
-    MUT_FANGS: 3
+    MUT_FANGS: 1
     MUT_SHAGGY_FUR: 1
     MUT_ACUTE_VISION: 1
     MUT_PAWS: 1

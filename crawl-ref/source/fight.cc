@@ -1236,10 +1236,10 @@ int unarmed_base_damage()
     int damage = get_form()->get_base_unarmed_damage();
 
     if (you.has_usable_claws())
-        damage += you.has_claws() * 2;
+        damage += 6;
 
     if (you.form_uses_xl())
-        damage += div_rand_round(you.experience_level, 3);
+        damage += 1;
 
     return damage;
 }

@@ -37,7 +37,7 @@ levelup_stats:
   - dex
 mutations:
   1:
-    MUT_HORNS: 2
+    MUT_HORNS: 1
     MUT_REFLEXIVE_HEADBUTT: 1
 recommended_jobs:
   - JOB_FIGHTER

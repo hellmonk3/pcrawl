@@ -3280,7 +3280,7 @@ static void _tag_read_you(reader &th)
             _clear_mutation(MUT_POISON_RESISTANCE);
 
         if (you.species == SP_FORMICID)
-            you.mutation[MUT_ANTENNAE] = you.innate_mutation[MUT_ANTENNAE] = 3;
+            you.mutation[MUT_ANTENNAE] = you.innate_mutation[MUT_ANTENNAE] = 1;
     }
 
     if (th.getMinorVersion() < TAG_MINOR_SAPROVOROUS
@@ -4152,7 +4152,7 @@ static void _tag_read_you(reader &th)
         you.duration[DUR_TRANSFORMATION] = 0;
         const mutation_type app = static_cast<mutation_type>(you.attribute[ATTR_UNUSED3]);
         const int levels = you.get_base_mutation_level(app);
-        const int beast_levels = app == MUT_HORNS ? 2 : 3;
+        const int beast_levels = 1;
         // Preserve extra mutation levels acquired after transforming.
         const int extra = max(0, levels - you.get_innate_mutation_level(app)
                                         - beast_levels);

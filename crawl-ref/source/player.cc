@@ -891,8 +891,8 @@ bool player_has_feet(bool temp, bool include_mutations)
     }
 
     if (include_mutations &&
-        (you.get_mutation_level(MUT_HOOVES, temp) == 3
-         || you.get_mutation_level(MUT_TALONS, temp) == 3))
+        (you.get_mutation_level(MUT_HOOVES, temp)
+         || you.get_mutation_level(MUT_TALONS, temp)))
     {
         return false;
     }
@@ -6869,10 +6869,6 @@ bool player::innate_sinv() const
     if (has_mutation(MUT_ACUTE_VISION))
         return true;
 
-    // antennae give sInvis at 3
-    if (get_mutation_level(MUT_ANTENNAE) == 3)
-        return true;
-
     if (get_mutation_level(MUT_EYEBALLS) == 3)
         return true;
 
@@ -7575,7 +7571,7 @@ static string _constriction_description()
 **/
 int player_monster_detect_radius()
 {
-    int radius = you.get_mutation_level(MUT_ANTENNAE) * 2;
+    int radius = you.get_mutation_level(MUT_ANTENNAE) * 6;
     radius += you.wearing_ego(EQ_SHIELD, SPARM_DETECT_MONS) * 6;
     if (player_equip_unrand(UNRAND_HOOD_ASSASSIN))
         radius = max(radius, 4);

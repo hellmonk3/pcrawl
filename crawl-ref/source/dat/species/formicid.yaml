@@ -33,7 +33,7 @@ levelup_stats:
   - int
 mutations:
   1:
-    MUT_ANTENNAE: 3
+    MUT_ANTENNAE: 1
     MUT_QUADRUMANOUS: 1
 fake_mutations:
   - long: You cannot be hasted, slowed, berserked, paralysed or teleported.

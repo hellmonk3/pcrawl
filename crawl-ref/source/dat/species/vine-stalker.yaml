@@ -31,7 +31,6 @@ mutations:
     MUT_MANA_SHIELD: 1
     MUT_ANTIMAGIC_BITE: 1
     MUT_NO_POTION_HEAL: 2
-    MUT_REGENERATION: 1
 recommended_jobs:
   - JOB_FIGHTER
   - JOB_BRIGAND

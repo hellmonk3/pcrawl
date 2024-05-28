@@ -39,7 +39,6 @@ levelup_stats:
 mutations:
   1:
     MUT_TOUGH_SKIN: 1
-    MUT_REGENERATION: 1
     MUT_CLAWS: 1
     MUT_SHAGGY_FUR: 1
 recommended_jobs:

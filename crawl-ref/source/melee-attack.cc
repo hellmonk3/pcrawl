@@ -3511,6 +3511,9 @@ void melee_attack::cleave_setup()
 // cleave damage modifier for additional attacks: 50% of base damage
 int melee_attack::cleave_damage_mod(int dam)
 {
+    if (attacker->is_player() && you.get_mutation_level(MUT_AXE_MASTER))
+        return dam;
+
     return div_rand_round(dam * 5, 10);
 }
 

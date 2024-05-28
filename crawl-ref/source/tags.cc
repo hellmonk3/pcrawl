@@ -3210,7 +3210,7 @@ static void _tag_read_you(reader &th)
     if (th.getMinorVersion() < TAG_MINOR_STAT_MUT)
     {
         // Convert excess mutational stats into base stats.
-        mutation_type stat_mutations[] = { MUT_STRONG, MUT_CLEVER, MUT_AGILE };
+        mutation_type stat_mutations[] = { MUT_STABBER };
         stat_type stat_types[] = { STAT_STR, STAT_INT, STAT_DEX };
         for (int j = 0; j < 3; ++j)
         {

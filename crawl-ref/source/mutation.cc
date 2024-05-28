@@ -166,9 +166,6 @@ static const int conflict[][3] =
 {
     { MUT_REGENERATION,        MUT_INHIBITED_REGENERATION,  0},
     { MUT_FAST,                MUT_SLOW,                    0},
-    { MUT_STRONG,              MUT_WEAK,                    1},
-    { MUT_CLEVER,              MUT_DOPEY,                   1},
-    { MUT_AGILE,               MUT_CLUMSY,                  1},
     { MUT_ROBUST,              MUT_FRAIL,                   1},
     { MUT_HIGH_MAGIC,          MUT_LOW_MAGIC,               1},
     { MUT_WILD_MAGIC,          MUT_SUBDUED_MAGIC,           1},
@@ -1794,19 +1791,16 @@ static const char* _stat_mut_desc(mutation_type mut, bool gain)
     {
     case MUT_WEAK:
         positive = !positive;
-    case MUT_STRONG:
         stat = STAT_STR;
         break;
 
     case MUT_DOPEY:
         positive = !positive;
-    case MUT_CLEVER:
         stat = STAT_INT;
         break;
 
     case MUT_CLUMSY:
         positive = !positive;
-    case MUT_AGILE:
         stat = STAT_DEX;
         break;
 
@@ -2028,7 +2022,6 @@ bool mutate(mutation_type which_mutation, const string &reason, bool failMsg,
         // More than three messages, need to give them by hand.
         switch (mutat)
         {
-        case MUT_STRONG: case MUT_AGILE:  case MUT_CLEVER:
         case MUT_WEAK:   case MUT_CLUMSY: case MUT_DOPEY:
             mprf(MSGCH_MUTATION, "You feel %s.", _stat_mut_desc(mutat, true));
             gain_msg = false;
@@ -2229,7 +2222,6 @@ static bool _delete_single_mutation_level(mutation_type mutat,
 
     switch (mutat)
     {
-    case MUT_STRONG: case MUT_AGILE:  case MUT_CLEVER:
     case MUT_WEAK:   case MUT_CLUMSY: case MUT_DOPEY:
         mprf(MSGCH_MUTATION, "You feel %s.", _stat_mut_desc(mutat, false));
         lose_msg = false;
@@ -2652,8 +2644,7 @@ string mutation_desc(mutation_type mut, int level, bool colour,
 
     const mutation_def& mdef = _get_mutation_def(mut);
 
-    if (mut == MUT_STRONG || mut == MUT_CLEVER
-        || mut == MUT_AGILE || mut == MUT_WEAK
+    if (mut == MUT_WEAK
         || mut == MUT_DOPEY || mut == MUT_CLUMSY)
     {
         level = min(level, 2);

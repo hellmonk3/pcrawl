@@ -42,7 +42,7 @@ enum mutation_type
     MUT_ACID_RESISTANCE,
 #endif
     MUT_ACUTE_VISION,
-    MUT_AGILE,
+    MUT_STABBER,
     MUT_BERSERK,
 #if TAG_MAJOR_VERSION == 34
     MUT_BLINK,
@@ -52,7 +52,7 @@ enum mutation_type
     MUT_CARNIVOROUS,
 #endif
     MUT_CLARITY,
-    MUT_CLEVER,
+    MUT_POLE_MASTER,
     MUT_CLUMSY,
 #if TAG_MAJOR_VERSION > 34
     MUT_COLD_BLOODED,
@@ -131,7 +131,7 @@ enum mutation_type
 #if TAG_MAJOR_VERSION == 34
     MUT_STOCHASTIC_TORMENT_RESISTANCE,
 #endif
-    MUT_STRONG,
+    MUT_AXE_MASTER,
 #if TAG_MAJOR_VERSION == 34
     MUT_STRONG_STIFF,
 #endif

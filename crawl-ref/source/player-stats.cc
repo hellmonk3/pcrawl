@@ -285,9 +285,6 @@ struct mut_stat_effect
 
 static const vector<mut_stat_effect> mut_stat_effects = {
     //               s   i   d
-    { MUT_BIG_BRAIN, 0,  2,  0 },
-    { MUT_THIN_SKELETAL_STRUCTURE,
-                     0,  0,  2 },
 #if TAG_MAJOR_VERSION == 34
     { MUT_ROUGH_BLACK_SCALES, 0, 0, -1},
     { MUT_STRONG_STIFF, 1, 0, -1 },

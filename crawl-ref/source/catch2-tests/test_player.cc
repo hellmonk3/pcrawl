@@ -67,7 +67,7 @@ TEST_CASE_METHOD(MockPlayerYouTestsFixture,
 
     mutate(MUT_SHAGGY_FUR, "testing");
 
-    REQUIRE(you.base_ac(100) == 100);
+    REQUIRE(you.base_ac(100) == 300);
 }
 
 TEST_CASE_METHOD(MockPlayerYouTestsFixture,

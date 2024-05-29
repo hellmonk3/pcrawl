@@ -1123,7 +1123,7 @@ int get_teleportitis_level()
     if (you.stasis())
         return 0;
 
-    return you.get_mutation_level(MUT_TELEPORT) * 6;
+    return you.get_mutation_level(MUT_TELEPORT) * 10;
 }
 
 static bool _mons_inhibits_regen(const monster &m)
@@ -1140,8 +1140,7 @@ static bool _mons_inhibits_regen(const monster &m)
 bool regeneration_is_inhibited(const monster *m)
 {
     // used mainly for resting: don't add anything here that can be waited off
-    if (you.get_mutation_level(MUT_INHIBITED_REGENERATION) == 1
-        || you.duration[DUR_COLLAPSE]
+    if (you.duration[DUR_COLLAPSE]
         || (you.has_mutation(MUT_VAMPIRISM) && !you.vampire_alive))
     {
         if (m)
@@ -1324,7 +1323,6 @@ int player_res_cold(bool allow_random, bool temp, bool items)
     rc -= you.get_mutation_level(MUT_COLD_VULNERABILITY, temp);
     rc -= you.get_mutation_level(MUT_TEMPERATURE_SENSITIVITY, temp);
     rc += you.get_mutation_level(MUT_ICY_BLUE_SCALES, temp) == 3 ? 1 : 0;
-    rc += you.get_mutation_level(MUT_SHAGGY_FUR, temp) == 3 ? 1 : 0;
 
     if (rc < -1)
         rc = -1;
@@ -1852,9 +1850,6 @@ static int _player_evasion_bonuses()
     // mutations
     evbonus += you.get_mutation_level(MUT_GELATINOUS_BODY);
 
-    if (you.get_mutation_level(MUT_DISTORTION_FIELD))
-        evbonus += you.get_mutation_level(MUT_DISTORTION_FIELD) + 1;
-
     if (you.has_mutation(MUT_TENGU_FLIGHT))
         evbonus += 4;
 
@@ -1901,12 +1896,12 @@ static int _player_evasion(bool ignore_helpless)
 
     const int natural_evasion = you.skill(SK_DODGING, 7)
         - _player_adjusted_evasion_penalty();
-        
+
     const int evasion_bonuses = _player_evasion_bonuses();
 
     int final_evasion =
         _player_scale_evasion(natural_evasion) + evasion_bonuses;
-        
+
     if (you.has_mutation(MUT_CLUMSY))
         final_evasion -= 20;
 
@@ -1928,7 +1923,8 @@ int player_wizardry()
     return you.wearing(EQ_AMULET, AMU_WIZARDRY)
            - you.scan_artefacts(ARTP_INHIBIT_SPELLCASTING)
            + you.wearing_ego(EQ_ALL_ARMOUR, SPARM_WIZARDRY)
-           + (you.get_mutation_level(MUT_BIG_BRAIN) == 3 ? 1 : 0);
+           + you.get_mutation_level(MUT_BIG_BRAIN)
+           - you.get_mutation_level(MUT_DOPEY);
 }
 
 int player_channeling()
@@ -1974,7 +1970,7 @@ int player_shield_class()
     // mutations
     // +4, +6, +8 (displayed values)
     shield += (you.get_mutation_level(MUT_LARGE_BONE_PLATES) > 0
-               ? you.get_mutation_level(MUT_LARGE_BONE_PLATES) * 200 + 200
+               ? you.get_mutation_level(MUT_LARGE_BONE_PLATES) * 2000
                : 0);
 
     if (you.get_mutation_level(MUT_CONDENSATION_SHIELD) > 0
@@ -2115,7 +2111,7 @@ int get_exp_progress()
     return (you.experience - current) * 100 / (next - current);
 }
 
-// for jumper cables
+// for jumper cables and super charging mut
 // returns true if an item was charged
 bool recharge_random_evoker()
 {
@@ -2175,12 +2171,18 @@ void recharge_xp_evokers()
         if (debt == 0)
             continue;
 
+        if (you.has_mutation(MUT_POOR_CHARGING) && one_chance_in(3))
+            continue;
+
         const int old_charges = evoker_charges(i);
         debt = max(0, debt - 1);
         const int gained = evoker_charges(i) - old_charges;
         if (gained)
             print_xp_evoker_recharge(*evoker, gained, silenced(you.pos()));
     }
+
+    if (you.has_mutation(MUT_SUPER_CHARGING))
+        recharge_random_evoker();
 }
 
 void reset_per_floor_props()
@@ -3289,7 +3291,7 @@ int slaying_bonus(bool ranged, bool random)
 
     ret += 3 * augmentation_amount();
     ret += you.get_mutation_level(MUT_SHARP_SCALES);
-    
+
     ret -= 3 * you.get_mutation_level(MUT_WEAK);
 
     if (you.duration[DUR_SONG_OF_SLAYING])
@@ -3688,7 +3690,7 @@ int get_real_hp(bool trans, bool drained)
     hitp *= 10 + species::get_hp_modifier(you.species);
     hitp /= 10;
 
-    hitp += you.get_mutation_level(MUT_FLAT_HP) * 4;
+    hitp += you.get_mutation_level(MUT_FLAT_HP) * 7;
 
     const bool hep_frail = have_passive(passive_t::frail)
                            || player_under_penance(GOD_HEPLIAKLQANA);
@@ -5452,7 +5454,7 @@ void player::shield_block_succeeded(actor *attacker)
 
 bool player::missile_repulsion() const
 {
-    return get_mutation_level(MUT_DISTORTION_FIELD) == 3
+    return get_mutation_level(MUT_DISTORTION_FIELD)
         || you.wearing_ego(EQ_ALL_ARMOUR, SPARM_REPULSION)
         || scan_artefacts(ARTP_RMSL)
         || have_passive(passive_t::upgraded_storm_shield)
@@ -5642,8 +5644,8 @@ int player::base_ac_from(const item_def &armour, int scale) const
         return AC;
 
     int penalty = get_form()->get_base_ac_penalty(base);
-    if (get_mutation_level(MUT_DEFORMED) || get_mutation_level(MUT_PSEUDOPODS))
-        penalty += base / 2; // Should we double this if you have both?
+    if (get_mutation_level(MUT_DEFORMED))
+        penalty += base / 2;
     return max(0, AC - penalty);
 }
 
@@ -5737,7 +5739,7 @@ const vector<int> TWO_THREE_FOUR = {2,3,4};
 vector<mutation_ac_changes> all_mutation_ac_changes = {
      mutation_ac_changes(MUT_GELATINOUS_BODY,        mutation_activity_type::PARTIAL, ONE_TWO_THREE)
     ,mutation_ac_changes(MUT_TOUGH_SKIN,             mutation_activity_type::PARTIAL, {3,3,3})
-    ,mutation_ac_changes(MUT_SHAGGY_FUR,             mutation_activity_type::PARTIAL, ONE_TWO_THREE)
+    ,mutation_ac_changes(MUT_SHAGGY_FUR,             mutation_activity_type::PARTIAL, {3,3,3})
     ,mutation_ac_changes(MUT_PHYSICAL_VULNERABILITY, mutation_activity_type::PARTIAL, {-5,-10,-15})
     // Scale mutations are more easily disabled (forms etc.). This appears to be for flavour reasons.
     // Preserved behaviour from before mutation ac was turned to data.
@@ -5992,6 +5994,10 @@ int player::evasion(bool ignore_helpless, const actor* act) const
 bool player::heal(int amount)
 {
     int oldhp = hp;
+
+    if (you.get_mutation_level(MUT_NO_POTION_HEAL))
+        amount /= 2;
+
     ::inc_hp(amount);
     return oldhp < hp;
 }

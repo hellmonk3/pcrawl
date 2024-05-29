@@ -3169,7 +3169,7 @@ bool is_useless_item(const item_def &item, bool temp, bool ident)
                 return you.spirit_shield(false);
             case SPARM_REPULSION:
                 return temp && have_passive(passive_t::upgraded_storm_shield)
-                       || you.get_mutation_level(MUT_DISTORTION_FIELD) == 3;
+                       || you.get_mutation_level(MUT_DISTORTION_FIELD);
             default:
                 return false;
             }

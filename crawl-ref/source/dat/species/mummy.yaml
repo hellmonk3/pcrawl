@@ -41,8 +41,6 @@ mutations:
     MUT_HEAT_VULNERABILITY: 1
     MUT_FAITH: 1
     MUT_NECRO_ENHANCER: 1
-  13:
-    MUT_NECRO_ENHANCER: 1
 recommended_jobs:
   - JOB_CINDER_ACOLYTE
   - JOB_HEDGE_WIZARD

@@ -3108,7 +3108,7 @@ void melee_attack::do_passive_freeze()
 
         monster* mon = attacker->as_monster();
 
-        const int orig_hurted = random2(11);
+        const int orig_hurted = random2(7);
         int hurted = mons_adjust_flavoured(mon, beam, orig_hurted);
 
         if (!hurted)
@@ -3189,8 +3189,7 @@ void melee_attack::do_spines()
 
         if (mut && attacker->alive() && coinflip())
         {
-            int dmg = random_range(mut,
-                div_rand_round(you.experience_level * 2, 3) + mut * 3);
+            int dmg = roll_dice(mut, 6);
             int hurt = attacker->apply_ac(dmg);
 
             dprf(DIAG_COMBAT, "Spiny: dmg = %d hurt = %d", dmg, hurt);

@@ -3230,7 +3230,7 @@ static void _tag_read_you(reader &th)
                 you.mutation[mut] = 2;
             }
         }
-        mutation_type bad_stat_mutations[] = {MUT_DOPEY, MUT_CLUMSY };
+        mutation_type bad_stat_mutations[] = {MUT_CLUMSY };
         for (int j = 0; j < 3; ++j)
         {
             mutation_type mut = bad_stat_mutations[j];
@@ -3295,7 +3295,7 @@ static void _tag_read_you(reader &th)
                                         && you.species == SP_VINE_STALKER)
     {
         you.mutation[MUT_NO_POTION_HEAL] =
-                you.innate_mutation[MUT_NO_POTION_HEAL] = 2;
+                you.innate_mutation[MUT_NO_POTION_HEAL] = 1;
     }
 
     if (th.getMinorVersion() < TAG_MINOR_DS_CLOUD_MUTATIONS
@@ -3480,29 +3480,6 @@ static void _tag_read_you(reader &th)
             you.innate_mutation[MUT_SPIT_POISON] = 1;
     }
 
-    // Slow regeneration split into two single-level muts:
-    // * Inhibited regeneration (no regen in los of monsters, what Gh get)
-    // * No regeneration (what DDs get)
-    {
-        if (you.species == SP_DEEP_DWARF
-            && (you.mutation[MUT_INHIBITED_REGENERATION] > 0
-                || you.mutation[MUT_NO_REGENERATION] != 1))
-        {
-            you.innate_mutation[MUT_INHIBITED_REGENERATION] = 0;
-            you.mutation[MUT_INHIBITED_REGENERATION] = 0;
-            you.innate_mutation[MUT_NO_REGENERATION] = 1;
-            you.mutation[MUT_NO_REGENERATION] = 1;
-        }
-        else if (you.species == SP_GHOUL
-                 && you.mutation[MUT_INHIBITED_REGENERATION] > 1)
-        {
-            you.innate_mutation[MUT_INHIBITED_REGENERATION] = 1;
-            you.mutation[MUT_INHIBITED_REGENERATION] = 1;
-        }
-        else if (you.mutation[MUT_INHIBITED_REGENERATION] > 1)
-            you.mutation[MUT_INHIBITED_REGENERATION] = 1;
-    }
-
     if (th.getMinorVersion() < TAG_MINOR_YELLOW_DRACONIAN_RACID
         && you.species == SP_YELLOW_DRACONIAN)
     {
@@ -3517,17 +3494,17 @@ static void _tag_read_you(reader &th)
 
         if (you.species == SP_VINE_STALKER)
             _fixup_species_mutations(MUT_NO_POTION_HEAL);
-        else if (you.mutation[MUT_NO_POTION_HEAL] > 2)
-            you.mutation[MUT_NO_POTION_HEAL] = 2;
+        else if (you.mutation[MUT_NO_POTION_HEAL] > 1)
+            you.mutation[MUT_NO_POTION_HEAL] = 1;
     }
 
     if (th.getMinorVersion() < TAG_MINOR_RECOMPRESS_BADMUTS)
     {
-        if (you.mutation[MUT_BERSERK] > 2)
-            you.mutation[MUT_BERSERK] = 2;
+        if (you.mutation[MUT_BERSERK] > 1)
+            you.mutation[MUT_BERSERK] = 1;
 
-        if (you.mutation[MUT_TELEPORT] > 2)
-            you.mutation[MUT_TELEPORT] = 2;
+        if (you.mutation[MUT_TELEPORT] > 1)
+            you.mutation[MUT_TELEPORT] = 1;
     }
 
     // fully clean up any removed mutations

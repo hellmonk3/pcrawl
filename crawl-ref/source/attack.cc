@@ -910,6 +910,12 @@ int attack::calc_damage()
         {
             bool penalty = weapon_skill_requirement(*weapon) > you.skill(wpn_skill);
             potential_damage = apply_weapon_skill(potential_damage, wpn_skill, penalty);
+
+            if (!is_range_weapon(*weapon) && you.has_mutation(MUT_FENCER))
+            {
+                potential_damage *= (100 + max(0, min(90, you.evasion())));
+                potential_damage /= 100;
+            }
         }
 
         damage = 1 + random2(potential_damage);

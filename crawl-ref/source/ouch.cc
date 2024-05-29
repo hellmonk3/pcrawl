@@ -711,7 +711,7 @@ static void _deteriorate(int dam)
         && dam > you.hp_max / 10)
     {
         mprf(MSGCH_WARN, "Your body deteriorates!");
-        lose_stat(STAT_RANDOM, 1);
+        drain_player(dam, true, true);
     }
 }
 

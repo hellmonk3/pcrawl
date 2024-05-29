@@ -81,27 +81,25 @@ static const mutation_def mut_data[] =
   {"You feel less resistant to poisons.", "", ""},
   TILEG_MUT_POISON_RESISTANCE,
 },
-#if TAG_MAJOR_VERSION == 34
 
-{ MUT_CARNIVOROUS, 0, 1, mutflag::good, false,
-  "carnivore",
+{ MUT_SNIPER, 3, 1, mutflag::good, false,
+  "sniper",
 
-  {"You are carnivorous and can eat meat at any time.", "", ""},
+  {"You never miss when attacking with a ranged or thrown weapon.", "", ""},
 
-  {"You hunger for flesh.", "", ""},
+  {"You feel deadly accurate.", "", ""},
 
-  {"You feel able to eat a more balanced diet.", "", ""},
+  {"Your aim feels unsure.", "", ""},
 },
-{ MUT_HERBIVOROUS, 0, 1, mutflag::bad, false,
-  "herbivore",
+{ MUT_FENCER, 2, 1, mutflag::good, false,
+  "fencer",
 
-  {"You are a herbivore.", "", ""},
+  {"Your melee weapon damage is increased by your EV%.", "", ""},
 
-  {"", "", ""},
+  {"You feel lithe and nimble.", "", ""},
 
-  {""},
+  {"You feel clumsy."},
 },
-#endif
 
 { MUT_HEAT_RESISTANCE, 4, 1, mutflag::good, true,
   "fire resistance",
@@ -210,32 +208,32 @@ static const mutation_def mut_data[] =
   TILEG_MUT_SHOCK_VULNERABILITY,
 },
 
-{ MUT_REGENERATION, 0, 3, mutflag::good, false,
-  "regeneration",
+{ MUT_SUPER_CHARGING, 2, 1, mutflag::good, false,
+  "super device charging",
 
-  {"Your natural rate of healing is unusually fast.",
-   "You heal very quickly.",
-   "You regenerate."},
+  {"You charge an additional level of a random evocable each floor.",
+   "",
+   ""},
 
-  {"You begin to heal more quickly.",
-   "You begin to heal more quickly.",
-   "You begin to regenerate."},
+  {"You feel supercharged.",
+   "",
+   ""},
 
-  {"Your rate of healing slows.",
-   "Your rate of healing slows.",
-   "Your rate of healing slows."},
+  {"You feel less charged.",
+   "",
+   ""},
 
   TILEG_MUT_REGENERATION,
 },
 
-{ MUT_INHIBITED_REGENERATION, 0, 1, mutflag::bad, false,
-  "inhibited regeneration",
+{ MUT_POOR_CHARGING, 4, 1, mutflag::bad, false,
+  "poor device charging",
 
-  {"You do not regenerate when monsters are visible.", "", ""},
+  {"You sometimes fail to recharge your evocables (1 in 3 chance).", "", ""},
 
-  {"Your regeneration stops near monsters.", "", ""},
+  {"You feel uncharged.", "", ""},
 
-  {"You begin to regenerate regardless of the presence of monsters.", "", ""},
+  {"You feel normally charged.", "", ""},
 
   TILEG_MUT_INHIBITED_REGENERATION,
 },
@@ -284,11 +282,11 @@ static const mutation_def mut_data[] =
   TILEG_MUT_WEAK,
 },
 
-// use subdued magic instead
-{ MUT_DOPEY, 0, 1, mutflag::bad, false,
+// use subdued magic instead?
+{ MUT_DOPEY, 8, 1, mutflag::bad, false,
   "dopey",
 
-  {"You are dopey. (Spellpower - 2)",
+  {"You are dopey. (-Wiz)",
    "", ""},
   {"", "", ""},
   {"", "", ""},
@@ -315,23 +313,23 @@ static const mutation_def mut_data[] =
 },
 #endif
 
-{ MUT_TELEPORT, 3, 2, mutflag::bad, false,
+{ MUT_TELEPORT, 4, 1, mutflag::bad, false,
   "teleportitis",
 
   {"You are occasionally teleported next to monsters.",
-   "You are often teleported next to monsters.",
+   "",
    ""},
 
   {"You feel weirdly uncertain.",
-   "You feel even more weirdly uncertain.",
+   "",
    ""},
 
   {"You feel stable.",
-   "You feel stable.",
+   "",
    ""},
 },
 
-{ MUT_STRONG_WILLED, 5, 3, mutflag::good, false,
+{ MUT_STRONG_WILLED, 10, 3, mutflag::good, false,
   "strong-willed",
 
   {"You are strong-willed. (Will+)",
@@ -379,7 +377,7 @@ static const mutation_def mut_data[] =
    "You feel quick."},
 },
 
-{ MUT_ACUTE_VISION, 2, 1, mutflag::good, false,
+{ MUT_ACUTE_VISION, 0, 1, mutflag::good, false,
   "see invisible",
 
   {"You have supernaturally acute eyesight. (SInv)", "", ""},
@@ -398,7 +396,7 @@ static const mutation_def mut_data[] =
 },
 
 // Naga only
-{ MUT_SPIT_POISON, 8, 2, mutflag::good, false,
+{ MUT_SPIT_POISON, 0, 2, mutflag::good, false,
   "spit poison",
 
   {"You can spit poison.",
@@ -524,7 +522,7 @@ static const mutation_def mut_data[] =
     TILEG_MUT_CLARITY
 },
 
-{ MUT_BERSERK, 7, 2, mutflag::bad, false,
+{ MUT_BERSERK, 0, 2, mutflag::bad, false,
   "berserk",
 
   {"You sometimes lose your temper in combat.",
@@ -543,8 +541,8 @@ static const mutation_def mut_data[] =
 { MUT_DETERIORATION, 10, 2, mutflag::bad, false,
   "deterioration",
 
-  {"Your body sometimes deteriorates upon taking damage.",
-   "Your body often deteriorates upon taking damage.",
+  {"You are sometimes drained upon taking damage.",
+   "You are often drained upon taking damage.",
    ""},
 
   {"You feel yourself wasting away.",
@@ -574,24 +572,24 @@ static const mutation_def mut_data[] =
 },
 #endif
 
-{ MUT_MUTATION_RESISTANCE, 4, 3, mutflag::good, false,
+{ MUT_MUTATION_RESISTANCE, 4, 1, mutflag::good, false,
   "mutation resistance",
 
-  {"You are somewhat resistant to further mutation.",
-   "You are somewhat resistant to both further mutation and mutation removal.",
-   "You are almost entirely resistant to further mutation and mutation removal."},
+  {"You are resistant to further mutation (80% chance).",
+   "",
+   ""},
 
   {"You feel genetically stable.",
-   "You feel genetically stable.",
-   "You feel genetically immutable."},
+   "",
+   ""},
 
   {"You feel genetically unstable.",
-   "You feel genetically unstable.",
-   "You feel genetically unstable."},
+   "",
+   ""},
   TILEG_MUT_MUTATION_RESISTANCE,
 },
 
-{ MUT_EVOLUTION, 4, 2, mutflag::good, false,
+{ MUT_EVOLUTION, 0, 2, mutflag::good, false,
   "evolution",
 
   {"You have hidden genetic potential.",
@@ -607,7 +605,7 @@ static const mutation_def mut_data[] =
    ""},
 },
 
-{ MUT_DEVOLUTION, 4, 2, mutflag::bad, false,
+{ MUT_DEVOLUTION, 0, 2, mutflag::bad, false,
   "devolution",
 
   {"You have hidden genetic defects.",
@@ -709,15 +707,15 @@ static const mutation_def mut_data[] =
 },
 #endif
 
-{ MUT_NECRO_ENHANCER, 0, 2, mutflag::good, false,
+{ MUT_NECRO_ENHANCER, 2, 1, mutflag::good, false,
   "in touch with death",
 
   {"You are in touch with the powers of death.",
-   "You are strongly in touch with the powers of death.",
+   "",
    ""},
 
   {"You feel more in touch with the powers of death.",
-   "You feel more in touch with the powers of death.",
+   "",
    ""},
 
   {"", "", ""},
@@ -894,7 +892,7 @@ static const mutation_def mut_data[] =
 },
 
 // Naga and Draconian only
-{ MUT_STINGER, 8, 1, mutflag::good, true,
+{ MUT_STINGER, 0, 1, mutflag::good, true,
   "stinger",
 
   {"Your tail ends in a venomous barb.",
@@ -1007,23 +1005,23 @@ static const mutation_def mut_data[] =
   {"", "", ""},
 },
 
-{ MUT_SHAGGY_FUR, 2, 3, mutflag::good, true,
+{ MUT_SHAGGY_FUR, 5, 1, mutflag::good, true,
   "shaggy fur",
 
-  {"You are covered in fur. (AC +1)",
-   "You are covered in thick fur. (AC +2)",
-   "Your thick and shaggy fur keeps you warm. (AC +3, rC+)"},
+  {"You are covered in thick fur. (AC +3)",
+   "",
+   ""},
 
   {"Fur sprouts all over your body.",
-   "Your fur grows into a thick mane.",
-   "Your thick fur grows shaggy and warm."},
+   "",
+   ""},
 
   {"You shed all your fur.",
-   "Your thick fur recedes somewhat.",
-   "Your shaggy fur recedes somewhat."},
+   "",
+   ""},
 },
 
-{ MUT_HIGH_MAGIC, 2, 3, mutflag::good, false,
+{ MUT_HIGH_MAGIC, 5, 3, mutflag::good, false,
   "high MP",
 
   {"You have an increased reservoir of magic. (+10% MP)",
@@ -1039,7 +1037,7 @@ static const mutation_def mut_data[] =
    "You feel less energetic."},
 },
 
-{ MUT_LOW_MAGIC, 9, 3, mutflag::bad, false,
+{ MUT_LOW_MAGIC, 10, 3, mutflag::bad, false,
   "low MP",
 
   {"Your magical capacity is low. (-10% MP)",
@@ -1055,36 +1053,36 @@ static const mutation_def mut_data[] =
    "You feel more energetic."},
 },
 
-{ MUT_WILD_MAGIC, 6, 3, mutflag::good, false,
+{ MUT_WILD_MAGIC, 6, 1, mutflag::good, false,
   "wild magic",
 
-  {"Your spells are a little harder to cast, but a little more powerful.",
-   "Your spells are harder to cast, but more powerful.",
-   "Your spells are much harder to cast, but much more powerful."},
+  {"Your spells are more powerful (spellpower + 3).",
+   "",
+   ""},
 
-  {"You feel less in control of your magic.",
-   "You feel less in control of your magic.",
-   "You feel your magical power running wild!"},
+  {"You feel your magical power running wild!",
+   "",
+   ""},
 
-  {"You regain control of your magic.",
-   "You feel more in control of your magic.",
-   "You feel more in control of your magic."},
+  {"Your magic feels less potent.",
+   "",
+   ""},
 },
 
-{ MUT_SUBDUED_MAGIC, 6, 3, mutflag::bad, false,
+{ MUT_SUBDUED_MAGIC, 6, 1, mutflag::bad, false,
   "subdued magic",
 
-  {"Your spells are a little easier to cast, but a little less powerful.",
-   "Your spells are easier to cast, but less powerful.",
-   "Your spells are much easier to cast, but much less powerful."},
+  {"Your spells are less powerful (spellpower - 3).",
+   "",
+   ""},
 
   {"Your connection to magic feels subdued.",
-   "Your connection to magic feels more subdued.",
-   "Your connection to magic feels nearly dormant."},
+   "",
+   ""},
 
   {"Your magic regains its normal vibrancy.",
-   "Your connection to magic feels less subdued.",
-   "Your connection to magic feels less subdued."},
+   "",
+   ""},
 },
 
 { MUT_DEMONIC_MAGIC, 0, 3, mutflag::good, false,
@@ -1122,20 +1120,20 @@ static const mutation_def mut_data[] =
 },
 #endif
 
-{ MUT_PASSIVE_MAPPING, 3, 3, mutflag::good, false,
+{ MUT_PASSIVE_MAPPING, 5, 1, mutflag::good, false,
   "sense surroundings",
 
-  {"You passively map a small area around you.",
-   "You passively map the area around you.",
-   "You passively map a large area around you."},
+  {"You passively map the area around you.",
+   "",
+   ""},
 
   {"You feel a strange attunement to the structure of the dungeons.",
-   "Your attunement to dungeon structure grows.",
-   "Your attunement to dungeon structure grows further."},
+   "",
+   ""},
 
   {"You feel slightly disoriented.",
-   "You feel slightly disoriented.",
-   "You feel slightly disoriented."},
+   "",
+   ""},
 
   TILEG_MUT_PASSIVE_MAPPING,
 },
@@ -1206,12 +1204,12 @@ static const mutation_def mut_data[] =
    "Your affinity for the darkness weakens."},
 },
 
-{ MUT_SPINY, 0, 3, mutflag::good, true,
+{ MUT_SPINY, 2, 3, mutflag::good, true,
   "spiny",
 
-  {"You are partially covered in sharp spines.",
-   "You are mostly covered in sharp spines.",
-   "You are completely covered in sharp spines."},
+  {"You are partially covered in sharp spines (1d6).",
+   "You are mostly covered in sharp spines (2d6).",
+   "You are completely covered in sharp spines (3d6)."},
 
   {"Sharp spines emerge from parts of your body.",
    "Sharp spines emerge from more of your body.",
@@ -1391,37 +1389,37 @@ static const mutation_def mut_data[] =
   {"Your magical appetite wanes.", "", ""},
 },
 
-{ MUT_NO_POTION_HEAL, 3, 2, mutflag::bad, false,
-  "no potion heal",
+{ MUT_NO_POTION_HEAL, 3, 1, mutflag::bad, false,
+  "inhibited healing",
 
-  {"Potions are less effective at restoring your health.",
-   "Potions cannot restore your health.",
+  {"Most sources of healing are half as effective.",
+   "",
    ""},
 
-  {"Your system partially rejects the healing effects of potions.",
-   "Your system completely rejects the healing effects of potions.",
+  {"Your system partially rejects healing effects.",
+   "",
    ""},
 
-  {"Your system completely accepts the healing effects of potions.",
-   "Your system partly accepts the healing effects of potions.",
+  {"Your system completely accepts healing effects.",
+   "",
    ""},
 },
 
 // Scale mutations
-{ MUT_DISTORTION_FIELD, 0, 3, mutflag::good, false,
+{ MUT_DISTORTION_FIELD, 2, 1, mutflag::good, false,
   "repulsion field",
 
-  {"You are surrounded by a mild repulsion field. (EV +2)",
-   "You are surrounded by a moderate repulsion field. (EV +3)",
-   "You are surrounded by a strong repulsion field. (EV +4, RMsl)"},
+  {"You are surrounded by a repulsion field. (RMsl)",
+   "",
+   ""},
 
   {"You begin to radiate repulsive energy.",
-   "Your repulsive radiation grows stronger.",
-   "Your repulsive radiation grows stronger."},
+   "",
+   ""},
 
   {"You feel less repulsive.",
-   "You feel less repulsive.",
-   "You feel less repulsive."},
+   "",
+   ""},
 },
 
 { MUT_ICY_BLUE_SCALES, 0, 3, mutflag::good, true,
@@ -1442,7 +1440,7 @@ static const mutation_def mut_data[] =
     TILEG_MUT_ICY_BLUE_SCALES
 },
 
-{ MUT_IRIDESCENT_SCALES, 10, 3, mutflag::good, true,
+{ MUT_IRIDESCENT_SCALES, 0, 3, mutflag::good, true,
   "iridescent scales",
 
   {"You are partially covered in iridescent scales. (AC +2)",
@@ -1460,20 +1458,20 @@ static const mutation_def mut_data[] =
     TILEG_MUT_IRIDESCENT_SCALES
 },
 
-{ MUT_LARGE_BONE_PLATES, 2, 3, mutflag::good, true,
+{ MUT_LARGE_BONE_PLATES, 5, 1, mutflag::good, true,
   "large bone plates",
 
-  {"You are partially covered in large bone plates. (SH +4)",
-   "You are mostly covered in large bone plates. (SH +6)",
-   "You are completely covered in large bone plates. (SH +8)"},
+  {"You are covered in large bone plates. (SH +20)",
+   "",
+   ""},
 
-  {"Large bone plates grow over parts of your arms.",
-   "Large bone plates spread over more of your arms.",
-   "Large bone plates cover your arms completely."},
+  {"Large bone plates grow over your arms.",
+   "",
+   ""},
 
   {"Your large bone plates disappear.",
-   "Your large bone plates recede somewhat.",
-   "Your large bone plates recede somewhat."},
+   "",
+   ""},
 
     TILEG_MUT_LARGE_BONE_PLATES,
 },
@@ -1568,12 +1566,12 @@ static const mutation_def mut_data[] =
     TILEG_MUT_THIN_METALLIC_SCALES
 },
 
-{ MUT_THIN_SKELETAL_STRUCTURE, 2, 3, mutflag::good, false,
+{ MUT_THIN_SKELETAL_STRUCTURE, 6, 3, mutflag::good, false,
   "thin skeletal structure",
 
-  {"You have a somewhat thin skeletal structure. (Dex +2, Stealth+)",
-   "You have a moderately thin skeletal structure. (Dex +4, Stealth++)",
-   "You have an unnaturally thin skeletal structure. (Dex +6, Stealth+++)"},
+  {"You have a somewhat thin skeletal structure. (Stealth+)",
+   "You have a moderately thin skeletal structure. (Stealth++)",
+   "You have an unnaturally thin skeletal structure. (Stealth+++)"},
 
   {"Your bones become slightly less dense.",
    "Your bones become somewhat less dense.",
@@ -1604,7 +1602,7 @@ static const mutation_def mut_data[] =
     TILEG_MUT_YELLOW_SCALES
 },
 
-{ MUT_SHARP_SCALES, 0, 3, mutflag::good, true,
+{ MUT_SHARP_SCALES, 1, 3, mutflag::good, true,
   "sharp scales",
 
   {"You are partially covered in razor-sharp scales. (AC +1, Slay +1)",
@@ -1622,7 +1620,7 @@ static const mutation_def mut_data[] =
     TILEG_MUT_SHARP_SCALES,
 },
 
-{ MUT_STURDY_FRAME, 2, 3, mutflag::good, true,
+{ MUT_STURDY_FRAME, 6, 3, mutflag::good, true,
   "sturdy frame",
 
   {"Your movements are slightly less encumbered by armour. (ER -2)",
@@ -1654,25 +1652,25 @@ static const mutation_def mut_data[] =
    "You feel your blood thin."},
 },
 
-{ MUT_BIG_BRAIN, 0, 3, mutflag::good, false,
+{ MUT_BIG_BRAIN, 2, 1, mutflag::good, false,
   "big brain",
 
-  {"You have an unusually large brain. (Int +2)",
-   "You have an extremely huge brain. (Int +4)",
-   "You have an absolutely massive brain. (Int +6, Wiz)"},
+  {"You have an unusually large brain. (Wiz)",
+   "",
+   ""},
 
-  {"Your brain expands.",
-   "Your brain expands.",
-   "Your brain expands to incredible size."},
+  {"Your brain expands to incredible size.",
+   "",
+   ""},
 
   {"Your brain returns to normal size.",
-   "Your brain shrinks.",
-   "Your brain shrinks."},
+   "",
+   ""},
 
     TILEG_MUT_BIG_BRAIN,
 },
 
-{ MUT_CAMOUFLAGE, 1, 3, mutflag::good, true,
+{ MUT_CAMOUFLAGE, 3, 3, mutflag::good, true,
   "camouflage",
 
   {"Your skin changes colour to match your surroundings (Stealth+).",
@@ -1904,7 +1902,7 @@ static const mutation_def mut_data[] =
 },
 #endif
 
-{ MUT_DRINK_SAFETY, 7, 2, mutflag::bad, false,
+{ MUT_DRINK_SAFETY, 0, 2, mutflag::bad, false,
   "inability to drink after injury",
 
   {"You occasionally lose the ability to drink potions when taking damage.",
@@ -1918,7 +1916,7 @@ static const mutation_def mut_data[] =
    ""},
 },
 
-{ MUT_READ_SAFETY, 7, 2, mutflag::bad, false,
+{ MUT_READ_SAFETY, 0, 2, mutflag::bad, false,
   "inability to read after injury",
 
   {"You occasionally lose the ability to read scrolls when taking damage.",
@@ -2142,7 +2140,7 @@ static const mutation_def mut_data[] =
     "Your ability to control magic is less disrupted."},
 },
 
-{ MUT_MP_WANDS, 7, 1, mutflag::good, false,
+{ MUT_MP_WANDS, 0, 1, mutflag::good, false,
   "MP-powered wands",
 
   {"You expend magic power (3 MP) to strengthen your wands.", "", ""},
@@ -2194,7 +2192,7 @@ static const mutation_def mut_data[] =
   {"Your right eye suddenly reappears! The world regains its depth.", "", ""},
 },
 
-{ MUT_TEMPERATURE_SENSITIVITY, 0, 1, mutflag::bad, false,
+{ MUT_TEMPERATURE_SENSITIVITY, 1, 1, mutflag::bad, false,
   "temperature sensitive",
 
   {"You are sensitive to extremes of temperature. (rF-, rC-)", "", ""},
@@ -2369,12 +2367,12 @@ static const mutation_def mut_data[] =
 },
 
 // XX why does this have 3 levels, only 1 is used
-{ MUT_FLAT_HP, 0, 3, mutflag::good, false,
+{ MUT_FLAT_HP, 2, 3, mutflag::good, false,
   "extra vitality",
 
-    {"You have superior vitality. (+4 MHP)",
-     "You have much superior vitality. (+8 MHP)",
-     "You have exceptionally superior vitality. (+12 MHP)"},
+    {"You have superior vitality. (+7 MHP)",
+     "You have much superior vitality. (+14 MHP)",
+     "You have exceptionally superior vitality. (+21 MHP)"},
     {"You feel less vital.",
      "You feel less vital.",
      "You feel less vital."},
@@ -2392,7 +2390,7 @@ static const mutation_def mut_data[] =
 },
 
 // Sadly console size restrictions prevent more than one level of this existing
-{ MUT_DAYSTALKER, 0, 1, mutflag::good, false,
+{ MUT_DAYSTALKER, 1, 1, mutflag::bad, false,
   "+LOS",
 
     {"You have an extended range of vision and can be seen from far away.",
@@ -2425,8 +2423,8 @@ static const mutation_def mut_data[] =
   {"You feel a bit dim.", "", ""},
 },
 
-{ MUT_EXPLORE_REGEN, 0, 1, mutflag::good, false, "explore regen",
-  {"You regain HP and MP as you explore.", "", ""},
+{ MUT_EXPLORE_REGEN, 1, 1, mutflag::good, false, "explore regen",
+  {"You slowly regain HP as you explore.", "", ""},
   {"You feel a fierce wanderlust.", "", ""},
   {"You feel like a homebody.", "", ""},
 },

@@ -302,16 +302,14 @@ static const mutation_def mut_data[] =
   {"", "", ""},
   TILEG_MUT_CLUMSY,
 },
-#if TAG_MAJOR_VERSION == 34
 
-{ MUT_TELEPORT_CONTROL, 0, 1, mutflag::good, false,
-  "teleport control",
+{ MUT_EXPENSIVE_CASTING, 3, 1, mutflag::bad, false,
+  "expensive casting",
 
-  {"You can control translocations.", "", ""},
-  {"You feel controlled.", "", ""},
-  {"You feel random.", "", ""},
+  {"Your spells are more expensive to cast (+1 mp cost).", "", ""},
+  {"Your magic grows costly.", "", ""},
+  {"Your magic returns to its normal price.", "", ""},
 },
-#endif
 
 { MUT_TELEPORT, 4, 1, mutflag::bad, false,
   "teleportitis",
@@ -554,23 +552,21 @@ static const mutation_def mut_data[] =
    ""},
 },
 
-#if TAG_MAJOR_VERSION == 34
-{ MUT_BLURRY_VISION, 0, 3, mutflag::bad, false,
-  "blurry vision",
+{ MUT_CLOUD_IMMUNITY, 3, 1, mutflag::good, false,
+  "cloud immunity",
 
-  {"Scrolls take you a little longer to read.",
-   "Scrolls take you longer to read.",
-   "Scrolls take you much longer to read."},
+  {"You are immune to the effects of clouds.",
+   "",
+   ""},
 
-  {"Your vision blurs.",
-   "Your vision blurs.",
-   "Your vision blurs."},
+  {"You feel like you can breathe easier.",
+   "",
+   ""},
 
-  {"Your vision sharpens.",
-   "Your vision sharpens a little.",
-   "Your vision sharpens a little."},
+  {"Your breathing feels rougher.",
+   "",
+   ""},
 },
-#endif
 
 { MUT_MUTATION_RESISTANCE, 4, 1, mutflag::good, false,
   "mutation resistance",
@@ -1493,24 +1489,22 @@ static const mutation_def mut_data[] =
 
     TILEG_MUT_MOLTEN_SCALES
 },
-#if TAG_MAJOR_VERSION == 34
 
-{ MUT_ROUGH_BLACK_SCALES, 0, 3, mutflag::good, true,
+{ MUT_ROUGH_BLACK_SCALES, 5, 1, mutflag::good, true,
   "rough black scales",
 
-  {"You are partially covered in rough black scales. (AC +2, Dex -1)",
-   "You are mostly covered in rough black scales. (AC +5, Dex -2)",
-   "You are completely covered in rough black scales. (AC +8, Dex -3)"},
+  {"You are covered in rough black scales. (AC +6, EV - 10)",
+   "",
+   ""},
 
-  {"Rough black scales grow over part of your body.",
-   "Rough black scales spread over more of your body.",
-   "Rough black scales cover your body completely."},
+  {"Rough black scales grow over your body.",
+   "",
+   ""},
 
   {"Your rough black scales disappear.",
-   "Your rough black scales recede somewhat.",
-   "Your rough black scales recede somewhat."},
+   "",
+   ""},
 },
-#endif
 
 { MUT_RUGGED_BROWN_SCALES, 0, 3, mutflag::good, true,
   "rugged brown scales",

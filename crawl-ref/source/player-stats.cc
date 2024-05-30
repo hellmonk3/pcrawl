@@ -286,7 +286,6 @@ struct mut_stat_effect
 static const vector<mut_stat_effect> mut_stat_effects = {
     //               s   i   d
 #if TAG_MAJOR_VERSION == 34
-    { MUT_ROUGH_BLACK_SCALES, 0, 0, -1},
     { MUT_STRONG_STIFF, 1, 0, -1 },
     { MUT_FLEXIBLE_WEAK, -1, 0, 1 },
 #endif

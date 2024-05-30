@@ -105,7 +105,6 @@ vector<mutation_type> get_removed_mutations()
     static vector<mutation_type> removed_mutations =
     {
 #if TAG_MAJOR_VERSION == 34
-        MUT_ROUGH_BLACK_SCALES,
         MUT_BREATHE_FLAMES,
         MUT_BREATHE_POISON,
         MUT_CLING,
@@ -121,12 +120,10 @@ vector<mutation_type> get_removed_mutations()
         MUT_SLOW_METABOLISM,
         MUT_STRONG_STIFF,
         MUT_SUSTAIN_ATTRIBUTES,
-        MUT_TELEPORT_CONTROL,
         MUT_TRAMPLE_RESISTANCE,
         MUT_MUMMY_RESTORATION,
         MUT_NO_CHARM_MAGIC,
         MUT_MIASMA_IMMUNITY,
-        MUT_BLURRY_VISION,
         MUT_BLINK,
         MUT_UNBREATHING,
         MUT_GOURMAND,
@@ -341,11 +338,6 @@ mutation_activity_type mutation_activity_level(mutation_type mut)
         {
             return mutation_activity_type::FULL;
         }
-        // Dex and HP changes are kept in all forms.
-#if TAG_MAJOR_VERSION == 34
-        if (mut == MUT_ROUGH_BLACK_SCALES)
-            return mutation_activity_type::PARTIAL;
-#endif
         if (mut == MUT_RUGGED_BROWN_SCALES)
             return mutation_activity_type::PARTIAL;
         else if (_get_mutation_def(mut).form_based)
@@ -364,10 +356,8 @@ mutation_activity_type mutation_activity_level(mutation_type mut)
         case MUT_FAST:
         case MUT_SLOW:
         case MUT_IRIDESCENT_SCALES:
-            return mutation_activity_type::INACTIVE;
-#if TAG_MAJOR_VERSION == 34
         case MUT_ROUGH_BLACK_SCALES:
-#endif
+            return mutation_activity_type::INACTIVE;
         case MUT_RUGGED_BROWN_SCALES:
         case MUT_SHARP_SCALES:
             return mutation_activity_type::PARTIAL;

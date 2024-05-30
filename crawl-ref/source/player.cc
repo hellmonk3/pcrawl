@@ -1905,6 +1905,9 @@ static int _player_evasion(bool ignore_helpless)
     if (you.has_mutation(MUT_CLUMSY))
         final_evasion -= 20;
 
+    if (you.has_mutation(MUT_ROUGH_BLACK_SCALES))
+        final_evasion -= 10;
+
     // If you have an active amulet of the acrobat and just moved or waited,
     // get a massive EV bonus.
     if (acrobat_boost_active())
@@ -3185,7 +3188,8 @@ bool player::can_burrow() const
 bool player::cloud_immune(bool items) const
 {
     return have_passive(passive_t::cloud_immunity)
-           || actor::cloud_immune(items);
+           || actor::cloud_immune(items)
+           || you.has_mutation(MUT_CLOUD_IMMUNITY);
 }
 
 /**
@@ -5750,6 +5754,7 @@ vector<mutation_ac_changes> all_mutation_ac_changes = {
     ,mutation_ac_changes(MUT_SLIMY_GREEN_SCALES,     mutation_activity_type::FULL,    TWO_THREE_FOUR)
     ,mutation_ac_changes(MUT_THIN_METALLIC_SCALES,   mutation_activity_type::FULL,    TWO_THREE_FOUR)
     ,mutation_ac_changes(MUT_YELLOW_SCALES,          mutation_activity_type::FULL,    TWO_THREE_FOUR)
+    ,mutation_ac_changes(MUT_ROUGH_BLACK_SCALES,     mutation_activity_type::FULL,    {6,6,6})
     ,mutation_ac_changes(MUT_SHARP_SCALES,           mutation_activity_type::FULL,    ONE_TWO_THREE)
 };
 

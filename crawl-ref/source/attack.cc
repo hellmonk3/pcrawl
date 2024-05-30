@@ -783,6 +783,13 @@ string attack::defender_name(bool allow_reflexive)
 
 int attack::player_apply_misc_modifiers(int damage)
 {
+    if (using_weapon())
+    {
+        if (is_axe(*weapon) && you.has_mutation(MUT_AXE_MASTER))
+            return damage + 3;
+        if (is_polearm(*weapon) && you.has_mutation(MUT_POLE_MASTER))
+            return damage + 3;
+    }
     return damage;
 }
 
@@ -903,6 +910,12 @@ int attack::calc_damage()
         {
             bool penalty = weapon_skill_requirement(*weapon) > you.skill(wpn_skill);
             potential_damage = apply_weapon_skill(potential_damage, wpn_skill, penalty);
+
+            if (!is_range_weapon(*weapon) && you.has_mutation(MUT_FENCER))
+            {
+                potential_damage *= (100 + max(0, min(90, you.evasion())));
+                potential_damage /= 100;
+            }
         }
 
         damage = 1 + random2(potential_damage);
@@ -1346,14 +1359,14 @@ void attack::calc_elemental_brand_damage(beam_type flavour,
 
 int attack::player_stab_weapon_bonus(int damage)
 {
-    int stab_skill = you.skill(wpn_skill,1) + you.skill(SK_STEALTH,1);
+    int stab_skill = you.skill(wpn_skill, 2) + you.skill(SK_STEALTH, 2);
 
     damage += stab_skill;
 
     if (player_good_stab())
-    {
         damage *= 2;
-    }
+    if (you.has_mutation(MUT_STABBER))
+        damage *= 2;
 
     return damage;
 }

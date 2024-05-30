@@ -45,10 +45,6 @@ mutations:
     MUT_EXPLORE_REGEN: 1
     MUT_GLOWING: 1
     MUT_PASSIVE_MAPPING: 1
-  9:
-    MUT_PASSIVE_MAPPING: 1
-  18:
-    MUT_PASSIVE_MAPPING: 1
 recommended_jobs:
   - JOB_FIGHTER
   - JOB_WANDERER

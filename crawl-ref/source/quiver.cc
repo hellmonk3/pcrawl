@@ -705,13 +705,16 @@ namespace quiver
                 random_choose(first_middle, second_middle);
 
                 bool success = true;
+                bool bad_reach = you.has_mutation(MUT_POLE_MASTER)
+                                    ? false : coinflip();
+
                 monster *midmons;
                 if ((midmons = monster_at(middle))
                     && !midmons->submerged()
                     && !god_protects(&you, midmons, true)
                     && (midmons->type != MONS_SPECTRAL_WEAPON
                         || !midmons->wont_attack())
-                    && coinflip())
+                    && bad_reach)
                 {
                     success = false;
                     target.target = middle;

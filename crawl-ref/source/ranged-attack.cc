@@ -86,7 +86,10 @@ bool ranged_attack::attack()
                       && defender->as_monster()->has_ench(ENCH_BULLSEYE_TARGET);
     ev_margin = test_hit(to_hit, ev + repulsion, bullseye);
 
-    if (defender->is_player() && you.duration[DUR_DEFLECT_MISSILES])
+    // guaranteed hit/miss for certain conditions
+    if (attacker->is_player() && you.has_mutation(MUT_SNIPER))
+        ev_margin = 100;
+    else if (defender->is_player() && you.duration[DUR_DEFLECT_MISSILES])
         ev_margin = -100;
 
     bool shield_blocked = attack_shield_blocked(false);

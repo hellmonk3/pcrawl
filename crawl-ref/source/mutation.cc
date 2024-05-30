@@ -105,10 +105,8 @@ vector<mutation_type> get_removed_mutations()
     static vector<mutation_type> removed_mutations =
     {
 #if TAG_MAJOR_VERSION == 34
-        MUT_ROUGH_BLACK_SCALES,
         MUT_BREATHE_FLAMES,
         MUT_BREATHE_POISON,
-        MUT_CARNIVOROUS,
         MUT_CLING,
         MUT_CONSERVE_POTIONS,
         MUT_CONSERVE_SCROLLS,
@@ -117,18 +115,15 @@ vector<mutation_type> get_removed_mutations()
         MUT_FLEXIBLE_WEAK,
         MUT_FOOD_JELLY,
         MUT_FUMES,
-        MUT_HERBIVOROUS,
         MUT_JUMP,
         MUT_SAPROVOROUS,
         MUT_SLOW_METABOLISM,
         MUT_STRONG_STIFF,
         MUT_SUSTAIN_ATTRIBUTES,
-        MUT_TELEPORT_CONTROL,
         MUT_TRAMPLE_RESISTANCE,
         MUT_MUMMY_RESTORATION,
         MUT_NO_CHARM_MAGIC,
         MUT_MIASMA_IMMUNITY,
-        MUT_BLURRY_VISION,
         MUT_BLINK,
         MUT_UNBREATHING,
         MUT_GOURMAND,
@@ -164,15 +159,10 @@ vector<mutation_type> get_removed_mutations()
  */
 static const int conflict[][3] =
 {
-    { MUT_REGENERATION,        MUT_INHIBITED_REGENERATION,  0},
     { MUT_FAST,                MUT_SLOW,                    0},
-    { MUT_STRONG,              MUT_WEAK,                    1},
-    { MUT_CLEVER,              MUT_DOPEY,                   1},
-    { MUT_AGILE,               MUT_CLUMSY,                  1},
     { MUT_ROBUST,              MUT_FRAIL,                   1},
     { MUT_HIGH_MAGIC,          MUT_LOW_MAGIC,               1},
     { MUT_WILD_MAGIC,          MUT_SUBDUED_MAGIC,           1},
-    { MUT_REGENERATION,        MUT_INHIBITED_REGENERATION,  1},
     { MUT_BERSERK,             MUT_CLARITY,                 1},
     { MUT_FAST,                MUT_SLOW,                    1},
     { MUT_MUTATION_RESISTANCE, MUT_DEVOLUTION,              1},
@@ -190,12 +180,9 @@ static const int conflict[][3] =
     { MUT_COLD_RESISTANCE,     MUT_COLD_VULNERABILITY,     -1},
     { MUT_SHOCK_RESISTANCE,    MUT_SHOCK_VULNERABILITY,    -1},
     { MUT_STRONG_WILLED,       MUT_WEAK_WILLED,            -1},
-#if TAG_MAJOR_VERSION == 34
-    { MUT_NO_REGENERATION,     MUT_INHIBITED_REGENERATION, -1},
-    { MUT_NO_REGENERATION,     MUT_REGENERATION,           -1},
-#endif
     { MUT_HP_CASTING,          MUT_HIGH_MAGIC,             -1},
     { MUT_HP_CASTING,          MUT_LOW_MAGIC,              -1},
+    { MUT_DAYSTALKER,          MUT_NIGHTSTALKER,           -1},
 };
 
 static bool _mut_has_use(const mutation_def &mut, mutflag use)
@@ -294,12 +281,12 @@ bool is_good_mutation(mutation_type mut)
 
 static const mutation_type _ds_scales[] =
 {
-    MUT_DISTORTION_FIELD,           MUT_ICY_BLUE_SCALES,
-    MUT_LARGE_BONE_PLATES,          MUT_MOLTEN_SCALES,
+    MUT_ICY_BLUE_SCALES,
+    MUT_MOLTEN_SCALES,
     MUT_RUGGED_BROWN_SCALES,        MUT_SLIMY_GREEN_SCALES,
     MUT_THIN_METALLIC_SCALES,       MUT_THIN_SKELETAL_STRUCTURE,
     MUT_YELLOW_SCALES,              MUT_STURDY_FRAME,
-    MUT_SANGUINE_ARMOUR,            MUT_BIG_BRAIN,
+    MUT_SANGUINE_ARMOUR,
     MUT_SHARP_SCALES,
 };
 
@@ -351,11 +338,6 @@ mutation_activity_type mutation_activity_level(mutation_type mut)
         {
             return mutation_activity_type::FULL;
         }
-        // Dex and HP changes are kept in all forms.
-#if TAG_MAJOR_VERSION == 34
-        if (mut == MUT_ROUGH_BLACK_SCALES)
-            return mutation_activity_type::PARTIAL;
-#endif
         if (mut == MUT_RUGGED_BROWN_SCALES)
             return mutation_activity_type::PARTIAL;
         else if (_get_mutation_def(mut).form_based)
@@ -374,10 +356,8 @@ mutation_activity_type mutation_activity_level(mutation_type mut)
         case MUT_FAST:
         case MUT_SLOW:
         case MUT_IRIDESCENT_SCALES:
-            return mutation_activity_type::INACTIVE;
-#if TAG_MAJOR_VERSION == 34
         case MUT_ROUGH_BLACK_SCALES:
-#endif
+            return mutation_activity_type::INACTIVE;
         case MUT_RUGGED_BROWN_SCALES:
         case MUT_SHARP_SCALES:
             return mutation_activity_type::PARTIAL;
@@ -1458,8 +1438,6 @@ static string _mut_blocks_item_reason(const item_def &item, mutation_type mut, i
                                 you.hand_name(true).c_str());
         case MUT_HORNS:
         case MUT_ANTENNAE:
-            if (level < 3)
-                return "";
             return "The hauberk won't fit your head.";
         default:
             return "";
@@ -1468,8 +1446,6 @@ static string _mut_blocks_item_reason(const item_def &item, mutation_type mut, i
     switch (get_armour_slot(item))
     {
     case EQ_GLOVES:
-        if (level < 3)
-            break;
         if (mut == MUT_CLAWS)
         {
             return make_stringf("You can't wear gloves with your huge claw%s!",
@@ -1482,7 +1458,7 @@ static string _mut_blocks_item_reason(const item_def &item, mutation_type mut, i
     case EQ_BOOTS:
         if (mut == MUT_FLOAT)
             return "You have no feet!"; // or legs
-        if (level < 3 || item.sub_type == ARM_BARDING)
+        if (item.sub_type == ARM_BARDING)
             break;
         if (mut == MUT_HOOVES)
             return "You can't wear boots with hooves!";
@@ -1491,21 +1467,17 @@ static string _mut_blocks_item_reason(const item_def &item, mutation_type mut, i
         break;
 
     case EQ_HELMET:
-        if (mut == MUT_HORNS && level >= 3)
-            return "You can't wear any headgear with your large horns!";
-        if (mut == MUT_ANTENNAE && level >= 3)
-            return "You can't wear any headgear with your large antennae!";
+        if (mut == MUT_HORNS)
+            return "You can't wear any headgear with your horns!";
+        if (mut == MUT_ANTENNAE)
+            return "You can't wear any headgear with your antennae!";
         // Soft helmets (caps and wizard hats) always fit, otherwise.
         // Caps and wizard hats haven't existed for many years, but I find this
         // comment quaint and wish to preserve it. -- pf
         if (!is_hard_helmet(item))
             return "";
-        if (mut == MUT_HORNS)
-            return "You can't wear that with your horns!";
         if (mut == MUT_BEAK)
             return "You can't wear that with your beak!";
-        if (mut == MUT_ANTENNAE)
-            return "You can't wear that with your antennae!";
         break;
 
     case EQ_CLOAK:
@@ -1745,13 +1717,6 @@ bool physiology_mutation_conflict(mutation_type mutat)
         return true;
     }
 
-    // Vampires' healing rates depend on their blood level.
-    if (you.has_mutation(MUT_VAMPIRISM)
-        && (mutat == MUT_REGENERATION || mutat == MUT_INHIBITED_REGENERATION))
-    {
-        return true;
-    }
-
     // Felid paws cap MUT_CLAWS at level 1. And octopodes have no hands.
     if ((you.has_innate_mutation(MUT_PAWS)
          || you.has_innate_mutation(MUT_TENTACLE_ARMS))
@@ -1794,36 +1759,6 @@ bool physiology_mutation_conflict(mutation_type mutat)
     return false;
 }
 
-static const char* _stat_mut_desc(mutation_type mut, bool gain)
-{
-    stat_type stat = STAT_STR;
-    bool positive = gain;
-    switch (mut)
-    {
-    case MUT_WEAK:
-        positive = !positive;
-    case MUT_STRONG:
-        stat = STAT_STR;
-        break;
-
-    case MUT_DOPEY:
-        positive = !positive;
-    case MUT_CLEVER:
-        stat = STAT_INT;
-        break;
-
-    case MUT_CLUMSY:
-        positive = !positive;
-    case MUT_AGILE:
-        stat = STAT_DEX;
-        break;
-
-    default:
-        die("invalid stat mutation: %d", mut);
-    }
-    return stat_desc(stat, positive ? SD_INCREASE : SD_DECREASE);
-}
-
 /**
  * Do a resistance check for the given mutation permanence class.
  * Does not include divine intervention!
@@ -1836,10 +1771,8 @@ static const char* _stat_mut_desc(mutation_type mut, bool gain)
 static bool _resist_mutation(mutation_permanence_class mutclass,
                              bool beneficial)
 {
-    if (you.get_mutation_level(MUT_MUTATION_RESISTANCE) == 3)
-        return true;
 
-    const int mut_resist_chance = mutclass == MUTCLASS_TEMPORARY ? 2 : 3;
+    const int mut_resist_chance = 5;
     if (you.get_mutation_level(MUT_MUTATION_RESISTANCE)
         && !one_chance_in(mut_resist_chance))
     {
@@ -2036,12 +1969,6 @@ bool mutate(mutation_type which_mutation, const string &reason, bool failMsg,
         // More than three messages, need to give them by hand.
         switch (mutat)
         {
-        case MUT_STRONG: case MUT_AGILE:  case MUT_CLEVER:
-        case MUT_WEAK:   case MUT_CLUMSY: case MUT_DOPEY:
-            mprf(MSGCH_MUTATION, "You feel %s.", _stat_mut_desc(mutat, true));
-            gain_msg = false;
-            break;
-
         case MUT_LARGE_BONE_PLATES:
             {
                 const string arms = pluralise(species::arm_name(you.species));
@@ -2237,12 +2164,6 @@ static bool _delete_single_mutation_level(mutation_type mutat,
 
     switch (mutat)
     {
-    case MUT_STRONG: case MUT_AGILE:  case MUT_CLEVER:
-    case MUT_WEAK:   case MUT_CLUMSY: case MUT_DOPEY:
-        mprf(MSGCH_MUTATION, "You feel %s.", _stat_mut_desc(mutat, false));
-        lose_msg = false;
-        break;
-
     case MUT_SPIT_POISON:
         // Breathe poison replaces spit poison (so it takes the slot).
         if (you.mutation[mutat] < 2)
@@ -2398,8 +2319,7 @@ bool delete_mutation(mutation_type which_mutation, const string &reason,
         if (!god_gift)
         {
             if (you.get_mutation_level(MUT_MUTATION_RESISTANCE) > 1
-                && (you.get_mutation_level(MUT_MUTATION_RESISTANCE) == 3
-                    || coinflip()))
+                && !one_chance_in(5))
             {
                 if (failMsg)
                     mprf(MSGCH_MUTATION, "You feel rather odd for a moment.");
@@ -2660,12 +2580,6 @@ string mutation_desc(mutation_type mut, int level, bool colour,
 
     const mutation_def& mdef = _get_mutation_def(mut);
 
-    if (mut == MUT_STRONG || mut == MUT_CLEVER
-        || mut == MUT_AGILE || mut == MUT_WEAK
-        || mut == MUT_DOPEY || mut == MUT_CLUMSY)
-    {
-        level = min(level, 2);
-    }
     if (mut == MUT_ICEMAIL)
     {
         ostringstream ostr;
@@ -2775,11 +2689,7 @@ static const facet_def _demon_facets[] =
     { 0, { MUT_DEMONIC_TOUCH, MUT_DEMONIC_TOUCH, MUT_DEMONIC_TOUCH },
       { -33, -33, -33 } },
     // Scale mutations
-    { 1, { MUT_DISTORTION_FIELD, MUT_DISTORTION_FIELD, MUT_DISTORTION_FIELD },
-      { -33, -33, 0 } },
     { 1, { MUT_ICY_BLUE_SCALES, MUT_ICY_BLUE_SCALES, MUT_ICY_BLUE_SCALES },
-      { -33, -33, 0 } },
-    { 1, { MUT_LARGE_BONE_PLATES, MUT_LARGE_BONE_PLATES, MUT_LARGE_BONE_PLATES },
       { -33, -33, 0 } },
     { 1, { MUT_MOLTEN_SCALES, MUT_MOLTEN_SCALES, MUT_MOLTEN_SCALES },
       { -33, -33, 0 } },
@@ -2799,8 +2709,6 @@ static const facet_def _demon_facets[] =
     { 1, { MUT_STURDY_FRAME, MUT_STURDY_FRAME, MUT_STURDY_FRAME },
       { -33, -33, 0 } },
     { 1, { MUT_SANGUINE_ARMOUR, MUT_SANGUINE_ARMOUR, MUT_SANGUINE_ARMOUR },
-      { -33, -33, 0 } },
-    { 1, { MUT_BIG_BRAIN, MUT_BIG_BRAIN, MUT_BIG_BRAIN },
       { -33, -33, 0 } },
     { 1, { MUT_SHARP_SCALES, MUT_SHARP_SCALES, MUT_SHARP_SCALES },
       { -33, -33, 0 } },

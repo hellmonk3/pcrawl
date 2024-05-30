@@ -519,11 +519,15 @@ bool spell_is_direct_attack(spell_type spell)
 int spell_mana(spell_type which_spell, bool real_spell)
 {
     const int level = _seekspell(which_spell)->level;
+
     if (real_spell && level && (you.duration[DUR_BRILLIANCE]
                        || player_equip_unrand(UNRAND_FOLLY)))
     {
         return 1;
     }
+    else if (you.has_mutation(MUT_EXPENSIVE_CASTING))
+        return 3;
+
     return 2;
 }
 

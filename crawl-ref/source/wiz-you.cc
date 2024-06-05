@@ -255,11 +255,6 @@ void wizard_set_piety_to(int newpiety, bool force)
         mprf("Piety needs to be between 0 and %d.", MAX_PIETY);
         return;
     }
-    if (newpiety > piety_breakpoint(5) && you_worship(GOD_RU))
-    {
-        mprf("Ru piety can't be greater than %d.", piety_breakpoint(5));
-        return;
-    }
 
     if (you_worship(GOD_XOM))
     {

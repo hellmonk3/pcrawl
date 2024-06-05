@@ -14,7 +14,7 @@
 
 using std::vector;
 
-#define MAX_PIETY      200
+#define MAX_PIETY      6
 #define HALF_MAX_PIETY (MAX_PIETY / 2)
 
 #define MAX_PENANCE    200

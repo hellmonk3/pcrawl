@@ -2396,10 +2396,6 @@ void set_piety(int piety)
     ASSERT(piety >= 0);
     ASSERT(piety <= MAX_PIETY);
 
-    // Ru max piety is 6*
-    if (you_worship(GOD_RU) && piety > piety_breakpoint(5))
-        piety = piety_breakpoint(5);
-
     // We have to set the exact piety value this way, because diff may
     // be decreased to account for things like penance and gift timeout.
     int diff;
@@ -3617,14 +3613,14 @@ static void _set_initial_god_piety()
         break;
 
     case GOD_ASHENZARI:
-        you.piety = ASHENZARI_BASE_PIETY;
+        you.piety = 1;
         you.piety_hysteresis = 0;
         you.gift_timeout = 0;
         initialize_ashenzari_props();
         break;
 
     case GOD_RU:
-        you.piety = 10; // one moderate sacrifice should get you to *.
+        you.piety = 1; // one moderate sacrifice should get you to *.
         you.piety_hysteresis = 0;
         you.gift_timeout = 0;
 
@@ -3642,21 +3638,10 @@ static void _set_initial_god_piety()
         }
         break;
 
-    case GOD_IGNIS:
-        // Don't allow leaving & rejoining to reset piety
-        // XXX: maybe this logic should all be in on_join?
-        if (you.props.exists(MIN_IGNIS_PIETY_KEY))
-            you.piety = you.props[MIN_IGNIS_PIETY_KEY].get_int();
-        else
-            you.piety = 130; // matches zealot with ecu bonus
-        you.piety_hysteresis = 0;
-        you.gift_timeout = 0;
-        break;
-
     default:
-        you.piety = 15; // to prevent near instant excommunication
-        if (you.piety_max[you.religion] < 15)
-            you.piety_max[you.religion] = 15;
+        you.piety = 1;
+        if (you.piety_max[you.religion] < 1)
+            you.piety_max[you.religion] = 1;
         you.piety_hysteresis = 0;
         you.gift_timeout = 0;
         break;
@@ -4322,16 +4307,6 @@ colour_t god_message_altar_colour(god_type god)
 
 int piety_rank(int piety)
 {
-    // XXX: this seems to be used only in dat/database/godspeak.txt?
-    if (you_worship(GOD_XOM))
-    {
-        const int breakpoints[] = { 20, 50, 80, 120, 180, INT_MAX };
-        for (unsigned int i = 0; i < ARRAYSZ(breakpoints); ++i)
-            if (piety <= breakpoints[i])
-                return i + 1;
-        die("INT_MAX is no good");
-    }
-
     for (int i = NUM_PIETY_STARS; i >= 1; --i)
         if (piety >= piety_breakpoint(i - 1))
             return i;
@@ -4341,7 +4316,7 @@ int piety_rank(int piety)
 
 int piety_breakpoint(int i)
 {
-    int breakpoints[NUM_PIETY_STARS] = { 30, 50, 75, 100, 120, 160 };
+    int breakpoints[NUM_PIETY_STARS] = { 1, 2, 3, 4, 5, 6 };
     if (i >= NUM_PIETY_STARS || i < 0)
         return 255;
     else

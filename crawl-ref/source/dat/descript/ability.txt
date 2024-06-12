@@ -260,8 +260,9 @@ The duration is increased by Invocations skill.
 %%%%
 Finesse ability
 
-Greatly increases your combat speed. The duration is increased by Invocations
-skill.
+Greatly increases your combat speed, allowing a free attacking action each turn.
+The duration is greatly increased by Invocations skill. You may call upon this
+ability once per floor.
 %%%%
 Duel ability
 

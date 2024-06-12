@@ -1450,6 +1450,9 @@ static void _fire_kill_conducts(monster &mons, killer_type killer,
     // Cheibriados hates fast monsters.
     if (cheibriados_thinks_mons_is_fast(mons) && !mons.cannot_act())
         did_kill_conduct(DID_KILL_FAST, mons);
+
+    if (mons_is_or_was_unique(mons))
+        did_kill_conduct(DID_KILL_UNIQUE, mons);
 }
 
 item_def* monster_die(monster& mons, const actor *killer, bool silent,

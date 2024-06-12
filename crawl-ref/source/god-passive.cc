@@ -215,6 +215,10 @@ static const vector<god_passive> god_passives[] =
     {
         { -1, passive_t::no_allies,
               "are NOW prevented from gaining allies" },
+        {  1, passive_t::heroism,
+              "have heroic combat skills"},
+        {  3, passive_t::oka_equipment,
+              "GOD NOW provides extra equipment gifts"},
     },
 
     // Makhleb

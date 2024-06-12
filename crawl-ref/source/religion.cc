@@ -160,15 +160,14 @@ const vector<vector<god_power>> & get_all_god_powers()
         },
 
         // Okawaru
-        {   { 1, ABIL_OKAWARU_HEROISM, "gain great but temporary skills" },
-            { 3, "Okawaru will now gift you throwing weapons as you gain piety.",
-                 "Okawaru will no longer gift you throwing weapons.",
-                 "Okawaru will gift you throwing weapons as you gain piety." },
-            { 4, ABIL_OKAWARU_FINESSE, "speed up your combat" },
-            { 5, ABIL_OKAWARU_DUEL, "enter into single combat with a foe"},
-            { 5, "Okawaru will now gift you equipment as you gain piety.",
-                 "Okawaru will no longer gift you equipment.",
-                 "Okawaru will gift you equipment as you gain piety." },
+        {   { 1, "Okawaru will now enhance your combat skills.",
+                 "Okawaru will no longer enhance your combat skills.",
+                 "Okawaru enhances your combat skills."},
+            { 3, "Okawaru will provide an additional equipment gift each floor." },
+            { 5, ABIL_OKAWARU_FINESSE, "speed up your combat" },
+            { 6, "Okawaru will now enhance your combat skills more strongly.",
+                 "Okawaru will no longer enhance your combat skills as much.",
+                 "Okawaru further enhances your combat skills." },
         },
 
         // Makhleb

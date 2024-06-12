@@ -2198,6 +2198,9 @@ void reset_per_floor_props()
 
     if (you.props.exists(WENT_INVIS_KEY))
         you.props.erase(WENT_INVIS_KEY);
+
+    if (you.props.exists(GOD_ABIL_USED_KEY))
+        you.props.erase(GOD_ABIL_USED_KEY);
 }
 
 /// Make progress toward the abyss spawning an exit/stairs.
@@ -5550,8 +5553,11 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
     else if (ash_has_skill_boost(sk))
             level = ash_skill_boost(sk, scale);
 
-    if (temp && duration[DUR_HEROISM] && sk <= SK_LAST_MUNDANE)
-        level = min(level + 5 * scale, MAX_SKILL_LEVEL * scale);
+    if (temp && have_passive(passive_t::heroism) && sk <= SK_LAST_MUNDANE)
+    {
+        const int boost = you.piety >= piety_breakpoint(5) ? 2 : 1;
+        level = min(level + boost * scale, MAX_SKILL_LEVEL * scale);
+    }
 
     switch (sk)
     {

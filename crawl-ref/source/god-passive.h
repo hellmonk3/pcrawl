@@ -253,6 +253,12 @@ enum class passive_t
 
     // Immunity to spectral mist clouds
     r_spectral_mist,
+
+    // okawaru heroism
+    heroism,
+
+    // okawaru equipment
+    oka_equipment,
 };
 
 enum ru_interference

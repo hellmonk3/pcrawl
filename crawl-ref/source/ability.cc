@@ -442,7 +442,7 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_OKAWARU_HEROISM, "Heroism",
             2, 0, 3, -1, {fail_basis::invo, 30, 6, 20}, abflag::none },
         { ABIL_OKAWARU_FINESSE, "Finesse",
-            5, 0, 5, -1, {fail_basis::invo, 60, 4, 25}, abflag::none },
+            3, 0, 0, -1, {fail_basis::invo}, abflag::none },
         { ABIL_OKAWARU_DUEL, "Duel",
             7, 0, 10, LOS_MAX_RANGE, {fail_basis::invo, 80, 4, 20},
             abflag::target | abflag::not_self },
@@ -1658,6 +1658,15 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         {
             if (!quiet)
                 mpr("You have nothing to donate!");
+            return false;
+        }
+        return true;
+
+    case ABIL_OKAWARU_FINESSE:
+        if (you.props.exists(GOD_ABIL_USED_KEY))
+        {
+            if (!quiet)
+                mpr("You can't use that again on this floor!");
             return false;
         }
         return true;
@@ -2919,10 +2928,9 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
             mprf(MSGCH_DURATION, "You can now deal lightning-fast blows.");
 
         you.increase_duration(DUR_FINESSE,
-                              10 + random2avg(you.skill(SK_INVOCATIONS, 6), 2),
+                              10 + random2avg(you.skill(SK_INVOCATIONS, 10), 2),
                               100);
-
-        did_god_conduct(DID_HASTY, 8); // Currently irrelevant.
+        you.props[GOD_ABIL_USED_KEY] = 1;
         break;
 
     case ABIL_OKAWARU_DUEL:

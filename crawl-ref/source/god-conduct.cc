@@ -79,7 +79,7 @@ static const char *conducts[] =
     "Cause Glowing", "Use Unclean", "Use Chaos", "Desecrate Orcish Remains",
     "Kill Slime", "Was Hasty", "Attack In Sanctuary",
     "Kill Artificial", "Exploration", "Seen Monster",
-    "Sacrificed Love", "Hurt Foe", "Use Wizardly Item",
+    "Sacrificed Love", "Hurt Foe", "Use Wizardly Item", "Kill Unique",
 };
 COMPILE_CHECK(ARRAYSZ(conducts) == NUM_CONDUCTS);
 
@@ -521,11 +521,11 @@ struct like_response
 
         // this is all very strange, but replicates legacy behaviour.
         // See the comment on piety_bonus above.
-        int denom = piety_denom_bonus + level;
+        int denom = 1;
         if (xl_denom)
-            denom -= you.get_experience_level() / xl_denom;
+            denom = 1;
 
-        int gain = denom + piety_bonus;
+        int gain = denom;
 
         // handle weird special cases
         // may modify gain/denom
@@ -708,11 +708,7 @@ static like_map divine_likes[] =
     },
     // GOD_OKAWARU,
     {
-        { DID_KILL_LIVING, okawaru_kill("you kill living beings") },
-        { DID_KILL_UNDEAD, okawaru_kill("you destroy the undead") },
-        { DID_KILL_DEMON, okawaru_kill("you kill demons") },
-        { DID_KILL_HOLY, okawaru_kill("you kill holy beings") },
-        { DID_KILL_NONLIVING, okawaru_kill("you destroy nonliving beings") },
+        { DID_KILL_UNIQUE, okawaru_kill("you kill named opponents") },
     },
     // GOD_MAKHLEB,
     {

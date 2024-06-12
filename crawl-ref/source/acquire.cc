@@ -1188,6 +1188,11 @@ void make_acquirement_items()
     if (branch_item.defined())
         acq_items.push_back(branch_item);
 
+    // additional item based on god
+    auto god_item = god_specific_item();
+        if (god_item.defined())
+            acq_items.push_back(god_item);
+
     // Additional item based on one you already have equipped
     auto upgrade_item = item_based_on_equip();
     if (upgrade_item.defined())
@@ -1252,6 +1257,41 @@ item_def branch_specific_item()
         item = _acquirement_item_def(OBJ_MISCELLANY);
         break;
     default: // no additional item
+        break;
+    }
+
+    return item;
+}
+
+static item_def _okawaru_acquirement()
+{
+    object_class_type type;
+    if (!you.has_mutation(MUT_NO_ARMOUR))
+        type = OBJ_ARMOUR;
+    if (!you.has_mutation(MUT_NO_GRASPING) && (x_chance_in_y(3, 4) || !type))
+        type = random_choose_weighted(10, OBJ_WEAPONS, 3, OBJ_MISSILES);
+
+    item_def item;
+
+    if (type)
+        item = _acquirement_item_def(type);
+
+    return item;
+}
+
+item_def god_specific_item()
+{
+    item_def item;
+
+    god_type god = you.religion;
+    switch (god)
+    {
+    case GOD_OKAWARU:
+    {
+        if (have_passive(passive_t::oka_equipment))
+            item = _okawaru_acquirement();
+    }
+    default:
         break;
     }
 

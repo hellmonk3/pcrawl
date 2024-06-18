@@ -788,11 +788,7 @@ void bolt::apply_beam_conducts()
         switch (flavour)
         {
         case BEAM_DAMNATION:
-        {
-            const int level = 2 + random2(3);
-            did_god_conduct(DID_EVIL, level, god_cares());
             break;
-        }
         default:
             break;
         }
@@ -1607,9 +1603,6 @@ int mons_adjust_flavoured(monster* mons, bolt &pbolt, int hurted,
                 pbolt.obvious_effect = true;
 
             mons->drain(pbolt.agent());
-
-            if (YOU_KILL(pbolt.thrower))
-                did_god_conduct(DID_EVIL, 2, pbolt.god_cares());
         }
         break;
 
@@ -1995,10 +1988,10 @@ bool miasma_monster(monster* mons, const actor* who)
     if (mons->res_miasma())
         return false;
 
-    bool success = false;
+    if (who && who->is_player() && have_passive(passive_t::prevent_evil))
+        return false;
 
-    if (who && who->is_player() && is_good_god(you.religion))
-        did_god_conduct(DID_EVIL, 5 + random2(3));
+    bool success = false;
 
     if (coinflip())
     {

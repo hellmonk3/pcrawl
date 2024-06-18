@@ -82,7 +82,6 @@ static bool _evoke_horn_of_geryon()
 
     mprf(MSGCH_SOUND, "You produce a hideous howling noise!");
     noisy(15, you.pos()); // same as hell effect noise
-    did_god_conduct(DID_EVIL, 3);
     int num = 1;
     const int adjusted_power = you.skill(SK_EVOCATIONS, 10);
     if (adjusted_power + random2(90) > 130)
@@ -1391,6 +1390,8 @@ bool evoke_item(item_def& item, dist *preselect)
             break;
 
         case MISC_HORN_OF_GERYON:
+            if (have_passive(passive_t::prevent_evil))
+                return false;
             if (_evoke_horn_of_geryon())
             {
                 expend_xp_evoker(item.sub_type);

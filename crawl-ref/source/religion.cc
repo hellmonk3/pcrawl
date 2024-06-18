@@ -220,10 +220,7 @@ const vector<vector<god_power>> & get_all_god_powers()
 
         // Elyvilon
         {
-            { 1, ABIL_ELYVILON_PURIFICATION, "purify yourself" },
-            { 2, ABIL_ELYVILON_HEAL_OTHER, "heal and attempt to pacify others" },
-            { 3, ABIL_ELYVILON_HEAL_SELF, "provide healing for yourself" },
-            { 5, ABIL_ELYVILON_DIVINE_VIGOUR, "call upon Elyvilon for divine vigour" },
+            { 3, ABIL_ELYVILON_HEAL_OTHER, "heal and pacify others" },
         },
 
         // Lugonu
@@ -670,11 +667,6 @@ void dec_penance(god_type god, int val)
             {
                 mprf(MSGCH_GOD, "Your aura of darkness returns!");
                 invalidate_agrid(true);
-            }
-            if (have_passive(passive_t::sinv))
-            {
-                mprf(MSGCH_GOD, "Your vision regains its divine sight.");
-                autotoggle_autopickup(false);
             }
             if (have_passive(passive_t::stat_boost))
             {
@@ -2513,8 +2505,6 @@ static void _gain_piety_point()
             simple_god_message(" begins accelerating your health and magic "
                                "regeneration.");
         }
-        if (rank == rank_for_passive(passive_t::sinv))
-            autotoggle_autopickup(false);
         if (rank == rank_for_passive(passive_t::clarity))
         {
             // Inconsistent with donning amulets, but matches the
@@ -4130,17 +4120,9 @@ string god_spell_warn_string(spell_type spell, god_type god)
 
 bool god_protects_from_harm()
 {
-    if ((have_passive(passive_t::protect_from_harm)
-         || have_passive(passive_t::lifesaving))
+    if ((have_passive(passive_t::protect_from_harm))
         && (one_chance_in(10) || x_chance_in_y(you.piety, 1000)))
     {
-        return true;
-    }
-
-    if (!you.gift_timeout && have_passive(passive_t::lifesaving)
-        && x_chance_in_y(you.piety, 160))
-    {
-        _inc_gift_timeout(20 + random2avg(10, 2));
         return true;
     }
 

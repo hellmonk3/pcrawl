@@ -22,6 +22,7 @@
 #include "env.h"
 #include "god-passive.h"
 #include "god-abil.h"
+#include "god-item.h"
 #include "item-prop.h"
 #include "level-state-type.h"
 #include "libutil.h"
@@ -1254,6 +1255,9 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
     // does get called during character creation, so allow it to run for !temp.
     if (temp && (!in_bounds(you.pos()) || !you.on_current_level))
         return "you can't cast spells right now.";
+
+    if (have_passive(passive_t::prevent_evil) && is_evil_spell(spell))
+        return "your god prohibits such evil magic!";
 
     if (!skip_casting_checks)
     {

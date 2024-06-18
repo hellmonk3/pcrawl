@@ -2194,8 +2194,6 @@ bool melee_attack::apply_staff_damage()
                     defender->name(DESC_THE).c_str(),
                     defender->conj_verb("writhe").c_str(),
                     attack_strength_punctuation(special_damage).c_str());
-
-            attacker->god_conduct(DID_EVIL, 4);
         }
         break;
 

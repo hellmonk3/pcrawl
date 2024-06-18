@@ -3697,6 +3697,13 @@ int get_real_hp(bool trans, bool drained)
     hitp *= 10 + species::get_hp_modifier(you.species);
     hitp /= 10;
 
+    // elyvilon passive
+    if (have_passive(passive_t::vigour))
+    {
+        hitp *= 20 + 1 + you.skill(SK_INVOCATIONS);
+        hitp /= 20;
+    }
+
     hitp += you.get_mutation_level(MUT_FLAT_HP) * 7;
 
     const bool hep_frail = have_passive(passive_t::frail)
@@ -3730,10 +3737,6 @@ int get_real_hp(bool trans, bool drained)
             hitp = hitp * 3 / 2;
     }
 
-    // TODO: should this also be in an if (trans) block?
-    hitp *= 100 + you.attribute[ATTR_DIVINE_VIGOUR] * 5;
-    hitp /= 100;
-
     if (trans)
         hitp = get_form()->mult_hp(hitp);
 
@@ -3758,6 +3761,13 @@ int get_real_mp(bool include_items)
     enp *= 100 + (you.get_mutation_level(MUT_HIGH_MAGIC) * 10)
                - (you.get_mutation_level(MUT_LOW_MAGIC) * 10);
     enp /= 100 * scale;
+
+    // elyvilon passive
+    if (have_passive(passive_t::vigour))
+    {
+        enp *= 20 + 1 + you.skill(SK_INVOCATIONS);
+        enp /= 20;
+    }
 
     enp += species::get_mp_modifier(you.species);
 
@@ -6892,9 +6902,6 @@ bool player::innate_sinv() const
         return true;
 
     if (get_mutation_level(MUT_EYEBALLS) == 3)
-        return true;
-
-    if (have_passive(passive_t::sinv))
         return true;
 
     return false;

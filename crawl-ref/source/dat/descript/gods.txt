@@ -38,9 +38,10 @@ gradually consuming them with darkness.
 Elyvilon
 
 Elyvilon the Healer welcomes all kind souls prepared to help others. Those
-individuals can expect to gain powerful healing abilities, by which they can
-avoid bloodshed. Elyvilon appreciates exploration of the dungeon. Elyvilon's
-followers can convert to the Shining One or Zin while keeping some piety.
+individuals can expect to find their reserves of health and magical power raised
+in proportion to their invocations skill, and will eventually gain the ability
+to pacify a monster, turning it friendly, once per floor. Elyvilon forbids
+casting evil spells and prevents evil items from taking effect.
 %%%%
 Fedhas
 
@@ -259,12 +260,11 @@ assume the form of a shadow themself.
 %%%%
 Elyvilon powers
 
-The Healer offers followers a number of means to heal themselves from damage
-and other ill effects. Followers may also attempt to pacify hostile monsters
-and turn them neutral. Elyvilon may directly intervene to save a follower's
-life, and if there has been no such intervention recently, is sure to prevent
-a killing blow against especially pious followers. Elyvilon may also
-occasionally protect the follower's allies from death.
+Elyvilon increases followers' health and magical power by 5%, plus an additional
+5% per level of invocations skill. Followers with sufficient piety can pacify
+a monster once per floor. This turns the monster friendly and heals it slightly.
+Pacification does not work on constructs, and costs piety on other non-natural
+monsters such as undead.
 %%%%
 Fedhas powers
 
@@ -358,10 +358,9 @@ decks and re-order their contents.
 %%%%
 Okawaru powers
 
-Followers of Okawaru will gain the ability to temporarily increase their skills
-in combat, and, much later, to deal much faster blows. Okawaru will eventually
-gift followers with ammunition, weapons and armour. The most favoured of
-Okawaru may challenge their foes to honourable single combat.
+Followers of Okawaru will gain increased combat skills, and, much later, to deal
+faster blows. Okawaru will eventually gift followers additional choices of
+weapons and armour.
 %%%%
 Pakellas powers
 

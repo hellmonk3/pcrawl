@@ -41,8 +41,8 @@ enum class passive_t
     /// You avoid explore-based traps.
     avoid_traps,
 
-    /// You have innate see invisible.
-    sinv,
+    /// Evil acts are forbidden.
+    prevent_evil,
 
     /// You have innate clarity.
     clarity,
@@ -119,8 +119,8 @@ enum class passive_t
     /// Chance to nullify a deadly blow, dependent on piety.
     protect_from_harm,
 
-    /// Strong chance to nullify a deadly blow, with a timeout.
-    lifesaving,
+    /// Increased base HP and MP, depending on invocations skill.
+    vigour,
 
     /// Divine halo around the player, size increases with piety.
     halo,

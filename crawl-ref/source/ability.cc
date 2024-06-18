@@ -483,7 +483,7 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_ELYVILON_PURIFICATION, "Purification",
             2, 0, 2, -1, {fail_basis::invo, 20, 5, 20}, abflag::conf_ok },
         { ABIL_ELYVILON_HEAL_OTHER, "Heal Other",
-            2, 0, 2, -1, {fail_basis::invo, 40, 5, 20}, abflag::none },
+            2, 0, 0, -1, {fail_basis::invo}, abflag::none },
         { ABIL_ELYVILON_HEAL_SELF, "Heal Self",
             2, 0, 3, -1, {fail_basis::invo, 40, 5, 20}, abflag::none },
         { ABIL_ELYVILON_DIVINE_VIGOUR, "Divine Vigour",
@@ -1663,6 +1663,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         return true;
 
     case ABIL_OKAWARU_FINESSE:
+    case ABIL_ELYVILON_HEAL_OTHER:
         if (you.props.exists(GOD_ABIL_USED_KEY))
         {
             if (!quiet)
@@ -3054,8 +3055,8 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
 
     case ABIL_ELYVILON_HEAL_OTHER:
     {
-        int pow = 30 + you.skill(SK_INVOCATIONS, 1);
-        return cast_healing(pow, fail);
+        int pow = 1 + you.skill(SK_INVOCATIONS);
+        return cast_healing(pow, false);
     }
 
     case ABIL_ELYVILON_DIVINE_VIGOUR:

@@ -1175,6 +1175,9 @@ bool attack::apply_damage_brand(const char *what)
             break;
         }
 
+        if (have_passive(passive_t::prevent_evil))
+            break;
+
         int hp_boost = 1 + random2(2 * defender->get_hit_dice());
 
         if (hp_boost)
@@ -1204,7 +1207,7 @@ bool attack::apply_damage_brand(const char *what)
         break;
     }
     case SPWPN_PAIN:
-        if (!you_worship(GOD_TROG))
+        if (!you_worship(GOD_TROG) && !have_passive(passive_t::prevent_evil))
             pain_affects_defender();
         break;
 
@@ -1290,8 +1293,6 @@ bool attack::apply_damage_brand(const char *what)
 
 
     default:
-        if (using_weapon() && is_unrandom_artefact(*weapon, UNRAND_DAMNATION))
-            attacker->god_conduct(DID_EVIL, 2 + random2(3));
         break;
     }
 

@@ -3698,7 +3698,6 @@ bool read(item_def* scroll, dist *target)
         torment(&you, TORMENT_SCROLL, you.pos());
 
         // This is only naughty if you know you're doing it.
-        did_god_conduct(DID_EVIL, 10, item_type_known(*scroll));
         bad_effect = !you.res_torment();
         break;
 

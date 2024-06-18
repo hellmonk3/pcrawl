@@ -246,13 +246,9 @@ static const vector<god_passive> god_passives[] =
 
     // Elyvilon
     {
-        { -1, passive_t::lifesaving,
-              "GOD carefully watches over you",
-              "GOD no longer watches over you"
-        },
-        { -1, passive_t::protect_ally,
-              "GOD can protect the life of your allies",
-              "GOD NOW protects the life of your allies"
+        { -1, passive_t::vigour,
+              "GOD NOW boosts your health and magic",
+              "GOD no longer boosts your health and magic"
         },
     },
 
@@ -341,7 +337,6 @@ static const vector<god_passive> god_passives[] =
         {  0, passive_t::bondage_skill_boost,
               "get a skill boost from cursed items" },
         {  1, passive_t::identify_items, "sense the properties of items" },
-        {  2, passive_t::sinv, "are NOW clear of vision" },
         {  3, passive_t::clarity, "are NOW clear of mind" },
         {  4, passive_t::avoid_traps, "avoid traps" },
         {  4, passive_t::scrying,

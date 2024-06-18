@@ -35,6 +35,7 @@
 #include "fight.h"
 #include "fineff.h"        // For the Storm Queen's Shield
 #include "god-conduct.h"   // did_god_conduct
+#include "god-passive.h"   // did_god_conduct
 #include "mgen-data.h"     // For Sceptre of Asmodeus
 #include "melee-attack.h"  // For autumn katana
 #include "message.h"
@@ -154,8 +155,8 @@ static void _CURSES_equip(item_def */*item*/, bool *show_msgs, bool unmeld)
 static void _CURSES_melee_effects(item_def* /*weapon*/, actor* attacker,
                                   actor* defender, bool mondied, int dam)
 {
-    if (attacker->is_player())
-        did_god_conduct(DID_EVIL, 3);
+    if (attacker->is_player() && have_passive(passive_t::prevent_evil))
+        return;
     if (!mondied && defender->holiness() & (MH_NATURAL | MH_PLANT))
         death_curse(*defender, attacker, "the scythe of Curses", min(dam, 27));
 }
@@ -506,8 +507,8 @@ static void _ZONGULDROK_melee_effects(item_def* /*weapon*/, actor* attacker,
                                       actor* /*defender*/, bool /*mondied*/,
                                       int /*dam*/)
 {
-    if (attacker->is_player())
-        did_god_conduct(DID_EVIL, 3);
+    if (attacker->is_player() && have_passive(passive_t::prevent_evil))
+        return;
 }
 
 ///////////////////////////////////////////////////
@@ -766,8 +767,7 @@ static void _DRAGONSKIN_unequip(item_def */*item*/, bool *show_msgs)
 ///////////////////////////////////////////////////
 static void _BLACK_KNIGHT_HORSE_world_reacts(item_def */*item*/)
 {
-    if (x_chance_in_y(you.time_taken, 10 * BASELINE_DELAY))
-        did_god_conduct(DID_EVIL, 1);
+    return;
 }
 
 ///////////////////////////////////////////////////
@@ -1261,8 +1261,7 @@ static void _ETERNAL_TORMENT_equip(item_def */*item*/, bool */*show_msgs*/,
 
 static void _ETERNAL_TORMENT_world_reacts(item_def */*item*/)
 {
-    if (one_chance_in(10))
-        did_god_conduct(DID_EVIL, 1);
+    return;
 }
 
 
@@ -1451,6 +1450,9 @@ static void _EMBRACE_unequip(item_def *item, bool *show_msgs)
  */
 static int _harvest_corpses()
 {
+    if (have_passive(passive_t::prevent_evil))
+        return 0;
+
     int harvested = 0;
 
     for (radius_iterator ri(you.pos(), LOS_NO_TRANS); ri; ++ri)
@@ -1466,8 +1468,6 @@ static int _harvest_corpses()
                 = static_cast<monster_type>(item.orig_monnum);
             if (you.religion == GOD_BEOGH && mons_genus(monnum) == MONS_ORC)
                 continue;
-
-            did_god_conduct(DID_EVIL, 1);
 
             ++harvested;
 
@@ -1709,12 +1709,7 @@ static void _AUTUMN_KATANA_melee_effects(item_def* /*weapon*/, actor* attacker,
 
 static void _VITALITY_world_reacts(item_def */*item*/)
 {
-    // once it starts regenerating you, you're doin evil
-    if (you.props[MANA_REGEN_AMULET_ACTIVE].get_int() == 1
-        || you.activated[EQ_AMULET])
-    {
-        did_god_conduct(DID_EVIL, 1);
-    }
+    return;
 }
 
 ///////////////////////////////////////////////////
@@ -1798,6 +1793,9 @@ static void _ASMODEUS_melee_effects(item_def* /*weapon*/, actor* attacker,
     if (!attacker->is_player() || you.allies_forbidden())
         return;
 
+    if (have_passive(passive_t::prevent_evil))
+        return;
+
     const monster* mon = defender->as_monster();
     if (mons_is_firewood(*mon)
         || mons_is_conjured(mon->type)
@@ -1818,9 +1816,6 @@ static void _ASMODEUS_melee_effects(item_def* /*weapon*/, actor* attacker,
         mg.set_summoned(&you, 4, SPELL_FIRE_SUMMON);
 
         if (create_monster(mg))
-        {
             mpr("The sceptre summons one of its terrible servants.");
-            did_god_conduct(DID_EVIL, 3);
-        }
     }
 }

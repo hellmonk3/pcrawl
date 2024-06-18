@@ -1163,12 +1163,10 @@ static bool _actor_apply_cloud_side_effects(actor *act,
     case CLOUD_NEGATIVE_ENERGY:
     {
         actor* agent = cloud.agent();
+        if (cloud.whose == KC_YOU && have_passive(passive_t::prevent_evil))
+            return false;
         if (act->drain(agent, final_damage))
-        {
-            if (cloud.whose == KC_YOU)
-                did_god_conduct(DID_EVIL, 5 + random2(3));
             return true;
-        }
         break;
     }
 

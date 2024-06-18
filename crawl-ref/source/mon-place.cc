@@ -2849,9 +2849,6 @@ conduct_type god_hates_monster(const monster &mon)
     if (mons_can_hate(mon.type))
         return DID_SACRIFICE_LOVE;
 
-    if (is_good_god(you.religion) && mon.evil())
-        return DID_EVIL;
-
     if (is_evil_god(you.religion) && mon.is_holy())
         return DID_HOLY;
 
@@ -2861,6 +2858,8 @@ conduct_type god_hates_monster(const monster &mon)
             return DID_UNCLEAN;
         if (mon.how_chaotic())
             return DID_CHAOS;
+        if (mon.evil())
+            return DID_EVIL;
     }
 
     if (god_hates_spellcasting(you.religion) && mon.is_actual_spellcaster())

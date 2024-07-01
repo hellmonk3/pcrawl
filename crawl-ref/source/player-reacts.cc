@@ -48,6 +48,7 @@
 #include "files.h"
 #include "god-abil.h"
 #include "god-companions.h"
+#include "god-conduct.h"
 #include "god-passive.h"
 #include "invent.h"
 #include "item-prop.h"
@@ -509,6 +510,16 @@ static bool _check_recite()
     return true;
 }
 
+static bool _level_clear()
+{
+    for (monster_iterator mi; mi; ++mi)
+    {
+        if(!mi->wont_attack() && !mons_is_firewood(**mi))
+            return false;
+    }
+    
+    return true;
+}
 
 static void _handle_recitation(int step)
 {
@@ -955,6 +966,13 @@ void player_reacts()
 
     if (you.props[EMERGENCY_FLIGHT_KEY].get_bool())
         _handle_emergency_flight();
+    
+    // check kill piety
+    if (_level_clear() && !you.props.exists(KILLED_ALL_KEY))
+    {
+        you.props[KILLED_ALL_KEY] = true;
+        did_god_conduct(DID_KILL_LIVING, 1);
+    }
 
     incr_zot_clock();
 }

@@ -1099,7 +1099,6 @@ static update_flags player_view_update_at(const coord_def &gc)
             && !(branches[you.where_are_you].branch_flags & brflag::fully_map)
             && !(player_in_branch(BRANCH_SLIME) && you_worship(GOD_JIYVA)))
         {
-            did_god_conduct(DID_EXPLORATION, 2500);
             const int density = env.density ? env.density : 2000;
             you.exploration += div_rand_round(1<<16, density);
         }

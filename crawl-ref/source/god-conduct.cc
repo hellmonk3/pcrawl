@@ -577,8 +577,15 @@ static like_response _on_kill(const char* desc, mon_holy_type holiness,
 }
 
 /// Response for gods that like killing the living.
-static const like_response KILL_LIVING_RESPONSE =
-    _on_kill("you kill living beings", MH_NATURAL);
+static const like_response KILL_LIVING_RESPONSE ={
+    "you kill all foes on a level", false,
+    0, 0, 0, nullptr,
+    [] (int &piety, int &/*denom*/, const monster* /*victim*/)
+    {
+        // piety = denom = level at the start of the function
+        piety = 1;
+    }
+};
 
 /// Response for non-good gods that like killing (?) undead.
 static const like_response KILL_UNDEAD_RESPONSE =
@@ -639,12 +646,12 @@ static const like_response _fedhas_kill_living_response()
 }
 
 static const like_response EXPLORE_RESPONSE = {
-    "you explore the world", false,
+    "you explore a new floor", false,
     0, 0, 0, nullptr,
     [] (int &piety, int &/*denom*/, const monster* /*victim*/)
     {
         // piety = denom = level at the start of the function
-        piety = 14;
+        piety = 1;
     }
 };
 
@@ -707,10 +714,6 @@ static like_map divine_likes[] =
     // GOD_MAKHLEB,
     {
         { DID_KILL_LIVING, KILL_LIVING_RESPONSE },
-        { DID_KILL_UNDEAD, KILL_UNDEAD_RESPONSE },
-        { DID_KILL_DEMON, KILL_DEMON_RESPONSE },
-        { DID_KILL_HOLY, KILL_HOLY_RESPONSE },
-        { DID_KILL_NONLIVING, KILL_NONLIVING_RESPONSE },
     },
     // GOD_SIF_MUNA,
     {
@@ -738,15 +741,7 @@ static like_map divine_likes[] =
     },
     // GOD_ELYVILON,
     {
-        { DID_EXPLORATION, {
-            "you explore the world", false,
-            0, 0, 0, nullptr,
-            [] (int &piety, int &/*denom*/, const monster* /*victim*/)
-            {
-                // piety = denom = level at the start of the function
-                piety = 20;
-            }
-        } },
+        { DID_EXPLORATION, EXPLORE_RESPONSE },
     },
     // GOD_LUGONU,
     {
@@ -846,11 +841,7 @@ static like_map divine_likes[] =
     like_map(),
     // GOD_QAZLAL,
     {
-        { DID_KILL_LIVING, KILL_LIVING_RESPONSE },
-        { DID_KILL_UNDEAD, KILL_UNDEAD_RESPONSE },
-        { DID_KILL_DEMON, KILL_DEMON_RESPONSE },
-        { DID_KILL_HOLY, KILL_HOLY_RESPONSE },
-        { DID_KILL_NONLIVING, KILL_NONLIVING_RESPONSE },
+        { DID_EXPLORATION, EXPLORE_RESPONSE },
     },
     // GOD_RU,
     {

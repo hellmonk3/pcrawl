@@ -58,6 +58,7 @@
 #define WENT_INVIS_KEY "went_invis"
 #define HARP_STARTED_KEY "harp_started"
 #define GOD_ABIL_USED_KEY "god_ability_used"
+#define KILLED_ALL_KEY "killed_all_enemies"
 
 // display/messaging breakpoints for penalties from Ru's MUT_HORROR
 #define HORROR_LVL_EXTREME  3

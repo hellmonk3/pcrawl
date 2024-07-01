@@ -1414,8 +1414,6 @@ static void _fire_kill_conducts(monster &mons, killer_type killer,
         did_kill_conduct(DID_KILL_DEMON, mons);
     else if (holiness & (MH_NATURAL | MH_PLANT))
     {
-        did_kill_conduct(DID_KILL_LIVING, mons);
-
         // TSO hates natural evil and unholy beings.
         if (mons.evil())
             did_kill_conduct(DID_KILL_NATURAL_EVIL, mons);

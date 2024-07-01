@@ -23,6 +23,7 @@
 #include "env.h"
 #include "files.h"
 #include "god-abil.h"
+#include "god-conduct.h"
 #include "god-passive.h" // passive_t::slow_abyss
 #include "hints.h"
 #include "hiscores.h"
@@ -1275,4 +1276,9 @@ void new_level(bool restore)
         you.zig_max = max(you.zig_max, you.depth);
 
     recharge_xp_evokers();
+    
+    did_god_conduct(DID_EXPLORATION, 1);
+    
+    if (you.props.exists(KILLED_ALL_KEY))
+        you.props.erase(KILLED_ALL_KEY);
 }

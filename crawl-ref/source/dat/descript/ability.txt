@@ -75,8 +75,7 @@ Hurl Damnation ability
 
 Blasts a targeted enemy with damnation. These unholy forces harm the victim and
 anyone adjacent, and are not affected by any means of protection, such as armour
-or resistances. However, certain creatures, usually those able to invoke
-damnation themselves, are entirely unscathed by damnation.
+or resistances.
 %%%%
 Word of Chaos ability
 
@@ -286,10 +285,9 @@ Major Destruction ability
 Shoots a piercing bolt of fire, lightning, magma, acid, or negative energy at
 the targeted creature. Damage and accuracy are increased by Invocations skill.
 %%%%
-Greater Servant of Makhleb ability
+Servant of Makhleb ability
 
-[[Greater Servant of Makhleb spell]] Failing to use this ability correctly will
-turn the demon hostile.
+[[Servant of Makhleb spell]]
 %%%%
 # Sif Muna
 %%%%

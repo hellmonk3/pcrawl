@@ -454,12 +454,12 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_MAKHLEB_LESSER_SERVANT_OF_MAKHLEB, "Lesser Servant of Makhleb",
             0, scaling_cost::fixed(4), 2, -1, {fail_basis::invo, 40, 5, 20},
             abflag::hostile },
-        { ABIL_MAKHLEB_MAJOR_DESTRUCTION, "Major Destruction",
-            0, scaling_cost::fixed(6), generic_cost::range(0, 1), LOS_MAX_RANGE,
-            {fail_basis::invo, 60, 4, 25}, abflag::dir_or_target },
-        { ABIL_MAKHLEB_GREATER_SERVANT_OF_MAKHLEB, "Greater Servant of Makhleb",
-            0, scaling_cost::fixed(10), 5, -1, {fail_basis::invo, 90, 2, 5},
-            abflag::hostile },
+        { ABIL_MAKHLEB_HURL_DAMNATION, "Hurl Damnation",
+            0, scaling_cost::fixed(10), 0, LOS_MAX_RANGE,
+            {fail_basis::invo}, abflag::dir_or_target },
+        { ABIL_MAKHLEB_GREATER_SERVANT_OF_MAKHLEB, "Servant of Makhleb",
+            0, scaling_cost::fixed(25), 0, -1, {fail_basis::invo},
+            abflag::none },
 
         // Sif Muna
         { ABIL_SIF_MUNA_CHANNEL_ENERGY, "Channel Magic",
@@ -1665,6 +1665,8 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
     case ABIL_OKAWARU_FINESSE:
     case ABIL_ELYVILON_HEAL_OTHER:
     case ABIL_QAZLAL_DISASTER_AREA:
+    case ABIL_MAKHLEB_HURL_DAMNATION:
+    case ABIL_MAKHLEB_GREATER_SERVANT_OF_MAKHLEB:
         if (you.props.exists(GOD_ABIL_USED_KEY))
         {
             if (!quiet)
@@ -2970,36 +2972,20 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
                           GOD_MAKHLEB, 0, !fail);
         break;
 
-    case ABIL_MAKHLEB_MAJOR_DESTRUCTION:
+    case ABIL_MAKHLEB_HURL_DAMNATION:
     {
-        int power = you.skill(SK_INVOCATIONS, 2)
-                    + random2(1 + you.skill(SK_INVOCATIONS, 2))
-                    + random2(1 + you.skill(SK_INVOCATIONS, 2));
-
-        // Since the actual beam is random, check with BEAM_MMISSILE.
-        if (!player_tracer(ZAP_ENERGY_BOLT, power, beam, beam.range))
+        int power = 50 + you.skill(SK_INVOCATIONS, 10);
+        if (your_spells(SPELL_HURL_DAMNATION, power, false) == spret::abort)
             return spret::abort;
-
-        fail_check();
-        {
-            beam.origin_spell = SPELL_MAJOR_DESTRUCTION;
-            zap_type ztype =
-                random_choose(ZAP_BOLT_OF_FIRE,
-                              ZAP_LIGHTNING_BOLT,
-                              ZAP_BOLT_OF_MAGMA,
-                              ZAP_BOLT_OF_DRAINING,
-                              ZAP_CORROSIVE_BOLT);
-            zapping(ztype, power, beam);
-        }
         break;
     }
 
     case ABIL_MAKHLEB_GREATER_SERVANT_OF_MAKHLEB:
-        summon_demon_type(random_choose(MONS_EXECUTIONER, MONS_GREEN_DEATH,
+        summon_demon_type(random_choose(MONS_EXECUTIONER,
                                         MONS_BLIZZARD_DEMON, MONS_BALRUG,
                                         MONS_CACODEMON),
-                          20 + you.skill(SK_INVOCATIONS, 3),
-                          GOD_MAKHLEB, 0, !fail);
+                          1 + you.skill(SK_INVOCATIONS),
+                          GOD_MAKHLEB, 0, false);
         break;
 
     case ABIL_TROG_BERSERK:

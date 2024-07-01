@@ -739,9 +739,9 @@ Calls giant grasping roots from deep underground that hold and constrict their
 victim. The roots will retreat if the victim breaks free or if the caller moves
 out of view.
 %%%%
-Greater Servant of Makhleb spell
+Servant of Makhleb spell
 
-Summons a major demon.
+Summons a friendly demon. The variety of demon that shows up is unpredictable.
 %%%%
 Hailstorm spell
 

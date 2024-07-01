@@ -1414,7 +1414,6 @@ namespace quiver
         case ABIL_BREATHE_MEPHITIC:
         case ABIL_DAMNATION:
         case ABIL_MAKHLEB_MINOR_DESTRUCTION:
-        case ABIL_MAKHLEB_MAJOR_DESTRUCTION:
         case ABIL_LUGONU_BANISH:
         case ABIL_BEOGH_SMITING:
         case ABIL_QAZLAL_UPHEAVAL:

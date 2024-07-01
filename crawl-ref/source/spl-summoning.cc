@@ -893,7 +893,7 @@ static bool _summon_demon_wrapper(int pow, god_type god, int spell,
     if (monster *demon = create_monster(
             mgen_data(mon,
                       friendly ? BEH_FRIENDLY :
-                       charmed ? BEH_CHARMED
+                       charmed ? BEH_FRIENDLY
                                : BEH_HOSTILE,
                       you.pos(), MHITYOU, MG_FORCE_BEH | MG_AUTOFOE)
             .set_summoned(&you, dur, spell, god)))
@@ -902,36 +902,10 @@ static bool _summon_demon_wrapper(int pow, god_type god, int spell,
 
         mpr("A demon appears!");
 
-        if (!friendly)
-        {
-            mpr(charmed ? "You don't feel so good about this..."
-                        : "It doesn't seem very happy.");
-        }
-        else if (mon == MONS_CRIMSON_IMP || mon == MONS_WHITE_IMP
+        if (mon == MONS_CRIMSON_IMP || mon == MONS_WHITE_IMP
                 || mon == MONS_IRON_IMP || mon == MONS_SHADOW_IMP)
         {
             _monster_greeting(demon, "_friendly_imp_greeting");
-        }
-
-        if (charmed && !friendly)
-        {
-            int charm_dur = random_range(15 + pow / 14, 27 + pow / 11)
-                            * BASELINE_DELAY;
-
-            mon_enchant charm = demon->get_ench(ENCH_CHARM);
-            charm.duration = charm_dur;
-            demon->update_ench(charm);
-
-            // Ensure that temporarily-charmed demons will outlast their charm
-            mon_enchant abj = demon->get_ench(ENCH_ABJ);
-            if (charm.duration + 100 > abj.duration)
-            {
-                abj.duration = charm.duration + 100;
-                demon->update_ench(abj);
-            }
-
-            // Affects messaging, and stuns demon a turn upon charm wearing off
-            demon->props[CHARMED_DEMON_KEY].get_bool() = true;
         }
     }
 
@@ -957,7 +931,7 @@ bool summon_demon_type(monster_type mon, int pow, god_type god,
                        int spell, bool friendly)
 {
     return _summon_demon_wrapper(pow, god, spell, mon,
-                                 min(2 + (random2(pow) / 4), 6),
+                                 min(2 + random2(pow), 6),
                                  friendly, false);
 }
 

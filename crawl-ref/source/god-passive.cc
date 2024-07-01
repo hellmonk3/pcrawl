@@ -896,12 +896,6 @@ void qazlal_storm_clouds()
     int placed = 0;
     for (unsigned int i = 0; placed < count && i < candidates.size(); i++)
     {
-        for (adjacent_iterator ai(candidates[i]); ai; ++ai)
-        {
-            if (feat_is_watery(env.grid(*ai)))
-                water = true;
-        }
-
         cloud_type ctype = random_choose(CLOUD_FIRE, CLOUD_COLD, CLOUD_STORM,
                                   CLOUD_DUST);
 

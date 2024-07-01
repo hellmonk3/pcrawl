@@ -322,16 +322,11 @@ const vector<vector<god_power>> & get_all_god_powers()
             { 1, "You are now surrounded by a storm.",
                  "Your storm dissipates completely.",
                  "You are surrounded by a storm." },
-            { 2, ABIL_QAZLAL_UPHEAVAL, "call upon nature to destroy your foes" },
-            { 3, ABIL_QAZLAL_ELEMENTAL_FORCE, "give life to nearby clouds" },
+            { 3, ABIL_QAZLAL_DISASTER_AREA,
+                 "call upon nature's wrath in a wide area around you" },
             { 4, "The storm surrounding you is now powerful enough to repel missiles.",
                  "The storm surrounding you is now too weak to repel missiles.",
                  "The storm surrounding you is powerful enough to repel missiles." },
-            { 4, "You will now adapt resistances upon receiving elemental damage.",
-                 "You will no longer adapt resistances upon receiving elemental damage.",
-                 "You adapt resistances upon receiving elemental damage." },
-            { 5, ABIL_QAZLAL_DISASTER_AREA,
-                 "call upon nature's wrath in a wide area around you" },
         },
 
         // Ru

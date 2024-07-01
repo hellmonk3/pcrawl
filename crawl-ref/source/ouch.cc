@@ -310,7 +310,6 @@ int check_your_resists(int hurted, beam_type flavour, string source,
 void expose_player_to_element(beam_type flavour, int strength, bool slow_cold_blooded)
 {
     dprf("expose_player_to_element, strength %i, flavor %i, slow_cold_blooded is %i", strength, flavour, slow_cold_blooded);
-    qazlal_element_adapt(flavour, strength);
 
     if (flavour == BEAM_COLD && slow_cold_blooded
         && (you.get_mutation_level(MUT_COLD_BLOODED)

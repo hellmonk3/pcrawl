@@ -244,7 +244,7 @@ struct ability_def
     const char *        name;
     unsigned int        mp_cost;        // magic cost of ability
     scaling_cost        hp_cost;        // hit point cost of ability
-    generic_cost        piety_cost;     // + random2((piety_cost + 1) / 2 + 1)
+    generic_cost        piety_cost;     // piety cost
     int                 range;          // ability range
     failure_info        failure;        // calculator for failure odds
     ability_flags       flags;          // used for additional cost notices
@@ -273,7 +273,7 @@ struct ability_def
     {
         if (!piety_cost)
             return 0;
-        return piety_cost.base + piety_cost.add/2;
+        return piety_cost.base;
     }
 
     string piety_pips() const
@@ -295,7 +295,7 @@ struct ability_def
             // since Ignis's max piety is Special.
             return "";
         }
-        const int perc = max(avg_piety_cost() * 100 / 200, 1);
+        const int perc = max(avg_piety_cost() * 100 / 6, 1);
         return make_stringf(" (about %d%% of your maximum possible piety)",
                             perc);
     }
@@ -636,7 +636,7 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_QAZLAL_ELEMENTAL_FORCE, "Elemental Force",
             5, 0, 6, -1, {fail_basis::invo, 60, 5, 20}, abflag::none },
         { ABIL_QAZLAL_DISASTER_AREA, "Disaster Area",
-            8, 0, 10, -1, {fail_basis::invo, 70, 4, 25}, abflag::none },
+            4, 0, 3, -1, {fail_basis::invo}, abflag::none },
 
         // Uskayaw
         { ABIL_USKAYAW_STOMP, "Stomp",
@@ -1664,6 +1664,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
 
     case ABIL_OKAWARU_FINESSE:
     case ABIL_ELYVILON_HEAL_OTHER:
+    case ABIL_QAZLAL_DISASTER_AREA:
         if (you.props.exists(GOD_ABIL_USED_KEY))
         {
             if (!quiet)
@@ -4151,7 +4152,7 @@ int abil_skill_weight(ability_type ability)
 
 int generic_cost::cost() const
 {
-    return base + (add > 0 ? random2avg(add, rolls) : 0);
+    return base + (add > 0 ? 0 : 0);
 }
 
 int scaling_cost::cost(int max) const

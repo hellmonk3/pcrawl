@@ -364,15 +364,11 @@ static const vector<god_passive> god_passives[] =
 
     // Qazlal
     {
-        {  0, passive_t::cloud_immunity, "and your divine allies are ADV immune to clouds" },
+        {  0, passive_t::cloud_immunity, "and your allies are ADV immune to clouds" },
         {  1, passive_t::storm_shield,
               "generate elemental clouds to protect yourself" },
         {  4, passive_t::upgraded_storm_shield,
               "Your chances to be struck by projectiles are NOW reduced" },
-        {  5, passive_t::elemental_adaptation,
-              "Elemental attacks NOW leave you somewhat more resistant"
-              " to them"
-        }
     },
 
     // Ru
@@ -846,7 +842,7 @@ int qazlal_sh_boost(int piety)
     if (!have_passive(passive_t::storm_shield))
         return 0;
 
-    return min(piety, piety_breakpoint(5)) / 10;
+    return piety * 2;
 }
 
 // Not actually passive, but placing it here so that it can be easily compared
@@ -865,7 +861,7 @@ void qazlal_storm_clouds()
         return;
 
     // You are a *storm*. You are pretty loud!
-    noisy(min((int)you.piety, piety_breakpoint(5)) / 10, you.pos());
+    noisy(you.piety * 3, you.pos());
 
     const int radius = you.piety >= piety_breakpoint(3) ? 2 : 1;
 
@@ -900,113 +896,18 @@ void qazlal_storm_clouds()
     int placed = 0;
     for (unsigned int i = 0; placed < count && i < candidates.size(); i++)
     {
-        bool water = false;
         for (adjacent_iterator ai(candidates[i]); ai; ++ai)
         {
             if (feat_is_watery(env.grid(*ai)))
                 water = true;
         }
 
-        // No flame clouds over water to avoid steam generation.
-        cloud_type ctype;
-        do
-        {
-            ctype = random_choose(CLOUD_FIRE, CLOUD_COLD, CLOUD_STORM,
+        cloud_type ctype = random_choose(CLOUD_FIRE, CLOUD_COLD, CLOUD_STORM,
                                   CLOUD_DUST);
-        } while (water && ctype == CLOUD_FIRE);
 
         place_cloud(ctype, candidates[i], random_range(3, 5), &you);
         placed++;
     }
-}
-
-/**
- * Handle Qazlal's elemental adaptation.
- * This should be called (exactly once) for physical, fire, cold, and electrical damage.
- * Right now, it is called only from expose_player_to_element. This may merit refactoring.
- *
- * @param flavour the beam type.
- * @param strength The adaptations will trigger strength in (11 - piety_rank()) times. In practice, this is mostly called with a value of 2.
- */
-void qazlal_element_adapt(beam_type flavour, int strength)
-{
-    if (strength <= 0
-        || !have_passive(passive_t::elemental_adaptation)
-        || !x_chance_in_y(strength, 11 - piety_rank()))
-    {
-        return;
-    }
-
-    beam_type what = BEAM_NONE;
-    duration_type dur = NUM_DURATIONS;
-    string descript = "";
-    switch (flavour)
-    {
-        case BEAM_FIRE:
-        case BEAM_LAVA:
-        case BEAM_STICKY_FLAME:
-        case BEAM_STEAM:
-            what = BEAM_FIRE;
-            dur = DUR_QAZLAL_FIRE_RES;
-            descript = "fire";
-            break;
-        case BEAM_COLD:
-        case BEAM_ICE:
-            what = BEAM_COLD;
-            dur = DUR_QAZLAL_COLD_RES;
-            descript = "cold";
-            break;
-        case BEAM_ELECTRICITY:
-        case BEAM_THUNDER:
-            what = BEAM_ELECTRICITY;
-            dur = DUR_QAZLAL_ELEC_RES;
-            descript = "electricity";
-            break;
-        case BEAM_MMISSILE: // for LCS, iron shot
-        case BEAM_MISSILE:
-        case BEAM_FRAG:
-            what = BEAM_MISSILE;
-            dur = DUR_QAZLAL_AC;
-            descript = "physical attacks";
-            break;
-        default:
-            return;
-    }
-
-    if (what != BEAM_FIRE && you.duration[DUR_QAZLAL_FIRE_RES])
-    {
-        mprf(MSGCH_DURATION, "Your resistance to fire fades away.");
-        you.duration[DUR_QAZLAL_FIRE_RES] = 0;
-    }
-
-    if (what != BEAM_COLD && you.duration[DUR_QAZLAL_COLD_RES])
-    {
-        mprf(MSGCH_DURATION, "Your resistance to cold fades away.");
-        you.duration[DUR_QAZLAL_COLD_RES] = 0;
-    }
-
-    if (what != BEAM_ELECTRICITY && you.duration[DUR_QAZLAL_ELEC_RES])
-    {
-        mprf(MSGCH_DURATION, "Your resistance to electricity fades away.");
-        you.duration[DUR_QAZLAL_ELEC_RES] = 0;
-    }
-
-    if (what != BEAM_MISSILE && you.duration[DUR_QAZLAL_AC])
-    {
-        mprf(MSGCH_DURATION, "Your resistance to physical damage fades away.");
-        you.duration[DUR_QAZLAL_AC] = 0;
-        you.redraw_armour_class = true;
-    }
-
-    mprf(MSGCH_GOD, "You feel %sprotected from %s.",
-         you.duration[dur] > 0 ? "more " : "", descript.c_str());
-
-    // was scaled by 10 * strength. But the strength parameter is used so inconsistently that
-    // it seems like a constant would be better, based on the typical value of 2.
-    you.increase_duration(dur, 20, 80);
-
-    if (what == BEAM_MISSILE)
-        you.redraw_armour_class = true;
 }
 
 /**

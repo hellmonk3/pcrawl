@@ -2988,12 +2988,6 @@ int player_stealth()
     if (you.form == transformation::shadow)
         stealth *= 2;
 
-    // If you're surrounded by a storm, you're inherently pretty conspicuous.
-    if (have_passive(passive_t::storm_shield))
-    {
-        stealth /= 2;
-    }
-
     stealth = max(0, stealth);
 
     return stealth;

@@ -3116,12 +3116,12 @@ bool gozag_bribe_branch()
 
 static int _upheaval_radius(int pow)
 {
-    return pow >= 100 ? 2 : 1;
+    return pow >= 100 ? 1 : 1;
 }
 
 spret qazlal_upheaval(coord_def target, bool quiet, bool fail, dist *player_target)
 {
-    int pow = you.skill(SK_INVOCATIONS, 6);
+    int pow = you.skill(SK_INVOCATIONS, 10);
     const int max_radius = _upheaval_radius(pow);
 
     bolt beam;
@@ -3130,7 +3130,7 @@ spret qazlal_upheaval(coord_def target, bool quiet, bool fail, dist *player_targ
     beam.source_name = "you";
     beam.thrower     = KILL_YOU;
     beam.range       = LOS_RADIUS;
-    beam.damage      = calc_dice(3, 27 + div_rand_round(2 * pow, 5));
+    beam.damage      = calc_dice(3, 27 + pow);
     beam.hit         = AUTOMATIC_HIT;
     beam.glyph       = dchar_glyph(DCHAR_EXPLOSION);
     beam.loudness    = 10;
@@ -3276,7 +3276,7 @@ spret qazlal_upheaval(coord_def target, bool quiet, bool fail, dist *player_targ
                 if (!cell_is_solid(pos) && !cloud_at(pos) && coinflip())
                 {
                     place_cloud(CLOUD_STORM, pos,
-                                random2(you.skill_rdiv(SK_INVOCATIONS, 1, 4)),
+                                random2(1 + you.skill(SK_INVOCATIONS)),
                                 &you);
                 }
                 break;
@@ -3371,7 +3371,7 @@ spret qazlal_disaster_area(bool fail)
     bool friendlies = false;
     vector<coord_def> targets;
     vector<int> weights;
-    const int pow = you.skill(SK_INVOCATIONS, 6);
+    const int pow = you.skill(SK_INVOCATIONS, 10);
     const int upheaval_radius = _upheaval_radius(pow);
     for (radius_iterator ri(you.pos(), LOS_RADIUS, C_SQUARE, LOS_NO_TRANS, true);
          ri; ++ri)
@@ -3418,10 +3418,9 @@ spret qazlal_disaster_area(bool fail)
 
     mprf(MSGCH_GOD, "Nature churns violently around you!");
 
-    // TODO: should count get a cap proportional to targets.size()?
     int count = max(1, min((int)targets.size(),
-                            max(you.skill_rdiv(SK_INVOCATIONS, 1, 2),
-                                random2avg(you.skill(SK_INVOCATIONS, 2), 2))));
+                            max(you.skill(SK_INVOCATIONS),
+                                random2avg(you.skill(SK_INVOCATIONS, 3), 2))));
 
     for (int i = 0; i < count; i++)
     {
@@ -3440,6 +3439,8 @@ spret qazlal_disaster_area(bool fail)
     // possibly this delay should be slightly increased if reduce_animations is
     // true?
     animation_delay(200, Options.reduce_animations);
+    
+    you.props[GOD_ABIL_USED_KEY] = 1;
 
     return spret::success;
 }

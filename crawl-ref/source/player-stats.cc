@@ -308,8 +308,6 @@ static int _strength_modifier(bool innate_only)
         if (you.duration[DUR_DIVINE_STAMINA])
             result += you.attribute[ATTR_DIVINE_STAMINA];
 
-        result += chei_stat_boost();
-
         // form
         result += get_form()->str_mod;
     }
@@ -328,9 +326,6 @@ static int _int_modifier(bool innate_only)
     {
         if (you.duration[DUR_DIVINE_STAMINA])
             result += you.attribute[ATTR_DIVINE_STAMINA];
-
-        result += chei_stat_boost();
-
     }
 
     // mutations
@@ -347,8 +342,6 @@ static int _dex_modifier(bool innate_only)
     {
         if (you.duration[DUR_DIVINE_STAMINA])
             result += you.attribute[ATTR_DIVINE_STAMINA];
-
-        result += chei_stat_boost();
 
         // form
         result += get_form()->dex_mod;

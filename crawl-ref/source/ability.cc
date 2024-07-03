@@ -550,7 +550,7 @@ static vector<ability_def> &_get_ability_list()
 
         // Cheibriados
         { ABIL_CHEIBRIADOS_TIME_BEND, "Bend Time",
-            3, 0, 1, -1, {fail_basis::invo, 40, 4, 20}, abflag::none },
+            4, 0, 1, -1, {fail_basis::invo}, abflag::none },
         { ABIL_CHEIBRIADOS_DISTORTION, "Temporal Distortion",
             4, 0, 3, -1, {fail_basis::invo, 60, 5, 20}, abflag::instant },
         { ABIL_CHEIBRIADOS_SLOUCH, "Slouch",
@@ -1667,6 +1667,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
     case ABIL_QAZLAL_DISASTER_AREA:
     case ABIL_MAKHLEB_HURL_DAMNATION:
     case ABIL_MAKHLEB_GREATER_SERVANT_OF_MAKHLEB:
+    case ABIL_CHEIBRIADOS_TIME_BEND:
         if (you.props.exists(GOD_ABIL_USED_KEY))
         {
             if (!quiet)
@@ -2104,9 +2105,13 @@ unique_ptr<targeter> find_ability_targeter(ability_type ability)
     case ABIL_TSO_CLEANSING_FLAME:
     case ABIL_WU_JIAN_HEAVENLY_STORM:
         return make_unique<targeter_radius>(&you, LOS_SOLID, 2);
-    case ABIL_CHEIBRIADOS_TIME_BEND:
     case ABIL_USKAYAW_STOMP:
         return make_unique<targeter_maybe_radius>(&you, LOS_NO_TRANS, 1, 0, 1);
+    case ABIL_CHEIBRIADOS_TIME_BEND:
+    {
+        int r = 1 + you.skill(SK_INVOCATIONS) / 2;
+        return make_unique<targeter_maybe_radius>(&you, LOS_NO_TRANS, r, 0, 1);
+    }
 
     // Multiposition:
     case ABIL_EVOKE_BLINK:
@@ -3213,7 +3218,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
 
     case ABIL_CHEIBRIADOS_TIME_BEND:
         fail_check();
-        cheibriados_time_bend(16 + you.skill(SK_INVOCATIONS, 8));
+        cheibriados_time_bend(4 + you.piety + you.skill(SK_INVOCATIONS, 2));
         break;
 
     case ABIL_CHEIBRIADOS_DISTORTION:

@@ -355,6 +355,9 @@ int calc_spell_power(spell_type spell)
     if (you.divine_exegesis)
         power += you.skill(SK_INVOCATIONS);
 
+    if (have_passive(passive_t::chei_brains))
+        power += you.piety - 1;
+
     // [dshaligram] Enhancers don't affect fail rates any more, only spell
     // power. Note that this does not affect Vehumet's boost in castability.
     power = _apply_enhancement(power, _spell_enhancement(spell));
@@ -839,10 +842,6 @@ static void _spellcasting_god_conduct(spell_type spell)
 
     if (is_chaotic_spell(spell))
         did_god_conduct(DID_CHAOS, conduct_level);
-
-    // not is_hasty_spell since the other ones handle the conduct themselves.
-    if (spell == SPELL_SWIFTNESS)
-        did_god_conduct(DID_HASTY, conduct_level);
 }
 
 /**

@@ -27,7 +27,7 @@
 #include "tile-env.h"
 #include "files.h"
 #include "god-companions.h" // hep stuff
-#include "god-passive.h" // passive_t::slow_abyss
+#include "god-passive.h"
 #include "hiscores.h"
 #include "item-prop.h"
 #include "item-status-flag-type.h"
@@ -1688,8 +1688,6 @@ void generate_abyss()
 static void _increase_depth()
 {
     int delta = you.time_taken * (you.abyss_speed + 40) / 200;
-    if (!have_passive(passive_t::slow_abyss))
-        delta *= 2;
     if (you.duration[DUR_TELEPORT])
         delta *= 5;
     const double theta = abyssal_state.phase;

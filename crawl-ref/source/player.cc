@@ -1686,12 +1686,6 @@ int player_movement_speed(bool check_terrain, bool temp)
     if (player_equip_unrand(UNRAND_LIGHTNING_SCALES))
         mv -= 1;
 
-    // Cheibriados
-    if (have_passive(passive_t::slowed))
-        mv += 2 + min(div_rand_round(you.piety, 20), 8);
-    else if (player_under_penance(GOD_CHEIBRIADOS))
-        mv += 2 + min(div_rand_round(you.piety_max[GOD_CHEIBRIADOS], 20), 8);
-
     if (temp && you.duration[DUR_FROZEN])
         mv += 3;
 
@@ -1858,6 +1852,10 @@ static int _player_evasion_bonuses()
         evbonus -= you.get_mutation_level(MUT_SLOW_REFLEXES) * 5;
 
     evbonus += get_form()->ev_bonus();
+
+    // Chei
+    if (have_passive(passive_t::chei_dodging))
+        evbonus += you.piety * 5;
 
     if (you.props.exists(WU_JIAN_HEAVENLY_STORM_KEY))
         evbonus += you.props[WU_JIAN_HEAVENLY_STORM_KEY].get_int();

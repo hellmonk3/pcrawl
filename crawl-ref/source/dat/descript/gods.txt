@@ -20,12 +20,11 @@ become increasingly certain that the coming of their Messiah is nigh.
 %%%%
 Cheibriados
 
-Cheibriados is a god of deliberation. Those following Cheibriados travel more
-slowly the further they progress in their faith, and are forbidden from using
-any means to hasten themselves. In the process of so imitating their god, they
-attain perfection of mind and body, and the mysteries of time unfold before
-them. Especially devout followers may even momentarily abandon the flow of
-time and its needless disturbances.
+Cheibriados is a god of deliberation. Those following Cheibriados must make
+deliberate movements as they are stunned after each move, and are forbidden
+from using any means to hasten themselves. In the process of so imitating
+their god, they attain perfection of mind and body, and the mysteries of time
+unfold before them.
 %%%%
 Dithmenos
 
@@ -101,9 +100,9 @@ Abyss at will.
 Makhleb
 
 Makhleb the Destroyer is a fearsome deity of bloodshed and mortification of the
-flesh. Followers are expected to fully cleanse each floor of all their enemies. 
-Dedicated followers may also access the raw energies and hell-spawned servants 
-of chaos, so that they may better break the impure world and its false laws for 
+flesh. Followers are expected to fully cleanse each floor of all their enemies.
+Dedicated followers may also access the raw energies and hell-spawned servants
+of chaos, so that they may better break the impure world and its false laws for
 their evil god's glory.
 %%%%
 Nemelex Xobeh
@@ -241,12 +240,13 @@ Beogh will eventually be able to resurrect other fallen orcs.
 %%%%
 Cheibriados powers
 
-Followers of Cheibriados move more slowly as they gain favour. As they move
-slower, worshippers of Cheibriados are granted increased attributes.
-Cheibriados rewards the faithful with the power to slow other creatures and the
-power to briefly distort the flow of time. Devout worshippers will gain the
-ability to inflict great harm on all those who move more quickly than they do,
-and finally the ability to step out of the flow of time entirely.
+Followers of Cheibriados need to take it easy and are stunned after each
+movement action they make. Worshippers of Cheibriados are granted increased
+physical power and spellpower, and can more easily dodge attacks. These boons
+grow stronger as they gain piety. Cheibriados rewards the faithful with the
+power to slow other nearby creatures once per floor. The range of this effect
+increases with invocations skill, and the duration of the slow increases with
+both invocations skill and piety.
 %%%%
 Dithmenos powers
 
@@ -343,8 +343,8 @@ they remain in the Abyss itself.
 Makhleb powers
 
 Makhleb offers followers the ability to call on powerful demonic aid or to hurl
-a blast of damnation themselves. Makhleb's powers come with a price in blood. 
-However, Makhleb will grant followers renewed health in return for killing 
+a blast of damnation themselves. Makhleb's powers come with a price in blood.
+However, Makhleb will grant followers renewed health in return for killing
 beings of all kinds.
 %%%%
 Nemelex Xobeh powers
@@ -375,11 +375,11 @@ its normal limits.
 %%%%
 Qazlal powers
 
-Followers of Qazlal are protected from all clouds, as are their allies. As a 
-follower of Qazlal gains divine favour, they are slowly surrounded by a loud 
-storm. In addition to generating noise, the storm causes elemental clouds to 
-appear near followers, blocks attacks, and (for the particularly devout) 
-repels incoming projectiles. Qazlal allows followers to incite nature against 
+Followers of Qazlal are protected from all clouds, as are their allies. As a
+follower of Qazlal gains divine favour, they are slowly surrounded by a loud
+storm. In addition to generating noise, the storm causes elemental clouds to
+appear near followers, blocks attacks, and (for the particularly devout)
+repels incoming projectiles. Qazlal allows followers to incite nature against
 their foes, causing a widespread disaster once per floor at the cost of a large
 amount of piety.
 %%%%

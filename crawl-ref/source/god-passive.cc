@@ -311,21 +311,16 @@ static const vector<god_passive> god_passives[] =
     {
         { -1, passive_t::no_haste,
               "are NOW protected from inadvertent hurry" },
-        { -1, passive_t::slowed, "move less quickly" },
-        {  0, passive_t::slow_orb_run,
-              "GOD will NOW aid your escape with the Orb of Zot",
+        { -1, passive_t::slowed, "are stunned after moving" },
+        {  0, passive_t::chei_dodging,
+              "GOD NOW enhances your evasion"
         },
         {  0, passive_t::stat_boost,
-              "GOD NOW supports your attributes"
+              "GOD NOW enhances your melee and ranged damage"
         },
-        {  0, passive_t::slow_abyss,
-              "GOD will NOW slow the Abyss"
+        {  1, passive_t::chei_brains,
+              "GOD NOW improves your spellpower"
         },
-        // TODO: this one should work regardless of penance, maybe?
-        {  0, passive_t::slow_zot,
-              "GOD will NOW slow Zot's hunt for you"
-        },
-        {  0, passive_t::slow_poison, "process poison slowly" },
     },
 
     // Ashenzari

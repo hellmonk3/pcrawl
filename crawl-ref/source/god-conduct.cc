@@ -380,13 +380,7 @@ static peeve_map divine_peeves[] =
         { DID_ATTACK_FRIEND, _on_attack_friend(nullptr) },
     },
     // GOD_CHEIBRIADOS,
-    {
-        { DID_HASTY, {
-            "you hasten yourself or others", true,
-            1, 1, " forgives your accidental hurry, just this once.",
-            " thinks you should slow down.", nullptr, -5
-        } },
-    },
+    peeve_map(),
     // GOD_ASHENZARI,
     peeve_map(),
     // GOD_DITHMENOS,
@@ -789,29 +783,7 @@ static like_map divine_likes[] =
     },
     // GOD_CHEIBRIADOS,
     {
-        { DID_KILL_FAST, {
-            "you kill non-sluggish things", false,
-            -6, 18, 2, nullptr,
-            [] (int &piety, int &/*denom*/, const monster* victim)
-            {
-                const int mons_speed = mons_base_speed(*victim);
-                dprf("Chei DID_KILL_FAST: %s base speed: %d",
-                     victim->name(DESC_PLAIN, true).c_str(),
-                     mons_speed);
-
-                // Scale piety up a bit in general.
-                piety = div_rand_round(4 * piety, 3);
-
-                // Double piety for speedy monsters sometimes
-                if (mons_speed > 10 && x_chance_in_y(mons_speed - 10, 10))
-                {
-                    simple_god_message(" thoroughly appreciates the change of pace.");
-                    piety *= 2;
-                }
-                else
-                    simple_god_message(" appreciates the change of pace.");
-            }
-        } }
+        { DID_EXPLORATION, EXPLORE_RESPONSE },
     },
     // GOD_ASHENZARI,
     {
@@ -1146,10 +1118,6 @@ bool god_punishes_spell(spell_type spell, god_type god)
         return true;
 
     if (map_find(divine_peeves[god], DID_CHAOS) && is_chaotic_spell(spell))
-        return true;
-
-    // not is_hasty_spell: see spl-cast.cc:_spellcasting_god_conduct
-    if (map_find(divine_peeves[god], DID_HASTY) && spell == SPELL_SWIFTNESS)
         return true;
 
     return false;

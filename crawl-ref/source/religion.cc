@@ -263,13 +263,8 @@ const vector<vector<god_power>> & get_all_god_powers()
         },
 
         // Cheibriados
-        {   { 0, "Cheibriados is now slowing the effects of poison on you.",
-                 "Cheibriados will no longer slow the effects of poison on you.",
-                 "Cheibriados slows the effects of poison on you." },
-            { 1, ABIL_CHEIBRIADOS_TIME_BEND, "bend time to slow others" },
-            { 3, ABIL_CHEIBRIADOS_DISTORTION, "warp the flow of time around you" },
-            { 4, ABIL_CHEIBRIADOS_SLOUCH, "inflict damage on those overly hasty" },
-            { 5, ABIL_CHEIBRIADOS_TIME_STEP, "step out of the flow of time" },
+        {
+            { 2, ABIL_CHEIBRIADOS_TIME_BEND, "bend time to slow others" },
         },
 
         // Ashenzari
@@ -659,13 +654,6 @@ void dec_penance(god_type god, int val)
                 mprf(MSGCH_GOD, "Your aura of darkness returns!");
                 invalidate_agrid(true);
             }
-            if (have_passive(passive_t::stat_boost))
-            {
-                simple_god_message(" restores the support of your attributes.");
-                redraw_screen();
-                update_screen();
-                notify_stat_change();
-            }
             if (have_passive(passive_t::storm_shield))
             {
                 mprf(MSGCH_GOD, "A storm instantly forms around you!");
@@ -827,13 +815,6 @@ static void _inc_penance(god_type god, int val)
             && _need_water_walking() && !have_passive(passive_t::water_walk))
         {
             _grant_temporary_waterwalk();
-        }
-
-        if (will_have_passive(passive_t::stat_boost))
-        {
-            redraw_screen();
-            update_screen();
-            notify_stat_change();
         }
 
         if (god == GOD_TROG)
@@ -2535,17 +2516,6 @@ static void _gain_piety_point()
     if (you_worship(GOD_BEOGH))
         update_player_symbol();
 
-    if (have_passive(passive_t::stat_boost)
-        && chei_stat_boost(old_piety) < chei_stat_boost())
-    {
-        string msg = " raises the support of your attributes";
-        if (have_passive(passive_t::slowed))
-            msg += " as your movement slows";
-        msg += ".";
-        simple_god_message(msg.c_str());
-        notify_stat_change();
-    }
-
     if (you_worship(GOD_QAZLAL)
         && qazlal_sh_boost(old_piety) != qazlal_sh_boost())
     {
@@ -2687,16 +2657,6 @@ void lose_piety(int pgn)
         && !have_passive(passive_t::water_walk))
     {
         _grant_temporary_waterwalk();
-    }
-    if (will_have_passive(passive_t::stat_boost)
-        && chei_stat_boost(old_piety) > chei_stat_boost())
-    {
-        string msg = " lowers the support of your attributes";
-        if (will_have_passive(passive_t::slowed))
-            msg += " as your movement quickens";
-        msg += ".";
-        simple_god_message(msg.c_str());
-        notify_stat_change();
     }
 
     if (you_worship(GOD_QAZLAL)
@@ -2906,7 +2866,6 @@ void excommunication(bool voluntary, god_type new_god)
     const bool had_halo       = have_passive(passive_t::halo);
     const bool had_umbra      = have_passive(passive_t::umbra);
     const bool had_water_walk = have_passive(passive_t::water_walk);
-    const bool had_stat_boost = have_passive(passive_t::stat_boost);
     const int  old_piety      = you.piety;
 
     god_acting gdact(old_god, true);
@@ -2976,12 +2935,6 @@ void excommunication(bool voluntary, god_type new_god)
     // You might have lost water walking at a bad time...
     if (had_water_walk && _need_water_walking())
         _grant_temporary_waterwalk();
-    if (had_stat_boost)
-    {
-        redraw_screen();
-        update_screen();
-        notify_stat_change();
-    }
 
     switch (old_god)
     {

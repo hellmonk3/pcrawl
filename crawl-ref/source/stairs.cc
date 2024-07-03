@@ -24,7 +24,7 @@
 #include "files.h"
 #include "god-abil.h"
 #include "god-conduct.h"
-#include "god-passive.h" // passive_t::slow_abyss
+#include "god-passive.h"
 #include "hints.h"
 #include "hiscores.h"
 #include "item-name.h"
@@ -822,12 +822,6 @@ void floor_transition(dungeon_feature_type how,
 
         mpr("To return, you must find a gate leading back.");
         mpr("Killing monsters will force the Abyss to allow you passage.");
-        if (have_passive(passive_t::slow_abyss))
-        {
-            mprf(MSGCH_GOD, you.religion,
-                 "You feel %s slowing down the madness of this place.",
-                 god_name(you.religion).c_str());
-        }
 
         you.props[ABYSS_STAIR_XP_KEY] = EXIT_XP_COST;
 
@@ -1276,9 +1270,9 @@ void new_level(bool restore)
         you.zig_max = max(you.zig_max, you.depth);
 
     recharge_xp_evokers();
-    
+
     did_god_conduct(DID_EXPLORATION, 1);
-    
+
     if (you.props.exists(KILLED_ALL_KEY))
         you.props.erase(KILLED_ALL_KEY);
 }

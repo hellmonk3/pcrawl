@@ -1259,6 +1259,9 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
     if (have_passive(passive_t::prevent_evil) && is_evil_spell(spell))
         return "your god prohibits such evil magic!";
 
+    if (have_passive(passive_t::no_haste) && is_hasty_spell(spell))
+        return "your god warns you to take it easy.";
+
     if (!skip_casting_checks)
     {
         string c_check = casting_uselessness_reason(spell, temp);

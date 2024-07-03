@@ -3404,8 +3404,12 @@ void bolt::affect_player_enchantment(bool resistible)
         break;
 
     case BEAM_HASTE:
+        if (have_passive(passive_t::no_haste))
+        {
+            mpr("Cheibriados prevents your speed from increasing.");
+            break;
+        }
         haste_player(40 + random2(ench_power));
-        did_god_conduct(DID_HASTY, 10, blame_player);
         obvious_effect = true;
         nasty = false;
         nice  = true;
@@ -5731,8 +5735,11 @@ mon_resist_type bolt::apply_enchantment_to_monster(monster* mon)
     }
 
     case BEAM_HASTE:
-        if (YOU_KILL(thrower))
-            did_god_conduct(DID_HASTY, 6, god_cares());
+        if (YOU_KILL(thrower) && have_passive(passive_t::no_haste))
+        {
+            mpr("Cheibriados prevents your hasty action.");
+            return MON_AFFECTED;
+        }
 
         if (mon->stasis())
             return MON_AFFECTED;

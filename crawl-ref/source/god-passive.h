@@ -71,16 +71,16 @@ enum class passive_t
     /// You move slowly.
     slowed,
 
-    /// Fewer creatures spawn on the orb run.
-    slow_orb_run,
+    /// Chei dodging boost.
+    chei_dodging,
 
-    /// Fewer creatures spawn in the Abyss, and it morphs less quickly.
-    slow_abyss,
+    /// Chei spellpower boost.
+    chei_brains,
 
     /// The Zot clock runs more slowly.
     slow_zot,
 
-    /// Your attributes are boosted.
+    /// Your melee and ranged damage are boosted by Chei.
     stat_boost,
 
     /// Poison affects you more slowly.

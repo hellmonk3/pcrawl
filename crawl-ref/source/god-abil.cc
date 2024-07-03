@@ -1809,26 +1809,18 @@ void cheibriados_time_bend(int pow)
 {
     mpr("The flow of time bends around you.");
 
-    for (adjacent_iterator ai(you.pos()); ai; ++ai)
+    int r = 1 + you.skill(SK_INVOCATIONS) / 2;
+
+    for (radius_iterator ai(you.pos(), r, C_SQUARE, LOS_NO_TRANS, true); ai; ++ai)
     {
         monster* mon = monster_at(*ai);
         if (mon && !mon->is_stationary())
         {
-            int res_margin = roll_dice(mon->get_hit_dice(), 3);
-            res_margin -= random2avg(pow, 2);
-            if (res_margin > 0)
-            {
-                mprf("%s%s",
-                     mon->name(DESC_THE).c_str(),
-                     mon->resist_margin_phrase(res_margin).c_str());
-                continue;
-            }
-
             simple_god_message(
                 make_stringf(" rebukes %s.",
                              mon->name(DESC_THE).c_str()).c_str(),
                              GOD_CHEIBRIADOS);
-            do_slow_monster(*mon, &you);
+            do_slow_monster(*mon, &you, pow);
         }
     }
 }
@@ -3439,7 +3431,7 @@ spret qazlal_disaster_area(bool fail)
     // possibly this delay should be slightly increased if reduce_animations is
     // true?
     animation_delay(200, Options.reduce_animations);
-    
+
     you.props[GOD_ABIL_USED_KEY] = 1;
 
     return spret::success;

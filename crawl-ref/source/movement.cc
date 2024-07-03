@@ -675,6 +675,9 @@ static spret _rampage_forward(coord_def move)
         return spret::fail;
     }
 
+    if (have_passive(passive_t::no_haste))
+        return spret::fail;
+
     // Abort if the player answers no to
     // * barbs damaging move prompt
     // * breaking ice spells prompt
@@ -1098,9 +1101,12 @@ void move_player_action(coord_def move)
             remove_ice_movement();
             you.clear_far_engulf(false, true);
             apply_cloud_trail(old_pos);
-            // stun the player if they are wearing ponderous items
-            if (you.wearing_ego(EQ_ALL_ARMOUR, SPARM_PONDEROUSNESS))
+            // stun the player if they are ponderous
+            if (you.wearing_ego(EQ_ALL_ARMOUR, SPARM_PONDEROUSNESS)
+                || have_passive(passive_t::slowed))
+            {
                 you.stun(&you);
+            }
 
             if (you.duration[DUR_FLAME_LANCE])
             {
@@ -1190,12 +1196,6 @@ void move_player_action(coord_def move)
         maybe_shift_abyss_around_player();
 
     you.apply_berserk_penalty = !attacking;
-
-    if (rampaged && !you.has_mutation(MUT_ROLLPAGE)
-        || player_equip_unrand(UNRAND_LIGHTNING_SCALES))
-    {
-        did_god_conduct(DID_HASTY, 1, true);
-    }
 
     bool did_wu_jian_attack = false;
     if (you_worship(GOD_WU_JIAN) && !attacking && !dug && !rampaged)

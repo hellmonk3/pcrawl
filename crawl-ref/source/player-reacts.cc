@@ -514,10 +514,10 @@ static bool _level_clear()
 {
     for (monster_iterator mi; mi; ++mi)
     {
-        if(!mi->wont_attack() && !mons_is_firewood(**mi))
+        if (!mi->wont_attack() && !mons_is_firewood(**mi))
             return false;
     }
-    
+
     return true;
 }
 
@@ -966,7 +966,7 @@ void player_reacts()
 
     if (you.props[EMERGENCY_FLIGHT_KEY].get_bool())
         _handle_emergency_flight();
-    
+
     // check kill piety
     if (_level_clear() && !you.props.exists(KILLED_ALL_KEY))
     {

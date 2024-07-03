@@ -846,6 +846,14 @@ int attack::player_apply_final_multipliers(int damage, bool /*aux*/)
     if (you.form == transformation::shadow)
         damage = div_rand_round(damage, 2);
 
+    // Chei bonus
+    if (have_passive(passive_t::stat_boost))
+    {
+        damage *= 10 + you.piety;
+        damage /= 10;
+    }
+
+
     return damage;
 }
 

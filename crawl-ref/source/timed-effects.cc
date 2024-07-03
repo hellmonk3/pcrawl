@@ -142,9 +142,7 @@ static void _abyss_speed(int /*time_delta*/)
     if (!player_in_branch(BRANCH_ABYSS))
         return;
 
-    if (have_passive(passive_t::slow_abyss) && coinflip())
-        ; // Speed change less often for Chei.
-    else if (coinflip() && you.abyss_speed < 100)
+    if (coinflip() && you.abyss_speed < 100)
         ++you.abyss_speed;
     else if (one_chance_in(5) && you.abyss_speed > 0)
         --you.abyss_speed;

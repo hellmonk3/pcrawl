@@ -823,12 +823,6 @@ void throw_it(quiver::action &a)
     if (bow_brand == SPWPN_CHAOS || ammo_brand == SPMSL_CHAOS)
         did_god_conduct(DID_CHAOS, 2 + random2(3), bow_brand == SPWPN_CHAOS);
 
-    if (bow_brand == SPWPN_SPEED)
-        did_god_conduct(DID_HASTY, 1, true);
-
-    if (ammo_brand == SPMSL_FRENZY)
-        did_god_conduct(DID_HASTY, 6 + random2(3), true);
-
     if (returning && !pbolt.item_mulches)
     {
         // Fire beam in reverse.

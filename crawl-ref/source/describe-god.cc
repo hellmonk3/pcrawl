@@ -872,14 +872,11 @@ static formatted_string _describe_god_powers(god_type which_god)
             desc.textcolour(god_colour(which_god));
         else
             desc.textcolour(DARKGREY);
-        desc.cprintf("%s %sslows your movement.\n",
+        desc.cprintf("%s stuns you after movement.\n",
+                uppercase_first(god_name(which_god)).c_str());
+        desc.cprintf("%s boosts your melee and ranged damage. (+%d%)\n",
                 uppercase_first(god_name(which_god)).c_str(),
-                piety >= piety_breakpoint(5) ? "greatly " :
-                piety >= piety_breakpoint(2) ? "" :
-                                               "slightly ");
-        desc.cprintf("%s supports your attributes. (+%d)\n",
-                uppercase_first(god_name(which_god)).c_str(),
-                chei_stat_boost(piety));
+                piety * 10);
         break;
 
     case GOD_VEHUMET:

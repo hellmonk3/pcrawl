@@ -1070,7 +1070,7 @@ set<coord_def> permafrost_targets(const actor &caster, int pow)
     set<coord_def> targets;
 
     const int range = spell_range(SPELL_PERMAFROST_ERUPTION, pow);
-    vector<coord_def> all_hostiles = find_near_hostiles(range, true);
+    vector<coord_def> all_hostiles = find_near_hostiles(range);
     if (all_hostiles.empty())
         return targets;
 
@@ -1870,7 +1870,7 @@ spret cast_scorch(int pow, bool fail)
     fail_check();
 
     const int range = spell_range(SPELL_SCORCH, pow);
-    auto targeter = make_unique<targeter_scorch>(you, range, true);
+    auto targeter = make_unique<targeter_scorch>(you, range);
     const int num_targets = 1 + pow / 3;
     monster *targ = nullptr;
     int hit = 0;
@@ -1934,7 +1934,7 @@ spret cast_scorch(int pow, bool fail)
 }
 
 /// Scorch's target selection (see targeter_scorch)
-vector<coord_def> find_near_hostiles(int range, bool affect_invis)
+vector<coord_def> find_near_hostiles(int range)
 {
     vector<coord_def> hostiles;
     for (radius_iterator ri(you.pos(), range, C_SQUARE, LOS_NO_TRANS); ri; ++ri)

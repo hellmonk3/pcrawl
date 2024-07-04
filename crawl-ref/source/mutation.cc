@@ -1768,8 +1768,7 @@ bool physiology_mutation_conflict(mutation_type mutat)
  *
  * @return True if a mutation is successfully resisted, false otherwise.
 **/
-static bool _resist_mutation(mutation_permanence_class mutclass,
-                             bool beneficial)
+static bool _resist_mutation(bool beneficial)
 {
 
     const int mut_resist_chance = 5;
@@ -1834,7 +1833,7 @@ bool mutate(mutation_type which_mutation, const string &reason, bool failMsg,
     {
         // God gifts override all sources of mutation resistance other
         // than divine protection.
-        if (!god_gift && _resist_mutation(mutclass, beneficial))
+        if (!god_gift && _resist_mutation(beneficial))
         {
             if (failMsg)
                 mprf(MSGCH_MUTATION, "You feel odd for a moment.");

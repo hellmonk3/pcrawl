@@ -1673,7 +1673,7 @@ bool spell_no_hostile_in_range(spell_type spell)
         return true;
 
     case SPELL_SCORCH:
-        return find_near_hostiles(range, false).empty();
+        return find_near_hostiles(range).empty();
 
     case SPELL_ANGUISH:
         for (monster_near_iterator mi(you.pos(), LOS_NO_TRANS); mi; ++mi)

@@ -301,7 +301,6 @@ spret cast_dragon_call(int pow, bool fail)
 
 static void _place_dragon()
 {
-    const int pow = you.props[DRAGON_CALL_POWER_KEY].get_int();
     monster_type mon = MONS_FIRE_DRAGON;
     int mp_cost = 1;
 
@@ -456,7 +455,6 @@ spret cast_summon_dragon(actor *caster, int pow, god_type god, bool fail)
     if (god == GOD_NO_GOD)
         god = caster->deity();
 
-    int how_many = 1;
     monster_type mon = MONS_FIRE_DRAGON;
 
     if (monster *dragon = create_monster(
@@ -732,18 +730,6 @@ static bool _check_tukima_validity(const actor *target)
     return true;
 }
 
-
-/**
- * Actually animates the weapon of the target creature (no checks).
- *
- * @param pow               Spellpower.
- * @param target            The spell's target.
- **/
-static void _animate_weapon(int pow, actor* target)
-{
-    return;
-}
-
 /**
  * Casts Tukima's Dance, animating the weapon of the target creature (if valid)
  *
@@ -756,8 +742,6 @@ void cast_tukimas_dance(int pow, actor* target)
 
     if (!_check_tukima_validity(target))
         return;
-
-    _animate_weapon(pow, target);
 }
 
 /// When the player conjures ball lightning with the given spellpower, what

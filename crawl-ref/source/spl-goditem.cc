@@ -181,7 +181,7 @@ static spret _try_to_pacify(monster &mon, int healed, int pow,
 
     heal_monster(mon, healed);
 
-    you.props[GOD_ABIL_USED_KEY] = 1;
+    handle_god_ability_used();
     return spret::success;
 }
 
@@ -269,7 +269,7 @@ spret cast_healing(int pow, bool fail)
     if (!heal_monster(*mons, healed))
         canned_msg(MSG_NOTHING_HAPPENS);
 
-    you.props[GOD_ABIL_USED_KEY] = 1;
+    handle_god_ability_used();
     return spret::success;
 }
 

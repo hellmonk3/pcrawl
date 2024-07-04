@@ -2939,7 +2939,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         you.increase_duration(DUR_FINESSE,
                               10 + random2avg(you.skill(SK_INVOCATIONS, 10), 2),
                               100);
-        you.props[GOD_ABIL_USED_KEY] = 1;
+        handle_god_ability_used();
         break;
 
     case ABIL_OKAWARU_DUEL:

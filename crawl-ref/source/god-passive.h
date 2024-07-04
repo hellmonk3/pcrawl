@@ -310,3 +310,4 @@ bool wu_jian_post_move_effects(bool did_wall_jump,
 bool wu_jian_move_triggers_attacks(coord_def new_pos);
 
 void okawaru_handle_duel();
+void handle_god_ability_used();

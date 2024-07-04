@@ -3432,7 +3432,7 @@ spret qazlal_disaster_area(bool fail)
     // true?
     animation_delay(200, Options.reduce_animations);
 
-    you.props[GOD_ABIL_USED_KEY] = 1;
+    handle_god_ability_used();
 
     return spret::success;
 }

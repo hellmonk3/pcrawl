@@ -961,42 +961,6 @@ static void _unequip_armour_effect(item_def& item, bool meld,
         _unequip_artefact_effect(item, nullptr, meld, slot);
 }
 
-static void _remove_amulet_of_faith(item_def &item)
-{
-#ifndef DEBUG_DIAGNOSTICS
-    UNUSED(item);
-#endif
-    if (!faith_has_penalty())
-        return;
-    if (you_worship(GOD_RU))
-    {
-        // next sacrifice is going to be delaaaayed.
-        ASSERT(you.piety < piety_breakpoint(5));
-#ifdef DEBUG_DIAGNOSTICS
-        const int cur_delay = you.props[RU_SACRIFICE_DELAY_KEY].get_int();
-#endif
-        ru_reject_sacrifices(true);
-        dprf("prev delay %d, new delay %d", cur_delay,
-             you.props[RU_SACRIFICE_DELAY_KEY].get_int());
-        return;
-    }
-
-    if (you_worship(GOD_YREDELEMNUL))
-    {
-        mprf(MSGCH_GOD, "The black torch dims.");
-        yred_reclaim_souls();
-        return;
-    }
-
-    simple_god_message(" seems less interested in you.");
-
-    const int piety_loss = div_rand_round(you.piety, 3);
-    // Piety penalty for removing the Amulet of Faith.
-    mprf(MSGCH_GOD, "You feel less pious.");
-    dprf("%s: piety drain: %d", item.name(DESC_PLAIN).c_str(), piety_loss);
-    lose_piety(piety_loss);
-}
-
 bool acrobat_boost_active()
 {
     return player_acrobatic()
@@ -1084,6 +1048,12 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld,
             mprf(MSGCH_GOD, "You feel a %ssurge of divine interest.",
                             you_worship(GOD_NO_GOD) ? "strange " : "");
         }
+
+        if (you.props.exists(GOD_ABIL_USED_KEY))
+        {
+            you.props.erase(GOD_ABIL_USED_KEY);
+            you.props[FAITH_USED_KEY] = 1;
+        }
     }
 
         break;
@@ -1141,6 +1111,7 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
     case AMU_WILLPOWER:
     case AMU_TELEPORTATION:
     case AMU_RAGE:
+    case AMU_FAITH:
         break;
 
     case RING_SEE_INVISIBLE:
@@ -1173,11 +1144,6 @@ static void _unequip_jewellery_effect(item_def &item, bool mesg, bool meld,
         {
             canned_msg(MSG_MANA_DECREASE);
         }
-        break;
-
-    case AMU_FAITH:
-        if (!meld)
-            _remove_amulet_of_faith(item);
         break;
     }
 

@@ -642,7 +642,7 @@ static const char* _jewellery_base_ability_description(int subtype)
         return "It causes incoming damage to be divided between your reserves "
                "of health and magic.";
     case AMU_FAITH:
-        return "It allows you to gain divine favour quickly.";
+        return "It allows an additional use of a divine ability each floor.";
     case AMU_REFLECTION:
         return "It reflects blocked missile attacks.";
 #if TAG_MAJOR_VERSION == 34

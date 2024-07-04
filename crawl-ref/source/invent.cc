@@ -1619,20 +1619,6 @@ bool needs_handle_warning(const item_def &item, operation_types oper,
     if (!item_type_known(item))
         return false;
 
-    if (oper == OPER_REMOVE
-        && item.is_type(OBJ_JEWELLERY, AMU_FAITH)
-        && faith_has_penalty())
-    {
-        return true;
-    }
-
-    if (oper == OPER_PUTON
-        && item.is_type(OBJ_JEWELLERY, AMU_FAITH)
-        && faith_has_penalty())
-    {
-        return true;
-    }
-
     if (needs_notele_warning(item, oper))
         return true;
 

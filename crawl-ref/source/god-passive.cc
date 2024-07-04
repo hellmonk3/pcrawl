@@ -1615,3 +1615,11 @@ void okawaru_handle_duel()
         you.duration[DUR_DUEL_COMPLETE] = 0;
 
 }
+
+void handle_god_ability_used()
+{
+    if (you.wearing(EQ_AMULET, AMU_FAITH) && !you.props.exists(FAITH_USED_KEY))
+        you.props[FAITH_USED_KEY] = 1;
+    else
+        you.props[GOD_ABIL_USED_KEY] = 1;
+}

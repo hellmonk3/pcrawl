@@ -59,6 +59,7 @@
 #define HARP_STARTED_KEY "harp_started"
 #define GOD_ABIL_USED_KEY "god_ability_used"
 #define KILLED_ALL_KEY "killed_all_enemies"
+#define FAITH_USED_KEY "faith_used"
 
 // display/messaging breakpoints for penalties from Ru's MUT_HORROR
 #define HORROR_LVL_EXTREME  3

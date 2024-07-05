@@ -147,8 +147,8 @@ enum class passive_t
     /// Chance of avoiding hell effects, increasing with piety.
     resist_hell_effects,
 
-    /// Warning about shapeshifters when they come to view.
-    warn_shapeshifter,
+    /// Sif Muna book gifts.
+    sif_books,
 
     /// Cleanse mutation potions (they only delete mutations).
     cleanse_mut_potions,

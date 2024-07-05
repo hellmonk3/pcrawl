@@ -179,16 +179,11 @@ const vector<vector<god_power>> & get_all_god_powers()
         },
 
         // Sif Muna
-        {   { 1, ABIL_SIF_MUNA_CHANNEL_ENERGY,
-                 "call upon Sif Muna for magical energy" },
-            { 3, ABIL_SIF_MUNA_FORGET_SPELL,
-                 "freely open your mind to new spells",
-                 "forget spells at will" },
-            { 4, ABIL_SIF_MUNA_DIVINE_EXEGESIS,
-                 "call upon Sif Muna to cast any spell from your library" },
-            { 5, "Sif Muna will now gift you books as you gain piety.",
+        {   { 1, "Sif Muna will now gift you books as you gain piety.",
                  "Sif Muna will no longer gift you books.",
                  "Sif Muna will gift you books as you gain piety." },
+            { 4, ABIL_SIF_MUNA_DIVINE_EXEGESIS,
+                 "call upon Sif Muna to cast any spell from your library" },
         },
 
         // Trog

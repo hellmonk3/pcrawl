@@ -1125,6 +1125,9 @@ bool casting_is_useless(spell_type spell, bool temp)
 // Is the player sufficiently skilled to cast the spell?
 bool meets_casting_requirement(spell_type spell)
 {
+    if (you.divine_exegesis)
+        return true;
+
     const spschools_type disciplines = get_spell_disciplines(spell);
     const int skillcount = count_bits(disciplines);
     if (skillcount)

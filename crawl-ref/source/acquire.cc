@@ -1279,6 +1279,13 @@ static item_def _okawaru_acquirement()
     return item;
 }
 
+static item_def _sif_acquirement()
+{
+    item_def item;
+    acquire_themed_randbook(item, GOD_SIF_MUNA);
+    return item;
+}
+
 item_def god_specific_item()
 {
     item_def item;
@@ -1290,6 +1297,10 @@ item_def god_specific_item()
     {
         if (have_passive(passive_t::oka_equipment))
             item = _okawaru_acquirement();
+    }
+    case GOD_SIF_MUNA:
+    {
+        item = _sif_acquirement();
     }
     default:
         break;

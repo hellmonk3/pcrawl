@@ -1150,24 +1150,6 @@ static inline bool _monster_warning(activity_interrupt ai,
         bool zin_id = false;
         string god_warning;
 
-        if (have_passive(passive_t::warn_shapeshifter)
-            && mon->is_shapeshifter()
-            && !(mon->flags & MF_KNOWN_SHIFTER))
-        {
-            zin_id = true;
-            mon->props[ZIN_ID_KEY] = true;
-            discover_shifter(*mon);
-            god_warning = uppercase_first(god_name(you.religion))
-                          + " warns you: "
-                          + uppercase_first(mon->pronoun(PRONOUN_SUBJECTIVE))
-                          + " "
-                          + conjugate_verb("are", mon->pronoun_plurality())
-                          + " a foul ";
-            if (mon->has_ench(ENCH_GLOWING_SHAPESHIFTER))
-                god_warning += "glowing ";
-            god_warning += "shapeshifter.";
-        }
-
         monster_info mi(mon);
 
         const string mweap = get_monster_equipment_desc(mi, DESC_IDENTIFIED,

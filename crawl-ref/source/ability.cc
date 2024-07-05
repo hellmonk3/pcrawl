@@ -467,7 +467,7 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_SIF_MUNA_FORGET_SPELL, "Forget Spell",
             0, 0, 8, -1, {fail_basis::invo}, abflag::none },
         { ABIL_SIF_MUNA_DIVINE_EXEGESIS, "Divine Exegesis",
-            0, 0, 12, -1, {fail_basis::invo, 80, 4, 25}, abflag::none },
+            0, 0, 1, -1, {fail_basis::invo}, abflag::none },
 
         // Trog
         { ABIL_TROG_BERSERK, "Berserk",

@@ -1039,8 +1039,9 @@ void acquire_themed_randbook(item_def &book, int agent)
     weighted_spells possible_spells;
     _get_weighted_randbook_spells(possible_spells, agent);
 
-    // include 2-5 spells in the book
-    const int size = min(2 + random2avg(4, 2),
+    // include 2-5 spells in the book, plus 0-2 for sif
+    const int size = min(2 + random2avg(4, 2)
+                           + (agent == GOD_SIF_MUNA ? random2(3) : 0),
                          (int)possible_spells.size());
     ASSERT(size);
 

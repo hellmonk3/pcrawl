@@ -154,9 +154,6 @@ static const vector<god_passive> god_passives[] =
               "GOD can protect you from effects of Hell",
               "GOD NOW protects you from effects of Hell"
         },
-        { -1, passive_t::warn_shapeshifter,
-              "GOD will NOW warn you about shapeshifters"
-        },
         {
           6, passive_t::cleanse_mut_potions,
               "GOD cleanses your potions of mutation",
@@ -227,7 +224,10 @@ static const vector<god_passive> god_passives[] =
     },
 
     // Sif Muna
-    { },
+    {
+        { -1, passive_t::sif_books,
+              "GOD NOW provides extra book gifts" },
+    },
 
     // Trog
     {

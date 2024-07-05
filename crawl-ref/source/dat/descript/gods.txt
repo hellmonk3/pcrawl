@@ -150,10 +150,10 @@ foes.
 Sif Muna
 
 Sif Muna the Loreminder is a contemplative but powerful deity, served by those
-who seek magical knowledge. Followers who triumph over their foes can call upon
-the Loreminder for magical power and the ability to cast spells beyond their
-magical training. The devout are rewarded with a supply of spellbooks taken
-directly from Sif Muna's legendary library.
+who seek magical knowledge. Followers will receive extra spellbook choices on
+every floor, often with more spells than normal. The devout may call upon Sif
+Muna for aid in casting any spell in their library, whether they have memorized
+it or not.
 %%%%
 the Shining One
 
@@ -395,12 +395,11 @@ their power in a massive strike against all their foes. Each of the powers of
 Ru's sacrificants increases in strength with more piety from more sacrifices.
 %%%%
 Sif Muna powers
-
-Sif Muna grants followers the ability to rapidly restore their magical energy,
-and to forget spells at will, so as to learn new ones. Worshippers can call
-upon the Loreminder to help cast any spell they've discovered, even if it's
-well beyond their current magical training. Over time, devout followers will
-receive spellbooks containing a vast range of spells.
+Followers will receive an extra spellbook item choice on each floor.
+Worshippers can eventually call upon the Loreminder to help cast any spell
+they've  discovered, even if it's well beyond their current magical training,
+once per floor. The power of spells cast this way is boosted by Invocations
+skill.
 %%%%
 the Shining One powers
 

@@ -5631,12 +5631,12 @@ bool wu_jian_do_wall_jump(coord_def targ)
     wu_jian_wall_jump_effects();
     you.clear_far_engulf(false, true);
 
-    int wall_jump_modifier = (you.attribute[ATTR_SERPENTS_LASH] != 1) ? 2
-                                                                      : 1;
+    int wall_jump_modifier = (you.attribute[ATTR_SERPENTS_LASH] < 1) ? 2
+                                                                     : 1;
 
-    you.time_taken = player_speed() * wall_jump_modifier
-                     * player_movement_speed();
-    you.time_taken = div_rand_round(you.time_taken, 10);
+    you.time_taken = 10;
+    if (wall_jump_modifier > 1);
+        you.stun(&you);
 
     // need to set this here in case serpent's lash isn't active
     you.turn_is_over = true;

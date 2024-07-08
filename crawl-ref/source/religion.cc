@@ -358,15 +358,14 @@ const vector<vector<god_power>> & get_all_god_powers()
         // Wu Jian
         {   { 0, "perform damaging attacks by moving towards foes",
                  "perform lunging strikes" },
+            { 0, "have increased slaying, but reduced armour and shield",
+                 "glass cannon" },
             { 1, "lightly attack monsters by moving around them",
                  "perform spinning attacks" },
             { 2, ABIL_WU_JIAN_WALLJUMP,
                  "perform airborne attacks" },
             { 3, ABIL_WU_JIAN_SERPENTS_LASH, "briefly move at supernatural speeds",
                  "move at supernatural speeds" },
-            { 5, ABIL_WU_JIAN_HEAVENLY_STORM,
-                 "summon a storm of heavenly clouds to empower your attacks",
-                 "summon a storm of heavenly clouds" },
         },
 
         // Ignis

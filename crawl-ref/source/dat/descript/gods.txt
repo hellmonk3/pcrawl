@@ -192,8 +192,7 @@ Wu Jian
 The Wu Jian Council is a congregation of martial monks, ascended to divinity
 after battling their way out of the afterlife. Disciples of the Council are
 able to execute acrobatic martial maneuvers, such as wall jumps, spinning
-attacks and punishing lunges. They will eventually become able to request
-help in the form of a storm of heavenly clouds.
+attacks and punishing lunges.
 %%%%
 Xom
 
@@ -444,8 +443,8 @@ Wu Jian powers
 
 Disciples of the Council learn to perform three martial techniques while moving
 around in combat. They will also be taught to move at unfathomable speeds for
-short distances, and become able to summon a storm of golden clouds to increase
-their precision and damage for as long as they keep using martial attacks.
+short distances. They learn the best places to strike, gaining increased slaying
+as their piety increases, but have reduced AC and SH.
 %%%%
 Xom powers
 

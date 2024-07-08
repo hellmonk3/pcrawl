@@ -105,8 +105,8 @@ enum class passive_t
     /// After god wrath, enemies nearby are banished.
     wrath_banishment,
 
-    /// Less map rot in the abyss.
-    map_rot_res_abyss,
+    /// wjc slaying in exchange for bad AC and SH.
+    wjc_glass_cannon,
 
     /// Higher chance for spawning the abyssal rune.
     attract_abyssal_rune,

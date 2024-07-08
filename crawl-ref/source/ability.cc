@@ -670,7 +670,7 @@ static vector<ability_def> &_get_ability_list()
 
         // Wu Jian
         { ABIL_WU_JIAN_SERPENTS_LASH, "Serpent's Lash",
-            0, 0, 2, -1, {fail_basis::invo},
+            0, 0, 1, -1, {fail_basis::invo},
             abflag::exhaustion | abflag::instant },
         { ABIL_WU_JIAN_HEAVENLY_STORM, "Heavenly Storm",
             0, 0, 20, -1, {fail_basis::invo, piety_breakpoint(5), 0, 1},
@@ -1983,10 +1983,10 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
                 mpr("You are already lashing out.");
             return false;
         }
-        if (you.duration[DUR_EXHAUSTED])
+        if (you.props.exists(GOD_ABIL_USED_KEY))
         {
             if (!quiet)
-                mpr("You are too exhausted to lash out.");
+                mpr("You can't use that again on this floor!");
             return false;
         }
         return true;
@@ -3358,8 +3358,9 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
 
     case ABIL_WU_JIAN_SERPENTS_LASH:
         mprf(MSGCH_GOD, "Your muscles tense, ready for explosive movement...");
-        you.attribute[ATTR_SERPENTS_LASH] = 2;
+        you.attribute[ATTR_SERPENTS_LASH] = you.piety;
         you.redraw_status_lights = true;
+        handle_god_ability_used();
         return spret::success;
 
     case ABIL_WU_JIAN_HEAVENLY_STORM:

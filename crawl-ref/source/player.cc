@@ -1991,6 +1991,12 @@ int player_shield_class()
     shield += you.wearing(EQ_AMULET, AMU_REFLECTION) * AMU_REFLECT_SH * 100;
     shield += you.scan_artefacts(ARTP_SHIELDING) * 200;
 
+    if (have_passive(passive_t::wjc_glass_cannon))
+    {
+        shield *= 10 - min(5, you.piety * 1);
+        shield /= 10;
+    }
+
     return shield / 100;
 }
 
@@ -2023,8 +2029,7 @@ void forget_map(bool rot)
     if (!rot)
         clear_travel_trail();
 
-    const bool rot_resist = player_in_branch(BRANCH_ABYSS)
-                            && have_passive(passive_t::map_rot_res_abyss);
+    const bool rot_resist = player_in_branch(BRANCH_ABYSS);
     const double geometric_chance = 0.99;
     const int radius = (rot_resist ? 200 : 100);
 
@@ -3305,8 +3310,8 @@ int slaying_bonus(bool ranged, bool random)
     if (you.duration[DUR_HORROR])
         ret -= you.props[HORROR_PENALTY_KEY].get_int();
 
-    if (you.props.exists(WU_JIAN_HEAVENLY_STORM_KEY))
-        ret += you.props[WU_JIAN_HEAVENLY_STORM_KEY].get_int();
+    if (have_passive(passive_t::wjc_glass_cannon))
+        ret += min(6, you.piety * 1);
 
     ret += get_form()->slay_bonus(random);
 
@@ -5980,6 +5985,12 @@ int player::armour_class_with_specific_items(vector<const item_def *> items) con
     AC -= 1000 * corrosion_amount();
 
     AC += sanguine_armour_bonus();
+
+    if (have_passive(passive_t::wjc_glass_cannon))
+    {
+        AC *= 10 - min(5, you.piety * 1);
+        AC /= 10;
+    }
 
     return AC / scale;
 }

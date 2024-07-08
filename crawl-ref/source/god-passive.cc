@@ -258,8 +258,6 @@ static const vector<god_passive> god_passives[] =
               "are NOW protected from distortion unwield effects" },
         { -1, passive_t::wrath_banishment,
               "GOD will NOW banish foes whenever another god meddles" },
-        { -1, passive_t::map_rot_res_abyss,
-              "remember the shape of the Abyss better" },
         {  5, passive_t::attract_abyssal_rune,
               "GOD will NOW help you find the Abyssal rune" },
     },
@@ -395,6 +393,7 @@ static const vector<god_passive> god_passives[] =
     // Wu Jian
     {
         { 0, passive_t::wu_jian_lunge, "perform damaging attacks by moving towards foes." },
+        { 0, passive_t::wjc_glass_cannon, "increased slaying, but reduced AC and SH." },
         { 1, passive_t::wu_jian_whirlwind, "lightly attack monsters by moving around them." },
         { 2, passive_t::wu_jian_wall_jump, "perform airborne attacks in an area by jumping off a solid obstacle." },
     },

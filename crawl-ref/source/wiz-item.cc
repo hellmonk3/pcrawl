@@ -490,8 +490,6 @@ void wizard_tweak_object()
         else
             die("unhandled keyin");
 
-        // cursedness might have changed
-        ash_check_bondage();
         auto_id_inventory();
     }
 }

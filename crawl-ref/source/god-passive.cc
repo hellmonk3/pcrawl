@@ -325,16 +325,12 @@ static const vector<god_passive> god_passives[] =
 
     // Ashenzari
     {
-        { -1, passive_t::want_curses, "prefer cursed items" },
-        {  0, passive_t::detect_portals, "sense portals" },
-        {  0, passive_t::detect_montier, "sense threats" },
-        {  0, passive_t::detect_items, "sense items" },
-        {  0, passive_t::bondage_skill_boost,
-              "get a skill boost from cursed items" },
-        {  1, passive_t::identify_items, "sense the properties of items" },
-        {  3, passive_t::clarity, "are NOW clear of mind" },
-        {  4, passive_t::avoid_traps, "avoid traps" },
-        {  4, passive_t::scrying,
+        { -1, passive_t::no_replacements, "forbids replacement items" },
+        {  1, passive_t::detect_portals, "sense portals" },
+        {  2, passive_t::detect_montier, "sense threats" },
+        {  4, passive_t::ash_skill_boost, "skill boost" },
+        {  5, passive_t::clarity, "are NOW clear of mind" },
+        {  6, passive_t::scrying,
               "reveal the structure of the nearby dungeon" },
     },
 
@@ -536,77 +532,6 @@ static bool _two_handed()
     return wep_type == HANDS_TWO;
 }
 
-static void _curse_boost_skills(const item_def &item)
-{
-    if (!item.props.exists(CURSE_KNOWLEDGE_KEY))
-        return;
-
-    for (auto& curse : item.props[CURSE_KNOWLEDGE_KEY].get_vector())
-    {
-        for (skill_type sk : curse_skills(curse))
-        {
-            if (you.skill_boost.count(sk))
-                you.skill_boost[sk]++;
-            else
-                you.skill_boost[sk] = 1;
-        }
-    }
-}
-
-// Checks bondage and sets ash piety
-void ash_check_bondage()
-{
-    if (!will_have_passive(passive_t::bondage_skill_boost))
-        return;
-
-#if TAG_MAJOR_VERSION == 34
-    // Save compatibility for the new ash tag minor forgot to do this
-    initialize_ashenzari_props();
-#endif
-
-    int num_cursed = 0, num_slots = 0;
-
-    you.skill_boost.clear();
-    for (int j = EQ_FIRST_EQUIP; j < NUM_EQUIP; j++)
-    {
-        const equipment_type i = static_cast<equipment_type>(j);
-
-        // handles missing hand, octopode ring slots, finger necklace, species
-        // armour restrictions, etc. Finger necklace slot counts.
-        if (!you_can_wear(i))
-            continue;
-
-        // transformed away slots are still considered to be possibly bound
-        num_slots++;
-        if (you.equip[i] != -1)
-        {
-            const item_def& item = you.inv[you.equip[i]];
-            if (item.cursed() && (i != EQ_WEAPON || is_weapon(item)))
-            {
-                if (i == EQ_WEAPON && _two_handed())
-                    num_cursed += 2;
-                else
-                {
-                    num_cursed++;
-                    if (i == EQ_BODY_ARMOUR
-                        && is_unrandom_artefact(item, UNRAND_LEAR))
-                    {
-                        num_cursed += 3;
-                    }
-                }
-                if (!item_is_melded(item))
-                    _curse_boost_skills(item);
-            }
-        }
-    }
-
-    set_piety(ASHENZARI_BASE_PIETY
-              + (num_cursed * ASHENZARI_PIETY_SCALE) / num_slots);
-
-    calc_hp(true);
-    calc_mp(true);
-}
-
 // XXX: If this is called on an item in inventory, then auto_assign_item_slot
 // needs to be called subsequently. However, moving an item in inventory
 // invalidates its reference, which is a different behavior than for floor
@@ -699,8 +624,11 @@ static bool _check_portal(coord_def where)
 
 int ash_detect_portals(bool all)
 {
-    if (!you.wearing_ego(EQ_ALL_ARMOUR, SPARM_DETECTION))
+    if (!you.wearing_ego(EQ_ALL_ARMOUR, SPARM_DETECTION)
+        && !have_passive(passive_t::detect_portals))
+    {
         return 0;
+    }
 
     int portals_found = 0;
     const int map_radius = LOS_DEFAULT_RANGE + 1;
@@ -729,15 +657,6 @@ int ash_detect_portals(bool all)
 monster_type ash_monster_tier(const monster *mon)
 {
     return monster_type(MONS_SENSED_TRIVIAL + monster_info(mon).threat);
-}
-
-/**
- * Does the player have an ash skill boost for a particular skill?
- */
-bool ash_has_skill_boost(skill_type sk)
-{
-    return have_passive(passive_t::bondage_skill_boost)
-           && you.skill_boost.count(sk) && you.skill_boost.find(sk)->second;
 }
 
 /**

@@ -268,51 +268,6 @@ string god_title(god_type which_god, species_type which_species, int piety)
     return replace_keys(title, replacements);
 }
 
-static string _describe_item_curse(const item_def& item)
-{
-    if (!item.props.exists(CURSE_KNOWLEDGE_KEY))
-        return "None";
-
-    const CrawlVector &curses = item.props[CURSE_KNOWLEDGE_KEY].get_vector();
-
-    if (curses.empty())
-        return "None";
-
-    return comma_separated_fn(curses.begin(), curses.end(),
-            curse_name, ", ", ", ");
-}
-
-static string _describe_ash_skill_boost()
-{
-    ostringstream desc;
-    desc.setf(ios::left);
-    desc << "<white>";
-    desc << setw(40) << "Bound item";
-    desc << setw(30) << "Curse bonuses";
-    desc << "</white>\n";
-
-    for (int j = EQ_FIRST_EQUIP; j < NUM_EQUIP; j++)
-    {
-        const equipment_type i = static_cast<equipment_type>(j);
-        if (you.equip[i] != -1)
-        {
-            const item_def& item = you.inv[you.equip[i]];
-            const bool meld = item_is_melded(item);
-            if (item.cursed())
-            {
-                desc << (meld ? "<darkgrey>" : "<lightred>");
-                desc << setw(40) << item.name(DESC_QUALNAME, true, false, false);
-                desc << setw(30) << (meld ? "melded" : _describe_item_curse(item));
-                desc << (meld ? "</darkgrey>" : "</lightred>");
-                desc << "\n";
-            }
-        }
-    }
-
-
-    return desc.str();
-}
-
 typedef pair<int, string> ancestor_upgrade;
 
 static const map<monster_type, vector<ancestor_upgrade> > ancestor_data =
@@ -611,11 +566,10 @@ static formatted_string _god_extra_description(god_type which_god)
         case GOD_ASHENZARI:
             desc = formatted_string::parse_string(
                        getLongDescription(god_name(which_god) + " extra"));
-            if (have_passive(passive_t::bondage_skill_boost))
+            if (have_passive(passive_t::ash_skill_boost))
             {
                 desc.cprintf("\n");
-                _add_par(desc, "Ashenzari supports the following skill groups because of your curses:");
-                _add_par(desc,  _describe_ash_skill_boost());
+                _add_par(desc, "Ashenzari supports your skills (+1 to all skills)");
             }
             break;
         case GOD_BEOGH:

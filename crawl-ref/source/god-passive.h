@@ -18,10 +18,8 @@ enum class passive_t
     /// Placeholder for absence of a passive ability.
     none = 0,
 
-    /// The god prefers that items be cursed: acquirement grants cursed items,
-    /// enchant scrolls and miscasts preserve curse status, and identify
-    /// allows selecting a subset of items to uncurse.
-    want_curses,
+    /// Replacement gear is not allowed, but get extra item upgrades.
+    no_replacements,
 
     /// You detect the presence of portals.
     detect_portals,
@@ -47,8 +45,8 @@ enum class passive_t
     /// You have innate clarity.
     clarity,
 
-    /// You get a boost to skills from cursed slots.
-    bondage_skill_boost,
+    /// You get a boost to all skills from Ashenzari.
+    ash_skill_boost,
 
     /// You convert orcs into followers.
     convert_orcs,
@@ -274,13 +272,11 @@ bool will_have_passive(passive_t passive);
 int rank_for_passive(passive_t passive);
 int chei_stat_boost(int piety = you.piety);
 void jiyva_eat_offlevel_items();
-void ash_check_bondage();
 bool god_id_item(item_def& item, bool silent = true);
 int ash_detect_portals(bool all);
 monster_type ash_monster_tier(const monster *mon);
 unsigned int ash_skill_point_boost(skill_type sk, int scaled_skill);
 int ash_skill_boost(skill_type sk, int scale);
-bool ash_has_skill_boost(skill_type sk);
 void ash_scrying();
 void gozag_move_level_gold_to_top();
 void gozag_move_gold_to_top(const coord_def p);

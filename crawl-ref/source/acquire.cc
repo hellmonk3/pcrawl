@@ -1145,15 +1145,15 @@ vector<object_class_type> shuffled_acquirement_classes()
 {
     vector<object_class_type> rand_classes;
 
-    if (!you.has_mutation(MUT_NO_ARMOUR))
+    if (!you.has_mutation(MUT_NO_ARMOUR) && !have_passive(passive_t::no_replacements))
         rand_classes.emplace_back(OBJ_ARMOUR);
 
-    if (!you.has_mutation(MUT_NO_GRASPING))
-    {
+    if (!you.has_mutation(MUT_NO_GRASPING) && !have_passive(passive_t::no_replacements))
         rand_classes.emplace_back(OBJ_WEAPONS);
-    }
 
-    rand_classes.emplace_back(OBJ_JEWELLERY);
+    if (!have_passive(passive_t::no_replacements))
+        rand_classes.emplace_back(OBJ_JEWELLERY);
+
     rand_classes.emplace_back(OBJ_BOOKS);
 
     if (_unided_acq_misc())
@@ -1302,6 +1302,8 @@ item_def god_specific_item()
     {
         item = _sif_acquirement();
     }
+    case GOD_ASHENZARI:
+        item = item_based_on_equip();
     default:
         break;
     }

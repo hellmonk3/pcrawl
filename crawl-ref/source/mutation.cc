@@ -1522,7 +1522,6 @@ static void _maybe_remove_armour(mutation_type mut, int level)
         if (_mut_blocks_item_reason(you.inv[slot], mut, level).empty())
             continue;
         remove_one_equip((equipment_type)i, false, true);
-        ash_check_bondage();
     }
 }
 
@@ -2185,8 +2184,6 @@ static bool _delete_single_mutation_level(mutation_type mutat,
     case MUT_CLAWS:
     case MUT_HOOVES:
     case MUT_TALONS:
-        // Recheck Ashenzari bondage in case our available slots changed.
-        ash_check_bondage();
         break;
 
     case MUT_SILENCE_AURA:
@@ -3138,8 +3135,6 @@ void check_monster_detect()
             continue;
 
         const monster_type mc = mon->friendly() ? MONS_SENSED_FRIENDLY
-            : have_passive(passive_t::detect_montier)
-            ? ash_monster_tier(mon)
             : MONS_SENSED;
 
         env.map_knowledge(*ri).set_detected_monster(mc);

@@ -120,7 +120,6 @@ bool unequip_item(equipment_type slot, bool msg, bool skip_effects)
         else if (!skip_effects)
             unequip_effect(slot, item_slot, false, msg);
 
-        ash_check_bondage();
         you.last_unequip = item_slot;
 
 #ifdef USE_TILE_LOCAL

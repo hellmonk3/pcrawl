@@ -1330,8 +1330,6 @@ static int _training_target_skill_point_diff(skill_type exsk, int training_targe
     }
 
     int you_skill_points = you.skill_points[exsk];
-    if (ash_has_skill_boost(exsk))
-        you_skill_points += ash_skill_point_boost(exsk, training_target);
 
     int target_skill_point_diff = target_skill_points - you_skill_points;
 
@@ -1463,13 +1461,6 @@ skill_diff skill_level_to_diffs(skill_type skill, double amount,
 
     if (!base_only)
     {
-        // Estimate the ash bonus, based on current skill levels and piety.
-        // This isn't perfectly accurate, because the boost changes as
-        // skill increases. TODO: exact solution.
-        // It also assumes that piety won't change.
-        if (ash_has_skill_boost(skill))
-            you_skill += ash_skill_point_boost(skill, you.skills[skill] * 10);
-
         if (you.skill_manual_points[skill])
             target = you_skill + (target - you_skill) / 2;
     }

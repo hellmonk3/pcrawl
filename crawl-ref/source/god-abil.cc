@@ -2192,7 +2192,6 @@ bool ashenzari_curse_item()
 
     _do_curse_item(item);
     make_ashenzari_randart(item);
-    ash_check_bondage();
 
     you.props.erase(CURSE_KNOWLEDGE_KEY);
     you.props.erase(AVAILABLE_CURSE_KEY);
@@ -2254,7 +2253,6 @@ bool ashenzari_uncurse_item()
 
     mprf("You shatter the curse binding %s!", item.name(DESC_THE).c_str());
     unequip_item(item_equip_slot(you.inv[item_slot]));
-    ash_check_bondage();
 
     you.props[ASHENZARI_CURSE_PROGRESS_KEY] = 0;
     if (you.props.exists(AVAILABLE_CURSE_KEY))

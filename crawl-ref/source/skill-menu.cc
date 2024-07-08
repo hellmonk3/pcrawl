@@ -515,7 +515,7 @@ string SkillMenuSwitch::get_help()
                 causes.push_back("Heroism");
 
             if (!you.skill_boost.empty()
-                && have_passive(passive_t::bondage_skill_boost))
+                && have_passive(passive_t::ash_skill_boost))
             {
                 causes.push_back(apostrophise(god_name(you.religion))
                                  + " power");

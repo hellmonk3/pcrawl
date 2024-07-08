@@ -783,19 +783,7 @@ static like_map divine_likes[] =
     },
     // GOD_ASHENZARI,
     {
-        { DID_EXPLORATION, {
-            nullptr, false, 0, 0, 0, nullptr,
-            [] (int &piety, int &denom, const monster* /*victim*/)
-            {
-                piety = 0;
-                denom = 1;
-
-                ASSERT(you.props.exists(ASHENZARI_CURSE_PROGRESS_KEY));
-
-                if (one_chance_in(100))
-                    you.props[ASHENZARI_CURSE_PROGRESS_KEY].get_int()++;
-            }
-        } },
+        { DID_EXPLORATION, EXPLORE_RESPONSE },
     },
     // GOD_DITHMENOS,
     {

@@ -1871,10 +1871,6 @@ static void _enter_form(int pow, transformation which_trans)
     if (you.has_innate_mutation(MUT_MERTAIL))
         merfolk_check_swimming(env.grid(you.pos()), false);
 
-    // Update skill boosts for the current state of equipment melds
-    // Must happen before the HP check!
-    ash_check_bondage();
-
     if (you.hp <= 0)
     {
         ouch(0, KILLED_BY_FRAILTY, MID_NOBODY,
@@ -2000,10 +1996,6 @@ void untransform(bool skip_move)
     }
     _unmeld_equipment(melded);
 
-    // Update skill boosts for the current state of equipment melds
-    // Must happen before the HP check!
-    ash_check_bondage();
-
     if (!skip_move)
     {
         // Land the player if we stopped flying.
@@ -2113,10 +2105,7 @@ void merfolk_start_swimming(bool stepped)
     you.redraw_evasion = true;
 
     if (!you.melded[EQ_BOOTS])
-    {
         remove_one_equip(EQ_BOOTS);
-        ash_check_bondage();
-    }
 
 #ifdef USE_TILE
     init_player_doll();
@@ -2132,10 +2121,7 @@ void merfolk_stop_swimming()
     you.redraw_evasion = true;
 
     if (!_init_equipment_removal(you.form).count(EQ_BOOTS))
-    {
         unmeld_one_equip(EQ_BOOTS);
-        ash_check_bondage();
-    }
 
 #ifdef USE_TILE
     init_player_doll();

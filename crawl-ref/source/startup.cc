@@ -371,7 +371,6 @@ static void _post_init(bool newc)
     update_turn_count();
     update_vision_range();
     init_exclusion_los();
-    ash_check_bondage();
     if (you.prev_save_version != Version::Long)
         check_if_everything_is_identified();
 

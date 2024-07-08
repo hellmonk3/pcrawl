@@ -5555,14 +5555,13 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
     if (real)
         return level;
 
-    else if (ash_has_skill_boost(sk))
-            level = ash_skill_boost(sk, scale);
-
     if (temp && have_passive(passive_t::heroism) && sk <= SK_LAST_MUNDANE)
     {
         const int boost = you.piety >= piety_breakpoint(5) ? 2 : 1;
         level = min(level + boost * scale, MAX_SKILL_LEVEL * scale);
     }
+    else if (temp && have_passive(passive_t::ash_skill_boost))
+        level = min(level + scale, MAX_SKILL_LEVEL * scale);
 
     switch (sk)
     {
@@ -7600,7 +7599,7 @@ int player_monster_detect_radius()
     if (player_equip_unrand(UNRAND_HOOD_ASSASSIN))
         radius = max(radius, 4);
     if (have_passive(passive_t::detect_montier))
-        radius = max(radius, you.piety / 20);
+        radius = max(radius, you.piety * 1);
     return min(radius, LOS_MAX_RANGE);
 }
 

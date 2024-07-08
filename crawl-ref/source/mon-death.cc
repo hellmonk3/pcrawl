@@ -2011,7 +2011,7 @@ item_def* monster_die(monster& mons, killer_type killer,
                 mp_heal += random2(2 + mons.get_experience_level() / 3);
             }
             if (can_divine_heal && have_passive(passive_t::mp_on_kill))
-                mp_heal += 1 + random2(mons.get_experience_level() / 2);
+                mp_heal += x_chance_in_y(5 + you.piety, 10);
 
             if (hp_heal && you.hp < you.hp_max
                 && !you.duration[DUR_DEATHS_DOOR])

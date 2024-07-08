@@ -227,3 +227,4 @@ const vector<vector<god_power>> & get_all_god_powers();
 vector<god_power> get_god_powers(god_type god);
 const god_power* god_power_from_ability(ability_type abil);
 bool god_power_usable(const god_power& power, bool ignore_piety=false, bool ignore_penance=false);
+bool vehumet_gift();

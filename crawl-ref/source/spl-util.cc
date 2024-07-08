@@ -1026,7 +1026,6 @@ int spell_range(spell_type spell, int pow,
         && vehumet_supports_spell(spell)
         && have_passive(passive_t::spells_range)
         && maxrange > 1
-        && spell != SPELL_HAILSTORM // uses a special system
         && spell != SPELL_THUNDERBOLT) // lightning rod only
     {
         maxrange++;
@@ -1130,12 +1129,17 @@ bool meets_casting_requirement(spell_type spell)
 
     const spschools_type disciplines = get_spell_disciplines(spell);
     const int skillcount = count_bits(disciplines);
+
+    int difficulty = spell_difficulty(spell);
+    if (have_passive(passive_t::spells_success) && vehumet_supports_spell(spell))
+        difficulty -= 1;
+
     if (skillcount)
     {
         for (const auto bit : spschools_type::range())
         {
             if (disciplines & bit)
-                if (spell_difficulty(spell) > you.adjusted_casting_level(spell_type2skill(bit)))
+                if (difficulty > you.adjusted_casting_level(spell_type2skill(bit)))
                     return false;
         }
     }

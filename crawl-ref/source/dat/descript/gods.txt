@@ -183,10 +183,9 @@ Uskayaw quickly loses interest.
 Vehumet
 
 Vehumet is a god of the destructive powers of magic. Followers will gain divine
-assistance in commanding the hermetic arts, and the most favoured stand to gain
-access to some of the fearsome spells in Vehumet's library. One's devotion to
-Vehumet can be proven by the causing of as much carnage and destruction as
-possible.
+assistance in commanding the hermetic arts. One's devotion to Vehumet can be
+proven by the causing of as much carnage and destruction as possible; indeed,
+killing all enemies on a floor is required to gain Vehumet's favor.
 %%%%
 Wu Jian
 
@@ -435,11 +434,11 @@ violently exploding from a foe, killing it instantly.
 %%%%
 Vehumet powers
 
-Worshippers of Vehumet will quickly be able to recover their magical energy
-upon killing beings. As they gain favour, they will also gain enhancements to
-their destructive spells — first assistance in casting such spells and then
-increased range for conjurations. Vehumet will offer followers the knowledge of
-increasingly powerful destructive spells as they gain piety.
+Worshippers of Vehumet will be able to recover their magical energy slightly
+upon killing other beings. As they gain favour, they will also gain enhancements
+to their destructive spells — first assistance in casting such spells and then
+increased range. Vehumet will offer followers the knowledge of a random
+destructive spell on each floor.
 %%%%
 Wu Jian powers
 

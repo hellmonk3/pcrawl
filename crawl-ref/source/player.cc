@@ -2202,6 +2202,9 @@ void reset_per_floor_props()
 
     if (you.props.exists(FAITH_USED_KEY))
         you.props.erase(FAITH_USED_KEY);
+
+    if (you.props.exists(KILLED_ALL_KEY))
+        you.props.erase(KILLED_ALL_KEY);
 }
 
 /// Make progress toward the abyss spawning an exit/stairs.

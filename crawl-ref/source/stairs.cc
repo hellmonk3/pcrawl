@@ -1271,8 +1271,7 @@ void new_level(bool restore)
 
     recharge_xp_evokers();
 
-    did_god_conduct(DID_EXPLORATION, 1);
+    vehumet_gift();
 
-    if (you.props.exists(KILLED_ALL_KEY))
-        you.props.erase(KILLED_ALL_KEY);
+    did_god_conduct(DID_EXPLORATION, 1);
 }

@@ -5559,10 +5559,10 @@ int player::skill(skill_type sk, int scale, bool real, bool temp) const
     int actual_skill = skills[sk];
     unsigned int effective_points = skill_points[sk];
     effective_points = min(effective_points, skill_exp_needed(MAX_SKILL_LEVEL));
-    actual_skill = calc_skill_level_change(sk, actual_skill, effective_points);
+    actual_skill = calc_skill_level_change(actual_skill, effective_points);
 
     int level = actual_skill * scale
-      + get_skill_progress(sk, actual_skill, effective_points, scale);
+      + get_skill_progress(actual_skill, effective_points, scale);
     if (real)
         return level;
 

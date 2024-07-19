@@ -1568,12 +1568,11 @@ int mons_adjust_flavoured(monster* mons, bolt &pbolt, int hurted,
             if (doFlavouredEffects)
             {
                 simple_monster_message(*mons, " partially resists.");
-                poison_monster(mons, pbolt.agent(), div_rand_round(stacks, 2),
-                               true);
+                poison_monster(mons, pbolt.agent(), div_rand_round(stacks, 2));
             }
         }
         else if (doFlavouredEffects)
-            poison_monster(mons, pbolt.agent(), stacks , true);
+            poison_monster(mons, pbolt.agent(), stacks);
 
         break;
     }
@@ -1902,7 +1901,7 @@ static bool _curare_hits_monster(actor *agent, monster* mons, int levels)
     if (mons->res_poison() > 0)
         return false;
 
-    poison_monster(mons, agent, levels, false);
+    poison_monster(mons, agent, levels);
 
     int hurted = roll_dice(levels, 6);
 
@@ -1947,8 +1946,7 @@ static bool _toxic_dart_monster(monster* mons)
 }
 
 // Actually poisons a monster (with message).
-bool poison_monster(monster* mons, const actor *who, int levels,
-                    bool force, bool verbose)
+bool poison_monster(monster* mons, const actor *who, int levels, bool verbose)
 {
     if (!mons->alive() || levels <= 0)
         return false;
@@ -3664,7 +3662,6 @@ void bolt::affect_player_enchantment(bool resistible)
     }
 
     case BEAM_TUKIMAS_DANCE:
-        cast_tukimas_dance(ench_power, &you);
         obvious_effect = true;
         break;
 
@@ -6029,7 +6026,6 @@ mon_resist_type bolt::apply_enchantment_to_monster(monster* mon)
     }
 
     case BEAM_TUKIMAS_DANCE:
-        cast_tukimas_dance(ench_power, mon);
         obvious_effect = true;
         break;
 

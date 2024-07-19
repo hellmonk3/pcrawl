@@ -388,7 +388,7 @@ void redraw_skill(skill_type exsk, skill_type old_best_skill, bool recalculate_o
     }
 }
 
-int calc_skill_level_change(skill_type sk, int starting_level, int sk_points)
+int calc_skill_level_change(int starting_level, int sk_points)
 {
     int new_level = starting_level;
     while (1)
@@ -411,7 +411,7 @@ int calc_skill_level_change(skill_type sk, int starting_level, int sk_points)
 
 void check_skill_level_change(skill_type sk, bool do_level_up)
 {
-    const int new_level = calc_skill_level_change(sk, you.skills[sk], you.skill_points[sk]);
+    const int new_level = calc_skill_level_change(you.skills[sk], you.skill_points[sk]);
 
     if (new_level != you.skills[sk])
     {
@@ -1552,7 +1552,7 @@ void set_skill_level(skill_type skill, double amount)
     check_training_targets();
 }
 
-int get_skill_progress(skill_type sk, int level, int points, int scale)
+int get_skill_progress(int level, int points, int scale)
 {
     if (level >= MAX_SKILL_LEVEL)
         return 0;
@@ -1573,7 +1573,7 @@ int get_skill_progress(skill_type sk, int level, int points, int scale)
 
 int get_skill_progress(skill_type sk, int scale)
 {
-    return get_skill_progress(sk, you.skills[sk], you.skill_points[sk], scale);
+    return get_skill_progress(you.skills[sk], you.skill_points[sk], scale);
 }
 
 int get_skill_percentage(const skill_type x)

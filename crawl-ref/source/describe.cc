@@ -3919,8 +3919,7 @@ int hex_chance(const spell_type spell, const monster_info* mi)
                        && get_armour_ego_type(*mi->inv[MSLOT_SHIELD]) == SPARM_GUILE;
     const int will = guile ? guile_adjust_willpower(you.willpower())
                            : you.willpower();
-    const int chance = hex_success_chance(will, capped_pow,
-                                          100, true);
+    const int chance = hex_success_chance(will, capped_pow, 100);
     if (spell == SPELL_STRIP_WILLPOWER)
         return chance + (100 - chance) / 3; // ignores wl 1/3rd of the time
     return chance;

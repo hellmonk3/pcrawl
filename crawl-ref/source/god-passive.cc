@@ -688,7 +688,7 @@ int ash_skill_boost(skill_type sk, int scale)
     while (level < MAX_SKILL_LEVEL && skill_points >= skill_exp_needed(level + 1))
         ++level;
 
-    level = level * scale + get_skill_progress(sk, level, skill_points, scale);
+    level = level * scale + get_skill_progress(level, skill_points, scale);
 
     return min(level, MAX_SKILL_LEVEL * scale);
 }

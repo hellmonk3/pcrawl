@@ -2892,7 +2892,10 @@ bool monster::poison(actor *agent, int amount, bool force)
     // Scale poison down for monsters.
     amount = 1 + amount / 7;
 
-    return poison_monster(this, agent, amount, force);
+    if (force)
+        amount = amount;
+
+    return poison_monster(this, agent, amount);
 }
 
 int monster::skill(skill_type sk, int scale, bool /*real*/, bool /*temp*/) const

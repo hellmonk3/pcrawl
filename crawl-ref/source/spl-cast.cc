@@ -1252,11 +1252,10 @@ static int _tetrahedral_number(int n)
  *
  * @return The chance, out of scale, that the enchantment affects the target.
  */
-int hex_success_chance(const int wl, int powc, int scale, bool round_up)
+int hex_success_chance(const int wl, int powc, int scale)
 {
     const int target = 10 + wl * 10 - powc * 5;
     const int denom = 100;
-    const int adjust = round_up ? denom - 1 : 0;
 
     if (target <= 0)
         return scale;
@@ -2073,7 +2072,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
         return cast_summon_lightning_spire(powc, god, fail);
 
     case SPELL_AMBULATORY_BOMB:
-        return cast_summon_guardian_golem(powc, god, fail);
+        return cast_summon_guardian_golem(god, fail);
 
     case SPELL_CALL_IMP:
         return cast_call_imp(powc, god, fail);
@@ -2194,7 +2193,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
 
     // Escape spells.
     case SPELL_BLINK:
-        return cast_blink(powc, fail);
+        return cast_blink(fail);
 
     case SPELL_CONTROLLED_BLINK:
         return cast_controlled_blink();
@@ -2218,7 +2217,7 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
         return cast_manifold_assault(powc, fail);
 
     case SPELL_GOLUBRIAS_PASSAGE:
-        return cast_golubrias_passage(powc, fail);
+        return cast_golubrias_passage(fail);
 
     case SPELL_FULMINANT_PRISM:
         return cast_fulminating_prism(&you, powc, beam.target, fail);

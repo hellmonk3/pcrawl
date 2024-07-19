@@ -2673,7 +2673,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     }
 
     case ABIL_EVOKE_BLINK:      // randarts
-        return cast_blink(10, fail);
+        return cast_blink(fail);
 
     case ABIL_TELEPORT:
         you_teleport();

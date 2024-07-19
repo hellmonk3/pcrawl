@@ -12,7 +12,7 @@ const int GOLUBRIA_FUZZ_RANGE = 2;
 spret cast_disjunction(int pow, bool fail);
 void disjunction_spell();
 
-spret cast_blink(int pow, bool fail = false);
+spret cast_blink(bool fail = false);
 spret cast_controlled_blink(bool safe = true);
 void uncontrolled_blink(bool override_stasis = false);
 spret controlled_blink(bool safe_cancel = true, dist *target = nullptr);
@@ -43,7 +43,7 @@ string weapon_unprojectability_reason();
 struct bolt;
 spret cast_apportation(int pow, bolt& beam, bool fail);
 bool golubria_valid_cell(coord_def p, bool just_check = false);
-spret cast_golubrias_passage(int pow, bool fail);
+spret cast_golubrias_passage(bool fail);
 
 spret cast_dispersal(int pow, bool fail);
 

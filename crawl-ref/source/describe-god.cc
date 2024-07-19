@@ -828,7 +828,7 @@ static formatted_string _describe_god_powers(god_type which_god)
             desc.textcolour(DARKGREY);
         desc.cprintf("%s stuns you after movement.\n",
                 uppercase_first(god_name(which_god)).c_str());
-        desc.cprintf("%s boosts your melee and ranged damage. (+%d%)\n",
+        desc.cprintf("%s boosts your melee and ranged damage. (+%d% )\n",
                 uppercase_first(god_name(which_god)).c_str(),
                 piety * 10);
         break;

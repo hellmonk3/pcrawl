@@ -68,7 +68,7 @@ void init_can_currently_train();
 void init_training();
 void update_can_currently_train();
 void reset_training();
-int calc_skill_level_change(skill_type sk, int starting_level, int sk_points);
+int calc_skill_level_change(int starting_level, int sk_points);
 void check_skill_level_change(skill_type sk, bool do_level_up = true);
 void change_skill_level(skill_type exsk, int num_level);
 void change_skill_points(skill_type sk, int points, bool do_level_up);
@@ -82,7 +82,7 @@ static inline bool skill_trained(skill_type sk) { return skill_trained((int) sk)
 void redraw_skill(skill_type exsk, skill_type old_best_skill = SK_NONE, bool recalculate_order = true);
 void set_skill_level(skill_type skill, double amount);
 
-int get_skill_progress(skill_type sk, int level, int points, int scale);
+int get_skill_progress(int level, int points, int scale);
 int get_skill_progress(skill_type sk, int scale);
 int get_skill_percentage(const skill_type x);
 const char *skill_name(skill_type which_skill);

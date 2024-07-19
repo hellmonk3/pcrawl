@@ -30,7 +30,6 @@ bool summon_berserker(int pow, actor *caster,
 bool summon_holy_warrior(int pow, bool punish);
 
 bool tukima_affects(const actor &target);
-void cast_tukimas_dance(int pow, actor *target);
 spret cast_conjure_ball_lightning(int pow, god_type god, bool fail);
 int ball_lightning_hd(int pow, bool random = true);
 int mons_ball_lightning_hd(int pow, bool random = true);
@@ -52,7 +51,7 @@ spret cast_malign_gateway(actor* caster, int pow,
                           bool test = false);
 coord_def find_gateway_location(actor* caster);
 spret cast_summon_forest(actor* caster, int pow, god_type god, bool fail, bool test=false);
-spret cast_summon_guardian_golem(int pow, god_type god, bool fail);
+spret cast_summon_guardian_golem(god_type god, bool fail);
 
 spret cast_dragon_call(int pow, bool fail);
 void do_dragon_call(int time);

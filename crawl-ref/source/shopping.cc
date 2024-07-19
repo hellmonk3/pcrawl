@@ -651,8 +651,6 @@ unsigned int item_value(item_def item, bool ident)
     case OBJ_BOOKS:
     {
         valued = 0;
-        const book_type book = static_cast<book_type>(item.sub_type);
-
         int levels = 0;
         const vector<spell_type> spells = spells_in_book(item);
         for (spell_type spell : spells)

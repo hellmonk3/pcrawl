@@ -1583,9 +1583,6 @@ bool melee_attack::player_aux_apply(unarmed_attack_type atk)
             if (damage_brand == SPWPN_ACID)
                 defender->acid_corrode(3);
 
-            if (damage_brand == SPWPN_SPELLVAMP && coinflip())
-                poison_monster(defender->as_monster(), &you);
-
             if (damage_brand == SPWPN_WEAKNESS
                 && !(defender->holiness() & (MH_UNDEAD | MH_NONLIVING)))
             {

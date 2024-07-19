@@ -803,7 +803,7 @@ spret cast_controlled_blink(bool safe)
  * @return                  Whether the spell was successfully cast, aborted,
  *                          or miscast.
  */
-spret cast_blink(int pow, bool fail)
+spret cast_blink(bool fail)
 {
     // effects that cast the spell through the player, I guess (e.g. xom)
     if (you.no_tele(true))
@@ -1388,7 +1388,7 @@ bool golubria_valid_cell(coord_def p, bool just_check)
            && cell_see_cell(you.pos(), p, LOS_NO_TRANS);
 }
 
-spret cast_golubrias_passage(int pow, bool fail)
+spret cast_golubrias_passage(bool fail)
 {
     int tries = 0;
     const int range = GOLUBRIA_FUZZ_RANGE;

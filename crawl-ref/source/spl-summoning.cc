@@ -730,20 +730,6 @@ static bool _check_tukima_validity(const actor *target)
     return true;
 }
 
-/**
- * Casts Tukima's Dance, animating the weapon of the target creature (if valid)
- *
- * @param pow               Spellpower.
- * @param where             The target grid.
- **/
-void cast_tukimas_dance(int pow, actor* target)
-{
-    ASSERT(target);
-
-    if (!_check_tukima_validity(target))
-        return;
-}
-
 /// When the player conjures ball lightning with the given spellpower, what
 /// HD will the resulting lightning have?
 int ball_lightning_hd(int pow, bool random)
@@ -808,7 +794,7 @@ spret cast_summon_lightning_spire(int pow, god_type god, bool fail)
     return spret::success;
 }
 
-spret cast_summon_guardian_golem(int pow, god_type god, bool fail)
+spret cast_summon_guardian_golem(god_type god, bool fail)
 {
     if (stop_summoning_prompt(MR_RES_POISON))
         return spret::abort;
@@ -868,7 +854,7 @@ spret cast_call_imp(int pow, god_type god, bool fail)
     return spret::success;
 }
 
-static bool _summon_demon_wrapper(int pow, god_type god, int spell,
+static bool _summon_demon_wrapper(god_type god, int spell,
                                   monster_type mon, int dur, bool friendly,
                                   bool charmed)
 {
@@ -906,7 +892,7 @@ static bool _summon_common_demon(int pow, god_type god, int spell)
     else
         type = random_demon_by_tier(3);
 
-    return _summon_demon_wrapper(pow, god, spell, type,
+    return _summon_demon_wrapper(god, spell, type,
                                  min(2 + (random2(pow) / 4), 6),
                                  random2(pow) > 3, false);
 }
@@ -914,7 +900,7 @@ static bool _summon_common_demon(int pow, god_type god, int spell)
 bool summon_demon_type(monster_type mon, int pow, god_type god,
                        int spell, bool friendly)
 {
-    return _summon_demon_wrapper(pow, god, spell, mon,
+    return _summon_demon_wrapper(god, spell, mon,
                                  min(2 + random2(pow), 6),
                                  friendly, false);
 }

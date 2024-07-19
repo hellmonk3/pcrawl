@@ -5635,7 +5635,7 @@ bool wu_jian_do_wall_jump(coord_def targ)
                                                                      : 1;
 
     you.time_taken = 10;
-    if (wall_jump_modifier > 1);
+    if (wall_jump_modifier > 1)
         you.stun(&you);
 
     // need to set this here in case serpent's lash isn't active

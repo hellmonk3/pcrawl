@@ -341,7 +341,7 @@ spret mass_enchantment(enchant_type wh_enchant, int pow,
 int ench_power_stepdown(int pow);
 
 bool poison_monster(monster* mons, const actor* who, int levels = 1,
-                    bool force = false, bool verbose = true);
+                    bool verbose = true);
 bool miasma_monster(monster* mons, const actor* who);
 bool napalm_monster(monster* mons, const actor* who, int levels = 1,
                     bool verbose = true);

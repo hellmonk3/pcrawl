@@ -77,8 +77,8 @@ enum mutation_type
     MUT_HURL_DAMNATION,
 
     MUT_FAST,
+    MUT_POOR_DODGING,
 #if TAG_MAJOR_VERSION == 34
-    MUT_FAST_METABOLISM,
     MUT_FLEXIBLE_WEAK,
 #endif
     MUT_FRAIL,
@@ -121,9 +121,7 @@ enum mutation_type
 #endif
     MUT_SLOW,
     MUT_POOR_CHARGING,
-#if TAG_MAJOR_VERSION == 34
-    MUT_SLOW_METABOLISM,
-#endif
+    MUT_GOOD_DODGING,
     MUT_SPINY,
     MUT_SPIT_POISON,
 #if TAG_MAJOR_VERSION == 34

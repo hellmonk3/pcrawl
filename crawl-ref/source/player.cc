@@ -1892,7 +1892,10 @@ static int _player_evasion(bool ignore_helpless)
         return 0;
     }
 
-    const int natural_evasion = you.skill(SK_DODGING, 7)
+    const int skfactor = 7 + 3 * you.get_mutation_level(MUT_GOOD_DODGING)
+                           - 3 * you.get_mutation_level(MUT_POOR_DODGING);
+
+    const int natural_evasion = you.skill(SK_DODGING, skfactor)
         - _player_adjusted_evasion_penalty();
 
     const int evasion_bonuses = _player_evasion_bonuses();

@@ -237,40 +237,38 @@ static const mutation_def mut_data[] =
 
   TILEG_MUT_INHIBITED_REGENERATION,
 },
-#if TAG_MAJOR_VERSION == 34
 
-{ MUT_FAST_METABOLISM, 0, 3, mutflag::bad, false,
-  "fast metabolism",
+{ MUT_POOR_DODGING, 4, 1, mutflag::bad, false,
+  "poor dodging",
 
-  {"You have a fast metabolism.",
-   "You have a very fast metabolism.",
-   "Your metabolism is lightning-fast."},
-
-  {"You feel a little hungry.",
-   "You feel a little hungry.",
-   "You feel a little hungry."},
-
-  {"Your metabolism slows.",
-   "Your metabolism slows.",
-   "Your metabolism slows."},
-},
-
-{ MUT_SLOW_METABOLISM, 0, 2, mutflag::good, false,
-  "slow metabolism",
-
-  {"You have a slow metabolism.",
-   "You need to consume almost no food.",
+  {"You receive less evasion from each level of dodging skill.",
+   "",
    ""},
 
-  {"Your metabolism slows.",
-   "Your metabolism slows.",
+  {"You feel less dodgy.",
+   "",
    ""},
 
-  {"You feel a little hungry.",
-   "You feel a little hungry.",
+  {"You feel more dodgy.",
+   "",
    ""},
 },
-#endif
+
+{ MUT_GOOD_DODGING, 4, 1, mutflag::good, false,
+  "good dodging",
+
+  {"You receive more evasion from each level of dodging skill.",
+   "",
+   ""},
+
+  {"You feel more dodgy.",
+   "",
+   ""},
+
+  {"You feel less dodgy",
+   "",
+   ""},
+},
 
 { MUT_WEAK, 8, 1, mutflag::bad, false,
   "weak",
@@ -1493,7 +1491,7 @@ static const mutation_def mut_data[] =
 { MUT_ROUGH_BLACK_SCALES, 5, 1, mutflag::good, true,
   "rough black scales",
 
-  {"You are covered in rough black scales. (AC +6, EV - 10)",
+  {"You are covered in rough black scales. (AC +6, EV -10)",
    "",
    ""},
 

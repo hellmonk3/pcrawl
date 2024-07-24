@@ -267,34 +267,7 @@ static peeve_map divine_peeves[] =
     // GOD_NO_GOD
     peeve_map(),
     // GOD_ZIN,
-    {
-        { DID_ATTACK_HOLY, GOOD_ATTACK_HOLY_RESPONSE },
-        { DID_KILL_HOLY, GOOD_KILL_HOLY_RESPONSE },
-        { DID_EVIL, GOOD_EVIL_RESPONSE },
-        { DID_ATTACK_FRIEND, _on_attack_friend("you attack allies") },
-        { DID_ATTACK_NEUTRAL, {
-            "you attack neutral beings", false,
-            1, 0,
-            " forgives your inadvertent attack on a neutral, just this once."
-        } },
-        { DID_ATTACK_IN_SANCTUARY, {
-            "you attack monsters in a sanctuary", false,
-            1, 1
-        } },
-        { DID_UNCLEAN, {
-            "you use unclean or chaotic magic or items", true,
-            1, 1, " forgives your inadvertent unclean act, just this once."
-        } },
-        { DID_CHAOS, {
-            "you polymorph monsters", true,
-            1, 1, " forgives your inadvertent chaotic act, just this once."
-        } },
-        { DID_DELIBERATE_MUTATING, {
-            "you deliberately mutate or transform yourself", true,
-            1, 0, " forgives your inadvertent chaotic act, just this once."
-        } },
-        { DID_CAUSE_GLOWING, { nullptr, false, 1 } },
-    },
+    peeve_map(),
     // GOD_SHINING_ONE,
     {
         { DID_ATTACK_HOLY, {
@@ -659,8 +632,7 @@ static like_map divine_likes[] =
     like_map(),
     // GOD_ZIN,
     {
-        { DID_KILL_UNCLEAN, _on_kill("you kill unclean or chaotic beings", MH_DEMONIC, true) },
-        { DID_KILL_CHAOTIC, _on_kill(nullptr, MH_DEMONIC, true) },
+        { DID_EXPLORATION, EXPLORE_RESPONSE },
     },
     // GOD_SHINING_ONE,
     {

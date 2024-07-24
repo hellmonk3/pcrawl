@@ -138,27 +138,16 @@ static const vector<god_passive> god_passives[] =
 
     // Zin
     {
-        { -1, passive_t::protect_from_harm,
-              "GOD sometimes watches over you",
-              "GOD no longer watches over you"
-        },
         { -1, passive_t::resist_mutation,
               "GOD can shield you from mutations",
               "GOD NOW shields you from mutations"
         },
-        { -1, passive_t::resist_polymorph,
-              "GOD can protect you from unnatural transformations",
-              "GOD NOW protects you from unnatural transformations",
+        { -1, passive_t::vitalisation,
+              "GOD protects you from disabling status effects",
+              "GOD NOW protects you from disabling status effects",
         },
-        { -1, passive_t::resist_hell_effects,
-              "GOD can protect you from effects of Hell",
-              "GOD NOW protects you from effects of Hell"
-        },
-        {
-          6, passive_t::cleanse_mut_potions,
-              "GOD cleanses your potions of mutation",
-              "GOD no longer cleanses your potions of mutation",
-        }
+        { -1, passive_t::prevent_evil,
+              "are NOW prevented from doing evil" },
     },
 
     // TSO
@@ -250,6 +239,8 @@ static const vector<god_passive> god_passives[] =
               "GOD NOW boosts your health and magic",
               "GOD no longer boosts your health and magic"
         },
+        { -1, passive_t::prevent_evil,
+              "are NOW prevented from doing evil" },
     },
 
     // Lugonu

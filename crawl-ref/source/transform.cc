@@ -1903,9 +1903,7 @@ static void _enter_form(int pow, transformation which_trans)
 bool transform(int pow, transformation which_trans, bool involuntary)
 {
     // Zin's protection.
-    if (have_passive(passive_t::resist_polymorph)
-        && x_chance_in_y(you.piety, MAX_PIETY)
-        && which_trans != transformation::none)
+    if (you.religion == GOD_ZIN)
     {
         simple_god_message(" protects your body from unnatural transformation!");
         return false;

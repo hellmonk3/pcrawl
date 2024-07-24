@@ -1435,7 +1435,7 @@ int player_res_poison(bool allow_random, bool temp, bool items)
         || you.is_lifeless_undead(temp)
         || form_rp == 3
         || items && player_equip_unrand(UNRAND_OLGREB)
-        || temp && you.duration[DUR_DIVINE_STAMINA])
+        || temp && have_passive(passive_t::vitalisation))
     {
         return 3;
     }
@@ -3968,7 +3968,7 @@ bool confuse_player(int amount, bool quiet, bool force)
         return false;
     }
 
-    if (!force && you.duration[DUR_DIVINE_STAMINA] > 0)
+    if (!force && have_passive(passive_t::vitalisation))
     {
         if (!quiet)
             mpr("Your divine stamina protects you from confusion!");
@@ -4011,7 +4011,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
     if (crawl_state.disables[DIS_AFFLICTIONS])
         return false;
 
-    if (you.duration[DUR_DIVINE_STAMINA] > 0)
+    if (have_passive(passive_t::vitalisation))
     {
         mpr("Your divine stamina protects you from poison!");
         return false;
@@ -4305,7 +4305,7 @@ bool miasma_player()
     if (you.res_miasma() || you.duration[DUR_DEATHS_DOOR])
         return false;
 
-    if (you.duration[DUR_DIVINE_STAMINA] > 0)
+    if (have_passive(passive_t::vitalisation))
     {
         mpr("Your divine stamina protects you from the miasma!");
         return false;
@@ -6608,6 +6608,12 @@ void player::paralyse(const actor *who, int str, string source)
         return;
     }
 
+    if (have_passive(passive_t::vitalisation))
+    {
+        mpr("Your divine stamina prevents you from being paralysed.");
+        return;
+    }
+
     // The who check has an effect in a few cases, most notably making
     // Death's Door + Borg's paralysis unblockable.
     if (who && (duration[DUR_PARALYSIS] || duration[DUR_PARALYSIS_IMMUNITY]))
@@ -6664,7 +6670,7 @@ void player::petrify(const actor *who, bool force)
         return;
     }
 
-    if (duration[DUR_DIVINE_STAMINA] > 0)
+    if (have_passive(passive_t::vitalisation))
     {
         mpr("Your divine stamina protects you from petrification!");
         return;
@@ -6879,7 +6885,7 @@ bool player::sicken(int amount)
     if (res_miasma() || amount <= 0)
         return false;
 
-    if (duration[DUR_DIVINE_STAMINA] > 0)
+    if (have_passive(passive_t::vitalisation))
     {
         mpr("Your divine stamina protects you from disease!");
         return false;
@@ -8195,12 +8201,13 @@ bool player::immune_to_hex(const spell_type hex) const
     {
     case SPELL_PARALYSIS_GAZE:
     case SPELL_PARALYSE:
+        return stasis() | have_passive(passive_t::vitalisation);
     case SPELL_SLOW:
         return stasis();
     case SPELL_CONFUSE:
     case SPELL_CONFUSION_GAZE:
     case SPELL_MASS_CONFUSION:
-        return clarity() || you.duration[DUR_DIVINE_STAMINA] > 0;
+        return clarity() || have_passive(passive_t::vitalisation);
     case SPELL_TELEPORT_OTHER:
     case SPELL_BLINK_OTHER:
     case SPELL_BLINK_OTHER_CLOSE:
@@ -8212,7 +8219,7 @@ bool player::immune_to_hex(const spell_type hex) const
     case SPELL_CAUSE_FEAR:
         return clarity() || !(holiness() & MH_NATURAL) || berserk();
     case SPELL_PETRIFY:
-        return res_petrify();
+        return res_petrify() || have_passive(passive_t::vitalisation);
     case SPELL_PORKALATOR:
         return is_lifeless_undead();
     case SPELL_VIRULENCE:

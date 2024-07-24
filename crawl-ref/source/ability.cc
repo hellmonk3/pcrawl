@@ -400,7 +400,7 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_ZIN_VITALISATION, "Vitalisation",
             2, 0, 1, -1, {fail_basis::invo, 40, 5, 20}, abflag::none },
         { ABIL_ZIN_IMPRISON, "Imprison",
-            5, 0, 4, LOS_MAX_RANGE, {fail_basis::invo, 60, 5, 20},
+            5, 0, 1, LOS_MAX_RANGE, {fail_basis::invo},
             abflag::target | abflag::not_self },
         { ABIL_ZIN_SANCTUARY, "Sanctuary",
             7, 0, 15, -1, {fail_basis::invo, 80, 4, 25}, abflag::none },
@@ -1668,6 +1668,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
     case ABIL_MAKHLEB_HURL_DAMNATION:
     case ABIL_MAKHLEB_GREATER_SERVANT_OF_MAKHLEB:
     case ABIL_CHEIBRIADOS_TIME_BEND:
+    case ABIL_ZIN_IMPRISON:
         if (you.props.exists(GOD_ABIL_USED_KEY))
         {
             if (!quiet)

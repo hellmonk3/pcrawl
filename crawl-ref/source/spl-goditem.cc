@@ -803,7 +803,7 @@ spret cast_tomb(int pow, actor* victim, int source, bool fail)
 
         you.update_beholders();
         you.update_fearmongers();
-        const int tomb_duration = max(300, BASELINE_DELAY * (10 + random2(pow)));
+        const int tomb_duration = max(200, BASELINE_DELAY * (10 + random2(3 * pow)));
         env.markers.add(new map_tomb_marker(where,
                                             tomb_duration,
                                             source,

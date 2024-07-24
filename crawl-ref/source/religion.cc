@@ -98,14 +98,10 @@ const vector<vector<god_power>> & get_all_god_powers()
         { },
 
         // Zin
-        {   { 1, ABIL_ZIN_RECITE, "recite Zin's Axioms of Law" },
-            { 2, ABIL_ZIN_VITALISATION, "call upon Zin for vitalisation" },
+        {   { 0, "vitalisation" },
+            { 0, "mutation immunity" },
+            { 0, "prevent evil" },
             { 3, ABIL_ZIN_IMPRISON, "call upon Zin to imprison the lawless" },
-            { 5, ABIL_ZIN_SANCTUARY, "call upon Zin to create a sanctuary" },
-            { 6, "Zin will now cleanse your potions of mutation.",
-                 "Zin will no longer cleanse your potions of mutation.",
-                 "Zin will cleanse your potions of mutation." },
-            {-1, ABIL_ZIN_DONATE_GOLD, "donate money to Zin" },
         },
 
         // TSO
@@ -211,6 +207,8 @@ const vector<vector<god_power>> & get_all_god_powers()
 
         // Elyvilon
         {
+            { 0, "prevent evil" },
+            { 0, "divine vigour"},
             { 3, ABIL_ELYVILON_HEAL_OTHER, "heal and pacify others" },
         },
 

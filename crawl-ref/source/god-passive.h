@@ -140,7 +140,7 @@ enum class passive_t
     resist_mutation,
 
     /// Polymorph resistance increasing with piety.
-    resist_polymorph,
+    vitalisation,
 
     /// Chance of avoiding hell effects, increasing with piety.
     resist_hell_effects,

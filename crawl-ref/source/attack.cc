@@ -24,6 +24,7 @@
 #include "exercise.h"
 #include "fight.h"
 #include "fineff.h"
+#include "god-abil.h"
 #include "god-conduct.h"
 #include "god-passive.h" // passive_t::no_haste
 #include "item-name.h"
@@ -82,6 +83,9 @@ bool attack::handle_phase_blocked()
 
     if (attacker->is_player())
         behaviour_event(defender->as_monster(), ME_WHACK, attacker);
+
+    if (defender->is_player())
+        tso_expend_divine_shield_charge();
 
     maybe_trigger_jinxbite();
 
@@ -1001,20 +1005,22 @@ bool attack::attack_shield_blocked(bool verbose)
     if (defender == attacker)
         return false; // You can't block your own attacks!
 
-    if (defender->incapacitated())
+    // Divine Shield blocks are guaranteed, no matter what.
+    if (defender->incapacitated()
+        && !(defender->is_player() && you.duration[DUR_DIVINE_SHIELD]))
+    {
         return false;
+    }
 
     int pro_block = defender->shield_bonus();
 
     dprf(DIAG_COMBAT, "Defender: %s, Pro-block: %d",
          def_name(DESC_PLAIN).c_str(), pro_block);
 
-    if (x_chance_in_y(pro_block, 100))
+    if (x_chance_in_y(pro_block, 100) && !defender->shield_exhausted()
+            || defender->is_player() && you.duration[DUR_DIVINE_SHIELD])
     {
         perceived_attack = true;
-
-        if (defender->shield_exhausted())
-            return false;
 
         if (ignores_shield(verbose))
             return false;

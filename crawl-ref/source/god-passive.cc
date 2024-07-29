@@ -152,10 +152,8 @@ static const vector<god_passive> god_passives[] =
 
     // TSO
     {
-        { -1, passive_t::protect_from_harm,
-              "GOD sometimes watches over you",
-              "GOD no longer watches over you"
-        },
+        { -1, passive_t::prevent_evil,
+              "are NOW prevented from doing evil" },
         { -1, passive_t::abjuration_protection_hd,
               "GOD NOW protects your summons from abjuration" },
         { -1, passive_t::bless_followers_vs_evil,
@@ -747,16 +745,6 @@ int qazlal_sh_boost(int piety)
         return 0;
 
     return piety * 2;
-}
-
-// Not actually passive, but placing it here so that it can be easily compared
-// with Qazlal's boost.
-int tso_sh_boost()
-{
-    if (!you.duration[DUR_DIVINE_SHIELD])
-        return 0;
-
-    return you.attribute[ATTR_DIVINE_SHIELD];
 }
 
 void qazlal_storm_clouds()

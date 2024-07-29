@@ -17,6 +17,7 @@
 #include "cloud.h"
 #include "directn.h"
 #include "env.h"
+#include "god-abil.h"
 #include "item-prop.h"
 #include "message.h"
 #include "mgen-data.h"
@@ -236,6 +237,9 @@ static void _iood_stop(monster& mon, bool msg = true)
 // Alas, too much differs to reuse beam shield blocks :(
 static bool _iood_shielded(actor &victim)
 {
+    if (victim.is_player() && you.duration[DUR_DIVINE_SHIELD])
+        return true;
+
     if (!victim.shielded() || victim.incapacitated() || victim.shield_exhausted())
         return false;
 
@@ -542,6 +546,10 @@ move_again:
                 }
             }
             victim->shield_block_succeeded(&mon);
+
+            // Use up a charge of Divine Shield, if active.
+            if (victim->is_player())
+                tso_expend_divine_shield_charge();
 
             // mid_t is unsigned so won't fit in a plain int
             mon.props[IOOD_REFLECTOR] = (int64_t) victim->mid;

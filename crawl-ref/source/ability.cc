@@ -409,7 +409,7 @@ static vector<ability_def> &_get_ability_list()
 
         // The Shining One
         { ABIL_TSO_DIVINE_SHIELD, "Divine Shield",
-            3, 0, 2, -1, {fail_basis::invo, 40, 5, 20}, abflag::none },
+            2, 0, 1, -1, {fail_basis::invo}, abflag::none },
         { ABIL_TSO_CLEANSING_FLAME, "Cleansing Flame",
             5, 0, 2, -1, {fail_basis::invo, 70, 4, 25}, abflag::none },
         { ABIL_TSO_SUMMON_DIVINE_WARRIOR, "Summon Divine Warrior",
@@ -1669,6 +1669,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
     case ABIL_MAKHLEB_GREATER_SERVANT_OF_MAKHLEB:
     case ABIL_CHEIBRIADOS_TIME_BEND:
     case ABIL_ZIN_IMPRISON:
+    case ABIL_TSO_DIVINE_SHIELD:
         if (you.props.exists(GOD_ABIL_USED_KEY))
         {
             if (!quiet)

@@ -32,6 +32,7 @@
 #include "exercise.h"
 #include "fight.h"
 #include "fineff.h"
+#include "god-abil.h"
 #include "god-conduct.h"
 #include "god-item.h"
 #include "god-passive.h" // passive_t::convert_orcs
@@ -3216,7 +3217,7 @@ bool bolt::misses_player()
         && you.shielded()
         && !you.shield_exhausted()
         && !aimed_at_feet
-        && SH > 0)
+        && SH > 0 || you.duration[DUR_DIVINE_SHIELD])
     {
         bool blocked = false;
         if (hit == AUTOMATIC_HIT)
@@ -3233,7 +3234,7 @@ bool bolt::misses_player()
             blocked = x_chance_in_y(SH, 100);
         }
 
-        if (blocked)
+        if (blocked || you.duration[DUR_DIVINE_SHIELD])
         {
             const string refl_name = name.empty() &&
                                      origin_spell != SPELL_NO_SPELL ?
@@ -3262,6 +3263,10 @@ bool bolt::misses_player()
                 finish_beam();
             }
             you.shield_block_succeeded(agent());
+
+            // Use up a charge of Divine Shield, if active.
+            tso_expend_divine_shield_charge();
+
             return true;
         }
 

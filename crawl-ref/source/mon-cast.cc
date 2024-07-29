@@ -4187,11 +4187,10 @@ static int _monster_abjure_target(monster* target, int pow, bool actual)
     bool shielded = false;
     if (have_passive(passive_t::abjuration_protection_hd))
     {
-        pow = pow * (30 - target->get_hit_dice()) / 30;
+        pow = pow / 2;
         if (pow < duration)
         {
-            simple_god_message(" protects your fellow warrior from evil "
-                               "magic!");
+            simple_god_message(" protects your fellow warrior from abjuration!");
             shielded = true;
         }
     }

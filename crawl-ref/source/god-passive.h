@@ -126,8 +126,7 @@ enum class passive_t
     /// Protect allies from abjuration by decreasing the power to half.
     abjuration_protection,
 
-    /// Protect allies from abjuration by decreasing the power. Higher HD means
-    /// better protection.
+    /// Protect allies from abjuration by decreasing the power to half.
     abjuration_protection_hd,
 
     /// Gain HP when killing monsters.
@@ -282,7 +281,6 @@ void gozag_move_level_gold_to_top();
 void gozag_move_gold_to_top(const coord_def p);
 void gozag_count_level_gold();
 int qazlal_sh_boost(int piety = you.piety);
-int tso_sh_boost();
 void qazlal_storm_clouds();
 bool does_ru_wanna_redirect(const monster &mon);
 ru_interference get_ru_attack_interference_level();

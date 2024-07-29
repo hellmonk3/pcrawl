@@ -1315,36 +1315,21 @@ void zin_sanctuary()
 // recasting simply resets those two values (to better values, presumably)
 void tso_divine_shield()
 {
-    if (!you.duration[DUR_DIVINE_SHIELD])
-    {
-        if (you.shield())
-        {
-            mprf("Your shield is strengthened by %s divine power.",
-                 apostrophise(god_name(GOD_SHINING_ONE)).c_str());
-        }
-        else
-            mpr("A divine shield forms around you!");
-    }
-    else
-        mpr("Your divine shield is renewed.");
+    mpr("A divine shield manifests in front of you!");
 
-    // Duration from 35-80 turns.
-    you.set_duration(DUR_DIVINE_SHIELD,
-                     35 + you.skill_rdiv(SK_INVOCATIONS, 5, 3));
+    const int charges = 3 + you.skill_rdiv(SK_INVOCATIONS, 2, 5);
+    you.duration[DUR_DIVINE_SHIELD] = max(you.duration[DUR_DIVINE_SHIELD], charges);
 
-    // Size of SH bonus.
-    you.attribute[ATTR_DIVINE_SHIELD] =
-        12 + you.skill_rdiv(SK_INVOCATIONS, 4, 5);
-
-    you.redraw_armour_class = true;
+    handle_god_ability_used();
 }
 
-void tso_remove_divine_shield()
+void tso_expend_divine_shield_charge()
 {
-    mprf(MSGCH_DURATION, "Your divine shield fades away.");
-    you.duration[DUR_DIVINE_SHIELD] = 0;
-    you.attribute[ATTR_DIVINE_SHIELD] = 0;
-    you.redraw_armour_class = true;
+    if (you.duration[DUR_DIVINE_SHIELD] && --you.duration[DUR_DIVINE_SHIELD] <= 0)
+    {
+        mprf(MSGCH_DURATION, "Your divine shield fades away.");
+        you.duration[DUR_DIVINE_SHIELD] = 0;
+    }
 }
 
 void elyvilon_purification()

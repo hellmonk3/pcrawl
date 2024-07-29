@@ -105,15 +105,11 @@ const vector<vector<god_power>> & get_all_god_powers()
         },
 
         // TSO
-        {   { 1, "You and your allies can now gain power from killing the unholy and evil.",
+        {   { 0, "prevent evil" },
+            { 1, "You and your allies can now gain power from killing the unholy and evil.",
                  "You and your allies can no longer gain power from killing the unholy and evil.",
                  "You and your allies can gain power from killing the unholy and evil." },
-            { 1, ABIL_TSO_DIVINE_SHIELD, "call upon the Shining One for a divine shield" },
-            { 3, ABIL_TSO_CLEANSING_FLAME, "channel blasts of cleansing flame", },
-            { 5, ABIL_TSO_SUMMON_DIVINE_WARRIOR, "summon a divine warrior" },
-            { 7, ABIL_TSO_BLESS_WEAPON,
-                 "The Shining One will bless your weapon with holy wrath... once.",
-                 "The Shining One is no longer ready to bless your weapon." },
+            { 4, ABIL_TSO_DIVINE_SHIELD, "call upon the Shining One for a divine shield" },
         },
 
         // Kikubaaqudgha
@@ -826,7 +822,7 @@ static void _inc_penance(god_type god, int val)
         else if (god == GOD_SHINING_ONE)
         {
             if (you.duration[DUR_DIVINE_SHIELD])
-                tso_remove_divine_shield();
+                you.duration[DUR_DIVINE_SHIELD] = 0;
 
             make_god_gifts_disappear();
         }
@@ -2830,7 +2826,7 @@ void excommunication(bool voluntary, god_type new_god)
 
     case GOD_SHINING_ONE:
         if (you.duration[DUR_DIVINE_SHIELD])
-            tso_remove_divine_shield();
+            you.duration[DUR_DIVINE_SHIELD] = 0;
 
         make_god_gifts_disappear();
         break;

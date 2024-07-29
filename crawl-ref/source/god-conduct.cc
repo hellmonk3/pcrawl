@@ -269,19 +269,7 @@ static peeve_map divine_peeves[] =
     // GOD_ZIN,
     peeve_map(),
     // GOD_SHINING_ONE,
-    {
-        { DID_ATTACK_HOLY, {
-            "you attack non-hostile holy beings", true,
-            1, 2, nullptr, nullptr, _attacking_holy_matters
-        } },
-        { DID_KILL_HOLY, GOOD_KILL_HOLY_RESPONSE },
-        { DID_EVIL, {
-            "you use evil magic or items", true,
-            1, 2, " forgives your inadvertent evil act, just this once."
-        } },
-        { DID_ATTACK_NEUTRAL, GOOD_ATTACK_NEUTRAL_RESPONSE },
-        { DID_ATTACK_FRIEND, _on_attack_friend("you attack allies") },
-    },
+    peeve_map(),
     // GOD_KIKUBAAQUDGHA,
     peeve_map(),
     // GOD_YREDELEMNUL,
@@ -636,22 +624,7 @@ static like_map divine_likes[] =
     },
     // GOD_SHINING_ONE,
     {
-        { DID_KILL_UNDEAD, _on_kill("you kill the undead", MH_UNDEAD, true) },
-        { DID_KILL_DEMON, _on_kill("you kill demons", MH_DEMONIC, true) },
-        { DID_KILL_NATURAL_EVIL, _on_kill("you kill evil beings", MH_DEMONIC, true) },
-        { DID_SEE_MONSTER, {
-            "you encounter other hostile creatures", false,
-            0, 0, 0, nullptr, [] (int &piety, int &denom, const monster* victim)
-            {
-                // don't give piety for seeing things we get piety for killing.
-                if (victim && victim->evil())
-                    return;
-
-                const int level = denom; // also = piety
-                denom = level / 2 + 6 - you.experience_level / 4;
-                piety = denom - 4;
-            }
-        } },
+        { DID_EXPLORATION, EXPLORE_RESPONSE },
     },
     // GOD_KIKUBAAQUDGHA,
     {

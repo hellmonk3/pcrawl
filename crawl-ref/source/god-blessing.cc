@@ -465,25 +465,7 @@ static bool _tso_blessing_extend_stay(monster* mon)
 
     mon_enchant abj = mon->get_ench(ENCH_ABJ);
 
-    // These numbers are tenths of a player turn. Holy monsters get a
-    // much bigger boost than random beasties, which get at most double
-    // their current summon duration.
-    if (mon->is_holy())
-        return _increase_ench_duration(mon, abj, 1100 + random2(1100));
-    else
-        return _increase_ench_duration(mon, abj, min(abj.duration,
-                                                     500 + random2(500)));
-}
-
-static bool _tso_blessing_friendliness(monster* mon)
-{
-    if (!mon->has_ench(ENCH_CHARM))
-        return false;
-
-    // [ds] Just increase charm duration, no permanent friendliness.
-    const int base_increase = 700;
-    return _increase_ench_duration(mon, mon->get_ench(ENCH_CHARM),
-                                   base_increase + random2(base_increase));
+    return _increase_ench_duration(mon, abj, 500 + random2(500));
 }
 
 static void _beogh_reinf_callback(const mgen_data &mg, monster *&mon, int placed)
@@ -696,24 +678,16 @@ static bool _beogh_bless_follower(monster* follower, bool force)
  */
 static string _tso_bless_duration(monster* follower)
 {
-    // Extend a monster's stay if it's abjurable, or extend charm
-    // duration. If neither is possible, deliberately fall through.
+    // Extend a monster's stay if it's abjurable.
     const bool more_time = _tso_blessing_extend_stay(follower);
-    const bool friendliness = _tso_blessing_friendliness(follower);
 
-    if (!more_time && !friendliness)
+    if (!more_time)
     {
         dprf("Couldn't increase monster's friendliness or summon time.");
         return "";
     }
 
     string blessing = "";
-    if (friendliness)
-    {
-        blessing += "friendliness";
-        if (more_time)
-            blessing += " and ";
-    }
 
     if (more_time)
         blessing += "more time in this world";

@@ -159,10 +159,9 @@ the Shining One
 
 Followers of the Shining One are bound to the code of the honourable warrior,
 soldiers in their god's eternal crusade against evil. For forsaking dark magic
-and underhanded tactics, the Shining One rewards them and their allies with the
-power they need to slay demons and the undead. Especially devout warriors can
-even call upon angels in times of need. The Shining One's followers can convert
-to Elyvilon or Zin while keeping some piety.
+and underhanded tactics, the Shining One rewards them and their allies with
+power for slaying demons and the undead. They may also call upon a divine shield
+that is guaranteed to block attacks.
 %%%%
 Trog
 
@@ -398,15 +397,11 @@ skill.
 the Shining One powers
 
 Followers of the Shining One are surrounded by a halo that reveals their
-enemies to them. Followers will gain power by killing evil beings, and with
-growing piety their life force will be protected. The Shining One will keep
-summoned and charmed allies on their side longer, should the allies prove
-worthy of the crusade. Followers will gain use of a divine shield to protect
-them in battle. Later, they can channel blasts of cleansing flame that are
-particularly damaging to unholy beings, and can call upon powerful divine
-beings as temporary allies. Highly pious followers may request the Shining
-One's blessing upon a weapon. The Shining One may occasionally directly
-intervene to save a follower's life.
+enemies to them. Followers will restore health and magic by killing evil beings.
+The Shining One will keep summoned allies on their side longer, should the
+allies prove worthy of the crusade. Followers will gain use of a divine shield
+to protect them in battle, blocking attacks without fail once per floor. The
+number of attacks blocked by this ability scales greatly with invocations skill.
 %%%%
 Trog powers
 

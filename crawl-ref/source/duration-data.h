@@ -519,10 +519,9 @@ static const duration_def duration_data[] =
          you.redraw_armour_class = true;
       }}, { "Your icy shield starts to melt.", 1 }}},
     { DUR_DIVINE_SHIELD,
-      0, "",
+      LIGHTBLUE, "",
       "divinely shielded", "divine shield",
-      "You are shielded by the power of the Shining One.", D_NO_FLAGS,
-      {{ "", tso_remove_divine_shield }}},
+      "You are shielded by the power of the Shining One.", D_NO_FLAGS},
     { DUR_CLEAVE,
       LIGHTBLUE, "Cleave",
       "cleaving", "cleave",

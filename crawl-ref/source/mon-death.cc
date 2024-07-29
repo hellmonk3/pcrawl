@@ -2007,8 +2007,8 @@ item_def* monster_die(monster& mons, killer_type killer,
                 && have_passive(passive_t::restore_hp_mp_vs_evil)
                 && mons.evil())
             {
-                hp_heal += random2(1 + 2 * mons.get_experience_level());
-                mp_heal += random2(2 + mons.get_experience_level() / 3);
+                hp_heal += 1 + random2(2 * mons.get_experience_level());
+                mp_heal += random2(1 + mons.get_experience_level() / 3);
             }
             if (can_divine_heal && have_passive(passive_t::mp_on_kill))
                 mp_heal += x_chance_in_y(5 + you.piety, 10);

@@ -653,7 +653,7 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_HEPLIAKLQANA_RECALL, "Recall Ancestor",
             2, 0, 0, -1, {fail_basis::invo}, abflag::none },
         { ABIL_HEPLIAKLQANA_TRANSFERENCE, "Transference",
-            2, 0, 3, LOS_MAX_RANGE, {fail_basis::invo, 40, 5, 20},
+            2, 0, 0, LOS_MAX_RANGE, {fail_basis::invo},
             abflag::none },
         { ABIL_HEPLIAKLQANA_IDEALISE, "Idealise",
             4, 0, 4, -1, {fail_basis::invo, 60, 4, 25}, abflag::none },
@@ -1963,10 +1963,16 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         }
         return true;
 
-        // only available while your ancestor is alive.
+    case ABIL_HEPLIAKLQANA_TRANSFERENCE:
+        if (you.props.exists(GOD_ABIL_USED_KEY))
+        {
+            if (!quiet)
+                mpr("You can't use that again on this floor!");
+            return false;
+        }
+    // only available while your ancestor is alive.
     case ABIL_HEPLIAKLQANA_IDEALISE:
     case ABIL_HEPLIAKLQANA_RECALL:
-    case ABIL_HEPLIAKLQANA_TRANSFERENCE:
         if (hepliaklqana_ancestor() == MID_NOBODY)
         {
             if (!quiet)

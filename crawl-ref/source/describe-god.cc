@@ -268,74 +268,6 @@ string god_title(god_type which_god, species_type which_species, int piety)
     return replace_keys(title, replacements);
 }
 
-typedef pair<int, string> ancestor_upgrade;
-
-static const map<monster_type, vector<ancestor_upgrade> > ancestor_data =
-{
-    { MONS_ANCESTOR_KNIGHT,
-      { { 1,  "Flail" },
-        { 1,  "Shield" },
-        { 1,  "Chain mail (+AC)" },
-        { 15, "Broad axe (flame)" },
-        { 19, "Tower shield (reflect)" },
-        { 19, "Haste" },
-        { 24, "Broad axe (speed)" },
-      }
-    },
-    { MONS_ANCESTOR_BATTLEMAGE,
-      { { 1,  "Quarterstaff" },
-        { 1,  "Throw Frost" },
-        { 1,  "Stone Arrow" },
-        { 1,  "Increased melee damage" },
-        { 15, "Bolt of Magma" },
-        { 19, "Lajatang (freeze)" },
-        { 19, "Haste" },
-        { 24, "Lehudib's Crystal Spear" },
-      }
-    },
-    { MONS_ANCESTOR_HEXER,
-      { { 1,  "Dagger (drain)" },
-        { 1,  "Slow" },
-        { 1,  "Confuse" },
-        { 15, "Paralyse" },
-        { 19, "Mass Confusion" },
-        { 19, "Haste" },
-        { 24, "Quick blade (antimagic)" },
-      }
-    },
-};
-
-/// Build & return a table of Hep's upgrades for your chosen ancestor type.
-static string _describe_ancestor_upgrades()
-{
-    if (!you.props.exists(HEPLIAKLQANA_ALLY_TYPE_KEY))
-        return "";
-
-    string desc;
-    const monster_type ancestor =
-        static_cast<monster_type>(you.props[HEPLIAKLQANA_ALLY_TYPE_KEY].get_int());
-    const vector<ancestor_upgrade> *upgrades = map_find(ancestor_data,
-                                                        ancestor);
-
-    if (upgrades)
-    {
-        desc = "Ancestor Upgrades:\n\n<white>XL              Upgrade\n</white>";
-        for (auto &entry : *upgrades)
-        {
-            desc += make_stringf("%s%2d              %s%s\n",
-                                 you.experience_level < entry.first
-                                     ? "<darkgrey>" : "",
-                                 entry.first,
-                                 entry.second.c_str(),
-                                 you.experience_level < entry.first
-                                     ? "</darkgrey>" : "");
-        }
-    }
-
-    // XXX: maybe it'd be nice to let you see other ancestor types'...?
-    return desc;
-}
-
 // from dgn-overview.cc
 extern map<branch_type, set<level_id> > stair_level;
 
@@ -579,10 +511,6 @@ static formatted_string _god_extra_description(god_type which_god)
         case GOD_GOZAG:
             if (you_worship(GOD_GOZAG))
                 _add_par(desc, _describe_branch_bribability());
-            break;
-        case GOD_HEPLIAKLQANA:
-            if (you_worship(GOD_HEPLIAKLQANA))
-                desc = formatted_string::parse_string(_describe_ancestor_upgrades());
             break;
         case GOD_NEMELEX_XOBEH:
             if (you_worship(GOD_NEMELEX_XOBEH))

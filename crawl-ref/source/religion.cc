@@ -85,11 +85,6 @@
 #define MIN_IGNIS_PIETY_KEY "min_ignis_piety"
 #define YRED_SEEN_ZOMBIE_KEY "yred_seen_zombie"
 
-static weapon_type _hepliaklqana_weapon_type(monster_type mc, int HD);
-static brand_type _hepliaklqana_weapon_brand(monster_type mc, int HD);
-static armour_type _hepliaklqana_shield_type(monster_type mc, int HD);
-static special_armour_type _hepliaklqana_shield_ego(int HD);
-
 const vector<vector<god_power>> & get_all_god_powers()
 {
     static vector<vector<god_power>> god_powers =
@@ -342,11 +337,7 @@ const vector<vector<god_power>> & get_all_god_powers()
         // Hepliaklqana
         {   { 1, ABIL_HEPLIAKLQANA_RECALL, "recall your ancestor" },
             { 1, ABIL_HEPLIAKLQANA_IDENTITY, "remember your ancestor's identity" },
-            { 3, ABIL_HEPLIAKLQANA_TRANSFERENCE, "swap creatures with your ancestor" },
-            { 4, ABIL_HEPLIAKLQANA_IDEALISE, "heal and protect your ancestor" },
-            { 5, "You now drain nearby creatures when transferring your ancestor.",
-                 "You no longer drain nearby creatures when transferring your ancestor.",
-                 "You drain nearby creatures when transferring your ancestor." },
+            { 4, ABIL_HEPLIAKLQANA_TRANSFERENCE, "swap creatures with your ancestor" },
         },
 
         // Wu Jian
@@ -1565,26 +1556,25 @@ string hepliaklqana_ally_name()
 /**
  * How much HD should the ally granted by Hepliaklqana have?
  *
- * @return      The player's xl * 2/3.
+ * @return  The player's piety plus half their invocations skill.
  */
 static int _hepliaklqana_ally_hd()
 {
     if (!crawl_state.need_save) // on main menu or otherwise don't have 'you'
         return 27; // v0v
     // round up
-    return (you.experience_level - 1) * 2 / 3 + 1;
+    return you.piety + you.skill(SK_INVOCATIONS) / 2;
 }
 
 /**
  * How much max HP should the ally granted by Hepliaklqana have?
  *
- * @return      5/hd from 1-11 HD, 10/hd from 12-18.
- *              (That is, 5 HP at 1 HD, 120 at 18.)
+ * @return      7 per HD, plus 15
  */
 int hepliaklqana_ally_hp()
 {
     const int HD = _hepliaklqana_ally_hd();
-    return HD * 5 + max(0, (HD - 12) * 5);
+    return HD * 7 + 15;
 }
 
 /**
@@ -1643,55 +1633,6 @@ mgen_data hepliaklqana_ancestor_gen_data()
     return mg;
 }
 
-/// Print a message for an ancestor's *something* being gained.
-static void _regain_memory(const monster &ancestor, string memory)
-{
-    mprf("%s regains the memory of %s %s.",
-         ancestor.name(DESC_YOUR, true).c_str(),
-         ancestor.pronoun(PRONOUN_POSSESSIVE, true).c_str(),
-         memory.c_str());
-}
-
-static string _item_ego_name(object_class_type base_type, int brand)
-{
-    switch (base_type)
-    {
-    case OBJ_WEAPONS:
-    {
-        // 'remembers... draining' reads better than 'drain', but 'flame'
-        // reads better than 'flaming'
-        const bool terse = brand == SPWPN_ANTIMAGIC;
-        return brand_type_name((brand_type) brand, terse);
-    }
-    case OBJ_ARMOUR:
-        // XXX: hack
-        return "reflection";
-    default:
-        die("unsupported object type");
-    }
-}
-
-/// Print a message for an ancestor's item being gained/type upgraded.
-static void _regain_item_memory(const monster &ancestor,
-                                object_class_type base_type,
-                                int sub_type,
-                                int brand)
-{
-    const string base_name = item_base_name(base_type, sub_type);
-    if (!brand)
-    {
-        _regain_memory(ancestor, base_name);
-        return;
-    }
-
-    const string ego_name = _item_ego_name(base_type, brand);
-    const string item_name
-        = make_stringf("%s of %s",
-                       item_base_name(base_type, sub_type).c_str(),
-                       ego_name.c_str());
-    _regain_memory(ancestor, item_name);
-}
-
 /**
  * Update the ancestor's stats after the player levels up. Upgrade HD and HP,
  * and give appropriate messaging for that and any other notable upgrades
@@ -1736,169 +1677,8 @@ void upgrade_hepliaklqana_ancestor(bool quiet_force)
     if (ancestor_offlevel)
         add_daction(DACT_UPGRADE_ANCESTOR);
 
-    // assumption: ancestors can lose weapons (very rarely - tukima's),
-    // and it's weird for them to just reappear, so only upgrade existing ones
-    if (ancestor->weapon())
-    {
-        if (!ancestor_offlevel)
-            upgrade_hepliaklqana_weapon(ancestor->type, *ancestor->weapon());
-
-        const weapon_type wpn = _hepliaklqana_weapon_type(ancestor->type, hd);
-        const brand_type brand = _hepliaklqana_weapon_brand(ancestor->type, hd);
-        if (wpn != _hepliaklqana_weapon_type(ancestor->type, old_hd)
-            && !quiet_force)
-        {
-            _regain_item_memory(*ancestor, OBJ_WEAPONS, wpn, brand);
-        }
-        else if (brand != _hepliaklqana_weapon_brand(ancestor->type, old_hd)
-                 && !quiet_force)
-        {
-            mprf("%s remembers %s %s %s.",
-                 ancestor->name(DESC_YOUR, true).c_str(),
-                 ancestor->pronoun(PRONOUN_POSSESSIVE, true).c_str(),
-                 apostrophise(item_base_name(OBJ_WEAPONS, wpn)).c_str(),
-                 brand_type_name(brand, brand != SPWPN_VAMPIRISM));
-        }
-    }
-    // but shields can't be lost, and *can* be gained (knight at hd 5)
-    // so give them out as appropriate
-    if (!ancestor_offlevel)
-    {
-        if (ancestor->shield())
-            upgrade_hepliaklqana_shield(*ancestor, *ancestor->shield());
-        else
-            give_shield(ancestor);
-    }
-
-    const armour_type shld = _hepliaklqana_shield_type(ancestor->type, hd);
-    if (shld != _hepliaklqana_shield_type(ancestor->type, old_hd)
-        && !quiet_force)
-    {
-        // doesn't currently support egos varying separately from shield types
-        _regain_item_memory(*ancestor, OBJ_ARMOUR, shld,
-                            _hepliaklqana_shield_ego(hd));
-    }
-
     if (quiet_force)
         return;
-}
-
-/**
- * What type of weapon should an ancestor of the given HD have?
- *
- * @param mc   The type of ancestor in question.
- * @param HD   The HD of the ancestor in question.
- * @return     An appropriate weapon_type.
- */
-static weapon_type _hepliaklqana_weapon_type(monster_type mc, int HD)
-{
-    switch (mc)
-    {
-    case MONS_ANCESTOR_HEXER:
-        return HD < 16 ? WPN_DAGGER : WPN_QUICK_BLADE;
-    case MONS_ANCESTOR_KNIGHT:
-        return HD < 10 ? WPN_FLAIL : WPN_BROAD_AXE;
-    case MONS_ANCESTOR_BATTLEMAGE:
-        return HD < 13 ? WPN_QUARTERSTAFF : WPN_LAJATANG;
-    default:
-        return NUM_WEAPONS; // should never happen
-    }
-}
-
-/**
- * What brand should an ancestor of the given HD's weapon have, if any?
- *
- * @param mc   The type of ancestor in question.
- * @param HD   The HD of the ancestor in question.
- * @return     An appropriate weapon_type.
- */
-static brand_type _hepliaklqana_weapon_brand(monster_type mc, int HD)
-{
-    switch (mc)
-    {
-        case MONS_ANCESTOR_HEXER:
-            return HD < 16 ?   SPWPN_VAMPIRISM :
-                               SPWPN_ANTIMAGIC;
-        case MONS_ANCESTOR_KNIGHT:
-            return HD < 10 ?   SPWPN_NORMAL :
-                   HD < 16 ?   SPWPN_EXPLOSIVE :
-                               SPWPN_SPEED;
-        case MONS_ANCESTOR_BATTLEMAGE:
-            return HD < 13 ?   SPWPN_NORMAL :
-                               SPWPN_FREEZING;
-        default:
-            return SPWPN_NORMAL;
-    }
-}
-
-/**
- * Setup an ancestor's weapon after their class is chosen, when the player
- * levels up, or after they're resummoned (or initially created for wrath).
- *
- * @param[in]   mtyp          The ancestor for whom the weapon is intended.
- * @param[out]  item          The item to be configured.
- * @param       notify        Whether messages should be printed when something
- *                            changes. (Weapon type or brand.)
- */
-void upgrade_hepliaklqana_weapon(monster_type mtyp, item_def &item)
-{
-    ASSERT(mons_is_hepliaklqana_ancestor(mtyp));
-    if (mtyp == MONS_ANCESTOR)
-        return; // bare-handed!
-
-    item.base_type = OBJ_WEAPONS;
-    item.sub_type = _hepliaklqana_weapon_type(mtyp,
-                                              _hepliaklqana_ally_hd());
-    item.brand = _hepliaklqana_weapon_brand(mtyp,
-                                            _hepliaklqana_ally_hd());
-    item.plus = 0;
-    item.flags |= ISFLAG_KNOW_TYPE | ISFLAG_SUMMONED;
-}
-
-/**
- * What kind of shield should an ancestor of the given HD be given?
- *
- * @param mc        The type of ancestor in question.
- * @param HD        The HD (XL) of the ancestor in question.
- * @return          An appropriate type of shield, or NUM_ARMOURS.
- */
-static armour_type _hepliaklqana_shield_type(monster_type mc, int HD)
-{
-    if (mc != MONS_ANCESTOR_KNIGHT)
-        return NUM_ARMOURS;
-    if (HD < 13)
-        return ARM_KITE_SHIELD;
-    return ARM_TOWER_SHIELD;
-}
-
-static special_armour_type _hepliaklqana_shield_ego(int HD)
-{
-    return HD < 13 ? SPARM_NORMAL : SPARM_REFLECTION;
-}
-
-/**
- * Setup an ancestor's weapon after their class is chosen, when the player
- * levels up, or after they're resummoned (or initially created for wrath).
- *
- * @param[in]   ancestor      The ancestor for whom the weapon is intended.
- * @param[out]  item          The item to be configured.
- * @return                    True iff the ancestor should have a weapon.
- */
-void upgrade_hepliaklqana_shield(const monster &ancestor, item_def &item)
-{
-    ASSERT(mons_is_hepliaklqana_ancestor(ancestor.type));
-    const int HD = ancestor.get_experience_level();
-    const armour_type shield_type = _hepliaklqana_shield_type(ancestor.type,
-                                                              HD);
-    if (shield_type == NUM_ARMOURS)
-        return; // no shield yet!
-
-    item.base_type = OBJ_ARMOUR;
-    item.sub_type = shield_type;
-    item.brand = _hepliaklqana_shield_ego(HD);
-    item.plus = 0;
-    item.flags |= ISFLAG_KNOW_TYPE | ISFLAG_SUMMONED;
-    item.quantity = 1;
 }
 
 ///////////////////////////////

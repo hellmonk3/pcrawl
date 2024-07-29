@@ -2167,8 +2167,8 @@ int monster::base_armour_class() const
     if (mons_is_hepliaklqana_ancestor(type))
     {
         if (type == MONS_ANCESTOR_KNIGHT)
-            return get_experience_level() + 7;
-        return get_experience_level() / 2;
+            return you.piety + 7;
+        return you.piety + 1;
     }
 
     if (type == MONS_ANIMATED_ARMOUR)

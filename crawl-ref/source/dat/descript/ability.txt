@@ -740,10 +740,8 @@ Invocations skill.
 Transference ability
 
 Forces a targeted creature to pass through the realms of memory and exchange
-places with your ancestor.
-
-With great piety, those near the target will be drained to a degree depending
-on Invocations skill.
+places with your ancestor. This ability may be used once each floor and may
+target friendly creatures (including you).
 %%%%
 Ancestor Life: Knight ability
 

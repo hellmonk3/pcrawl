@@ -1177,8 +1177,6 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
     case MONS_ANCESTOR_HEXER:
     case MONS_ANCESTOR_BATTLEMAGE:
     case MONS_ANCESTOR_KNIGHT:
-        force_item = true;
-        upgrade_hepliaklqana_weapon(type, item);
         break;
 
     default:
@@ -1648,24 +1646,6 @@ static void _give_shield(monster* mon, int level)
         make_item_for_monster(mon, OBJ_ARMOUR,
                               random_choose(ARM_TOWER_SHIELD, ARM_KITE_SHIELD),
                               ISPEC_GOOD_ITEM);
-        break;
-
-    case MONS_ANCESTOR_KNIGHT:
-    {
-        item_def shld;
-        upgrade_hepliaklqana_shield(*mon, shld);
-        if (!shld.defined())
-            break;
-
-        item_set_appearance(shld);
-
-        const int thing_created = get_mitm_slot();
-        if (thing_created == NON_ITEM)
-            break;
-
-        env.item[thing_created] = shld;
-        give_specific_item(mon, thing_created);
-    }
         break;
 
     default:

@@ -5216,9 +5216,6 @@ bool hepliaklqana_choose_ancestor_type(int ancestor_choice)
     if (monster* ancestor = hepliaklqana_ancestor_mon())
     {
         ancestor->type = ancestor_type;
-        give_weapon(ancestor, -1);
-        ASSERT(ancestor->weapon());
-        give_shield(ancestor);
         set_ancestor_spells(*ancestor);
     }
 
@@ -5421,11 +5418,11 @@ spret hepliaklqana_transference(bool fail)
 
     ancestor->apply_location_effects(destination);
     victim->apply_location_effects(target);
-    if (victim->is_monster())
-        behaviour_event(victim->as_monster(), ME_DISTURB, &you, target);
 
     if (have_passive(passive_t::transfer_drain))
         _transfer_drain_nearby(target);
+
+    handle_god_ability_used();
 
     return spret::success;
 }

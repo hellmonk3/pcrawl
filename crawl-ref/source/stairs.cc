@@ -23,6 +23,7 @@
 #include "env.h"
 #include "files.h"
 #include "god-abil.h"
+#include "god-companions.h"
 #include "god-conduct.h"
 #include "god-passive.h"
 #include "hints.h"
@@ -1272,6 +1273,9 @@ void new_level(bool restore)
     recharge_xp_evokers();
 
     vehumet_gift();
+
+    if (you_worship(GOD_HEPLIAKLQANA) && hepliaklqana_ancestor() == MID_NOBODY)
+        you.duration[DUR_ANCESTOR_DELAY] = 1;
 
     did_god_conduct(DID_EXPLORATION, 1);
 }

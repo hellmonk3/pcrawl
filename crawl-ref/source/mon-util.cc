@@ -1871,7 +1871,7 @@ static mon_attack_def _hepliaklqana_ancestor_attack(const monster &mon,
 
     const int HD = mon.get_experience_level();
     const int dam = HD + 3; // 4 at 1 HD, 21 at 18 HD (max)
-    // battlemages do double base melee damage (+25-50% including their weapon)
+    // battlemages do double base melee damage
     const int dam_mult = mon.type == MONS_ANCESTOR_BATTLEMAGE ? 2 : 1;
 
     return { AT_HIT, AF_PLAIN, dam * dam_mult };
@@ -5391,24 +5391,18 @@ void set_ancestor_spells(monster &ancestor, bool notify)
     switch (ancestor.type)
     {
     case MONS_ANCESTOR_BATTLEMAGE:
-        _add_ancestor_spell(ancestor.spells, HD >= 10 ?
-                                             SPELL_BOLT_OF_MAGMA :
-                                             SPELL_THROW_FROST);
-        _add_ancestor_spell(ancestor.spells, HD >= 16 ?
-                                             SPELL_LEHUDIBS_CRYSTAL_SPEAR :
-                                             SPELL_STONE_ARROW);
+        _add_ancestor_spell(ancestor.spells, SPELL_BOLT_OF_MAGMA);
+        _add_ancestor_spell(ancestor.spells, SPELL_STONE_ARROW);
         break;
     case MONS_ANCESTOR_HEXER:
-        _add_ancestor_spell(ancestor.spells, HD >= 10 ? SPELL_PARALYSE
-                                                      : SPELL_SLOW);
-        _add_ancestor_spell(ancestor.spells, HD >= 13 ? SPELL_MASS_CONFUSION
-                                                      : SPELL_CONFUSE);
+        _add_ancestor_spell(ancestor.spells, SPELL_PARALYSE);
+        _add_ancestor_spell(ancestor.spells, SPELL_MASS_CONFUSION);
         break;
     default:
         break;
     }
 
-    if (HD >= 13)
+    if (HD >= 5)
         ancestor.spells.emplace_back(SPELL_HASTE, 25, MON_SPELL_WIZARD);
 
     if (ancestor.spells.size())

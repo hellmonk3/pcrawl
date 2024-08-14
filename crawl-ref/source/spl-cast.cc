@@ -809,7 +809,6 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
     {
         if (player_equip_unrand(UNRAND_MAJIN) && one_chance_in(500))
             _majin_speak(spell);
-        did_god_conduct(DID_SPELL_CASTING, 1 + random2(5));
         count_action(CACT_CAST, spell);
     }
 

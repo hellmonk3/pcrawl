@@ -176,12 +176,6 @@ const vector<vector<god_power>> & get_all_god_powers()
         // Trog
         {
             { 1, ABIL_TROG_BERSERK, "go berserk at will" },
-            { 2, ABIL_TROG_HAND,
-                 "call upon Trog for regeneration and willpower" },
-            { 4, ABIL_TROG_BROTHERS_IN_ARMS, "call in reinforcements" },
-            { 5, "Trog will now gift you melee weapons as you gain piety.",
-                 "Trog will no longer gift you weapons.",
-                 "Trog will gift you melee weapons as you gain piety." },
         },
 
         // Nemelex

@@ -166,10 +166,12 @@ that is guaranteed to block attacks.
 Trog
 
 Trog is an ancient god of anger and violence. Followers are expected to kill in
-Trog's name, and especially to slay wizards. In return, worshippers of Trog
-gain the ability to go berserk at will in combat, and will be granted
-assistance in the form of powerful weapons and mighty allies. Followers are
-absolutely forbidden the use of spell magic.
+Trog's name, and will not gain piety unless they slay all their foes. In return,
+worshippers of Trog gain the ability to go berserk at will once per floor, and
+may go berserk even if they are undead or affected by stasis. They will also be
+granted assistance in the form of powerful weapons, often blessed with Trog's
+favoured antimagic brand. Followers are absolutely forbidden the use of spell
+magic.
 %%%%
 Uskayaw
 
@@ -404,12 +406,10 @@ number of attacks blocked by this ability scales greatly with invocations skill.
 %%%%
 Trog powers
 
-Trog offers various powers to help followers in battle. Followers will gain the
-ability to go berserk at will, and Trog will extend the duration of their
-berserk rage on killing foes. Trog will grant followers the ability to rapidly
-heal their wounds while fortifying their willpower, and later the ability to
-call in powerful raging allies. Eventually, Trog will gift followers with
-weapons, often with antimagic effects.
+Trog's followers will gain the ability to go berserk at will, and Trog will
+extend the duration of their berserk rage on killing foes. Trog will grant
+followers additional willpower, and will gift followers with extra weapon
+choices, often with antimagic effects.
 %%%%
 Uskayaw powers
 

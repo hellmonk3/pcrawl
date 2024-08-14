@@ -1279,6 +1279,39 @@ static item_def _okawaru_acquirement()
     return item;
 }
 
+static bool _trog_brand_forbidden(item_def item)
+{
+    return item.brand == SPWPN_PAIN || item.brand == SPWPN_SPELLVAMP
+            || item.brand == SPWPN_BLINKING;
+}
+
+static item_def _trog_acquirement()
+{
+    item_def item;
+
+    if (you.has_mutation(MUT_NO_GRASPING))
+        return item;
+
+    do
+    {
+        item = _acquirement_item_def(OBJ_WEAPONS);
+    }
+    while (is_unrandom_artefact(item) && _trog_brand_forbidden(item));
+
+    if (is_unrandom_artefact(item))
+        return item;
+
+    item.plus += random2(you.piety);
+
+    if (_trog_brand_forbidden(item))
+        item.brand = SPWPN_NORMAL;
+
+    if (coinflip())
+        item.brand = random_choose(SPWPN_ANTIMAGIC, SPWPN_EXPLOSIVE);
+
+    return item;
+}
+
 static item_def _sif_acquirement()
 {
     item_def item;
@@ -1298,10 +1331,10 @@ item_def god_specific_item()
         if (have_passive(passive_t::oka_equipment))
             item = _okawaru_acquirement();
     }
+    case GOD_TROG:
+        item = _trog_acquirement();
     case GOD_SIF_MUNA:
-    {
         item = _sif_acquirement();
-    }
     case GOD_ASHENZARI:
         item = item_based_on_equip();
     default:

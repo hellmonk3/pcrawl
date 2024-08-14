@@ -471,7 +471,7 @@ static vector<ability_def> &_get_ability_list()
 
         // Trog
         { ABIL_TROG_BERSERK, "Berserk",
-            0, 0, 1, -1, {fail_basis::invo, 45, 0, 2}, abflag::none },
+            0, 0, 0, -1, {fail_basis::invo}, abflag::none },
         { ABIL_TROG_HAND, "Trog's Hand",
             0, 0, 2, -1, {fail_basis::invo, piety_breakpoint(2), 0, 1},
             abflag::none },
@@ -1932,6 +1932,12 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
     }
 
     case ABIL_TROG_BERSERK:
+        if (you.props.exists(GOD_ABIL_USED_KEY))
+        {
+            if (!quiet)
+                mpr("You can't use that again on this floor!");
+            return false;
+        }
     case ABIL_BERSERK:
         return you.can_go_berserk(true, false, true)
                && (quiet || berserk_check_wielded_weapon());
@@ -3004,6 +3010,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     case ABIL_TROG_BERSERK:
         fail_check();
         // Trog abilities don't use or train invocations.
+        handle_god_ability_used();
         you.go_berserk(true);
         break;
 

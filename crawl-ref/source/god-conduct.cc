@@ -290,24 +290,7 @@ static peeve_map divine_peeves[] =
     // GOD_SIF_MUNA,
     peeve_map(),
     // GOD_TROG,
-    {
-        { DID_SPELL_MEMORISE, {
-            "you memorise spells", true,
-            10, 10
-        } },
-        { DID_SPELL_CASTING, {
-            "you attempt to cast spells", true,
-            1, 5,
-        } },
-        { DID_SPELL_PRACTISE, {
-            "you train magic skills", true,
-            1, 0, nullptr, " does not appreciate your training of magic skills!"
-        } },
-        { DID_WIZARDLY_ITEM, {
-            "you use magical staves or pain-branded weapons", true,
-            1, 0, nullptr, " does not appreciate your use of wizardly items!"
-        } },
-    },
+    peeve_map(),
     // GOD_NEMELEX_XOBEH,
     peeve_map(),
     // GOD_ELYVILON,
@@ -657,14 +640,6 @@ static like_map divine_likes[] =
     // GOD_TROG,
     {
         { DID_KILL_LIVING, KILL_LIVING_RESPONSE },
-        { DID_KILL_UNDEAD, KILL_UNDEAD_RESPONSE },
-        { DID_KILL_DEMON, KILL_DEMON_RESPONSE },
-        { DID_KILL_HOLY, KILL_HOLY_RESPONSE },
-        { DID_KILL_NONLIVING, KILL_NONLIVING_RESPONSE },
-        { DID_KILL_WIZARD, {
-            "you kill wizards and other users of magic", true,
-            -6, 10, 0, " appreciates your killing of a magic user."
-        } },
     },
     // GOD_NEMELEX_XOBEH,
     {
@@ -919,9 +894,6 @@ string get_god_likes(god_type which_god)
     // Unique/unusual piety gain methods first.
     switch (which_god)
     {
-    case GOD_ASHENZARI:
-        likes.emplace_back("you bind yourself with curses");
-        break;
     case GOD_GOZAG:
         likes.emplace_back("you collect gold");
         break;
@@ -930,9 +902,6 @@ string get_god_likes(god_type which_god)
         break;
     case GOD_YREDELEMNUL:
         likes.emplace_back("you surround yourself with harvested souls");
-        break;
-    case GOD_ZIN:
-        likes.emplace_back("you donate money");
         break;
     default:
         break;

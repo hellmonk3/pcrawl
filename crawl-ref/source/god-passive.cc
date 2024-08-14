@@ -202,7 +202,7 @@ static const vector<god_passive> god_passives[] =
         {  1, passive_t::heroism,
               "have heroic combat skills"},
         {  3, passive_t::oka_equipment,
-              "GOD NOW provides extra equipment gifts"},
+              "GOD NOW provides extra equipment rewards"},
     },
 
     // Makhleb
@@ -213,16 +213,19 @@ static const vector<god_passive> god_passives[] =
     // Sif Muna
     {
         { -1, passive_t::sif_books,
-              "GOD NOW provides extra book gifts" },
+              "GOD NOW provides extra book rewards" },
     },
 
     // Trog
     {
-        { -1, passive_t::abjuration_protection,
-              "GOD NOW protects your allies from abjuration"
+        { -1, passive_t::trog_equipment,
+              "GOD NOW provides extra weapon rewards"
         },
-        {  0, passive_t::extend_berserk,
-              "GOD NOW extends your berserk rage on killing"
+        { -1, passive_t::casting_forbidden,
+              "GOD forbids you from using magic"
+        },
+        {  0, passive_t::bonus_willpower,
+              "GOD NOW grants you extra willpower"
         },
     },
 

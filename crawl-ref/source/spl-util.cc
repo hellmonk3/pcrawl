@@ -1263,6 +1263,9 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
     if (temp && (!in_bounds(you.pos()) || !you.on_current_level))
         return "you can't cast spells right now.";
 
+    if (have_passive(passive_t::casting_forbidden))
+        return "Trog forbids the use of magic!";
+
     if (have_passive(passive_t::prevent_evil) && is_evil_spell(spell))
         return "your god prohibits such evil magic!";
 

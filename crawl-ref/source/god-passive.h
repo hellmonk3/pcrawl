@@ -81,8 +81,8 @@ enum class passive_t
     /// Your melee and ranged damage are boosted by Chei.
     stat_boost,
 
-    /// Poison affects you more slowly.
-    slow_poison,
+    /// Casting is forbidden by Trog.
+    casting_forbidden,
 
     /// You have an umbra.
     umbra,
@@ -123,8 +123,8 @@ enum class passive_t
     /// Divine halo around the player, size increases with piety.
     halo,
 
-    /// Protect allies from abjuration by decreasing the power to half.
-    abjuration_protection,
+    /// Trog weapon gifts.
+    trog_equipment,
 
     /// Protect allies from abjuration by decreasing the power to half.
     abjuration_protection_hd,
@@ -156,8 +156,8 @@ enum class passive_t
     /// Protection against necromancy miscasts and mummy death curses.
     miscast_protection_necromancy,
 
-    /// Chance to extend berserk duration and avoid paralysis, piety dependent.
-    extend_berserk,
+    /// bonus Trog willpower.
+    bonus_willpower,
 
     /// Gold aura that distracts enemies.
     gold_aura,

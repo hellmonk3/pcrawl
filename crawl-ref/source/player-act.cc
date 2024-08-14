@@ -730,6 +730,8 @@ bool player::go_berserk(bool intentional, bool potion)
     int dur = 20 + random2avg(19,2);
     if (!you.has_mutation(MUT_LONG_TONGUE))
         dur /= 2;
+    if (you_worship(GOD_TROG))
+        dur += you.piety;
     you.increase_duration(DUR_BERSERK, dur);
 
     // Apply Berserk's +50% Current/Max HP.
@@ -771,9 +773,9 @@ bool player::can_go_berserk(bool intentional, bool potion, bool quiet,
         msg = "You are too terrified to rage.";
     else if (!intentional && !potion && clarity() && temp)
         msg = "You're too calm and focused to rage.";
-    else if (is_lifeless_undead(temp))
+    else if (is_lifeless_undead(temp) && !you_worship(GOD_TROG))
         msg = "You cannot raise a blood rage in your lifeless body.";
-    else if (stasis())
+    else if (stasis() && !you_worship(GOD_TROG))
         msg = "Your stasis prevents you from going berserk.";
     else
         success = true;

@@ -4136,8 +4136,7 @@ void handle_player_poison(int delay)
     // If Cheibriados has slowed your life processes, poison affects you less
     // quickly (you take the same total damage, but spread out over a longer
     // period of time).
-    const double delay_scaling = have_passive(passive_t::slow_poison)
-                               ? 2.0 / 3.0 : 1.0;
+    const double delay_scaling = 1.0;
 
     const double new_aut = cur_aut - ((double) delay) * delay_scaling;
     const double new_dur = _poison_aut_to_dur(new_aut);
@@ -4235,7 +4234,7 @@ int poison_survival()
     if (!get_player_poisoning())
         return you.hp;
     const int rr = 0;
-    const bool chei = have_passive(passive_t::slow_poison);
+    const bool chei = false;
 #if TAG_MAJOR_VERSION == 34
     const bool dd = can_shave_damage();
 #endif
@@ -6277,13 +6276,17 @@ int player_willpower(bool temp)
 
     rm -= 2 * WL_PIP * you.wearing_ego(EQ_ALL_ARMOUR, SPARM_GUILE);
 
-    // rings of willpower
+    // amulets of willpower
     rm += WL_PIP * you.wearing(EQ_AMULET, AMU_WILLPOWER);
 
     // Mutations
     rm += WL_PIP * you.get_mutation_level(MUT_STRONG_WILLED);
     rm += WL_PIP * you.get_mutation_level(MUT_DEMONIC_WILL);
     rm -= WL_PIP * you.get_mutation_level(MUT_WEAK_WILLED);
+
+    // Trog
+    if (have_passive(passive_t::bonus_willpower))
+        rm += WL_PIP + (you.piety * WL_PIP) / 2;
 
     if (you.form == transformation::death &&
         (temp || you.default_form == transformation::death))

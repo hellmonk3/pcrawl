@@ -2058,7 +2058,8 @@ bool is_useless_skill(skill_type skill)
 {
     return is_removed_skill(skill)
        || _is_sacrificed_skill(skill)
-       || species_apt(skill) == UNUSABLE_SKILL;
+       || species_apt(skill) == UNUSABLE_SKILL
+       || is_magic_skill(skill) && have_passive(passive_t::casting_forbidden);
 }
 
 bool is_harmful_skill(skill_type skill)
